@@ -1,0 +1,2729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<style>
+		.btTable{
+			border: 1px solid #e6e6e6;
+		}
+		.overflow-info td{
+			font-size: 23px;
+			font-weight: bold;
+			line-height: 1.5
+		}
+		.btTable tbody td{
+			border-width: 0 0 0 1px;
+			border-color: #e6e6e6;
+    		border-style: solid;
+		}
+	</style>
+</head>
+<body>
+	<table width="100%">
+		<tr>
+			<td style="width: 100%;">
+				<center>
+					<table class="content-wrap" style="margin: 0px auto; width: 1240px;">
+						<tr>
+							<td
+								style="margin: 0px auto; overflow: hidden; padding: 0px; border: 0px dotted rgb(238, 238, 238);">
+								<!---->
+								<div tindex="1" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="twoColumn column2"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: center; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div class="full"
+																		style="margin: 0px auto; max-width: 1240px;">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" class="fullTable"
+																			style="width: 1240px;">
+																			<tbody>
+																				<tr>
+																					<td class="fullTd"
+																						style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																						<table border="0" cellpadding="0"
+																							cellspacing="0" width="100%"
+																							style="vertical-align: top;">
+																							<tr>
+																								<td align="center"
+																									style="font-size: 0px; padding: 15px 17px;">
+																									<div class="text"
+																										style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 20px; font-size: 15px; font-weight: normal;">
+																										<div>
+																											<h1
+																												style="margin: 0px; font-size: 2em; font-family: &quot;Microsoft YaHei&quot;; line-height: 48px; font-weight: bold;">
+																												<span
+																													style="font-size: 30px;">{{ title }}</span>
+																											</h1>
+																										</div>
+																									</div>
+																								</td>
+																							</tr>
+																						</table>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="2" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div class="full"
+																		style="margin: 0px auto; max-width: 1240px;">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" class="fullTable"
+																			style="width: 1240px;">
+																			<tbody>
+																				<tr>
+																					<td class="fullTd"
+																						style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																						<table border="0" cellpadding="0"
+																							cellspacing="0" width="100%"
+																							style="vertical-align: top;">
+																							<tr>
+																								<td align="left"
+																									style="font-size: 0px; padding: 20px 0;">
+																									<div class="text"
+																										style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 18px; font-size: 16px; font-weight: normal;">
+																										<div>
+																											<h4
+																												style="margin: 0px; font-family: &quot;Microsoft YaHei&quot;; font-size: 12.8px; line-height: 1.5; text-align: left;">
+																												<span
+																													style="font-size: 14px;">报告数据周期: {{ report_cycle }}</span>
+																											</h4>
+																											<h4
+																												style="margin: 0px; font-family: &quot;Microsoft YaHei&quot;; font-size: 12.8px; line-height: 1.5; text-align: left;">
+																												<span
+																													style="font-size: 14px;">所属服务器: {{ server_name }}</span>
+																											</h4>
+																											<h4
+																												style="margin: 0px; font-family: &quot;Microsoft YaHei&quot;; font-size: 12.8px; line-height: 1.5; text-align: left;">
+																												<span
+																													style="font-size: 14px;">报告生成时间: {{ generate_time }}</span>
+																											</h4>
+																										</div>
+																									</div>
+																								</td>
+																							</tr>
+																						</table>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="full" tindex="3" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0" class="fullTable"
+										style="width: 1240px;">
+										<tbody>
+											<tr>
+												<td class="fullTd"
+													style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+													<table border="0" cellpadding="0" cellspacing="0" width="100%"
+														style="vertical-align: top;">
+														<tr>
+															<td align="left" style="font-size: 0px; padding: 0px;">
+																<div class="text"
+																	style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 1.2; font-size: 14px; font-weight: normal;">
+																	<div>
+																		<h2
+																			style="margin: 0px; font-size: 1.5em; font-family: &quot;Microsoft YaHei&quot;; text-align: left; line-height: 36px; font-weight: bold;">
+																			<span style="font-size: 14px;">数据概况</span></h2>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="4" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0"
+										style="background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 1% 50%;">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div class="full"
+																		style="margin: 0px auto; max-width: 1240px;">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" class="fullTable"
+																			style="width: 1240px;">
+																			<tbody>
+																				<tr>
+																					<td class="fullTd"
+																						style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																						<table border="0" cellpadding="0"
+																							cellspacing="0" width="100%"
+																							style="vertical-align: top;">
+																							<tr>
+																								<td align="left"
+																									style="font-size: 0px; padding: 10px 0 20px;">
+																									<div class="text"
+																										style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 2; font-size: 14px; font-weight: normal;">
+																										<div>
+																											<table
+																												style="border-collapse: collapse; width: 100%; height: 68px;"
+																												class="btTable"
+																												cellpadding="4">
+																												<tbody>
+																													<tr
+																														style="height: 17px;">
+																														<td
+																															style="height: 17px; width: 5.51181%;">
+																															&nbsp;
+																														</td>
+																														<td
+																															style="width: 13.768%; height: 17px; text-align: left;">
+																															<strong>总访问量</strong>
+																														</td>
+																														<td
+																															style="width: 11.9999%; height: 17px; text-align: left;">
+																															<strong>PV数</strong>
+																														</td>
+																														<td
+																															style="width: 12%; height: 17px; text-align: left;">
+																															<strong>UV数</strong>
+																														</td>
+																														<td
+																															style="width: 11.2095%; height: 17px; text-align: left;">
+																															<strong>IP数</strong>
+																														</td>
+																														<td
+																															style="width: 11.2095%; height: 17px; text-align: left;">
+																															<strong>消耗流量</strong>
+																														</td>
+																														<td
+																															style="width: 10.8182%; height: 17px; text-align: left;">
+																															<strong>错误数</strong>
+																														</td>
+																														<td
+																															style="width: 16.5415%; height: 17px; text-align: left;">
+																															<strong>移动端/PC端请求占比</strong>
+																														</td>
+																													</tr>
+																													<tr>
+																														<td style="width: 5.51181%; text-align: left;font-size: 1.9em;font-weight: bold;line-height: 1.5">
+																															
+																														</td>
+																														<td
+																															style="width: 13.768%; text-align: left;font-size: 1.9em;font-weight: bold;line-height: 1.5">
+																															{{ overview["req"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 11.9999%; text-align: left;font-size: 1.9em;font-weight: bold;line-height: 1.5">
+																															{{ overview["pv"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 12%; text-align: left;font-size: 1.9em;font-weight: bold;line-height: 1.5">
+																															{{ overview["uv"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 11.2095%; text-align: left;font-size: 1.9em;font-weight: bold;line-height: 1.5">
+																															{{ overview["ip"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 11.2095%; text-align: left;font-size: 1.9em;font-weight: bold;line-height: 1.5">
+																															{{ overview["length"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 10.8182%; text-align: left;font-size: 1.9em;font-weight: bold;line-height: 1.5">
+																															{{ overview["error"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 16.5415%; text-align: left;font-size: 1.9em;font-weight: bold;line-height: 1.5">
+																															{% if client_data %}
+																															{{client_data["mobilevspc"] }}
+																															{% endif %}
+																														</td>
+																													</tr>
+																													{% if last_overview["req"]["count"] >0 and last_overview["pv"]["count"]>0 and last_overview["ip"]["count"]>0 %}
+																													<tr
+																														style="height: 17px;">
+																														<td
+																															style="width: 5.51181%; height: 17px; text-align: right;">
+																															{{ last_cycle_title }}
+																														</td>
+																														<td
+																															style="width: 13.768%; height: 17px; text-align: left;">
+																															{{ last_overview["req"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 11.9999%; height: 17px; text-align: left;">
+																															{{ last_overview["pv"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 12%; height: 17px; text-align: left;">
+																															{{ last_overview["uv"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 11.2095%; height: 17px; text-align: left;">
+																															{{ last_overview["ip"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 11.2095%; height: 17px; text-align: left;">
+																															{{ last_overview["length"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 10.8182%; height: 17px; text-align: left;">
+																															{{ last_overview["error"]["f_count"] }}
+																														</td>
+																														<td
+																															style="width: 16.5415%; height: 17px; text-align: left;">
+																															{{ last_client_data["mobilevspc"] }}
+																														</td>
+																													</tr>
+																													<tr
+																														style="height: 17px;">
+																														<td
+																															style="width: 5.51181%; height: 17px; text-align: right;">
+																															环比
+																														</td>
+																														<td
+																															style="width: 13.768%; height: 17px; text-align: left;">
+																															<span style="color:{{ overview['req']['color'] }}">{{ overview['req']['diff_tag'] }} {{ overview['req']['diff'] }}</span>
+																														</td>
+																														<td
+																															style="width: 11.9999%; height: 17px; text-align: left;">
+																															<span style="color:{{ overview['pv']['color'] }}">{{ overview['pv']['diff_tag'] }} {{ overview['pv']['diff'] }}</span>
+																														</td>
+																														<td
+																															style="width: 12%; height: 17px; text-align: left;">
+																															<span style="color:{{ overview['uv']['color'] }}">{{ overview['uv']['diff_tag'] }} {{ overview['uv']['diff'] }}</span>
+																														</td>
+																														<td
+																															style="width: 11.2095%; height: 17px; text-align: left;">
+																															<span style="color:{{ overview['ip']['color'] }}">{{ overview['ip']['diff_tag'] }} {{ overview['ip']['diff'] }}</span>
+																														</td>
+																														<td
+																															style="width: 11.2095%; height: 17px; text-align: left;">
+																															<span style="color:{{ overview['length']['color'] }}">{{ overview['length']['diff_tag'] }} {{ overview['length']['diff'] }}</span>
+																														</td>
+																														<td
+																															style="width: 10.8182%; height: 17px; text-align: left;">
+																															<span style="color:{{ overview['error']['color'] }}">{{ overview['error']['diff_tag'] }} {{ overview['error']['diff'] }}</span>
+																														</td>
+																														<td
+																															style="width: 16.5415%; height: 17px; text-align: left;">
+																															-
+																														</td>
+																													</tr>
+																													{% endif %}
+																												</tbody>
+																											</table>
+																										</div>
+																									</div>
+																								</td>
+																							</tr>
+																						</table>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="5" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0"
+										style="background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 1% 50%;">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div columnnumber="1">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" style="width: 100%;">
+																			<tbody>
+																				<tr>
+																					<td
+																						style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; border: 0px;">
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td
+																															style="direction: ltr; font-size: 0px; padding-top: 0px; text-align: center; vertical-align: top;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="center"
+																																		vertical-align="middle"
+																																		style="line-height: 0; padding-top: 22px; width: 1240px; background-image: url(&quot;&quot;); background-size: 100px; background-position: 10% 50%; background-repeat: no-repeat;">
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 0px;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 2; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<h2 id="hosts"
+																																					style="margin: 0px; font-size: 1.5em; font-family: &quot;Microsoft YaHei&quot;; line-height: 36px; font-weight: bold;">
+																																					<span
+																																						style="font-size: 14px;">来源分析(TOP50)</span>
+																																				</h2>
+																																				<p
+																																					style="text-size-adjust: none; word-break: break-word; line-height: 2; font-size: 14px; margin: 0px;">
+																																					<span
+																																						style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">来源排行</span>
+																																				</p>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 10px 0;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 1.6; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<table
+																																					style="border-collapse: collapse; width: 100%; height: 51px;float: left;"
+																																					class="btTable"
+																																					cellpadding="4">
+																																					<tbody>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 4.92219%; height: 17px; text-align: left;">
+																																								<strong>序号</strong>
+																																							</td>
+																																							<td
+																																								style="width: 40.8825%; height: 17px; text-align: left;">
+																																								<strong>域名/IP</strong>
+																																							</td>
+																																							<td
+																																								style="width: 50.1953%; height: 17px; text-align: left;">
+																																								<strong>访问量(占总请求量百分比)</strong>
+																																							</td>
+																																						</tr>
+																																						{% for data_line in referer_data %}
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 4.92219%; height: 17px; text-align: left;">
+																																								{{ data_line["no"] }}
+																																							</td>
+																																							<td
+																																								style="width: 40.8825%; height: 17px; text-align: left;">
+																																								{{ data_line["domain"] }}
+																																							</td>
+																																							<td
+																																								style="width: 50.1953%; height: 17px; text-align: left;">
+																																								{{ data_line["count"] }} ({{ data_line["count_rate"] }} %)
+																																							</td>
+																																						</tr>
+																																						{% endfor %}
+																																					</tbody>
+																																				</table>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="6" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0"
+										style="background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 1% 50%;">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div columnnumber="1">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" style="width: 100%;">
+																			<tbody>
+																				<tr>
+																					<td
+																						style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; border: 0px;">
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td
+																															style="direction: ltr; font-size: 0px; padding-top: 0px; text-align: center; vertical-align: top;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="center"
+																																		vertical-align="middle"
+																																		style="line-height: 0; padding-top: 22px; width: 1240px; background-image: url(&quot;&quot;); background-size: 100px; background-position: 10% 50%; background-repeat: no-repeat;">
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 0px;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 2; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<h2 id="hosts"
+																																					style="margin: 0px; font-size: 1.5em; font-family: &quot;Microsoft YaHei&quot;; line-height: 36px; font-weight: bold;">
+																																					
+																																				<span style="font-size: 14px;">地域分布(TOP50)</span>
+																																				</h2>
+																																				<p
+																																					style="text-size-adjust: none; word-break: break-word; line-height: 2; font-size: 14px; margin: 0px;">
+
+																																					{% if online_ip_library %}
+																																					<span style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">基于IP地址分析; 归属地信息已经过IP精准数据包查询</span>
+																																					{% else %}
+																																					<span style="font-size: 14px;">基于IP地址分析; 归属地信息未经过IP精准数据包查询, 仅供参考</span>
+																																					{% endif %}
+																																				</p>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 10px 0;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 1.6; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<table
+																																					style="border-collapse: collapse; width: 100%; height: 68px"
+																																					class="btTable"
+																																					cellpadding="4">
+																																					<tbody>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 6.04576%; height: 17px; text-align: left;">
+																																								<strong>序号</strong>
+																																							</td>
+																																							<td
+																																								style="width: 39.6335%; height: 17px; text-align: left;">
+																																								<strong>国家/地区</strong>
+																																							</td>
+																																							<td
+																																								style="width: 50.3207%; height: 17px; text-align: left;">
+																																								<strong>访问量</strong>
+																																							</td>
+																																						</tr>
+																																						{% for data_line in area_data %}
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 6.04576%; height: 17px; text-align: left;">
+																																								{{ data_line["no"] }}
+																																							</td>
+																																							<td
+																																								style="width: 39.6335%; height: 17px; text-align: left;">
+																																								{{ data_line["area"] }}
+																																							</td>
+																																							<td
+																																								style="width: 50.3207%; height: 17px; text-align: left;">
+																																								{{ data_line["count"] }}({{ data_line["count_rate"] }} %)
+																																							</td>
+																																						</tr>
+																																						{% endfor %}
+																																					</tbody>
+																																				</table>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="7" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0"
+										style="background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 1% 50%;">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div columnnumber="1">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" style="width: 100%;">
+																			<tbody>
+																				<tr>
+																					<td
+																						style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; border: 0px;">
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td
+																															style="direction: ltr; font-size: 0px; padding-top: 0px; text-align: center; vertical-align: top;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="center"
+																																		vertical-align="middle"
+																																		style="line-height: 0; padding-top: 22px; width: 1240px; background-image: url(&quot;&quot;); background-size: 100px; background-position: 10% 50%; background-repeat: no-repeat;">
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 0px;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 2; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<h2 id="hosts"
+																																					style="margin: 0px; font-size: 1.5em; font-family: &quot;Microsoft YaHei&quot;; line-height: 36px; font-weight: bold;">
+																																					<span style="font-size: 14px;">IP请求和流量分析(TOP50) </span>
+																																				</h2>
+																																				<p style="text-size-adjust: none; word-break: break-word; line-height: 2; font-size: 14px; margin: 0px;">
+
+																																					{% if online_ip_library %}
+																																					<span style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">基于IP，分析IP对应地域、访问量、流量消耗; 归属地信息已经过IP精准数据包查询</span>
+																																					{% else %}
+																																					<span style="font-size: 14px;">基于IP，分析IP对应地域、访问量、流量消耗; 归属地信息未经过IP精准数据包查询, 仅供参考</span>
+																																					{% endif %}
+																																				</p>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 10px 0;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 1.6; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<table
+																																					style="border-collapse: collapse; width: 100%; height: 68px;"
+																																					class="btTable"
+																																					cellpadding="4">
+																																					<tbody>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 4.51354%; height: 17px; text-align: left;">
+																																								<strong>序号</strong>
+																																							</td>
+																																							<td
+																																								style="width: 12.5%; height: 17px; text-align: left;">
+																																								<strong>IP</strong>
+																																							</td>
+																																							<td
+																																								style="width: 16.7972%; height: 17px; text-align: left;">
+																																								<strong>归宿地</strong>
+																																							</td>
+																																							<td
+																																								style="width: 14.6487%; height: 17px; text-align: left;">
+																																								<strong>请求数</strong>
+																																							</td>
+																																							<td
+																																								style="width: 18.0269%; height: 17px; text-align: left;">
+																																								<strong>流量</strong>
+																																							</td>
+																																							<td
+																																								style="width: 29.5135%; height: 17px; text-align: left;">
+																																								<strong>流量占比%</strong>
+																																							</td>
+																																						</tr>
+																																						{% for data_line in ip_data %}
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 4.51354%; height: 17px; text-align: left;">
+																																								{{ data_line["no"] }}
+																																							</td>
+																																							<td
+																																								style="width: 12.5%; height: 17px; text-align: left;">
+																																								{{ data_line["ip"] }}
+																																							</td>
+																																							<td
+																																								style="width: 16.7972%; height: 17px; text-align: left;">
+																																								{{ data_line["area"] }}
+																																							</td>
+																																							<td
+																																								style="width: 14.6487%; height: 17px; text-align: left;">
+																																								{{ data_line["f_count"] }}({{ data_line["count_rate"] }} %)
+																																							</td>
+																																							<td
+																																								style="width: 18.0269%; height: 17px; text-align: left;">
+																																								{{ data_line["f_flow"] }}({{ data_line["flow_rate"] }} %)
+																																							</td>
+																																							<td
+																																								style="width: 29.5135%;text-align: left;
+																																								height: 1.5em;" >
+																																								<div style="width: {{ data_line['flow_rate'] }}%;box-sizing: border-box;background-color: #ff7e0e;color: #ffffff;height: 100%;"></div>
+																																							</td>
+																																						</tr>
+																																						{% endfor %}
+																																					</tbody>
+																																				</table>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="8" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0"
+										style="background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 1% 50%;">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div columnnumber="1">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" style="width: 100%;">
+																			<tbody>
+																				<tr>
+																					<td
+																						style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; border: 0px;">
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td
+																															style="direction: ltr; font-size: 0px; padding-top: 0px; text-align: center; vertical-align: top;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="center"
+																																		vertical-align="middle"
+																																		style="line-height: 0; padding-top: 22px; width: 1240px; background-image: url(&quot;&quot;); background-size: 100px; background-position: 10% 50%; background-repeat: no-repeat;">
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 0px;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 2; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<h2 id="hosts"
+																																					style="margin: 0px; font-size: 1.5em; font-family: &quot;Microsoft YaHei&quot;; line-height: 36px; font-weight: bold;">
+																																					<span
+																																						style="font-size: 14px;">URI访问分析(TOP50)</span>
+																																				</h2>
+																																				<p
+																																					style="text-size-adjust: none; word-break: break-word; line-height: 2; font-size: 14px; margin: 0px;">
+																																					<span
+																																						style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">页面访问次数、流量消耗</span>
+																																				</p>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 10px 0;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 1.6; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<table
+																																					style="border-collapse: collapse; width: 100%; height: 51px;"
+																																					class="btTable"
+																																					cellpadding="4">
+																																					<tbody>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.55398%; height: 17px; text-align: left;">
+																																								<strong>序号</strong>
+																																							</td>
+																																							<td
+																																								style="width: 22.826%; height: 17px; text-align: left;">
+																																								<strong>URI</strong>
+																																							</td>
+																																							<td
+																																								style="width: 18.198%; height: 17px; text-align: left;">
+																																								<strong>请求数</strong>
+																																							</td>
+																																							<td
+																																								style="width: 15.7932%; height: 17px; text-align: left;">
+																																								<strong>流量</strong>
+																																							</td>
+																																							<td
+																																								style="width: 33.6288%; height: 17px; text-align: left;">
+																																								<strong>流量占比%</strong>
+																																							</td>
+																																						</tr>
+																																						{% for data_line in uri_data %}
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.55398%; height: 17px; text-align: left;">
+																																								{{ data_line["no"] }}
+																																							</td>
+																																							<td
+																																								style="width: 22.826%; height: 17px; text-align: left;">
+																																								{{ data_line["uri"] }}
+																																							</td>
+																																							<td
+																																								style="width: 18.198%; height: 17px; text-align: left;">
+																																								{{ data_line["count"] }}({{ data_line["count_rate"] }} %)
+																																							</td>
+																																							<td
+																																								style="width: 15.7932%; height: 17px; text-align: left;">
+																																								{{ data_line["flow"] }}({{ data_line["flow_rate"] }} %)
+																																							</td>
+																																							<td
+																																								style="width: 33.6288%; text-align: left;
+																																								height: 1.5em;">
+																																								<div style="width: {{ data_line['flow_rate'] }}%;box-sizing: border-box;
+																																								background-color: #ff7e0e;
+																																								color: #ffffff;
+																																								height: 100%;"></div>
+																																							</td>
+																																						</tr>
+																																						{% endfor %}
+																																					</tbody>
+																																				</table>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="9" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0"
+										style="background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 1% 50%;">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div columnnumber="1">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" style="width: 100%;">
+																			<tbody>
+																				<tr>
+																					<td
+																						style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; border: 0px;">
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td
+																															style="direction: ltr; font-size: 0px; padding-top: 0px; text-align: center; vertical-align: top;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="center"
+																																		vertical-align="middle"
+																																		style="line-height: 0; padding-top: 22px; width: 1240px; background-image: url(&quot;&quot;); background-size: 100px; background-position: 10% 50%; background-repeat: no-repeat;">
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 0px;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 2; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<h2 id="hosts"
+																																					style="margin: 0px; font-size: 1.5em; font-family: &quot;Microsoft YaHei&quot;; line-height: 36px; font-weight: bold;">
+																																					<span
+																																						style="font-size: 14px;">搜索引擎爬虫(蜘蛛)分析</span>
+																																				</h2>
+																																				<p
+																																					style="text-size-adjust: none; word-break: break-word; line-height: 2; font-size: 14px; margin: 0px;">
+																																					<span
+																																						style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">搜索引擎爬虫访问次数排行</span>
+																																				</p>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 10px 0;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 1.6; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<table
+																																					style="border-collapse: collapse; width: 100%; height: 68px;float: left;"
+																																					class="btTable"
+																																					cellpadding="4">
+																																					<tbody>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.79934%; height: 17px; text-align: left;">
+																																								&nbsp;
+																																							</td>
+																																							<td
+																																								style="width: 10.0433%; height: 17px; text-align: left;">
+																																								<strong>百度</strong>
+																																							</td>
+																																							<td
+																																								style="width: 11.7583%; height: 17px; text-align: left;">
+																																								<strong>今日头条</strong>
+																																							</td>
+																																							<td
+																																								style="width: 10.5592%; height: 17px; text-align: left;">
+																																								<strong>谷歌</strong>
+																																							</td>
+																																							<td
+																																								style="width: 10.3194%; height: 17px; text-align: left;">
+																																								<strong>奇虎360</strong>
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								<strong>必应</strong>
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								<strong>搜狗</strong>
+																																							</td>
+																																							<td
+																																								style="width: 9.12033%; height: 17px; text-align: left;">
+																																								<strong>搜搜</strong>
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								<strong>神马</strong>
+																																							</td>
+																																							<td
+																																								style="width: 8.16116%; height: 17px; text-align: left;">
+																																								<strong>有道</strong>
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.79934%; height: 17px; text-align: right;">
+																																								
+																																							</td>
+																																							<td
+																																								style="width: 10.0433%; height: 17px; text-align: left;">
+																																								{{ spider_data["baidu"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 11.7583%; height: 17px; text-align: left;">
+																																								{{ spider_data["bytes"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.5592%; height: 17px; text-align: left;">
+																																								{{ spider_data["google"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.3194%; height: 17px; text-align: left;">
+																																								{{ spider_data["qh360"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								{{ spider_data["bing"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								{{ spider_data["sogou"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.12033%; height: 17px; text-align: left;">
+																																								{{ spider_data["soso"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								{{ spider_data["yisou"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 8.16116%; height: 17px; text-align: left;">
+																																								{{ spider_data["youdao"]["f_count"] }}
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.79934%; height: 17px; text-align: right;">
+																																								{{ last_cycle_title }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0433%; height: 17px; text-align: left;">
+																																								{{ last_spider_data["baidu"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 11.7583%; height: 17px; text-align: left;">
+																																								{{ last_spider_data["bytes"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.5592%; height: 17px; text-align: left;">
+																																								{{ last_spider_data["google"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.3194%; height: 17px; text-align: left;">
+																																								{{ last_spider_data["qh360"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								{{ last_spider_data["bing"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								{{ last_spider_data["sogou"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.12033%; height: 17px; text-align: left;">
+																																								{{ last_spider_data["soso"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								{{ last_spider_data["yisou"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 8.16116%; height: 17px; text-align: left;">
+																																								{{ last_spider_data["youdao"]["f_count"] }}
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.79934%; height: 17px; text-align: right;">
+																																								环比
+																																							</td>
+																																							<td
+																																								style="width: 10.0433%; height: 17px; text-align: left;">
+																																								<span style="color:{{ spider_data['baidu']['color'] }}">{{ spider_data["baidu"]["diff_tag"] }} {{ spider_data["baidu"]["diff"] }}</span>
+																																							</td>
+																																							<td
+																																								style="width: 11.7583%; height: 17px; text-align: left;">
+																																								<span style="color:{{ spider_data['bytes']['color'] }}">{{ spider_data["bytes"]["diff_tag"] }} {{ spider_data["bytes"]["diff"] }}</span>
+																																							</td>
+																																							<td
+																																								style="width: 10.5592%; height: 17px; text-align: left;">
+																																								<span style="color:{{ spider_data['google']['color'] }}">{{ spider_data["google"]["diff_tag"] }} {{ spider_data["google"]["diff"] }}</span>
+																																							</td>
+																																							<td
+																																								style="width: 10.3194%; height: 17px; text-align: left;">
+																																								<span style="color:{{ spider_data['qh360']['color'] }}">{{ spider_data["qh360"]["diff_tag"] }} {{ spider_data["qh360"]["diff"] }}</span>
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								<span style="color:{{ spider_data['bing']['color'] }}">{{ spider_data["bing"]["diff_tag"] }} {{ spider_data["bing"]["diff"] }}</span>
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								<span style="color:{{ spider_data['sogou']['color'] }}">{{ spider_data["sogou"]["diff_tag"] }} {{ spider_data["sogou"]["diff"] }}</span>
+																																							</td>
+																																							<td
+																																								style="width: 9.12033%; height: 17px; text-align: left;">
+																																								<span style="color:{{ spider_data['soso']['color'] }}">{{ spider_data["soso"]["diff_tag"] }} {{ spider_data["soso"]["diff"] }}</span>
+																																							</td>
+																																							<td
+																																								style="width: 10.0796%; height: 17px; text-align: left;">
+																																								<span style="color:{{ spider_data['yisou']['color'] }}">{{ spider_data["yisou"]["diff_tag"] }} {{ spider_data["yisou"]["diff"] }}</span>
+																																							</td>
+																																							<td
+																																								style="width: 8.16116%; height: 17px; text-align: left;">
+																																								<span style="color:{{ spider_data['youdao']['color'] }}">{{ spider_data["youdao"]["diff_tag"] }} {{ spider_data["youdao"]["diff"] }}</span>
+																																							</td>
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="10" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0"
+										style="background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 1% 50%;">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div columnnumber="1">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" style="width: 100%;">
+																			<tbody>
+																				<tr>
+																					<td
+																						style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; border: 0px;">
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td
+																															style="direction: ltr; font-size: 0px; padding-top: 0px; text-align: center; vertical-align: top;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="center"
+																																		vertical-align="middle"
+																																		style="line-height: 0; padding-top: 22px; width: 1240px; background-image: url(&quot;&quot;); background-size: 100px; background-position: 10% 50%; background-repeat: no-repeat;">
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 0px;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 2; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<h2 id="hosts"
+																																					style="margin: 0px; font-size: 1.5em; font-family: &quot;Microsoft YaHei&quot;; line-height: 36px; font-weight: bold;">
+																																					<span
+																																						style="font-size: 14px;">移动客户端统计</span>
+																																				</h2>
+																																				<p
+																																					style="text-size-adjust: none; word-break: break-word; line-height: 2; font-size: 14px; margin: 0px;">
+																																					<span
+																																						style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">基于UserAgent分析,不包括蜘蛛请求</span>
+																																				</p>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 10px 0;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 1.6; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<table
+																																					style="border-collapse: collapse; width: 100%; height: 68px;"
+																																					class="btTable"
+																																					cellpadding="4">
+																																					<tbody>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.74688%; height: 17px;">
+																																								&nbsp;
+																																							</td>
+																																							<td
+																																								style="width: 22.0649%; height: 17px; text-align: left;">
+																																								<strong>总请求</strong>
+																																							</td>
+																																							<td
+																																								style="width: 24.298%; height: 17px; text-align: left;">
+																																								<strong>Android</strong>
+																																							</td>
+																																							<td
+																																								style="width: 21.5529%; height: 17px; text-align: left;">
+																																								<strong>iOS</strong>
+																																							</td>
+																																							<td
+																																								style="width: 22.3373%; height: 17px; text-align: left;">
+																																								<strong>微信</strong>
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.74688%; height: 17px; text-align: right;">
+																																								
+																																							</td>
+																																							<td
+																																								style="width: 22.0649%; height: 17px; text-align: left;">
+																																								{{ client_data["mobile"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 24.298%; height: 17px; text-align: left;">
+																																								{{ client_data["android"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 21.5529%; height: 17px; text-align: left;">
+																																								{{ client_data["iphone"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 22.3373%; height: 17px; text-align: left;">
+																																								{{ client_data["weixin"]["f_count"] }}
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.74688%; height: 17px; text-align: right;">
+																																								{{ last_cycle_title }}
+																																							</td>
+																																							<td
+																																								style="width: 22.0649%; height: 17px; text-align: left;">
+																																								{{ last_client_data["mobile"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 24.298%; height: 17px; text-align: left;">
+																																								{{ last_client_data["android"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 21.5529%; height: 17px; text-align: left;">
+																																								{{ last_client_data["iphone"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 22.3373%; height: 17px; text-align: left;">
+																																								{{ last_client_data["weixin"]["f_count"] }}
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.74688%; height: 17px; text-align: right;">
+																																								环比
+																																							</td>
+																																							<td
+																																								style="width: 22.0649%; height: 17px; text-align: left;color:{{ client_data['mobile']['color'] }}">{{ client_data["mobile"]["diff_tag"] }} {{ client_data["mobile"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 24.298%; height: 17px; text-align: left;color:{{ client_data['android']['color'] }}">{{ client_data["android"]["diff_tag"] }} {{ client_data["android"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 21.5529%; height: 17px; text-align: left;color:{{ client_data['iphone']['color'] }}">{{ client_data["iphone"]["diff_tag"] }} {{ client_data["iphone"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 22.3373%; height: 17px; text-align: left;color:{{ client_data['weixin']['color'] }}">{{ client_data["weixin"]["diff_tag"] }} {{ client_data["weixin"]["diff"] }}
+																																							</td>
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="11" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0"
+										style="background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 1% 50%;">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div columnnumber="1">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" style="width: 100%;">
+																			<tbody>
+																				<tr>
+																					<td
+																						style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; border: 0px;">
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td
+																															style="direction: ltr; font-size: 0px; padding-top: 0px; text-align: center; vertical-align: top;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="center"
+																																		vertical-align="middle"
+																																		style="line-height: 0; padding-top: 22px; width: 1240px; background-image: url(&quot;&quot;); background-size: 100px; background-position: 10% 50%; background-repeat: no-repeat;">
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 0px;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 2; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<h2 id="hosts"
+																																					style="margin: 0px; font-size: 1.5em; font-family: &quot;Microsoft YaHei&quot;; line-height: 36px; font-weight: bold;">
+																																					<span
+																																						style="font-size: 14px;">PC浏览器统计</span>
+																																				</h2>
+																																				<p
+																																					style="text-size-adjust: none; word-break: break-word; line-height: 2; font-size: 14px; margin: 0px;">
+																																					<span
+																																						style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">基于</span><span
+																																						style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">UserAgent分析,不包括蜘蛛请求</span>
+																																				</p>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 10px 0;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 1.6; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<table
+																																					style="border-collapse: collapse; width: 100%; height: 68px;"
+																																					class="btTable"
+																																					cellpadding="4">
+																																					<tbody>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.86891%; height: 17px; text-align: left;">
+																																								&nbsp;
+																																							</td>
+																																							<td
+																																								style="width: 11.2773%; height: 17px; text-align: left;">
+																																								<strong>总请求</strong>
+																																							</td>
+																																							<td
+																																								style="width: 9.75804%; height: 17px; text-align: left;">
+																																								<strong>谷歌</strong>
+																																							</td>
+																																							<td
+																																								style="width: 10.0739%; height: 17px; text-align: left;">
+																																								<strong>Edge</strong>
+																																							</td>
+																																							<td
+																																								style="width: 9.28404%; height: 17px; text-align: left;">
+																																								<strong>QQ</strong>
+																																							</td>
+																																							<td
+																																								style="width: 9.28413%; height: 17px; text-align: left;">
+																																								<strong>360</strong>
+																																							</td>
+																																							<td
+																																								style="width: 10.2319%; height: 17px; text-align: left;">
+																																								<strong>搜狗</strong>
+																																							</td>
+																																							<td
+																																								style="width: 10.3899%; height: 17px; text-align: left;">
+																																								<strong>火狐</strong>
+																																							</td>
+																																							<td
+																																								style="width: 10.2319%; height: 17px; text-align: left;">
+																																								<strong>Safari</strong>
+																																							</td>
+																																							<td
+																																								style="width: 9.6%; height: 17px; text-align: left;">
+																																								<strong>IE</strong>
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.86891%; height: 17px; text-align: right;">
+																																								
+																																							</td>
+																																							<td
+																																								style="width: 11.2773%; height: 17px; text-align: left;">
+																																								{{ client_data["pc"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.75804%; height: 17px; text-align: left;">
+																																								{{ client_data["chrome"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0739%; height: 17px; text-align: left;">
+																																								{{ client_data["edeg"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.28404%; height: 17px; text-align: left;">
+																																								{{ client_data["qq"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.28413%; height: 17px; text-align: left;">
+																																								{{ client_data["qh360"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.2319%; height: 17px; text-align: left;">
+																																								{{ client_data["metasr"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.3899%; height: 17px; text-align: left;">
+																																								{{ client_data["firefox"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.2319%; height: 17px; text-align: left;">
+																																								{{ client_data["safari"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.6%; height: 17px; text-align: left;">
+																																								{{ client_data["msie"]["f_count"] }}
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.86891%; height: 17px; text-align: right;">
+																																								{{ last_cycle_title }}
+																																							</td>
+																																							<td
+																																								style="width: 11.2773%; height: 17px; text-align: left;">
+																																								{{ last_client_data["pc"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.75804%; height: 17px; text-align: left;">
+																																								{{ last_client_data["chrome"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0739%; height: 17px; text-align: left;">
+																																								{{ last_client_data["edeg"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.28404%; height: 17px; text-align: left;">
+																																								{{ last_client_data["qq"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.28413%; height: 17px; text-align: left;">
+																																								{{ last_client_data["qh360"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.2319%; height: 17px; text-align: left;">
+																																								{{ last_client_data["metasr"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.3899%; height: 17px; text-align: left;">
+																																								{{ last_client_data["firefox"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.2319%; height: 17px; text-align: left;">
+																																								{{ last_client_data["safari"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.6%; height: 17px; text-align: left;">
+																																								{{ last_client_data["msie"]["f_count"] }}
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 5.86891%; height: 17px; text-align: right;">
+																																								环比
+																																							</td>
+																																							<td
+																																								style="width: 11.2773%; height: 17px; text-align: left;color:{{ client_data['pc']['color'] }}">{{ client_data["pc"]["diff_tag"] }} {{ client_data["pc"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.75804%; height: 17px; text-align: left;color:{{ client_data['chrome']['color'] }}">{{ client_data["chrome"]["diff_tag"] }} {{ client_data["chrome"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.0739%; height: 17px; text-align: left;color:{{ client_data['edeg']['color'] }}">{{ client_data["edeg"]["diff_tag"] }} {{ client_data["edeg"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.28404%; height: 17px; text-align: left;color:{{ client_data['qq']['color'] }}">{{ client_data["qq"]["diff_tag"] }} {{ client_data["qq"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.28413%; height: 17px; text-align: left;color:{{ client_data['qh360']['color'] }}">{{ client_data["qh360"]["diff_tag"] }} {{ client_data["qh360"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.2319%; height: 17px; text-align: left;color:{{ client_data['metasr']['color'] }}">{{ client_data["metasr"]["diff_tag"] }} {{ client_data["metasr"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.3899%; height: 17px; text-align: left;color:{{ client_data['firefox']['color'] }}">{{ client_data["firefox"]["diff_tag"] }} {{ client_data["firefox"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 10.2319%; height: 17px; text-align: left;color:{{ client_data['safari']['color'] }}">{{ client_data["safari"]["diff_tag"] }} {{ client_data["safari"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 9.6%; height: 17px; text-align: left;color:{{ client_data['msie']['color'] }}">{{ client_data["msie"]["diff_tag"] }} {{ client_data["msie"]["diff"] }}
+																																							</td>
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="12" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0"
+										style="background-color: rgb(255, 255, 255); background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 1% 50%;">
+										<tbody>
+											<tr>
+												<td
+													style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0"
+														style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td class="oneColumn column1"
+																	style="width: 100%; max-width: 100%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div columnnumber="1">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" style="width: 100%;">
+																			<tbody>
+																				<tr>
+																					<td
+																						style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; border: 0px;">
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td
+																															style="direction: ltr; font-size: 0px; padding-top: 0px; text-align: center; vertical-align: top;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="center"
+																																		vertical-align="middle"
+																																		style="line-height: 0; padding-top: 22px; width: 1240px; background-image: url(&quot;&quot;); background-size: 100px; background-position: 10% 50%; background-repeat: no-repeat;">
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 0px;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: left; line-height: 2; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<h2 id="hosts"
+																																					style="margin: 0px; font-size: 1.5em; font-family: &quot;Microsoft YaHei&quot;; line-height: 36px; font-weight: bold;">
+																																					<span
+																																						style="font-size: 14px;">PC操作系统统计</span>
+																																				</h2>
+																																				<p
+																																					style="text-size-adjust: none; word-break: break-word; line-height: 2; font-size: 14px; margin: 0px;">
+																																					<span
+																																						style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">基于</span><span
+																																						style="font-family: 'Microsoft YaHei'; font-size: 12.8px;">UserAgent分析,不包括蜘蛛请求</span>
+																																				</p>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																						<div class="mj-column-per-33"
+																							style="width: 100%; max-width: 100%; font-size: 13px; text-align: left; direction: ltr; display: inline-block; vertical-align: top;">
+																							<table border="0"
+																								cellpadding="0"
+																								cellspacing="0" width="100%"
+																								style="border-collapse: collapse; border-spacing: 0px; width: 100%; vertical-align: top;">
+																								<tr>
+																									<td align="center"
+																										border="0"
+																										style="font-size: 0px; word-break: break-word;">
+																										<div class="full"
+																											style="margin: 0px auto; max-width: 1240px;">
+																											<table
+																												align="center"
+																												border="0"
+																												cellpadding="0"
+																												cellspacing="0"
+																												class="fullTable"
+																												style="width: 1240px;">
+																												<tbody>
+																													<tr>
+																														<td class="fullTd"
+																															style="direction: ltr; width: 1240px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																															<table
+																																border="0"
+																																cellpadding="0"
+																																cellspacing="0"
+																																width="100%"
+																																style="vertical-align: top;">
+																																<tr>
+																																	<td align="left"
+																																		style="font-size: 0px; padding: 20px 0 40px;">
+																																		<div class="text"
+																																			style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 1.6; font-size: 14px; font-weight: normal;">
+																																			<div>
+																																				<table
+																																					style="border-collapse: collapse; width: 100%; height: 68px;float: left;"
+																																					class="btTable"
+																																					cellpadding="4">
+																																					<tbody>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 8.21056%; height: 17px;">
+																																								&nbsp;
+																																							</td>
+																																							<td
+																																								style="width: 29.639%; height: 17px; text-align: left;">
+																																								<strong>Windows操作系统</strong>
+																																							</td>
+																																							<td
+																																								style="width: 29.2632%; height: 17px; text-align: left;">
+																																								<strong>Mac操作系统</strong>
+																																							</td>
+																																							<td
+																																								style="width: 28.8872%; height: 17px; text-align: left;">
+																																								<strong>Linux操作系统</strong>
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 8.21056%; height: 17px; text-align: right;">
+																																								
+																																							</td>
+																																							<td
+																																								style="width: 29.639%; height: 17px; text-align: left;">
+																																								{{ client_data["windows"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 29.2632%; height: 17px; text-align: left;">
+																																								{{ client_data["mac"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 28.8872%; height: 17px; text-align: left;">
+																																								{{ client_data["linux"]["f_count"] }}
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 8.21056%; height: 17px; text-align: right;">
+																																								{{ last_cycle_title }}
+																																							</td>
+																																							<td
+																																								style="width: 29.639%; height: 17px; text-align: left;">
+																																								{{ last_client_data["windows"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 29.2632%; height: 17px; text-align: left;">
+																																								{{ last_client_data["mac"]["f_count"] }}
+																																							</td>
+																																							<td
+																																								style="width: 28.8872%; height: 17px; text-align: left;">
+																																								{{ last_client_data["linux"]["f_count"] }}
+																																							</td>
+																																						</tr>
+																																						<tr
+																																							style="height: 17px;">
+																																							<td
+																																								style="width: 8.21056%; height: 17px; text-align: right;">
+																																								环比
+																																							</td>
+																																							<td
+																																								style="width: 29.639%; height: 17px; text-align: left;color:{{ client_data['windows']['color'] }}">{{ client_data["windows"]["diff_tag"] }} {{ client_data["windows"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 29.2632%; height: 17px; text-align: left;color:{{ client_data['mac']['color'] }}">{{ client_data["mac"]["diff_tag"] }} {{ client_data["mac"]["diff"] }}
+																																							</td>
+																																							<td
+																																								style="width: 28.8872%; height: 17px; text-align: left;color:{{ client_data['linux']['color'] }}">{{ client_data["linux"]["diff_tag"] }} {{ client_data["linux"]["diff"] }}
+																																							</td>
+																																						</tr>
+																																					</tbody>
+																																				</table>
+																																			</div>
+																																		</div>
+																																	</td>
+																																</tr>
+																															</table>
+																														</td>
+																													</tr>
+																												</tbody>
+																											</table>
+																										</div>
+																									</td>
+																								</tr>
+																							</table>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div tindex="13" style="margin: 0px auto; max-width: 1240px;">
+									<table align="center" border="0" cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td style="direction: ltr; font-size: 0px; text-align: center; vertical-align: top; width: 1240px;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0" style="vertical-align: top;">
+														<tbody>
+															<tr>
+																<td style="font-size: 0px; width:1240px; word-break: break-word; text-align: center; padding: 23px 0px;" colspan="3">
+																	<div><img
+																			height="auto"
+																			width="auto"
+																			src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABGCAYAAACJ4ts2AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAt1AAALdQBGGHFaQAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAABEzSURBVHic7Z17lB1FmcB/M5lJQkggmPBmgQIUBEEFBA4lCrpKAhFRHmoJiCBZDLAuuLx2lYeSKOzKQZ4K8tqQYhHcVR6yyB7BhTIQwahAcINscYAA8kggJCSQTGb/+Kpn7u2593b3nb53+jL9O+eeO31vdXXNTH/VX9X36tp23r6zgY1oLf3AGuAt4HXgJcADz3jjnmvxteuirD4G+CiwdqTGkDM9gPXG3T8SF1dWHwXc5o1b3aL+e4BuoM8b19eg3Rjkb9Hnjav7v1VWdwO9jdr1AEcDfzOcgaegH+gK72uBd4DVwHJl9XPAYuAhwHnj/tzisVTyCeArbbxeO3gcuL+dF1RWHwycDOwHbAV8vwXX2BD4OTAReBQ4sUHzHyAT3+vK6iO9cUvrtPsWcAjQp6w23rin4w16kBu31XRVvPeG1/rAFEABHwO+BvQrq38H3Ajc5I1b3qZxlQwPBUwLP1+grL7HG7cw52v0IvdJNzLRNmJXYA9kIu5u0G7H0A5gvVoNerKNseV0AXuF1xnK6gu9cVeN8JhKEvDGXa6sngYcDIwBfqys3reRetMkbyFPkCoVTlkdn+jeCe+rgJ4a30esqfi5u6Jdd6TCFU1AKtkGuFJZ/Tng+JFcq4w2lNWTgbHAupSn9AMXA58K5+0M7KOsTqsudwOrm9EYlNXvB+6oGAfAFuF9IjAfUevjQtIPbFJxfCfwdmjXo6y+2Bt3aZEFJOJTwG+V1Yd54xaM9GBGCXcCHyS9gEC1OtMF/IL0E/AY4HbAZLhexPrA9g363TZlP/F1+DZQ7CdIJVsBv1JW7++N+8NID6bgJOnnaZiMzL7NMiG8sjCpyWu9xuATBKAP2Bd5OqwB7kNUrXfCdwDjwvueDArGb4BliFB1AY9A5wgIwIbAL5TVu3vjXsupz5oLsw5nXHKTRKK1Qx9wD/AGjRe7zbAO2BQ4ALkh627bVrSPhH9gEvDGeWQnagBl9e3AZ4CVwOe8cW8pq9dHhL7LG/dSaHc1cEI47Vhv3DPxi6YVkIeBlxHpykJ3eI1DZpRJ4X0ysEHGvgC2Bn4MHN7EubV4CHgPonvmxVpEB98hod2jwAtk/5s2YhyyZZ4XfcDXvHEv5tjnAMrqPYHfpWxeueBPekpOCe+TgTXK6u2Re3gy0KWsPsEbdx3yv4/YsFZHaQXkVG/c/JRt6xJ2CcYCU5HZY1fg48B0YLOU3RymrJ7hjbtzuOPxxl2MLC5zRVl9LnBeQrN/9sbdk/e1cyK6WcYik1pLBITqSbJKxVJWvwdRncYhAtHLoNq2u7J6AfLk6QL+5I07ruL0m4CFiPq1EfAfDAoNwBxl9SPATxCjdT/yABhCWgEZn7JdQ7xx/chsvSS8fg/cGIxAJwLnkk7tma2sviv0V0R6U7TJQxVqFT9CdPO3qXPj5MTTwGXITf5Y7LtxyFqiFpOAj1QcV83+laYBZfV8YLdw+EZouynwAPBpb9zJjQaYVkBaalDzxr0BXKisvg/Zzdg04ZTdkKfOL1s5rmGQ5u9VZCPlPYg1vB+4O7hutIK1wPLwfnbsu9XAr5HJOXqC7IGopMsZFKgeYMjGjbJ6B+BnDArHEsRz4iTg75Gnl1NWf8Mbd0W9ARZqke6NW6CsPgSR7rEJzWdSXAHpdHYEDmzzNTcFVkQH3rhlwCejY2X1BEQdmgT83ht3QL2OlNVHAlcyqFY9D0zzxi0GvqGsXg9ZnI8BLldWfxw4zRv3fLyvQgkIDAjJ94FzEpp+Ulk91Rv3ajvGNcp4GfhjhvZ9iLtJ5PT6ArJuSXt/rUW2YhtRqebX3FFTVm8JzKbav+4x4FBv3P9FH3jjZiqrX0BUeoAjkPvpAuAKb1xkiS+egAT+FZiFLObrMRHYBzFqleSIN+4+4ENZzlFWzwWOCocXeuMuzXlY3VT79FVeewLiLHkGg0+NfuAn3riZtTrzxp2nrH4Q2RXdDtnRuhiYqay+BJjnjVtRSAHxxr2prL6Nxh6bALtTCkhRqLxp87aZ1CS4v5+K3CfbVXz1NnAbcL2y+qPUVtf7EcPgd4F/QDwHAHZCNilOV1bPLKSABP6LZAFJsjWUtI/+Oj+3mr2pFo47gW8D84DfpuxjFrK+uQSxtYGomPOLLCB/RnTbRjsorQ70GtUoq9NuRfdRra6PC7N7qt0vb1xThlpv3Fpl9ReABYgd7Qxv3DwYWI+kZQNv3FVhF/Vs4PPAKd64VUUWkGXIrkZNC2egVduPox5l9TZI4FWae6SP6vXi2cDXU567VFn9sbDVnxlvXJ+yejoSFfgaDEQUfglxZExyuOxBjIp4414HzlRWnxtFRRZZQNaQHAqbtPNR0jzjSe8JG2dyeKVhK4Y50XnjXo4d9wF3D6O/gXiTIgvIeJKtzS+0YyCjlOWI0TbNPbIWMeJFas2TiE9Y5FGwBjH8dSPuIpUL+uVk94WrucZRVp8NvC9jX3HmeOOeig6KLCAbI4/IRjzRjoGMRoKD4mfTtldWXw8cGw4vi0eCKqt/ADzrjfthk0N6i0HB6At9bg3sgjzpfoTYMz7cZP8RNwIdISAfItkdY9gOlCW5Uel/NmDUC27m9xF8p5TVE7xx38vScehjVwbv192U1X9EnhbjgdfDIntZ+L4PeIX0AV8bMBj/UqXWF1lAPp/w/SKGOriVjBxddX5ejfhERc6Fc5TVK5MMiSGU9jRECHZAdqki+8oUqr1zI8GIrrsUUfnqZTOJcxFwSq0vCikgyupdgIMSmt3ojcsSEloyAoQF84XK6vEMhgD8UFm9zBs3t8GpGyOZbmrxBrLO+QOyxRvFlESL/X5gRdr8XMrqNfW+K6SAAFfT2GX8tdCmpDg0NBR6484PW8dfDR+dpay+tcFN/ASiKnUjC/6FiCAsAJ6sE1UaTy+VlrqW/0IJSAioup76cQARF4Q965LiULkTtbJWA2/cccrqzZHsmsd44+rO3KHNdOBZYHHG2J91GcOy36r3RVoBabnrgLL6A8ClSIxyI+YDze6ElCSgrD4BcT3P8j+PtnkjDg2pg+KzeB/wJ+BNxO28chu/C3jRG3ctDKhm92YcfsSEsOVbU1BrUHdCTisgK5KbZCd4Ye4FHIN4giY9Fv8KfLHAkYTvBr7N8FPRTg+vrDwDXDvMa4PEjMzJoZ/UAnKQsnqLDO0j+hH9rhfZjpuIWFi3QnIZ7Rh+TsMyYIY37tmMYyjJxpvvgmtHydKjnNBJbev6jaW94c9LO7IW8TRweJkTqy0cSfacVnmRViWqR2R/WY2oTUtJJyCzGYxlqVqwF2qRXodbgJPLyMH24I3rZO+EJxHhXorsdKVyYVFWL2TQAl/1FCuygPwFOMkb96uRHkhJZ+CNa6qURaP0T22J/GqSiUgOrINCoZOSkrZT5BtvMyRzyV3AIyFTRUlJWymygFTyYeAWZfWdyuptR3owJaOHThGQiIOBh5XVfzvSAykZHaRdpC9CHMSazQYY5VDtRdYWGyGhtFn8ZSI2AX4Z6oXckdi6pGQYpBWQmd44l8cFldW9iP/9Bkigy/sBjdSfS2s07AV+GmKZ02YHLynJTFoBaWamr0lwUHstvDwSTHNlCIqZAZxOtV9PPcYj65IPeuNG0vpb8i4m7Rqk5WsVb9xKb9wtSGDNeSlPU0jir5KSllA4Q2FwRDxfWf000CigJuIkZfUVlYH2Je0jeORug6jHGyPlK/oQi/SLSBz6sOuLhFCILoJ/VV7BcsHGVrfPwglIhDfuphA7cFFC0yj95KzWj6oEQFk9FSl7djCiDm/ToPkKZfUiJA3PLd64J5u43kZISYbJBAdYZfV8b9wxmQdf3e9XgG8hsevdyup7vXFV91Ght3m9cf+CJC9L4khldTMl3UoyoKzeXFl9EbKreS2SN6CRcIDsWu6FZFJ/TFl9g7I6qzt9D5K04b0Mxqgfraw+P2M/cTYOfUV9bhdvUGgBCZxFupp0+7d+KKMXZfXRSAz46ciNVckypObi3UiChtuBBxlaum0MUprgEWX1jIxDqJUk8JxQT6ZZ4okJhzg3Fl5AvHEPk67Q4/4tHsqoRVl9IfBviA0qYm34bBqwvTduT2/cQd64w71xn/XG7YfM+PszdC25CXBHTu5Dc5XVw00WV5fCrkFi3IU8phuxW8L3JU2grJ6N1N2o5AEkuXPDIjveuJVI/fHfhPohN1EtZHOV1YuHGeezAfAzZfXe3ri6seXNUvgnSODRFG22DDsdJTkR1Jd/in3878D+ScIRxxt3L1LWrTJ8eyxwTRP/t7jK/QEk2UfudIqApMnBO4nkVKUlKQmG23hxywXAl5vdYg1Pin+Mfbwng6mA0rICsLHPjgyJGnKlUwRkFckL9V46R2XsBI6n2vVnHTArB/vD1UieKxBPiruQ+PEsTAC+iayBKpnTxOK/IZ0iIGkzjPe1eiCjiONjx/d749Koug0JhuAZiFr0Pm/cjIQMi7UYg0yIMxmawHxuKAGdC50iIFNI9iReRVkvJBdCXtxdYx//NK/+vXFPeeOe8MYl1X9pxPoh5vwIquPIJyOL9vG1T8tGpwhImm28V4f5By8ZZA+qJ6R1iF2jSPQDBMt8PBZ9N+C6PC7SKQKSlG0RJMlDST7EJ6RXkaRuhcQb95/Ad2Iff0lZffpw+y68gIQUlgemaPpIq8cyiojXp38l2DQKizfuXIaWBL9ouNGnhRcQ4CSkyHsS97d4HKOJeF3xrLtMI8VRSJLBSm5WVqcNxBtCoQVEWa2AM1M0XYQkRS7Jh7hFelwnGGFDpdwjqPapmgrcGirfZqawAqKsHosYgyalaD6vLKaTK3Enw6l0iBHWG7cQ+LvYx/sAlzfTXyEFJPj/34H8YkmsJKcdi5IBFsWOpwBbj8RAmsEbdyNSSqOSE0Nph0wUTkCU1YchLg2fTnnK1d64l1o4pNHIo1SrKd0M1hgcNsrqScrq6aFKbas4laHr0iuV1Xtn6SSta8YbWTrNQgh53AkRCEO2f8RScqoD0QkEPXpL6htNu4BV3ri/Duc63rjnldULgP0qPj4cKZGcBwchTo/vKKv/AjwOnOaNW5JT/3jj1gV3+oUM1m/vAW5TVu/ujXslTT9pBeREZfVi6tRQyMAYZIdkIrK22AwRjh1oLufWN0dZ1vctkcq+8V2miC5k1pyWw7VuoFpADlRW7+iN+98c+j4xvI8FdkbUt5k59FuFN+4VZfXhiHt+dK9vhVQM+ATwTlIfaQWkXrXRkWSeN+6GkR5Em+lCJpdGqvF6OV3rZiS7TBQe2wtcQnOVowZQVh/K0OC22WEHKne8cQ8pq2dRXfT1gOD5+3zS+YVbg6Tkv4HjRnoQI0SSO00uDpveuFVA3H18mrL6e832GXy8rol9/BxwWbN9psEbdw1wZezj2dSpjV5JJwrI7cAh3rjEx2PJ8PDGzUPUkUrOUlZfp6yekqUvZfU04NcMtdIf3yYr/cnA/1Qcd5FivdtJ8RNrkPLPcZ+bktZyLBImW+kP91XkaXINcKs37vFaJwZb1l7A15ENmDgnh0jDluON61dWfxHJb7BlUvuIThGQnwPfCUagkjbijVutrJ6OpPn5csVXmwPnIJlFnkBsJ88j28PrI1kvd6ZGKh0kLGFWu9eQ3rgXldVfQOLkU204FVlAliDGwuvKBNUjS4i7OEpZfQ8iFPGApF3CKw13AGePVC1Eb5xTVp/C0DVJTdolIPXCZbuQrbaViEv1U4iR6gHgoTIpdbHwxs1VVt8KfAaJCvwIsAWyZV9rPbsOWI64yj8A3OyNm9+e0dbHG3eVsnonZJHe0LzQzifIOkQYViCZ3ZcgnpeLEWPOotIiXny8cauBWxEHwKnA3sg6472IjSHKzfsConY9ADxYQHf5M4HDSFiP/D8HzhUjfG4lKAAAAABJRU5ErkJggg=="
+																			style="box-sizing: border-box; border: 0px; display: inline-block; outline: none; text-decoration: none; height: 45px; width: auto; max-width: 100%; padding: 0px;">
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td class="threeColumn column1"
+																	style="width: 33.3333%; max-width: 33.3333%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div class="full"
+																		style="margin: 0px auto; line-height: 0px; max-width: 1240px;">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" class="fullTable"
+																			style="width: 400px;">
+																			<tbody>
+																				<tr>
+																					<td align="center" class="fullTd"
+																						style="direction: ltr; font-size: 0px; padding: 25px 0px; text-align: center; vertical-align: top; word-break: break-word; width: 400px; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																						<table align="left" border="0"
+																							cellpadding="0" cellspacing="0"
+																							style="border-collapse: collapse; border-spacing: 0px;">
+																							<tbody>
+																								<tr>
+																									<td
+																										style="width: 400px; border-top: 1px solid rgb(204, 204, 204);">
+																									</td>
+																								</tr>
+																							</tbody>
+																						</table>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+																<td class="threeColumn column2"
+																	style="width: 33.3333%; max-width: 33.3333%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div class="full"
+																		style="margin: 0px auto; max-width: 1240px;">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" class="fullTable"
+																			style="width: 400px;">
+																			<tbody>
+																				<tr>
+																					<td class="fullTd"
+																						style="direction: ltr; width: 400px; font-size: 0px; padding-bottom: 0px; text-align: center; vertical-align: top; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																						<table border="0" cellpadding="0"
+																							cellspacing="0" width="100%"
+																							style="vertical-align: top;">
+																							<tr>
+																								<td align="left"
+																									style="font-size: 0px; padding: 15px 11px;">
+																									<div class="text"
+																										style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; overflow-wrap: break-word; margin: 0px; text-align: center; line-height: 20px;font-weight: normal;">
+																										<div>
+																											<p
+																												style="text-size-adjust: none; word-break: break-word; line-height: 20px; font-size: 16px; margin: 0px;">
+																												<span>此报告由宝塔面板网站监控报表生成</span>
+																											</p>
+																										</div>
+																									</div>
+																								</td>
+																							</tr>
+																						</table>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+																<td class="threeColumn column3"
+																	style="width: 33.3333%; max-width: 33.3333%; min-height: 1px; font-size: 13px; text-align: left; direction: ltr; vertical-align: top; padding: 0px;">
+																	<div class="full"
+																		style="margin: 0px auto; line-height: 0px; max-width: 1240px;">
+																		<table align="center" border="0" cellpadding="0"
+																			cellspacing="0" class="fullTable"
+																			style="width: 400px;">
+																			<tbody>
+																				<tr>
+																					<td align="center" class="fullTd"
+																						style="direction: ltr; font-size: 0px; padding: 25px 0px; text-align: center; vertical-align: top; word-break: break-word; width: 400px; background-image: url(&quot;&quot;); background-repeat: no-repeat; background-size: 100px; background-position: 10% 50%;">
+																						<table align="right" border="0"
+																							cellpadding="0" cellspacing="0"
+																							style="border-collapse: collapse; border-spacing: 0px;">
+																							<tbody>
+																								<tr>
+																									<td
+																										style="width: 400px; border-top: 1px solid rgb(204, 204, 204);">
+																									</td>
+																								</tr>
+																							</tbody>
+																						</table>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</center>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

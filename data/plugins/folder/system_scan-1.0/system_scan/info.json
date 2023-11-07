@@ -1,0 +1,12 @@
+{
+    "id": 3,
+    "title": "系统漏洞扫描",
+    "tip": "lib",
+    "name": "system_scan",
+    "type": "扩展",
+    "ps": "系统漏洞扫描",
+    "versions": "1.0",
+    "checks": "/www/server/panel/plugin/system_scan",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs"
+  }

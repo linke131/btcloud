@@ -1,0 +1,12 @@
+{
+    "id": 3,
+    "title": "Java项目一键部署",
+    "tip": "lib",
+    "name": "java_manager",
+    "type": "扩展",
+    "ps": "Java程序一键部署",
+    "versions": "3.4",
+    "checks": "/www/server/panel/plugin/java_manager",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs"
+}

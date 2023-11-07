@@ -1,0 +1,6 @@
+{
+	"task_id": -1,
+	"default_execute_hour": 3,
+	"default_execute_minute": 10,
+	"task_list": ["record_log_size", "generate_report"]
+}

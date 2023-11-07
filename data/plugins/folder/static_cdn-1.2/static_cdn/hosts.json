@@ -1,0 +1,11 @@
+[
+    {"name":"江苏电信","url":"static-js-10000.bt.cn","state":0},
+    {"name":"江门移动","url":"static-jm-10086.bt.cn","state":0},
+    {"name":"华北联通","url":"static-jn2-10010.bt.cn","state":0},
+    {"name":"湛江电信","url":"static-zj-10000.bt.cn","state":0},
+    {"name":"香港CN2","url":"static-hk-10000.bt.cn","state":0},
+    {"name":"美国洛杉矶","url":"static-us-911.bt.cn","state":0},
+    {"name":"日本东京","url":"static-tokoy.bt.cn","state":0},
+    {"name":"韩国首尔","url":"static-seoul.bt.cn","state":0}
+    
+]

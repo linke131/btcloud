@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/obs/install.sh install

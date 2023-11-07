@@ -1,0 +1,10 @@
+{
+	"title": "堡塔运维中心",
+	"name": "oos",
+	"ps": "提供运维任务编排、脚本库、多台服务器批量运维等，适用于有多台服务器的用户",
+	"versions": "1.6",
+	"checks": "/www/server/panel/plugin/oos",
+	"author": "官方",
+	"home": "http://www.bt.cn",
+	"not_substituted":["triggers|d","server|d","scripts|d","arranges|d"]
+}

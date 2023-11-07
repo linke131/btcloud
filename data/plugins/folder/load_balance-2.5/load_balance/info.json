@@ -1,0 +1,15 @@
+{
+	"title":"宝塔负载均衡-重构版",
+	"tip":"lib",
+	"name":"load_balance",
+	"type":"扩展",
+	"ps":"基于nginx的负载均衡, 使用之前请先安装nginx<a href=\"https://www.bt.cn/bbs/thread-58436-1-1.html\" target=\"_blank\" class=\"btlink\"> >>使用帮助</a>",
+	"versions":"2.5",
+	"checks":"/www/server/panel/plugin/load_balance",
+	"author":"宝塔",
+	"home":"http://www.bt.cn/bbs",
+	"beta": false,
+	"force_message": "",
+	"not_substituted":["tcp_config|d","heartbeat.json|f"],
+	"replace_files":[]
+}

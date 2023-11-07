@@ -1,0 +1,301 @@
+<style type="text/css">
+.sshAuth_container {
+    height: 425px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.switchItem {
+    height: 30px;
+    width: 180px;
+    margin-top: 10px;
+}
+.switchItem .ss-text {
+    width: 100%;
+    height: 100%;
+}
+.loginPinTime {
+    margin-left: 15px;
+}
+.qrcode {
+    height: 191px;
+    width: 192px;
+    border: 1px dashed #e8ad63;
+    padding: 10px;
+}
+.qrcode .tips{
+    text-align: center;
+    line-height: 170px;
+}
+.keyDetails{
+    margin-top: 15px;
+}
+.qrcode,
+.tutorial{
+    margin: 20px 0 15px;
+}
+/* 告警设置 */
+.sn-alarm--list{
+    display:none;
+    position: absolute;
+    background: #fff;
+    z-index: 10;
+    transition: all 500ms;
+    top: 30px;
+    left: 56px;
+    box-shadow: 0 1px 5px rgb(0 0 0 / 50%);
+    border-radius: 1px;
+    width: 140px;
+}
+.sn-alarm--list li {
+    height: 28px;
+    line-height: 24px;
+    padding: 2px 10px;
+    white-space: nowrap;
+}
+.sn-alarm--list li.disabled {
+	background: #ededed;
+  cursor: not-allowed;
+}
+.sn-alarm--list li:hover {
+    background-color: #f2f2f2;
+}
+.sn-alarm--list li.active {
+    color: #fff;
+    background-color: #20a53a;
+}
+.sn-alarm--setting{
+    font-size: 12px;
+    color: #666;
+    /*margin-bottom: 25px;*/
+    position: relative;
+    margin-top: 8px;
+}
+.sn-alarm--selectBox{
+    display: inline-block;
+    cursor: pointer;
+}
+.sn-alarm--setting .sn-alarm--channel{
+    border:1px solid #EFEFEF;
+    border-radius: 2px;
+    color: #999999;
+    width: 140px;
+    display: inline-block;
+    padding:5px 5px 5px 10px;
+    margin-left:4px
+}
+.sn-alram--selectIcon{
+    color: #999;
+    position: absolute;
+    top: 8px;
+    left: 175px;
+}
+#none-msg{
+	margin-top: 8px;
+}
+/* 告警设置 end */
+</style>
+<div class="sshAuth_container">
+    <div class="switchItem">
+        <div class="ss-text">
+            <em title="开启双因子">开启双因子</em>
+            <div class='ssh-item'>
+                <input class='btswitch btswitch-ios' id='onAuth' type='checkbox'>
+                <label class='btswitch-btn' for='onAuth' onclick="setAuthStatus()"></label>
+            </div>
+        </div>
+    </div>
+    <div class="keyDetails">
+        <span class="loginPinCode">登录Key：----</span><span class="loginPinTime">刷新时间：----</span>
+    </div>
+        <div class="sn-alarm--setting">
+            <span>接收方式</span>
+            <div class="sn-alarm--selectBox">
+                <!-- 发送通道 -->
+                <span class="sn-alarm--channel">请选择接收方式</span>
+                <i class="sn-alram--selectIcon glyphicon glyphicon-menu-down"></i>
+                <!-- 发送方式选项 -->
+                <ul class="sn-alarm--list"></ul>
+            </div>
+        </div>
+    <div class="qrcode">
+        <div id="verify_qrcode"></div>
+<!--        <div class="tips"><a class="btlink" href="https://www.bt.cn/bbs/thread-108274-1-1.html" target="_blank">未配置飞书请查看教程</a></div>-->
+    </div>
+    <div class="tutorial"><span>二维码用作堡塔App扫码绑定</span>，查看教程<a class="btlink" href="https://www.bt.cn/bbs/thread-74361-1-2.html" target="_blank">《堡塔SSH二次认证插件教程》</a></div>
+</div>
+<script type="text/javascript" src="/static/js/jquery.qrcode.min.js"></script>
+<script type="text/javascript">
+
+    //定义窗口尺寸
+    $('.layui-layer-page').css({ 'width': '500px' });
+    
+    var pinInterval = '';
+    var oldKey = '';
+    $('.layui-layer-close2').click(function() {
+        if(pinInterval != '') {
+            clearInterval(pinInterval)
+        }
+    })
+    //下拉列表
+    $('.sn-alarm--selectBox').on('click',function(e){
+        var _ul = $(this).find('.sn-alarm--list');
+        if(_ul.hasClass('show')){
+            _ul.removeClass('show');
+        }else{
+            _ul.addClass('show');
+        }
+        $(document).one('click',function(ev){
+            _ul.removeClass('show');
+        })
+        e.stopPropagation();
+    })
+    // 选择发送方式
+    $('.sn-alarm--list').on('click','li',function(e){
+    	if($(this).hasClass('disabled')) {
+    		layer.msg('该通道未配置, 请配置后在选择！')
+    		return e.stopPropagation();
+    	}
+        var name = $(this).attr('name'),that = this;
+        $.post("/plugin?action=a&name=bt_ssh_auth&s=set_send",{"type":name},function(rdata){
+            if(rdata.status){
+                $('.sn-alarm--list li').removeClass('active')
+                $(that).addClass('active')
+                $('.sn-alarm--channel').text($(that).text())
+                $('.sn-alarm--list').hide();
+                var none_msg = document.getElementById("none-msg");
+                if($(that).text()=='不绑定'){
+                    if(!none_msg){
+                        var newElement = $('<span style="color: red" id="none-msg">* 建议绑定其中一种接收Key方式，防止面板忘记密码或无法打开</span>');
+                        var refElement = $('.qrcode');
+                        newElement.insertBefore(refElement);
+                        // $('#verify_qrcode').show()
+                    }
+                }else{
+                    if (none_msg){
+                        none_msg.parentNode.removeChild(none_msg);
+                        // $('#verify_qrcode').hide()
+                        // none_msg.remove();
+                    }
+                }
+            }
+            if(rdata.msg) layer.msg(rdata.msg,{icon:rdata.status?1:2});
+        })
+    })
+    // $('.sn-alarm--channel').change(function (){
+    //     if($('.sn-alarm--channel').text() == '不绑定'){
+    //         var newElement = $('<span style="color: red" class="none-msg">建议绑定其中一种接收Key方式，防止面板忘记密码或无法打开</span>');
+    //         var refElement = $('.qrcode');
+    //         newElement.insertBefore(refElement);
+    //     }
+    //     else{
+    //         var none_msg = document.getElementsByClassName("none-msg")
+    //         if (none_msg){
+    //             none_msg.remove();
+    //         }
+    //     }
+    // })
+
+    //初始化执行
+    function init() {
+        $.post("/plugin?action=a&name=bt_ssh_auth&s=is_check",function(rdata){
+            if(rdata.status == true) {
+                getLoginKet()
+                checkSshAuth()
+                getQrcode()
+                getAlarmSetting()
+            }
+        })
+    }
+    //开启双因子
+    function setAuthStatus() {
+        var status = !$('#onAuth').prop('checked');
+        var url = status ? '/plugin?action=a&name=bt_ssh_auth&s=start_ssh_auth' : '/plugin?action=a&name=bt_ssh_auth&s=stop_ssh_auth';
+        $.post(url ,function(rdata){
+            if(rdata.status == true) {
+                layer.msg(rdata.msg, {icon: 1})
+            }else{
+                layer.msg(rdata.msg+"请查看教程", {icon: 2})
+            }
+        })
+    }
+    //获取SSH 双因子认证状态
+    function checkSshAuth(){
+        $.post("/plugin?action=a&name=bt_ssh_auth&s=check_ssh_auth",function(rdata){
+            $('#onAuth').prop('checked', rdata.status)
+        })
+    }
+    //获取登录key
+    function getLoginKet(){
+        $.post("/plugin?action=a&name=bt_ssh_auth&s=get_pin",function(rdata){
+            if(oldKey != rdata.pin) {
+                oldKey = rdata.pin
+                $('.loginPinCode').html('登录Key: <lable>'+rdata.pin+'</lable>')
+            }
+            //取消定时器
+            if(pinInterval != '') {
+                clearInterval(pinInterval)
+            }
+            pinInterval = setInterval(function() {
+                $('.loginPinTime').html('刷新时间：<lable style="color: red;">' + rdata.time + '秒</lable>')
+                getLoginKet()
+            }, 1000);
+        })
+    }
+    //获取二维码绑定
+    function getQrcode() {
+        $.post("/plugin?action=a&name=bt_ssh_auth&s=get_pin_msg",function(rdata){
+            if(rdata.pin) {
+    			jQuery('#verify_qrcode').qrcode({
+    				render: "canvas",
+    				text: rdata.qrcode,
+    				height:170,
+    				width:170
+    			});
+                $('.tips').hide()
+                $('#verify_qrcode').show()
+            } else {
+                $('.tips').show()
+                $('#verify_qrcode').hide()
+            }
+        })
+    }
+    //获取下拉发送列表及当前发送方式
+    function getAlarmSetting(){
+        var that = this;
+        var sendChannel = [{name:'企业微信',value:'weixin'},{name:'钉钉',value:'dingding'},{name:'飞书',value:'feishu'},{name:'不绑定',value:'NONE'}]
+        // 获取告警列表
+			bt_tools.send({
+				url: '/config?action=get_msg_configs',
+			}, function (alarms) {
+				$.post("/plugin?action=a&name=bt_ssh_auth&s=get_send_config",function(rdata){
+            var html = '',alarmType = -1,accountConfigStatus = false
+            for(var i=0; i<sendChannel.length; i++){
+                if(rdata.msg == sendChannel[i].value) alarmType = i
+              	if (sendChannel[i].value === 'wx_account') {
+									if (!$.isEmptyObject(item.data) && item.data.res.is_subscribe && item.data.res.is_bound) {
+										accountConfigStatus = true;
+									}
+								}
+                var is_config = sendChannel[i].value !== 'NONE' && (!alarms[sendChannel[i].value]['setup'] || $.isEmptyObject(alarms[sendChannel[i].value]['data'])) ? true : false
+                html += '<li class="sn-alarm--item '+(sendChannel[i].value == rdata.msg? ' active':'') + (is_config ? ' disabled' : '') +'" name="'+sendChannel[i].value+'">'+sendChannel[i].name+ (is_config ? ' [<a target="_blank" class="bterror installNotice" data-type="' + sendChannel[i].value + '">未配置</a>]' : '') +'</li>'
+            }
+            if(rdata.msg == 'NONE'){
+                var newElement = $('<span style="color: red" id="none-msg">* 建议绑定其中一种接收Key方式，防止面板忘记密码或无法打开</span>');
+                var refElement = $('.qrcode');
+                newElement.insertBefore(refElement);
+                // $('#verify_qrcode').show()
+            }
+            $('.sn-alarm--list').html(html)
+            $('.sn-alarm--channel').text(alarmType != -1 ? sendChannel[alarmType].name:'请选择发送方式')
+            $('.sn-alarm--list').find('.installNotice').unbind('click').click(function (ev) {
+							var el = $(ev.currentTarget), type = $(el).data('type');
+							openAlertModuleInstallView(type);
+						});
+        })
+			})
+    }
+    //点击
+    init()
+</script>

@@ -1,0 +1,213 @@
+{
+	"testqq.com": {
+		"data_mask_set": {},
+		"data_mask_global_set": {
+			"header": false,
+			"post": false,
+			"get": false
+		},
+		"page_custom_set": {
+			"owasp_html": "草拟吗啊",
+			"owasp_code": "403"
+		},
+		"owasp_check_set": {
+			"code_exec_check": "block",
+			"sql_check": "block",
+			"directory_traversal_check": "block",
+			"xss_check": "block",
+			"command_inject_check": "block",
+			"sensitive_file_check": "block",
+			"upload_check_rule": "(\\.jpg|\\.png)$",
+			"upload_check": "block"
+		},
+		"protection_set": {
+			"evil_ip_handle": "true",
+			"page_custom": "true",
+			"data_mask": "true",
+			"cc_protection": "false",
+			"owasp_protection": "true",
+			"ip_config": "false",
+			"custom_protection": "true",
+			"cc_attack_ip_protection": "false"
+		},
+		"custom_rule_set": {},
+		"evil_ip_handle_set": {
+			"period": "300",
+			"mode": "block",
+			"count": "60",
+			"handle": "0",
+			"block_option": {
+				"code_exec_check": true,
+				"sql_check": true,
+				"directory_traversal_check": true,
+				"xss_check": true,
+				"command_inject_check": true,
+				"sensitive_file_check": true,
+				"upload_check": true
+			}
+		},
+		"domain_set": {
+			"source_http_port": "80",
+			"http": "true",
+			"https": "false",
+			"source_ip": ["192.168.1.71"],
+			"proxy_pass_https": "false",
+			"domain": "testqq.com",
+			"proxy": "false"
+		}
+	},
+	"test.com": {
+		"data_mask_global_set": {
+			"header": false,
+			"post": false,
+			"get": false
+		},
+		"cc_attack_ip_set": {
+			"block_time": "3600",
+			"check_period": "300",
+			"check_count": "120",
+			"block_option": {
+				"": true
+			},
+			"block_mode": "block"
+		},
+		"owasp_check_set": {
+			"code_exec_check": "block",
+			"sql_check": "block",
+			"directory_traversal_check": "block",
+			"xss_check": "block",
+			"command_inject_check": "block",
+			"sensitive_file_check": "block",
+			"upload_check_rule": "(.jpg|.png)$",
+			"upload_check": "close"
+		},
+		"page_custom_set": {
+			"owasp_html": null,
+			"owasp_code": "403"
+		},
+		"ip_config_set": {},
+		"cc_protection_set": {
+			"black_ip_time": "60",
+			"count": "600",
+			"emergency_handle_mode": "network_layer_block",
+			"ip_expire_qps": "10",
+			"domain_qps_check": "true",
+			"req_count_handle_mode": "bot_check",
+			"req_freq_handle_mode": "block",
+			"domin_qps_handle_mode": "bot_check",
+			"count_check": "true",
+			"qps_check": "true",
+			"ip_qps": "10",
+			"bot_check_mode": "slipper",
+			"emergency_mode_check": "true",
+			"domain_qps": "1000"
+		},
+		"data_mask_set": {},
+		"protection_set": {
+			"evil_ip_handle": "true",
+			"page_custom": "true",
+			"data_mask": "true",
+			"cc_protection": "true",
+			"owasp_protection": "true",
+			"ip_config": "true",
+			"custom_protection": "true",
+			"cc_attack_ip_protection": "true"
+		},
+		"custom_rule_set": {},
+		"evil_ip_handle_set": {
+			"period": "300",
+			"mode": "black",
+			"count": "60",
+			"handle": "none",
+			"block_option": {
+				"": true
+			}
+		},
+		"domain_set": {
+			"source_http_port": "80",
+			"http": "true",
+			"https": "false",
+			"source_ip": ["192.168.1.71"],
+			"proxy_pass_https": "false",
+			"domain": "test.com",
+			"proxy": "false"
+		}
+	},
+	"tttt.com": {
+		"data_mask_global_set": {
+			"header": false,
+			"post": false,
+			"get": false
+		},
+		"cc_attack_ip_set": {
+			"block_time": "3600",
+			"check_period": "300",
+			"check_count": "120",
+			"block_option": {
+				"": true
+			},
+			"block_mode": "block"
+		},
+		"owasp_check_set": {
+			"code_exec_check": "block",
+			"sql_check": "block",
+			"directory_traversal_check": "block",
+			"xss_check": "block",
+			"command_inject_check": "block",
+			"sensitive_file_check": "block",
+			"upload_check_rule": "(.jpg|.png)$",
+			"upload_check": "close"
+		},
+		"page_custom_set": {
+			"owasp_html": null,
+			"owasp_code": "403"
+		},
+		"ip_config_set": {},
+		"cc_protection_set": {
+			"black_ip_time": "60",
+			"count": "600",
+			"emergency_handle_mode": "bot_check",
+			"ip_expire_qps": "10",
+			"domain_qps_check": "false",
+			"req_count_handle_mode": "block",
+			"req_freq_handle_mode": "block",
+			"domin_qps_handle_mode": "bot_check",
+			"count_check": "false",
+			"qps_check": "false",
+			"ip_qps": "10",
+			"bot_check_mode": "standard",
+			"emergency_mode_check": "false",
+			"domain_qps": "1000"
+		},
+		"data_mask_set": {},
+		"protection_set": {
+			"evil_ip_handle": "true",
+			"page_custom": "true",
+			"data_mask": "true",
+			"cc_protection": "true",
+			"owasp_protection": "true",
+			"ip_config": "true",
+			"custom_protection": "true",
+			"cc_attack_ip_protection": "true"
+		},
+		"custom_rule_set": {},
+		"evil_ip_handle_set": {
+			"period": "300",
+			"mode": "black",
+			"count": "60",
+			"handle": "none",
+			"block_option": {
+				"": true
+			}
+		},
+		"domain_set": {
+			"source_http_port": "80",
+			"http": "true",
+			"https": "false",
+			"source_ip": ["192.168.1.71"],
+			"proxy_pass_https": "false",
+			"domain": "tttt.com",
+			"proxy": "false"
+		}
+	}
+}

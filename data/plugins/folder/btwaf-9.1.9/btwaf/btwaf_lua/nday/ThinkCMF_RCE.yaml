@@ -1,0 +1,11 @@
+models:
+  - ThinkCMF:
+    info: "ThinkCMF代码执行漏洞"
+    cveid: ""
+    reference: "https://www.freebuf.com/vuls/217586.html"
+    method: "GET"
+    status: true
+    url: "/index.php"
+    keys:
+      a: "fetch"
+      content: "$_BT_PHPCODE"

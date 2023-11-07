@@ -1,0 +1,136 @@
+<style type="text/css">
+.sshAuth_container {
+    height: 375px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.switchItem {
+    height: 30px;
+    width: 180px;
+    margin-top: 10px;
+}
+.switchItem .ss-text {
+    width: 100%;
+    height: 100%;
+}
+.loginPinTime {
+    margin-left: 15px;
+}
+.qrcode {
+    height: 191px;
+    width: 192px;
+    border: 1px dashed #e8ad63;
+    padding: 10px;
+}
+.qrcode .tips{
+    text-align: center;
+    line-height: 170px;
+}
+.keyDetails{
+    margin-top: 15px;
+}
+.qrcode,
+.tutorial{
+    margin: 25px 0 15px;
+}
+</style>
+<div class="sshAuth_container">
+    <div class="switchItem">
+        <div class="ss-text">
+            <em title="开启双因子">开启双因子</em>
+            <div class='ssh-item'>
+                <input class='btswitch btswitch-ios' id='onAuth' type='checkbox'>
+                <label class='btswitch-btn' for='onAuth' onclick="setAuthStatus()"></label>
+            </div>
+        </div>
+    </div>
+    <div class="keyDetails">
+        <span class="loginPinCode">登录Key：----</span><span class="loginPinTime">刷新时间：----</span>
+    </div>
+    <div class="qrcode">
+        <div id="verify_qrcode"></div>
+        <div class="tips"><a class="btlink" href="https://www.bt.cn/bbs/thread-108274-1-1.html" target="_blank">未配置飞书请查看教程</a></div>
+    </div>
+    <div class="tutorial"><span style="color:red">使用堡塔APP进行扫码绑定</span>，查看教程<a class="btlink" href="https://www.bt.cn/bbs/thread-74361-1-2.html" target="_blank">《堡塔SSH二次认证插件教程》</a></div>
+</div>
+<script type="text/javascript" src="/static/js/jquery.qrcode.min.js"></script>
+<script type="text/javascript">
+
+    //定义窗口尺寸
+    $('.layui-layer-page').css({ 'width': '500px' });
+    
+    var pinInterval = '';
+    var oldKey = '';
+    $('.layui-layer-close2').click(function() {
+        if(pinInterval != '') {
+            clearInterval(pinInterval)
+        }
+    })
+    //初始化执行
+    function init() {
+        $.post("/plugin?action=a&name=bt_ssh_auth&s=is_check",function(rdata){
+            if(rdata.status == true) {
+                getLoginKet()
+                checkSshAuth()
+                getQrcode()
+            }
+        })
+    }
+    //开启双因子
+    function setAuthStatus() {
+        var status = !$('#onAuth').prop('checked');
+        var url = status ? '/plugin?action=a&name=bt_ssh_auth&s=start_ssh_auth' : '/plugin?action=a&name=bt_ssh_auth&s=stop_ssh_auth';
+        $.post(url ,function(rdata){
+            if(rdata.status == true) {
+                layer.msg(rdata.msg, {icon: 1})
+            }else{
+                layer.msg(rdata.msg+"请查看教程", {icon: 2})
+            }
+        })
+    }
+    //获取SSH 双因子认证状态
+    function checkSshAuth(){
+        $.post("/plugin?action=a&name=bt_ssh_auth&s=check_ssh_auth",function(rdata){
+            $('#onAuth').prop('checked', rdata.status)
+        })
+    }
+    //获取登录key
+    function getLoginKet(){
+        $.post("/plugin?action=a&name=bt_ssh_auth&s=get_pin",function(rdata){
+            if(oldKey != rdata.pin) {
+                oldKey = rdata.pin
+                $('.loginPinCode').html('登录Key: <lable>'+rdata.pin+'</lable>')
+            }
+            //取消定时器
+            if(pinInterval != '') {
+                clearInterval(pinInterval)
+            }
+            pinInterval = setInterval(function() {
+                $('.loginPinTime').html('刷新时间：<lable style="color: red;">' + rdata.time + '秒</lable>')
+                getLoginKet()
+            }, 1000);
+        })
+    }
+    //获取二维码绑定
+    function getQrcode() {
+        $.post("/plugin?action=a&name=bt_ssh_auth&s=get_pin_msg",function(rdata){
+            if(rdata.pin) {
+    			jQuery('#verify_qrcode').qrcode({
+    				render: "canvas",
+    				text: rdata.qrcode,
+    				height:170,
+    				width:170
+    			});
+                $('.tips').hide()
+                $('#verify_qrcode').show()
+            } else {
+                $('.tips').show()
+                $('#verify_qrcode').hide()
+            }
+        })
+        
+    }
+    init()
+</script>

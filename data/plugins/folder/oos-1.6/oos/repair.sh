@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/oos/install.sh install

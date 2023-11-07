@@ -1,0 +1,481 @@
+<style type="text/css">
+.class_level_1{
+    color: #666;
+}
+.class_level_2{
+    color: #f6992a;
+}
+.class_level_3{
+    color: #f93245;
+}
+.class_level_4{
+    color: #aa3330;
+}
+.class_level_5{
+    color: #6b0c51;
+}
+.layui-icon-notice{
+    font-size: 15px;
+    margin-right: 3px;
+}
+.securiy_name{
+    width: 220px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.securiy_suggest{
+    width: 300px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.security_detail.detail{
+    padding:20px;
+}
+.security_detail .detail_block{
+    padding: 10px 0;
+    border-bottom: 1px #ececec dashed;
+}
+.security_detail .detail_title{
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+.security_detail .detail_tips{
+    margin-top: 15px;
+}
+.security_detail .detail_blocks{
+    text-align: right;
+    margin-top: 25px;
+}
+.security_detail .layui-code {
+    position: relative;
+    margin: 10px 0;
+    padding: 15px;
+    line-height: 20px;
+    border: 1px solid #ddd;
+    border-left-width: 6px;
+    background-color: #F2F2F2;
+    color: #333;
+    font-family: Courier New;
+    font-size: 12px;
+}
+.security_detail pre {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+.security_btn_main {
+    position: relative;
+    padding: 115px 130px; 
+    height: 400px;
+}
+.security_btn_main .logo{
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+}
+.security_btn_main .baseline{
+    width: 150px;
+    height: 150px;
+}
+.security_btn_main .present{
+    display: inline-block;
+    position: absolute;
+    top: 138px;
+    margin-left: 40px;
+}
+.security_btn_main .present span{
+    font-size: 22px;
+    font-weight: 700;
+}
+.security_btn_main .clear_btn a {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 7px 18px;
+    border-color: #20a53a;
+    border-radius: 30px;
+    background: #20a53a;
+    color: #fff;
+    text-align: right;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all .5s;
+}
+.bt_table .divtable {
+    border: 1px solid #ddd;
+}
+.bt_table .divtable table {
+    border: none;
+}
+</style>
+<div class="bt_conter">
+    <div class="security_btn_main" style="display: block;">
+        <div class="logo">
+            <img class="baseline" src="data:image/png;base64,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"/>
+        </div>
+        <div class="present">
+            <span class="">检测系统，用户，软件，等安全问题</span>
+            <div class="clear_btn">
+                <a href="javascript:;" id="scanning_start">立即扫描</a>
+            </div>
+        </div>
+    </div>
+    <div class="security_main" style="display: none;">
+        <div class="bt-form pd15" style="padding-bottom: 5px;">
+            <div id="securiy_table"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var Safety_monitoring = {
+        plugin_name: 'san_security',
+        _arry: [],
+        init: function() {
+            $('.layui-layer-page').width('830px');
+            this.event();
+        },
+        event: function () {
+            var _this = this;
+            // 点击扫描按钮
+            $("#scanning_start").click(function () {
+                _this.render_securiy_table(function () {
+                    $(".security_btn_main").hide();
+                    $(".security_main").show();
+                });
+            });
+        },
+        // 创建风险表格
+        render_securiy_table: function (callback) {
+            var _this = this;
+            this.get_securiy_list(function (res) {
+                var list = _this.get_securiy_table_list(res);
+                $('#securiy_table').empty();
+                bt_tools.table({
+                    el: '#securiy_table',
+                    default: "列表为空",
+                    data: list,
+                    height: 418,
+                    column: [
+                        {
+                            fid: 'name',
+                            title: '风险名称',
+                            width: '25%',
+                            type: 'text',
+                            template: function (row) {
+                                return '<span class="securiy_name" title="' + row.name + '">' + row.name + '</span>';
+                            }
+                        },
+                        {
+                            fid: 'harm',
+                            title: '风险等级',
+                            width: '9%',
+                            type: 'text',
+                            template: function (row) {
+                                var _class = 'class_level_' + _this.set_level(row.harm);
+                                return '<span class="' + _class + '">' + row.harm + '</span>';
+                            }
+                        },
+                        {
+                            fid: 'type_tips',
+                            title: '分类',
+                            width: '10%'
+                        },
+                        {
+                            fid: 'Suggestions',
+                            title: '加固建议',
+                            width: '35%',
+                            type: 'text',
+                            template: function (row) {
+                                return '<span class="securiy_suggest" title="' + row.Suggestions + '">' + row.Suggestions + '</span>'
+                            }
+                        },
+                        {
+                            title: '操作',
+                            width: '11%',
+                            type: 'group',
+                            align: 'right',
+                            group: [
+                                {
+                                    title: '修复',
+                                    hide: function (row) {
+                                        return row.id == undefined;
+                                    },
+                                    event: function (row, index, ev, key, that) {
+                                        var data = that.data[index];
+                                        _this.repaired_securiy(data, function () {
+                                            $(ev.target).parents('tr').remove();
+                                            that.data.splice(index, 1);
+                                        });
+                                    }
+                                },
+                                {
+                                    title: '详情',
+                                    event: function (row, index, ev, key, that) {
+                                        var data = that.data[index];
+                                        _this.show_securiy_detail(data);
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    tootls: [
+                        {
+                            type: 'group',
+                            positon: ['left', 'top'],
+                            list: [
+                                {
+                                    title: '修复全部风险',
+                                    active: true,
+                                    event: function () {
+                                        _this.repair_securiy_all();
+                                    }
+                                },
+                                {
+                                    title: '重新扫描',
+                                    event: function () {
+                                        bt.confirm({
+                                            icon: 3,
+                                            title: '提示',
+                                            msg: '是否重新扫描',
+                                        }, function (index) {
+                                            _this.render_securiy_table();
+                                        });
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                });
+                layer.msg('扫描成功', { icon: 1 });
+                callback && callback();
+            });
+        },
+        // 获取风险表格数据
+        get_securiy_table_list: function (data) {
+            var item, list = [];
+            for (var key in data) {
+                item = data[key];
+                if (key == 'site_sec') {
+                    if (item.site_list.length > 0) {
+                        for (var i = 0; i < item.site_list.length; i++) {
+                            item.site_list[i].type = key;
+                            list.push(item.site_list[i]);
+                        }
+                    }
+                    continue;
+                }
+                if (item.length > 0) {
+                    for (var i = 0; i < item.length; i++) {
+                        item[i].type = key;
+                        list.push(item[i]);
+                    }
+                }
+            }
+            for (var i = 0; i < list.length; i++) {
+                var tips = '';
+                switch (list[i].type) {
+                    case 'system_dir':
+                        case 'system_file':
+                        case 'system_user':
+                        case 'SSH':
+                            tips = '系统管理';
+                            break;
+                        case 'system_user_file':
+                            tips = '系统管理';
+                            break;
+                        case 'site_sec':
+                        case 'site_curl':
+                            tips = '站点管理';
+                            break;
+                        case 'NINGX/APCHE':
+                        case 'memcache':
+                        case 'PHP':
+                        case 'redis':
+                        case 'mysql':
+                        case 'sftp_file':
+                            tips = '环境管理';
+                            break;
+                        case 'PANEL':
+                            tips = '面板管理';
+                            break;
+                        case 'task':
+                            tips = '计划任务';
+                            break;
+                }
+                list[i].type_tips = tips;
+            }
+            return list;
+        },
+        // 修复单个风险
+        repaired_securiy: function (data, callback) {
+            var _this = this;
+            var id = data.id;
+            var name = data.name;
+            bt.confirm({
+                icon: 3,
+                title: '修复风险',
+                msg: '是否一键修复【'+ name +'】，如存在无法自动修复，请手动修复该问题'
+            }, function () {
+                _this.repair_single({ id: id }, function (res) {
+                    res.status && callback && callback();
+                    res.msg = res.msg != null ? res.msg : '修复失败，请尝试手动修复';
+                    bt.msg(res);
+                });
+            });
+        },
+        // 显示详情
+        show_securiy_detail: function (data) {
+            var _that = this;
+            var item = data;
+            layer.open({
+                type: 1,
+                title:'查看详情【 '+ item.name  +' 】',
+                area: '500px',
+                closeBtn:2,
+                btn: ['确定'],
+                content:'<div class="detail security_detail">\
+                    <div class="detail_block">\
+                        <div class="detail_title">风险名称</div>\
+                        <div class="detail_conter"><span class="class_level_'+_that.set_level(item.harm)+'" style="margin-right:10px;">'+item.harm+'</span> -'+item.name+'</div>\
+                    </div>\
+                    <div class="detail_block">\
+                        <div class="detail_title">分类</div>\
+                        <div class="detail_conter">'+item.type_tips+'</div>\
+                    </div>\
+                    <div class="detail_block" style="display:'+(item.file != undefined ? 'block':'none')+'">\
+                        <div class="detail_title">文件位置</div>\
+                        <div class="detail_conter">'+item.file+'</div>\
+                    </div>\
+                    <div class="detail_block">\
+                        <div class="detail_title">加固建议</div>\
+                        <div class="detail_conter">\
+                        <span>'+(item.Suggestions || item.ps || '')+'</span>'+(item.repair != item.Suggestions? '<pre class="layui-code">'+item.repair+'</pre>': '')+''+(item.list != undefined ? '<pre class="layui-code">'+item.list+'</pre>' : '')+'\
+                        </div>\
+                    </div>\
+                    <div class="detail_tips">操作时建议做好记录和备份</div>\
+                    </div>',
+                yes:function(index, layero){
+                    layer.close(index);
+                }
+            })
+        },
+        // 设置风险等级
+        set_level: function (tips) {
+          if (tips == '警告') return 1;
+          if (tips == '中') return 2;
+          if (tips == '高') return 3;
+          if (tips == '严重') return 4;
+          if (tips == '紧急') return 5;
+          return '';
+        },
+        // 修复全部
+        repair_securiy_all: function () {
+            var _this = this;
+            bt.confirm({
+                icon: 3,
+                title: '修复风险',
+                msg: '是否一键修复全部风险，部分风险无法自动修复，请尝试手动修复',
+            }, function (index) {
+                _this.repair_all(function (res) {
+                    layer.msg(res.msg, { time: 1500, icon: res.status ? 1 : 2 }, function () {
+                        if (res.status) {
+                            layer.close(index);
+                            _this.render_securiy_table();
+                        }
+                    });
+                });
+            });
+        },
+        //获取风险数据
+        get_securiy_list: function (callback) {
+            this.send({
+				tips: "正在扫描中，请稍后。。。",
+				method: 'main',
+				success: function (res) {
+					callback && callback(res);
+				}
+			});
+        },
+        // 一键修复
+        repair_all:function(callback){
+            this.send({
+				tips: "正在修复数据中，请稍后。。。",
+				method: 'repair_all',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+        },
+        // 修复单个风险
+        repair_single: function (obj, callback) {
+            this.send({
+				tips: "正在修复数据中，请稍后。。。",
+				method: 'repair',
+                data: { id: obj.id },
+				success: function (res) {
+					callback && callback(res);
+				}
+			});
+        },
+        // 请求封装模块
+		send: function (obj) {
+			var loadT = '';
+			if (obj.load == undefined) obj.load = 0;
+			if (obj.url == undefined) {
+				if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this.plugin_name
+				if (!obj.plugin_name || !obj.method) {
+					layer.msg('插件类名称，或插件方法名称缺失!', {
+						icon: 2
+					});
+					return false;
+				}
+			}
+			if (obj.load === 0 || obj.tips != '') {
+				loadT = layer.msg(obj.tips, {
+					icon: 16,
+					time: 0,
+					shade: 0.3
+				});
+			} else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+				loadT = layer.load();
+			}
+			$.ajax({
+				type: 'POST',
+				url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+				data: obj.data || {},
+				timeout: obj.timeout || 99999999,
+				complete: function (res) {
+					if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+				},
+				success: function (rdata) {
+					if (obj.check) {
+						obj.success(rdata);
+						return false
+					}
+					if (rdata.status === false) {
+						layer.msg(rdata.msg, { icon: 2 });
+						return false;
+					}
+					obj.success(rdata);
+				},
+				error: function (ex) {
+					if (!obj.error) {
+						obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+							icon: 2
+						}) : '';
+						return;
+					}
+					return obj.error(ex);
+				}
+			});
+		}
+    }
+    Safety_monitoring.init();
+</script>

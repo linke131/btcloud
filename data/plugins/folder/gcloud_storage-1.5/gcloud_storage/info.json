@@ -1,0 +1,16 @@
+{
+	"id":3,
+	"title":"谷歌云存储",
+	"tip":"lib",
+	"name":"gcloud_storage",
+	"type":"扩展",
+	"ps":"将网站或数据库打包备份到Google Cloud Storage",
+	"versions":"1.5",
+	"shell":"gcloud_storage.sh",
+	"checks":"/www/server/panel/plugin/gcloud_storage.py",
+	"author":"官方",
+	"home":"http://www.bt.cn/bbs",
+	"date":"2019-07-13",
+	"default":false,
+	"display":0
+}

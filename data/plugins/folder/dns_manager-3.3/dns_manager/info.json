@@ -1,0 +1,11 @@
+{
+	"title": "Dns管理器",
+	"name": "dns_manager",
+	"ps": "基于PowerDns开发的Dns图形管理工具",
+	"versions": "3.3",
+	"checks": "/www/server/panel/plugin/dns_manager",
+	"author": "宝塔",
+	"beta": false,
+	"force_message": "",
+	"not_substituted":["config.json|f"]
+}

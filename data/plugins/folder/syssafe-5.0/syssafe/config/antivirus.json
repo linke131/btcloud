@@ -1,0 +1,111 @@
+[
+    {
+        "name": "ClamAV",
+        "files": ["/usr/bin/clamscan", "/usr/sbin/clamscan"]
+    },
+    {
+        "name": "BT-WAF",
+        "files": ["/www/server/panel/plugin/btwaf","/www/server/panel/plugin/btwaf_httpd"]
+    },
+    {
+        "name": "Sophos Antivirus",
+        "files": ["/opt/sophos-av/bin/savscan", "/opt/sophos-av/bin/savdscan"]
+    },
+    {
+        "name": "Comodo Antivirus",
+        "files": ["/opt/COMODO/cmdscan"]
+    },
+    {
+        "name": "Avast Antivirus",
+        "files": ["/usr/bin/avast"]
+    },
+    {
+        "name": "AVG Antivirus",
+        "files": ["/usr/bin/avgscan", "/usr/sbin/avgscan"]
+    },
+    {
+        "name": "McAfee VirusScan",
+        "files": ["/opt/NAI/LinuxShield/bin/uvscan", "/opt/NAI/LinuxShield/bin/uvscan.real"]
+    },
+    {
+        "name": "Norton AntiVirus",
+        "files": ["/opt/Symantec/symantec_antivirus/navscan", "/opt/Symantec/symantec_antivirus/sav"]
+    },
+    {
+        "name": "Bitdefender Antivirus",
+        "files": ["/opt/BitDefender-scanner/bin/bdscan"]
+    },
+    {
+        "name": "Kaspersky Antivirus",
+        "files": ["/opt/kaspersky/kesl/bin/kesl-control"]
+    },
+    {
+        "name": "ESET NOD32 Antivirus",
+        "files": ["/usr/bin/nod32"]
+    },
+    {
+        "name": "Trend Micro Antivirus",
+        "files": ["/opt/TrendMicro/OfficeScan/bin/TmListen"]
+    },
+    {
+        "name": "F-Secure Antivirus",
+        "files": ["/opt/f-secure/fsav/bin/fsavd"]
+    },
+    {
+        "name": "Panda Antivirus",
+        "files": ["/usr/bin/panda"]
+    },
+    {
+        "name": "Avira Antivirus",
+        "files": ["/opt/avira/scancl"]
+    },
+    {
+        "name": "Dr.Web Antivirus",
+        "files": ["/opt/drweb/drwebd.real"]
+    },
+    {
+        "name": "Immunet Antivirus",
+        "files": ["/usr/local/bin/clamscan"]
+    },
+    {
+        "name": "Vexira Antivirus",
+        "files": ["/opt/vexira/scan"]
+    },
+    {
+        "name": "Emsisoft Anti-Malware",
+        "files": ["/opt/emsisoft/emsscanner"]
+    },
+    {
+        "name": "Quick Heal Antivirus",
+        "files": ["/opt/quickheal/av/bin/scan"]
+    },
+    {
+        "name": "Fortinet Antivirus",
+        "files": ["/opt/fortinet/forticlient/antivirus/fcag.exe"]
+    },
+    {
+        "name": "Ikarus Antivirus",
+        "files": ["/opt/ikarus/scancl"]
+    },
+    {
+        "name": "Zoner Antivirus",
+        "files": ["/opt/zav/bin/zavd"]
+    },
+    {
+        "name": "Zillya! Antivirus",
+        "files": ["/opt/zillya/bin/zillya-scanner"]
+    },
+    {
+        "name": "Vba32 Antivirus",
+        "files": ["/opt/vba32/bin/vba32scan"]
+    },
+    {
+        "name": "ClamTk Antivirus",
+        "files": ["/usr/bin/clamtk"]
+    },
+    {
+        "name": "Panda Antivirus for Linux",
+        "files": ["/opt/panda/PandaAdminSecure/pavcl"]
+    }
+
+]

@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/bt_security/install.sh install

@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/txcdn/install.sh install

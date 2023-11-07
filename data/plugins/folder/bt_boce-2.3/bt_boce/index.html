@@ -1,0 +1,465 @@
+<style type="text/css">
+    .boce_name_style,.boce_url_style{
+        width: 130px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .scanning_ip{
+        width: 150px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+		.unit-span{
+			background-color: #f6f6f6;
+			height: 31px;
+			width: 40px;
+			line-height: 31px;
+			display: inline-block;
+			text-align: center;
+			border: 1px solid #ccc;
+			border-left: none;
+		}
+</style>
+
+<div class="bt-form pd15">
+    <div class=""><button class="btn btn-success btn-sm create_boce_task">添加拨测任务</button></div>
+    <div class="divtable mt10">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th width="20%">任务名称</th>
+                    <th width="20%">URL地址</th>
+                    <th width="10%">周期</th>
+                    <th width="10%">状态</th>
+                    <th width="17%">上次执行时间</th>
+                    <th width="23%" style="text-align:right;">操作</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="boce_box" style="height: 400px;overflow: auto;">
+            <table class="table table-hover" id="boce_list_table">
+                <thead></thead>
+                <tbody id="boce_list"></tbody>
+            </table>
+        </div>
+    </div>
+    <ul class="help-info-text c7 ptb15 mlr20">
+        <li>拨测失败过多的情况下将及时发送至邮箱</li>
+        <li>设置邮箱在面板设置--告警通知--告警设置--邮箱</li>
+        <li>目前仅支持邮件发送拨测信息</li>
+        <li>2.0更新之后以前的记录需要重新建立才能正常的发送报警邮箱</li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    var bt_boce = {
+        plugin_name : 'bt_boce',
+        boce_form_log_id: null,
+        all_boce: [],
+        all_task_logs: [],
+        logs_url: '',
+        from_info:{
+            name:'',
+            url:'',
+            cycle: 10,
+        },
+        init:function(){
+            var _that  = this;
+            _that.create_boce_list();
+            $('.layui-layer-page').css({ 'width': '830px' });
+            $(".create_boce_task").click(function(){
+                _that.edit_boce_dialog(_that.from_info);
+            })
+            
+        },
+        create_boce_list:function(){
+            var _that = this;
+            _that.get_boce_list(function(res){
+                var _tbody = '';
+                _that.all_boce = res.data;
+                if(res.data.length > 0){
+                    for(var i = 0; i<res.data.length; i++){
+                        _tbody += '<tr>\
+                            <td width="20%"><span class="boce_name_style" title="'+res.data[i].name+'">'+res.data[i].name+'</span></td>\
+                            <td width="20%"><a href="'+res.data[i].url+'" target="_blank" class="btlink"><span class="boce_url_style" title="'+res.data[i].url+'">'+res.data[i].url+'</span></a></td>\
+                            <td width="10%">'+res.data[i].cycle+'分钟</td>\
+                            <td width="10%">'+(res.data[i].status == '1'? '<a href="javascript:;" style="color:#20a53a" onclick="bt_boce.set_boce('+res.data[i].id+',0,\''+res.data[i].name+'\')">正常<span class="glyphicon glyphicon-play"></span></a>': '<a href="javascript:;" style="color:red" onclick="bt_boce.set_boce('+res.data[i].id+',1,\''+res.data[i].name+'\')">停用<span class="glyphicon glyphicon-pause"></span>')+'</td>\
+                            <td width="17%">'+bt.format_data(res.data[i].addtime)+'</td>\
+                            <td width="23%" style="text-align:right;"><a class="btlink" onclick="bt_boce.run_boce('+res.data[i].id+',\''+res.data[i].url+'\')">执行</a>&nbsp;|&nbsp;<a class="btlink" onclick="bt_boce.logs_boce('+i+')">记录</a>&nbsp;|&nbsp;<a class="btlink" onclick="bt_boce.edit_dan_boce('+i+')">编辑</a>&nbsp;|&nbsp;<a class="btlink" onclick="bt_boce.delete_boce('+res.data[i].id+',\''+res.data[i].name+'\')">删除</a></td>\
+                            </tr>'
+                    }
+                }else{
+                    _tbody = '<tr><td style="text-align:center">没有数据</td></tr>'
+                }
+                $("#boce_list").html(_tbody);
+            });
+        },
+        // 修改boce
+        edit_dan_boce:function(index){
+            this.edit_boce_dialog(this.all_boce[index]);
+        },
+        // 执行
+        run_boce:function(id,url){
+            var _that = this;
+            _that.run_boce_list({id:id},function(res){
+                _that.all_task_logs = res;
+                _that.create_boce_execute_task_table(res,'查看扫描拨测结果【 '+ url +' 】')
+            })
+        },
+        // 记录
+        logs_boce:function(indexs,pages){
+            var _this = this,obj = this.all_boce[indexs];
+            _this.logs_url =obj.url;
+                layer.open({
+                    type: 1,
+                    title: '查看任务记录-【'+ obj.name +'】',
+                    closeBtn: 2,
+                    area: ['1100px','560px'],
+                    content: '<div class="divtable pd15"><table class="table table-hover">\
+                        <thead><tr>\
+                            <th width="15%">ID</th>\
+                            <th width="10%">平均耗时</th>\
+                            <th width="17%">最快</th>\
+                            <th width="17%">最慢</th>\
+                            <th width="15%">执行时间</th>\
+                            <th width="10%">状态</th>\
+                            <th width="16%" style="text-align:right;">操作</th>\
+                        </tr></thead>\
+                        <tbody></tbody></table>\
+                        <div style="max-height: 500px;overflow: auto;"><table class="table table-hover">\
+                            <thead></thead>\
+                            <tbody id="logs_boce_table"></tbody>\
+                        </table></div>\
+                        <div style="" class="boce_task_page page"></div></div>',
+                    success:function(layers,index){
+                        _this.set_task_log_list(obj)
+                        
+                    }
+                })
+        },
+        set_task_log_list:function(obj,pages){
+            var _this = this;
+            _this.boce_form_log_id = obj.id;
+            this.get_task_log({pid:obj.id,p:pages == undefined ? 1:pages},function(res){
+                var _tbody = '',_data = res.data;
+                _this.all_task_logs = _data
+                for(var i = 0; i<_data.length; i++){
+                    _tbody += '<tr>\
+                        <td width="15%">'+_data[i].id+'</td>\
+                        <td width="10%">'+_data[i].avgrage+'ms</td>\
+                        <td width="17%">'+_data[i].min_isp + '('+_data[i].min+'ms)</td>\
+                        <td width="17%">'+_data[i].min_isp + '('+_data[i].max+'ms)</td>\
+                        <td width="15%">'+bt.format_data(_data[i].addtime)+'</td>\
+                        <td width="10%"><span style="color:'+ ( _data[i].status == 1?'#20a53a':'#FF5722' ) +';">'+ (_data[i].status == 1?'执行成功':'执行错误') +'</span></td>\
+                        <td width="16%" style="text-align:right;"><a class="btlink" onclick="bt_boce.open_details_boce('+i+',\''+_this.logs_url+'\',\''+bt.format_data(_data[i].addtime)+'\')">查看详情</a>&nbsp;|&nbsp;<a class="btlink" onclick="bt_boce.delete_boce_info_log('+_data[i].id+')">删除</a></td>\
+                        </tr>'
+                }
+                $("#logs_boce_table").html(_tbody);
+                $(".boce_task_page").html(res.page.page)
+                $('.boce_task_page').on('click','a',function(e){
+                    var page = $(this).attr('href').replace('/plugin?action=a&name=bt_boce&s=get_task_log&p=','');
+                    _this.set_task_log_list({id:obj.id},page);
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+        },
+        // 查看详情
+        open_details_boce:function(index,url,time){
+            this.create_boce_execute_task_table(this.all_task_logs[index].data,'查看任务记录-【 URL：'+ url +' ，执行时间：'+ time +' 】')
+        },
+        // 记录删除
+        delete_boce_info_log:function(id){
+            var _that = this;
+            bt.confirm({msg:'是否删除【ID:'+ id +'】任务记录',title:'删除任务记录',icon:3},function(index){
+                _that.remove_task_log({id:id},function(res){
+                    if(res.status) _that.set_task_log_list({id:_that.boce_form_log_id},1);
+                    layer.msg(res.msg,{icon:res.status?1:2});
+                })
+            })
+        },
+        // 删除
+        delete_boce:function(id,_name){
+            var _that = this;
+            bt.confirm({msg:'是否删除【'+ _name +'】拨测任务',title:'删除拨测任务',icon:3},function(index){
+                _that.delete_boce_list({id:id},function(res){
+                    if(res.status) _that.create_boce_list();
+                    layer.msg(res.msg,{icon:res.status?1:2});
+                })
+            })
+        },
+        create_boce_execute_task_table:function(data,title){
+            var _this = this;
+            layer.open({
+                type: 1,
+                title: title,
+                closeBtn: 2,
+                area: ['1300px','650px'],
+                content: '<div class="divtable pd15"><table class="table table-hover">\
+                    <thead><tr>\
+                        <th width="10%">ISP</th>\
+                        <th width="17%">解析IP</th>\
+                        <th width="8%">状态</th>\
+                        <th width="8%">总耗时</th>\
+                        <th width="8%">解析耗时</th>\
+                        <th width="8%">连接耗时</th>\
+                        <th width="8%">处理耗时</th>\
+                        <th width="8%">响应大小</th>\
+                        <th width="8%">传输速度</th>\
+                        <th width="17%">响应头</th>\
+                    </tr></thead>\
+                    <tbody></tbody></table>\
+                    <div style="max-height: 500px;overflow: auto;"><table class="table table-hover">\
+                        <thead></thead>\
+                        <tbody id="run_boce_table"></tbody>\
+                    </table></div></div>',
+                success:function(layers,index){
+                    var _tbody = '';
+                    for(var i = 0; i<data.length; i++){
+                        _tbody += '<tr>\
+                            <td width="10%">'+data[i].isp+'</td>\
+                            <td width="17%"><span class="scanning_ip" title="'+data[i].primary_ip+'">'+data[i].primary_ip+'</span></td>\
+                            <td width="8%"><span style="color:'+ ( data[i].http_code == 200?'#20a53a':'#FF5722' ) +';">'+ data[i].http_code +'</span></td>\
+                            <td width="8%">'+_this.set_time_limit(1000,500,data[i].total_time,'ms')+'</td>\
+                            <td width="8%">'+_this.set_time_limit(500,100,data[i].namelookup_time,'ms')+'</td>\
+                            <td width="8%">'+_this.set_time_limit(500,100,data[i].connect_time,'ms')+'</td>\
+                            <td width="8%">'+_this.set_time_limit(1000,500,data[i].starttransfer_time,'ms')+'</td>\
+                            <td width="8%">'+bt.format_size(data[i].size_download)+'</td>\
+                            <td width="8%">'+bt.format_size(data[i].speed_download) +'/s'+'</td>\
+                            <td width="17%"><span style="width:150px; overflow: auto;display: inline-block;text-overflow: ellipsis;white-space: nowrap;" title="'+data[i].header+'">'+(data[i].header?data[i].header:'')+'</span></td>\
+                            </tr>'
+                    }
+                    setTimeout(function () {
+                        $("#run_boce_table").html(_tbody)
+                    }, 200);
+                }
+            })
+        },
+        // 设置时间额度
+        set_time_limit(limit1,limit2,data,units){
+            var style_s = '';
+            if(data > limit1){
+                style_s = 'color:#FF5722';
+            }else if(data > limit2){
+                style_s = 'color:#FFB800';
+            }
+            return '<span style="'+ style_s +'">' + data.toFixed(2) + units +'</span>';
+        },
+        // 单一拨测开关
+        set_boce:function(id,num,name){
+            var _that = this;
+            this.set_boce_status({id:id,status:num,name2:name},function(res){
+                if(res.status) layer.msg(res.msg,{icon:res.status?1:2})
+                _that.create_boce_list()
+            })
+        },
+        // 添加、编辑拨测窗口
+        edit_boce_dialog:function(obj){
+            var _that = this;
+            layer.open({
+                type: 1,
+                title: obj.id == undefined ?'添加拨测任务':'编辑拨测任务',
+                closeBtn: 2,
+		        btn:['确定','取消'],
+                area: '450px',
+                content: '<div class="add-assets-config-box">\
+                <form class="bt-form" style="padding:30px 15px;display:inline-block">\
+                    <div class="line">\
+                        <span class="tname">名称</span>\
+                        <div class="info-r">\
+                            <input name="boce_name" autocomplete="off" class="bt-input-text mr5" type="text" placeholder="请输入拨测任务名称" style="width:270px" value="'+ obj.name +'">\
+                        </div>\
+                    </div>\
+                    <div class="line">\
+                        <span class="tname">URL地址</span>\
+                        <div class="info-r">\
+                            <input name="boce_url" autocomplete="off" class="bt-input-text mr5" type="text" placeholder="请输入正确的URL地址,包含“http://” 或“https://”" style="width:270px" value="'+ obj.url +'">\
+                        </div>\
+                    </div>\
+                    <div class="line">\
+                        <span class="tname">周期</span>\
+                        <div class="info-r">\
+                            <input name="boce_cycle" autocomplete="off" class="bt-input-text mr5" type="number" placeholder="请输入任务周期时间" style="width:270px" value="'+ obj.cycle +'"><span class="unit-span">分</span>\
+                        </div>\
+                    </div>\
+                </form>\
+                </div>',
+                yes:function(index,layers){
+                    var _name = $("input[name='boce_name']").val(),_url = $("input[name='boce_url']").val(), _cycle = $("input[name='boce_cycle']").val();
+                    if(_name == ''){
+                        return layer.msg('请输入拨测任务名称',{icon:2})
+                    }else if(!bt.check_url(_url)){
+                        return layer.msg('请输入正确的URL地址',{icon:2})
+                    }else if(_cycle == ''){
+                        return layer.msg('请输入周期',{icon:2})
+                    }
+                    if(obj.id != undefined){
+                        _that.edit_boce_list({id:obj.id,name2:_name,url:_url,cycle:_cycle},function(res){
+                            if(res.status){
+                                layer.msg(res.msg, {icon:1})
+                                layer.close(index);
+                                _that.create_boce_list()
+                            }else{
+                                layer.msg(res.msg,{icon:2})
+                            }
+                        })
+                    }else{
+                        _that.add_boce_task({name2:_name,url:_url,cycle:_cycle},function(res){
+                            if(res.status){
+                                layer.msg(res.msg, {icon:1})
+                                layer.close(index);
+                                _that.create_boce_list()
+                            }else{
+                                layer.msg(res.msg,{icon:2})
+                            }
+                        })
+                    }
+                }
+            })
+        },
+        // 获取拨测数据
+        get_boce_list:function(callback){
+            this.send({
+                tips: '正在获取拨测数据中，请稍后。。。',
+                method: 'get_list',
+                success: function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 添加拨测任务
+        add_boce_task:function(obj,callback){
+            this.send({
+                tips: '正在添加拨测任务中，请稍后。。。',
+                method: 'create',
+                data: obj,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 执行boce数据
+        run_boce_list:function(obj,callback){
+            this.send({
+                tips: '正在进行任务，可能需要较长时间，请稍后。。。',
+                method: 'start',
+                data: obj,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // boce记录
+        get_task_log:function(obj,callback){
+            this.send({
+                tips: '正在拨测任务记录中，请稍后。。。',
+                method: 'get_task_log',
+                data: obj,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 修改boce数据
+        edit_boce_list:function(obj,callback){
+            this.send({
+                tips: '正在修改拨测数据中，请稍后。。。',
+                method: 'modify',
+                data: obj,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 删除boce
+        delete_boce_list:function(obj,callback){
+            this.send({
+                tips: '正在删除拨测数据中，请稍后。。。',
+                method: 'remove',
+                data: obj,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 删除任务记录
+        remove_task_log:function(obj,callback){
+            this.send({
+                tips: '正在删除据任务记录中，请稍后。。。',
+                method: 'remove_task_log',
+                data: obj,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 设置boce状态
+        set_boce_status:function(obj,callback){
+            this.send({
+                tips: '正在修改拨测任务中，请稍后。。。',
+                method: 'modify',
+                data: obj,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 请求封装模块
+		send: function (obj) {
+			var loadT = '';
+			if (obj.load == undefined) obj.load = 0;
+			if (obj.url == undefined) {
+				if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this.plugin_name
+				if (!obj.plugin_name || !obj.method) {
+					layer.msg('插件类名称，或插件方法名称缺失!', {
+						icon: 2
+					});
+					return false;
+				}
+			}
+			if (obj.load === 0 || obj.tips != '') {
+				loadT = layer.msg(obj.tips, {
+					icon: 16,
+					time: 0,
+					shade: 0.3
+				});
+			} else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+				loadT = layer.load();
+			}
+			$.ajax({
+				type: 'POST',
+				url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+				data: obj.data || {},
+				timeout: obj.timeout || 99999999,
+				complete: function (res) {
+					if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+				},
+				success: function (rdata) {
+					if (obj.check) {
+						obj.success(rdata);
+						return false
+					}
+					if (rdata.status === false) {
+						layer.msg(rdata.msg, { icon: 2 });
+						return false;
+					}
+					obj.success(rdata);
+				},
+				error: function (ex) {
+					if (!obj.error) {
+						obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+							icon: 2
+						}) : '';
+						return;
+					}
+					return obj.error(ex);
+				}
+			});
+		}
+    }
+    bt_boce.init();
+</script>

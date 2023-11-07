@@ -1,0 +1,1630 @@
+<style>
+    #top {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    .line .tname {
+        width: 148px;
+    }
+
+    .steps {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .steps .steps_circle {
+        width: 52px;
+        height: 52px;
+        line-height: 51px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 50%;
+        background-color: #D0D0D0;
+        color: #666;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 99;
+    }
+
+    .steps .steps_circle:nth-child(n+2)::after {
+        content: '';
+        position: absolute;
+        height: 3px;
+        background: #D0D0D0;
+        width: 309%;
+        left: -309%;
+        top: 26px;
+        margin-top: -1.5px;
+        z-index: 98;
+    }
+
+    .steps .steps_circle_active {
+        background-color: #20a53a;
+        color: #fff;
+    }
+
+    .steps .steps_circle_active:nth-child(n+2)::after {
+        background-color: #20a53a;
+    }
+
+    .steps .steps_circle_text_active {
+        color: #20a53a;
+    }
+
+    .bt_search {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+    }
+
+    .bt_search .search_input {
+        height: 30px;
+        line-height: 30px;
+        border-radius: 2px;
+        border: 1px solid #ccc;
+        outline: none;
+        padding-left: 8px;
+        vertical-align: top;
+        width: 230px;
+    }
+
+    .bt_search .glyphicon-search {
+        height: 28px;
+        line-height: 28px;
+        padding: 0 10px;
+        color: #888;
+        position: absolute;
+        right: 0;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .bt-checkbox, .bt-checkbox-all {
+        height: 18px;
+        width: 18px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        margin-right: 8px;
+        position: relative;
+    }
+
+    .item-all,
+    .item {
+        height: 36px;
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid rgb(242, 242, 242);
+        justify-content: flex-start;
+        align-items: center;
+        padding: 9px 16px;
+    }
+
+    .item-all {
+        border: 1px solid rgb(242, 242, 242);
+        border-top: 0;
+    }
+
+    .item_header {
+        height: 36px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #e9e9e954;
+        padding: 9px 16px;
+        border-bottom: 1px solid rgb(242, 242, 242);
+    }
+
+    .hint_title {
+        font-size: 13px;
+        color: #111;
+        display: flex;
+        align-items: center;
+    }
+
+    .hint_title .hint-confirm-icon {
+        background: url(../static/img/hint-confirm-icon.svg) no-repeat;
+        min-width: 40px;
+        height: 40px;
+        align-self: center;
+    }
+
+    /*.item:nth-last-child(1){*/
+    /*  border-bottom: 1px solid rgb(242, 242, 242);*/
+    /*}*/
+    .item .bt-checkbox.active,
+    .item .bt-checkbox.active1,
+    .item-all .bt-checkbox-all.active,
+    .item-all .bt-checkbox-all.active1 {
+        background-color: #20a53a;
+        border-color: #20a53a;
+    }
+
+    .item .bt-checkbox.active::after,
+    .item-all .bt-checkbox-all.active::after {
+        content: '';
+        display: block;
+        width: 11px;
+        height: 5.5px;
+        transform: rotate(-45deg);
+        border-bottom: 2px solid #fff;
+        border-left: 2px solid #fff;
+        margin: 3px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -5px;
+        margin-top: -4px;
+    }
+
+    .item-all .bt-checkbox-all.active1::after,
+    .item .bt-checkbox.active1::after {
+        content: '';
+        display: block;
+        width: 9px;
+        height: 2px;
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -4.5px;
+        margin-top: -1px;
+    }
+
+    .choose_database {
+        height: 359px;
+        width: 401px;
+        border-top: 1px solid rgb(242, 242, 242);
+        border-left: 1px solid rgb(242, 242, 242);
+        border-bottom: 1px solid rgb(242, 242, 242);
+    }
+
+    .choose_database_table {
+        height: 359px;
+        width: 401px;
+        border: 1px solid rgb(242, 242, 242);
+        margin: 0 0 0 -1px;
+        z-index: 0;
+    }
+
+    #create_pop_config_main {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+
+    .item_main_table,
+    .item_main {
+        height: 286px;
+        overflow: auto;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    #create_pop_config_main::-webkit-scrollbar {
+        display: none;
+    }
+
+    .item_main_table {
+        height: 321px;
+    }
+
+    .item_main_table::-webkit-scrollbar,
+    .item_main::-webkit-scrollbar {
+        display: none;
+    }
+
+    .line-li {
+        height: 40px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        letter-spacing: 0;
+        text-align: left;
+    }
+
+    .collapse {
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .text_content {
+        display: none;
+		padding: 10px;
+    }
+
+    .text_success {
+        color: #20A53A;
+    }
+
+    .text_error {
+        color: #919191;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .daily-table .daily-title {
+        font-weight: bold;
+        background: #f7f7f7;
+
+    }
+
+    .divtable .table {
+        border: 0.5px solid #ddd;
+        color: #666;
+        font-size: 12px;
+        margin-bottom: 0;
+        word-break: break-all;
+    }
+
+    .daily-table tr td {
+        border-right: 1px solid #ddd;
+    }
+
+    .text_content_item {
+        border-bottom: 1px solid rgb(229, 229, 229);
+        margin-top: 7px;
+        padding: 1px 3px 7px 7px;
+    }
+
+    .text_content_item_one {
+        margin-bottom: 5px;
+        margin-left: 10px;
+    }
+
+    .layui-show {
+        display: none;
+        height: 13px;
+        background-size: 13px;
+    }
+
+    .tip {
+        position: absolute;
+        line-height: 22px;
+        color: #777;
+        margin: 20px 0 20px 0;
+        bottom: 0;
+    }
+</style>
+
+<div style="padding: 2rem">
+    <div id="top">
+        <button class="btn btn-sm btn-success creat">创建从数据库</button>
+        <button class="btn btn-sm btn-default refresh" style="margin: 0">刷新同步列表</button>
+    </div>
+    <div id="content">
+        <div id="content-table" style="height: 310px"></div>
+    </div>
+    <div id="bottom">
+    <span class="tip">
+		温馨提示：<br>
+		1. 此插件只需要在主库安装！<br/>
+		<span style="color: red;">2. 当前MySQL主从复制插件仅支持一主多从,如需其他主从模式，请等待后期插件更新。</span><br/>
+		3. 如需修复主从，请严格按照提示进行操作<br/>
+		4. <a class="btlink" target="_blank" href="https://www.bt.cn/bbs/thread-113889-1-1.html">详细使用方法，请点击这里查看教程</a>
+        <a href="https://www.bt.cn/bbs/thread-113889-1-1.html" target="_blank" class="bt-ico-ask" style="cursor: pointer;">?</a>
+	</span>
+    </div>
+</div>
+
+<script>
+  var masterSlave = {
+    plugin_name: 'masterslave',
+    ip_reg: /^((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}$/,
+    port_reg: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{4}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/,
+    db_List: [],
+    table_List: [],
+    checkbox_db_list: [],
+    checkbox_mysql_list: [],
+    checkbox_table_list: [],
+    retinue_server_list: [],
+    master_list: ['file_status', 'dbs', 'port_released', 'gtid_status', 'bin_log_status', 'gtid_support'],
+    master_span: ['主库备份文件状态', '需要同步的数据库', '数据库端口已经对从库放行', 'GTID状态', '二进制日志状态', '数据库版本支持GTID同步'],
+    retinue_list: ['file_status', 'mysql_status', 'slave_ip', 'gtid_status', 'binlog_status', 'server_id', 'read_only', 'port_released'],
+    retinue_span: ['从库恢复文件状态', '数据库版本', '从库IP', 'GTID状态', '二进制日志状态', '服务器同步ID', '读写状态', '主服务器端口放行状态'],
+    replicate_status: false,
+    log_keys: 0,
+    timer_index: '',
+    loadT: [],
+    progress: [],
+    bt_table: '',
+    config: false,
+    send_num: 0,
+    close: false,
+    // 获取实时任务
+    get_task_req: function (data, callback) {
+      bt.send('get_task_lists', 'task/get_task_lists', {
+        status: data.status
+      }, function (res) {
+        if (callback) callback(res);
+      });
+    },
+    /**
+     * @description 获取实时任务视图
+     * @returns void
+     */
+    get_present_task_view: function () {
+      this.file_present_task = layer.open({
+        type: 1,
+        title: "实时任务队列",
+        area: '500px',
+        closeBtn: 2,
+        skin: 'present_task_list',
+        shadeClose: false,
+        shade: false,
+        offset: 'auto',
+        content: '<div style="margin: 10px;" class="message-list"></div>',
+      });
+    },
+    /**
+     * @description 渲染实时任务列表数据
+     * @returns void
+     */
+    render_present_task_list: function () {
+      var that = this;
+      this.get_task_req({status: -3}, function (lists) {
+        if (lists.length == 0) {
+          layer.close(that.file_present_task);
+          that.file_present_task = null;
+          that.reader_file_list({path: that.file_path, is_operating: false});
+          return;
+        }
+        var task_body = '',
+          is_add = false;
+        $.each(lists, function (index, item) {
+          if (item.status == -1) {
+            if (!that.file_present_task) that.get_present_task_view();
+            if (item.type == '1') {
+              task_body += '<div class="mw-con">\
+                            <ul class="waiting-down-list">\
+                                <li>\
+                                    <div class="down-filse-name"><span class="fname" style="width:80%;" title="正在下载: ' + item.shell + '">正在下载: ' + item.shell + '</span><span style="position: absolute;left: 84%;top: 25px;color: #999;">' + item.log.pre + '%</span><span class="btlink" onclick="bt_file.remove_present_task(' + item.id + ')" style="position: absolute;top: 25px;right: 20px;">取消</span></div>\
+                                    <div class="down-progress"><div class="done-progress" style="width:' + item.log.pre + '%"></div></div>\
+                                    <div class="down-info"><span class="total-size"> ' + item.log.used + '/' + ToSize(item.log.total) + '</span><span class="speed-size">' + (item.log.speed == 0 ? '正在连接..' : item.log.speed) + '/s</span><span style="margin-left: 20px;">预计还要: ' + item.log.time + '</span></div>\
+                                </li>\
+                            </ul>\
+                            </div>';
+            } else {
+              task_body += '<div class="mw-title"><span style="max-width: 88%;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">' + item.name + ': ' + item.shell + '</span><span class="btlink" onclick="bt_file.remove_present_task(' + item.id + ')"  style="position: absolute;top: 10px;right: 15px;">取消</span></div>\
+                        <div class="mw-con codebg">\
+                            <code>' + item.log + '</code>\
+                        </div>';
+            }
+          } else {
+            if (!is_add) {
+              task_body += '<div class="mw-title">等待执行任务</div><div class="mw-con"><ul class="waiting-list">';
+              is_add = true;
+            }
+            task_body += '<li><span class="wt-list-name" style="width: 90%;">' + item.name + ': ' + item.shell + '</span><span class="mw-cancel" onclick="bt_file.remove_present_task(' + item.id + ')">X</span></li>';
+          }
+        });
+        if (that.file_present_task) {
+          if (is_add) task_body += '</ul></div>';
+          $(".message-list").html(task_body);
+        }
+        setTimeout(function () {
+          that.render_present_task_list();
+        }, 1000);
+      });
+    },
+    //请求接口配置
+    api: {
+      getConfigList: function (slave_ip, cheek = false, ...callback) {
+        var suuccess = 0;
+        if ($(".create").length == 0) {
+          return;
+        }
+        if (cheek) {
+          bt_tools.send('plugin?action=a&name=mysql_replicate&s=get_replicate_conf', {slave_ip: slave_ip}, function (rdata) {
+            callback[0](rdata.data);
+          });
+        } else {
+          $.post('plugin?action=a&name=mysql_replicate&s=get_replicate_conf', {slave_ip: slave_ip}, function (rdata) {
+            if (rdata.status) {
+              for (var i = 0; i < rdata.data.length; i++) {
+                if (!rdata.data[i].status) {
+                  masterSlave.popover.create.config.renderingConfig(rdata.data, true);
+                  if(!masterSlave.config){
+                    $($('.layui-layer-btn0')[0]).hide();
+                    masterSlave.api.send({slave_ip: slave_ip, action_name: rdata.data[i].api}, rdata.data[i].msg);
+                  }
+                  return;
+                } else {
+                  masterSlave.popover.create.config.renderingConfig(rdata.data, true);
+                  suuccess++;
+                }
+              }
+              if (suuccess < rdata.data.length - 1) {
+                $($('.layui-layer-btn0')[0]).text('重新配置');
+                $($('.layui-layer-btn0')[0]).off().click(function () {
+                  masterSlave.api.getConfigList(slave_ip);
+                });
+              }else {
+                $($('.layui-layer-btn0')[0]).hide();
+              }
+            } else {
+              layer.msg(rdata.msg, {icon: 2});
+              callback[0](rdata.data);
+            }
+          });
+        }
+
+      },
+      send: function (data, msg) {
+        $($('.layui-layer-btn0')[0]).hide();
+        $('#' + data.action_name + ' .text_error .layui-show').show();
+        $.post('plugin?action=a&name=mysql_replicate&s=replicate_main', data, function (rdata) {
+          if (rdata.status) {
+            //业务逻辑
+            switch (data.action_name) {
+              case 'export_dump_database':
+                if (rdata.type != undefined) {
+                  if (rdata.type == 1) {
+                    masterSlave.render_present_task_list();
+                    layer.msg(rdata.msg, { icon: 1, time:0, closeBtn:2, shade: [0.3, '#000']});
+                  }else{
+                      bt_tools.msg(rdata)
+                  }
+                  $($('.layui-layer-btn0')[0]).show();
+                  $($('.layui-layer-btn0')[0]).text('重新配置');
+                  $($('.layui-layer-btn0')[0]).off().click(function (){
+                    masterSlave.api.getConfigList(data.slave_ip)
+                  })
+                  $('#' + data.action_name + ' .text_error .layui-show').hide();
+                  return;
+                }
+                break;
+              case 'upload_database_file':
+                if (rdata.type != undefined && rdata.type == 1) {
+                  layer.confirm(rdata.msg, {
+                    icon: 3,
+                    closeBtn: 2,
+                    title: '警告',
+                    btn: ['立即上传', '已手动上传'],
+                    cancel: function (index, layero) {
+                        $($('.layui-layer-btn0')[0]).show();
+                      $($('.layui-layer-btn0')[0]).text('重新配置');
+                      $($('.layui-layer-btn0')[0]).off().click(function () {
+                        masterSlave.api.send({
+                          slave_ip: data.slave_ip,
+                          action_name: 'upload_database_file',
+                        }, '上传数据库');
+                        return;
+                      });
+                      $('#' + data.action_name + ' .text_error .layui-show').hide()
+                      layer.close(layer.index);
+                    },
+                  }, function () {
+                    masterSlave.api.send({
+                      slave_ip: data.slave_ip,
+                      action_name: 'upload_database_file',
+                      type: 1,
+                    }, '上传数据库');
+                    layer.close(layer.index);
+                  }, function () {
+                    $($('.layui-layer-btn0')[0]).show();
+                    $($('.layui-layer-btn0')[0]).text('重新配置');
+                    $($('.layui-layer-btn0')[0]).off().click(function () {
+                      masterSlave.api.send({
+                        slave_ip: data.slave_ip,
+                        action_name: 'upload_database_file',
+                        type: 2,
+                      }, '上传数据库');
+                      return;
+                    });
+                    $('#' + data.action_name + ' .text_error .layui-show').hide();
+                    layer.close(layer.index);
+                  });
+                  return;
+                }
+                break;
+              case 'check_slave_conf':
+                if (rdata.type != undefined) {
+                  layer.confirm(rdata.msg, {
+                    icon: 3, title: '警告', closeBtn: 2,
+                    cancel: function (index, layero) {
+                      $($('.layui-layer-btn0')[0]).show();
+                      $($('.layui-layer-btn0')[0]).text('重新配置');
+                      $($('.layui-layer-btn0')[0]).off().click(function () {
+                        masterSlave.api.send({
+                          slave_ip: data.slave_ip,
+                          action_name: 'check_slave_conf',
+                        }, '从库配置信息检查并配置');
+                        return;
+                      });
+                      $('#' + data.action_name + ' .text_error .layui-show').hide();
+                      layer.close(index);
+                    },
+                  }, function () {
+                    masterSlave.api.send({
+                      slave_ip: data.slave_ip,
+                      action_name: 'check_slave_conf',
+                      type: 1,
+                      msg: '重新配置',
+                    });
+                    layer.close(layer.index);
+                  }, function () {
+                    $($('.layui-layer-btn0')[0]).show();
+                    $($('.layui-layer-btn0')[0]).text('重新配置');
+                    $($('.layui-layer-btn0')[0]).off().click(function () {
+                      masterSlave.api.send({
+                        slave_ip: data.slave_ip,
+                        action_name: 'check_slave_conf',
+                      }, '从库配置信息检查并配置');
+                      return;
+                    });
+                    $('#' + data.action_name + ' .text_error .layui-show').hide();
+                    layer.close(layer.index);
+                  });
+                  return;
+                }
+                break;
+              case 'start_replicate':
+                bt_tools.msg(rdata);
+                layer.close(masterSlave.popover.create.id);
+                masterSlave.bt_table.$refresh_table_list(true);
+                masterSlave.popover.create.stepsNum=1;
+                return;
+            }
+
+            //判断我在那一层
+            masterSlave.api.getConfigList(data.slave_ip, false, function () {
+              $($('.layui-layer-btn0')[0]).text('重新配置')
+              $($('.layui-layer-btn0')[0]).off().click(function () {
+                masterSlave.api.send(data, msg)
+              })
+              $('#' + data.action_name + ' .text_error .layui-show').hide()
+            })
+          } else {
+            bt_tools.msg(rdata)
+            $($('.layui-layer-btn0')[0]).show()
+            $($('.layui-layer-btn0')[0]).text('重新配置')
+            $($('.layui-layer-btn0')[0]).off().click(function () {
+              masterSlave.api.send(data, msg)
+            })
+            $('#' + data.action_name + ' .text_error .layui-show').hide()
+          }
+
+        })
+      },
+      stopReplicate: function (slave_ip) {
+        bt_tools.send({
+          url: 'plugin?action=a&name=mysql_replicate&s=stop_replicate',
+          data: {slave_ip: slave_ip}
+        }, function (rdata) {
+          bt_tools.msg(rdata)
+          masterSlave.bt_table.$refresh_table_list(true)
+        }, '停止主从同步')
+      },
+      startReplicate: function (slave_ip, ...callback) {
+        bt_tools.send({
+          url: 'plugin?action=a&name=mysql_replicate&s=start_replicate',
+          data: {slave_ip: slave_ip}
+        }, function (rdata) {
+          if (callback.length > 0) {
+            callback[0](rdata)
+          }
+          bt_tools.msg(rdata)
+          masterSlave.bt_table.$refresh_table_list(true)
+        }, '启用主从同步')
+      },
+      setupReadonlyStatus: function (slave_ip, status) {
+        bt_tools.send({
+          url: 'plugin?action=a&name=mysql_replicate&s=setup_readonly_status', data: {
+            slave_ip: slave_ip,
+            status: status
+          }
+        }, function (rdata) {
+          masterSlave.bt_table.$refresh_table_list(false)
+          bt_tools.msg(rdata)
+        }, '设置只读状态')
+      },
+      getReplicateInfo: function (slave_ip, ...callback) {
+        bt_tools.send({
+            url: 'plugin?action=a&name=mysql_replicate&s=get_replicate_info',
+            data: {slave_ip: slave_ip}
+          }, function (rdata) {
+            if (callback.length > 0) {
+              callback[0](rdata.data)
+            } else {
+              masterSlave.popover.create.stepsNum = 3
+              masterSlave.open(slave_ip)
+            }
+          }
+        )
+      },
+      getReplicateStatus: function (slave_ip, ...callback) {
+        bt_tools.send({
+            url: 'plugin?action=a&name=mysql_replicate&s=get_replicate_status',
+            data: {slave_ip: slave_ip}
+          }, function (rdata) {
+            if (callback.length > 0) {
+              callback[0](rdata.data)
+            }
+          }
+        )
+      },
+    },
+    //弹窗配置
+    popover: {
+      create: {
+        id: '',
+        title: '创建主从数据库信息',
+        stepsNum: 1,
+        database: [],
+        getDataBaseFlag: true,
+        ip: '',
+        html: '\
+        <div id="create_pop" style="padding: 3rem;padding-bottom: 0;" xmlns="http://www.w3.org/1999/html">\
+          <div>\
+            <div class= "steps">\
+              <div class="steps_circle steps_circle_active">1</div>\
+              <div class="steps_circle">2</div>\
+              <div class="steps_circle">3</div>\
+            </div>\
+            <div class= "steps">\
+              <p class="steps_circle_text steps_circle_text_active">填写从库信息</p>\
+              <p class="steps_circle_text">选择数据库</p>\
+              <p class="steps_circle_text">主从同步配置</p>\
+            </div>\
+          </div>\
+          <div style="margin-top: 3rem;display: flex;flex-direction: column;flex-wrap: wrap;align-items: center;">\
+            <div id="create_pop_form">\
+              <div id="create_pop_top">\
+                <div class="warning_info mb10" style="text-align: center;"><span class="glyphicon glyphicon-alert" style="color: #f39c12; margin-right: 10px;"></span>请填写从库面板api密钥和面板地址!</div>\
+              </div>\
+              <form style="margin-top: 43px">\
+                <div class="line" >\
+					<span class="tname">从库面板地址</span>\
+					<div class="info-r c4"><input class="bt-input-text" type="text" name="panel_addr" placeholder="从面板地址,如：http://1.2.3.4:8888" value="" style="width:330px"></div>\
+				</div>\
+				<div class="line" style="margin-top: 25px">\
+					<span class="tname">从库面板api密钥</span>\
+					<div class="info-r c4" style="display:inline-block;margin-left:0">\
+						<input class="bt-input-text" type="text" name="panel_key" placeholder="从面板api密钥，在从库面板--设置->API内获取" value="" style="width:330px">\
+					</div>\
+					<a href="https://www.bt.cn/bbs/thread-113890-1-1.html" style="display:inline-block" target="_blank" class="btlink ml5">如何获取API秘钥</a>\
+				</div>\
+              </form>\
+            </div>\
+            <div id="create_pop_data_table">\
+              <span style="color: rgb(51, 51, 51);font-family: Noto Sans SC;font-size: 14px;font-weight: 400;line-height: 21px;letter-spacing: 0px;text-align: left;">选择需要同步的数据库和表：</span>\
+                <div style="border: 1px solid #F2F2F2;width: 805px;height: 438px;margin-top: 19px;padding: 17px">\
+                  <div>\
+                    <div class="bt_search">\
+                      <input  type="text" placeholder="搜索数据库" class="search_input"/>\
+                      <span class="glyphicon glyphicon-search " aria-hidden="true"></span>\
+                    </div>\
+                  </div>\
+                  <div class="choose" style="margin-top: 17px">\
+                    <div style="display: flex;flex-direction: row;align-items: flex-start;flex-wrap: nowrap;">\
+                      <div class="choose_database">\
+                        <div>' +
+          '<div class="item_header">' +
+          '<label label class="flex align-center choose-checkbox" >' +
+          '<span style="overflow: hidden;width: 319px;text-overflow: ellipsis;font-weight: 400;color: #666666" title="数据库">数据库</span>' +
+          '</label>' +
+          '</div>' +
+          '</div>' + '\
+                         <div>\
+                            <div class="item-all">\
+                               <label label class="flex align-center choose-checkbox" >\
+                                    <div class="bt-checkbox-all"></div>\
+                                    <span style="overflow: hidden;width: 319px;text-overflow: ellipsis;font-weight: 400;color: #666666" title="全选">全选</span>\
+                                </label>\
+                            </div>\
+                        </div>\
+                        <div class="item_main"></div> \
+                      </div>\
+                      <div class="choose_database_table">\
+                        <div>' +
+          '<div class="item_header">' +
+          '<label label class="flex align-center choose-checkbox" >\
+              <span style="overflow: hidden;width: 319px;text-overflow: ellipsis;font-weight: 400;color: #666666" title="表">表</span>' +
+          '</label>' +
+          '</div>' +
+          '</div>' + '\
+                        <div class="item_main_table"><div style="text-align: center;margin-top: 20px">请选择左侧数据库</div></div> \
+                      </div>\
+                    </div>\
+                    <div></div>\
+                  </div>\
+                </div>\
+            </div>\
+            <div id="create_pop_config">\
+              <div id="create_pop_top" style="background-color: #FDF6EC">\
+                <div class="hint_title" style="width: 805px;height: 60px;padding: 20px"><i class="hint-confirm-icon"></i><div class="hint_con" style="margin-left:10px;color: #ff7600;">请根据提示完成操作,运行过程中请勿关闭此窗口' + "</br>" + '大数据库导出后可自行上传</div></div>\
+              </div>\
+              <div id="create_pop_config_main" style="width: 807px;height: 391px;overflow: auto;margin-top: 27px;border-top: 1px solid #e5e5e5;">\
+              </div>\
+            </div>\
+          </div>\
+        </div>',
+        config: {
+          index: 0,
+          renderingConfig: function (configData, cheek = false) {
+            const createTextContent = function (data) {
+              var html = ''
+              if (data.length == 0) {
+                return html
+              }
+              $.each(data, function (index, value) {
+                html += '\
+                <div class="text_content_item_one">\
+                  <span class="text_content_item_title">' + value.msg + '</span>\
+                </div>'
+              })
+              return html
+            }
+            const ren = function (rdata) {
+              var html = ''
+              $.each(rdata, function (index, value) {
+                if (value.status) {
+                  if (value.msg_list.length == 0) {
+                    // if (value.api == 'export_dump_database') {
+                    //   html += '\
+                    //     <div id="' + value.api + '" class="collapse">\
+                    //         <span>\
+                    //             ●  ' + value.msg + '完成！\
+                    //         </span>\
+                    //         <div>\
+                    //             <a class="btlink re" href="javascript:;">重新导出</a>\
+                    //              <span class="glyphicon" aria-hidden="true" style="margin-left: 10px;width: 12px"></span>\
+                    //         </div>\
+                    //     </div>\
+                    //     '
+                    // } else if (value.api == 'upload_database_file') {
+                    //   html += '\
+                    //     <div id="' + value.api + '" class="collapse">\
+                    //         <span>\
+                    //             ●  ' + value.msg + '完成！\
+                    //         </span>\
+                    //         <div>\
+                    //             <a class="btlink re" href="javascript:;">重新上传</a>\
+                    //             <span class="glyphicon" aria-hidden="true" style="margin-left: 10px;width: 12px"></span>\
+                    //         </div>\
+                    //     </div>'
+                    // } else if (value.api == 'import_dump_database') {
+                    //   html += '\
+                    //     <div id="' + value.api + '" class="collapse">\
+                    //         <span>\
+                    //             ●  ' + value.msg + '完成！\
+                    //         </span>\
+                    //         <div>\
+                    //             <a class="btlink re" href="javascript:;">重新导入</a>\
+                    //             <span class="glyphicon" aria-hidden="true" style="margin-left: 10px;width: 12px"></span>\
+                    //         </div>\
+                    //     </div>'
+                    // } else {
+                    html += '\
+                        <div id="' + value.api + '" class="collapse">\
+                          <span class="text_success">\
+                              ●  ' + value.msg + '完成！\
+                          </span>\
+                        </div>\
+                      '
+                    // }
+                  } else {
+                    // if (value.api == 'export_dump_database') {
+                    //   html += '\
+                    //     <div id="' + value.api + '" class="collapse">\
+                    //         <span>\
+                    //             ●  ' + value.msg + '完成！\
+                    //         </span>\
+                    //         <div>\
+                    //             <a class="btlink re" href="javascript:;">重新导出</a>\
+                    //             <span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-left: 10px;"></span>\
+                    //         </div>\
+                    //     </div>\
+                    //     <div class="text_content">\
+                    //           ' + createTextContent(value.msg_list) + '\
+                    //     </div>\
+                    //     '
+                    // } else if (value.api == 'upload_database_file') {
+                    //   html += '\
+                    //     <div id="' + value.api + '" class="collapse">\
+                    //         <span>\
+                    //             ●  ' + value.msg + '完成！\
+                    //         </span>\
+                    //         <div>\
+                    //             <a class="btlink re" href="javascript:;">重新上传</a>\
+                    //             <span className="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-left: 10px;"></span>\
+                    //         </div>\
+                    //     </div>\
+                    //     <div class="text_content">\
+                    //           ' + createTextContent(value.msg_list) + '\
+                    //     </div>\
+                    //     '
+                    // } else if (value.api == 'import_dump_database') {
+                    //   html += '\
+                    //     <div id="' + value.api + '" class="collapse">\
+                    //         <span>\
+                    //             ●  ' + value.msg + '完成！\
+                    //         </span>\
+                    //         <div>\
+                    //             <a class="btlink re" href="javascript:;">重新导入</a>\
+                    //             <span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-left: 10px;"></span>\
+                    //         </div>\
+                    //     </div>\
+                    //     <div class="text_content">\
+                    //           ' + createTextContent(value.msg_list) + '\
+                    //     </div>\
+                    //     '
+                    // } else {
+                    html += '\
+                        <div id="' + value.api + '" class="collapse">\
+                          <span class="text_success">\
+                               ●  ' + value.msg + '完成！\
+                          </span>\
+                          <div>\
+                              <span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-left: 10px;"></span>\
+                          </div>\
+                        </div>\
+                        <div class="text_content">\
+                              ' + createTextContent(value.msg_list) + '\
+                        </div>'
+                    // }
+                  }
+                } else {
+                  if (value.msg_list.length == 0) {
+                    html += '\
+                    <div id="' + value.api + '" class="collapse">\
+                      <span class="text_error">\
+                          ●  ' + value.msg + '未完成！\
+                          <i class="layui-layer-ico layui-layer-ico16 layui-show"></i>\
+                      </span>\
+                      <div>\
+                        <span class="glyphicon" aria-hidden="true" style="margin-left: 10px;width: 12px"></span>\
+                      </div>\
+                    </div>\
+                    <div class="text_content_info">\
+                      ' + createTextContent(value.msg_list) + '\
+                    </div>'
+                  } else {
+                    html += '\
+                  <div id="' + value.api + '" class="collapse">\
+                    <span class="text_error">\
+                        ●  ' + value.msg + '未完成！\
+                        <i class="layui-layer-ico layui-layer-ico16 layui-show"></i>\
+                    </span>\
+                    <div>\
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-left: 10px;"></span>\
+                    </div>\
+                  </div>\
+                  <div class="text_content_info">\
+                    ' + createTextContent(value.msg_list) + '\
+                  </div>'
+                  }
+                }
+              })
+              $('#create_pop_config_main').html(html)
+              // $('.re').click(function (e) {
+              //   var reg = new RegExp(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/);
+              //   const ip_path = $('#create_pop_form input[name="panel_addr"]').val()
+              //   const actionName = $(this).parents('.collapse').attr('id')
+              //   console.log($(this).parents('.collapse').attr('id'))
+              //   if (actionName == 'export_dump_database') {
+              //     layer.confirm('是否导出数据库？', {icon: 3, title: '提示'}, function (index) {
+              //       masterSlave.api.send({
+              //         slave_ip: ip_path.match(reg)[0],
+              //         action_name: actionName,
+              //         type: 1
+              //       }, '导出数据库')
+              //       layer.close(index);
+              //     });
+              //     return
+              //   } else if (actionName == 'upload_database_file') {
+              //     layer.confirm('是否上传数据库文件？', {icon: 3, title: '提示'}, function (index) {
+              //       masterSlave.api.send({slave_ip: ip_path.match(reg)[0], action_name: actionName}, '上传数据库文件')
+              //       layer.close(index);
+              //     });
+              //     return
+              //   } else if (actionName == 'import_dump_database') {
+              //     layer.confirm('是否导入数据库？', {icon: 3, title: '提示'}, function (index) {
+              //       masterSlave.api.send({slave_ip: ip_path.match(reg)[0], action_name: actionName}, '导入数据库')
+              //       layer.close(index);
+              //     });
+              //     return
+              //   }
+              //   masterSlave.api.send({slave_ip: ip_path.match(reg)[0], action_name: actionName}, '配置')
+              //   e.stopPropagation()
+              // })
+              $('.collapse').click(function () {
+                if (!$(this).next().hasClass('text_content') || $(this).next().text() == '                                          ') {
+                  return
+                }
+                var _this = $(this)
+                $(this).find('.glyphicon').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down')
+                $(this).next().slideToggle('fast', function () {
+                  if (!_this.find('.glyphicon').hasClass('glyphicon-menu-down')) {
+                    _this.css({'border-bottom': '1px solid #e5e5e5', 'box-shadow': 'none'})
+                    _this.next().css('border-bottom', '0')
+                  }
+                })
+                if (_this.find('.glyphicon').hasClass('glyphicon-menu-down')) {
+                  _this.next().css({'border-bottom': '1px solid #e5e5e5'})
+                }
+              })
+            }
+            if (cheek) {
+              ren(configData)
+            } else {
+              var reg = new RegExp(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/);
+              const ip_path = $('#create_pop_form input[name="panel_addr"]').val()
+              masterSlave.api.getConfigList(ip_path.match(reg)[0], true, function (rdata) {
+                ren(rdata)
+              })
+            }
+
+          },
+          renderingList: function (data, type) {
+            var _this = this
+
+            var html = ''
+            //初始化列表
+            if (type == 'choose_database') {
+              var $dataList = $('.' + type + ' .item_main')
+            } else {
+              var $dataList = $('.' + type + ' .item_main_table')
+
+            }
+            var byteTranslation = function (value) {
+              var unit = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
+              var index = 0
+              while (value > 1024) {
+                value = value / 1024
+                index++
+              }
+              return value.toFixed(2) + unit[index]
+            }
+            //渲染列表
+            if (type == 'choose_database') {
+              $.each(data, function (index, value) {
+
+                html +=
+                  '<div>' +
+                  '<div class="item" index="' + index + '">' +
+                  '<label label class="flex align-center choose-checkbox" >' +
+                  '<div class="bt-checkbox ' + value.active + '" id="' + index + '" data-name="' + value.name + '"></div>' +
+                  '<span style="overflow: hidden;width: 233px;text-overflow: ellipsis;font-weight: 400;color: #666666" title="' + value.name + '">' + value.name + '</span>' +
+                  '<span style="overflow: hidden;width: 105px;text-overflow: ellipsis;font-weight: 400;color: #666666" title="' + byteTranslation(value.size) + '">' + byteTranslation(value.size) + '</span>' +
+                  '</label>' +
+                  '</div>' +
+                  '</div>'
+              });
+              $dataList.html(html);
+              $('.choose_database .item_main .item').click(function (e) {
+                _this.index = $(this).attr('index')
+                // $(this).find('.bt-checkbox').toggleClass('active')
+                // if (masterSlave.popover.create.database[_this.index]['active'] == 'active' || masterSlave.popover.create.database[_this.index]['active'] == 'active1') {
+                //   masterSlave.popover.create.event.chooseDatabase(_this.index, masterSlave.popover.create.database[_this.index].table_list)
+                // } else {
+                // $(this).find('.bt-checkbox').toggleClass('active')
+                // masterSlave.popover.create.database[_this.index]['active'] = 'active'
+                // $.each(masterSlave.popover.create.database[_this.index].table_list, function (index, value) {
+                //   value['active'] = 'active'
+                // })
+
+                masterSlave.popover.create.event.chooseDatabase(_this.index, masterSlave.popover.create.database[_this.index].table_list)
+                // }
+              })
+              $('.choose_database .item-all .choose-checkbox .bt-checkbox-all').click(function (e) {
+                $(this).toggleClass('active')
+                if ($(this).hasClass('active') || $(this).hasClass('active1')) {
+                  if ($(this).hasClass('active1')) {
+                    $(this).removeClass('active1')
+                  }
+                  $('.choose_database .item_main .item .choose-checkbox .bt-checkbox').addClass('active')
+                  $.each(masterSlave.popover.create.database, function (index, value) {
+                    value['active'] = 'active'
+                    $.each(value.table_list, function (index1, value1) {
+                      value1['active'] = 'active'
+                    })
+                  })
+                } else {
+                  $('.choose_database .item_main .item .choose-checkbox .bt-checkbox').removeClass('active')
+                  $.each(masterSlave.popover.create.database, function (index, value) {
+                    value['active'] = ''
+                    $.each(value.table_list, function (index1, value1) {
+                      value1['active'] = ''
+                    })
+                  })
+                }
+              })
+              $('.choose_database .item_main .item .choose-checkbox .bt-checkbox').click(function (e) {
+                $(this).removeClass('undefined')
+                _this.index = $(this).parents('.item').attr('index')
+
+
+                $(this).toggleClass('active')
+
+                if ($(this).hasClass('active') || $(this).hasClass('active1')) {
+                  if ($(this).hasClass('active1')) {
+                    $(this).removeClass('active1')
+                  }
+                  masterSlave.popover.create.database[_this.index]['active'] = 'active'
+                  $.each(masterSlave.popover.create.database[_this.index].table_list, function (index, value) {
+                    value['active'] = 'active'
+                  })
+                  masterSlave.popover.create.event.chooseDatabase(_this.index, masterSlave.popover.create.database[_this.index].table_list)
+                } else {
+                  masterSlave.popover.create.database[_this.index]['active'] = ''
+                  $.each(masterSlave.popover.create.database[_this.index].table_list, function (index, value) {
+                    value['active'] = ''
+                  })
+                  masterSlave.popover.create.event.chooseDatabase(_this.index, masterSlave.popover.create.database[_this.index].table_list)
+                }
+                if ($('.choose_database .item_main .item .choose-checkbox .bt-checkbox.active').length == $('.choose_database .item_main .item .choose-checkbox .bt-checkbox').length) {
+                  $('.choose_database .item-all .choose-checkbox .bt-checkbox-all').removeClass('active').removeClass('active1').addClass('active')
+                } else {
+                  $('.choose_database .item-all .choose-checkbox .bt-checkbox-all').removeClass('active').removeClass('active1').addClass('active1')
+                }
+                if ($('.choose_database .item_main .item .choose-checkbox .bt-checkbox.active').length == 0) {
+                  $('.choose_database .item-all .choose-checkbox .bt-checkbox-all').removeClass('active').removeClass('active1')
+                }
+                // masterSlave.popover.create.database[_this.index]['active'] = 'active'
+                // // $(this).removeClass('active').removeClass('active1')
+                // $.each(masterSlave.popover.create.database[_this.index].table_list, function (index, value) {
+                //   value['active'] = ''
+                // })
+                // masterSlave.popover.create.database[$(this).parents('.item').attr('index')]['active'] = ''
+                // masterSlave.popover.create.event.chooseDatabase(_this.index, masterSlave.popover.create.database[_this.index].table_list)
+                e.stopPropagation()
+                // }
+              })
+            } else {
+              if (data.length == 0) {
+                html = '<div style="text-align: center;margin-top: 20px">该数据库下没有表</div>'
+              }
+              $.each(data, function (index, value) {
+                html +=
+                  '<div>' +
+                  '<div class="item" index="' + index + '">' +
+                  '<label label class="flex align-center choose-checkbox" >' +
+                  '<div class="bt-checkbox ' + value.active + '" data-name="' + value.name + '"></div>' +
+                  '<span style="overflow: hidden;width: 210px;text-overflow: ellipsis;font-weight: 400;color: #666666" title="' + value.name + '">' + value.name + '</span>' +
+                  '<span style="overflow: hidden;width: 90px;text-overflow: ellipsis;font-weight: 400;color: #666666" title="' + byteTranslation(value.size) + '">' + byteTranslation(value.size) + '</span>' +
+                  '</label>' +
+                  '</div>' +
+                  '</div>'
+              });
+              $dataList.html(html);
+              //绑定事件
+              $('.choose_database_table .item_main_table .item .choose-checkbox').click(function (e) {
+                var $choose = $('.choose_database .item_main .item .choose-checkbox #' + _this.index)
+                $(this).find('.bt-checkbox').toggleClass('active')
+                if ($('.choose_database_table .item_main_table .item .choose-checkbox .bt-checkbox.active').length == masterSlave.popover.create.database[_this.index].table_list.length) {
+                  $choose.removeClass('active1').addClass('active')
+                } else {
+                  $choose.removeClass('active').addClass('active1')
+                }
+                masterSlave.popover.create.database[_this.index]['active'] = 'active'
+                if ($('.choose_database_table .item_main_table .item .choose-checkbox .bt-checkbox.active').length == 0) {
+                  $choose.removeClass('active').removeClass('active1')
+                  masterSlave.popover.create.database[_this.index]['active'] = ''
+                }
+                masterSlave.popover.create.database[_this.index].table_list[$(this).parents('.item').attr('index')]['active'] = $(this).find('.bt-checkbox').hasClass('active') ? 'active' : ''
+              })
+            }
+            $('.glyphicon-search').click(function () {
+              var search = $('.search_input').val()
+              var data = masterSlave.popover.create.database
+              var newData = []
+              $.each(data, function (index, value) {
+                if (value.name.indexOf(search) != -1) {
+                  newData.push(value)
+                }
+              })
+              if (newData.length == 0) {
+                var html = '<div style="text-align: center;margin-top: 20px">没有找到相关数据库</div>'
+                $('.choose_database .item_main_table').html(html);
+              } else {
+                _this.renderingList(newData, 'choose_database')
+              }
+
+            })
+          }
+        },
+        event: {
+          getDataBase: function () {
+            if (masterSlave.popover.create.database.length > 0) return
+            bt_tools.send('plugin?action=a&name=mysql_replicate&s=get_database', function (rdata) {
+              masterSlave.popover.create.database = rdata.data
+              masterSlave.popover.create.config.renderingList(rdata.data, 'choose_database')
+            })
+          },
+          addReplicateInfo: function (panelAddr, panelKey, fun) {
+            bt_tools.send('plugin?action=a&name=mysql_replicate&s=add_replicate_info', {}, function (rdata) {
+              bt_tools.msg(rdata)
+              fun()
+            })
+          },
+          addReplicateDB: function (fun) {
+            var ip_path = $('#create_pop_form input[name="panel_addr"]').val()
+            var panelKey = $('#create_pop_form input[name="panel_key"]').val()
+            var reg = new RegExp(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/);
+            var table = []
+            var db = []
+            $.each(masterSlave.popover.create.database, function (index, value) {
+              if (value.active == 'active') {
+                db.push(value.name)
+                $.each(value.table_list, function (index1, value1) {
+                  if (value1.active == 'active') {
+                    table.push(value.name + '.' + value1.name)
+                  }
+                })
+              }
+            })
+
+            bt_tools.send({
+              url: 'plugin?action=a&name=mysql_replicate&s=add_replicate_info', data: {
+                slave_ip: ip_path.match(reg)[0],
+                replicate_do_db: JSON.stringify(db),
+                replicate_do_table: JSON.stringify(table),
+                panel_addr: ip_path,
+                panel_key: panelKey
+              }
+            }, function (rdata) {
+              bt_tools.msg(rdata)
+              fun()
+            }, '创建主从信息')
+          },
+
+          nextSteps: function () {
+            if (masterSlave.popover.create.stepsNum == 1) {
+              // this.addReplicateInfo($('#create_pop_form input[name="panel_addr"]').val(), $('#create_pop_form input[name="panel_key"]').val(), function () {
+              if ($('#create_pop_form input[name="panel_addr"]').val() == '' || $('#create_pop_form input[name="panel_key"]').val() == '') {
+                bt.msg({msg: '请填写完整信息', icon: 2})
+                return false
+              }
+              bt_tools.send({
+                url: 'plugin?action=a&name=mysql_replicate&s=check_slave',
+                data: {
+                  panel_addr: $('#create_pop_form input[name="panel_addr"]').val(),
+                  panel_key: $('#create_pop_form input[name="panel_key"]').val()
+                }
+              }, function (rdata) {
+                masterSlave.popover.create.stepsNum = 2
+                $($('.layui-layer-btn2')[0]).show()
+
+                $($('.layui-layer-btn2')[0]).off().click(function () {
+                  masterSlave.popover.create.stepsNum = 1
+                  $('#create_pop_form').show()
+                  $('#create_pop_data_table').hide()
+                  $($('.layui-layer-btn2')[0]).hide()
+                  $($('.layui-layer-btn1')[0]).show()
+                  $('.steps_circle')[1].classList.remove('steps_circle_active')
+                  $('.steps_circle_text')[1].classList.remove('steps_circle_text_active')
+                })
+                $($('.layui-layer-btn1')[0]).hide()
+                $('#create_pop_form').hide()
+                $('#create_pop_data_table').show()
+                $('.steps_circle')[1].classList.add('steps_circle_active')
+                $('.steps_circle_text')[1].classList.add('steps_circle_text_active')
+                masterSlave.popover.create.event.getDataBase()
+              })
+              // })
+            } else if (masterSlave.popover.create.stepsNum == 2) {
+              this.addReplicateDB(function () {
+                masterSlave.popover.create.stepsNum = 3
+                masterSlave.popover.create.database = []
+                $('#create_pop_data_table').hide()
+                $('#create_pop_config').show()
+                $('.steps_circle')[2].classList.add('steps_circle_active')
+                $('.steps_circle_text')[2].classList.add('steps_circle_text_active')
+                $($('.layui-layer-btn0')[0]).hide()
+                $($('.layui-layer-btn1')[0]).hide()
+                $($('.layui-layer-btn2')[0]).hide()
+                var reg = new RegExp(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/);
+                const ip_path = $('#create_pop_form input[name="panel_addr"]').val()
+                masterSlave.api.getConfigList(ip_path.match(reg)[0])
+              })
+            }
+          },
+          previousStep: function () {
+            masterSlave.popover.create.stepsNum -= 1
+            if (masterSlave.popover.create.stepsNum == 1) {
+              $('#create_pop_form').show()
+              $('#create_pop_data_table').hide()
+              $('.steps_circle')[1].classList.remove('steps_circle_active')
+              $('.steps_circle_text')[1].classList.remove('steps_circle_text_active')
+            }
+          },
+          chooseDatabase: function (index, data) {
+            masterSlave.popover.create.config.renderingList(data, 'choose_database_table')
+            const $items = $('.choose_database .item')
+            $('.choose_database_table').css("box-shadow", "rgb(201 201 201 / 14%) -7px 0px 6px 0px")
+            $items.css({
+              "background-color": "#FFFFFF",
+              "border-right": "1px solid #F2F2F2",
+              "position": "none",
+              "box-shadow": "none",
+              "z-index": "0"
+            })
+            $($items[index]).css({
+              "background-color": "#F1F9F3",
+              "border-right": "none",
+              "position": "relative",
+              "box-shadow": " 0px 0px 11px 2px rgb(201 201 201 / 44%)",
+              "z-index": "5"
+            })
+          },
+        }
+      },
+      details: {
+        id: '',
+        title: '主从同步详情',
+        ip: '',
+        html: '\
+          <div style="padding: 30px;">\
+            <div>从库IP地址：' + '<span id="ip"></span>' + '</div>\
+            <div style="margin-top: 38px;">需要同步的数据库和表：</div>\
+                <div style="border: 1px solid #F2F2F2;width: 805px;height: 401px;margin-top: 12px;padding: 17px;overflow: auto;">\
+                  <div>\
+                    <div class="bt_search">\
+                      <input  type="text" placeholder="搜索数据库" class="search_input"/>\
+                      <span class="glyphicon glyphicon-search " aria-hidden="true"></span>\
+                    </div>\
+                  </div>\
+                  <div id="presentation" style="margin-top: 17px">\
+                  </div>\
+                </div>\
+          </div>\
+        ',
+        event: {
+          add: function (row) {
+            const createTextContent = function (data) {
+              var html = ''
+              if (data.length == 0) {
+                return html
+              }
+              $.each(data, function (index, value) {
+                html += '\
+                <div class="text_content_item">\
+                  <span class="text_content_item_title">' + value + '</span>\
+                </div>'
+              })
+              return html
+            }
+            var createHtml = function (rdata) {
+              var html = ''
+              $.each(rdata, function (index, value) {
+                html += '\
+                  <div class="collapse">\
+                    <span class="text_success">\
+                        ' + value.name + '\
+                    </span>\
+                    <div>\
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-left: 10px;"></span>\
+                    </div>\
+                  </div>\
+                  <div class="text_content" style="padding: 0">\
+                        ' + createTextContent(value.table_list) + '\
+                  </div>'
+              })
+              return html
+            }
+            var html = ''
+            masterSlave.api.getReplicateInfo(row.ip, function (rdata) {
+              html = createHtml(rdata.database)
+              $('#presentation').html(html)
+              $('.collapse').click(function () {
+                if ($(this).next().text() == '                                          ') {
+                  return
+                }
+                var _this = $(this)
+                $(this).find('.glyphicon').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down')
+                $(this).next().slideToggle('fast', function () {
+                  if (!_this.find('.glyphicon').hasClass('glyphicon-menu-down')) {
+                    _this.css('border-bottom', '1px solid #e5e5e5')
+                    _this.next().css('border-bottom', '0')
+                  }
+                })
+                if (_this.find('.glyphicon').hasClass('glyphicon-menu-down')) {
+                  _this.css('border-bottom', '0')
+                }
+              })
+              $('.glyphicon-search').click(function () {
+                var search = $('.search_input').val()
+                var data = rdata.database
+                var newData = []
+                $.each(data, function (index, value) {
+                  if (value.name.indexOf(search) != -1) {
+                    newData.push(value)
+                  }
+                })
+                if (newData.length == 0) {
+                  bt_tools.msg('没有搜索到相关数据库', 2)
+                } else {
+                  html = createHtml(newData)
+                  $('#presentation').html(html)
+                }
+
+              })
+            })
+          }
+        }
+      },
+      runInformation: {
+        id: '',
+        title: '运行状态信息',
+        html: '\
+            <div class="divtable daily-table" style="padding: 20px">\
+                <table class="table table-hover">\
+                    <tbody>\
+                    </tbody>\
+                </table>\
+            </div>\
+        ',
+        event: {
+          add: function (row) {
+            masterSlave.api.getReplicateStatus(row.ip, function (rdata) {
+              if (rdata.length == 0) {
+                $('.daily-table tbody').html('<tr><td>暂无运行状态，请检查配置信息</td></tr>')
+                return
+              }
+              var html = ''
+              $.each(rdata, function (index, value) {
+                html += '\
+                    <tr class="daily-title">\
+                    <td width="400">' + value.name + '（' + value.ps + '）</td>\
+                    <td width="402" style="background-color: #ffff;overflow: auto">' + value.value + '</td>\
+                    </tr>'
+              })
+              $('.daily-table tbody').html(html)
+            })
+          }
+        }
+      }
+    },
+    open: function (slave_ip) {
+      this.popover.create.id = layer.open({
+        type: 1,
+        title: this.popover.create.title,
+        area: ['860px', '728px'],
+        closeBtn: 2,
+        shadeClose: false,
+        skin: 'create',
+        btn: ['下一步', '取消', '上一步'],
+        content: this.popover.create.html,
+        success: function () {
+          $($('.layui-layer-btn2')[0]).hide()
+          $($('.layui-layer-btn2')[0]).css({'border-color': '#cbcbcb', 'background-color': '#cbcbcb', 'color': '#fff'})
+          masterSlave.popover.create.database = []
+          if (masterSlave.popover.create.stepsNum == 3) {
+            $('.steps_circle')[1].classList.add('steps_circle_active')
+            $('.steps_circle_text')[1].classList.add('steps_circle_text_active')
+            $('#create_pop_form').hide()
+            $('#create_pop_form input[name="panel_addr"]').val('http://' + slave_ip)
+            $('#create_pop_data_table').hide()
+            $('#create_pop_config').show()
+            $('.steps_circle')[2].classList.add('steps_circle_active')
+            $('.steps_circle_text')[2].classList.add('steps_circle_text_active')
+            $($('.layui-layer-btn1')[0]).hide()
+            $($('.layui-layer-btn2')[0]).hide()
+            $($('.layui-layer-btn0')[0]).text('重新配置')
+            $($('.layui-layer-btn0')[0]).show()
+
+
+            masterSlave.api.getConfigList(slave_ip)
+              $($('.layui-layer-btn0')[0]).off().click(function () {
+              masterSlave.config=false
+              masterSlave.api.getConfigList(slave_ip)
+              return
+            })
+          } else {
+            $('#create_pop_data_table').hide()
+            $('#create_pop_config').hide()
+
+            $($('.layui-layer-btn1')[0]).click(function () {
+              masterSlave.popover.create.stepsNum = 1
+              layer.close(masterSlave.popover.create.id)
+            })
+          }
+        },
+        yes: function (index, layero) {
+          if (masterSlave.popover.create.stepsNum == 3) {
+            masterSlave.popover.create.stepsNum = 1
+            // var reg = new RegExp(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/);
+            // const ip_path = $('#create_pop_form input[name="panel_addr"]').val()
+            // // masterSlave.api.send({slave_ip: ip_path.match(reg)[0], action_name: 'check_slave_versions'})
+            // masterSlave.api.getConfigList(ip_path.match(reg)[0])
+            $($('.layui-layer-btn0')[0]).off()
+          } else {
+              masterSlave.popover.create.event.nextSteps()
+          }
+        },
+        cancel: function () {
+          masterSlave.popover.create.stepsNum = 1
+          layer.close(masterSlave.popover.create.id)
+        }
+      });
+    },
+    // 事件
+    event: function () {
+      var _this = this;
+      // 刷新表格
+      $('.refresh').click(function () {
+        _this.bt_table.$refresh_table_list(true)
+      })
+      // 创建从数据库
+      $('.creat').click(function () {
+        masterSlave.config=false
+        masterSlave.open()
+      })
+
+    },
+    // 初始化
+    init: function () {
+      var _this = this;
+      $('.layui-layer-page').width(860)
+      _this.bt_table = bt_tools.table({
+        el: '#content-table',
+        url: 'plugin?action=a&name=mysql_replicate&s=get_slave_list',
+        height: '300px',
+        column: [
+          {
+            fid: 'ip',
+            title: '从数据库服务器IP地址',
+          },
+          {
+            title: '读写状态',
+            template: function (row) {
+              if (row.slave_readonly) {
+                return '<a href="javascript:;" style="color: #20a53a">只读</a>';
+              } else {
+                return '<a href="javascript:;" style="color: #20a53a">只写</a>';
+              }
+            },
+            event: function (row, index, ev, key, that) {
+              // 读写状态设置
+              _this.api.setupReadonlyStatus(row.ip, row.slave_readonly == 0 ? 1 : 0)
+            }
+          },
+          {
+            fid: 'slave_status',
+            title: '同步状态',
+            template: function (row) {
+                switch (row.slave_status) {
+                  case 0:
+                    return '<a href="javascript:;" class="slave_status" style="color: red">异常</a>';
+                  case 1:
+                    return '<a href="javascript:;" class="slave_status" style="color: #20a53a">正常</a>';
+                  case 2:
+                    return '<a href="javascript:;" class="slave_status" style="color: orange">连接中</a>';
+                  case 3:
+                    return '<a href="javascript:;" class="slave_status" style="color: red">需要进行相关配置</a>';
+                  case 4:
+                    return '<a href="javascript:;" class="slave_status" style="color: red">连接从库异常</a>';
+              }
+            },
+            event: function (row, index, ev, key, that) {
+              if (!row.config_status) {
+                masterSlave.config=true
+                masterSlave.api.getReplicateInfo(row.ip)
+              }
+
+            }
+          },
+
+          {
+            fid: 'status',
+            title: '启动状态',
+            template: function (row) {
+              switch (row.status) {
+                case 0:
+                  return '<a href="javascript:;" class="status" style="color: red">停止</a>';
+                case 1:
+                  return '<a href="javascript:;" class="status" style="color: #20a53a">运行</a>';
+                case 2:
+                  return '<a href="javascript:;" class="status" style="color: red">连接从库错误</a>';
+              }
+            },
+            event:function (row, index, ev, key, that){
+              // 同步状态设置
+              switch (row.status) {
+                case 0:
+                  _this.api.startReplicate(row.ip)
+                  break
+                case 1:
+                  _this.api.stopReplicate(row.ip)
+                  break
+                case 3:
+                  break
+              }
+            }
+          },
+          {
+            title: '操作',
+            type: 'group',
+            align: 'right',
+            group: [
+              {
+                title: '状态',
+                event: function (row) {
+                  _this.popover.runInformation.id = layer.open({
+                    type: 1,
+                    title: _this.popover.runInformation.title,
+                    area: ['860px', '597px'],
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content: _this.popover.runInformation.html,
+                    success: function (layero, index) {
+                      _this.popover.runInformation.event.add(row)
+
+                    },
+                  })
+                }
+              },
+              {
+                title: '配置',
+                event: function (row) {
+                  masterSlave.config=true
+                  // 配置主从同步
+                  masterSlave.api.getReplicateInfo(row.ip)
+                },
+              },
+              {
+                title: '详情',
+                event: function (row) {
+                  // 主从同步详情
+                  _this.popover.details.id = layer.open({
+                    type: 1,
+                    title: _this.popover.details.title,
+                    area: ['860px', '597px'],
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content: _this.popover.details.html,
+                    success: function (layero, index) {
+                      $('#ip').text(row.ip)
+                      masterSlave.popover.details.event.add(row)
+                    },
+                  });
+                }
+              },
+              {
+                title: '删除',
+                event: function (row) {
+                  // 删除从数据库
+                  layer.confirm('是否删除该主从复制？', {icon: 3, title: '删除主从复制', closeBtn: 2}, function (index) {
+                    bt_tools.send({
+                      url: 'plugin?action=a&name=mysql_replicate&s=remove_replicate_info',
+                      data: {slave_ip: row.ip}
+                    }, function (rdata) {
+                      if (rdata.status) {
+                        layer.msg(rdata.msg, {icon: 1});
+                        _this.bt_table.$refresh_table_list(true)
+                      } else {
+                        layer.msg(rdata.msg, {icon: 2});
+                      }
+                    }, '删除主从复制')
+                    layer.close(index);
+                  })
+                  // _this.api.getConfigList(row.ip)
+                }
+              }
+            ]
+          }
+        ]
+      })
+      // 挂载事件
+      _this.event()
+    }
+  }
+  masterSlave.init();
+</script>

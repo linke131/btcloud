@@ -1,0 +1,725 @@
+<style>
+    .up-place {
+        height: 62px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .up-place .btn {
+        border-radius: 0;
+    }
+    
+    .up-place .place-input {
+       background-color: #f3f3f3;
+        border: 1px solid #ccc;
+        height: 30px;
+        line-height: 28px;
+        overflow: hidden;
+        margin: 1px 0 0 -1px;
+        width: 340px;
+    }
+    
+    .place-input ul {
+        display: inline-block;
+        position: relative;
+        width: auto;
+    }
+    
+    .place-input ul li {
+        background: url("/static/img/ico/ico-ltr.png") no-repeat right center;
+        float: left;
+        padding-left: 10px;
+        padding-right: 18px;
+    }
+    
+    .place-input ul li a {
+        height: 28px;
+        cursor: pointer;
+        display: inline-block;
+    }
+    
+    .up-bottom {
+        background-color: #fafafa;
+        border-top: 1px solid #eee;
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+    }
+    
+    .up-use {
+        line-height: 50px
+    }
+    
+    .list-list .cursor span {
+        line-height: 30px;
+    }
+    
+    .btn-title {
+        margin-top: 1px
+    }
+    .tip {
+        font-size: 10px;
+        font-style: oblique;
+        color: green;
+    }
+    .tab_block{
+        background-color: #ddd;
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f6f6f6), to(#ddd));
+        height: 32px;
+        line-height: 32px;
+        padding: 0 12px;
+        border: #cacad9 1px solid;
+        color: #444;
+        display: inline-block;
+        margin: 0 3px -1px 0;
+        cursor: pointer;
+    }
+    .tab_block.active{
+        background: #fff;
+        border-bottom: #fff 1px solid;
+    }
+    .new_form .btn-success{
+        width: 94px;
+    }
+    #sjhl_cb {
+        margin-left: 25px;
+    }
+</style>
+<div class="upyunCon box_conter"></div>
+
+<script type="javascript/text">
+    var CLIENT_NAME = "msonedrive";
+    
+    // 通用代码部分
+    
+    /**
+     * 发送请求到插件
+     * 注意：除非你知道如何自己构造正确访问插件的ajax，否则建议您使用此方法与后端进行通信
+     * @param function_name  要访问的方法名，如：get_logs
+     * @param args           传到插件方法中的参数 请传入数组，示例：{p:1,rows:10,callback:"demo.get_logs"}
+     * @param callback       请传入处理函数，响应内容将传入到第一个参数中
+     */
+
+    function request_plugin(function_name, args, callback, timeout) {
+        if (!timeout) timeout = 360000;
+        $.ajax({
+            type:'POST',
+            url: '/plugin?action=a&name=' + CLIENT_NAME + '&s=' + function_name,
+            data: args,
+            timeout:timeout,
+            success: function(rdata) {
+                if (!callback) {
+                    layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+                    return;
+                }
+                return callback(rdata);
+            },
+            error: function(ex) {
+                if (!callback) {
+                    layer.msg('请求过程发现错误!', { icon: 2 });
+                    return;
+                }
+                return callback(ex);
+            }
+        });
+    }
+    
+    //计算当前目录偏移
+    function upPathLeft(){
+        var UlWidth = $(".place-input ul").width();
+        var SpanPathWidth = $(".place-input").width() - 20;
+        var Ml = UlWidth - SpanPathWidth;
+        if(UlWidth > SpanPathWidth ){
+            $(".place-input ul").css("left",-Ml)
+        }
+        else{
+            $(".place-input ul").css("left",0)
+        }
+    }
+    
+    //删除文件
+    function delete_file(name){
+        SafeMessage('删除文件','删除后将无法恢复，真的要删除['+name+']吗?',function(){
+            var path = $("#myPath").val();
+            var filename = name;
+            //if(path != '/') filename = path + name;
+            var loadT = layer.msg('正在删除文件['+name+']...',{icon:16,time:0,shade: [0.3, '#000']});
+            var function_name = "delete_file"
+            request_plugin(function_name, {filename:filename,path:path},
+                function(rdata){
+                    layer.close(loadT);
+                    layer.msg(rdata.msg,{icon:rdata.status?1:2});
+                    if(rdata.status) os_list(path);
+                }
+            );
+        });
+    }
+    
+    function os_list(path){
+        var loadT = layer.msg('正在获取文件列表...',{icon:16,time:0,shade: [0.3, '#000']});
+        function_name = "get_list"
+        request_plugin(function_name, {path:path}, function(mlist){
+            layer.close(loadT);
+            if(mlist.status === false){
+                upyunApi();
+                return;
+            }
+            var listBody = ''
+            var listFiles = ''
+            for(var i=0;i<mlist.list.length;i++){
+                if(mlist.list[i].type == null){
+                    listBody += '<tr><td class="cursor" onclick="os_list(\''+(path+'/'+mlist.list[i].name).replace('//','/')+'\')"><span class="ico ico-folder"></span><span>'+mlist.list[i].name+'</span></td><td>-</td><td>-</td><td class="text-right"><a class="btlink" onclick="delete_file(\''+mlist.list[i].name+'\')">删除</a></td></tr>'
+                }else{
+                    listFiles += '<tr><td class="cursor"><span class="ico ico-file"></span><span>'+mlist.list[i].name+'</span></td><td>'+ToSize(mlist.list[i].size)+'</td><td>'+getLocalTime(mlist.list[i].time)+'</td><td class="text-right"><a target="_blank" href="'+mlist.list[i].download+'" class="btlink">下载</a> | <a class="btlink" onclick="delete_file(\''+mlist.list[i].name+'\')">删除</a></td></tr>'
+                }
+            }
+            listBody += listFiles;
+    
+            var pathLi='';
+            var tmp = path.split('/')
+            var pathname = '';
+            var n = 0;
+            for(var i=0;i<tmp.length;i++){
+                if(n > 0 && tmp[i] == '') continue;
+                var dirname = tmp[i];
+                if(dirname == '') {
+                    dirname = '根目录';
+                    n++;
+                }
+                pathname += '/' + tmp[i];
+                pathname = pathname.replace('//','/');
+                pathLi += '<li><a title="'+pathname+'" onclick="os_list(\''+pathname+'\')">'+dirname+'</a></li>';
+            }
+            var um = 1;
+            if(tmp[tmp.length-1] == '') um = 2;
+            var backPath = tmp.slice(0,tmp.length-um).join('/') || '/';
+            var con='<div class="up-place pd15">\
+                        <button id="backBtn" class="btn btn-default btn-sm glyphicon glyphicon-arrow-left pull-left" title="后退" onClick="os_list(\''+backPath+'\')"></button>\
+                        <input id="myPath" style="display:none;" type="text" value="'+path+'">\
+                        <input type="file" style="display:none;" id="Upupload" multiple="multiple">\
+                        <div class="place-input pull-left"><div style="width:1400px;height:28px"><ul>'+pathLi+'</ul></div></div>\
+                        <button class="refreshBtn btn btn-default btn-sm glyphicon glyphicon-refresh pull-left mr20" title="刷新" onclick="os_list(\''+path+'\')" style="margin-left:-1px;"></button>\
+                        <button class="btn btn-default btn-sm pull-right btn-title" onclick="upyunApi()">帐户设置</button>\
+                        <!--<button class="btn btn-default btn-sm pull-right mr20 btn-title" onclick="UploadUp()">上传</button> -->\
+                        <button class="btn btn-default btn-sm pull-right mr20 btn-title" onclick="CreateDir()">新建文件夹</button>\
+                    </div><div class="upyunlist pd15">\
+                    <div class="divtable" style="margin-bottom:15px">\
+                        <table class="table table-hover">\
+                            <thead><tr><th>名称</th><th>大小</th><th>更新时间</th><th class="text-right">操作</th></tr></thead>\
+                            <tbody class="list-list">'+listBody+'</tbody>\
+                        </table>\
+                    </div>\
+                </div>';
+    
+            $(".upyunCon").html(con);
+            upPathLeft();
+        });
+    }
+    
+    // 提交验证URL
+    function set_auth_url(callback){
+        if($(".OneDrive").val() == ''){
+            layer.msg('验证URL地址不能为空!',{icon:2});
+            return;
+        }
+		var loadT = layer.msg('正在验证URL地址，请稍后...', {icon: 16,time: 0,shade: [0.3, '#000']});
+        $.post('/plugin?action=a&s=set_auth_url&name=msonedrive',{url: $(".OneDrive").val()}, function (rdata) {
+            if(rdata.status){
+    			layer.close(loadT);
+    			layer.close(i);
+                if(callback) callback(rdata)
+                os_list('/');
+            }
+            layer.msg(rdata.msg, {icon: rdata.status ? 1 : 2});
+        });
+    }
+    function CreateDir(){
+        var i = layer.open({
+                type: 1,
+                area: "400px",
+                title: "创建目录",
+                closeBtn: 2,
+                shift: 5,
+                shadeClose: false,
+                content:'<div class="bingfa mtb15">\
+                            <p>\
+                                <span class="span_tit">目录名称：</span>\
+                                <input style="width: 200px;" type="text" name="newPath" value="">\
+                            </p>\
+                            <div class="submit-btn">\
+                                <button type="button" class="btn btn-danger btn-sm bt-cancel">取消</button>\
+                                <button class="btn btn-success btn-sm createDir" onclick="CreateUpDir()">确定</button>\
+                            </div>\
+                        </div>'
+        });
+        $(".bt-cancel,.createDir").click(function(){
+            layer.close(i);
+        });
+    
+        $("input[name='newPath']").focus().keyup(function(e){
+            if(e.keyCode == 13) $(".createDir").click();
+        });
+    }
+    
+    //创建目录
+    function CreateUpDir(name){
+        name = $("input[name='newPath']").val();
+        if(name == ''){
+            layer.msg('目录名称不能为空!',{icon:2});
+            return;
+        }
+        var path = $("#myPath").val()
+        var dirname = name;
+        var loadT = layer.msg('正在创建目录['+dirname+']...',{icon:16,time:0,shade: [0.3, '#000']});
+        $.post('/plugin?action=a&s=create_dir&name='+CLIENT_NAME,{path:path,
+        dirname:dirname},
+        function(rdata){
+            layer.close(loadT);
+            layer.msg(rdata.msg,{icon:rdata.status?1:2});
+            if(rdata.status) os_list(path);
+        });
+    }
+    
+        // 自定义部分
+    
+        var i = null;
+        var authorized = false;
+        //设置API
+        function upyunApi(){
+            var loadT = layer.msg('正在获取设置...',{icon:16,time:0,shade: [0.3, '#000']});
+            $.get('/plugin?action=a&name=msonedrive&s=get_config',function(token){
+                layer.close(loadT);
+                if(!token) return;
+                var user_tip = "国际版用户";
+                if (token.user_type == "internal") {
+                    user_tip = "国内版用户(世纪互联运营)"
+                }
+    // 			var user_set = token.user ? '<div class="zun-form-new bingfa">\
+    // 							<p>\
+    // 								<span class="span_tit">APP ID：</span>\ <input placeholder="请输入应用程序(客户端) ID" style="width:300px;" type="text" name="client_id">  * 应用程序(客户端) ID <a href="http://www.bt.cn/bbs/" style="color:green" target="_blank"> [帮助]</a>\
+    // 							</p>\
+    // 							<p>\
+    // 								<span class="span_tit">APP Secret：</span>\ <input placeholder="请输入应用密码" style="width:300px;" type="text" name="app_secret"> * 应用的访问密码\
+    // 							</p>\
+    // 							<p>\
+    // 								<span class="span_tit">转发地址：</span>\ <input placeholder="" style="width: 300px;" type="text" name="bucket_name">   *授权成功后跳转的地址\
+    // 							</p>\
+    // 							<p>\
+    // 								<span class="span_tit">保存路径：</span>\
+    // 								<input placeholder="请输入保存路径" style="width: 300px;" type="text" name="backup_path">   *备份文件保存路径, 默认是/bt_backup\
+    // 							</p>\
+    // 							<div class="submit-btn">\
+    // 								<button type="button" class="btn btn-danger btn-sm btn-title bt-cancel">取消</button>\
+    // 								<button class="btn btn-success btn-sm btn-title" onclick="SetUpyunApi()">保存</button>\
+    // 							</div>\
+    // 						</div>' : $("#check_api").html();
+                
+                i = layer.open({
+                        type: 1,
+                        area: "620px",
+                        title: "Microsoft OneDrive 授权和设置",
+                        closeBtn: 2,
+                        shift: 5,
+                        shadeClose: false,
+                        content: 
+                        '<div class="tab_list" style="margin: 15px 45px;margin-bottom: 0;border-bottom: #cacad9 1px solid;">\
+                            <div class="tab_block active">授权</div>\
+                            <div class="tab_block">设置</div>\
+                            <input type="checkbox" id="sjhl_cb" onchange="change_user_type()"/><span id="sjhl_tip">我是国内版用户 (世纪互联运营)</span>\
+                        </div>\
+                        <div class="new_form">'+$("#check_api").html()+'</div>\
+                        <div class="zun-form-new bingfa new_form" style="display: none;height:553px;font-size:13px;">\
+							<p style="margin: 20px 0 15px;">\
+								<span class="span_tit">授权用户：</span>\ <span class="the_user" style="font-size: 15px;">'+token.user+'  ' + user_tip + ' </span>\
+							</p>\
+							<button class="btn btn-success btn-sm btn-title" onclick="clearAuth()" style="margin-left: 125px;">撤销本地授权</button>\
+							<br><span style="color: #777;margin-left: 125px;margin-top: 15px;display: inline-block;font-size: 12px;">* 彻底删除授权请参考论坛教程帖子操作</span>\
+							<hr style="width: 85%;">\
+							<br/>\
+							<p style="margin: 20px 0;">\
+								<span class="span_tit">保存路径：</span>\
+								<input placeholder="请输入备份文件保存路径" style="width: 300px;" type="text" name="backup_path" value="'+token.backup_path+'">\
+								<span>&nbsp;&nbsp;*默认路径[/bt_backup]</span>\
+							</p>\
+							<button class="btn btn-success btn-sm btn-title" onclick="SetUpyunApi()" style="margin-left: 125px;">保存</button>\
+						</div>',
+                    });
+                    $(".bt-cancel").click(function(){
+                        layer.close(i)
+                    });
+                    $(".tab_block").click(function(){
+                        var index = $(this).index();
+                        if(index == 1){
+                            $.get('/plugin?action=a&name=msonedrive&s=get_config',function(res){
+                                var user_tip = "国际版用户";
+                                if (token.user_type == "internal") {
+                                    user_tip = "国内版用户(世纪互联运营)"
+                                }
+                                if(res.user == null){
+                                    layer.msg('Microsoft OneDrive未授权',{icon: 2})
+                                    return false;
+                                }else{
+                                    $(".the_user").text(res.user+'  ' + user_tip);
+                                    $("input[name='backup_path']").val(res.backup_path);
+                                    $(".tab_block").eq(index).addClass('active').siblings().removeClass("active");
+                                    $(".new_form").hide().eq(index).show();
+                                }
+                            });
+                            if (authorized){
+                                $('#sjhl_cb').hide();
+                                $('#sjhl_tip').hide();
+                            }
+                        }else{
+                            $(this).addClass('active').siblings().removeClass("active");
+                            $(".new_form").hide().eq(index).show();
+                            $('#sjhl_cb').show();
+                            $('#sjhl_tip').show();
+                        }
+                    });
+                    $(".step_two_rul").val(token.sign_url).attr('data-copy',token.sign_url);
+                    $(".step_two_rul").siblings('.open_btlink').attr('href',token.sign_url);
+                    if(token.user != null){
+                        $('.tab_block:eq(1)').addClass('active').siblings().removeClass("active");
+                        $(".new_form").hide().eq(1).show();
+                        $('#sjhl_cb').hide();
+                        $('#sjhl_tip').hide();
+                        authorized = true;
+                    }else{
+                        $('#sjhl_cb').show();
+                        $('#sjhl_tip').show();
+                    }
+                    if (token.user_type == "internal") {
+                        $('#sjhl_cb').prop("checked", true);
+                    }
+            });
+        }
+        
+        //修改API
+        function SetUpyunApi(){
+            var data = {
+                app_id:$("input[name='client_id']").val(),
+                backup_path:$("input[name='backup_path']").val()
+            }
+            var loadT = layer.msg('正在校验...',{icon:16,time:0,shade: [0.3, '#000']});
+            $.post('/plugin?action=a&s=set_config&name=msonedrive',data,function(rdata){
+                layer.close(loadT);
+                if(rdata.status) {
+                    layer.close(i);
+                    os_list('/');
+                }
+                layer.msg(rdata.msg,{icon:rdata.status?1:2});
+            });
+        }
+        
+        //取消授权
+        function clearAuth(){
+            SafeMessage('取消授权','确认取消【'+$(".the_user").text()+'】授权吗?',function(){
+                var loadT = layer.msg('正在取消授权...',{icon:16,time:0,shade: [0.3, '#000']});
+                request_plugin("clear_auth", function(rdata){
+                    layer.close(loadT);
+                    layer.msg(rdata.msg,{icon:rdata.status?1:2});
+                });
+                $('.tab_block:eq(0)').click();
+                $('.upyunCon.box_conter').remove();
+                authorized = false;
+            });
+        }
+        os_list('/');
+        $('.layui-layer-page').css('height','670px');
+        
+        $('body').on('click', '.ico-copy', function () {
+            var text = $('.step_two_rul').val(),
+            textarea =document.createElement('textarea');
+            document.body.appendChild(textarea)
+            textarea.value=text
+            textarea.select();
+            document.execCommand("Copy"); 
+            document.body.removeChild(textarea);
+            if(text!='') layer.msg('链接复制成功！',{icon:1});
+        });
+        function change_user_type(){
+            var checked = $('#sjhl_cb').is(':checked');
+            if (authorized){
+                layer.msg('请先撤销已有授权！',{icon:0});
+                $('#sjhl_cb').prop("checked", !checked);
+                return
+            }
+            var user_type = "international"
+            if (checked){
+                user_type = "internal";
+            }
+            var data = {
+                "user_type": user_type,
+            }
+            var loadT = layer.msg('正在修改账户类型...',{icon:16,time:0,shade: [0.3, '#000']});
+            $.post('/plugin?action=a&s=change_user_type&name=msonedrive', data, function(rdata){
+                layer.close(loadT);
+                if(rdata.status) {
+                    $('.step_two_rul').val(rdata.msg)
+                    $(".step_two_rul").siblings('.open_btlink').attr('href', rdata.msg);
+                    if (user_type == "internal"){
+                        layer.msg('账户类型修改成功！请使用国内版账户(世纪互联运营）登录授权。',{icon:1});
+                    } else {
+                        layer.msg('账户类型修改成功！请使用国际版账户登录授权。',{icon:1});
+                    }
+                }
+            });
+        }
+</script>
+<style>
+        .check_api {
+            padding: 20px;
+        }
+    
+        .up-place {
+            height: 62px;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        .up-place .btn {
+            border-radius: 0;
+        }
+    
+        .up-place .place-input {
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            height: 30px;
+            line-height: 28px;
+            overflow: hidden;
+            margin: 1px 0 0 -1px;
+            width: 340px;
+        }
+    
+        .place-input ul {
+            display: inline-block;
+            position: relative;
+            width: auto;
+        }
+    
+        .place-input ul li {
+            background: url("/static/img/ico/ico-ltr.png") no-repeat right center;
+            float: left;
+            padding-left: 10px;
+            padding-right: 18px;
+        }
+    
+        .place-input ul li a {
+            height: 28px;
+            cursor: pointer;
+            display: inline-block;
+        }
+    
+        .upyunlist {
+            height: 546px;
+            overflow: auto;
+        }
+    
+        .up-bottom {
+            background-color: #fafafa;
+            border-top: 1px solid #eee;
+            bottom: 0;
+            position: absolute;
+            width: 100%;
+        }
+    
+        .up-use {
+            line-height: 50px
+        }
+    
+        .list-list .cursor span {
+            line-height: 30px;
+        }
+    
+        .btn-title {
+            margin-top: 1px
+        }
+    
+        .step_item{
+            clear: both;
+        }
+    
+        .step_item .serial_box{
+            display: inline-block;
+            clear: both;
+        }
+    
+        .step_item .serial{
+            width: 70px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            display: inline-block;
+            float: left;
+        }
+        .step_item .serial span{
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 28px;
+            font-size: 11px;
+            border-radius: 50%;
+            color: #20a53a;
+            border: 2px solid #20a53a;
+        }
+        .step_item .serial_title{
+          margin-bottom: 10px;
+          font-size: 15px;
+          line-height: 30px;
+          color: #666;
+        }
+        .step_two_rul{
+            display: inline-block;
+            overflow: hidden;
+            width: 380px;
+            /*text-overflow: ellipsis;*/
+            white-space: nowrap;
+            height: 35px;
+            line-height: 35px;
+            margin-right: 15px;
+            border-radius: 2px;
+            padding: 0 10px;
+            float: left;
+            width:360px;
+            padding-right: 35px;
+        }
+        .btn_btlink{
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid #20a53a;
+            color: #fff;
+            background-color: #20a53a;
+            margin-right:10px;
+        }
+        .btn_btlink:hover{
+            color: #fff;
+            background-color: #10952a;
+            border-color: #398439;
+        }
+        .btn_btlink a:visited{
+            color: #fff;
+            background-color: #10952a;
+            border-color: #398439;
+        }
+        .view_video{
+            margin-bottom: 10px;
+        }
+        .view_video ul li{
+            line-height: 20px;
+            font-size: 13px;
+        }
+        .setp_one i{
+          position: absolute;
+          top: 8px;
+          left: 25px;
+          width: 30px;
+          height: 30px;
+        }
+        .OneDrive{	
+            width:465px;
+            height:100px;
+            margin-bottom:10px;
+        }
+        /*.serial_conter .step_two_rul::-webkit-scrollbar{*/
+        /*    display: none;*/
+        /*}*/
+        /*.serial_conter .step_two_rul{*/
+        /*    resize: none;*/
+        /*    width: 367px;*/
+        /*    height: 34px;*/
+        /*    padding: 8px;*/
+        /*    padding-right: 35px;*/
+        /*    background: #eee;*/
+        /*    overflow: auto;*/
+        /*    line-height: 20px;*/
+        /*    border: 1px solid #ccc;*/
+        /*}*/
+
+</style>
+<!--<div class="serial_conter step_two" style="width: 500px;position: relative;">-->
+<!--    <textarea class="step_two_rul" row="3" placeholder="验证URL地址" class="bt-input-text OneDrive" readonly="readonly"></textarea>-->
+<!--    <span class="ico-copy mr10" data-copy="" style="cursor: pointer;position: absolute;right: 27.5%;top: 30%;"></span>-->
+<!--    <a href="" class="btn_btlink open_btlink" target="_blank" style="padding: 7px 10px;vertical-align: 12px;margin-left: 10px;">打开授权链接</a>-->
+<!--</div>-->
+<script type="text/html" id="check_api">
+    <div class="check_api">
+        <div class="setp_one" style="display:none">
+              <span style="display: inline-block;text-align: center;margin: 0 120px;width: 400px;height: 50px;line-height: 50px;position: relative;font-size: 14px;"><i
+                      class="layui-layer-ico layui-layer-ico6"></i>
+                  <span style="padding-left:60px;">验证Microsoft OneDrive成功</span>
+              </span>
+            <div align="right">
+                <button class="btn btn-success btn-sm mt10 dnsExport"
+                        style="margin-right: 10px" onclick="export_key()">导出密钥
+                </button>
+            </div>
+        </div>
+        <div class="step_two">
+            <div class="step_item">
+                <div class="serial"><span>1</span></div>
+                <div class="serial_box">
+                    <div class="serial_title">阅读简易操作教程：如何获取Microsoft OneDrive授权？</div>
+                    <div class="serial_conter">
+                        <div class="view_video">
+                            <ul>
+                                <li>1. 点击下面第<div class="serial" style="float: none;width: 45px;"><span>2</span></div>步中的 打开授权链接。<li>
+                                <li>2. 在新窗口页面上登录Microsoft账号。<li>
+                                <li>3. 阅读授权权限，并同意。<li>
+                                <li>4. 页面跳转后，将浏览器的地址栏地址复制到第<div class="serial" style="float: none;width: 45px;"><span>3</span></div>步的文本框中。<li>
+                                <li>5. 点击 获取授权，随即完成授权。<li>
+                            </ul>
+                        </div>
+                        <a href="https://www.bt.cn/bbs/thread-54124-1-1.html" class="btlink" target="_blank" style="margin-top:8px;font-size: 13px;display: inline-block;">论坛图文教程</a>
+                        <hr/>
+                    </div>
+                </div>
+            </div>
+            <div class="step_item pb15">
+                <div class="serial"><span>2</span></div>
+                <div class="serial_box">
+                    <div class="serial_title">操作1：👇打开授权链接，根据网页提示对插件进行授权。</div>
+                    <div class="serial_conter step_two" style="width: 500px;">
+                        <input class="bt-input-text mr5 step_two_rul" type="text" disabled>
+                        <span class="ico-copy mr10" data-copy="" style="vertical-align: middle;cursor: pointer;margin-left: -37px;margin-right: 20px;"></span>
+                        <a href="" class="btn_btlink open_btlink" target="_blank" style="padding: 7px 10px;">打开授权链接</a>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="step_item">
+                <div class="serial"><span>3</span></div>
+                <div class="serial_box">
+                    <div class="serial_title">操作2：复制回浏览器跳转后的地址：</div>
+                    <div class="serial_conter">
+                        <textarea row="3" placeholder="验证URL地址"
+                                  class="bt-input-text OneDrive" style="resize: none;"/></br>
+                        <button type="button" class="btn btn-success btn-sm" onclick="set_auth_url()">
+                            获取授权
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="step_item" style="display:none">
+                <div class="serial"><span>1</span></div>
+                <div class="serial_box">
+                    <div class="serial_title">如果已经有密钥，请点击下面按钮导入</div>
+                    <div style="margin: -9px 0 13px 0;">
+                        <button class="btn btn-success btn-sm mt10 dnsExport"
+                                style="margin-right: 10px" disabled="true"
+                                onclick="$('#file_input').click()">导入密钥（暂不支持）
+                        </button>
+                        <input type="file" id="file_input"
+                               onchange="select_file(this.files,'0')"
+                               autocomplete="off"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

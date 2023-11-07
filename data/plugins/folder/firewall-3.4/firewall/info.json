@@ -1,0 +1,10 @@
+{
+  "title": "系统防火墙",
+  "name": "firewall",
+  "ps": "该版本为魔改版。官方版本：3.3。本版本在“国家区域”增加了“封海外（A）”、“封海外（B）”。同时开启并填入面板端口可以禁止海外访问面板且只能国内访问（并不是海外不能访问网站只是面板哦~！）",
+  "versions": "3.4",
+  "checks": "/www/server/panel/plugin/firewall",
+  "author": "null",
+  "home": "null",
+  "not_substituted":["whitelist.txt|f", "status.json|f"]
+}

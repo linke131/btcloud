@@ -1,0 +1,12 @@
+{
+    "id": 3,
+    "title": "宝塔拨测",
+    "tip": "lib",
+    "name": "bt_boce",
+    "type": "扩展",
+    "ps": "宝塔拨测",
+    "versions": "2.1",
+    "checks": "/www/server/panel/plugin/bt_boce",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs"
+  }

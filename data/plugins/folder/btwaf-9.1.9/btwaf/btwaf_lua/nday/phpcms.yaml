@@ -1,0 +1,86 @@
+models:
+  - phpcms:
+    info: "phpcms后台代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/phpsso_server/index.php"
+    keys:
+      data[uc_api','11');/*]: ""
+      m: ""
+      c: ""
+      a: ""
+      
+  - phpcms_api:
+    info: "phpcms获取authkey漏洞"
+    cveid: ""
+    reference: ""
+    method: ""
+    status: true
+    url: "/api.php"
+    keys:
+      op: "get_menu"
+      act: "ajax_getlist"
+      callback: ""
+      key: ""
+      cachefile: "$_BT_ENDapplist"
+      
+  - phpcms_pc_hash:
+    info: "phpcms 后台代码执行"
+    cveid: ""
+    reference: ""
+    method: ""
+    status: true
+    url: "/index.php"
+    keys:
+      bt_args_m: ""
+      bt_args_pc_hash: ""
+      dosubmit: ""
+      language: ""
+      info[name]: ""
+      
+  - phpcms_pc_block:
+    info: "phpcms 后台代码执行"
+    cveid: ""
+    reference: ""
+    method: ""
+    status: true
+    url: "/index.php"
+    keys:
+      bt_args_m: "block"
+      bt_args_c: "block_admin"
+      bt_args_a: ""
+      template: "$_BT_PHPCODE"
+      
+  - phpcms_special:
+    info: "phpcms 后台代码执行"
+    cveid: ""
+    reference: ""
+    method: ""
+    status: true
+    url: "/index.php"
+    keys:
+      bt_args_m: "special"
+      bt_args_c: "special"
+      bt_args_a: ""
+      special[banner]: "$_BT_PHPCODE"
+      special[title]: ""
+      special[filename]: ""
+      
+  - phpcms_special2:
+    info: "phpcms 后台代码执行"
+    cveid: ""
+    reference: ""
+    method: ""
+    status: true
+    url: "/index.php"
+    keys:
+      bt_args_m: "special"
+      bt_args_c: "special"
+      bt_args_a: ""
+      special[banner]: ""
+      special[title]: ""
+      special[filename]: ""
+      special[description]: "$_BT_PHPCODE"
+      

@@ -1,0 +1,14 @@
+[
+    {"column": "bytes", "pattern":"Bytespider"},
+    {"column": "bing", "pattern":"bingbot"},
+    {"column": "soso", "pattern":"Soso"},
+    {"column": "yahoo", "pattern":"Yahoo"},
+    {"column": "sogou", "pattern":"Sogou"},
+    {"column": "google", "pattern":"Google"},
+    {"column": "baidu", "pattern":"Baiduspider"},
+    {"column": "qh360", "pattern":"360Spider"},
+    {"column": "youdao", "pattern":"YoudaoBot"},
+    {"column": "yandex", "pattern":"YandexBot"},
+    {"column": "dnspod", "pattern":"DNSPod-Monitor"},
+    {"column": "yisou", "pattern":"YisouSpider"}
+]

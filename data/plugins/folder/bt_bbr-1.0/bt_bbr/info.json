@@ -1,0 +1,10 @@
+{
+  "title": "服务器网络加速",
+  "name": "bt_bbr",
+  "ps": "基于BBR算法的网络加速，适用由于丢包、延迟高造成的网络传输慢等场景，弱网络加速神器! 注：<span style='color:red'>内核版本必须大于4.9</span>",
+  "versions": "1.0",
+  "checks": "/www/server/panel/plugin/bt_bbr",
+  "author": "宝塔",
+  "home": "https://www.bt.cn",
+  "not_substituted": []
+}

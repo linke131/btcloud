@@ -1,0 +1,856 @@
+<style>
+    .psync_content {
+        position: relative;
+        height: 555px;
+    }
+    .step_head::after {
+        background-color: #ddd;
+        border-top: 2px solid #ccc;
+        content: "";
+        display: block;
+        height: 3px;
+        left: 84px;
+        position: absolute;
+        top: 14px;
+        width: 500px;
+        z-index: -1;
+    }
+    .step_head {
+        margin: 20px 0;
+    }
+    .step_head ul li {
+        width: 24.5%;
+        display: inline-block;
+    }
+    .step_head ul li span {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        display: block;
+        border-radius: 15px;
+        background-color: #ddd;
+        color: #878787;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .step_head ul li p {
+        text-align: center;
+        margin-top: 15px;
+    }
+    .step_head ul li.active span {
+        background-color: #20A53A;
+        color: #fff;
+    }
+    .step_content {
+        text-align: center;
+    }
+    .boxHide {
+        display: none
+    }
+    .step_content .psync_info input {
+        width: 300px;
+    }
+    .step_content .psync_info .panel_setp_span {
+        height: 32px;
+        line-height: 32px;
+        overflow: hidden;
+        padding-right: 20px;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 130px;
+        display: inline-block;
+        float: left;
+    }
+    .step_content .psync_info .mtb20{
+        padding-left: 70px;
+        text-align: left;
+    }
+    .psync_path .table {
+        text-align: left;
+    }
+    .psync_path .table > tbody > tr > td:nth-child(2n),
+    .psync_path .table > thead > tr > th:nth-child(2n),
+    .terlist .table > thead > tr > th:nth-child(2n),
+    .terlist .table > tbody > tr > td:nth-child(2n),
+    .terlist .table > tbody > tr > td:nth-child(1),
+    .terlist .table > thead > tr > th:nth-child(1) {
+        border-right: #ddd 1px solid;
+    }
+
+    .checkbox_conten {
+        background-color: #f3f3f3;
+        border: #ddd 1px solid;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 0px 50px;
+    }
+
+    .checkbox_item span {
+        display: inline-block;
+        height: 15px;
+        overflow: hidden;
+        text-align: left;
+        display: block;
+        padding-left: 20px;
+        height: 20px;
+        line-height: 20px;
+        width: 152px;
+        text-overflow: ellipsis;
+    }
+
+    label.checkbox_label {
+        margin-left: 6px;
+        margin-bottom: 0;
+    }
+
+    label.checkbox_label span {
+        color: #000;
+    }
+	.psync_data {
+		display: none;
+	}
+    .psync_data .checkbox_item input[type="checkbox"] {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: 50%;
+        margin-top: -6px;
+    }
+
+    .checkbox_item label {
+        font-weight: normal;
+        white-space: nowrap;
+        position: relative;
+    }
+
+    .psync_data .checkbox_data {
+        margin: 0 5px 5px;
+        display: inline-block;
+        width: 166px;
+        vertical-align: text-top;
+    }
+
+        .psync_data .checkbox_data:last-child {
+            margin-right: 0;
+        }
+
+    .checkbox_item ul {
+        background-color: #fff;
+        max-height: 174px;
+        overflow: auto;
+        width: 100%;
+        display: block;
+        margin-top: 10px;
+    }
+
+        .checkbox_item ul li {
+            padding: 0 6px;
+        }
+
+    .psync_data .checkbox_con {
+        display: block
+    }
+
+    .bt-progress {
+        background-color: #e2e2e2;
+        border-radius: 8px;
+        height: 16px;
+        line-height: 16px;
+        position: relative;
+    }
+
+    .bt-progress-bar {
+        background-color: #5ab76c;
+        border-radius: 8px;
+        height: 16px;
+        max-width: 100%;
+        position: absolute;
+        text-align: right;
+        transition: all 0.3s ease 0s;
+        width: 0;
+    }
+
+    .bt-progress-text {
+        font-size: 12px;
+        color: #fff;
+        padding: 0 10px;
+        position: static;
+    }
+
+    .qystatus {
+        color: #666;
+        margin-bottom: 10px;
+        margin-left: 5px;
+    }
+
+    .success {
+        padding: 50px 0 60px;
+        margin-left: -60px;
+    }
+
+    .success p {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #666;
+    }
+    .psync_tips{
+        color: red;
+        font-size: 15px;
+        background-color: #fbfbfb;
+        border: 1px solid #eee;
+        line-height: 46px;
+        margin-bottom: 15px;
+        padding-left: 10px;
+    }
+    .psync_tips span{
+        font-weight: 600;
+    }
+</style>
+<div class="bt_step_psync pd15">
+    <div class="psync_content">
+        <div class="step_head">
+            <ul>
+                <li class="active">
+                    <span>1</span>
+                    <p>填写信息</p>
+                </li>
+                <li>
+                    <span>2</span>
+                    <p>检测环境</p>
+                </li>
+                <li>
+                    <span>3</span>
+                    <p>选择数据</p>
+                </li>
+                <li>
+                    <span>4</span>
+                    <p>一键迁移</p>
+                </li>
+            </ul>
+        </div>
+        <div class="step_content">
+            <div class="pd15 psync_info">
+                <div class="psync_tips"><span class="glyphicon glyphicon-alert" style="color: #f39c12; margin-right: 10px;"></span>只需在发送数据服务器安装本软件，请填写<span>『 接收数据服务器 』</span>资料，<a href="https://www.bt.cn/bbs/thread-42566-1-1.html" class="btlink" style="text-decoration:underline;" target="_blank">迁移教程</a><a href="https://www.bt.cn/bbs/thread-42566-1-1.html" target="_blank" class="bt-ico-ask" style="cursor: pointer;">?</a></div>
+                <div class="mtb20">
+                    <span class="panel_setp_span">接收数据的面板地址</span>
+                    <input type="text" class="bt-input-text" name="psync_url" value="" placeholder="接收数据面板地址，如: http://192.168.0.1:8888">
+                </div>
+                <div class="mtb20">
+                    <span class="panel_setp_span">接收数据的面板API</span>
+                    <input type="text" class="bt-input-text" name="psync_token" value="" placeholder="接收数据面板API密钥" />
+                    <a href="https://www.bt.cn/bbs/thread-42566-1-1.html" target="_blank" class="btlink ml5">如何获取API秘钥</a>
+                </div>
+                <div class="mtb20">
+                    <span class="panel_setp_span">IP白名单</span>
+                    <span style="height: 32px;line-height: 32px;">必须将本机器IP加入接收数据服务器API的IP白名单，<a href="https://www.bt.cn/bbs/thread-42566-1-1.html" href="javascript:;" target="_blank" class="btlink">如何添加白名单</a></span>
+                </div>
+                <div class="mtb20" style="text-align: left;margin-left: 130px;">
+                    <button class="btn btn-success infoNext">下一步</button>
+                </div>
+            </div>
+            <div class="pa15 psync_path" style="margin:0 50px">
+            </div>
+            <div class="pa15 psync_data" style="text-align: left;">
+                <div class="checkbox_conten">
+                    <div class="checkbox_data">
+                        <div class="checkbox_item">
+                            <label class="checkbox_label">
+                                <input type="checkbox" id="sites_All" checked>
+                                <span>网站</span>
+                            </label>
+                            <ul></ul>
+                        </div>
+                    </div>
+                    <div class="checkbox_data">
+                        <div class="checkbox_item">
+                            <label class="checkbox_label">
+                                <input type="checkbox" id="ftps_All" checked>
+                                <span>FTP</span>
+                            </label>
+                            <ul></ul>
+                        </div>
+                    </div>
+                    <div class="checkbox_data">
+                        <div class="checkbox_item">
+                            <label class="checkbox_label">
+                                <input type="checkbox" id="db_All" checked>
+                                <span>数据库</span>
+                            </label>
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="line mtb20" style="margin:20px 0 0 50px">
+                    <button class="btn btn-default btn-sm mr20 dataBack">上一步</button>
+                    <button class="btn btn-success btn-sm dataMigrate">一键迁移</button>
+                </div>
+            </div>
+            <div class="pa15 psync_migrate">
+            </div>
+        </div>
+        <hr style="margin-top: 10px;" />
+        <div class="step_footer" style="margin: 30px 0 0 20px;text-align: left;">
+            <ul class="help-info-text c7 mlr20" style="margin-top: 0px;">
+                <li> 99.9%的问题都可以看<a href="https://www.bt.cn/bbs/thread-42566-1-1.html" class="btlink" style="text-decoration:underline;" target="_blank">一键迁移教程</a><a href="https://www.bt.cn/bbs/thread-42566-1-1.html" target="_blank" class="bt-ico-ask" style="cursor: pointer;">?</a>解决，操作前必须花1分钟查看</li>
+                <li>一键迁移过程中是后台执行可以关闭当前窗口</li>
+                <li>一键迁移迁移数据不涉及原来数据的增删（是将原来数据打包发送）</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    var migrate = {
+        plugin_name: 'psync_api',
+        stop_load: false,
+        init: function () {
+            migrate.stop_load = false;
+            var _this = this
+            // 初始化
+            _this.get_migrate_after_data(function (res) {
+                if (res.status !== false) {
+                    _this.create_migrate_module();
+                } else {
+                    _this.create_info_module();
+                }
+            });
+            // 面板信息的下一步按钮
+            $('.infoNext').click(function () {
+                var psyncUrl = $('input[name="psync_url"]').val(),
+                    psyncToken = $('input[name="psync_token"]').val()
+                if (!psyncUrl || !psyncToken) {
+                    layer.msg('请填写您的面板信息', {
+                        icon: 2
+                    });
+                    return
+                }
+                var loadT = layer.msg('正在添加面板信息', {
+                    icon: 16,
+                    shade: 0.3,
+                    time: 0
+                });
+                layer.confirm('请确保本机器IP已添加至『 接收数据服务器 』面板API的IP白名单中?', {icon: 3, title:'提示',btn:['已添加，继续操作','取消']}, function(index){
+                	var tips =  layer.msg('正在检查面板参数、API密钥，请稍后...', {
+                        icon: 3,
+                        time: 0,
+                        shade: 0.3,
+                        shadeClose: true
+                    });
+                    _this.get_transfer({
+                        api_info: JSON.stringify({
+                            panel: psyncUrl,
+                            token: psyncToken
+                        })
+                    }, function (res) {
+                    	layer.close(tips);
+                        if (res.status === false) {
+                            layer.msg(res.msg, {
+                                icon: 2
+                            });
+                        } else {
+                            $('.step_head ul li').eq(1).addClass("active").siblings().removeClass("active");
+                            $('.step_content >div').eq(1).show().siblings().hide();
+                            _this.create_testting_module();
+                        }
+
+                    });
+                });
+            });
+            // 重新检测按钮
+            $('.psync_path').on('click', '.pathTestting', function () {
+                _this.create_testting_module();
+            });
+            // 检测页面的上一步按钮
+            $('.psync_path').on('click', '.pathBcak', function () {
+                $('.step_head ul li').eq(0).addClass("active").siblings().removeClass("active");
+                $('.step_content >div').eq(0).show().siblings().hide();
+            });
+            // 检测页面的下一步按钮
+            $('.psync_path').on('click', '.pathNext', function () {
+                $('.step_head ul li').eq(2).addClass("active").siblings().removeClass("active");
+                $('.step_content >div').eq(2).show().siblings().hide();
+                _this.create_selectweb_module();
+            });
+            // 选择数据页面的上一步按钮
+            $('.dataBack').click(function () {
+                $('.step_head ul li').eq(1).addClass("active").siblings().removeClass("active");
+                $('.step_content >div').eq(1).show().siblings().hide();
+            });
+            // 选择数据页面的一键迁移按钮
+            $('.dataMigrate').click(function () {
+                var project = ['sites', 'ftps', 'databases'], data = {};
+                inputNub = $('.checkbox_conten ul input[type="checkbox"]:checked').length;
+                if (inputNub != 0) {
+                    for (var n = 0; n < project.length; n++) {
+                        var tmps = $("input[name='" + project[n] + "']:checked");
+                        data[project[n]] = [];
+                        for (var i = 0; i < tmps.length; i++) {
+                            data[project[n]].push({ name: $(tmps[i]).val(), id: Number($(tmps[i]).attr('data-id')) });
+                        }
+                        //data[project[n]] = JSON.stringify(data[project[n]]);
+                    }
+                    data['paths'] = [];
+                    data['zip'] = true;
+                    _this.post_migrate_data({ sync_info: JSON.stringify(data) }, function (res) {
+                        if (res.status === false) {
+                            layer.msg(res.msg, {
+                                icon: 2
+                            });
+                        } else {
+                            // 跳转到迁移完成模块
+                            $('.bt-progress-bar').css('width', '0%');
+                            $('.bt-progress-text').text('0%');
+                            _this.create_migrate_module();
+                        }
+                    });
+                } else {
+                    layer.msg("请选择需要迁移的数据", { icon: 0 });
+                }
+            });
+            // 选择数据页面全选按钮
+            $('.checkbox_conten input[type="checkbox"]').click(function () {
+                if ($(this).attr("id").indexOf('All') >= 0) {
+                    var checked = $(this).prop('checked');
+                    $(this).parents('.checkbox_data').find('input[type="checkbox"]').prop('checked',
+                        checked);
+                }
+            });
+            // 迁移页面的完成按钮
+            $('.psync_migrate').on('click', '.okBtn', function () {
+                $.get("/plugin?action=a&name=psync_api&s=set_ok", function (rdata) {
+                    $('.step_head ul li').eq(0).addClass("active").siblings().removeClass("active");
+                    _this.create_info_module();
+                })
+            });
+            // 迁移页面的查看记录按钮
+            $('.psync_migrate').on('click', '.lookInfo', function () {
+                $.get('/plugin?action=a&name=psync_api&s=get_sync_info', function (res) {
+                    var _body, len;
+                    if (res.status !== true) {
+                        _body =
+                            '<div class="pd15 terlist" style="height:340px;overflow:auto"><div class="divtable"><table class="table table-hover" style="margin-bottom:15px"><thead><tr><th>名称</th><th>类型</th><th>状态</th></thead>'
+                        len = res.length;
+                        for (var i = 0; i < len; i++) {
+                            _body += '<tr><td>' + res[i].name + '</td><td>' + res[i].type + '</td><td>' + (res[i].state == 2 ? '<a style="color:green;">成功</a>' : '<a style="color:red;">失败: ' + res[i].error + '</a>') + '</td></tr>';
+                        }
+                        _body += '</table></div></div>';
+                        layer.open({
+                            type: 1,
+                            area: "640px",
+                            title: "迁移记录",
+                            closeBtn: 2,
+                            shift: 5,
+                            shadeClose: false,
+                            content: _body
+                        });
+                    }
+                });
+            });
+        },
+        // 创建填写信息模块
+        create_info_module: function () {
+            $('.step_content >div').eq(0).show().siblings().hide()
+            this.get_panel_url(function (res) {
+                var rdata = res.msg;
+                if (JSON.stringify(rdata) === '{}') {
+                    rdata = {
+                        panel: "",
+                        api_token: ""
+                    }
+                }
+                $('input[name="psync_url"]').val(rdata.panel);
+                $('input[name="psync_token"]').val(rdata.token);
+            });
+        },
+        // 创建检测环境模块
+        create_testting_module: function () {
+            var psyncUrl = $('input[name="psync_url"]').val(),
+                psyncToken = $('input[name="psync_token"]').val();
+            this.get_testing_path({
+                panel: psyncUrl,
+                api_token: psyncToken
+            }, function (res) {
+                if (res.status === false) {
+                    layer.msg(res.msg, {
+                        icon: 5
+                    });
+                    api_panel
+                    return;
+                }
+
+                var status = true;
+                if (res['local'].webserver != res['api_panel'].webserver) {
+                    layer.msg('请将远程服务器的网站服务器切换为:' + res['local'].webserver, {
+                        icon: 2,
+                        time: 0,
+                        shade: 0.3,
+                        shadeClose: true
+                    });
+                    status = false;
+                }
+
+                if (res['local'].mysql != res['api_panel'].mysql && res['local'].mysql != false) {
+                    layer.msg('请先安装MySQL!', {
+                        icon: 2,
+                        time: 0,
+                        shade: 0.3,
+                        shadeClose: true
+                    });
+                    status = false;
+                }
+
+                if (res['local'].ftp != res['api_panel'].ftp && res['local'].ftp != false) {
+                    layer.msg('请先安装pure-ftpd!', {
+                        icon: 2,
+                        time: 0,
+                        shade: 0.3,
+                        shadeClose: true
+                    });
+                    status = false;
+                }
+
+
+                var phpm = []
+                for (var i = 0; i < res['local'].php.length; i++) {
+                    if ($.inArray(res['local'].php[i], res['api_panel'].php) != -1) {
+                        continue;
+                    }
+                    phpm.push('PHP-' + res['local'].php[i]);
+                }
+                var diskm = 0
+                for (var i = 0; i < res['api_panel'].disk.length; i++) {
+                    diskm = res['api_panel'].disk[i].size[2];
+                    if (diskm < (1073741824 * 3)) {
+                        layer.msg('远程服务器可用磁盘空间小于3GB!', {
+                            icon: 2,
+                            time: 0,
+                            shade: 0.3,
+                            shadeClose: true
+                        });
+                        status = false
+                    }
+                }
+
+                if (phpm.length > 0) {
+                    layer.msg('远程服务器缺少以下PHP版本，请到【软件商店】中安装： <br><p style="color:red;">' + phpm.join('<br>') +
+                        '</p>', {
+                            icon: 2,
+                            time: 0,
+                            shade: 0.3,
+                            shadeClose: true
+                        });
+                    status = false;
+                }
+                var _html = '<div class="divtable"><table class="table table-hover">\
+                    <thead><tr><th style="border-right:1px solid #ddd">服务</th><th>当前服务器</th><th>远程服务器</th></tr></thead>\
+                    <tr><td style="border-right:1px solid #ddd">网站服务</td><td>' + res['local'].webserver + '</td><td>' + res[
+                        'api_panel'].webserver + '</td></tr>\
+                    <tr><td style="border-right:1px solid #ddd">安装MySQL</td><td>' + (res['local'].mysql ? '是' : '否') + '</td><td>' + (
+                        res['api_panel'].mysql ? '是' : '否') + '</td></tr>\
+                    <tr><td style="border-right:1px solid #ddd">安装FTP</td><td>' + (res['local'].ftp ? '是' : '否') + '</td><td>' + (res[
+                        'api_panel'].ftp ? '是' : '否') + '</td></tr>\
+                    <tr><td style="border-right:1px solid #ddd">安装PHP</td><td>' + res['local'].php.join('/') + '</td><td>' + res[
+                        'api_panel'].php.join('/') + '</td></tr>\
+                    <tr><td style="border-right:1px solid #ddd">可用磁盘</td><td>' + ToSize(res['local'].disk) + '</td><td>' + diskm + 'B</td></tr>\
+                    </table></div>\
+                    <div class="line mtb20" style="text-align: left;">\
+                        <button class="btn btn-default btn-sm mr20 pathTestting">重新检测</button>\
+                        <button class="btn btn-default btn-sm mr20 pathBcak">上一步</button>\
+                        <button class="btn btn-success btn-sm psync-next pathNext">下一步</button>\
+                    </div>'
+                $('.psync_path').html(_html);
+
+                if (!status) $('.psync-next').attr('disabled', true);
+            });
+        },
+        // 创建选择数据模块
+        create_selectweb_module: function () {
+            var psyncUrl = $('input[name="psync_url"]').val(),
+                psyncToken = $('input[name="psync_token"]').val(),
+                _total = 0,
+                _htmlweb = '',
+                _htmlftp = '',
+                _htmldb = '';
+            this.get_migrate_data({
+                panel: psyncUrl,
+                api_token: psyncToken
+            }, function (res) {
+                var ftp_all = false, sites_all = false, db_all = false;
+
+                if (res.sites.length > 0) {
+                    for (var i = 0; i < res.sites.length; i++) {
+                        _htmlweb += '<li><label>\
+                            <input type="checkbox" data-id="'+ res.sites[i].id + '" id="sites_' + res.sites[i].name + '" value="' + res.sites[i].name + '" name="sites" checked>\
+                            <span title="' + res.sites[i].name + '">' + res.sites[i].name + '</span></label></li>';
+                    };
+                    sites_all = true;
+
+                }
+                if (res.ftps.length > 0) {
+                    for (var i = 0; i < res.ftps.length; i++) {
+                        _htmlftp += '<li><label>\
+                            <input type="checkbox" data-id="'+ res.ftps[i].id + '" id="ftp_' + res.ftps[i].name + '" value="' + res.ftps[i].name + '" name="ftps" checked>\
+                            <span title="' + res.ftps[i].name + '">' + res.ftps[i].name + '</span></label></li>';
+                    };
+
+                    ftp_all = true;
+                }
+                if (res.databases.length > 0) {
+                    for (var i = 0; i < res.databases.length; i++) {
+                        _htmldb += '<li><label>\
+                            <input type="checkbox" data-id="'+ res.databases[i].id + '" id="database_' + res.databases[i].name + '" value="' + res.databases[i].name + '" name="databases" checked>\
+                            <span title="' + res.databases[i].name + '">' + res.databases[i].name + '</span></label></li>';
+                    };
+
+                    db_all = true;
+                }
+                $("#sites_All").prop("checked", sites_all);
+                $("#ftps_All").prop("checked", ftp_all);
+                $("#db_All").prop("checked", db_all);
+                _total = res.sites.length + res.ftps.length + res.databases.length;
+                if (_total == 0) {
+                    layer.msg('没有可提供的数据迁移,一键迁移是从当前服务器迁移到目标服务器中！！', { icon: 0 });
+                    $('.dataMigrate').attr('disabled', true);
+                }
+                $('.checkbox_data ul').eq(0).html(_htmlweb);
+                $('.checkbox_data ul').eq(1).html(_htmlftp);
+                $('.checkbox_data ul').eq(2).html(_htmldb);
+            });
+        },
+        // 创建迁移完成模块
+        create_migrate_module: function () {
+            var _this = this;
+            $('.step_head ul li').eq(3).addClass("active").siblings().removeClass("active");
+            $('.step_content >div').eq(3).show().siblings().hide();
+            this.get_migrate_after_data(function (res) {
+                if (migrate.stop_load) return false;
+                var _html, speed, con, rate;
+                if (res.status !== false || res === false) {
+                    if (res && res.action !== 'True') {
+                        var speed_msg = '';
+                        if (res.done === '正在传输文件') {
+                            speed_msg = '<span>' + res.action + '</span><span style="margin-left: 20px;">当前: ' + res.done
+                                + '</span><span style="margin-left: 10px;">速度: ' + migrate.format_size(res.speed)
+                                + '</span><span style="margin-left: 10px;">已传输: ' + migrate.format_size(res.used)
+                                + '/' + migrate.format_size(res.size) + '</span>';
+                        } else {
+                            speed_msg = '<span>' + res.action + '</span><span style="margin-left: 20px;">当前: ' + res.done + '</span>';
+                        }
+                        con = '<div style="margin: 0 40px;"><div class="line">\
+                            <div style="text-align:left">' + speed_msg + '<img src="/static/img/ing.gif"><a style="position: absolute;right: 40px;" class="btlink psync_close" onclick="migrate.close();">[取消]</a></div>\
+                            <div class="bt-progress" style="border-radius:0;height:20px;line-height:19px"><div class="bt-progress-bar" style="border-radius:0;height:20px"><span class="bt-progress-text">0%</span>\
+                            </div></div></div></div><pre style="height: 222px;text-align: left;margin:5px 38px 0;font-size: 12px;line-height: 20px;padding: 10px;background-color: #333;color: #fff;">'+ res.log + '</pre>';
+                        $('.psync_migrate').html(con)
+                    }
+                    if (res.action !== 'True' || res === false) {
+                        if (res) {
+                            var rate = (res.all_speed / res.all_total * 100).toFixed(2)
+                            if (rate > 100) rate = 100;
+                            if (rate !== NaN) {
+                                $('.bt-progress-bar').css('width', rate + '%');
+                                $('.bt-progress-text').text(rate + '%');
+                            }
+
+                        }
+                        setTimeout(function () {
+                            if (!migrate.stop_load)
+                                if ($(".psync_close").text() == '[取消]') {
+                                    _this.create_migrate_module();
+                                }
+                        }, 1000);
+                        return
+                    }
+
+                    _html = '<div class="line"><div class="success text-center" style="padding: 10px 0 15px;">\
+                        <img src="/static/img/ico-success.png"><p>数据迁移完成,请务必检查数据完整性!</p><p style="font-size: 14px;margin-top:2px;color: #939292;">传输大小: '
+                        + migrate.format_size(res.total_size) + ',耗时: ' + res.total_time + ',平均速度: '
+                        + migrate.format_size(res.total_size / (res.end_time - res.time)) +'/s</p><p class="mtb15">\
+                        <button class="btn btn-success btn-sm mr5 okBtn">确定完成</button>\
+                        <button class="btn btn-default btn-sm lookInfo">查看记录</button><a class="btn btn-default btn-sm" style="margin-left: 10px;" href="/download?filename=/www/server/panel/logs/psync.log">迁移日志</a></p></div></div>';
+                    $('.psync_migrate').html(_html)
+
+                }
+            });
+        },
+         //字节转换，到指定单位结束 is_unit：是否显示单位  fixed：小数点位置 end_unit：结束单位
+        format_size: function (bytes, is_unit, fixed, end_unit){
+            if (bytes == undefined) return 0;
+            if (is_unit == undefined) is_unit = true;
+            if (fixed == undefined) fixed = 2;
+            if (end_unit == undefined) end_unit = '';
+            if (typeof bytes == 'string') bytes = parseInt(bytes);
+            var unit = [' B', ' KB', ' MB', ' GB', 'TB'];
+            var c = 1024;
+            for (var i = 0; i < unit.length; i++) {
+                var cUnit = unit[i];
+                if (end_unit) {
+                    if (cUnit.trim() == end_unit.trim()) {
+                        var val = i == 0 ? bytes : fixed == 0 ? bytes : bytes.toFixed(fixed)
+                        if (is_unit) {
+                            return val + cUnit;
+                        }
+                        else {
+                            val = parseFloat(val);
+                            return val;
+                        }
+                    }
+                }
+                else {
+                    if (bytes < c) {
+                        var val = i == 0 ? bytes : fixed == 0 ? bytes : bytes.toFixed(fixed)
+                        if (is_unit) {
+                            return val + cUnit;
+                        }
+                        else {
+                            val = parseFloat(val);
+                            return val;
+                        }
+                    }
+                }
+
+                bytes /= c;
+            }
+        },
+        //取消迁移
+        close: function () {
+            layer.confirm("<span style='color: red;'>取消迁移任务将直接中断迁移进程，不做任何还原操作，请谨慎操作!</span>",
+                { icon: 3, title: "取消迁移任务?" }, function(){
+                var loadT = layer.msg('正在取消迁移任务...', { time: 0, icon: 16 })
+                $.post('/plugin?action=a&name=psync_api&s=close_sync', function (rdata) {
+                    layer.close(loadT);
+                    layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+                    migrate.stop_load = true;
+                    setTimeout(function () { migrate.init(); }, 3000);
+                });
+            });
+        },
+        // 生成迁移后返回的数据
+        get_migrate_after_data: function (callback) {
+            this.send({
+                load: 3,
+                method: 'get_speed',
+                check: true,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            })
+        },
+        // 生成迁移数据
+        post_migrate_data: function (data, callback) {
+            this.send({
+                tips: '正在准备迁移 <img src="/static/img/ing.gif">',
+                method: 'set_sync_info',
+                data: data,
+                check: true,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 获取迁移数据
+        get_migrate_data: function (data, callback) {
+            this.send({
+                tips: '正在获取远程列表 <img src="/static/img/ing.gif">',
+                method: 'get_site_info',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 获取面板环境数据
+        get_testing_path: function (data, callback) {
+            this.send({
+                tips: '正在获取面板环境数据 <img src="/static/img/ing.gif">',
+                method: 'chekc_surroundings',
+                data: data,
+                check: true,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            })
+        },
+        // 获取面板地址是否正确
+        get_transfer: function (data, callback) {
+            this.send({
+                load: 3,
+                method: 'set_panel_api',
+                data: data,
+                check: true,
+                success: function (res) {
+                    if (callback) callback(res)
+                }
+            });
+        },
+        // 获取面板地址/api
+        get_panel_url: function (callback) {
+            this.send({
+                tips: '正在获取密钥中 <img src="/static/img/ing.gif">',
+                method: 'get_panel_api',
+                check: true,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 请求封装
+        send: function (obj) {
+            var loadT = '';
+            if (obj.load == undefined) obj.load = 0;
+            if (obj.url == undefined) {
+                if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this
+                    .plugin_name
+                if (!obj.plugin_name || !obj.method) {
+                    layer.msg('插件类名称，或插件方法名称缺失!', {
+                        icon: 2
+                    });
+                    return false;
+                }
+            }
+            if (obj.load === 0) {
+                loadT = layer.msg(obj.tips, {
+                    icon: 16,
+                    time: 0,
+                    shade: 0.3
+                });
+            } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+                loadT = layer.load();
+            }
+            $.ajax({
+                type: obj.type == undefined ? 'POST' : obj.type,
+                url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' +
+                    obj.method),
+                data: obj.data || {},
+                timeout: obj.timeout || 99999999,
+                complete: function (res) {
+                    if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+                },
+                success: function (rdata) {
+                    if (obj.check) {
+                        obj.success(rdata);
+                        return
+                    }
+                    if (rdata.status === false) {
+                        layer.msg(rdata.data, {
+                            icon: 2
+                        });
+                        return
+                    }
+                    obj.success(rdata);
+                },
+                error: function (ex) {
+                    if (!obj.error) {
+                        obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+                            icon: 2
+                        }) : '';
+                        return;
+                    }
+                    return obj.error(ex);
+                }
+            });
+        }
+    };
+    migrate.init()
+</script>

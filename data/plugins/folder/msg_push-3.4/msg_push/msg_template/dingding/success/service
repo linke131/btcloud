@@ -1,0 +1,8 @@
+#### {title}
+>服务器：{ip}
+
+>服务：{service}
+
+>服务状态: <font color=#00EC00>{status}</font>
+
+>消息: {msg}

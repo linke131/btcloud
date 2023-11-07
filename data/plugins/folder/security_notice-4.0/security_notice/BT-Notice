@@ -1,0 +1,105 @@
+#!/www/server/panel/pyenv/bin/python
+# coding: utf-8
+# Date 2022/10/25
+#
+import asyncio
+import json
+import logging
+import struct
+import os,sys
+from threading import  Lock
+
+os.chdir('/www/server/panel')
+if not 'class/' in sys.path:
+    sys.path.insert(0,'class/')
+import public,PluginLoader
+
+get = public.dict_obj()
+get.plugin_get_object = 1
+fun_obj = PluginLoader.plugin_run("security_notice", "start_payload_info", get)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s')
+
+def get_fun(class_id,method_id):
+    if class_id==0 and method_id==0:return "passthru"
+    if class_id==0 and method_id==1:return "system"
+    if class_id==0 and method_id==2:return "exec"
+    if class_id==0 and method_id==3:return "shell_exec"
+    if class_id==0 and method_id==4:return "proc_open"
+    if class_id==0 and method_id==5:return "popen"
+    if class_id==0 and method_id==6:return "pcntl_exec"
+    if class_id==1 and method_id==0:return "file"
+    if class_id==1 and method_id==1:return "readfile"
+    if class_id==1 and method_id==2:return "file_get_contents"
+    if class_id==1 and method_id==3:return "file_put_contents"
+    if class_id==1 and method_id==4:return "copy"
+    if class_id==1 and method_id==5:return "rename"
+    if class_id==1 and method_id==6:return "unlink"
+    if class_id==1 and method_id==7:return "dir"
+    if class_id==1 and method_id==8:return "opendir"
+    if class_id==1 and method_id==9:return "scandir"
+    if class_id==1 and method_id==10:return "fopen"
+    if class_id==1 and method_id==11:return "move_uploaded_file"
+    if class_id==1 and method_id==12:return "__construct"
+    if class_id==2 and method_id==0:return "socket_connect"
+    if class_id==3 and method_id==0:return "gethostbyname"
+    if class_id==3 and method_id==1:return "dns_get_record"
+    if class_id==4 and method_id==0:return "assert"
+    if class_id==4 and method_id==1:return "putenv"
+    if class_id==5 and method_id==0:return "curl_exec"
+    if class_id==10 and method_id==0:return "include"
+
+
+async def handle(reader, writer):
+    logging.info("connected")
+    while True:
+        header = await reader.readexactly(4)
+        if header:
+            try:
+                payload_size = struct.Struct(">i").unpack(header)[0]
+                payload = await reader.readexactly(payload_size)
+                payload_info=json.loads(payload.decode('utf8'))
+                if 'data' in payload_info:
+                    if 'class_id' in payload_info['data']:
+                        # try:
+                        fun = get_fun(payload_info['data']['class_id'], payload_info['data']['method_id'])
+                        if not fun:
+                            continue
+                        if not 'args' in payload_info['data']:
+                            continue
+                        if 'ret' not in payload_info['data']:
+                            if fun == "passthru" or fun == "system" or fun == "exec" or fun == "shell_exec" or fun == "proc_open" or fun == "popen" or fun == "pcntl_exec":
+                                payload_info['data']['ret'] = 'true'
+                            else:
+                                continue
+                        ret = payload_info['data']['ret']
+                        if ret == 'false':
+                            continue
+                        payload_info['fun_name'] = fun
+                        if 'args' not in payload_info['data']:
+                            continue
+                        if payload_info['data']['class_id'] == 10:
+                            continue
+                        gets = public.dict_obj()
+                        gets.payload_info = payload_info
+                        fun_obj(gets)
+            except:
+                continue
+
+async def main():
+    try:
+        server = await asyncio.start_unix_server(handle, path='/var/run/security_notice.sock')
+        public.ExecShell("rm -rf /tmp/security_notice*.log")
+        await server.serve_forever()
+    except:
+        print("报错了！！")
+
+#检查日志文件大小
+__plugin_path = "/www/server/panel/plugin/security_notice/logs/logs.log"
+#判断文件是否大于500M
+if os.path.exists(__plugin_path):
+    if os.path.getsize(__plugin_path) > 524288000:
+        public.WriteFile(__plugin_path,"")
+asyncio.run(main())

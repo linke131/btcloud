@@ -1,0 +1,12 @@
+{
+    "id": 3,
+    "title": "PHP网站安全告警",
+    "tip": "lib",
+    "name": "security_notice",
+    "type": "扩展",
+    "ps": "php内核层监控行为,有效查杀各类网站木马,例如哥斯拉、冰蝎、蚁剑木马连接器,检测各类漏洞,入侵检测",
+    "versions": "4.0",
+    "checks": "/www/server/panel/plugin/security_notice",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs"
+}

@@ -1,0 +1,1190 @@
+<style>
+.layui-layer-tips {
+    word-break: break-all;
+}
+
+#bt-security .bt-w-menu{
+    height: 615px;
+}
+.search-day {
+    height: 32px;
+    margin-left: 1px;
+    margin-bottom: 10px;
+}
+.search-day span {
+    float: left;
+    height: 32px;
+    line-height: 30px;
+    border: #ddd 1px solid;
+    padding: 0 20px;
+    margin-left: -1px;
+    cursor: pointer;
+    position: relative;
+}
+.search-day span.cur {
+    background-color: #20a53a;
+    color: #fff;
+}
+.search-day span:last-child {
+    padding: 0;
+}
+.search-day span input {
+  border: 0 none;
+  height: 30px;
+  padding: 0 10px;
+  width: 105px;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHBAMAAADOnLEXAAAAA3NCSVQICAjb4U/gAAAAElBMVEX////v7++oqKiSkpJgYGAzMzNVUvUKAAAABnRSTlMA//////96eeD+AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAFnRFWHRDcmVhdGlvbiBUaW1lADA3LzEzLzE442/mwwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAApSURBVAiZYxBiAAJFBhEDBgZmRwbmYAYGUwMQBrGAXBAHyAVxgFwgBwBYpgOoNMjLNgAAAABJRU5ErkJggg==");
+  background-repeat: no-repeat;
+  background-position: 86px center;
+}
+
+.search-day span input:active {
+  border: 0 none;
+}
+
+.search-day span.cur input {
+  color: #fff;
+  background-color: #20a53a;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHBAMAAADOnLEXAAAAA3NCSVQICAjb4U/gAAAAElBMVEX////f8+Pg8+Sx2LghpTsgpTp3yIRgAAAACXBIWXMAAA6cAAAOnAEHlFPdAAAAFnRFWHRDcmVhdGlvbiBUaW1lADA3LzEzLzE442/mwwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAxSURBVAiZY1B2DQ0NNWJQMA0NDWZkCGYODTUwZQBiIIshNJjZwBRIhRoAhYFUMFARAPlECn96zZKZAAAAAElFTkSuQmCC");
+}
+.global-switch{
+    position: absolute;
+    top: 16px;
+    left: 300px;
+    line-height: 32px;
+}
+.global-switch .pull-right{
+    margin-left: 20px;
+    margin-top: 4px;
+}
+.security-statistical{
+    background-color: #FAFAFA;
+    border: #ddd 1px solid;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.data-count-box {
+    height: 100%;
+    text-align: center;
+    width: 50%;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+.data-count-box .dname {
+    color: #78797D;
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+.data-count-box .dval {
+    font-family: arial;
+    color: #121313;
+    font-size: 20px;
+}
+.logs-data-select {
+    margin-bottom: 15px;
+}
+.logs-title {
+    display: inline-block;
+    width: auto;
+    height: 35px;
+    font-size: 14px;
+    line-height: 35px;
+}
+.logs-unselect {
+    position: relative;
+    display: inline-block;
+    height: 30px;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    font-size: 13px;
+    line-height: 28px;
+}
+.logs-unselect.active .logs-input-list {
+    display: block;
+}
+.logs-unselect.active .logs-input-list {
+    animation-name: layui-upbit;
+    animation-duration: .3s;
+    animation-fill-mode: both;
+}
+.logs-inputs {
+    box-sizing: border-box;
+    padding: 0 40px 0 15px;
+    height: 30px;
+    cursor: pointer;
+}
+.logs-unselect .logs-inputs:after {
+    position: absolute;
+    top: 0.8pc;
+    right: 9pt;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: #c2c2c2 transparent transparent;
+    border-style: solid;
+    border-width: 6px 6px 0;
+    content: '';
+    transition: transform .5s;
+}
+.logs-input-list {
+    position: absolute;
+    top: 30px;
+    right: -1px;
+    left: -1px;
+    z-index: 899;
+    display: none;
+    box-sizing: border-box;
+    padding: 5px 0;
+    height: auto;
+    min-width: 100%;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.12);
+}
+.logs-input-list dd {
+    padding: 5px 15px;
+    height: 38px;
+    line-height: 30px;
+}
+
+.logs-input-list dd:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+.logs-input-list dd.logs_checked {
+    background: #5fb878!important;
+    color: #fff;
+}
+.logs-page.page-style {
+    padding: 0 5px;
+    height: 30px;
+    font-size: 13px;
+    margin-top: 15px;
+}
+.page-style .nextPage{
+    display: inline-block;
+    margin: 0 3px;
+    padding: 0 10px;
+    height: 30px;
+    border-radius: 2px;
+    background-color: #f5f5f5;
+    color: #666;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+.page-style .Pcount {
+    margin-right: 0;
+    margin-left: 5px;
+}
+.overflow_style{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align:middle;
+}
+.text_style{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+/*拦截日志 start*/
+.alarm-view .bt-w-main{height:400px}
+.alert-group-box .box-group {
+    display: inline-block;
+    margin-right: 15px;
+    vertical-align: middle;
+    height: 32px;
+    line-height: 32px;
+}
+.alert-group-box .bt_checkbox_groups {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border-radius: 1px;
+    cursor: pointer;
+    border: 1px solid #c2c2c2;
+    position: relative;
+    text-align: center;
+    line-height: 20px;
+    margin: 0;
+    vertical-align: top;
+}
+.alert-group-box .bt_checkbox_groups.active {
+    border: none;
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    background: #20a53a;
+    color: #fff;
+}
+.alert-group-box .bt_checkbox_groups.active:after {
+    content: "\e013";
+    font-size: 12px;
+    transform: scale(.85);
+    position: absolute;
+    left: 2px;
+    top: 2px;
+}
+.alert-group-box .box-group .bt_checkbox_groups {
+    vertical-align: -2px;
+    margin-right: 5px;
+}
+/*拦截日志 end*/
+
+</style>
+
+<div class="bt-form" id="bt-security">
+    <div class="bt-w-main">
+        <div class="bt-w-menu">
+            <p class="bgw"  onclick="bt_security.overview()">概览</p>
+            <p onclick="bt_security.set_manage()">管理设置</p>
+            <!--<p onclick="bt_security.set_alerts()">拦截日志</p>-->
+            <p onclick="bt_security.record_logs()">操作日志</p>
+        </div>
+        <div class="bt-w-con pd15" style="height: 615px;overflow: auto;">
+            <div class="plugin_body"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var bt_security = {
+    plugin_name: 'bt_security',
+    user_list:{},
+    set_over_time:'',
+    global_switch:null,
+    alert_info: null,
+    total:'',
+    total_day:'',
+    ajaxList: {
+        'get_total_all': '获取防提权',
+        'start_bt_security': '开启防提权',
+        'start_user_security': '开启防提权',
+        'start_user_log': '开启用户日志',
+        'stop_bt_security': '关闭防提权',
+        'stop_user_security': '关闭防提权',
+        'stop_user_log': '关闭用户日志',
+        'get_send_status': '获取推送设置',
+        'set_dingding':'设置钉钉推送',
+        'set_mail_to':'设置邮箱推送',
+        'get_logs_list': '获取日志列表',
+        'get_user_log':'获取日志',
+        'porcess_set_up_log':'获取进程白名单',
+        'add_porcess_log':'添加进程白名单',
+        'del_porcess_log':'删除进程白名单',
+        'get_log':'操作日志',
+        'get_log_send':'告警日志'
+    },
+    init: function(){
+        var that = this;
+        //定义窗口尺寸
+        $('.layui-layer-page').css({ 'width': '900px','top':(($(window).height()- 690) /2) +'px','left':(($(window).width()- 900) /2) +'px'});
+        $('.layui-layer-content').css('height','615px')
+        //左测菜单切换效果
+        $(".bt-w-menu p").click(function () {
+            $(this).addClass('bgw').siblings().removeClass('bgw')
+        });
+        that.overview()
+    },
+    /**
+    	* 概览
+    */
+    overview:function(){
+        var that = this,_html = '';
+        _html = '<div calss="security-view">'
+                    +'<div class="search-day">'
+                        +'<span class="cur" onclick="bt_security.render_overview_table(\''+bt_security.getBeforeDate(0)+'\')">今日</span>'
+                        +'<span onclick="bt_security.render_overview_table(\''+bt_security.getBeforeDate(1)+'\')">昨日</span>'
+                        +'<span class="last-span"><input id="search-time-data" type="text" value=""></span>'
+                    +'</div>'
+                    +'<div class="global-switch"><span class="pull-left">防提权开关</span><div class="pull-right">'
+                        +'<input class="btswitch btswitch-ios" id="global-switch" type="checkbox">'
+                        +'<label class="btswitch-btn" for="global-switch" onclick="bt_security.set_global_switch()"></label></div>'
+                    +'</div>'
+                    +'<button class="btn btn-success btn-sm text_style" onclick="bt_security.test_app()">模拟测试</button>'
+                    +'<div class="security-statistical">'
+                        +'<div class="data-count-box"><p class="dname">总拦截次数</p><p class="dval over_total">0</p></div>'
+                        +'<div class="data-count-box"><p class="dname">保护天数</p><p class="dval over_day">0</p></div>'
+                    +'</div>'
+                    +'<div class="overview-table bt-table">'
+                        +'<div class="divtable" style="height:300px">'
+                            +'<table class="table table-hover">'
+                                +'<thead><tr><th width="100">用户</th><th width="70">总次数</th><th width="70">当日次数</th><th width="90">防提权</th><th width="90">日志状态</th><th>备注</th><th width="70" class="text-right">详情</th></tr></thead>'
+                                +'<tbody class="overview-tbody"></tbody>'
+                            +'</table>'
+                        +'</div>'
+                    +'</div>'
+                    +'<ul class="help-info-text c7">'
+                        +'<li>开启防提权，系统会针对该用户操作命令进行限制，并记录跟踪</li>'
+                        +'<li>不开启防提权，系统只针对该用户操作过的命令做记录跟踪</li>'
+                        +'<li>目前防提权默认只针对www,redis,mysql操作引起的提权问题进行处理</li>'
+                        +'<li style="color:red" >消息推送需要更新至最新面板的版本(2020-06-17日之后安装的版本|或者2020-06-17日之后点击过修复面板)</li>'
+                    +'</ul>'
+                +'</div>';
+		$('.plugin_body').html(_html)
+		
+        this.render_overview_table();  //默认渲染
+        // $('#close_total').attr('checked',that.global_switch)
+        $(".search-day span").not(".last-span").click(function(){
+			$(this).addClass("cur").siblings().removeClass("cur");
+		})
+		laydate.render({
+			elem: '#search-time-data',
+			value: new Date(),
+			max: 0,
+			done: function(value, date, endDate){
+				that.render_overview_table(value);
+				$("#search-time-data").val(value);
+				$(".last-span").addClass("cur").siblings().removeClass("cur");
+			}
+		});
+		// 固定表格头部
+        if(jQuery.prototype.fixedThead){
+            $('.overview-table .divtable').fixedThead({resize:false});
+        }else{
+            $('.overview-table .divtable').css({'overflow':'auto'});
+        }
+    },
+    /**
+    	* 管理设置界面
+    */
+    set_manage:function(){
+        var that = this,_html = '';
+        _html = '<div class="manage-box">'
+                +'<div class="manage-title" style="margin-bottom: 10px;">'
+                    +'<input class="bt-input-text" name="cmd" type="text" style="width:180px;margin-right: 10px;">'
+                    +'<button class="btn btn-success btn-sm va0" onclick="bt_security.create_white()">添加</button>'
+                +'</div>'
+                +'<div class="manage-content bt-table">'
+                    +'<div class="divtable" style="height:340px">'
+                        +'<table class="table table-hover">'
+                            +'<thead><tr><th>进程白名单</th><th class="text-right">操作</th></tr></thead>'
+                            +'<tbody class="manage-tbody"></tbody>'
+                        +'</table>'
+                    +'</div>'
+                +'</div>'
+            +'</div>'
+            +'<ul class="help-info-text c7" style="    position: absolute;bottom: 30px;">'
+            +'<li style="color:red" >命令需要填写全路径例如:/usr/bin/curl</li></ul>'
+		$('.plugin_body').html(_html)
+		$('input[name=cmd]').attr('placeholder','例:/bin/bash')
+		this.render_manage_table();
+		// 固定表格头部
+        if(jQuery.prototype.fixedThead){
+            $('.manage-content .divtable').fixedThead({resize:false});
+        }else{
+            $('.manage-content .divtable').css({'overflow':'auto'});
+        }
+    },
+    /**
+	    * 拦截日志
+    */
+    set_alerts:function(){
+        var that = this,_html ='',_radio ='';
+        _html = '<button class="btn btn-success btn-sm va0"onclick="bt_security.set_alerts_info()" style="margin-bottom:10px">消息推送</button>'
+            +'<span class="c7" style="margin-left:15px">通过消息推送可以实时推送拦截日志至邮箱、钉钉。</span>'
+            +'<div class="bt-table"><div class="divtable">'
+            +'<table class="table table-hover">'
+            +'<thead><tr><th>拦截内容</th><th>触发时间</th></tr></thead>'
+            +'<tbody class="alerts-tbody"></tbody>'
+            +'</table></div></div>'
+            +'<div class="page" id="alerts-logs-page"></div>'
+        that.render_alert_list();
+        $('.plugin_body').html(_html);
+    },
+    /**
+    	* 操作日志
+    	* @param {Number} num 页码
+    */
+    record_logs:function(num){
+        var that = this,_html = '',_tbody = '',obj = {};
+        if(num) obj = {p:num}
+        _html = '<div class="bt-table">'
+                +'<div class="divtable">'
+                    +'<table class="table table-hover">'
+                        +'<thead><tr><th>操作</th><th>日期</th></tr></thead>'
+                        +'<tbody class="record-tbody"></tbody>'
+                    +'</table>'
+                +'</div>'
+            +'</div>'
+            +'<div class="page" id="record-logs-page"></div>'
+        $('.plugin_body').html(_html);
+        this.ajaxTask('get_log',obj,function(res){
+            if(res['data'].length > 0){
+                that.each(res['data'],function(index,item){
+                    _tbody += '<tr>'
+                        +'<td><span class="overflow_style" style="width:530px">'+item['log']+'</td>'
+                        +'<td>'+item['addtime']+'</td>'
+                    +'</tr>'
+                })
+            }else{
+                _tbody = '<tr><td colspan="2">当前数据为空</td></tr>'
+            }
+            $('.record-tbody').html(_tbody)
+            $('#record-logs-page').html(res.page)
+            $('#record-logs-page.page a').on('click', function (e) {
+                var page = $(this).attr('href');
+                page = page.match(/p=([0-9])$/)[1]
+                that.record_logs(page)
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            that.bind_overflow_tips()
+        })
+        
+    },
+    /**
+    	* 渲染概览表格
+    	* @param {Number} time 需查询的时间日期
+    */
+    render_overview_table:function(time){
+        var that = this,_tbody = '',pdata={day:time};
+        this.set_over_time = time;
+        if(time == undefined) pdata ={};
+        this.ajaxTask('get_total_all',pdata,function(res){
+            if(!res.status) return layer.msg(res.msg,{icon:2})
+                that.each(res.system_user,function(index,item){
+                    _tbody += '<tr>'
+                        +'<td><span class="overflow_style" style="width:87px">'+item[0]+'</td>'
+                        +'<td>'+item[4]['totla']+'</td>'
+                        +'<td>'+item[4]['day_totla']+'</td>'
+                        +'<td>'+(item[3]?'<a class="btlink" onclick="bt_security.user_switch(\''+item[0]+'\',1)">已开启<span class="glyphicon glyphicon-play"></span></a>':'<a href="javascript:;" style="color:red" onclick="bt_security.user_switch(\''+item[0]+'\',0)">未开启<span class="glyphicon glyphicon-pause"></span></a>')+'</td>'
+                        +'<td>'+(item[5]?'<a class="btlink" onclick="bt_security.logs_switch('+item[1]+',1)">已开启<span class="glyphicon glyphicon-play"></span></a>':'<a href="javascript:;" style="color:red" onclick="bt_security.logs_switch('+item[1]+',0)">未开启<span class="glyphicon glyphicon-pause"></span></a>')+'</td>'
+                        +'<td>'+item[6]+'</td>'
+                        +'<td class="text-right"><a class="btlink" onclick="bt_security.logs_list(\''+item[0]+'\')">命令日志</a></td>'
+                    +'</tr>'
+                })
+            $('.overview-tbody').html(_tbody);
+            
+            $('#global-switch').attr('checked',res.open)
+            $('.over_total').html(res.totla_times)
+            $('.over_day').html(res.totla_days)
+            that.bind_overflow_tips()
+        })
+    },
+    /**
+    	* 渲染进程白名单列表
+    */
+    render_manage_table:function(){
+        var that = this,_tbody =''
+        this.ajaxTask('porcess_set_up_log',function(res){
+            if(res.length >0){
+                that.each(res,function(index,item){
+                    _tbody +='<tr>'
+                        +'<td>'+item+'</td>'
+                        +'<td class="text-right"><a class="btlink" onclick="bt_security.remove_white(\''+item+'\')">删除</td>'
+                    +'</tr>'  
+                })
+            }else{
+                _tbody ="<tr><td colspan='2'>当前数据为空</td></tr>"
+            }
+            $('.manage-tbody').html(_tbody)
+        })
+    },
+    /**
+	    * 获取告警日志
+	    * @param {Number} num 页码
+    */
+    render_alert_list:function(num){
+        var that = this,_tbody = '',obj = {};
+        if(num) obj = {p:num}
+        this.ajaxTask('get_log_send',obj,function(res){
+            if(res['data'].length > 0){
+                that.each(res['data'],function(index,item){
+                    _tbody += '<tr>'
+                        +'<td><span class="overflow_style" style="width:530px">'+item['log']+'</td>'
+                        +'<td>'+item['addtime']+'</td>'
+                    +'</tr>'
+                })
+            }else{
+                _tbody = '<tr><td colspan="2">当前数据为空</td></tr>'
+            }
+            $('.alerts-tbody').html(_tbody)
+            $('#alerts-logs-page').html(res.page)
+            $('#alerts-logs-page.page a').on('click', function (e) {
+                var page = $(this).attr('href');
+                page = page.match(/p=([0-9])$/)[1]
+                that.render_alert_list(page)
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            that.bind_overflow_tips()
+        })
+    },
+    /**
+    	* 渲染命令日志界面
+    	* @param {Object} obj 用户，时间，页码
+    */
+    render_logs:function(obj){
+        var that = this,_tbody ='';
+        this.ajaxTask('get_user_log',{user:obj.user,day:obj.toDate,p:obj.p,num:11},function(res){
+            if(res.length > 0){
+                that.each(res,function(index,item){
+                    _tbody += '<tr>'
+                        +'<td style="width:100px">'+obj.user+'</td>'
+                        +'<td><span class="overflow_style" style="width:185px">'+item['cwd']+'</span></td>'
+                        +'<td><span class="overflow_style" style="width:185px">'+item['cmd']+'</span></td>'
+                        +'<td><span class="overflow_style" style="width:185px">'+item['filename']+'</span></td>'
+                        +'<td>'+bt.format_data(item['timestamp'])+'</td>'
+                    +'</tr>'
+                })    
+            }else{
+                _tbody = '<tr><td colspan="5">当前数据为空</td></tr>'
+            }
+            $('.logs-tbody').html(_tbody)
+            // 分页
+			$('.logs-page').html(that.render_logs_pages(10,obj.p,res.length));
+			$('.logs-page a').unbind().click(function(e){
+				var _page = parseInt($(this).attr('data-page'));
+				that.render_logs({user:obj.user,toDate:obj.toDate,p:_page});
+			});
+			
+            that.bind_overflow_tips()
+        })
+    },
+    /**
+	    * 消息推送弹层
+    */
+    set_alerts_info:function(){
+        var that = this,home_ = '',redio_ ='';
+        // 请求面板消息通道信息
+        var loadT = layer.msg('正在获取推送设置中,请稍候...', { icon: 16, time: 0, shade: [0.3, '#000'] });
+        $.post('/config?action=get_settings',function(res){
+            layer.close(loadT)
+            layer.open({
+                type: 1,
+    			title: "消息推送设置",
+    			area: "600px",
+    			closeBtn: 2,
+    			shadeClose: false,
+    			content: '<div class="bt-form alarm-view">\
+        			<div class="bt-w-main">\
+				        <div class="bt-w-menu">\
+				            <p class="bgw">推送方式</p>\
+				            <p>邮箱设置</p>\
+				            <p>钉钉设置</p>\
+				        </div>\
+				        <div class="bt-w-con pd15">\
+				            <div class="plugin_body">\
+				                <div class="alarm-home conter_box active"></div>\
+                				<div class="conter_box" style="display:none">\
+                					<div class="bt-form">\
+                						<div class="line">\
+                							<button class="btn btn-success btn-sm" onclick="bt_security.add_receive_info()">添加收件者</button>\
+                							<button class="btn btn-default btn-sm" onclick="bt_security.set_sender_info()">发送者设置</button>\
+                						</div>\
+				                        <div class="line">\
+				                            <div class="receive-list-table bt-table">\
+				                                <div class="divtable" style="height:280px">\
+				                                    <table class="table table-hover">\
+				                                        <thead><tr><th>邮箱</th><th width="60" style="text-align: right;">操作</th></tr></thead>\
+					                                    <tbody class="receive_table"></tbody>\
+					                                </table>\
+					                            </div>\
+					                        </div>\
+				                        </div>\
+			                        </div>\
+                				</div>\
+                				<div class="conter_box" style="display:none">\
+	                				<div class="bt-form">\
+	                					<div class="line">\
+											<span class="tname">通知全体</span>\
+											<div class="info-r" style="height:28px; margin-left:100px">\
+												<input class="btswitch btswitch-ios" id="panel_alert_all" type="checkbox" '+(res['dingding']['info']['msg']['isAtAll'] == 'True'? 'checked': '')+'>\
+												<label style="position: relative;top: 5px;" class="btswitch-btn" for="panel_alert_all"></label>\
+											</div>\
+										</div>\
+					        			<div class="line">\
+				                            <span class="tname">钉钉URL</span>\
+				                            <div class="info-r">\
+				                                <textarea name="channel_dingding_value" class="bt-input-text mr5" type="text" style="width: 300px; height:90px; line-height:20px">'+(res['dingding']['info']['msg'] == '无信息'? '': res['dingding']['info']['msg']['dingding_url'])+'</textarea>\
+				                            </div>\
+				                            <button class="btn btn-success btn-sm" onclick="bt_security.set_submit_ding()" style="margin: 10px 0 0 100px;">保存</button>\
+				                        </div>\
+			                        </div>\
+	            				</div>\
+                			</div>\
+                		</div>\
+            		</div>\
+            	  </div>',
+            	  success:function(layers,index){
+            	    $(".bt-w-menu p").click(function () {
+                        var index = $(this).index();
+                        $(this).addClass('bgw').siblings().removeClass('bgw');
+                        $('.conter_box').eq(index).show().siblings().hide();
+                    });
+            	    if(!res['dingding']['dingding'] && !res['user_mail']['user_name']){
+                       return $('.alarm-home').html('*当前未设置推送接口，请设置【邮箱或钉钉】。如何添加配置<a href="https://www.bt.cn/bbs/thread-42312-1-1.html" target="_blank" class="bt-ico-ask" style="cursor: pointer;">?</a>')
+                    }
+                    that.ajaxTask('get_send_status',function(alertInfo){
+                        that.alert_info = alertInfo['msg']['to_mail'];
+                    })
+                    // 固定表格头部
+					if (jQuery.prototype.fixedThead){
+                        $('.receive-list-table .divtable').fixedThead({ resize: false });
+                    } else {
+                        $('.receive-list-table .divtable').css({ 'overflow': 'auto' });
+                    }
+                    setTimeout(function(){
+                        //邮件通知时
+                        if(res['user_mail']['user_name']){
+                            redio_ = '<div class="box-group">'
+                                + '<input id="mail-radio" type="checkbox" style="display:none;" '+(that.alert_info == 'mail'?'checked':'')+' data-type="mail">'
+                                + '<div class="bt_checkbox_groups '+(that.alert_info == 'mail'?'active':'')+'"></div>'
+                                + '<span class="storage_checkbox_title">邮箱</span></div>'
+                        }
+                        // 钉钉通知时
+                        if(res['dingding']['dingding']){
+                            redio_ += '<div class="box-group">'
+                                + '<input id="dingding-radio" type="checkbox" style="display:none;" '+(that.alert_info == 'dingding'?'checked':'')+'  data-type="dingding">'
+                                + '<div class="bt_checkbox_groups '+(that.alert_info == 'dingding'?'active':'')+'"></div>'
+                                + '<span class="storage_checkbox_title">钉钉</span></div>'
+                        }
+                        home_ = '<div class="line"><span class="tname">推送方式</span><div class="alert-group-box">'+redio_+'</div><div class="line"><button class="btn btn-success btn-sm va0" onclick="bt_security.alert_submit()" style="margin-left: 33px;">保存</button><div>'
+                        
+                        $('.alarm-home').html(home_);
+                        // 多选设置
+                        $('.box-group').on('click','.bt_checkbox_groups',function(){
+							if(!$(this).hasClass('active')){
+								$(this).addClass('active').siblings('input').prop('checked', true);
+								$(this).parent('.box-group').siblings().children('.bt_checkbox_groups').removeClass('active').siblings('input').prop('checked', false);
+							}
+						})
+						$('.receive-list-table .divtable').css('padding-bottom','34px')
+                        $('.receive-list-table .tbody_div table').css('margin-top','-34px')
+				        // 渲染收件者邮箱列表
+						that.render_receive_list();
+                    },200)
+            	  }
+            })
+        })
+    },
+    /**
+    	* 添加收件者邮箱
+    */
+    add_receive_info:function(){
+        var that = this;
+        layer.open({
+    		type: 1,
+            area: "400px",
+            title: "添加收件者邮箱",
+            closeBtn: 2,
+            shadeClose: false,
+            content: '<div class="bt-form pd20 pb70">\
+    	        <div class="line">\
+    	            <span class="tname">收件者邮箱</span>\
+    	            <div class="info-r">\
+    	                <input name="creater_email_value" class="bt-input-text mr5" type="text" style="width: 240px" value="">\
+    	            </div>\
+    	        </div>\
+    	        <div class="bt-form-submit-btn">\
+    	            <button type="button" class="btn btn-danger btn-sm smtp_closeBtn">关闭</button>\
+    	            <button class="btn btn-success btn-sm CreaterReceive">创建</button>\
+    	        </div>\
+    	        </div>',
+            success:function(layers,index){
+            	$(".CreaterReceive").click(function(){
+            		var _receive = $('input[name=creater_email_value]').val();
+    				if(_receive != ''){
+    					var loadT = layer.msg('正在创建收件者列表中,请稍候...', { icon: 16, time: 0, shade: [0.3, '#000'] });
+    					$.post('/config?action=add_mail_address',{email:_receive},function(rdata){
+    						layer.close(loadT);
+    						// 刷新收件者列表
+    						if(rdata.status){
+    					        layer.close(index)
+    						    that.render_receive_list();
+    						} 
+    						layer.msg(rdata.msg,{icon:rdata.status?1:2});
+    					})
+    				}else{
+    					layer.msg('请输入收件者邮箱！',{icon:2});
+    				}
+            	})
+            	
+    			$(".smtp_closeBtn").click(function(){
+    				layer.close(index)
+    			})
+    		}
+    	})
+    },
+    /**
+    	* 设置发送者信息
+    */
+    set_sender_info:function(){
+        var that = this;
+	    var loadT = layer.msg('正在获取发送者信息,请稍候...', { icon: 16, time: 0, shade: [0.3, '#000'] });
+    	$.post('/config?action=get_settings',function(rdata){
+    		layer.close(loadT);
+    		var qq_mail = rdata['user_mail']['info']['msg']['qq_mail'] ? rdata['user_mail']['info']['msg']['qq_mail'] : '',
+    			qq_stmp_pwd = rdata['user_mail']['info']['msg']['qq_stmp_pwd']? rdata['user_mail']['info']['msg']['qq_stmp_pwd'] : '',
+    			hosts = rdata['user_mail']['info']['msg']['hosts']? rdata['user_mail']['info']['msg']['hosts'] : '',
+    			port = rdata['user_mail']['info']['msg']['port']? rdata['user_mail']['info']['msg']['port'] : ''
+    		layer.open({
+        		type: 1,
+                area: "460px",
+                title: "设置发送者邮箱信息",
+                closeBtn: 2,
+                shift: 5,
+                shadeClose: false,
+                content: '<div class="bt-form pd20 pb70">\
+                	<div class="line">\
+                        <span class="tname">发送人邮箱</span>\
+                        <div class="info-r">\
+                            <input name="channel_email_value" class="bt-input-text mr5" type="text" style="width: 300px" value="'+qq_mail+'">\
+                        </div>\
+                    </div>\
+                    <div class="line">\
+                        <span class="tname">smtp密码</span>\
+                        <div class="info-r">\
+                            <input name="channel_email_password" class="bt-input-text mr5" type="password" style="width: 300px" value="'+qq_stmp_pwd+'">\
+                        </div>\
+                    </div>\
+                    <div class="line">\
+                        <span class="tname">smtp服务器</span>\
+                        <div class="info-r">\
+                            <input name="channel_email_server" class="bt-input-text mr5" type="text" style="width: 300px" value="'+hosts+'">\
+                        </div>\
+                    </div>\
+                    <div class="line">\
+                        <span class="tname">端口</span>\
+                        <div class="info-r">\
+                            <select class="bt-input-text mr5" id="port_select">\
+                                <option value="465" '+(port == '465'?'selected':'')+'>465</option>\
+                                <option value="25" '+(port == '25'?'selected':'')+'>25</option>\
+                                <option value="587" '+(port == '587'?'selected':'')+'>587</option>\
+                                <option value="other" '+(!that.is_port(port) && port != ''?'selected':'')+'>自定义</option>\
+                            </select>\
+                            <input name="channel_email_port" class="bt-input-text mr5" type="Number" style="width: 190px" value="'+port+'">\
+                        </div>\
+                    </div>\
+                    <ul class="help-info-text c7">\
+                    	<li>推荐使用465端口，协议为SSL/TLS</li>\
+                    	<li>25端口为SMTP协议，587端口为STARTTLS协议</li>\
+                    </ul>\
+                    <div class="bt-form-submit-btn">\
+        	            <button type="button" class="btn btn-danger btn-sm smtp_closeBtn">关闭</button>\
+        	            <button class="btn btn-success btn-sm SetChannelEmail">保存</button></div>\
+                	</div>',
+                success:function(layers,index){
+                	var _option = '';
+                	$("#port_select").change(function(e){
+                		if(e.target.value == 'other'){
+                			$("#port_select").css("width","100px");
+        					$('input[name=channel_email_port]').css("display","inline-block");
+                		}else{
+                			$("#port_select").css("width","300px");
+        					$('input[name=channel_email_port]').css("display","none");
+                		}
+                	})
+                	$("#port_select").change()  //默认触发点击一次
+        			$(".SetChannelEmail").click(function(){
+        				var _email = $('input[name=channel_email_value]').val(),
+        				    _passW = $('input[name=channel_email_password]').val(),
+        				    _server = $('input[name=channel_email_server]').val(),
+        				    _port = $('#port_select').val()
+        				if(_port == 'other') _port = $('input[name=channel_email_port]').val()
+        				if(_email == '') return layer.msg('邮箱地址不能为空！',{icon:2});
+        				if(_passW == '') return layer.msg('STMP密码不能为空！',{icon:2});
+        				if(_server == '') return layer.msg('STMP服务器地址不能为空！',{icon:2})
+        				if(_port == '') return layer.msg('请输入有效的端口号',{icon:2})
+        				
+        				var loadTs = layer.msg('正在生成邮箱通道中,请稍候...', { icon: 16, time: 0, shade: [0.3, '#000'] });
+        				$.post('/config?action=user_mail_send',{email:_email,stmp_pwd:_passW,hosts:_server,port:_port},function(res){
+        					layer.close(loadTs);
+        					if(res.status){
+        						layer.close(index)
+        						that.render_receive_list();
+        					}
+        					layer.msg(res.msg,{icon:res.status?1:2})
+        				})
+        			})
+        			$(".smtp_closeBtn").click(function(){
+        				layer.close(index)
+        			})
+        		}
+        	})
+    	})
+    },
+    /**
+    	* 渲染收件者邮箱列表
+    */
+    render_receive_list:function(){
+        var that = this;
+        $.post('/config?action=get_settings',function(rdata){
+    		var tbody_ = '',data = rdata.user_mail.mail_list;
+    		if(data.length > 0){
+    		    that.each(data,function(index,item){
+    		        tbody_ += '<tr>'
+    		            + '<td>'+item+'</td>'
+    		            + '<td style="text-align: right;"><a class="btlink" onclick="bt_security.del_email(\''+item +'\')">删除</a></td></tr>'
+    		    })
+    		}else{
+    			tbody_ = '<tr><td colspan="2">当前数据为空</td></tr>'
+    		}
+    		$('.receive_table').html(tbody_);
+    	})
+    },
+    /**
+    	* 设置钉钉url信息，保存按钮
+    */
+    set_submit_ding:function(){
+        var _url = $('textarea[name=channel_dingding_value]').val(),_all = $('#panel_alert_all').prop("checked");
+    	if(_url == '') return layer.msg('请输入钉钉url',{icon:2})
+		var loadT = layer.msg('正在生成钉钉通道中,请稍候...', { icon: 16, time: 0, shade: [0.3, '#000'] });
+		$.post('/config?action=set_dingding',{url:_url,atall:_all == true? 'True':'False'},function(rdata){
+			layer.close(loadT);
+			layer.msg(rdata.msg,{icon:rdata.status?1:2})
+		})
+    },
+    /**
+    	* 删除收件者列表
+    	* @param {String} emil 需要删除的邮箱
+    */
+    del_email:function(mail){
+        var that = this;
+        layer.confirm('是否要删除【'+mail+'】邮箱', { title: '删除收件者',closeBtn:2,icon:0}, function () {
+            var loadT = layer.msg('正在删除【'+mail+'】中,请稍候...', { icon: 16, time: 0, shade: [0.3, '#000'] })
+        	$.post('/config?action=del_mail_list',{email:mail},function(rdata){
+        		layer.close(loadT);
+        		if(rdata.status) that.render_receive_list();
+        		layer.msg(rdata.msg,{icon:rdata.status?1:2})
+        	})
+        })
+    },
+    /**
+    	* 是否为默认端口
+    	* @param {Number} num 端口号
+    	* @return 判断是否为数组内的端口，否者返回false
+    */
+    is_port:function(num){
+        var that = this,ary_ = ['25','465','587'];
+        for(var i = 0; i<ary_.length;i++){
+            if(ary_[i] == num) return true;
+        }
+        return false
+    },
+    /**
+    	* 溢出弹层样式
+    */
+    bind_overflow_tips:function(){
+        // 溢出tips弹层
+        var time = '';
+        $('.overflow_style').hover(function(){
+            var _that = $(this);
+            time = setTimeout(function(){
+                layer.tips(escapeHTML(_that.text()),_that,{tips: [1, '#20a53a'],time: 0,area:_that.width()+'px'})
+            },500)
+        },function(){
+            layer.closeAll('tips');
+            clearTimeout(time)
+        })
+    },
+    /**
+    	* 渲染日志分页
+    	* @param {Number} pages 每页个数
+    	* @param {Number} p 当前是第几页
+    	* @param {Number} num 总数
+    */
+	render_logs_pages:function(pages,p,num){
+		return '<a class="nextPage" data-page="1">首页</a>'+ (p != 1?'<a class="nextPage" data-page="'+ (p-1) +'">上一页</a>':'') + (pages <= num?'<a class="nextPage" data-page="'+ (p+1) +'">下一页</a>':'')+'<span class="Pcount">第 '+ p +' 页</span>';
+	},
+    /**
+    	* 获取日志视图
+    	* @param {String} user 需查看日志的用户
+    	* @param {Array} arr 存在的日志时间
+    */
+    get_logs_view:function(arr,user){
+        var that = this;
+        layer.open({
+            type: 1,
+			title: "【"+ user +"】- 命令日志",
+			area: ['935px', '570px'],
+			closeBtn: 2,
+			shadeClose: false,
+			content: '<div class="logs-list-box pd15">\
+    			    <div class="logs-data-select">\
+    			        <div class="logs-title">选择日期: </div>\
+    			        <div class="logs-unselect">\
+    			            <div class="logs-inputs"><div class="logs-inputs-tips">'+ arr[0] +'</div></div>\
+    						<dl class="logs-input-list" data-val="'+ arr[0] +'"></dl>\
+    			        </div>\
+    			    </div>\
+    			    <div class="logs-table bt-table">\
+        			    <div class="divtable" style="height:355px">\
+                            <table class="table table-hover">\
+                                <thead><tr><th width="100">用户</th><th width="200">运行目录</th><th width="200">执行的命令</th><th width="200">命令的路径</th><th>时间</th></tr></thead>\
+                                <tbody class="logs-tbody"></tbody>\
+                            </table>\
+                        </div>\
+                    </div>\
+                    <div class="logs-page page-style pull-right"></div>\
+    			</div>',
+			success:function(layers,index){
+			    var _html = '';
+			    for(var i=0;i<arr.length;i++){
+					_html += '<dd logs-data="'+ arr[i] +'" '+ ( i==0?'class="logs_checked"':'' ) +'>'+ arr[i] +'</dd>';
+				}
+				$('.logs-list-box .logs-input-list').html(_html);
+				$('.logs-list-box .logs-inputs').click(function(e){
+					if(!$(this).parent().hasClass('active')){
+						$(this).parent().addClass('active');
+					}else{
+						$(this).parent().removeClass('active');
+					}
+					$(document).unbind('click').click(function(e){
+						$('.logs-unselect').removeClass('active');
+						$(this).unbind('click');
+					});
+					e.stopPropagation();
+					e.preventDefault();
+				});
+				$('.logs-input-list dd').click(function(e){
+					var _val = $(this).attr('logs-data');
+					$(this).addClass('logs_checked').siblings().removeClass('logs_checked');
+					$(this).parent().attr('data-val',_val);
+					$(this).parent().prev().find('.logs-inputs-tips').html(_val);
+					that.render_logs({user:user,toDate:_val,p:1});
+				});
+				that.render_logs({user:user,toDate:arr[0],p:1});
+    				
+    			// 固定表格头部
+                if(jQuery.prototype.fixedThead){
+                    $('.logs-table .divtable').fixedThead({resize:false});
+                }else{
+                    $('.logs-table .divtable').css({'overflow':'auto'});
+                }
+			}
+        })
+    },
+    /**
+	* 设置全局防篡改开关
+    */
+    set_global_switch:function(){
+        var _check = $('#global-switch').prop('checked');
+        this.ajaxTask(_check? 'stop_bt_security':'start_bt_security',function(res){
+            layer.msg(res.msg,{icon:res.status?1:2})
+        })
+    },
+    /**
+    	* 添加进程白名单
+    */
+    create_white:function(){
+        var that= this,_val = $('input[name=cmd]');
+        if(_val.val() == '') return layer.msg('请输入进程',{icon:2})
+        this.ajaxTask('add_porcess_log',{cmd:_val.val()},function(res){
+            if(res.status){
+                that.render_manage_table()
+                _val.val('')
+            }
+            layer.msg(res.msg,{icon:res.status?1:2})
+        })
+    },
+    /**
+	    * 测试防提权
+    */
+    test_app:function(){
+        var that = this;
+        layer.confirm('是否进行防提权模拟测试，此次模拟不会影响系统数据，如有疑问请查看<a class="btlink" target="_blank" href="https://www.bt.cn/bbs/thread-50998-1-1.html" >具体测试方法</a>',{title: '模拟防提权',closeBtn:2,icon:0},function(){
+            that.http({load:3,check:true,method: 'check_status',success: function (res) {
+                    layer.msg('正在执行 su www 命令<img src="/static/img/ing.gif">',{icon:0})
+                    setTimeout(function(){
+                        if(res.status) that.overview();
+                        layer.msg(res.msg,{icon:res.status?1:2})
+                    },2000)
+                }
+            });
+        })
+    },
+    /**
+    	* 删除进程白名单
+    	* @param {String} user 需删除的白名单
+    */
+    remove_white:function(user){
+        var that = this;
+        layer.confirm('是否要从进程白名单中删除【'+user+'】', { title: '删除进程白名单',closeBtn:2,icon:0}, function () {
+			that.ajaxTask('del_porcess_log',{cmd:user},function(res){
+                if(res.status) that.render_manage_table()
+                layer.msg(res.msg,{icon:res.status?1:2})
+            })
+		});
+    },
+    /**
+    	* 用户防提权开关
+    	* @param {String} root 需开启/关闭的用户
+    	* @param {Number} num 【1】则关闭，【0】则开启
+    */
+    user_switch:function(root,num){
+        var that = this;
+        this.ajaxTask(num == 1?'stop_user_security':'start_user_security',{user:root},function(res){
+            if(res.status) that.render_overview_table(that.set_over_time != ''? that.set_over_time :undefined)
+            layer.msg(res.msg,{icon:res.status?1:2})
+        })
+    },
+    /**
+    	* 命令日志状态
+    	* @param {String} user 需要查看命令日志的用户
+    */
+    logs_list:function(user){
+        var that = this;
+        this.ajaxTask('get_logs_list',{user:user},function(obj){
+            if(obj.length > 0){
+                that.get_logs_view(obj,user)
+            }else{
+                layer.msg('暂无命令日志',{icon:6})
+            }
+        })
+    },
+    /**
+    	* 开启关闭用户日志
+    	* @param {Number} uid 需要开启/关闭的用户uid
+    	* @param {Number} num 【1】则关闭，【0】则开启
+    */
+    logs_switch:function(uid,num){
+        var that = this;
+        this.ajaxTask(num == 1?'stop_user_log':'start_user_log',{uid:uid},function(res){
+            if(res.status) that.render_overview_table(that.set_over_time != ''? that.set_over_time :undefined)
+            layer.msg(res.msg,{icon:res.status?1:2})
+        })
+    },
+    /**
+	    * 推送方式保存按钮
+    */
+    alert_submit:function(){
+        var _info = $('.box-group input:checked').attr('data-type');
+        this.ajaxTask(_info == 'mail'?'set_mail_to':'set_dingding',function(res){
+            layer.msg(res.msg,{icon:res.status?1:2})
+        })
+    },
+	/**
+    	* 定义时间抽泣
+    	* @param {String} n 今天、昨天时间
+    */
+	getBeforeDate: function(n){
+		var n = n;
+		var d = new Date();
+		var year = d.getFullYear();
+		var mon=d.getMonth()+1;
+		var day=d.getDate();
+		if(day <= n){
+			if(mon>1) {
+			   mon=mon-1;
+			}
+			else {
+			 year = year-1;
+			 mon = 12;
+			}
+		}
+		d.setDate(d.getDate()-n);
+		year = d.getFullYear();
+		mon=d.getMonth()+1;
+		day=d.getDate();
+		s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);
+		return s;
+	},
+    /**
+        * 循环，返回索引值和数组
+        * @param {Array} obj 需遍历的数组
+        * @param {Function} fn 函数
+        * @return 返回对象，索引值和当前所选中值
+    */
+    each:function(obj, fn){
+        var key,that = this;
+        if(typeof fn !== 'function') return that;
+            obj = obj || [];
+            if(obj.constructor === Object){
+            for(key in obj){
+                if(fn.call(obj[key], key, obj[key])) break;
+            }
+        } else {
+            for(key = 0; key < obj.length; key++){
+                if(fn.call(obj[key], key, obj[key])) break;
+            }
+        }
+        return that;
+    },
+    /**
+        * 动态处理请求，设置全局ajaxList，api和提示语，遍历请求返回成功值
+        * @param {string} config 需要请求的api
+        * @param {Function} data 请求参数
+        * @param {Function} success 成功值
+        * @param {Function} error 失败值
+    */
+    ajaxTask: function (config,data,success,error) {
+        if(typeof config == "string"){
+            if(typeof data == "object"){
+                config = {method:config,data:data,success:success,error:error}
+            }else if(typeof data == "function"){
+                config = { method:config,success:data}
+                if(typeof success == "function" ){
+                    config.error = success
+                }
+            }
+        }
+        if (config.middle === false) {config.success();return false}
+        this.http({
+            tips: '正在' + this.ajaxList[config.method] + ',请稍后...',
+            method: config.method,
+            data: config.data || {},
+            success: function (rdata) {
+                if (config.success) config.success(rdata);
+            },
+            error: function (rdata) {
+                if (config.error) config.error(rdata);
+            }
+        });
+    },
+    // 请求封装
+    http: function (obj) {
+        var loadT = '';
+        if (obj.load == undefined) obj.load = 0;
+        if (obj.url == undefined) {
+            if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this.plugin_name
+            if (!obj.plugin_name || !obj.method) {
+                layer.msg('插件类名称，或插件方法名称缺失!', {icon: 2 });
+                return false;
+            }
+        }
+        if (obj.load === 0 || obj.tips != undefined) {
+            loadT = layer.msg(obj.tips, {icon: 16,time: 0, shade: 0.1});
+        } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+            loadT = layer.load();
+        }
+        $.ajax({
+            type: obj.type===undefined?'POST':obj.type,
+            url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+            data: obj.data || {},
+            timeout: obj.timeout || 99999999,
+            complete: function (res) {
+                if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+            },
+            success: function (rdata) {
+                if (obj.check) {
+                    obj.success(rdata);
+                    return
+                }
+                if (typeof rdata.status !== 'undefined' && rdata.status === false) {
+                    layer.msg(rdata.msg, {icon: 2});
+                    return false;
+                }
+                obj.success(rdata);
+            },
+            error: function (ex) {
+                if (!obj.error) {
+                    obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {icon: 2}) : '';
+                    return;
+                }
+                return obj.error(ex);
+            }
+        });
+    }
+}
+bt_security.init();
+</script>

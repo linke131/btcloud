@@ -1,0 +1,10 @@
+{
+  "title": "系统防火墙",
+  "name": "firewall",
+  "ps": "提供系统防火墙(iptables/firewall/ufw)的可视化管理功能",
+  "versions": "3.2",
+  "checks": "/www/server/panel/plugin/firewall",
+  "author": "宝塔",
+  "home": "https://www.bt.cn",
+  "not_substituted":["whitelist.txt|f", "status.json|f"]
+}

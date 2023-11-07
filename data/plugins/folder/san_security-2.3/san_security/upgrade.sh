@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/san_security/install.sh install

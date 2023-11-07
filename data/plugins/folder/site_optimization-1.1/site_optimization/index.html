@@ -1,0 +1,850 @@
+<style>
+    .bt-w-menu{
+        width: 110px;
+    }
+    .bt-w-con{
+        margin-left: 110px;
+    }
+    .divtable .table thead{
+        border: 1px solid #ddd;
+    }
+    .divtable .table thead th{
+        padding: 8px !important;
+        height: auto;
+    }
+    .plugin_body .box_conter {
+        display: none;
+    }
+
+    .plugin_body .box_conter.active {
+        display: block;
+    }
+
+    .tomcat_log {
+        margin: 0px;
+        width: 560px;
+        height: 470px;
+        background-color: #424251;
+        overflow: auto;
+        line-height: 22px;
+        color: #fff;
+        padding-left: 10px;
+        font-family: arial;
+        margin-top: 10px;
+        outline: none;
+    }
+
+    .box_item {
+        height: 150px;
+        padding: 15px;
+    }
+
+    .box_item .status {
+        height: 30px;
+    }
+
+    .btn_item_block {
+        display: inline-block;
+        margin-right: 50px;
+    }
+
+    .box_item .btn {
+        margin-right: 15px;
+    }
+
+    .box_item .box_title {
+        height: 35px;
+        line-height: 35px;
+        font-size: 14px;
+        border-bottom: 1px solid #f0f0f1;
+        margin-bottom: 15px;
+    }
+
+    .CodeMirror {
+        height: 400px;
+    }
+
+    .box_table_conter {
+        height: 350px;
+        overflow-y: auto;
+    }
+
+    .tomcat_list .path,
+    .tomcat_path_list .path {
+        width: 150px;
+    }
+
+    .tomcat_list tr td span,
+    .tomcat_path_list tr td i {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-style: normal;
+    }
+
+    .select_list {
+        width: 180px;
+        height: 35px;
+        line-height: 35px;
+        border: 1px solid #888;
+        border-radius: 2px;
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        margin-left: 15px;
+        background: #fff url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAICAgICAgICAgIDAgICBAUEAgIEBQYFBQUFBQYHBgYGBgYGBwcICAkICAcKCgsLCgoODg4ODg4ODg4ODg4ODg7/2wBDAQMDAwYFBgsHBwsODAoMDhEQEBAQEREODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg7/wAARCAAHABQDAREAAhEBAxEB/8QAFgAAAwAAAAAAAAAAAAAAAAAABQcJ/8QAJBAAAQMCBAcAAAAAAAAAAAAAAQMEBQIRAAYHQRITITJRYXH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8Ar9nrS5SSnWj+E5bdOWVtJpmwCdVialaRvcAm3n70BywcKxy/GN4yPT4G7cd29R3qPs4AzgP/2Q==) no-repeat right center;
+    }
+
+    .select_list .select_item {
+        width: 100%;
+        display: block;
+        /* text-align: center; */
+        padding-left: 10px;
+    }
+
+    .select_list .select {
+        width: 180px;
+        position: absolute;
+        left: -1px;
+        top: 33px;
+        border: 1px solid #999;
+        background: #fff;
+    }
+
+    .select_list .select li {
+        height: 35px;
+        line-height: 35px;
+        padding: 0 10px;
+    }
+
+    .select_list .select li.active {
+        background: #e6e6e6;
+        /* cursor: no-drop; */
+    }
+
+    .select_list .select li:hover {
+        background: #e6e6e6;
+    }
+
+    .install_version_box .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+
+    .bt-textarea-text{
+        border: 1px solid #ccc;
+        width: 520px;
+        height: 150px;
+        line-height: 20px;
+        padding: 5px;
+        padding-left: 5px;
+        border-radius: 2px;
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+    .mt0{
+        margin-top: 0;
+    }
+    .external_table .bt-input-text{
+        width: 215px;
+    }
+    .ml5{
+        margin-left: 5px;
+    }
+    .line .tname.multiple{
+        height: 50px;
+        line-height: 25px;
+    }
+    .bt-ico-ask{
+        border: 1px solid #fb7d00;
+        border-radius: 8px;
+        color: #fb7d00;
+        cursor: help;
+        display: inline-block;
+        font-family: arial;
+        font-size: 11px;
+        font-style: normal;
+        height: 16px;
+        line-height: 16px;
+        margin-left: 5px;
+        text-align: center;
+        width: 16px;
+    }
+    .info-r .bt-input-text{
+        width: 218px;
+    }
+    .line .tname{
+        width: 125px;
+    }
+    .divtable .table thead th {
+    	box-sizing: content-box;
+    }
+    .logs_body .ov {
+        width: 371px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .optimiz table{
+        table-layout: fixed;
+    }
+    .optimiz table>tbody>tr>td{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
+<div class="bt-form">
+    <div class="bt-w-main">
+        <!--菜单部分-->
+        <div class="bt-w-menu">
+            <p class="bgw">站点优化</p>
+            <p>检查脚本</p>
+            <p>优化脚本</p>
+            <p>日志</p>
+        </div>
+        <!--内容部分-->
+        <div class="bt-w-con pd15">
+            <div class="plugin_body optimiz">
+                <div class="box_conter active">
+                    <div class="box_table_conter divtable" style="height: 507px;">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th width="170">站点</th>
+                                <th width="205">路径</th>
+                                <th>优化状态</th>
+                                <th style="text-align: right;" width="60">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="site_loca_list"></tbody>
+                        </table>
+                    </div>
+                </div>
+				<div class="box_conter scripts">
+					<div style="text-align:right;margin:-5px 0 10px 0;">
+						<button class="btn btn-success btn-sm add_script_btn">更新脚本</button>
+						<button class="btn btn-success btn-sm upload_script ml5">上传脚本</button>
+					</div>
+					<div class="divtable mt10" style="height: 399px;overflow: auto;">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+							<thead>
+								<tr>
+									<th width="135">名称</th>
+									<th>说明</th>
+									<th width="50">类型</th>
+								</tr>
+							</thead>
+							<tbody class="scripts_list_check"></tbody>
+						</table>
+					</div>
+					<ul class="help-info-text c7">
+                        <li>脚本库会持续更新敬请期待</li>
+						<li>自定义检查脚本<a class="btlink" href="http://download.bt.cn/install/plugin/site_optimization/check_site_type_script/check_demo.py"> Demo</a></li>
+                   	</ul>
+				</div>
+				<div class="box_conter scripts">
+					<div style="text-align:right;margin:-5px 0 10px 0;">
+						<button class="btn btn-success btn-sm add_script_btn">更新脚本</button>
+						<button class="btn btn-success btn-sm upload_script ml5">上传脚本</button>
+					</div>
+					<div class="divtable mt10" style="height: 399px;overflow: auto;">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+							<thead>
+								<tr>
+									<th width="135">名称</th>
+									<th>说明</th>
+									<th width="50">类型</th>
+								</tr>
+							</thead>
+							<tbody class="scripts_list_opt"></tbody>
+						</table>
+					</div>
+					<ul class="help-info-text c7">
+                        <li>脚本库会持续更新敬请期待</li>
+						<li>自定义优化脚本<a class="btlink" href="http://download.bt.cn/install/plugin/site_optimization/opt_site_script/opt_demo.py/"> Demo</a></li>
+                   	</ul>
+				</div>
+				<div class="box_conter logs_body">
+					<div class="divtable" style="height: 469px;overflow: auto;">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+							<thead><tr><th>详情</th><th>操作时间</th></tr></thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<div class="page" style="margin-top:10px"></div>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/bt_upload.js?version={{g['version']}}"></script>
+<script>
+    var site_optimization = {
+        plugin_name: 'site_optimization', //插件方法名
+        site_check: {},
+        cache_site_list:[],
+        _site_type:'微擎',
+        init: function () {
+            var _this = this;
+            $(".bt-w-menu p").click(function () {
+                var index = $(this).index();
+                $('.plugin_body .box_conter').eq(index).addClass('active').siblings().removeClass('active');
+                $(this).addClass('bgw').siblings().removeClass('bgw');
+                switch (index) {
+                    case 0:  //获取站点列表
+                        _this.create_cache_site_list();
+                        break;
+                    case 1:  //获取检查脚本库
+                        _this.check_script_list('check');
+                        break;
+                	case 2:  //获取优化脚本库
+                        _this.check_script_list('opt');
+                        break;
+                	case 3:  //获取日志列表
+                        _this.get_push_log(1);
+                        break;
+                }
+            });
+            $("#site_loca_list").on("click", ".check_site", function () {
+                var sitepath = $(this).parent().siblings().eq(1).text(),
+                sitename = $(this).parent().siblings().eq(0).text(),
+                opt = $(this).attr('data-type'),
+                data = {"sitepath":sitepath,"sitename":sitename};
+                switch (opt) {
+                    case 'check':  //立即优化
+                        _this.check_site_type(data, function(res){
+                			layer.confirm('检查到站点类型是【'+ res.type +'】，版本是【'+ res.version +'】，优化站点可能需要5-10分钟，请确认是否继续？',{title: '确认优化',icon:0,btn: ['确认', '取消'],closeBtn:2},function(index, layero){
+                				_this.site_check =  data;
+                				_this.get_script_list(res);
+                			});
+                		});
+                        break;
+                	case 'cancel':  //删除优化
+                        layer.confirm('确认删除【'+ sitename +'】站点的优化配置？',{title: '删除站点优化',icon:0,btn: ['确认', '取消'],closeBtn:2},function(index, layero){
+                			_this.del_site_type({sitename:sitename},function(res){
+                				_this.create_cache_site_list();
+                				layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                			});
+                		});
+                        break;
+                    case 'detail':  //优化详情
+                        data['script'] = $(this).attr('data-script');
+                		_this.show_script_detail(data);
+                        break;
+                }
+            });
+            $("body").on("click", "#scriptlist tr", function () {
+            	var _src=$(this).find('input');
+            	$("#scriptlist tr input").prop("checked",false);
+            	_src.prop("checked",true);
+            	if(_src.attr("data-script")==''){
+                	layer.msg('请选择优化脚本', { icon: 2 });
+                }
+                _this.site_check['script'] = _src.attr("data-script");
+            });
+            $(".add_script_btn").click(function () {
+                _this.get_cloud_script();
+            });
+            $(".upload_script").click(function () {
+                _this.upload_scripts();
+            });
+            _this.create_cache_site_list();
+        },
+        // 创建本地站点优化列表
+        create_cache_site_list: function () {
+            var _this = this;
+            this.get_cache_site_info(function(rdata){
+                var _loca_html = '';
+                _this.cache_site_list = rdata;
+                for (var j = 0; j < rdata.length; j++) {
+                    _loca_html += '<tr><td title="' + rdata[j].name + '">' + rdata[j].name + '</td>\
+                    	<td title="' + rdata[j].path + '">' + rdata[j].path + '</td>\
+	                    <td>' + (rdata[j].opt?'<a href="javascript:;" class="btlink">已优化</div>' : '<a href="javascript:;" style="color:red">未优化</a>') + '</td>\
+	                    <td style="text-align: right;" class="operation" data-index="'+ j +'" data-config="0">'+(rdata[j].opt?'<a href="javascript:;" class="btlink check_site" data-type="detail" data-script="' + rdata[j].script + '">详情 |</a><a href="javascript:;" class="btlink check_site" data-type="cancel"> 取消</a>':'<a href="javascript:;" class="btlink check_site" data-type="check">立即优化</a>') +'</td></tr>'
+                }
+                $('#site_loca_list').html(_loca_html);
+            })
+        },
+        // 渲染脚本列表
+        get_script_list:function(obj,callback){
+        	var _this = this;
+            _this.get_optimization_script_list({sitetype:JSON.stringify(obj)},function (res) {
+            	var _list_html = '';
+            	_this.site_check['script'] = res[0].script;
+                for (var i = 0; i < res.length; i++) {
+                    _list_html += '<tr>\
+                        <td><input class="getscript" data-script="' + res[i].script + '" type="checkbox" ' + (i==0?'checked':'') + '></td>\
+                        <td>' + res[i].type + '</td>\
+                        <td>' + res[i].script + '</td>\
+                        <td>' + res[i].tips + '</td>\
+                    </tr>'
+                }
+                var cont = '<div class="divtable" style="max-height: 300px;overflow: auto;">\
+        						<table class="table table-hover">\
+            						<thead>\
+                    					<tr>\
+                        					<th width="30px">选择</th>\
+                        					<th width="30px">类型</th>\
+                        					<th width="90px">脚本</th>\
+                        					<th>说明</th>\
+                    					</tr>\
+            						</thead>\
+                					<tbody id="scriptlist">\
+                					' + _list_html + '\
+                					</tbody>\
+            					</table>\
+        				</div>';
+                layer.confirm(cont,{title: '请选择优化脚本',btn: ['确认', '取消'],closeBtn:2,area: '500px'},function(index, layero){
+                	var src = _this.site_check['script'];
+                	if(src==''){
+                		layer.msg('请选择优化脚本', { icon: 2 });
+                	}else{
+                		_this.get_script_detail(src);
+                	}
+                });
+            });
+        },
+        // 渲染脚本详情
+        get_script_detail:function(callback){
+        	var _this = this;
+            _this.check_site_opt(_this.site_check,function (res) {
+            	var _list_html = '';
+                for (var i = 0; i < res.length; i++) {
+                    _list_html += '<tr>\
+                        <td>' + res[i].opt_name + '</td>\
+                        <td  style="color: ' + (res[i].opt?'#20a53a':'red') + ';">' + (res[i].opt?'已优化':'未优化') + '</td>\
+                        <td>' + res[i].tips + '</td>\
+                    </tr>'
+                }
+                var cont = '<div class="divtable" style="max-height: 300px;overflow: auto;">\
+        						<table class="table table-hover">\
+            						<thead>\
+                    					<tr>\
+                        					<th>说明</th>\
+                        					<th width="55px">状态</th>\
+                        					<th>项目</th>\
+                    					</tr>\
+            						</thead>\
+                					<tbody>\
+                					' + _list_html + '\
+                					</tbody>\
+            					</table>\
+        				</div>',
+                loadT = layer.confirm(cont,{title: '确认优化？',btn: ['一键优化', '取消'],closeBtn:2,area: '570px'},function(index, layero){
+                	let opt_data = Object.assign({}, _this.site_check);
+                	opt_data['opt_act'] = JSON.stringify(res);
+                	_this.opt_site(opt_data,function(callback){
+                		_this.create_cache_site_list();
+        			});
+                });
+            });
+        },
+        // 显示优化详情
+        show_script_detail:function(obj,callback){
+        	var _this = this;
+            _this.check_site_opt(obj,function (res) {
+            	var _list_html = '';
+                for (var i = 0; i < res.length; i++) {
+                    _list_html += '<tr>\
+                        <td>' + res[i].opt_name + '</td>\
+                        <td  style="color: ' + (res[i].opt?'#20a53a':'red') + ';">' + (res[i].opt?'已优化':'未优化') + '</td>\
+                        <td>' + res[i].tips + '</td>\
+                    </tr>'
+                }
+                var cont = '<div class="divtable" style="max-height: 300px;overflow: auto;">\
+        						<table class="table table-hover">\
+            						<thead>\
+                    					<tr>\
+                        					<th>说明</th>\
+                        					<th width="55px">状态</th>\
+                        					<th>项目</th>\
+                    					</tr>\
+            						</thead>\
+                					<tbody>\
+                					' + _list_html + '\
+                					</tbody>\
+            					</table>\
+        				</div>';
+        		layer.confirm(cont,{title: '优化详情',btn: ['关闭'],closeBtn:2,area: '570px'});
+            });
+        },
+        // 获取推送日志列表,参数:分页page
+		get_push_log: function (page) {
+			var _this = this,obj={p: page,tojs : "MSG_log"};
+			if (page == undefined) page = 1;
+			_this.get_logs(obj,function (rdata) {
+				var content = '', rdatas = rdata.data, rdataPage = rdata.page, reg = /onclick='MSG_log\((\d+)\)'/g;
+				for (var i = 0; i < rdatas.length; i++) {
+					content += '<tr><td><div class="ov" title=\'' + rdatas[i].log + '\'>' + rdatas[i].log + '</div></td><td>' + rdatas[i].addtime + '</td></tr>';
+				}
+				$('.logs_body tbody').html(content);
+				$('.logs_body .page').html(rdataPage.replace(reg, 'data-page=\'$1\''));
+				setTimeout(function () {
+					$('.logs_body .page a').click(function (e) {
+						var page = $(this).attr('data-page');
+						_this.get_push_log(page);
+						return false;
+					});
+				}, 500);
+			});
+		},
+		// 获取脚本库
+		check_script_list: function (type) {
+			var _this = this;
+			_this.get_script_lists({stype:type},function (rdata) {
+				var cont = '';
+				for (var i = 0; i < rdata.length; i++) {
+					cont += '<tr><td>' + rdata[i].script + '</td><td>' + rdata[i].tips + '</td><td>' + rdata[i].type + '</td></tr>';
+				}
+				$('.scripts_list_'+type).html(cont);
+			});
+		},
+		// 上传脚本1
+		upload_scripts: function () {
+			var _this = this;
+			bt_upload_file.open=_this.open;
+			bt_upload_file.list=_this.list;
+			bt_upload_file.upload=_this.upload;
+			bt_upload_file.upload_url='plugin?action=a&name=site_optimization&s=import_data';
+    		bt_upload_file.open('云端', null, '上传脚本');
+    		return;
+		},
+		// 上传脚本2
+			open: function (path, is_exts, ps, collback_to) {
+                bt_upload_file.f_path = path.replace('//', '/');
+                user_agent = navigator.userAgent.toLowerCase();
+                var btn_dir = '';
+                var accept_ext = '';
+                if (!is_exts) {
+                    if (user_agent.indexOf('chrome') !== -1 || user_agent.indexOf('firefox') !== -1) {
+                        btn_dir =
+                            '<input type="file" id="dir_input" onchange="bt_upload_file.list(this.files)" style="display:none;"  multiple="true" autocomplete="off" multiple webkitdirectory /><button type="button" style="margin-left: 10px;"  id="opt" onclick="$(\'#dir_input\').click()" autocomplete="off" title="Supported browsers: Chrome、Firefox、Edge">Select dir</button>'
+                    }
+                } else {
+                    accept_ext = 'accept="' + is_exts + '"'
+                }
+                var other_ps = '';
+                if (ps) {
+                    other_ps = ' --- <span style="color:red;">' + ps + '</span>'
+                } else {
+                    other_ps = ' Support for breakpoints'
+                }
+                if (collback_to) {
+                    bt_upload_file.collback_to = collback_to
+                }
+                var script_text = $('.bt-w-menu .bgw').text(),
+                script_type = script_text=='检查脚本'?'check':'opt',
+                _type = script_text=='优化脚本'?'微擎':'';
+                bt_upload_file._loadT = layer.open({
+                    type: 1,
+                    title: 'Upload files to 【' + bt_upload_file.f_path + '】' + other_ps,
+                    btn: ['上传', '取消'],
+                    shadeClose: false,
+                    area: ['453px','359px'],
+                    closeBtn: 2,
+                    content: '<div class="fileUploadDiv">\
+                <div class="line">\
+					<div class="mtb10">\
+						<span class="tname" style="padding-right: 10px;">脚本类型：</span>\
+                    	<select class="bt-input-text mr5 sitetype" name="fileUpload" style="width:200px">\
+                    		<option selected value="'+_type+'" stype="'+script_type+'">'+script_text+'</option>\
+                    	</select>\
+                    </div>\
+                </div>\
+                <div class="line typetext">\
+					<div class="mtb10">\
+						<span class="tname" style="padding-right: 10px;">站点类型：</span>\
+                    	<input type="text" name="f_name" class="bt-input-text mr5 f_type" placeholder="微擎" style="width: 200px;">\
+                    </div>\
+                </div>\
+                <div class="line">\
+					<div class="mtb10">\
+						<span class="tname" style="padding-right: 10px;">脚本说明：</span>\
+                    	<input type="text" name="f_tips" class="bt-input-text mr5 f_tips" placeholder="请输入说明" style="width: 200px;">\
+                    </div>\
+                </div>\
+                <div class="line">\
+					<div class="mt10">\
+						<span class="tname" style="padding-right: 10px;">脚本文件：</span>\
+                    	<input type="text" name="f_name:" class="bt-input-text mr5" placeholder="请上传脚本" id="up_name" style="width: 200px;">\
+                    	<input type="file" id="file_input" onchange="bt_upload_file.list(this.files)"  multiple="true" autocomplete="off" ' + accept_ext + ' />\
+                    	<button type="button"  id="opt" onclick="$(\'#file_input\').click()" autocomplete="off" style="float:none;">选择文件</button>\
+                    </div>\
+                </div>\
+                <ul id="up_box" style="display:none;"></ul>\
+                </div>',
+                	yes:function(layero,index){
+                		var f_name = bt_upload_file._files[0].name,
+                		tips = $(".fileUploadDiv .f_tips").val(),
+                		site_type = $(".typetext .f_type").val(),
+                		script_type = $(".sitetype").find("option:selected").attr("stype"),
+                		checkType = $(".sitetype").find("option:selected").val(),
+                		obj = {f_name:f_name, tips:tips, script_type:script_type, site_type:site_type};
+                		if (checkType) obj['site_type'] = checkType;
+                		bt_upload_file.start(0);
+                		site_optimization.upload_script(obj,function(layero,index){
+                			layer.close(bt_upload_file._loadT);
+                			site_optimization.check_script_list(script_type);
+                		});
+                	}
+                });
+            },
+        // 上传脚本3
+            list: function (_files) {
+                bt_upload_file._files = _files;
+                var up_box = $("#up_box");
+                $("#up_box").html('');
+                var loadT = layer.msg('Loading file list...', {
+                    time: 0,
+                    icon: 16,
+                    shade: 0.3
+                });
+                for (var i = 0; i < _files.length; i += 1) {
+                    var f_name = _files[i].name;
+                    if (_files[i].webkitRelativePath) {
+                        f_name = _files[i].webkitRelativePath
+                    }
+                    up_box.append('<li class="offset-' + i + '"><span class="filename" title="Upload to: ' +
+                        bt_upload_file.f_path + '/' + f_name + '">' + f_name +
+                        '</span><span class="filesize">' + bt_upload_file.to_size(_files[i].size) +
+                        '</span><em>Waiting for upload</em></li>');
+                    $("#up_name").val(f_name);
+                }
+                layer.close(loadT)
+            },
+		// 获取日志信息
+        get_logs:function(obj,callback){
+            this.send({
+                method: 'get_logs',
+                data: obj,
+                tips: '正在获取日志信息，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 获取所有站点信息
+        get_cache_site_info:function(callback){
+            this.send({
+                method: 'get_all_site_info',
+                tips: '正在获取站点列表，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 更新云端脚本
+        get_cloud_script:function(callback){
+            this.send({
+                method: 'get_cloud_script',
+                tips: '正在更新云端脚本，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                    layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                }
+            });
+        },
+        // 检查可否优化
+        check_site_type:function(obj,callback){
+            this.send({
+                method: 'check_site_type',
+                data: obj,
+                tips: '正在检查站点类型，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 取消优化
+        del_site_type:function(obj,callback){
+            this.send({
+                method: 'cancel_opt',
+                data: obj,
+                tips: '正在取消站点优化，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 获取脚本列表
+        get_optimization_script_list:function(obj,callback){
+            this.send({
+                method: 'get_optimization_script_list',
+                data: obj,
+                tips: '正在获取脚本列表，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 脚本详情列表
+        check_site_opt:function(obj,callback){
+            this.send({
+                method: 'check_site_opt',
+                data: obj,
+                tips: '正在获取脚本配置，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 提交优化
+        opt_site:function(obj,callback){
+            this.send({
+                method: 'opt_site',
+                data: obj,
+                tips: '正在优化站，大约需要5-10分钟，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                    layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                }
+            });
+        },
+        // 获取脚本库
+        get_script_lists:function(obj,callback){
+            this.send({
+                method: 'get_script_list',
+                data: obj,
+                tips: '正在获取脚本库，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                    //layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                }
+            });
+        },
+        // 上传脚本名
+        upload_script :function(obj,callback){
+            this.send({
+                method: 'upload_script ',
+                data: obj,
+                tips: '正在上传脚本，请稍后...',
+                success: function (res) {
+                    if (callback) callback(res);
+                    layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                }
+            });
+        },
+        // 发送请求封装
+        send: function (obj) {
+            var loadT = '';
+            if (obj.load == undefined) obj.load = 0;
+            if (obj.url == undefined) {
+                if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this
+                        .plugin_name
+                if (!obj.plugin_name || !obj.method) {
+                    layer.msg('插件类名称，或插件方法名称缺失!', {
+                        icon: 2
+                    });
+                    return false;
+                }
+            }
+            if (obj.load === 0 || obj.tips != '') {
+                loadT = layer.msg(obj.tips, {
+                    icon: 16,
+                    time: 0,
+                    shade: 0.3
+                });
+            } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+                loadT = layer.load();
+            }
+            $.ajax({
+                type: 'POST',
+                url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+                data: obj.data || {},
+                timeout: obj.timeout || 99999999,
+                complete: function (res) {
+                    if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+                },
+                success: function (rdata) {
+                    if (obj.check) {
+                        obj.success(rdata);
+                        return false
+                    }
+                    if (rdata.status === false) {
+                        layer.msg(rdata.msg, { icon: 2 });
+                        return false;
+                    }
+                    obj.success(rdata);
+                },
+                error: function (ex) {
+                    if (!obj.error) {
+                        obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+                            icon: 2
+                        }) : '';
+                        return;
+                    }
+                    return obj.error(ex);
+                }
+            });
+        },
+        //上传文件
+        	upload: function (start, i) {
+                var end = Math.min(bt_upload_file.f.size, start + bt_upload_file.split_size);
+                var len = bt_upload_file._files.length;
+                var f_path = bt_upload_file.f_path;
+                if (bt_upload_file.f.webkitRelativePath) {
+                    f_path = bt_upload_file.f_path + '/' + bt_upload_file.f.webkitRelativePath.replace('/' +
+                        bt_upload_file.f.name, '')
+                }
+                var form = new FormData();
+                form.append("f_name", bt_upload_file.f.name);
+                form.append("f_size", bt_upload_file.f.size);
+                form.append("f_start", start);
+                form.append("blob", bt_upload_file.f.slice(start, end));
+                $.ajax({
+                    url: bt_upload_file.upload_url,
+                    type: "POST",
+                    data: form,
+                    async: true,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (typeof (data) === "number") {
+                            var progress = parseInt(data / bt_upload_file.f.size * 100);
+                            var total_time = bt_upload_file.diff_time(bt_upload_file._t_start_time,
+                                new Date());
+                            $("#totalProgress").html('<p>Uploaded(' + i + '/' + len + '),' +
+                                total_time + '</p> <progress value="' + i + '" max="' + len +
+                                '"></progress>');
+                            $("#up_box li em")[i].outerHTML =
+                                '<em style="color:green;">Upload progress:' + progress + '%</em>';
+                            $("#up_box li .filesize")[i].outerHTML = '<span class="filesize">' +
+                                bt_upload_file.to_size(data) + '/' + bt_upload_file.to_size(
+                                    bt_upload_file.f.size) + '</span>';
+                            $("#up_box li em")[i].focus();
+                            bt_upload_file.upload(data, i)
+                        } else {
+                            if (data.status) {
+                                var f_time = bt_upload_file.diff_time(bt_upload_file._start_time,
+                                    new Date());
+                                $("#up_box li em")[i].outerHTML =
+                                    '<em style="color:green;">Completed(' + f_time + ')</em>';
+                                $("#up_box li .filesize")[i].outerHTML = '<span class="filesize">' +
+                                    bt_upload_file.to_size(bt_upload_file.f.size) + '/' +
+                                    bt_upload_file.to_size(bt_upload_file.f.size) + '</span>'
+                            } else {
+                                $("#up_box li em")[i].outerHTML = '<em style="color:red;">' + data
+                                    .msg + '</em>'
+                            }
+                            bt_upload_file.start(i + 1)
+                        }
+                    },
+                    error: function (e) {
+                        if (bt_upload_file._error > 5) {
+                            $("#up_box li em")[i].outerHTML =
+                                '<em style="color:red;">Upload failed</em>';
+                            bt_upload_file.start(i + 1);
+                            return
+                        }
+                        bt_upload_file._error += 1;
+                        bt_upload_file.upload(start, i)
+                    }
+                })
+            }
+    }
+    site_optimization.init();
+</script>

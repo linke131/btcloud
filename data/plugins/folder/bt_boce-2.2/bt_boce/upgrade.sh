@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/bt_boce/install.sh install

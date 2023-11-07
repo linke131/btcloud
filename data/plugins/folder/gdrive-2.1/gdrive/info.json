@@ -1,0 +1,16 @@
+{
+	"id":3,
+	"title":"谷歌云网盘",
+	"tip":"lib",
+	"name":"gdrive",
+	"type":"扩展",
+	"ps":"备份你的数据到谷歌云网盘",
+	"versions":"2.1",
+	"shell":"gdrive.sh",
+	"checks":"/www/server/panel/plugin/gdrive",
+	"author":"官方",
+	"home":"http://www.bt.cn/bbs",
+	"date":"2019-08-6",
+	"default":false,
+	"display":0
+}

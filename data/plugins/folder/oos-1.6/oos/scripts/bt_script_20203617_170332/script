@@ -1,0 +1,6 @@
+mysql_bin="/etc/init.d/mysql"
+if [ ! -f $mysql_bin ];then
+    echo "$mysql_bin文件不存在"
+    exit 0;
+fi
+$mysql_bin restart

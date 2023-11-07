@@ -1,0 +1,14 @@
+{
+    "title": "腾讯云CDN",
+    "tip": "lib",
+    "name": "txcdn",
+    "type": "扩展",
+    "ps": "腾讯云 CDN 累计开放了腾讯十多年的节点，提供了1000+个境外节点，覆盖全球50+个国家和地区，支持您的业务无缝出海。",
+    "versions": "1.0",
+    "checks": "/www/server/panel/plugin/txcdn",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs",
+    "date": "2021-01-18",
+    "default": false,
+    "display": 0
+}

@@ -1,0 +1,18 @@
+{
+  "title": "\u5b9d\u5854\u7cfb\u7edf\u52a0\u56fa",
+  "tip": "lib",
+  "name": "syssafe",
+  "type": "\u6269\u5c55",
+  "ps": "\u63d0\u4f9b\u7075\u6d3b\u7684\u7cfb\u7edf\u52a0\u56fa\u529f\u80fd\uff0c\u9632\u6b62\u7cfb\u7edf\u88ab\u690d\u5165\u6728\u9a6c",
+  "versions": "5.1",
+  "checks": "/www/server/panel/plugin/syssafe",
+  "author": "\u5b9d\u5854",
+  "home": "http://www.bt.cn/bbs",
+  "beta": false,
+  "force_message": "",
+  "not_substituted": [
+    "config.json|f",
+    "deny.json|f"
+  ],
+  "replace_files": []
+}

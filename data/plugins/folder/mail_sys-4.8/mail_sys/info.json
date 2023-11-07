@@ -1,0 +1,11 @@
+{
+	"title": "宝塔邮局管理器",
+	"name": "mail_sys",
+	"ps": "搭建自己属于自己的邮局，同时支持centos7/8、Ubuntu20、debian10",
+	"versions": "4.8",
+	"checks": "/www/server/panel/plugin/mail_sys",
+	"author": "宝塔",
+	"beta": false,
+	"force_message": "",
+	"not_substituted":["data.json|f"]
+}

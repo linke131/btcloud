@@ -1,0 +1,11 @@
+{
+	"title":"异常监控推送",
+	"name":"msg_push",
+	"ps":"异常监控推送，可对服务器、站点状态进行监控推送",
+	"versions":"3.5",
+	"checks":"/www/server/panel/plugin/msg_push",
+	"author":"宝塔",
+	"beta": false,
+	"force_message": "",
+	"not_substituted":["config.json|f"]
+}

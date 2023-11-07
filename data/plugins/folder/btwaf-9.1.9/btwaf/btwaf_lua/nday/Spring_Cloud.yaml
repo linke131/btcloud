@@ -1,0 +1,12 @@
+models:
+  - Meterspher:
+    info: "Spring Cloud 代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/actuator/gateway"
+    keys:
+      name: "AddResponseHeader"
+      id: ""
+      args: ""

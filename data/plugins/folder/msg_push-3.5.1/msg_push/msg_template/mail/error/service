@@ -1,0 +1,10 @@
+<html>
+<h2 style="">{title}</h2>
+<p style="">服务器: {ip}</p>
+<p style="">服务: {service}</p>
+<p style="">服务状态: <font color=red>{status}</font></p>
+<p style="">尝试重启: {restart}</p>
+<p style="">重启成功: {restart_success}</p>
+<p style="">重启失败: {restart_fail}</p>
+</body>
+</html>

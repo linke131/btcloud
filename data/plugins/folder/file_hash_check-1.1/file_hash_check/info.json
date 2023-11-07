@@ -1,0 +1,14 @@
+{
+  "pid": 9,
+  "title": "文件监控",
+  "tip": "lib",
+  "name": "file_hash_check",
+  "type": "插件",
+  "id": 2,
+  "sort": 1001,
+  "ps": "监控文件变化并记录日志，含自动备份、自动查杀木马等功能",
+  "versions": "1.1",
+  "checks": "/www/server/panel/plugin/file_hash_check",
+  "author": "宝塔",
+  "home": "https://www.bt.cn"
+}

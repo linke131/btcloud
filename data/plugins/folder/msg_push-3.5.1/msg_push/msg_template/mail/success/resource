@@ -1,0 +1,7 @@
+<html>
+<h2 style="">{title}</h2>
+<p style="">服务器: {ip}</p>
+<p style="">资源类型: {resource_type}</p>
+<p style="">资源状态: <font color=green>{status}</font></p>
+</body>
+</html>

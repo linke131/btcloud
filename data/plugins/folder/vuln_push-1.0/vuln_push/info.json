@@ -1,0 +1,9 @@
+{
+	"title": "堡塔漏洞情报推送",
+	"name": "vuln_push",
+	"ps": "通过各大漏洞情报中心，洞察并收集高质量的漏洞信息，提供更有价值的漏洞信息推送服务。",
+	"versions": "1.0",
+	"checks": "/www/server/panel/plugin/vuln_push",
+	"author": "官方",
+	"home": "http://www.bt.cn"
+}

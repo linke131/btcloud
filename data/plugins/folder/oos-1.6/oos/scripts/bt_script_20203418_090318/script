@@ -1,0 +1,21 @@
+echo "|-正在尝试从0.pool.bt.cn同步时间..";
+ntpdate -u 0.pool.bt.cn
+if [ $? = 1 ];then
+	echo "|-正在尝试从1.pool.bt.cn同步时间..";
+	ntpdate -u 1.pool.bt.cn
+fi
+if [ $? = 1 ];then
+	echo "|-正在尝试从0.asia.pool.ntp.org同步时间..";
+	ntpdate -u 0.asia.pool.ntp.org
+fi
+if [ $? = 1 ];then
+	echo "|-正在尝试从www.bt.cn同步时间..";
+	getBtTime=$(curl -sS --connect-timeout 3 -m 60 http://www.bt.cn/api/index/get_time)
+	if [ "${getBtTime}" ];then	
+		date -s "$(date -d @$getBtTime +"%Y-%m-%d %H:%M:%S")"
+	fi
+fi
+echo "|-正在尝试将当前系统时间写入硬件..";
+hwclock -w
+date
+echo "|-时间同步完成!";

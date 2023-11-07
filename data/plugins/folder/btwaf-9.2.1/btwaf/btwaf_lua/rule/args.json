@@ -1,0 +1,18 @@
+[
+	[1, "\\.\\./\\.\\./", "目录保护拦截", 0,100],
+	[1, "(?:etc\\/\\W*passwd)", "目录保护拦截", 0,100],
+	[1, "(gopher|doc|php|glob|^file|phar|zlib|ftp|ldap|dict|ogg|data)\\:\\/", "SSRF拦截", 0,100],
+	[1, "base64_decode\\(", "PHP代码拦截", 0,10],
+	[1, "(?:define|eval|file_get_contents|include|require|require_once|shell_exec|phpinfo|system|passthru|char|chr|preg_\\w+|execute|echo|print|print_r|var_dump|(fp)open|showmodaldialog)\\(", "PHP代码拦截", 0,100],
+	[1, "\\$_(GET|post|cookie|files|session|env|phplib|GLOBALS|SERVER)\\[", "PHP代码拦截", 0,50],
+	[1, "(invokefunction|call_user_func_array|\\\\think\\\\)", "ThinkPHP 拦截", 0,100],
+	[1, "^url_array\\[.*\\]$", "Metinfo6.x XSS漏洞", 0,10],
+	[1, "\\${jndi:", "log4j2拦截", 0,100],
+	[1, "(@@version|load_file\\(|NAME_CONST\\(|exp\\(\\~|floor\\(rand\\(|geometrycollection\\(|multipoint\\(|polygon\\(|multipolygon\\(|linestring\\(|multilinestring\\(|right\\()", "SQL报错注入过滤02", 0, 50],
+	[1, "(extractvalue\\(|concat\\(|user\\(\\)|substring\\(|count\\(\\*\\)|substring\\(hex\\(|updatexml\\()", "SQL报错注入过滤01", 0],
+	[1, "(EXISTS\\(|SELECT\\#|\\(SELECT|select\\()", "SQL注入过滤1", 0, 30],
+	[1, "(bin\\(|ascii\\(|benchmark\\(|concat_ws\\(|group_concat\\(|strcmp\\(|left\\(|datadir\\(|greatest\\()", "SQL报错注入过滤01", 0, 30],
+	[1, "(?:from.+?information_schema.+?)", "", 1, 100],
+	[1, "(?:(union(.*?)select))", "SQL注入过滤3", 0, 100],
+	[1, "select.+(from|limit)", "SQL注入过滤2", 0, 100]
+]

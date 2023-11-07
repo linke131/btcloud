@@ -1,0 +1,18 @@
+[Unit]     				
+Description=btnotice
+After=network.target
+ 
+[Service]
+WorkingDirectory=/www/server/panel/plugin/security_notice		
+Type=forking 
+ExecStart=/www/server/panel/plugin/security_notice/btnotice.sh restart      
+ExecReload=/www/server/panel/plugin/security_notice/btnotice.sh restart     
+ExecStop=/www/server/panel/plugin/security_notice/btnotice.sh stop	   
+PrivateTmp=true							   
+Restart=always
+RestartSec=5
+StartLimitInterval=0
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target 

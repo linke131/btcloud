@@ -1,0 +1,1374 @@
+<style>
+	.bg-bubbles {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 99;
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		opacity: 0.8;
+	}
+
+	.bg-bubbles li {
+		position: absolute;
+		bottom: -10pc;
+		z-index: -1;
+		width: 40px;
+		height: 40px;
+		background-color: rgba(32, 165, 58, 0.08);
+		list-style: none;
+		transition-timing-function: linear;
+		animation: square 15s infinite;
+	}
+
+	.bg-bubbles li:nth-child(1) {
+		left: 10%;
+	}
+
+	.bg-bubbles li:nth-child(2) {
+		left: 20%;
+		width: 90px;
+		height: 90px;
+		animation-delay: 2s;
+		animation-duration: 7s;
+	}
+
+	.bg-bubbles li:nth-child(3) {
+		left: 25%;
+		animation-delay: 4s;
+	}
+
+	.bg-bubbles li:nth-child(4) {
+		left: 40%;
+		width: 60px;
+		height: 60px;
+		background-color: rgba(32, 165, 58, 0.02);
+		animation-duration: 8s;
+	}
+
+	.bg-bubbles li:nth-child(5) {
+		left: 70%;
+	}
+
+	.bg-bubbles li:nth-child(6) {
+		left: 80%;
+		width: 90pt;
+		height: 90pt;
+		background-color: rgba(32, 165, 58, 0.02);
+		animation-delay: 3s;
+	}
+
+	.bg-bubbles li:nth-child(7) {
+		left: 32%;
+		width: 10pc;
+		height: 10pc;
+		animation-delay: 2s;
+	}
+
+	.bg-bubbles li:nth-child(8) {
+		left: 55%;
+		width: 20px;
+		height: 20px;
+		animation-delay: 4s;
+		animation-duration: 15s;
+	}
+
+	.bg-bubbles li:nth-child(9) {
+		left: 25%;
+		width: 10px;
+		height: 10px;
+		background-color: rgba(32, 165, 58, 0.05);
+		animation-delay: 2s;
+		animation-duration: 12s;
+	}
+
+	.bg-bubbles li:nth-child(10) {
+		left: 85%;
+		width: 10pc;
+		height: 10pc;
+		animation-delay: 5s;
+	}
+
+	@keyframes square {
+		0% {
+			opacity: 0.5;
+			transform: translatey(0) rotate(45deg);
+		}
+
+		25% {
+			opacity: 0.75;
+			transform: translatey(-400px) rotate(90deg);
+		}
+
+		50% {
+			opacity: 1;
+			transform: translatey(-600px) rotate(135deg);
+		}
+
+		to {
+			opacity: 0;
+			transform: translatey(-1000px) rotate(180deg);
+		}
+	}
+
+	@-webkit-keyframes square {
+		0% {
+			opacity: 0.5;
+			-webkit-transform: translatey(0) rotate(45deg);
+		}
+
+		25% {
+			opacity: 0.75;
+			-webkit-transform: translatey(-400px) rotate(90deg);
+		}
+
+		50% {
+			opacity: 1;
+			-webkit-transform: translatey(-600px) rotate(135deg);
+		}
+
+		to {
+			opacity: 0;
+			-webkit-transform: translatey(-1000px) rotate(180deg);
+		}
+	}
+
+	@-webkit-keyframes removeLeft {
+		0% {
+			visibility: visible;
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+
+		to {
+			-webkit-transform: translateX(-350px);
+			transform: translateX(-350px);
+		}
+	}
+
+	@keyframes removeLeft {
+		0% {
+			visibility: visible;
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+
+		to {
+			-webkit-transform: translateX(-350px);
+			transform: translateX(-350px);
+		}
+	}
+
+	@-webkit-keyframes removeRight {
+		0% {
+			opacity: 0;
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+
+		to {
+			opacity: 1;
+			-webkit-transform: translateX(500px);
+			transform: translateX(500px);
+		}
+	}
+
+	@keyframes removeRight {
+		0% {
+			opacity: 0;
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+
+		to {
+			opacity: 1;
+			-webkit-transform: translateX(500px);
+			transform: translateX(500px);
+		}
+	}
+
+	@-webkit-keyframes slideInLeft {
+		0% {
+			visibility: visible;
+			-webkit-transform: translate3d(-100%, 0, 0);
+			transform: translate3d(-100%, 0, 0);
+		}
+
+		to {
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+	}
+
+	@keyframes slideInLeft {
+		0% {
+			visibility: visible;
+			-webkit-transform: translate3d(-100%, 0, 0);
+			transform: translate3d(-100%, 0, 0);
+		}
+
+		to {
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+	}
+
+	@-webkit-keyframes slideInRight {
+		0% {
+			visibility: visible;
+			-webkit-transform: translate3d(100%, 0, 0);
+			transform: translate3d(100%, 0, 0);
+		}
+
+		to {
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+	}
+
+	@keyframes slideInRight {
+		0% {
+			visibility: visible;
+			-webkit-transform: translate3d(100%, 0, 0);
+			transform: translate3d(100%, 0, 0);
+		}
+
+		to {
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+	}
+
+	@keyframes ellipsis {
+		0% {
+			content: '';
+		}
+
+		25% {
+			content: '.';
+		}
+
+		50% {
+			content: '..';
+		}
+
+		75% {
+			content: '...';
+		}
+
+		100% {
+			content: '';
+		}
+	}
+
+	.animated {
+		-webkit-animation-duration: 1s;
+		animation-duration: 1s;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+	}
+
+	.direction-column {
+		flex-direction: column;
+	}
+
+	#DiskAnalysis {
+		height: 526px;
+		width: 1000px;
+		position: relative;
+		overflow: hidden;
+		padding-bottom: 24px;
+	}
+
+	.scan-header,
+	.scan-view,
+	.file-view {
+		position: relative;
+		z-index: 999;
+	}
+
+	.file-view {
+		padding: 0 24px 24px;
+	}
+
+	/* 省略动画效果 */
+	.omit {
+		display: inline-block;
+	}
+
+	.omit::after {
+		content: '';
+		animation: ellipsis 2s infinite;
+	}
+
+	/* 省略 */
+	.nowrap {
+		display: inline-block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	/* 初始化状态 */
+	.scan-header.init {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		border-radius: 4px;
+	}
+
+	/* 扫描左侧内容 */
+	.scan-header .scan-left {
+		height: 136px;
+		width: 136px;
+		position: relative;
+		margin-right: 96px;
+		transition: all 500ms;
+		margin-left: 8px;
+	}
+
+	.scan-left .filescan-serach {
+		width: 136px;
+		height: 136px;
+		position: absolute;
+		transition: all 500ms;
+	}
+
+	.scan-left .filescan-icon {
+		width: 60px;
+		height: 60px;
+		position: absolute;
+		right: -10px;
+		bottom: 0;
+		transition: all 500ms;
+	}
+
+	/* 扫描右侧内容 */
+	.scan-right .scan-title {
+		font-size: 24px;
+		font-weight: 600;
+		color: #555;
+		margin-bottom: 8px;
+	}
+
+	.scan-right .scan-dir {
+		margin-bottom: 16px;
+	}
+
+	.scan-right .scan-dir span {
+		margin-right: 10px;
+		font-size: 13px;
+	}
+
+	.scan-right .scan-dir .btlink {
+		font-size: 13px;
+	}
+
+	.scan-btn button {
+		margin-right: 16px;
+		font-size: 14px;
+		padding: 6px 16px;
+		transition: all 500ms;
+	}
+
+	.scan-btn button:last-child {
+		margin-right: 8px;
+	}
+
+	.scan-btn .cancel-scan {
+		display: none;
+	}
+
+	/* 启动扫描后 */
+	.scan-header.scan,
+	.scan-header.result {
+		padding: 24px 24px 16px;
+		display: flex;
+	}
+
+	.scan-header.scan .scan-left,
+	.scan-header.result .scan-left {
+		height: 60px;
+		width: 60px;
+		position: relative;
+		margin-right: 40px;
+	}
+
+	.scan-header.scan .filescan-serach,
+	.scan-header.result .filescan-serach {
+		height: 60px;
+		width: 60px;
+	}
+
+	.scan-header.scan .filescan-icon,
+	.scan-header.result .filescan-icon {
+		height: 25px;
+		width: 25px;
+	}
+
+	.scan-header.scan .scan-right,
+	.scan-header.result .scan-right {
+		display: flex;
+		flex: 1;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.scan-header.scan .scan-title {
+		font-size: 20px;
+		margin-bottom: 4px;
+	}
+
+	.scan-header.scan .scan-dir,
+	.scan-header.result .scan-dir {
+		display: none;
+	}
+
+	.scan-header.result .scan-title {
+		font-size: 16px;
+		line-height: 24px;
+		width: 350px;
+		margin-bottom: 0;
+	}
+
+	.scan-header.result .scan-dir {
+		margin-bottom: 0;
+	}
+	.scan-header .scan-dir {
+		display: flex;
+		padding-left: 2px;
+	}
+	.scan-header.result .scan-btn {
+		display: flex;
+	}
+
+	.scan-header .scan-dir .catalogue {
+		display: inline-block;
+		max-width: 100px;
+		vertical-align: middle;
+	}
+
+	.scan-header.result .scan-dir span,
+	.scan-header.result .scan-dir .btlink {
+		font-size: 12px;
+		margin-left: 4px;
+	}
+
+	.scan-header.scan .scan-btn .scan-now,
+	.scan-header.scan .scan-btn .history-scan {
+		display: none;
+	}
+
+	.scan-header.scan .scan-btn .cancel-scan {
+		display: block;
+	}
+
+	.scan-view {
+		padding: 0 24px 24px;
+	}
+
+	.scan-view pre {
+		overflow: auto;
+		border: 0 none;
+		line-height: 23px;
+		padding: 15px;
+		margin: 0;
+		white-space: pre-wrap;
+		background-color: #00192b;
+		color: #f1f1f1;
+		border-radius: 2px;
+		transition: all 200ms;
+	}
+
+	/* 文件表格 */
+
+	.filescan-nav {
+		display: flex;
+		align-items: center;
+		height: 40px;
+		line-height: 40px;
+		border-top: 1px solid #efefef;
+		padding: 0 4px;
+	}
+
+	.filescan-nav .divider {
+		display: inline-block;
+		height: 16px;
+		line-height: 16px;
+		padding: 0 8px;
+		color: #bbb;
+		position: relative;
+		top: -1px;
+	}
+
+	.filescan-nav .filescan-nav-item {
+		max-width: 120px;
+		display: inline-block;
+		height: 20px;
+		line-height: 20px;
+	}
+
+	.filescan-list {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	.file-type-icon {
+		width: 24px;
+		height: 24px;
+		display: inline-block;
+		vertical-align: middle;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.file_folder {
+		background-image: url('data:image/png;base64,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UmVhZHlxyWU8AAADKGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2NEQ2NjBGOUZFQ0UxMUU5OEUyQUFENDExRjZDRkI0OCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2NEQ2NjBGQUZFQ0UxMUU5OEUyQUFENDExRjZDRkI0OCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjY0RDY2MEY3RkVDRTExRTk4RTJBQUQ0MTFGNkNGQjQ4IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY0RDY2MEY4RkVDRTExRTk4RTJBQUQ0MTFGNkNGQjQ4Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+10BluQAACu9JREFUeNpi/P//PwMuwAJj/Ho49f/fr3cZWDm5GZhZ2BkZZWsYmGCSbEDBf//+MvwH4z9gMbgkw99fDP/+/mH4//cv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');
+	}
+
+	.file_icon {
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAFpOLgnAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAMqADAAQAAAABAAAAMgAAAAB1y6+rAAAD10lEQVRoBe1Z3U5aQRBeKBUxpEikll4oNsWnqOHed+lN05foG+ELaPwJl+gFCaW1qZYgBBChFKUz1N3sWWbZ3fOTcsEmJ2dndma+mdnZnwOM2bS7u7spPuVyecrlY7yDA7y/tbU148c5g3r7H6SsmXkzj6y85EJaD90HzO65SIikoxL3VjZwfn4+Iw8PD4VsQhbAfrPZZA8PD4K9vb3N9vb2BI2dOaVcLsfG47FHSCXmlOLxOFtfX1flPPScEo7GYjEsKv4gSxQZEtE3kb52u/04nU7npv7q6qp1cHDwmrsiC5C+9vv93NnZWZUryAhjQHjJB9Q3X1VypmYIjUbDI6udRLD+hJKqgEcbiDmE0WjkkVEnU1aYIagCHm0gjFlapDBDUAVUWkb4jINYS/A8PT+P8J4Ae6AqLhctqkN2C2qxDnP5Tubp+tVqtVcqlTK6ceTLuZLlCjKxqD8YDF7hqXBycvJNJ6eL5A9EItePTn+Oz9eDPKCLhFyJsqJLXwdiVZe2QGRKIFUikm63y4bD4UJ7+Xx+4TgJAhoikkwmw/AJ0nQgIhL1IKLAXLYsWV9Egqdb0KabeBFJUICV/nJmgNy7qIsX5X69XmfZbPZNsVhsUuOcp6suPm5812q1X7CW0osEA4Og8Uql0oedSHtTCQUEgY6OjvBKRKafZNrOCRpX2gjOk5TC056MqlwgOrR0oRdwrSEzo9uFhefqLVIMPHc2NjaYaRM1gpi2cQWUjCTUdAEgCWKM5Pb2VnHWS6ZSKePJaQTZ3Nz0WlWotbU1meMvEtNdXUaAPgkS9pwomP9IY7ocS5iMxAjiWMJkJGGni4wkVBDdLhwqCJkrYJJzAvvcb/AqiUrQl+9gVF/mfdIBrfirDESRAXJ9UkDwZf8RivoLFDTu7KqeE82X7M3NzfdkMvlhf3//B4XpwlMd0OpCIE/cAa2Q4wBepFutFkun053d3d33hUKh42hCiLvsW/LWIQyE0bm/v89eXl62j4+Pf0KyFv9AqgFcikC4b71e7y3c2Yenp6c1COgF59u8XQKxsReKTKfTKUJAk4uLi4qtQZc14vvHL1tnCDnyQ4eQc/r4iWyNUI658sj7g8YIGQhe9k2/tWnsCTZ+EFC/x8FWb10xLoEIYLlDOSCPB+xbB+Ky2MkZCehoaOrWgcB2+D8CsZ4Rl9IiA7m+vmaTCf6l4r8lEgm2s7NDGYgkEApI5wApGyXTurTACXJGonQObFvPyLIHYp2nwGskynPEZUZcAiGzszpHyLT4Zy71GoGjK/zFDteehv98+dMEzK/+NFdaqwyEloG/engwwneEWvEAAAAASUVORK5CYII=');
+	}
+
+	.filescan-list-title {
+		height: 32px;
+		line-height: 32px;
+		padding: 0 8px;
+		color: #555;
+		background: #f3f3f3;
+		border-bottom: 1px solid #efefef;
+	}
+
+	.filescan-list-body {
+		font-size: 12px;
+		flex: 1;
+		max-height: 328px;
+		overflow-y: auto;
+		color: #666;
+	}
+
+	.filescan-list-item {
+		height: 40px;
+		line-height: 40px;
+		border-bottom: 1px solid #efefef;
+		padding: 0 8px;
+	}
+
+	.filescan-list-item:hover {
+		background-color: #f0f9f7;
+	}
+
+	.filescan-list-title,
+	.filescan-list-item {
+		display: flex;
+		align-items: center;
+	}
+
+	.filescan-list-col:nth-child(1),
+	.filescan-list-title-item:nth-child(1){
+		width: 108px;
+	}
+	
+	.filescan-list-col:nth-child(2){
+		width: 180px;
+		padding:0 15px;
+		display: flex;
+		align-items: center;
+	}
+	.filescan-list-title-item:nth-child(2) {
+		width: 180px;
+		padding-left: 15px;
+	}
+
+	.filescan-list-col:nth-child(3),
+	.filescan-list-title-item:nth-child(3) {
+		width: 140px;
+	}
+
+	.filescan-list-col:nth-child(4),
+	.filescan-list-title-item:nth-child(4) {
+		width: 78px;
+	}
+
+	.filescan-list-col:nth-child(5),
+	.filescan-list-title-item:nth-child(5) {
+		width: 90px;
+	}
+
+
+	.filescan-list-col:nth-child(6),
+	.filescan-list-title-item:nth-child(6) {
+		width: 130px;
+	}
+
+	.filescan-list-col:nth-child(7),
+	.filescan-list-title-item:nth-child(7) {
+		width: 130px;
+	}
+
+	.filescan-list-col:nth-child(8),
+	.filescan-list-title-item:nth-child(8) {
+		width: 70px;
+		text-align: right;
+	}
+
+	.filescan-list-col a:hover {
+		background-color: transparent;
+	}
+
+	.filescan-list-col a:focus {
+		text-decoration: none;
+	}
+
+	.filescan-list-col .path {
+		margin-left: 8px;
+	}
+
+	.present{
+		max-width: 220px !important;
+	}
+	
+	.progress_box{
+		flex:1;
+	   	height: 10px;
+		background-color: #e3e3e3;
+		border-radius: 8px;
+		margin-right: 5px;
+		overflow: hidden;
+	}
+	.progress_item{
+		height: 100%;
+	   	background-color: #20a53a;
+		border-radius: 8px;
+	}
+</style>
+<div id="DiskAnalysis">
+	<div class="scan-header init">
+		<div class="scan-left">
+			<img
+				class="filescan-serach"
+				src="data:image/png;base64,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"
+				alt=""
+			/>
+			<img
+				class="filescan-icon"
+				src="data:image/png;base64,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"
+				alt=""
+			/>
+		</div>
+		<div class="scan-right">
+			<div class="flex direction-column">
+				<div class="scan-title">扫描分析指定目录占用大小</div>
+				<div class="scan-dir">
+					<span>扫描目录：</span><span title="" class="catalogue nowrap">D:/</span>
+					<a href="javascript:;" class="btlink select-path">点击选择目录</a>
+					<input type="text" class="hide catalogue-path" />
+				</div>
+			</div>
+			<div class="scan-btn">
+				<button class="btn btn-success btn-sm scan-now">立即扫描</button>
+				<button class="btn btn-default btn-sm scan-auxiliary">历史记录</button>
+			</div>
+		</div>
+	</div>
+	<div class="scan-view hide">
+		<pre id="scanProgress">正在获取扫描日志</pre>
+	</div>
+	<div class="file-view hide">
+		<div class="filescan-nav" id="fileScanPath"></div>
+		<div class="filescan-list" id="fileScanTable">
+			<div class="filescan-list-title">
+				<div class="filescan-list-title-item text-left">文件名</div>
+				<div class="filescan-list-title-item">占比</div>
+				<div class="filescan-list-title-item">文件夹 / 文件数</div>
+				<div class="filescan-list-title-item">大小</div>
+				<div class="filescan-list-title-item">权限 / 所有者</div>
+				<div class="filescan-list-title-item">最后修改时间</div>
+				<div class="filescan-list-title-item">权限变更时间</div>
+				<div class="filescan-list-title-item text-right">操作</div>
+			</div>
+			<div class="filescan-list-body"></div>
+		</div>
+	</div>
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+<script type="text/javascript">
+	// 构造函数：磁盘扫描
+	function DiskAnalysis(config) {
+		this.$el = $(config.el);
+		this.diskPath = bt.get_cookie('diskPath')
+		this.$bgBubbles = this.$el.find('.bg-bubbles')
+		this.$scanHeader = this.$el.find('.scan-header');
+		this.$scanTitle = this.$el.find('.scan-title');
+		this.$scanNow = this.$el.find('.scan-now');
+		this.$scanAuxiliary = this.$el.find('.scan-auxiliary');
+		this.$cancelScan = this.$el.find('.cancel-scan');
+		this.$scanView = this.$el.find('.scan-view');
+		this.$fileView = this.$el.find('.file-view');
+		this.$fileTableBody = this.$el.find('#fileScanTable .filescan-list-body'); // 文件列表
+		this.$scanPath = this.diskPath && $('#memuA').hasClass('current') ? this.diskPath : '/www/server/panel'; // 默认扫描目录
+		this.taskId = null; // 任务ID
+		this.id = null; // 扫描刷新任务ID
+		this.taskPath = ''; // 扫描目录
+		this.cutPath = ''; // 当前目录
+		this.taskStatus = false; // 扫描状态
+		this.taskType = 'init'; // 扫描执行阶段
+		this.taskList = {}; // 扫描缓存列表
+		this.isRecycle = false; // 是否开启回收站
+		this.historyList = []; // 历史记录
+		this.taskCancel = false; // 是否取消扫描
+		this.init();
+	}
+
+	DiskAnalysis.prototype = {
+		// 初始化
+		init: function () {
+			var that = this;
+			this.event();
+			$('.layui-layer-page').css({
+				height: '568px',
+				width: '1000px',
+			});
+			setTimeout(function () {
+				bt_tools.setLayerArea('.layui-layer-page');
+			}, 100);
+			this.$scanHeader.find('.catalogue').html(this.$scanPath).attr('title',this.$scanPath);
+			// 获取回收站状态
+			this.getFilesRecycleRequest(function (rdata) {
+				that.isRecycle = rdata.status;
+			});
+		},
+
+		// 事件处理
+		event: function () {
+			var that = this;
+			// 立即扫描按钮
+			this.bind('.scan-now', function () {
+				var type = that.taskType;
+				if (type == 'init') {
+					var $this = $(this);
+					var $path = that.$scanPath;
+					var $scanView = that.$scanView;
+					var $scanHeader = that.$scanHeader;
+					var $scanTitle = that.$scanTitle;
+					var $scanNow = that.$scanNow;
+					var $scanAuxiliary = that.$scanAuxiliary;
+					var $fileView = that.$fileView;
+					var shellView = $scanView.find('pre');
+					$scanHeader.removeClass('init').addClass('scan');
+					$scanAuxiliary.html('取消扫描');
+					$scanView.removeClass('hide').find('pre').css({
+						height: '400px',
+					});
+					$scanNow.hide();
+					that.renderScanTitle(
+						$scanTitle,
+						'正在扫描目录：<span class="nowrap" style="max-width:180px;vertical-align: middle;" title="' + $path + '">' + $path + '</span>，请稍候<span class="omit"></span>',
+						true
+					);
+					that.renderScanTitle(shellView, '正在创建扫描任务\n', true);
+					that.renderScanTitle(shellView, '<span style="display:flex;" class="omit">目录正在扫描中<span>\n');
+					that.taskType = 'scan';
+					that.taskCancel = false;
+					that.createScanTaskRequest(function (rdata, taskId) {
+						if (!that.taskCancel){
+							that.taskId = taskId;
+							that.taskStatus = true;
+							if (!rdata.status) return bt_tools.msg(rdata);
+							that.renderScanTitle(shellView, '扫描完成，等待扫描结果返回\n');
+							// 渲染扫描结果
+							that.renderFilesView({
+								id: that.taskId,
+								path: that.taskPath,
+								init: true,
+							});
+						}
+					});
+				} else {
+					that.renderHistoryScan();
+				}
+			});
+			if(this.diskPath !== '' && $('#memuA').hasClass('current')) $('.scan-now').click()
+			// 辅助扫描按钮，历史、取消、返回
+			this.bind('.scan-auxiliary', function () {
+				var type = that.taskType;
+				switch (type) {
+					case 'init':
+						that.renderHistoryScan();
+						break;
+					case 'scan':
+						that.taskStatus = false;
+						that.taskCancel = true;
+						that.renderInitView();
+						break;
+					case 'result':
+						that.renderInitView();
+						break;
+				}
+			});
+
+			// 删除文件
+			this.bind('.remove-files', function () {
+				var path = $(this).data('path'),
+				    fullpath = $(this).data('fullpath'),
+				    filename = $(this).data('filename'),
+					type = $(this).data('type');
+				that.delFileDir(
+					{
+						path: path,
+						type: type,
+						filename: path,
+					},
+					function (rdata) {
+						delete that.taskList[that.taskId];
+				// 		that.renderFilesInfo({
+				// 			id: that.taskId,
+				// 			path: that.cutPath,
+				// 		});
+				        var list = that.taskList[fullpath].list.filter(function (item) { return item.name !== filename.toString() })
+                        that.taskList[fullpath].list = list;
+				        that.renderFilesTable(that.taskList[fullpath], fullpath);
+					}
+				);
+			});
+
+			// 选择扫描路径
+			this.bind('.select-path', function () {
+				bt.select_path(
+					'diskScanPath',
+					'dir',
+					function (path) {
+						that.$scanHeader.find('.catalogue').text(path).attr('title', path);
+						that.$scanPath = (path + '/').replace(/\/\//g, '/');
+					},
+					that.$scanPath
+				);
+			});
+
+			// 打开目录按钮
+			this.bind('.cut-path', function () {
+				var path = $(this).data('path'),
+					type = $(this).data('type');
+				if (type !== 'folder' && typeof type != 'undefined') return layer.msg('文件暂不支持打开', { icon: 0 });
+				if (!that.taskList.hasOwnProperty(path)) {
+					that.renderFilesInfo({
+						id: that.taskId,
+						path: path,
+					});
+				} else {
+					var rdata = that.taskList[path];
+					that.renderFilesTable(rdata, path); // 渲染文件表格
+					that.renderFilesPath(path); // 渲染文件路径
+				}
+			});
+
+			// 双击打开目录
+			this.$el.on('dblclick', '.filescan-list-item', function () {
+				$(this).find('.cut-path:eq(0)').trigger('click');
+			});
+		},
+
+		// 初始化数据
+		initData: function () {
+			this.taskId = null; // 任务ID
+			this.id = null; // 扫描刷新任务ID
+			this.taskPath = ''; // 扫描目录
+			this.cutPath = ''; // 当前目录
+			this.taskStatus = false; // 扫描状态
+			this.taskType = 'init'; // 扫描执行阶段
+			this.taskList = {}; // 扫描缓存列表
+		},
+
+		/**
+		 * @description 渲染扫描初始化页面
+		 */
+		renderInitView: function () {
+			var that = this;
+			this.initData();
+			this.$scanHeader.removeClass('result scan').addClass('init');
+			this.$scanHeader.find('.scan-title').html('扫描分析指定目录占用大小');
+			this.$scanNow.show().html('立即扫描');
+			this.$scanAuxiliary.html('历史记录');
+			this.$scanView.addClass('hide');
+			this.$fileView.addClass('hide');
+			this.$bgBubbles.find('li').css({'animation-play-state':'running','-webkit-animation-play-state':'running'})
+		},
+
+		/**
+		 * @description 渲染扫描页面
+		 * @param {object} data 配置参数
+		 */
+		renderFilesView: function (data) {
+			var that = this;
+			that.renderFilesInfo(
+				{
+					id: data.id,
+					path: data.path || '',
+					init: data.init || false,
+				},
+				function (rdata) {
+					that.taskType = 'result';
+					that.renderFilesPath(that.taskPath);
+					that.$scanView.addClass('hide').find('pre').animate({ height: '0px' }, 100);
+					that.$scanNow.show().html('历史记录');
+					that.$scanAuxiliary.html('返回首页');
+					that.$fileView.removeClass('hide');
+					that.$scanHeader.removeClass('scan init').addClass('result');
+					that.renderScanTitle(
+						that.$scanTitle,
+						'扫描完成，目录“<span class="nowrap" style="max-width:180px;vertical-align: middle;" title="' +
+							that.taskPath +
+							'">' +
+							that.taskPath +
+							'</span>”，</br>共扫描到<span class="scan-result">' +
+							rdata.file_num +
+							'</span>个文件，总大小：<span class="scan-result">' +
+							bt.format_size(rdata.total_asize) +
+							'</span>',
+						true
+					);
+				}
+			);
+		},
+
+		/**
+		 * @description 渲染文件列表
+		 * @param {Object} param 请求参数
+		 * @param {Function} callback 回调函数
+		 */
+		renderFilesInfo: function (param, callback) {
+			var that = this;
+			this.getScanHistoryRequest(param, function (rdata) {
+				var path = rdata.fullpath;
+				path = path.replace(/(\\)+/g, '/');
+				if (param.init) that.taskPath = path;
+				if (!that.taskList.hasOwnProperty(path)) that.taskList[path] = rdata;
+				that.renderFilesTable(rdata, path); // 渲染文件表格
+				that.renderFilesPath(path); // 渲染文件路径
+				if (callback) callback(rdata); // 回调函数
+			});
+			
+			that.$bgBubbles.find('li').css({'animation-play-state':'paused','-webkit-animation-play-state':'paused','border':'1px soild #000'})
+		},
+
+		/**
+		 * @description 渲染文件追加功能
+		 * @param {Element} el 控制器
+		 * @param {String} html 文本
+		 * @param {Boolean} isCover 是否覆盖，默认不覆盖
+		 */
+		renderScanTitle: function (el, html, isCover) {
+			var $el = typeof el === 'string' ? this.$el.find(el) : el;
+			if (isCover) {
+				$el.html(html);
+			} else {
+				$el.append(html);
+			}
+		},
+
+		/**
+		 * @description 渲染文件表格结构
+		 * @param {Object} rdata 数据
+		 * @param {String} path 路径
+		 *
+		 */
+		renderFilesTable: function (rdata, path) {
+			var list = rdata.list;
+			var html = '';
+			for (var i = 0; i < list.length; i++) {
+				var element = list[i];
+				var item = rdata.list[i];
+				var isDir = item.type == 1;
+				html +=
+					'<div class="filescan-list-item" data-path="' +
+					(path + '/' + item.name) +
+					'">' +
+					'<div class="filescan-list-col text-left nowrap" title="' +
+					(path + '/' + item.name) +
+					'">' +
+					'<span class="file-type-icon file_' +
+					(isDir ? 'folder' : 'icon') +
+					'"></span>' +
+					'<a class="path cut-path cursor" data-type="' +
+					(isDir ? 'folder' : 'files') +
+					'" data-path="' +
+					(path + '/' + item.name) +
+					'">' +
+					item.name +
+					'</a>' +
+					'</div>' +
+					'<div class="filescan-list-col">' +
+					'<div class="progress_box">'+
+					'<div class="progress_item" style="width:'+item.percent+'%;"></div>'+
+				    '</div>' +
+					'<div style="width:45px;">'+
+					item.percent+
+					'%</div>'+
+					'</div>' +
+					'<div class="filescan-list-col">' +
+					(isDir ? (item.dir_num || '0') + ' / ' + (item.file_num || '0') : '--') +
+					'</div>' +
+					'<div class="filescan-list-col">' +
+					bt.format_size(isDir ? item.total_asize : item.asize) +
+					'</div>' +
+					'<div class="filescan-list-col">' +
+					item.accept+' / '+item.user +
+					'</div>' +
+					'<div class="filescan-list-col">' +
+					bt.format_data(item.mtime) +
+					'</div>' +
+					'<div class="filescan-list-col">' +
+					bt.format_data(item.ctime) +
+					'</div>' +
+					'<div class="filescan-list-col text-right">' +
+					'<a href="javascript:;" data-type="' +
+					(isDir ? 'folder' : 'files') +
+					'"  data-path="' +
+					(path + '/' + item.name) +
+					'" class="cut-path btlink ' +
+					(isDir ? 'show' : 'hide') +
+					' ">打开</a>' +
+					(isDir ? '&nbsp;&nbsp;|&nbsp;&nbsp;' : '') +
+					'<a href="javascript:;" data-filename="'+ item.name +'" data-fullpath="'+ rdata.fullpath +'" data-path="' +
+					(path + '/' + item.name) +
+					'" data-type="' +
+					(isDir ? '文件夹' : '文件') +
+					'" class="btlink remove-files">删除</a>' +
+					'</div>' +
+					'</div>';
+			}
+			this.$fileTableBody.html(html);
+		},
+
+		/**
+		 * @description 渲染文件路径
+		 * @param {String} path 路径
+		 */
+		renderFilesPath: function (path) {
+			var that = this;
+			var html = '';
+			var newPath = '';
+			var pathArr = [];
+			var isLevel = false;
+			var isInit = true;
+			that.cutPath = path;
+			pathArr = path.replace(this.taskPath.replace(/(\/\/)+/g, '/'), '').split('/');
+			if (pathArr.length >= 1 && pathArr[0] !== '') pathArr.unshift('');
+			if (pathArr.length > 1 && pathArr[1] !== '') {
+				var upperPath = (that.getDirPath(path, false) + '/').replace(/(\/\/)+/g, '/');
+				if (pathArr.length > 1) upperPath = upperPath.replace(/\/$/g, '');
+				isLevel = true;
+				html += '<a class="filescan-nav-item btlink return-btn cut-path" data-path="' + upperPath + '" title="点击返回上一级目录">返回上一级</a>' + '<span class="divider">|</span>';
+			}
+			if (pathArr.length > 3) isInit = true;
+			for (var i = 0; i < pathArr.length; i++) {
+				var element = pathArr[i];
+				newPath += '/' + element;
+				if (element === '' && i > 0) continue;
+				if (i > 1 && i < pathArr.length - 2 && pathArr.length > 3) {
+					if (isInit) html += '<a class="filescan-nav-item" title="部分目录已经省略">...</a><span class="divider">></span>';
+					isInit = false;
+				} else {
+					var isLast = pathArr.length - 1 === i;
+					var isFirst = i === 0;
+					var currentPath = isFirst ? that.taskPath : that.taskPath + newPath;
+					var divider = !isLast ? '<span class="divider">></span>' : '';
+					var menuPath = isFirst ? '当前目录(' + that.taskPath + ')' : element;
+					currentPath = currentPath.replace(/\/\//g, '/');
+					html +=
+						'<a class="filescan-nav-item nowrap ' + (isLevel && !isLast ? 'btlink cut-path' : '') + (isFirst ? ' present' : '') + '" data-path="' + currentPath + '" title="' + currentPath.replaceAll('//','/') + '">' + menuPath + '</a>' + divider;
+				}
+			}
+			$('#fileScanPath').html(html);
+		},
+
+		/**
+		 * @description 渲染扫描历史
+		 * @param {Object} data
+		 */
+		renderHistoryScan: function () {
+			var that = this;
+			bt_tools.open({
+				title: '历史记录',
+				area: ['540px', '480px'],
+				btn: false,
+				content: '<div class="pd15""><button class="btn btn-success btn-sm mb-10 hide">清空历史记录</button><div id="historyTable" ></div></div>',
+				success: function (layero, indexs) {
+					that.getScanFilesRequest(layero, indexs, function (){
+						bt_tools.setLayerArea(layero);
+					});
+				},
+			});
+		},
+
+		/**
+		 * @description 删除文件或目录
+		 * @param {Object} data
+		 */
+		delFileDir: function (data, callback) {
+			var that = this;
+			if (that.isRecycle) {
+				bt.confirm(
+					{
+						title: '删除' + data.type + '【' + data.filename + '】',
+            msg: '删除'+ data.type +'后，'+ data.type +'将迁移至文件回收站，<span class="color-org">请确认删除的文件是不需要的文件，误删文件可能会导致系统崩溃，</span>是否继续操作？</span>'
+					},
+					function () {
+						that.delFileRequest(data, function (res) {
+							if (callback) callback(res);
+							layer.msg(res.msg, {
+								icon: res.status ? 1 : 2,
+							});
+						});
+					}
+				);
+			} else {
+				bt.compute_confirm({title: '删除' + data.type + '【' + data.filename + '】', 
+					msg: '风险操作，当前未开启文件回收站，删除'+ data.type +'将彻底删除，无法恢复，<span class="color-org">请确认删除的文件是不需要的文件，误删文件可能会导致系统崩溃，</span>是否继续操作？'
+				}, function () {
+						that.delFileRequest(data, function (res) {
+							if (callback) callback(res);
+							layer.msg(res.msg, {
+								icon: res.status ? 1 : 2,
+							});
+						});
+					}
+				);
+			}
+		},
+
+		/**
+		 * @description 获取历史扫描日志
+		 * @param {object} config 配置参数
+		 * @param {function} callback 回调函数
+		 */
+		getScanHistoryRequest: function (config, callback) {
+			bt_tools.send(
+				'disk_analysis/get_scan_log',
+				{
+					id: config.id,
+					path: config.path,
+				},
+				function (rdata) {
+					if (rdata.length) {
+				        this.taskStatus = true
+				    }
+					if (callback) callback(rdata);
+				},
+				{
+					load: '获取文件信息',
+					plugin: true,
+				}
+			);
+		},
+
+		/**
+		 * @description 删除历史扫描日志
+		 * @param {function} layero xx
+		 * @param {function} indexs xx
+		 * @param {function} callback xx
+		 */
+		getScanFilesRequest: function (layero, indexs, callback) {
+			var that = this;
+			bt_tools.table({
+				el: '#historyTable',
+				url: '/plugin?action=a&name=disk_analysis&s=get_scan_files',
+				load: true,
+				height: '380px',
+				dataFilter: function (res) {
+					var data = [];
+					for (var i = 0; i < res.length; i++) {
+						var item = res[i];
+						if (item.size != 0) data.push(item);
+					}
+					return { data: data };
+				},
+				success: function (rdata) {
+					that.historyList = rdata.data;
+					callback();
+				},
+				column: [
+					{
+						fid: 'path',
+						title: '扫描目录',
+						width: 150,
+						fixed: true,
+					},
+					{
+						fid: 'mtime',
+						title: '扫描时间',
+						width: 130,
+						template: function (row) {
+							return '<span>' + bt.format_data(row.mtime) + '</span>';
+						},
+					},
+					{
+						fid: 'mtime',
+						title: '扫描文件大小',
+						width: 85,
+						template: function (row) {
+							return '<span>' + bt.format_size(row.size) + '</span>';
+						},
+					},
+					{
+						title: '操作',
+						type: 'group',
+						width: 80,
+						align: 'right',
+						group: [
+							{
+								title: '查看',
+								event: function (row) {
+									that.taskId = row.id;
+									that.renderFilesView({ id: row.id, init: true });
+									layer.close(indexs);
+								},
+							},
+							{
+								title: '删除',
+								event: function (row) {
+									that.delScanFilesRequest({ id: row.id }, function (){
+										that.getScanFilesRequest(layero, indexs);
+									});
+								},
+							}
+						],
+					},
+				],
+			});
+		},
+
+		/**
+		 * @description 删除历史扫描日志
+		 * @param {object} config 配置参数
+		 * @param {function} callback 回调函数
+		 */
+		delScanFilesRequest: function (config, callback) {
+			bt_tools.send(
+				'disk_analysis/del_scan_files',
+				{
+					ids: config.id,
+				},
+				function (rdata) {
+					if (rdata.status) {
+						bt_tools.msg(rdata.msg);
+						callback();
+					}
+				},
+				{
+					load: '删除历史记录',
+					plugin: true,
+				}
+			);
+		},
+
+		/**
+		 * @description 创建扫描任务
+		 * @param {function} callback 回调函数
+		 */
+		createScanTaskRequest: function (callback) {
+			var that = this;
+			var timestamp = new Date().getTime();
+			bt_tools.send(
+				'disk_analysis/start_scan',
+				{
+					id: timestamp,
+					path: that.$scanPath,
+				},
+				function (rdata) {
+					if (callback) callback(rdata, timestamp);
+				},
+				{
+					// load: '创建扫描任务中',
+					plugin: true,
+				}
+			);
+		},
+
+
+		/**
+		 * @description 获取回收站文件
+		 * @param {function} callback 回调函数
+		 */
+		getFilesRecycleRequest: function (callback) {
+			bt_tools.send(
+				'files/Get_Recycle_bin',
+				{},
+				function (rdata) {
+					if (callback) callback(rdata);
+				},
+				{
+					load: false,
+				}
+			);
+		},
+
+		/**
+		 * @description 删除文件（文件和文件夹）
+		 * @param {Object} data 文件目录参数
+		 * @param {Function} callback 回调函数
+		 * @return void
+		 */
+		delFileRequest: function (data, callback) {
+			var _req = data.type === '文件' ? 'DeleteFile' : 'DeleteDir';
+			bt_tools.send(
+				'files/' + _req,
+				{
+					path: data.path,
+				},
+				function (res) {
+					if (callback) callback(res);
+				},
+				{
+					load: '删除文件/目录',
+				}
+			);
+		},
+
+		/**
+		 * @description 获取目录地址
+		 * @param {string} path 路径
+		 * @param {number} param 参数
+		 */
+		getDirPath: function (path, param) {
+			path.replace(/\/$/, '');
+			var pathArr = path.split('/');
+			if (pathArr.length === 1) return path;
+			if (param === -1) pathArr.push(status);
+			if (typeof param === 'boolean') pathArr.pop();
+			return pathArr.join('/').replace(/(\/)$/, '');
+		},
+
+		/**
+		 * @description 获取文件大小
+		 * @param {object} el 文件大小
+		 * @param {function} fn 回调函数
+		 */
+		bind: function (el, fn) {
+			if (typeof el === 'string') {
+				this.$el.on('click', el, fn);
+			} else {
+				el.on('click', fn);
+			}
+		},
+	};
+
+	var disk_analysis = new DiskAnalysis({
+		el: '#DiskAnalysis',
+	});
+</script>

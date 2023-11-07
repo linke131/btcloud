@@ -1,0 +1,1182 @@
+<style>
+.db_config_line .line{
+    padding: 0;
+    padding-bottom: 1px;
+}
+.db_config_line .tname {
+    width: 155px;
+    padding-right: 10px;
+    height: 30px;
+    line-height: 30px;
+}
+.db_config_line .info-r {
+    margin-bottom: 0px;
+}
+/* .db_config_line .line:nth-child(1) .ml0 {
+    margin-bottom: 10px;
+    padding-left: 95px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+} */
+.span_overflow_hidden{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.info-r.export_db_box {
+    position: relative;
+}
+#export_button:hover{
+    background-color: #fff;
+    border-color: #ccc;
+    color:#000;
+}
+.export_data_ul{
+    width: 230px;
+    padding: 0;
+    max-height: 160px;
+    overflow: auto;
+}
+.export_data_li{
+    line-height: 26px;
+    border-bottom: 1px solid #ccc;
+    padding: 0 10px;
+}
+</style>
+<div class="bt-form db_monitor_config">
+    <div class="bt-w-main">
+        <div class="bt-w-menu">
+            <p class="bgw" onclick="db_monitor.db_status()">状态监控</p>
+            <p onclick="db_monitor.majorization()">索引优化</p>
+            <p onclick="db_monitor.config_majorization()">配置优化</p>
+            <p onclick="db_monitor.binary_log()">二进制管理</p>
+            <p onclick="db_monitor.view_log()">操作日志</p>
+        </div>
+        <div class="bt-w-con pd15">
+            <div class="materCon"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+var db_monitor = {
+    plugin_name: 'database_mater',
+    //推荐优化方案
+    mysql_select: {
+        '1': {
+            title: '1-2GB', data: {
+                key_buffer_size: 128,
+                query_cache_size: 64,
+                tmp_table_size: 64,
+                innodb_buffer_pool_size: 256,
+                sort_buffer_size: 768,
+                read_buffer_size: 768,
+                read_rnd_buffer_size: 512,
+                join_buffer_size: 1024,
+                thread_stack: 256,
+                binlog_cache_size: 64,
+                thread_cache_size: 64,
+                table_open_cache: 128,
+                max_connections: 100
+            }
+        },
+        '2': {
+            title: '2-4GB', data: {
+                key_buffer_size: 256,
+                query_cache_size: 128,
+                tmp_table_size: 384,
+                innodb_buffer_pool_size: 384,
+                sort_buffer_size: 768,
+                read_buffer_size: 768,
+                read_rnd_buffer_size: 512,
+                join_buffer_size: 2048,
+                thread_stack: 256,
+                binlog_cache_size: 64,
+                thread_cache_size: 96,
+                table_open_cache: 192,
+                max_connections: 200
+            }
+        },
+        '3': {
+            title: '4-8GB', data: {
+                key_buffer_size: 384,
+                query_cache_size: 192,
+                tmp_table_size: 512,
+                innodb_buffer_pool_size: 512,
+                sort_buffer_size: 1024,
+                read_buffer_size: 1024,
+                read_rnd_buffer_size: 768,
+                join_buffer_size: 2048,
+                thread_stack: 256,
+                binlog_cache_size: 128,
+                thread_cache_size: 128,
+                table_open_cache: 384,
+                max_connections: 300
+            }
+        },
+        '4': {
+            title: '8-16GB', data: {
+                key_buffer_size: 512,
+                query_cache_size: 256,
+                tmp_table_size: 1024,
+                innodb_buffer_pool_size: 1024,
+                sort_buffer_size: 2048,
+                read_buffer_size: 2048,
+                read_rnd_buffer_size: 1024,
+                join_buffer_size: 4096,
+                thread_stack: 384,
+                binlog_cache_size: 192,
+                thread_cache_size: 192,
+                table_open_cache: 1024,
+                max_connections: 400
+            }
+        },
+        '5': {
+            title: '16-32GB', data: {
+                key_buffer_size: 1024,
+                query_cache_size: 384,
+                tmp_table_size: 2048,
+                innodb_buffer_pool_size: 4096,
+                sort_buffer_size: 4096,
+                read_buffer_size: 4096,
+                read_rnd_buffer_size: 2048,
+                join_buffer_size: 8192,
+                thread_stack: 512,
+                binlog_cache_size: 256,
+                thread_cache_size: 256,
+                table_open_cache: 2048,
+                max_connections: 500
+            }
+        }
+    },
+    db_list: 0,
+    all_db_list: [],
+    init: function(){
+        var _that = this;
+        $('.layui-layer-page').width(800);
+        _that.db_status();
+        $(".bt-w-menu p").click(function(){
+            $(this).addClass("bgw").siblings().removeClass("bgw");
+        })
+        // 优化方案select点击时
+        $("body").on("change",".mysql_set",function(){
+            if($(this).val() > 0){
+                var data = _that.mysql_select[$(this).val()].data;
+                for (var key in data) $('.' + key).val(data[key]);
+            }
+        });
+        //索引优化分页
+        $("body").on('click','#majorization-page a',function(e){
+            var _href = $(this).attr('href');
+            var page = _href.replace(/\/plugin\?action=a&name=database_mater&s=get_optimization_log&p=/,'')
+            _that.majorization(page);
+            e.preventDefault();
+            e.stopPropagation();
+        })
+        //查看已备份分页
+        $("body").on('click','#backup_view_log a',function(e){
+            var _href = $(this).attr('href');
+            var page = _href.replace(/\/plugin\?action=a&name=database_mater&s=get_backup_log&p=/,'')
+            _that.backup_log(page);
+            e.preventDefault();
+            e.stopPropagation();
+        })
+        // 操作日志分页
+        $("body").on('click','#log_page a',function(e){
+            var _href = $(this).attr('href');
+            var page = _href.replace(/\/plugin\?action=a&name=database_mater&s=get_local_log&p=/,'')
+            _that.view_log(page);
+            e.preventDefault();
+            e.stopPropagation();
+        })
+    },
+    // 数据库状态
+    db_status:function(){
+        this.get_db_status(function(rdata){
+            var _Con = '';
+            if(rdata.File == 'OFF') return layer.msg('数据库二进制日志未开启',{icon:2});
+            var cache_size = ((parseInt(rdata.Qcache_hits) / (parseInt(rdata.Qcache_hits) + parseInt(rdata.Qcache_inserts))) * 100).toFixed(2) + '%';
+            if (cache_size == 'NaN%') cache_size = 'OFF';
+            var title10 = ((1 - rdata.Threads_created / rdata.Connections) * 100).toFixed(2);
+            var title11 = ((1 - rdata.Key_reads / rdata.Key_read_requests) * 100).toFixed(2);
+            var title12 = ((1 - rdata.Innodb_buffer_pool_reads / rdata.Innodb_buffer_pool_read_requests) * 100).toFixed(2);
+            var title14 = ((rdata.Created_tmp_disk_tables / rdata.Created_tmp_tables) * 100).toFixed(2);
+            _Con = '<div style="text-align: right; margin-bottom:10px">\
+            <button class="btn btn-success btn-sm" onclick="db_monitor.get_assess()">风险评估</button>\
+            <button class="btn btn-success btn-sm" onclick="db_monitor.slow_search()">慢查询</button>\
+                </div>\
+            <div class="divtable" style="height: 480px;overflow: auto;"><table class="table table-hover table-bordered" style="margin-bottom:10px;background-color:#fafafa">\
+                <tbody>\
+                    <tr><th>'+ lan.soft.mysql_status_title1 + '</th><td>' + getLocalTime(rdata.Run) + '</td><th>' + lan.soft.mysql_status_title5 + '</th><td>' + parseInt(rdata.Questions / rdata.Uptime) + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title2 + '</th><td>' + rdata.Connections + '</td><th>' + lan.soft.mysql_status_title6 + '</th><td>' + parseInt((parseInt(rdata.Com_commit) + parseInt(rdata.Com_rollback)) / rdata.Uptime) + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title3 + '</th><td>' + ToSize(rdata.Bytes_sent) + '</td><th>' + lan.soft.mysql_status_title7 + '</th><td>' + rdata.File + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title4 + '</th><td>' + ToSize(rdata.Bytes_received) + '</td><th>' + lan.soft.mysql_status_title8 + '</th><td>' + rdata.Position + '</td></tr>\
+                    <tr><th>QPS</th><td>' + parseInt(rdata.qps) + '</td><th>IO</th><td>' + rdata.mysql_io_write_speed + '</td></tr>\
+                    <tr><th>CPU开销</th><td>' + rdata.mysql_system_cpu + '</td><th>内存开销</th><td>' + ToSize(rdata.mysql_memory) + '</td></tr>\
+                    <tr><th>慢查询</th><td>' + (rdata.slow_query_log.slow_query_log == 'NO'? '已开启': '已关闭') + '</td><th>数据库大小</th><td>' + rdata.mysql_count_size + '</td></tr>\
+                </tbody>\
+                </table>\
+                <table class="table table-hover table-bordered">\
+                <thead style="display:none;"><th></th><th></th><th></th><th></th></thead>\
+                <tbody>\
+                    <tr><th>'+ lan.soft.mysql_status_title9 + '</th><td>' + rdata.Threads_running + '/' + rdata.Max_used_connections + '</td><td colspan="2">' + lan.soft.mysql_status_ps1 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title10 + '</th><td>' + (!isNaN(title10)?title10:'0') + '%</td><td colspan="2">' + lan.soft.mysql_status_ps2 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title11 + '</th><td>' + (!isNaN(title11)?title11:'0') + '%</td><td colspan="2">' + lan.soft.mysql_status_ps3 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title12 + '</th><td>' + (!isNaN(title12)?title12:'0') + '%</td><td colspan="2">' + lan.soft.mysql_status_ps4 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title13 + '</th><td>' + cache_size + '</td><td colspan="2">' + lan.soft.mysql_status_ps5 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title14 + '</th><td>' + (!isNaN(title14)?title14:'0') + '%</td><td colspan="2">' + lan.soft.mysql_status_ps6 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title15 + '</th><td>' + rdata.Open_tables + '</td><td colspan="2">' + lan.soft.mysql_status_ps7 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title16 + '</th><td>' + rdata.Select_full_join + '</td><td colspan="2">' + lan.soft.mysql_status_ps8 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title17 + '</th><td>' + rdata.Select_range_check + '</td><td colspan="2">' + lan.soft.mysql_status_ps9 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title18 + '</th><td>' + rdata.Sort_merge_passes + '</td><td colspan="2">' + lan.soft.mysql_status_ps10 + '</td></tr>\
+                    <tr><th>'+ lan.soft.mysql_status_title19 + '</th><td>' + rdata.Table_locks_waited + '</td><td colspan="2">' + lan.soft.mysql_status_ps11 + '</td></tr>\
+                <tbody>\
+                </table></div>'
+            $(".materCon").html(_Con);
+        });
+    },
+    // 风险评估按钮
+    get_assess:function(){
+        this.comprehensive_score(function(rdata){
+            layer.open({
+                type: 1,
+                shift: 5,
+                closeBtn: 2,
+                area: '450px',
+                title: '风险分数【'+rdata.fraction+'分】',
+                content:'<div class="pd15 divtable"><table class="table table-hover">\
+                    <thead><tr>\
+                        <th>提醒</th>\
+                    </tr></thead>\
+                    <tbody id="assess_table"></tbody>\
+                </table></div>',
+                success:function(layero,index){
+                    var _tbody = '';
+                    if(rdata.data.length >0){
+                        for(var i= 0; i<rdata.data.length; i++){
+                            _tbody += '<tr>\
+                            <td>'+rdata.data[i]+'</td>\
+                            </tr>'
+                        }
+                    }else{
+                        _tbody = '<tr><td colspan="2" style="text-align:center">没有数据</td></tr>'
+                    }
+                    $("#assess_table").html(_tbody);
+                }
+            })
+        })
+    },
+    // 慢查询按钮
+    slow_search:function(){
+        var _that = this;
+        layer.open({
+            type: 1,
+            shift: 5,
+            closeBtn: 2,
+            area: '800px',
+            title: '慢查询结果',
+            content:'<div class="pd15 divtable"><table class="table table-hover">\
+                <thead><tr>\
+                    <th width="20%">时间</th>\
+                    <th width="10%">运行时间</th>\
+                    <th width="10%">锁表时间</th>\
+                    <th width="50%">语句</th>\
+                    <th width="10%" style="text-align:right">操作</th>\
+                </tr></thead>\
+            </table><div style="overflow:auto; max-height:350px"><table class="table table-hover">\
+                <tbody id="slow_table"></tbody></table></div>\
+            </div>',
+            success:function(layero,index){
+                _that.creat_slow_search_tbody();
+            }
+        })
+    },
+    creat_slow_search_tbody(){
+    	var _that = this;
+        this.get_log(function(rdata){
+            var _tbody = '';
+            if(rdata.length >0){
+                for(var i= 0; i<rdata.length; i++){
+                    _tbody += '<tr>\
+                    <td width="20%">'+getLocalTime(rdata[i].time)+'</td>\
+                    <td width="10%">'+rdata[i].query_time['Query_time']+'秒</td>\
+                    <td width="10%">'+rdata[i].query_time['Lock_time']+'秒</td>\
+                    <td width="50%">\
+                        <div style="position:relative;">\
+                            <span title="'+rdata[i].select+'" class="span_overflow_hidden" style="width:330px">'+rdata[i].select+'</span>\
+                            <span class="ico-copy cursor btcopy select_copy_pass" style="margin-left:10px;position:absolute;top:5px;" title="复制sql语句" data-pw="'+rdata[i].select+'"></span>\
+                        </div>\
+                    </td>\
+                    <td width="10%" style="text-align: right;"><a class="btlink optimiz_select_sql" data-sql="'+rdata[i].select+'" data-host="'+rdata[i].host+'">优化</a></td>\
+                    </tr>'
+                }
+            }else{
+                _tbody = '<tr><td colspan="4" style="text-align:center">没有数据</td></tr>'
+            }
+            $("#slow_table").html(_tbody);
+            $('#slow_table').on('click','.select_copy_pass',function(){
+            	var _copy = $(this).attr('data-pw');
+            	bt.pub.copy_pass(_copy);
+            })
+            $('#slow_table').on('click','.optimiz_select_sql',function(){
+            	var host = $(this).attr('data-host')
+            	var select = $(this).attr('data-sql')
+            	_that.optimiz_slow_search(host,select,);
+            })
+        })
+    },
+    // 慢查询 ---》 优化
+    optimiz_slow_search:function(host,select,){
+        var _that = this;
+        layer.confirm('是否对【'+host+'】数据库进行优化,请确认', {title:'优化数据库',icon:3,closeBtn: 2}, function() {
+            _that.optimization({host:host,select:select},function(rdata){
+                layer.msg(rdata.msg,{icon:rdata.status?1:2})
+                if(rdata.status){
+                    setTimeout(function(){
+                        _that.creat_slow_search_tbody()
+                    },1000)
+                } 
+            })
+        });
+    },
+    // 索引优化
+    majorization:function(page){
+        this.get_optimization_log({p:page == undefined ?1:page},function(rdata){
+            var Con = '',_tbody = '';
+            if(rdata.data.length > 0){
+                var item = rdata.data;
+                for(var i =0 ; i<item.length; i++){
+                    _tbody += '<tr>\
+                        <td>'+item[i].hosts+'</td>\
+                        <td>'+item[i].tables+'</td>\
+                        <td>'+item[i].field+'</td>\
+                        <td><span class="span_overflow_hidden" style="width:240px;" title="'+item[i].ps+'">'+item[i].ps+'</td>\
+                        <td style="text-align: right;">\
+                            <a class="btlink" onclick="db_monitor.optimiz_retry('+item[i].id+')" >重试</a>&nbsp;|&nbsp;\
+                            <a class="btlink" onclick="db_monitor.optimiz_revoke('+item[i].id+')" >撤销</a>\
+                        </td>\
+                    </tr>'
+                }
+            }else{
+                _tbody = '<tr><td colspan="5" style="text-align:center">没有数据</td></tr>'
+            }
+            Con = '<div style="text-align: right; margin-bottom:10px;">\
+                    <button name="bt_mysql_save" class="btn btn-success btn-sm mr5 ml5" onclick="db_monitor.optimiz_statement(0)">性能测试</button>\
+                    <button name="bt_mysql_save" class="btn btn-success btn-sm mr5 ml5" onclick="db_monitor.optimiz_statement(1)">语句优化</button>\
+                    <button name="auto_optimization" class="btn btn-success btn-sm mr5 ml5" onclick="db_monitor.auto_optimiz()">自动优化</button>\
+                </div>\
+                <div class="divtable"><table class="table table-hover" style="margin-bottom:10px;background-color:#fafafa">\
+                    <thead><tr><th>数据库名</th><th>表单名</th><th>字段</th><th>备注</th><th style="text-align: right;">操作</th></tr></thead>\
+                    <tbody class="optimiz_table">'+_tbody+'</tbody>\
+                </table></div><div class="page" id="majorization-page">'+rdata.page.page+'</div>\
+                <ul class="help-info-text c7" style="margin-top:30px">\
+                    <li>自动优化--当SQL语句大于20s时就会自动执行。</li>\
+                    <li>SQL语句优化必须带有where条件的语句,并且字段类型为 int/char/ststring。</li>\
+                </ul>'
+            $(".materCon").html(Con);
+        });
+    },
+    // 索引 ---》 重试按钮
+    optimiz_retry:function(id){
+        this.set_retry({id:id},function(rdata){
+            layer.msg(rdata.msg,{icon:rdata.status?1:2})
+        })
+    },
+    // 索引 ---》 撤销按钮
+    optimiz_revoke:function(id){
+        var _that = this;
+        this.set_revoke({id:id},function(rdata){
+            layer.msg(rdata.msg,{icon:rdata.status?1:2})
+            if(rdata.status) _that.majorization();
+        })
+    },
+    // 索引 ---》 优化SQL按钮/测试按钮
+    optimiz_statement:function(type){
+        var _that = this;
+        layer.open({
+            type: 1,
+            shift: 5,
+            closeBtn: 2,
+            area: '450px',
+            title: type == 1?'优化SQL语句':'SQL语句性能测试',
+            content:'<div class="bt-form db_optimiz_statement pd20 pb70">\
+                <div class="line">\
+                    <span class="tname">数据库</span>\
+                    <div class="info-r ">\
+                        <select class="bt-input-text mr5 db_select_data" name="db_select_data"style="width:230px"></select>\
+                    </div></div>\
+                <div class="line">\
+                    <span class="tname">优化语句</span>\
+                    <div class="info-r ">\
+                        <input name="optimiz_select" class="bt-input-text mr5 optimiz_select" type="text" style="width:230px">\
+                    </div></div>\
+                <div class="bt-form-submit-btn">\
+                    <button type="button" class="btn btn-danger btn-sm optimiz_closeBtn">关闭</button>\
+                    <button class="btn btn-success btn-sm opeimiz_save">确定</button>\
+                </div>\
+            </div>',
+            success:function(layers,index){
+                _that.get_local_database2(function(rdata){
+                    var _option = '<option value="0">请选择</option>';
+                    if(rdata.length >0){
+                        for(var i =0; i<rdata.length; i++){
+                            _option += '<option value="'+rdata[i].name+'">'+rdata[i].name+'</option>'
+                        }
+                    }
+                    $("select[name=db_select_data]").html(_option);
+                })
+                $(".opeimiz_save").click(function(){
+                    var _sel = $('select[name=db_select_data]').val(),_inp = $('input[name=optimiz_select]').val()
+                    if(_sel == '0')return layer.msg('请选择数据库',{icon:2});
+                    if(_inp == '') return layer.msg('请输入优化语句',{icon:2})
+                    if(type == 1){
+                        _that.optimization({host:_sel,select:_inp},function(res){
+                            layer.msg(res.msg,{icon:res.status?1:2})
+                            if(res.status){
+                                layer.close(index);
+                                setTimeout(function(){
+                                    _that.majorization();
+                                },1000);
+                            } 
+                        })
+                    }else{
+                        _that.select_testing({host:_sel,select:_inp},function(res){
+                            bt.msg({msg:res.msg,icon:res.status?1:2,time:0,scrollbar:true,shade:0.3,shadeClose:true})
+                            if(res.status) layer.close(index);
+                        })
+                    }
+                })
+                $(".optimiz_closeBtn").click(function(){
+                    layer.close(index)
+                })
+            }
+        })
+    },
+    // 索引 ---》 自动优化按钮
+    auto_optimiz:function(){
+        this.automatic_optimization(function(res){
+            layer.msg(res.msg,{icon:res.status?1:2})
+        })
+    },
+    // 配置优化
+    config_majorization:function(){
+        this.get_db_config_status(function(rdata){
+            var _Con = ''
+            var key_buffer_size = bt.format_size(rdata.key_buffer_size, false, 0, 'MB')
+            var query_cache_size = bt.format_size(rdata.query_cache_size, false, 0, 'MB')
+            var tmp_table_size = bt.format_size(rdata.tmp_table_size, false, 0, 'MB')
+            var innodb_buffer_pool_size = bt.format_size(rdata.innodb_buffer_pool_size, false, 0, 'MB')
+            var innodb_additional_mem_pool_size = bt.format_size(rdata.innodb_additional_mem_pool_size, false, 0, 'MB')
+            var innodb_log_buffer_size = bt.format_size(rdata.innodb_log_buffer_size, false, 0, 'MB')
+
+            var sort_buffer_size = bt.format_size(rdata.sort_buffer_size, false, 0, 'MB')
+            var read_buffer_size = bt.format_size(rdata.read_buffer_size, false, 0, 'MB')
+            var read_rnd_buffer_size = bt.format_size(rdata.read_rnd_buffer_size, false, 0, 'MB')
+            var join_buffer_size = bt.format_size(rdata.join_buffer_size, false, 0, 'MB')
+            var thread_stack = bt.format_size(rdata.thread_stack, false, 0, 'MB')
+            var binlog_cache_size = bt.format_size(rdata.binlog_cache_size, false, 0, 'MB')
+            var thread_cache_size = rdata.thread_cache_size;
+            var table_open_cache = rdata.table_open_cache;
+            var max_connections = rdata.max_connections;
+            var a = key_buffer_size + query_cache_size + tmp_table_size + innodb_buffer_pool_size + innodb_additional_mem_pool_size + innodb_log_buffer_size
+            var b = sort_buffer_size + read_buffer_size + read_rnd_buffer_size + join_buffer_size + thread_stack + binlog_cache_size
+            var memSize = a + rdata.max_connections * b
+            _Con = '<div class="bt-form db_config_line">\
+                <div class="line"><div class="info-r m10" style="margin-bottom: 10px;padding-left: 95px;padding-bottom: 8px;border-bottom: 1px solid #ccc;">\
+                    <span class="mr5">优化方案 <select class="bt-input-text mr5 mysql_set" name="mysql_set"></select><span>\
+                    <span class="mr5">最大使用内存<input name="memSize" disabled="" class="bt-input-text mr5 memSize" type="text" style="width:70px" value="'+memSize.toFixed(2)+'"></span>\
+                    <span class="c9 mt10">MB</span>\
+                </div></div>\
+                <div class="line">\
+                    <span class="tname">key_buffer_size</span>\
+                    <div class="info-r ">\
+                        <input name="key_buffer_size" class="bt-input-text mr5 key_buffer_size" type="number" style="width:70px" value="'+key_buffer_size+'">\
+                        <span class="c9 mt10 mr5">MB, <font>用于索引的缓冲区大小</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">query_cache_size</span>\
+                    <div class="info-r ">\
+                        <input name="query_cache_size" class="bt-input-text mr5 query_cache_size" type="number" style="width:70px" value="'+query_cache_size+'">\
+                        <span class="c9 mt10 mr5">MB, <font>查询缓存,不开启请设为0</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">tmp_table_size</span>\
+                    <div class="info-r ">\
+                        <input name="tmp_table_size" class="bt-input-text mr5 tmp_table_size" type="number" style="width:70px" value="'+tmp_table_size+'">\
+                        <span class="c9 mt10 mr5">MB, <font>临时表缓存大小</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">innodb_buffer_pool_size</span>\
+                    <div class="info-r ">\
+                        <input name="innodb_buffer_pool_size" class="bt-input-text mr5 innodb_buffer_pool_size" type="number" style="width:70px" value="'+innodb_buffer_pool_size+'">\
+                        <span class="c9 mt10 mr5">MB, <font>Innodb缓冲区大小</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">innodb_log_buffer_size</span>\
+                    <div class="info-r ">\
+                        <input name="innodb_log_buffer_size" class="bt-input-text mr5 innodb_log_buffer_size" type="number" style="width:70px" value="'+innodb_log_buffer_size+'">\
+                        <span class="c9 mt10 mr5">MB, <font>Innodb日志缓冲区大小</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">sort_buffer_size</span>\
+                    <div class="info-r ">\
+                        <input name="sort_buffer_size" class="bt-input-text mr5 sort_buffer_size" type="number" style="width:70px" value="'+(sort_buffer_size * 1024)+'">\
+                        <span class="c9 mt10 mr5">KB * 连接数, <font>每个线程排序的缓冲大小</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">read_buffer_size</span>\
+                    <div class="info-r ">\
+                        <input name="read_buffer_size" class="bt-input-text mr5 read_buffer_size" type="number" style="width:70px" value="'+(read_buffer_size *1024)+'">\
+                        <span class="c9 mt10 mr5">KB * 连接数, <font>读入缓冲区大小</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">read_rnd_buffer_size</span>\
+                    <div class="info-r ">\
+                        <input name="read_rnd_buffer_size" class="bt-input-text mr5 read_rnd_buffer_size" type="number" style="width:70px" value="'+(read_rnd_buffer_size * 1024)+'">\
+                        <span class="c9 mt10 mr5">KB * 连接数, <font>随机读取缓冲区大小</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">join_buffer_size</span>\
+                    <div class="info-r ">\
+                        <input name="join_buffer_size" class="bt-input-text mr5 join_buffer_size" type="number" style="width:70px" value="'+(join_buffer_size * 1024)+'">\
+                        <span class="c9 mt10 mr5">KB * 连接数, <font>关联表缓存大小</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">thread_stack</span>\
+                    <div class="info-r ">\
+                        <input name="thread_stack" class="bt-input-text mr5 thread_stack" type="number" style="width:70px" value="'+(thread_stack * 1024)+'">\
+                        <span class="c9 mt10 mr5">KB * 连接数, <font>每个线程的堆栈大小</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">binlog_cache_size</span>\
+                    <div class="info-r ">\
+                        <input name="binlog_cache_size" class="bt-input-text mr5 binlog_cache_size" type="number" style="width:70px" value="'+(binlog_cache_size * 1024)+'">\
+                        <span class="c9 mt10 mr5">KB * 连接数, <font>二进制日志缓存大小(4096的倍数)</font></span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">thread_cache_size</span>\
+                    <div class="info-r ">\
+                        <input name="thread_cache_size" class="bt-input-text mr5 thread_cache_size" type="number" style="width:70px" value="'+thread_cache_size+'">\
+                        <span class="c9 mt10 mr5">线程池大小</span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">table_open_cache</span>\
+                    <div class="info-r ">\
+                        <input name="table_open_cache" class="bt-input-text mr5 table_open_cache" type="number" style="width:70px" value="'+table_open_cache+'">\
+                        <span class="c9 mt10 mr5">表缓存(最大不要超过2048)</span>\
+                    </div></div>\
+                <div class="line ">\
+                    <span class="tname">max_connections</span>\
+                    <div class="info-r ">\
+                        <input name="max_connections" class="bt-input-text mr5 max_connections" type="number" style="width:70px" value="'+max_connections+'">\
+                        <span class="c9 mt10 mr5">最大连接数</span>\
+                    </div></div>\
+                <div class="line ">\
+                    <div class="info-r ml0"style="text-align: right;">\
+                        <button name="bt_mysql_restart" class="btn btn-success btn-sm mr5 ml5" onclick="db_monitor.mysql_restart()">重启数据库</button>\
+                        <button name="bt_mysql_save" class="btn btn-success btn-sm mr5 ml5" onclick="db_monitor.mysql_save()">保存</button>\
+                    </div></div>\
+                </div>'
+            $('.materCon').html(_Con);
+        }) 
+        this.config_select();
+    },
+    // 配置优化   option添加
+    config_select:function(){
+        var _sel = this.mysql_select,_option = '<option value="0">'+lan.soft.mysql_set_select+'</option>';
+        for(var key in _sel){
+            _option += '<option value="'+key+'">'+_sel[key].title+'</option>'
+        }
+        setTimeout(function(){
+            $(".mysql_set").html(_option)
+        },300);
+    },
+    // 配置优化  ---》重启数据库
+    mysql_restart:function(){
+        bt.pub.set_server_status('mysqld', 'restart');
+    },
+    // 配置优化  ---》 保存按钮
+    mysql_save:function(){
+        var mysql_set = $(".mysql_set").val();
+        var memSize = $(".memSize").val();
+        var key_buffer_size = $(".key_buffer_size").val();
+        var query_cache_size = $(".query_cache_size").val();
+        var tmp_table_size = $(".tmp_table_size").val();
+        var innodb_buffer_pool_size = $(".innodb_buffer_pool_size").val();
+        var innodb_log_buffer_size = $(".innodb_log_buffer_size").val();
+        var sort_buffer_size = $(".sort_buffer_size").val();
+        var read_buffer_size = $(".read_buffer_size").val();
+        var read_rnd_buffer_size = $(".read_rnd_buffer_size").val();
+        var join_buffer_size = $(".join_buffer_size").val();
+        var thread_stack = $(".thread_stack").val();
+        var binlog_cache_size = $(".binlog_cache_size").val();
+        var thread_cache_size = $(".thread_cache_size").val();
+        var table_open_cache = $(".table_open_cache").val();
+        var max_connections = $(".max_connections").val();
+        var query_cache_type = 0;
+        if(query_cache_size >0){
+            query_cache_type = 1;
+        }
+        var loadT = layer.msg('正在保存配置 <img src="/static/img/ing.gif">', { icon: 16, time: 0, shade: [0.3, '#000'] });
+        $.post('/database?action=SetDbConf',{mysql_set:mysql_set,memSize:memSize,key_buffer_size:key_buffer_size,
+            query_cache_size:query_cache_size,
+            tmp_table_size:tmp_table_size,
+            innodb_buffer_pool_size:innodb_buffer_pool_size,
+            innodb_log_buffer_size:innodb_log_buffer_size,
+            sort_buffer_size:sort_buffer_size,
+            read_buffer_size:read_buffer_size,
+            read_rnd_buffer_size:read_rnd_buffer_size,
+            join_buffer_size:join_buffer_size,
+            thread_stack:thread_stack,
+            binlog_cache_size:binlog_cache_size,
+            thread_cache_size:thread_cache_size,
+            table_open_cache:table_open_cache,
+            max_connections:max_connections,
+            query_cache_type:query_cache_type,
+            max_heap_table_size:tmp_table_size},function(res){
+                layer.close(loadT)
+                layer.msg(res.msg,{icon:res.status?1:2})
+                if(res.status){
+                    setTimeout(function(){
+                        _that.config_majorization()
+                    },1000)
+                }
+        })
+    },
+    // 二进制管理
+    binary_log:function(){
+        var _that = this;
+        this.mysql_bin(function(rdata){
+            var _html = '',binary_tbody = '';
+            if(rdata.length >0){
+                for(var i = 0; i<rdata.length; i++){
+                    var _path = rdata[i].root +'/'+ rdata[i].files
+                    binary_tbody += '<tr>\
+                        <td>'+_path+'</td>\
+                        <td style="text-align: right;">\
+                            <a class="btlink" onclick="db_monitor.binary_backup(\''+_path+'\')" >备份</a>&nbsp;|&nbsp;\
+                            <a class="btlink" onclick="db_monitor.binary_analysis(\''+_path+'\')" >分析</a>&nbsp;|&nbsp;\
+                            <a class="btlink" onclick="db_monitor.binary_delete(\''+_path+'\')" >删除</a>\
+                        </td>\
+                    </tr>'
+                }
+            }else{
+                binary_tbody = '<tr><td colspan="2" style="text-align:center>没有数据</td></tr>'
+            }
+            _html = '<div style="margin-bottom:10px;position: relative;">\
+                <button name="bt_mysql_restart" class="btn btn-success btn-sm mr5 ml5" onclick="db_monitor.view_backup_dbData()">已备份文件</button>\
+                <button name="bt_mysql_restart" class="btn btn-success btn-sm mr5 ml5" onclick="db_monitor.binary_export_sql()">导出数据库</button>\
+                <button name="bt_mysql_save" class="btn btn-success btn-sm mr5 ml5" onclick="db_monitor.backup_log()">查看备份日志</button>\
+                <div style="float: right;">\
+                    <span style="position: absolute;right: 45px;top: 2px;">自动备份</span>\
+                    <span class="btswitch-p"><input class="btswitch btswitch-ios" id="mysql_auto_backup" type="checkbox">\
+                        <label class="btswitch-btn binary_auto_backup" for="mysql_auto_backup" style="margin:0px;display: inline-block;" ></label>\
+                    </span></div>\
+                </div>\
+                <div class="divtable"><table class="table table-hover" style="background-color:#fafafa">\
+                    <thead><tr><th>文件路径</th><th style="text-align: right;">操作</th></tr></thead>\
+                    <tbody></tbody>\
+                </table><div style="overflow:auto;max-height:390px;margin-bottom:10px;"><table class="table table-hover"><tbody class="binary_table">'+binary_tbody+'</tbody></table></div>'
+            $(".materCon").html(_html)
+            // 获取自动备份状态
+            _that.get_auto_backup_status(function(res){
+                $("#mysql_auto_backup").prop("checked",res.status);
+            });
+            // 自动备份开关
+            $('.binary_auto_backup').click(function(){
+                var status = $('#mysql_auto_backup').prop("checked");
+                if(status){
+                    _that.del_automatic_status(function(rdata){
+                        layer.msg(rdata.msg,{icon:rdata.status?1:2})
+                    });
+                }else{
+                    _that.automatic_backup(function(rdata){
+                        layer.msg(rdata.msg,{icon:rdata.status?1:2})
+                    });
+                }
+            })
+        })
+        
+    },
+    // 二进制管理  ---》 备份按钮
+    binary_backup:function(path){
+        this.backup_mysql_bin({path:path},function(rdata){
+            layer.msg(rdata.msg,{icon:rdata.status?1:2})
+        })
+    },
+    // 二进制管理  ---》 分析按钮
+    binary_analysis:function(path){
+        this.analysis_mysql({path:path},function(rdata){
+            layer.open({
+                type: 1,
+                shift: 5,
+                closeBtn: 2,
+                area: '600px',
+                title: '二进制分析',
+                content:'<textarea readonly="" style="margin: 0px;width: 600px;height: 450px;background-color: #333;color:#fff; padding:0 5px" id="analysis_logs">'+rdata.msg+'</textarea>'
+            })
+        })
+    },
+    // 二进制管理  ---》 删除按钮
+    binary_delete:function(path){
+        var _that = this;
+        layer.confirm('是否删除【'+path+'】文件,请确认', {title:'删除二进制文件',icon:3,closeBtn: 2}, function() {
+            this.delete_file({path:path},function(rdata){
+                layer.msg(rdata.msg,{icon:rdata.status?1:2})
+                if(rdata.status) _that.binary_log();
+            })
+        });
+    },
+    // 二进制管理  ---》 已备份文件列表
+    view_backup_dbData:function(){
+        this.get_backup_mysql_bin(function(rdata){
+            layer.open({
+                type: 1,
+                shift: 5,
+                closeBtn: 2,
+                area: '450px',
+                title: '已备份文件列表',
+                content:'<div class="pd15 divtable"><table class="table table-hover table-bordered">\
+                    <thead><tr><th>文件路径</th></tr></thead>\
+                    <tbody class="before_backup_log_table"></tbody>\
+                </table></div>',
+                success:function(layero,index){
+                    var _tbody = '';
+                    if(rdata.length >0){
+                        for(var i =0; i<rdata.length; i++){
+                            _tbody += '<tr>\
+                                <td><span class="span_overflow_hidden" style="width:400px">'+(rdata[i].root +'/'+ rdata[i].files)+'</span></td>\
+                            </tr>'
+                        }
+                    }else{
+                        _tbody = '<tr><td style="text-align:center>没有数据</td></tr>'
+                    }
+                    $(".before_backup_log_table").html(_tbody);
+                }
+            })
+        })
+    },
+    // 二进制管理  ---》 导出数据库
+    binary_export_sql:function(root,file){
+        var _that = this;
+        layer.open({
+            type: 1,
+            shift: 5,
+            closeBtn: 2,
+            area: '450px',
+            title: '导出数据库',
+            content:'<div class="bt-form db_optimiz_statement pd20 pb70">\
+                <div class="line">\
+                    <span class="tname">导出文件</span>\
+                    <div class="info-r export_db_box dropdown">\
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" id="export_button" style="width:230px;height:30px;text-align: left;overflow: hidden;">\
+                        <b class="db_name" val=""></b>\
+                        </button>\
+                        <ul class="dropdown-menu export_data_ul" role="menu" aria-labelledby="export_button"></ul>\
+                    </div></div>\
+                <div class="line">\
+                    <span class="tname">开始时间</span>\
+                    <div class="info-r ">\
+                        <input name="export_start_time" class="bt-input-text mr5" type="text" id="export_start_time" style="width:230px">\
+                    </div></div>\
+                <div class="line">\
+                    <span class="tname">结束时间</span>\
+                    <div class="info-r ">\
+                        <input name="export_end_time" class="bt-input-text mr5" type="text" id="export_end_time" style="width:230px">\
+                    </div></div>\
+                <div class="bt-form-submit-btn">\
+                    <button type="button" class="btn btn-danger btn-sm export_closeBtn">关闭</button>\
+                    <button class="btn btn-success btn-sm export_save">确定</button>\
+                </div>\
+            </div>',
+            success:function(layers,index){
+                laydate.render({elem: '#export_start_time',type: 'datetime'});
+                laydate.render({elem: '#export_end_time',type: 'datetime'});
+                _that.mysql_bin(function(rdata){
+                    var _li = '<li class="export_data_li"><label><input type="checkbox" style="margin-right:5px; vertical-align:-2px" value="all">全部</label></li>';
+                    _that.db_list = rdata.length;
+                    if(rdata.length >0){
+                        for(var i =0; i<rdata.length; i++){
+                            _that.all_db_list.push(rdata[i].root +'/'+ rdata[i].files)
+                            _li += '<li class="export_data_li item">\
+                                    <label>\
+                                        <input type="checkbox" style="margin-right:5px; vertical-align:-2px" data-file="'+rdata[i].files+'" value="'+(rdata[i].root +'/'+ rdata[i].files)+'">\
+                                        '+rdata[i].files+'\
+                                    </label>\
+                                </li>'
+                        }
+                    }
+                    $(".export_data_ul").html(_li)
+
+                    $(".export_data_ul input").click(function(){
+                        var checkbox_db_list = [],b_text_list=[];
+                        if($(this).val() == 'all'){
+                            if($(this).prop("checked")){
+                                checkbox_db_list = _that.all_db_list;
+                                b_text_list = ['全部文件']
+                                $('.export_data_ul .item input:checkbox').each(function() { 
+                                    $(this).prop('checked',true);
+                                });
+                            }else{
+                                checkbox_db_list = [];
+                                b_text_list = []
+                                $('.export_data_ul input').prop('checked',false);
+                            }
+                        }else{
+                            checkbox_db_list = [];
+                            b_text_list = []
+                            $('.export_data_ul .item input:checkbox').each(function() {
+                                if ($(this).prop('checked')){
+                                    checkbox_db_list.push($(this).val());
+                                    b_text_list.push($(this).attr("data-file"))
+                                }
+                            });
+                            if(checkbox_db_list.length == _that.db_List){
+                                $('.export_data_ul input').eq(0).prop('checked',true);
+                                checkbox_db_list = _that.all_db_list;
+                                b_text_list = ['全部文件']
+                            }else{
+                                $('.export_data_ul input').eq(0).prop('checked',false);
+                            }
+                        }
+                        $(".db_name").attr("val",checkbox_db_list.join(","))
+                        $(".db_name").html(b_text_list.join(","))
+                    })
+                })
+                
+                $(".export_save").click(function(){
+                    var file = $(".db_name").attr("val"),start_time = $("#export_start_time").val(),end_time = $("#export_end_time").val();var file_data = new Array();
+                    if(file == '') return layer.msg('请选择文件',{icon:2});
+                    if(start_time == '') return layer.msg('请选择开始时间',{icon:2});
+                    if(end_time == '') return layer.msg('请选择结束时间',{icon:2});
+                    file_data = file.split(",")
+                    // console.log(JSON.parse(file_data))
+                    _that.export_sql({path:JSON.stringify(file_data),start_datetime:start_time, stop_datetime:end_time},function(res){
+                        layer.msg(res.msg,{icon:res.status?1:2});
+                        if(res.status) layer.close(index)
+                    })
+                })
+                $(".export_closeBtn").click(function(){
+                    layer.close(index)
+                })
+            }
+        })
+    },
+    // 二进制管理  ---》 查看备份日志按钮
+    backup_log:function(page){
+        this.get_backup_log({p:page == undefined ?1:page},function(rdata){
+            layer.open({
+                type: 1,
+                shift: 5,
+                closeBtn: 2,
+                area: '600px',
+                title: '备份日志',
+                content:'<div class="pd15 divtable"><table class="table table-hover table-bordered">\
+                    <thead><tr><th>详情</th></tr></thead>\
+                    <tbody class="backup_log_table"></tbody>\
+                </table><div class="page" id="backup_view_log">'+rdata.page.page+'</div></div>',
+                success:function(layero,index){
+                    var _tbody = ''
+                    if(rdata.data.length >0){
+                        for(var i =0; i<rdata.data.length; i++){
+                            _tbody += '<tr><td><span class="span_overflow_hidden" style="width:520px" title="'+rdata.data[i].ps+'">'+rdata.data[i].ps+'</span></td></tr>'
+                        }
+                    }else{
+                        _tbody = '<tr><td style="text-align:center">没有数据</td></tr>'
+                    }
+                    $(".backup_log_table").html(_tbody);
+                }
+            })
+        });
+    },
+    // 操作日志
+    view_log:function(page){
+        this.get_local_log({p:page==undefined?1:page},function(rdata){
+            var _html = '',_tbody = '',_page;
+            if(rdata.data.length > 0){
+                for(var i =0; i<rdata.data.length; i++){
+                    _tbody += '<tr>\
+                        <td><span class="span_overflow_hidden" style="width:450px" title="'+rdata.data[i].log+'">'+rdata.data[i].log+'</span></td>\
+                        <td width="150px">'+rdata.data[i].addtime+'</td>\
+                    </tr>'
+                }
+            }else{
+                _tbody = '<tr><td colspan="2" style="text-align:center">没有数据</td></tr>'
+            }
+            _page = '<div class="page" id="log_page">'+rdata.page.page+'</div>'
+            _html = '<div class="divtable"><table class="table table-hover">\
+                <thead><tr><th>详情</th><th width="150px">操作时间</th></tr></thead>\
+                <tbody class="logs_tabls">'+_tbody+'</tbody>\
+                </table></div>'+_page+'';
+            $(".materCon").html(_html)
+            setTimeout(function(){
+                //操作日志分页
+                
+            },300)
+        })
+        
+    },
+    // <------获取数据------->
+    get_auto_backup_status:function(callback){
+        this.send({
+            tips:'正在获取自动备份状态中，请稍后。。。',
+            check:true,
+            method: "get_automatic_status",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    get_local_database2:function(callback){
+        this.send({
+            tips: '正在获取数据库列表中，请稍后。。。',
+            method: "get_local_database2",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    get_db_status:function(callback){
+        this.send({
+            tips: "正在获取数据库状态中，请稍后。。。",
+            method: "GetRunStatus",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    comprehensive_score:function(callback){
+        this.send({
+            tips: "正在对数据库评估中，请稍后。。。",
+            method: "comprehensive_score",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    get_optimization_log:function(obj,callback){
+        this.send({
+            tips: "正在获取优化数据中，请稍后。。。",
+            method: "get_optimization_log",
+            data:obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    get_db_config_status:function(callback){
+        this.send({
+            tips: "正在获取配置数据中，请稍后。。。",
+            method: "GetDbStatus",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    mysql_bin:function(callback){
+        this.send({
+            tips: "正在获取二进制文件列表中，请稍后。。。",
+            method: "get_mysql_bin",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    get_log:function(callback){
+        this.send({
+            tips: "正在慢查询中，请稍后。。。",
+            method: "get_log",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    automatic_backup:function(callback){
+        this.send({
+            tips: "正在开启自动备份中，请稍后。。。",
+            method: "automatic_backup",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    del_automatic_status:function(callback){
+        this.send({
+            tips: "正在关闭自动备份中，请稍后。。。",
+            method: "del_automatic_status",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    get_backup_mysql_bin:function(callback){
+        this.send({
+            tips: "正在获取已备份文件中，请稍后。。。",
+            method: "get_backup_mysql_bin",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    get_backup_log:function(obj,callback){
+        this.send({
+            tips: "正在获取备份日志中，请稍后。。。",
+            method: "get_backup_log",
+            data:obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    backup_mysql_bin:function(obj,callback){
+        this.send({
+            tips: "正在备份数据中，请稍后。。。",
+            method: "backup_mysql_bin",
+            data: obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    delete_file:function(obj,callback){
+        this.send({
+            tips: "正在删除二进制文件中，请稍后。。。",
+            method: "delete_file",
+            data: obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    analysis_mysql:function(obj,callback){
+        this.send({
+            tips: "正在分析二进制文件中，请稍后。。。",
+            method: "analysis_mysql",
+            data: obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    get_local_log:function(obj,callback){
+        this.send({
+            tips: "正在获取操作日志中，请稍后。。。",
+            method: "get_local_log",
+            data: obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    automatic_optimization:function(callback){
+        this.send({
+            tips: "正在自动优化SQL语句中，请稍后。。。",
+            method: "automatic_optimization",
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    optimization:function(obj,callback){
+        this.send({
+            tips: "正在优化SQL语句中，请稍后。。。",
+            method: "optimization",
+            data:obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    select_testing:function(obj,callback){
+        this.send({
+            tips: "正在测试SQL语句中，请稍后。。。",
+            method: "select_testing",
+            data:obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    set_retry:function(obj,callback){
+        this.send({
+            tips: "正在重试优化中，请稍后。。。",
+            method: "set_retry",
+            data:obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    set_revoke:function(obj,callback){
+        this.send({
+            tips: "正在撤销优化中，请稍后。。。",
+            method: "set_revoke",
+            data:obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    export_sql:function(obj,callback){
+        this.send({
+            tips: "正在导出数据中，请稍后。。。",
+            method: "export_sql",
+            data:obj,
+            success: function(res){
+                if(callback) callback(res);
+            }
+        })
+    },
+    // 请求方法
+    send:function(obj){
+        var loadT = '';
+        if (obj.load == undefined) obj.load = 0;
+        if (obj.url == undefined) {
+            if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this.plugin_name
+            if (!obj.plugin_name || !obj.method) {
+                layer.msg('The plugin class name, or plugin method name is missing!', {icon: 2 });
+                return false;
+            }
+        }
+        if (obj.load === 0 || obj.tips != '') {
+            loadT = layer.msg(obj.tips, {
+                icon: 16,
+                time: 0,
+                shade: 0.3
+            });
+        } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+            loadT = layer.load();
+        }
+        $.ajax({
+            type: 'POST',
+            url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+            data: obj.data || {},
+            timeout: obj.timeout || 99999999,
+            complete: function (res) {
+                if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+            },
+            success: function (rdata) {
+                if (obj.check) {
+                    obj.success(rdata);
+                    return false
+                }
+                if (rdata.status === false) {
+                    layer.msg(rdata.msg, { icon: 2 });
+                    return false;
+                }
+                obj.success(rdata);
+            },
+            error: function (ex) {
+                if (!obj.error) {
+                    obj.msg || obj.msg == undefined ? layer.msg('The request process found an error!', {
+                        icon: 2
+                    }) : '';
+                    return;
+                }
+                return obj.error(ex);
+            }
+        });
+    }
+}
+db_monitor.init()
+</script>

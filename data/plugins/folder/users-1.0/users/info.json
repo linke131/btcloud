@@ -1,0 +1,12 @@
+{
+    "id": 3,
+    "title": "面板用户管理",
+    "tip": "lib",
+    "name": "users",
+    "type": "扩展",
+    "ps": "管理面板用户，支持多用户，但不支持权限分配!",
+    "versions": "1.0",
+    "checks": "/www/server/panel/plugin/users",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs"
+  }

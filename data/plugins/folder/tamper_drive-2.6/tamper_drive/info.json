@@ -1,0 +1,17 @@
+{
+  "title": "堡塔企业级防篡改",
+  "tip": "lib",
+  "name": "tamper_drive",
+  "type": "付费插件",
+  "ps": "内核驱动型防篡改程序,为网站文件提供低层保护，目前仅支持Centos7.x",
+  "versions": "2.6",
+  "shell": "tamper_drive.sh",
+  "checks": "/www/server/panel/plugin/tamper_drive",
+  "author": "宝塔",
+  "home": "http://www.bt.cn/bbs",
+  "date": "2021-1-11",
+  "default": false,
+  "display": 0,
+  "not_substituted":["sites.json|f","config.json|f","check.json|f"],
+  "not_cpu_type":["arm","mips"]
+}

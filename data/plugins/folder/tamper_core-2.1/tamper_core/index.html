@@ -1,0 +1,1605 @@
+<div class="bt-content tamper-core">
+    <div class="bt-w-main">
+        <div class="bt-w-menu">
+            <p class="bgw">保护列表</p>
+            <p>全局配置</p>
+            <p>服务</p>
+            <p>防护统计</p>
+            <p>操作日志</p>
+        </div>
+        <div class="bt-w-con pd15">
+            <div class="bt-box active" data-type="ProtectList">
+                <div id="ProtectTable"></div>
+            </div>
+            <div class="bt-box" data-type="GlobalConfig">
+                <div id="GlobalConfig"></div>
+            </div>
+            <div class="bt-box" data-type="ServiceStatus">
+                <div id="ServiceStatus"></div>
+            </div>
+            <div class="bt-box" data-type="ProtectStatis">
+                <div id="ProtectStatis"></div>
+            </div>
+            <div class="bt-box" data-type="OperationLog">
+                <div id="OperationLog"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .plugin_mask {
+        position: relative;
+        background-color: #000;
+        opacity: 0.3;
+        width: 100%;
+        height: 588px;
+        top: -588px;
+        z-index: 999;
+        margin: 0 0 0 110px;
+        display: none;
+    }
+
+    .bt-w-main {
+        height: 645px;
+    }
+
+    .bt-box.active {
+        display: block;
+        height: 100%;
+    }
+
+    .bt-box {
+        display: none;
+    }
+    .basic_set{
+        margin: 0 0 15px 0;
+        padding: 0 25px;
+    }
+    .basic_set .line{
+        height: 65px;
+        width: 210px;
+    }
+    .basic_set .line .tname{
+        width: 120px;
+    }
+    .basic_set .line .info-r{
+        margin-left: 120px;
+    }
+    #advancedConfig .line .info-r{
+        margin-bottom: 0px;
+    }
+    #advancedConfig .table tbody tr td:nth-child(2)>span,
+    #GlobalConfig .table tbody tr td:nth-child(2)>span
+    {
+        width: auto;
+    }
+    /* 全局统计 */
+    #GlobalConfig .basic_set{
+        padding: 15px 40px 0 40px;
+        border-radius: 5px;
+        background-color: rgba(250, 250, 250, 100);
+        border: 1px solid rgba(221, 221, 221, 100);
+    }
+    #GlobalConfig .basic_set .line .tname{
+        width: 160px;
+    }
+    #GlobalConfig .basic_set .line .info-r{
+        margin-left: 160px;
+    }
+    .basic_global_set .line .tname{
+        text-align: left;
+        width: 60px;
+        padding-right: 10px;
+    }
+    /* 统计柱状图 */
+    #alltmapercoreview,#tmapercoreview{
+        margin: 15px auto;
+        height: 310px;
+        width: 100%;
+    }
+    #ProtectStatis .bt-form,#statistical .bt-form{
+        border: 1px solid #ddd;
+        padding: 35px;
+    }
+    #ProtectStatis .inlineBlock,#statistical .inlineBlock{
+        text-align: center;
+        line-height: 32px;
+        width: 115px;
+    }
+    #ProtectStatis .inlineBlock .psnum,#statistical .inlineBlock .psnum{
+        font-size: 18px;
+    }
+    /* 防护日志 */
+    #protectiveLog{
+        margin-bottom: 10px;
+        padding: 10px 20px;
+    }
+    #protectiveLog .table tr th:nth-child(2)>span,#protectiveLog .table tr td:nth-child(2)>span{
+        width: 480px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    #protectiveLog .table tr th:nth-child(5)>span,#protectiveLog .table tr td:nth-child(5)>span{
+        width: 95px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    /* 服务 */
+    #ServiceStatus .status {
+        line-height: 40px;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    .mr15{
+        margin-right: 15px;
+    }
+    .bt_table .tootls_top .pull-left input{
+        width: 240px;
+    }
+    /* 保护列表 */
+    #ProtectTable .table tr th:nth-child(2)>span,#ProtectTable .table tr td:nth-child(2)>span{
+        word-wrap: break-word;
+    }
+    /* 操作日志 */
+    #OperationLog .divtable{
+        margin-top: 0px;
+    }
+    #OperationLog .table tr th:nth-child(2)>span,#OperationLog .table tr td:nth-child(2)>span{
+        width: 493px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    /* 表格中的开关 */
+    #ProtectTable .table .btswitch+.btswitch-btn,
+    #usersWhite .btswitch+.btswitch-btn,
+    #groupsWhite .btswitch+.btswitch-btn,
+    #GlobalConfig .tab-con .table .btswitch+.btswitch-btn,
+    #advancedConfig .tab-con .table .btswitch+.btswitch-btn{
+        width: 2.4em;
+        height: 1.4em;
+        margin-bottom: 0;
+    }
+    /* 全部今日统计 */
+    .allTodaySta {
+        padding: 10px 0;
+        border: 1px solid #ddd;
+        background-color: #f6f6f6;
+        display: flex;
+        justify-content: center;
+    }
+    .allTodaySta .inlineBlock{
+        width: 49%;
+        line-height: 25px;
+        text-align: center;
+    }
+    .allTodaySta .inlineBlock:nth-child(1){
+        border-right: 1px solid #ddd;
+    }
+    .allTodaySta .inlineBlock:nth-child(2){
+        margin-left: -3.5px;
+    }
+    .allTodaySta .inlineBlock div:nth-child(2){
+        font-size: 18px;
+    }
+    #blackExts .divtable,.directorysWhite .divtable,.filesWhite .divtable{
+        margin: 10px 0 0 0;
+    }
+    /* 全局配置 */
+    .basic_global_set{
+        margin-bottom: 10px;
+    }
+    .basic_global_set .line{
+        padding: 0;
+    }
+    .basic_global_set .line .info-r{
+        margin-bottom: 0;
+    }
+    code {
+        padding: 1px 5px;
+        font-size: 90%;
+        color: #2196F3;
+        background-color: #EEE;
+        border-radius: 4px;
+        margin: 2px;
+    }
+</style>
+<script type="text/javascript" src="/static/js/echarts.min.js?version=7.9.29"></script>
+<script type="text/javascript">
+    (function () {
+        // noinspection JSUnresolvedVariable
+        var protectTable = null,
+            usersWhiteTable = null,
+            groupsWhiteTable = null,
+            processsWhiteTable = null,
+            blackExtsTable = null,
+            directorysTable = null
+        var tamper_core = {
+            area: [1000, 630],
+            configType : [
+                { title: '创建文件',     name: 'create' },
+                { title: '编辑文件',     name: 'modify' },
+                { title: '删除文件',     name: 'unlink' },
+                { title: '新建文件夹',   name: 'mkdir' },
+                { title: '删除文件夹',   name: 'rmdir' },
+                { title: '文件重命名',   name: 'rename' },
+                { title: '创建软链',     name: 'link' },
+                { title: '修改文件权限', name: 'chmod' },
+                { title: '修改所有者',   name: 'chown' },
+            ],
+            /**
+             * @description 初始化项目
+             */
+            init: function () {
+                var that = this;
+                /* 插件，第一步设置布局宽度大小 */
+                $('.layui-layer-page').css({
+                    width: this.area[0] + 'px',
+                    height: this.area[1] + 'px',
+                    left: (($(window).width() - this.area[0]) / 2) + 'px',
+                    top: (($(window).height() - this.area[1]) / 2) + 'px'
+                }).find('.bt-w-main').css({height: (this.area[1] - 42) + 'px'})
+                /* tab切换功能 */
+                $('.tamper-core .bt-w-menu p').on('click', function () {
+                    var tab = $(this), index = tab.index(), box = $('.bt-w-con .bt-box:eq(' + index + ')')
+                    tab.addClass('bgw').siblings().removeClass('bgw');
+                    box.addClass('active').siblings().removeClass('active');
+                    switch (index) {
+                        case 0:
+                            that.reanderTamperTable()
+                            break;
+                        case 1:
+                            that.reanderGlobalConfig()
+                            break;
+                        case 2:
+                            that.reanderServiceStatus()
+                            break;
+                        case 3:
+                            that.reanderProtectStatis()
+                            break;
+                        case 4:
+                            that.reanderOperationLog()
+                            break;
+                    }
+                })
+                that.reanderTamperTable()
+                setInterval(function () {
+                    $('.allTodaySta').remove()
+                    protectTable.$refresh_table_list()
+                },900000)
+            },
+            /**
+             * @description 打开弹窗
+             * @param msg 弹窗信息
+             */
+            openPopup: function(msg){
+                var layerT = layer.msg(msg, $.extend({},{ time: 0, shade: .3 }))
+                $('.layui-layer-msg').removeClass('layui-layer-hui')
+                return layerT
+            },
+            /**
+             * @description 渲染防篡改保护列表
+             * @param
+             */
+            reanderTamperTable: function () {
+                var protectrender = $('#ProtectTable')
+                protectrender.html('')
+                $('.allTodaySta').remove()
+                var _that = this;
+                bt_tools.send({url:'/tamper_core/get_service_status.json'}, function (res) {
+                    if (res.kernel_module_status == false && res.kernel_module_status == false) {
+                        var layerT = _that.openPopup('当前服务未开启，请先开启【<a class="openS btlink">服务</a>】！')
+                        $('.openS').click(function() {
+                            layer.close(layerT)
+                            $('.tamper-core .bt-w-menu p').eq(2).click()
+                        })
+                    }
+                })
+                bt_tools.send({url:'/tamper_core/get_tamper_global_config.json'}, function (rdata) {
+                    if (rdata.status == 0) {
+                        var layerT = _that.openPopup('全局开关未开启，请先开启【<a class="openA btlink">全局开关</a>】！')
+                        $('.openA').click(function() {
+                            layer.close(layerT)
+                            $('.tamper-core .bt-w-menu p').eq(1).click()
+                        })
+                    }
+                })
+                protectTable = bt_tools.table({
+                    el: '#ProtectTable',
+                    url: '/tamper_core/get_tamper_paths.json',
+                    load: true,
+                    default: "暂无保护目录",
+                    height: 390,
+                    dataFilter: function (res) {
+                        if ($('.allTodaySta').length == 0) {
+                            var todayNum = 0 , allNum = 0,_html = ''
+                            for (var i = 0; i < res.length; i++) {
+                                for (var j = 0; j < tamper_core.configType.length; j++) {
+                                    todayNum += res[i].total.today[tamper_core.configType[j].name]
+                                    allNum += res[i].total.all[tamper_core.configType[j].name]
+                                }
+                            }
+                            $('#ProtectTable').before('<div class="allTodaySta mb15"><div class="inlineBlock"><div>全部统计</div><div>'+allNum+'</div></div>\
+                            <div class="inlineBlock"><div>今日统计</div><div>'+todayNum+'</div></div></div>')
+                        }
+                        return {data: res};
+                    },
+                    column: [{
+                        type: 'checkbox',
+                        class: '',
+                        width: 20
+                    }, {
+                        fid: 'path',
+                        title: '目录',
+                        tips: '打开目录',
+                        type: 'link',
+                        width: 170,
+                        event: function (row, index, ev) {
+                            openPath(row.path);
+                        }
+                    }, {
+                        fid: 'ps',
+                        title: '备注',
+                        type: 'input',
+                        width: 90,
+                        blur: function (row, index, ev, key, that) {
+                            if (row.ps == ev.target.value) return false;
+                            bt_tools.send({url:'/tamper_core/modify_path_config.json',data: {path_id: row.pid,key: 'ps',value:ev.target.value}}, function (rdata) {
+                                bt_tools.msg(rdata);
+                                if (rdata.status) {
+                                    that.$refresh_table_list()
+                                }
+                            }, '修改备注')
+                        },
+                        keyup: function (row, index, ev) {
+                            if (ev.keyCode === 13) {
+                                $(this).blur();
+                            }
+                        }
+                    }, {
+                        title: '总次数',
+                        type: 'text',
+                        width: 70,
+                        template:function (row, index, ev){
+                            var num = 0;
+                            for (var i = 0; i < _that.configType.length; i++) {
+                                num += row.total.all[_that.configType[i].name]
+                            }
+                            return '<span class="'+ (num > 0 ? 'color-red' : '') +'">'+num+'</span>'
+                        }
+                    },{
+                        title: '今日',
+                        type: 'text',
+                        width: 70,
+                        template:function (row, index, ev){
+                            var num = 0;
+                            for (var i = 0; i < _that.configType.length; i++) {
+                                num += row.total.today[_that.configType[i].name]
+                            }
+                            return '<span class="'+ (num > 0 ? 'color-red' : '') +'">'+num+'</span>'
+                        }
+                    }, {
+                        title: '状态',
+                        type: 'switch',
+                        fid: 'status',
+                        width: 75,
+                        event: function (row, index, ev, key, that) {
+                            row['status'] = !row['status'] ? 1 : 0;
+                            var params = {
+                                path_id: row.pid,
+                                key: 'status',
+                            }
+                            var status_btn = $('#ProtectTable .table tbody tr:eq('+index+') .btswitch-btn').siblings(),
+                                status = status_btn.prop('checked')
+                            layer.confirm(!status ? '关闭该保护目录配置后，目录将失去保护，是否继续操作？' : '启用该保护目录配置后，目录将受到保护，是否继续操作？', {icon: 3, title: status ? '启用保护目录配置【'+ row.ps +'】' : '关闭保护目录配置【'+ row.ps +'】',closeBtn: 2,cancel: function () {
+                                status_btn.prop('checked',!status)
+                            }}, function (index) {
+                                layer.close(index);
+                                params['value'] = status ? 1 : 0;
+                                bt_tools.send({url:'/tamper_core/modify_path_config.json',data: params}, function (res) {
+                                    bt_tools.msg(res)
+                                    if (res.status) {
+                                        that.$refresh_table_list();
+                                    }
+                                },'修改状态')
+                            }, function () {
+                                status_btn.prop('checked',!status)
+                            });
+                        }
+                    },{
+                        title: '操作',
+                        type: 'group',
+                        width: '125px',
+                        align: 'right',
+                        group: [{
+                            title: '统计',
+                            event: function (rowc, index, ev, key, rthat) {
+                                rthat.reader_statistical(rowc)
+                            }
+                        },{
+                            title: '日志',
+                            event: function (rowc, index, ev, key, rthat) {
+                                rthat.reader_protective_log(rowc)
+                            }
+                        },{
+                            title: '配置',
+                            event: function (rowc, index, ev, key, rthat) {
+                                rthat.reader_advanced_configuration(rowc)
+                            }
+                        },{
+                            title: '删除',
+                            event: function (rowc, index, ev, key, rthat) {
+                                rthat.delete_path_config(rowc, function(rdata) {
+                                    bt_tools.msg(rdata);
+                                    if (rdata.status) {
+                                        $('.allTodaySta').remove()
+                                        rthat.$refresh_table_list();
+                                    }
+                                })
+                            }
+                        }]
+                    }],
+                    methods: {
+                        /**
+                         * @description 统计
+                         * @param {object} config
+                         * @param {function} callback
+                         */
+                        reader_statistical: function (config){
+                            var _that = this
+                            layer.open({
+                                type: 1,
+                                title:'统计-['+ config.path +']',
+                                closeBtn: 2,
+                                shadeClose: false,
+                                area:['695px','680px'],
+                                skin: 'statistical',
+                                content: '<div id="statistical" class="pd15"></div>',
+                                success: function (layers, indexs) {
+                                    var robj = $('#statistical')
+                                    tamper_core.protectStatisPublic(robj,config)
+                                }
+                            })
+                        },
+                        /**
+                         * @description 删除
+                         * @param {object} config
+                         * @param {function} callback
+                         */
+                        delete_path_config: function (config,callback){
+                            bt.confirm({ title: '删除保护目录【' + config.ps + '】', msg: '删除该保护目录配置后，目录将失去保护，是否继续操作？' }, function () {
+                                bt_tools.send({url:'/tamper_core/remove_path_config.json',data: {path_id:config.pid}}, function (rdata) {
+                                    if (callback) callback(rdata)
+                                }, '删除保护目录')
+                            })
+                         },
+                        /**
+                         * @description 防护日志
+                         * @param {object} config
+                         */
+                         reader_protective_log: function (config){
+                            var _that = this
+                            bt_tools.send({url:'/tamper_core/get_logs.json',data: {path_id:config.pid,rows:10,p:1}}, function (rdata) {
+                                if (rdata.length == 0) {
+                                    layer.msg('暂无防护日志！',{icon:6})
+                                }else{
+                                    layer.open({
+                                        type: 1,
+                                        title:'防护日志-['+ config.path +']',
+                                        closeBtn: 2,
+                                        shadeClose: false,
+                                        area:['1000px','550px'],
+                                        skin: 'protectiveLog',
+                                        content: '<div id="protectiveLog"></div>',
+                                        success: function (layers, indexs) {
+                                            bt_tools.table({
+                                                el: '#protectiveLog',
+                                                url: '/tamper_core/get_logs.json',
+                                                param: {
+                                                    path_id: config.pid
+                                                },
+                                                load: true,
+                                                default: "暂无防护日志",
+                                                column: [{
+                                                        fid: 'date',
+                                                        title: '时间',
+                                                        type: 'text',
+                                                        width: '150px'
+                                                    },
+                                                    {
+                                                        fid: 'content',
+                                                        title: '目录',
+                                                        type: 'text',
+                                                        template: function (row){
+                                                            return '<span title="'+ row.content +'">'+row.content+'</span>'
+                                                        }
+                                                    },
+                                                    {
+                                                        fid: 'type',
+                                                        title: '触发类型',
+                                                        type: 'text',
+                                                        width: '110px',
+                                                        template: function (row){
+                                                            for (var i = 0; i < tamper_core.configType.length; i++) {
+                                                                if (row.type == tamper_core.configType[i].name) {
+                                                                    return tamper_core.configType[i].title
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        fid: 'user',
+                                                        title: '用户',
+                                                        type: 'text',
+                                                        width: '100px'
+                                                    },
+                                                    {
+                                                        fid: 'process',
+                                                        title: '进程',
+                                                        type: 'text',
+                                                        width: '115px',
+                                                        template: function (row){
+                                                            return '<span title="'+ row.process +'">'+row.process+'</span>'
+                                                        }
+                                                    }
+                                                ],
+                                                tootls: [{   //分页显示
+                                                    type: 'page',
+                                                    positon: ['right', 'bottom'], // 默认在右下角
+                                                    pageParam: 'p', //分页请求字段,默认为 : p
+                                                    page: 1, //当前分页 默认：1
+                                                    numberParam: 'rows', //分页数量请求字段默认为 : limit
+                                                    number: 10, //分页数量默认 : 10条
+                                                }]
+                                            })
+                                        }
+                                    })
+                                }
+                            }, '获取防护日志')
+                         },
+                        /**
+                         * @description 配置
+                         * @param {object} config
+                         */
+                        reader_advanced_configuration: function (config){
+                            layer.open({
+                                type: 1,
+                                title:'配置-['+ config.path +']',
+                                closeBtn: 2,
+                                shadeClose: false,
+                                area:['800px','650px'],
+                                // btn: ['提交','取消'],
+                                skin: 'advancedConfig',
+                                content: '<div id="advancedConfig" class="pd20">\
+                                    <div class="bt-form mb15">\
+                                        <div class="line adStatus" style="background-color: '+ (config.status == 0 ? 'rgba(255, 0, 0,0.1)':'rgba(32, 165, 58,0.2)') +';">\
+                                            <span class="tname">防篡改开关</span>\
+                                            <div class="info-r">\
+                                                <div class="inlineBlock mr10" style="margin-top: 5px;vertical-align: -6px;">\
+                                                    <input class="btswitch btswitch-ios" id="status" type="checkbox" '+ (config.status == 1 ? 'checked' : '') +'>\
+                                                    <label class="btswitch-btn" for="status"></label>\
+                                                </div>\
+                                                <span class="unit" style="vertical-align: super;'+(config.status == 0 ? '':'display:none;' )+'">当前目录防篡改已关闭，可能存在安全风险，建议立即开启防护</span>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>',
+                                success: function (layers, indexs) {
+                                    $('#advancedConfig').append('<div id="tabTamperConfig" class="tab-nav"></div><div class="tab-con" style="padding:5px 0 0 0;"></div>');
+                                    tamper_core.globalConfigPublic(1,config)
+                                }
+                            })
+                        }
+                    },
+                    tootls: [{
+                        type: 'group',
+                        positon: ['left', 'top'],
+                        list: [{
+                            title: '添加保护目录',
+                            active: true,
+                            event: function (ev, that) {
+                                var addProDir = null
+                                layer.open({
+                                    type: 1,
+                                    title:'添加保护目录',
+                                    closeBtn: 2,
+                                    shadeClose: false,
+                                    area:['500px','355px'],
+                                    btn: ['提交','取消'],
+                                    skin: 'addProDir',
+                                    content: '<div id="addProDir"></div>',
+                                    success: function (layers, indexs) {
+                                        addProDir = bt_tools.form({
+                                            el: '#addProDir',
+                                            class: 'pd15',
+                                            form: [
+                                                {
+                                                    label: '选择目录',
+                                                    group: [
+                                                        {
+                                                            name: 'path',
+                                                            width: '309px',
+                                                            type: 'text',
+                                                            placeholder: '请选择保护目录或选择网站目录',
+                                                            icon: {
+                                                                type: 'glyphicon-folder-open',
+                                                                event: function (formData, element, that) {
+
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    label: '备注',
+                                                    group: {
+                                                        name: 'ps',
+                                                        width: '309px',
+                                                        type: 'text',
+                                                        placeholder: '请输入该保护目录相关描述'
+                                                    }
+                                                }
+                                            ]
+                                        })
+                                        $('#addProDir .pd15').append("<ul class='help-info-text c7 mlr20'>\
+                                            <li>防篡改默认支持拦截以下操作（继承当前全局配置，可单独配置）：文件和目录创建、修改、删除、重命名、创建软链，权限修改，所有者修改</li>\
+                                            <li>单独配置优先级大于全局配置</li>\
+                                            <li>开启防篡改后，部分项目【无法更新，文件无法上传，无法操作等】，需要关闭防篡改或添加白名单</li>\
+                                        </ul>");
+                                    },
+                                    yes: function (indexs) {
+                                        var formData = addProDir.$get_form_value()
+                                        if(formData.path == '') return layer.msg('目录不能为空！')
+                                        if(formData.ps == '') return layer.msg('备注不能为空！')
+                                        bt_tools.send({url:'/tamper_core/create_path_config.json',data: formData}, function (res) {
+                                            bt_tools.msg(res)
+                                            if (res.status) {
+                                                layer.close(indexs)
+                                                $('.allTodaySta').remove()
+                                                that.$refresh_table_list();
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        }]
+                    }, { // 批量操作
+                        type: 'batch',
+                        positon: ['left', 'bottom'],
+                        placeholder: '请选择批量操作',
+                        buttonValue: '批量操作',
+                        disabledSelectValue: '请选择需要批量操作的站点!',
+                        selectList: [{
+                            title: "启用目录配置",
+                            load: true,
+                            url: '/tamper_core/modify_path_config.json',
+                            param: function (crow) {
+                                return {
+                                    path_id: crow.pid,
+                                    key: 'status',
+                                    value: 1
+                                }
+                            },
+                            callback: function (that) { // 手动执行,data参数包含所有选中的站点
+                                bt.show_confirm("批量启用目录配置", "<span style='color:red'>启用选中保护目录配置后，目录将受到保护，是否继续操作？</span>", function () {
+                                    var param = {};
+                                    that.start_batch(param, function (list) {
+                                        var html = '';
+                                        for (var i = 0; i < list.length; i++) {
+                                            var item = list[i];
+                                            html += '<tr><td>' + item.path + '</td><td><div style="float:right;"><span style="color:' + (item.request.status ? '#20a53a' : 'red') + '">' + item.request.msg + '</span></div></td></tr>';
+                                        }
+                                        protectTable.$batch_success_table({
+                                            title: '批量启用目录配置',
+                                            th: '目录名称',
+                                            html: html
+                                        });
+                                        $('.allTodaySta').remove()
+                                        protectTable.$refresh_table_list(true);
+                                    });
+                                });
+                            }
+                        },{
+                            title: "关闭目录配置",
+                            load: true,
+                            url: '/tamper_core/modify_path_config.json',
+                            param: function (crow) {
+                                return {
+                                    path_id: crow.pid,
+                                    key: 'status',
+                                    value: 0
+                                }
+                            },
+                            callback: function (that) { // 手动执行,data参数包含所有选中的站点
+                                bt.show_confirm("批量关闭目录配置", "<span style='color:red'>关闭选中保护目录配置后，目录将失去保护，是否继续操作？</span>", function () {
+                                    var param = {};
+                                    that.start_batch(param, function (list) {
+                                        var html = '';
+                                        for (var i = 0; i < list.length; i++) {
+                                            var item = list[i];
+                                            html += '<tr><td>' + item.path + '</td><td><div style="float:right;"><span style="color:' + (item.request.status ? '#20a53a' : 'red') + '">' + item.request.msg + '</span></div></td></tr>';
+                                        }
+                                        protectTable.$batch_success_table({
+                                            title: '批量关闭目录配置',
+                                            th: '目录名称',
+                                            html: html
+                                        });
+                                        $('.allTodaySta').remove()
+                                        protectTable.$refresh_table_list(true);
+                                    });
+                                });
+                            }
+                        },{
+                            title: "删除",
+                            load: true,
+                            url: '/tamper_core/remove_path_config.json',
+                            param: function (crow) {
+                                return {
+                                    path_id:crow.pid
+                                }
+                            },
+                            callback: function (that) { // 手动执行,data参数包含所有选中的站点
+                                bt.show_confirm("批量删除目录配置", "<span style='color:red'>删除选中保护目录配置后，目录将失去保护，是否继续操作？</span>", function () {
+                                    var param = {};
+                                    that.start_batch(param, function (list) {
+                                        var html = '';
+                                        for (var i = 0; i < list.length; i++) {
+                                            var item = list[i];
+                                            html += '<tr><td>' + item.path + '</td><td><div style="float:right;"><span style="color:' + (item.request.status ? '#20a53a' : 'red') + '">' + item.request.msg + '</span></div></td></tr>';
+                                        }
+                                        protectTable.$batch_success_table({
+                                            title: '批量删除',
+                                            th: '目录名称',
+                                            html: html
+                                        });
+                                        $('.allTodaySta').remove()
+                                        protectTable.$refresh_table_list(true);
+                                    });
+                                });
+                            }
+                        }]
+                    }
+                    ]
+                })
+
+            },
+            /**
+             * @description 渲染防篡改全局配置
+             * @param
+             */
+            reanderGlobalConfig: function () {
+                var loadT = bt.load('正在获取全局配置，请稍后...');
+                var globalcrender = $('#GlobalConfig').html('')
+                bt_tools.send({url:'/tamper_core/get_tamper_global_config.json'}, function (config) {
+                    var _html2 = '<div class="line">\
+                        <span class="tname">全局开关</span>\
+                        <div class="info-r">\
+                            <div class="inlineBlock mr10" style="margin-top: 5px;vertical-align: -6px;">\
+                                <input class="btswitch btswitch-ios" id="allstatus" type="checkbox" '+ (config.status == 1 ? 'checked' : '') +'>\
+                                <label class="btswitch-btn" for="allstatus"></label>\
+                            </div>\
+                            <span class="unit" style="vertical-align: super;">当【全局开关】状态为关闭时，所有保护列表目录将失去保护</span>\
+                        </div>\
+                    </div>'
+                    globalcrender.append('<div class="bt-form basic_global_set">'+_html2+'</div>')
+                    globalcrender.append('<div id="tabGlobalConfig" class="tab-nav"></div><div class="tab-con" style="padding:5px 0 15px 0;"></div>')
+                    tamper_core.globalConfigPublic(2)
+                    loadT.close();
+                })
+             },
+            /**
+             * @description 渲染防护统计
+             * @param
+             */
+            reanderProtectStatis: function () {
+                var loadT = bt.load('正在获取防护统计，请稍后...');
+                var _that = this
+                var robj =  $('#ProtectStatis')
+                _that.protectStatisPublic(robj)
+                loadT.close();
+            },
+            /**
+             * @description 统计公共
+             * @param
+             */
+            protectStatisPublic: function(robj,config) {
+                var _html = '', configType = tamper_core.configType
+                robj.html('')
+                var url = '/tamper_core/get_glabal_total.json', params = {}
+                if(config) {
+                    url = '/tamper_core/get_path_total.json'
+                    params = {
+                        path_id: config.pid
+                    }
+                }
+                bt_tools.send({url:url}, params,function (res) {
+                    if (config) {
+                        robj.append('<div id="tabPs" class="tab-nav"></div><div class="tab-con" style="padding:15px 0 0 0;"></div>')
+                        var _tab = [
+                            {
+                                title:'今日',
+                                on:true,
+                                callback:function(robj){
+                                    psPub(robj,res['today'])
+                                }
+                            },
+                            {
+                                title:'全部',
+                                callback:function(robj){
+                                    psPub(robj,res['all'])
+                                }
+                            }
+                        ]
+                        bt.render_tab('tabPs', _tab)
+                        $('#tabPs span:eq(0)').click();
+                    }else{
+                        psPub(robj,res)
+                    }
+                    function psPub(robj,res) {
+                        _html = ''
+                        for (var i = 0; i < configType.length; i++) {
+                            var item = configType[i]
+                            _html += '<div class="inlineBlock">\
+                                <div class="pstitle">'+ item.title +'</div>\
+                                <div class="psnum '+ (res[item.name] > 0 ? 'color-red' : '') +'">'+ res[item.name] +'</div>\
+                            </div>'
+                        }
+                        robj.append('<div class="bt-form">'+_html+'</div>')
+                        robj.append('<div id="'+(config ? '' : 'all' )+'tmapercoreview"></div>')
+                        var myChartTCore = echarts.init(document.getElementById((config ? '' : 'all' )+'tmapercoreview'));
+                        var option, xData = [], yData = []
+                        for (let i = 0; i < configType.length; i++) {
+                            xData.push(configType[i].title)
+                            yData.push(res[configType[i].name])
+                        }
+                        option = {
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'cross'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '3%',
+                                bottom: '5%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                                data: xData,
+                                axisLabel: {
+                                    interval:0,
+                                }
+                            },
+                            yAxis: {},
+                            series: [
+                                {
+                                    type: 'bar',
+                                    data: yData
+                                }
+                            ]
+                        }
+                        option && myChartTCore.setOption(option);
+                    }
+                })
+            },
+             /**
+             * @description 渲染操作日志
+             * @param
+             */
+            reanderOperationLog: function () {
+                $('#OperationLog').html('')
+                var OperationLog = bt_tools.table({
+                    el: '#OperationLog',
+                    url: '/tamper_core/get_action_logs.json',
+                    load: true,
+                    default: "暂无保护目录",
+                    height: '520',
+                    column: [
+                        {
+                            fid: 'addtime',
+                            title: '时间',
+                            type: 'text',
+                            width: '150px'
+                        }, {
+                            fid: 'log',
+                            title: '详情',
+                            type: 'text',
+                            template: function (row){
+                                return '<span title="'+ row.log +'">'+row.log+'</span>'
+                            }
+                        }
+                    ],
+                    tootls: [{ //分页显示
+                        type: 'page',
+                        positon: ['right', 'bottom'], // 默认在右下角
+                        pageParam: 'p', //分页请求字段,默认为 : p
+                        page: 1, //当前分页 默认：1
+                        numberParam: 'rows', //分页数量请求字段默认为 : limit
+                        defaultNumber: 12, //分页数量默认 : 12条
+                    }]
+                })
+
+            },
+            /**
+             * @description 渲染服务状态
+             * @param
+             */
+            reanderServiceStatus: function () {
+                $('#ServiceStatus').html('')
+                bt_tools.send({url:'/tamper_core/get_service_status.json'}, function (res) {
+                    var _html = '',btn = [{title:'启动', value: 'start'},{title:'停止', value: 'stop'},{title:'重启', value: 'restart'},{title:'重载配置', value: 'reload'}]
+                    for (var i = 0; i < btn.length; i++) {
+                        if(res.kernel_module_status == true && res.kernel_module_status == true && btn[i].value == 'start') continue
+                        if(res.controller_status == false && res.controller_status == false && btn[i].value == 'stop') continue
+                        _html += '<button class="btn btn-default btn-sm mr15" data-action="'+btn[i].value+'">'+btn[i].title+'</button>'
+                    }
+                    $('#ServiceStatus').append('<div class="bt-form">\
+                        <p class="status">\
+                            内核驱动加载状态：\
+                            <span>'+ (res.kernel_module_status == true ? '开启' : '关闭') +'</span>\
+                            <span style="color: '+(res.kernel_module_status == true ? '#20a53a' : 'red' ) + '; margin-left: 3px;" class="glyphicon glyphicon '+ (res.kernel_module_status == true ? 'glyphicon-play' : 'glyphicon-pause') +'"></span>\
+                        </p>\
+                        <p class="status">\
+                            服务状态:\
+                            <span>'+ (res.controller_status == true ? '开启' : '关闭') +'</span>\
+                            <span style="color: '+(res.controller_status == true ? '#20a53a' : 'red' ) + '; margin-left: 3px;" class="glyphicon glyphicon '+ (res.controller_status == true ? 'glyphicon-play' : 'glyphicon-pause') +'"></span>\
+                        </p>\
+                        <div>'+_html+'</div>\
+                    </div>')
+                    $('#ServiceStatus button').click(function () {
+                        var action  = $(this).data('action')
+                        var str = $(this).text(), msg = ''
+                        if(action == 'reload') {
+                            msg = '重载项目后，当前项目服务将重载运行，是否继续操作？'
+                        }else{
+                            msg = str+'项目后，当前项目服务将'+str+'运行，是否继续操作？'
+                        }
+                        bt.confirm({
+                            title: str+'防篡改服务',
+                            msg: msg
+                        }, function () {
+                            bt_tools.send({url:'/tamper_core/service_admin.json', data: {action: action}}, function (res) {
+                                bt_tools.msg(res)
+                                if (res.status) {
+                                    tamper_core.reanderServiceStatus()
+                                }
+                            },str+'防篡改服务')
+                        })
+                    })
+                },'获取服务状态')
+            },
+            /**
+             * @description 高级配置全局配置公共
+             * @param
+             */
+            globalConfigPublic: function(type,config) {
+                var _that = this
+                var configType = tamper_core.configType
+                var basicSet = {
+                    title:'基础设置',
+                    on:true,
+                    callback:function(robj){
+                        var url = '/tamper_core/get_tamper_global_config.json',el = '#GlobalConfig .tab-con'
+                        if (type == 1) url = '/tamper_core/get_tamper_paths.json',el = '#advancedConfig .tab-con'
+                        bt_tools.table({
+                            el: el,
+                            url: url,
+                            height: '520px',
+                            load: true,
+                            default: "暂无",
+                            dataFilter: function (res) {
+                                var data1 = [],data2 = res
+                                if (type == 1) {
+                                    for (var j = 0; j < res.length; j++) {
+                                        if (res[j].pid == config.pid) {
+                                            data2 = res[j]
+                                        }
+                                    }
+                                }
+                                for (var i = 0; i < configType.length; i++) {
+                                    data1.push({name: '禁止'+configType[i].title,key: 'is_'+configType[i].name,status: data2['is_'+configType[i].name]})
+                                }
+                                return { data: data1 };
+                            },
+                            column: [{
+                                fid: 'name',
+                                title: '名称',
+                                type: 'text',
+                                width: '50%'
+                            },{
+                                title: '状态',
+                                type: 'switch',
+                                fid: 'status',
+                                align: 'right',
+                                event: function (rowc, index, ev, key, rthat) {
+                                    if ($('#allstatus').prop('checked') || type == 1) {
+                                        var idName = type == 1 ? 'advancedConfig' : 'GlobalConfig'
+                                        var status = $('#'+idName+' .tab-con tbody tr:eq('+index+') .btswitch-btn').siblings().prop('checked')
+                                        var url = 'tamper_core/modify_global_config.json', params = {
+                                            key: rowc.key,
+                                            value: status == true ? 1 : 0
+                                        }
+                                        if (type == 1) {
+                                            url = '/tamper_core/modify_path_config.json'
+                                            params['path_id'] = config.pid
+                                        }
+                                        bt_tools.send({url:url},params, function (rdata) {
+                                            bt_tools.msg(rdata);
+                                        },rowc.name)
+                                    }
+                                }
+                            }]
+                        })
+                        if (type==2) {
+                            bt_tools.send({url:'/tamper_core/get_service_status.json'}, function (res) {
+                                if (res.kernel_module_status == false && res.kernel_module_status == false) {
+                                    var layerT = _that.openPopup('当前服务没有开启，请先开启<a class="openS btlink">服务</a>！')
+                                    $('.openS').click(function() {
+                                        layer.close(layerT)
+                                        $('.tamper-core .bt-w-menu p').eq(2).click()
+                                    })
+                                }else{
+                                    var allstatus = $('#allstatus'),
+                                    status = $('#GlobalConfig .tab-con tbody tr .btswitch-btn').siblings()
+                                    if(!allstatus.prop('checked')) {
+                                        status.prop('disabled',true)
+                                    }
+                                    $('#GlobalConfig .tab-con tbody tr .btswitch-btn').click(function() {
+                                        if(!allstatus.prop('checked')) {
+                                            layer.msg('全局开关未开启，不能修改')
+                                        }
+                                    })
+                                    allstatus.click(function() {
+                                        if(!allstatus.prop('checked')) {
+                                            status.prop('disabled',true)
+                                        }else{
+                                            status.prop('disabled',false)
+                                        }
+                                        var params = {
+                                            key: 'status',
+                                            value: allstatus.prop('checked') == true ? 1 : 0
+                                        }
+                                        upSwitch(params)
+                                    })
+                                }
+                            })
+                        }else{
+                            var status = $('#status'),
+                                parent = status.parent().parent().parent(),
+                                adStatus = $('.adStatus')
+                                adStatusUnit = $('.adStatus .unit')
+                            status.click(function() {
+                                if (status.prop('checked')) {
+                                    adStatus.css('background-color','rgba(32, 165, 58,0.2)')
+                                    adStatusUnit.css('display','none')
+                                } else {
+                                    adStatus.css('background-color','rgba(255, 0, 0,0.1)')
+                                    adStatusUnit.css('display','inline-block')
+                                }
+                                var params = {
+                                    path_id : config.pid,
+                                    key: 'status',
+                                    value: status.prop('checked') == true ? 1 : 0
+                                }
+                                upSwitch(params)
+                            })
+                        }
+                        function upSwitch(params) {
+                            var load = params.value == 0 ? '禁止' : '开启',
+                                url = '/tamper_core/modify_global_config.json'
+                            if (type == 1) {
+                                url = '/tamper_core/modify_path_config.json'
+                                load += '防篡改'
+                            }else{
+                                load += '全局'
+                            }
+                            bt_tools.send({url:url,data: params}, function (rdata) {
+                                bt_tools.msg(rdata);
+                                if (rdata.status) {
+                                    if (type == 1) protectTable.$refresh_table_list()
+                                }
+                            }, load)
+                        }
+                        robj.append('<ul class="help-text-info mb15 pl7"><li>提示：当前配置默认拦截以上规则，请根据当前项目需求设置和配置规则</li></ul>')
+                    }
+                }
+                var proFileSuf = {
+                    title:'受保护的文件后缀',
+                    callback:function(robj){
+                        robj.html('<div id="blackExts" class="mt10"></div>')
+                        blackExtsTable = bt_tools.table({
+                            el: '#blackExts',
+                            url: '/tamper_core/get_tamper_paths.json',
+                            height: '269',
+                            load: true,
+                            default: "暂无受保护的文件后缀",
+                            dataFilter: function (res) {
+                                var data1 = []
+                                for (var i = 0; i < res.length; i++) {
+                                    if (res[i].pid == config.pid) {
+                                        var black_exts = res[i].black_exts
+                                        for (var j = 0; j < black_exts.length; j++) {
+                                            data1.push({exts:black_exts[j]})
+                                        }
+                                    }
+                                }
+                                return { data: data1 };
+                            },
+                            column: [
+                                {
+                                    fid: 'exts',
+                                    title: '后缀名',
+                                    type: 'text',
+                                },{
+                                    title: '操作',
+                                    type: 'group',
+                                    width: '200px',
+                                    align: 'right',
+                                    group: [{
+                                        title: '删除',
+                                        event: function (rowc, index, ev, key, rthat) {
+                                            var params = {
+                                                path_id: config.pid,
+                                                path: config.path,
+                                                exts: rowc.exts
+                                            }
+                                            bt.confirm({ title: '删除受保护的文件后缀【' + rowc.exts + '】', msg: '删除受保护的文件后缀后，文件名以该后缀结尾的文件将失去保护，是否继续操作？' }, function () {
+                                                bt_tools.send({url:'/tamper_core/remove_black_exts.json'}, params, function (rdata) {
+                                                    bt_tools.msg(rdata);
+                                                    if (rdata.status) {
+                                                        blackExtsTable.$refresh_table_list()
+                                                    }
+                                                },'删除受保护的文件后缀')
+                                            })
+                                        }
+                                    }]
+                                }
+                            ],
+                            tootls: [{ // 按钮组
+                                type: 'group',
+                                positon: ['left', 'top'],
+                                list: [{
+                                    title: '添加',
+                                    active: true,
+                                    event: function (ev, that) {
+                                        var exts = $('input[name=exts]').val()
+                                        if(exts == '') return layer.msg('请输入后缀名', {icon:2})
+                                        var params = {
+                                            path_id: config.pid,
+                                            path: config.path,
+                                            exts: exts
+                                        }
+                                        bt_tools.send({url:'/tamper_core/add_black_exts.json'}, params, function (rdata) {
+                                            bt_tools.msg(rdata);
+                                            if (rdata.status) {
+                                                blackExtsTable.$refresh_table_list()
+                                                $('input[name=exts]').val('')
+                                            }
+                                        },'添加扩展名')
+                                    }
+                                }]
+                            }],
+                            success: function () {
+                                if($('input[name=exts]').length == 0){
+                                    $('#blackExts .tootls_top .pull-left .btn').before('<input type="text" name="exts" placeholder="后缀名" class="bt-input-text mr10 " value="">')
+                                }
+                            }
+                        })
+                        robj.append('<ul class="help-info-text mt10 pl7">\
+                            <li>所谓文件后缀是指文件名结尾的字符串，不一定是扩展名</li>\
+                            <li>例如<code>.php</code>,<code>.html</code>,<code>.js</code>,<code>index.php</code>等</li>\
+                            示例：\
+                            <li><code>.php</code> 匹配：<code>./1.php</code> <code>./test/2.php</code> 不匹配：<code>./1.php/1.txt</code></li>\
+                            <li><code>index.php</code> 匹配：<code>./index.php</code> <code>./test/index.php</code> <code>./abc_index.php</code>不匹配：<code>./index.php.tar.gz</code></li>\
+                        </ul>')
+                    }
+                }
+                var directoryWhite = {
+                    title:'目录白名单',
+                    callback:function(robj){
+                        robj.html('<div id="directorysWhite" class="mt10"></div>')
+                        directorysTable = bt_tools.table({
+                            el: '#directorysWhite',
+                            url: '/tamper_core/get_tamper_paths.json',
+                            height: '218',
+                            load: true,
+                            default: "暂无目录白名单",
+                            dataFilter: function (res) {
+                                var data1 = []
+                                for (var i = 0; i < res.length; i++) {
+                                    if (res[i].pid == config.pid) {
+                                        var white_dirs = res[i].white_dirs
+                                        for (var j = 0; j < white_dirs.length; j++) {
+                                            data1.push({dirname:white_dirs[j]})
+                                        }
+                                    }
+                                }
+                                return { data: data1 };
+                            },
+                            column: [
+                                {
+                                    fid: 'dirname',
+                                    title: '目录名',
+                                    type: 'text',
+                                },{
+                                    title: '操作',
+                                    type: 'group',
+                                    width: '200px',
+                                    align: 'right',
+                                    group: [{
+                                        title: '删除',
+                                        event: function (rowc, index, ev, key, rthat) {
+                                            var params = {
+                                                path_id: config.pid,
+                                                path: config.path,
+                                                dirname: rowc.dirname
+                                            }
+                                            bt.confirm({ title: '删除目录白名单【' + rowc.dirname + '】', msg: '删除该目录白名单后，该目录下的所有文件将受到保护，是否继续操作？' }, function () {
+                                                bt_tools.send({url:'/tamper_core/remove_white_dirs.json'}, params, function (rdata) {
+                                                    bt_tools.msg(rdata);
+                                                    if (rdata.status) {
+                                                        directorysTable.$refresh_table_list()
+                                                    }
+                                                },'删除目录白名单')
+                                            })
+                                        }
+                                    }]
+                                }
+                            ],
+                            tootls: [{ // 按钮组
+                                type: 'group',
+                                positon: ['left', 'top'],
+                                list: [{
+                                    title: '添加',
+                                    active: true,
+                                    event: function (ev, that) {
+                                        var dirname = $('input[name=dirname]').val()
+                                        if(dirname == '') return layer.msg('请输入目录名', {icon:2})
+                                        var params = {
+                                            path_id: config.pid,
+                                            path: config.path,
+                                            dirname: dirname
+                                        }
+                                        bt_tools.send({url:'/tamper_core/add_white_dirs.json'}, params, function (rdata) {
+                                            bt_tools.msg(rdata);
+                                            if (rdata.status) {
+                                                directorysTable.$refresh_table_list()
+                                                $('input[name=dirname]').val('')
+                                            }
+                                        },'添加目录白名单')
+                                    }
+                                }]
+                            }],
+                            success: function () {
+                                if($('input[name=dirname]').length == 0){
+                                    $('#directorysWhite .tootls_top .pull-left .btn').before('<input type="text" name="dirname" placeholder="目录名" class="bt-input-text mr10 " value="">')
+                                }
+                            }
+                        })
+                        robj.append('<ul class="help-info-text mt10 pl7">\
+                            <li>此处允许使用全路径或目录名或路径的一部分如：<code>/www/abc/cache/test/,test,cache/test/</code></li>\
+                            <li>全路径首位必需为<code>/</code>，如：<code>/www/abc/cache/test/</code></li>\
+                            <li>录名或路径的一部分首位不能是<code>/</code>，如：<code>cache/test/</code> 或 <code>test</code></li>\
+                            示例：\
+                            <li><code>/www/abc/</code> 匹配:<code>/www/abc/*</code>  不匹配：<code>/www/abc</code> <code>/www/abc123</code></li>\
+                            <li><code>test</code> 匹配：<code>/www/test/1.txt</code> <code>/www/test_abc</code> 不匹配：<code>/www/1.php</code></li>\
+                            <li><code>cache/test/</code> 匹配：<code>/www/cache/test/1.txt</code> <code>/cache/test/</code>不匹配：<code>/www/cache/test</code> <code>/cache/</code></li>\
+                        </ul>')
+                    }
+                }
+                var fileWhite = {
+                    title:'文件白名单',
+                    callback:function(robj){
+                        robj.html('<div id="filesWhite" class="mt10"></div>')
+                        directorysTable = bt_tools.table({
+                            el: '#filesWhite',
+                            url: '/tamper_core/get_tamper_paths.json',
+                            height: '268.5',
+                            load: true,
+                            default: "暂无文件白名单",
+                            dataFilter: function (res) {
+                                var data1 = []
+                                for (var i = 0; i < res.length; i++) {
+                                    if (res[i].pid == config.pid) {
+                                        var white_files = res[i].white_files
+                                        for (var j = 0; j < white_files.length; j++) {
+                                            data1.push({filename:white_files[j]})
+                                        }
+                                    }
+                                }
+                                return { data: data1 };
+                            },
+                            column: [
+                                {
+                                    fid: 'filename',
+                                    title: '文件名',
+                                    type: 'text',
+                                },{
+                                    title: '操作',
+                                    type: 'group',
+                                    width: '200px',
+                                    align: 'right',
+                                    group: [{
+                                        title: '删除',
+                                        event: function (rowc, index, ev, key, rthat) {
+                                            var params = {
+                                                path_id: config.pid,
+                                                path: config.path,
+                                                filename: rowc.filename
+                                            }
+                                            bt.confirm({ title: '删除文件白名单【' + rowc.filename + '】', msg: '删除该文件白名单后，该文件将受到保护，是否继续操作？' }, function () {
+                                                bt_tools.send({url:'/tamper_core/remove_white_files.json'}, params, function (rdata) {
+                                                    bt_tools.msg(rdata);
+                                                    if (rdata.status) {
+                                                        directorysTable.$refresh_table_list()
+                                                    }
+                                                },'删除文件白名单')
+                                            })
+                                        }
+                                    }]
+                                }
+                            ],
+                            tootls: [{ // 按钮组
+                                type: 'group',
+                                positon: ['left', 'top'],
+                                list: [{
+                                    title: '添加',
+                                    active: true,
+                                    event: function (ev, that) {
+                                        var filename = $('input[name=filename]').val()
+                                        if(filename == '') return layer.msg('请输入文件名', {icon:2})
+                                        var params = {
+                                            path_id: config.pid,
+                                            path: config.path,
+                                            filename: filename
+                                        }
+                                        bt_tools.send({url:'/tamper_core/add_white_files.json'}, params, function (rdata) {
+                                            bt_tools.msg(rdata);
+                                            if (rdata.status) {
+                                                directorysTable.$refresh_table_list()
+                                                $('input[name=filename]').val('')
+                                            }
+                                        },'添加文件白名单')
+                                    }
+                                }]
+                            }],
+                            success: function () {
+                                if($('input[name=filename]').length == 0){
+                                    $('#filesWhite .tootls_top .pull-left .btn').before('<input type="text" name="filename" placeholder="文件名" class="bt-input-text mr10 " value="">')
+                                }
+                            }
+                        })
+                        robj.append('<ul class="help-info-text mt10 pl7">\
+                            <li>此处允许使用全路径或单一文件名如：<code>/test/index.php</code>,<code>index.php</code></li>\
+                            <li>注意，只能是绝对路径或文件名不支持相对路径</li>\
+                            示例：\
+                            <li><code>index.php</code> 匹配：<code>./index.php</code> <code>./test/index.php</code>不匹配：<code>./abc_index.php</code> <code>./index.php/1.txt</code></li>\
+                            <li><code>/test/index.php</code> 只匹配：<code>/test/index.php</code></li>\
+                        </ul>')
+                    }
+                }
+                var processWhite = {
+                    title:'进程白名单',
+                    callback:function(robj){
+                        robj.html('<div id="processsWhite" class="mtb10"></div>')
+                        processsWhiteTable = bt_tools.table({
+                            el: '#processsWhite',
+                            url: '/tamper_core/get_tamper_global_config.json',
+                            height: '365',
+                            load: true,
+                            default: "暂无进程白名单",
+                            dataFilter: function (res) {
+                                var pnames = res.process_names,data1 = []
+                                for (var i = 0; i < pnames.length; i++) {
+                                    data1.push({name:pnames[i]})
+                                }
+                                return { data: data1 };
+                            },
+                            column: [
+                                {
+                                    fid: 'name',
+                                    title: '进程',
+                                    type: 'text',
+                                },{
+                                    title: '操作',
+                                    type: 'group',
+                                    width: '200px',
+                                    align: 'right',
+                                    group: [{
+                                        title: '删除',
+                                        event: function (rowc, index, ev, key, rthat) {
+                                            bt.confirm({ title: '删除进程白名单', msg: '删除白名单进程【' + rowc.name + '】后，该进程将无法对保护目录文件进行操作，是否继续操作？' }, function () {
+                                                bt_tools.send({url:'/tamper_core/remove_process_names.json'}, {pname:rowc.name}, function (rdata) {
+                                                    bt_tools.msg(rdata);
+                                                    if (rdata.status) {
+                                                        processsWhiteTable.$refresh_table_list()
+                                                    }
+                                                },'删除进程白名单')
+                                            })
+
+                                        }
+                                    }]
+                                }
+                            ],
+                            tootls: [{ // 按钮组
+                                type: 'group',
+                                positon: ['left', 'top'],
+                                list: [{
+                                    title: '添加',
+                                    active: true,
+                                    event: function (ev, that) {
+                                        var pname = $('input[name=pname]').val()
+                                        if(pname == '') return layer.msg('请输入进程名称', {icon:2})
+                                        bt_tools.send({url:'/tamper_core/add_process_names.json'}, {pname:pname}, function (rdata) {
+                                            bt_tools.msg(rdata);
+                                            if (rdata.status) {
+                                                processsWhiteTable.$refresh_table_list()
+                                                $('input[name=pname]').val('')
+                                            }
+                                        },'添加进程白名单')
+                                    }
+                                }]
+                            }],
+                            success: function () {
+                                if($('input[name=pname]').length == 0){
+                                    $('#processsWhite .tootls_top .pull-left .btn').before('<input type="text" name="pname" placeholder="进程名称" class="bt-input-text mr10 " value="">')
+                                }
+                            }
+                        })
+                        robj.append('<ul class="help-info-text mt10 pl7">\
+                            <li>使用绝对进程名称，如<code>mysqld</code>、<code>php-fpm</code>、<code>nginx</code>、<code>pure-ftpd</code></li>\
+                            <li>在白名单内的进程修改文件时不会被拦截</li>\
+                        </ul>')
+                    }
+                }
+                var userWhite = { 
+                    title:'用户白名单',
+                    callback:function(robj){
+                        bt_tools.send({url:'/tamper_core/get_tamper_global_config.json'}, function (config) {
+                            var uids = config.uids
+                            robj.html('<div id="usersWhite"></div>')
+                            usersWhiteTable = bt_tools.table({
+                                el: '#usersWhite',
+                                url: '/tamper_core/get_linux_uids.json',
+                                height: '430px',
+                                load: true,
+                                default: "暂无用户白名单",
+                                dataFilter: function (res) {
+                                    for (var j = 0; j < res.length; j++) {
+                                        if(config.uids.indexOf(parseInt(res[j].uid)) > -1 ){
+                                            res[j]['sw'] = 1
+                                        }else{
+                                            res[j]['sw'] = undefined
+                                        }
+                                    }
+                                    return { data: res };
+                                },
+                                column: [{
+                                        fid: 'user',
+                                        title: '用户',
+                                        type: 'text',
+                                    },{
+                                        fid: 'ps',
+                                        title: '描述',
+                                        type: 'text',
+                                    },{
+                                        title: '状态',
+                                        type: 'switch',
+                                        fid: 'sw',
+                                        align: 'right',
+                                        event: function (rowc, index, ev, key, rthat) {
+                                            var status_btn = $('#usersWhite tbody tr:eq('+index+') .btswitch-btn').siblings(),
+                                                status = status_btn.prop('checked')
+                                            var url = '', load = '', params = {
+                                                uid: rowc.uid
+                                            }
+                                            if (status) {
+                                                url = '/tamper_core/add_uids.json'
+                                                load = '添加用户白名单'
+                                            } else {
+                                                url = '/tamper_core/remove_uids.json'
+                                                load = '删除用户白名单'
+                                            }
+                                            layer.confirm(!status ? '关闭该用户白名单后，指定用户启动的所有进程修改文件时会被拦截，是否继续操作？' : '启用该用户白名单后，指定用户启动的所有进程修改文件时不会被拦截，是否继续操作？', {icon: 3, title: status ? '启用用户白名单【'+ rowc.user +'】' : '关闭用户白名单【'+ rowc.user +'】',closeBtn: 2,cancel: function () {
+                                                status_btn.prop('checked',!status)
+                                            }}, function (index) {
+                                                layer.close(index);
+                                                bt_tools.send({url:url},params, function (rdata) {
+                                                    bt_tools.msg(rdata);
+                                                },load)
+                                            }, function () {
+                                                status_btn.prop('checked',!status)
+                                            });
+                                        }
+                                    }
+                                ]
+                            })
+                            robj.append('<ul class="help-info-text mt10 pl7">\
+                                <li>启用后，指定用户启动的所有进程修改文件时不会被拦截</li>\
+                            </ul>')
+                        })
+                    }
+                }
+                var groupWhite = {
+                    title:'用户组白名单',
+                    callback:function(robj){
+                        bt_tools.send({url:'/tamper_core/get_tamper_global_config.json'}, function (config) {
+                            robj.html('<div id="groupsWhite"></div>')
+                            groupsWhiteTable = bt_tools.table({
+                                el: '#groupsWhite',
+                                url: '/tamper_core/get_linux_gids.json',
+                                height: '430px',
+                                load: true,
+                                default: "暂无用户组白名单",
+                                dataFilter: function (res) {
+                                    for (var j = 0; j < res.length; j++) {
+                                        if(config.gids.indexOf(parseInt(res[j].gid)) > -1 ){
+                                            res[j]['sw'] = 1
+                                        }else{
+                                            res[j]['sw'] = undefined
+                                        }
+                                    }
+                                    return { data: res };
+                                },
+                                column: [{
+                                        fid: 'group',
+                                        title: '用户组',
+                                        type: 'text',
+                                    },{
+                                        fid: 'ps',
+                                        title: '描述',
+                                        type: 'text',
+                                    },{
+                                        title: '状态',
+                                        type: 'switch',
+                                        fid: 'sw',
+                                        align: 'right',
+                                        event: function (rowc, index, ev, key, rthat) {
+                                            var status_btn = $('#groupsWhite tbody tr:eq('+index+') .btswitch-btn').siblings(),
+                                                status = status_btn.prop('checked')
+                                            var url = '', load = '', params = {
+                                                gid: rowc.gid
+                                            }
+                                            if (status) {
+                                                url = '/tamper_core/add_gids.json'
+                                                load = '添加用户组白名单'
+                                            } else {
+                                                url = '/tamper_core/remove_gids.json'
+                                                load = '删除用户组白名单'
+                                            }
+                                            layer.confirm(!status ? '关闭该用户组白名单后，指定用户组下面的所有用户启动的进程修改文件时会被拦截，是否继续操作？' : '启用该用户组白名单后，指定用户组下面的所有用户启动的进程修改文件时不会被拦截，是否继续操作？', {icon: 3, title: status ? '启用用户组白名单【'+ rowc.group +'】' : '关闭用户组白名单【'+ rowc.group +'】',closeBtn: 2,cancel: function () {
+                                                status_btn.prop('checked',!status)
+                                            }}, function (index) {
+                                                layer.close(index);
+                                                bt_tools.send({url:url},params, function (rdata) {
+                                                    bt_tools.msg(rdata);
+                                                },load)
+                                            }, function () {
+                                                status_btn.prop('checked',!status)
+                                            });
+                                        }
+                                    }
+                                ]
+                            })
+                            robj.append('<ul class="help-info-text mt10 pl7">\
+                                <li>启用后，指定用户组下面的所有用户启动的进程修改文件时不会被拦截</li>\
+                            </ul>')
+                        })
+                    }
+                }
+                var _tab = [],
+                    name = ''
+                if (type == 2) {
+                    _tab = [basicSet,processWhite,userWhite,groupWhite]
+                    name = 'tabGlobalConfig'
+                }else{
+                    _tab = [basicSet,proFileSuf,directoryWhite,fileWhite],
+                    name = 'tabTamperConfig'
+                }
+                bt.render_tab(name, _tab)
+                $('#'+name+' span:eq(0)').click();
+             },
+        }
+        tamper_core.init()
+    })()
+</script>

@@ -1,0 +1,2375 @@
+<style>
+	.bg-bubbles {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 99;
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		opacity: 0.8;
+	}
+
+	.bg-bubbles li {
+		position: absolute;
+		bottom: -10pc;
+		z-index: -1;
+		width: 40px;
+		height: 40px;
+		background-color: rgba(32, 165, 58, 0.08);
+		list-style: none;
+		transition-timing-function: linear;
+		animation: square 15s infinite;
+	}
+
+	.bg-bubbles li:nth-child(1) {
+		left: 10%;
+	}
+
+	.bg-bubbles li:nth-child(2) {
+		left: 20%;
+		width: 90px;
+		height: 90px;
+		animation-delay: 2s;
+		animation-duration: 7s;
+	}
+
+	.bg-bubbles li:nth-child(3) {
+		left: 25%;
+		animation-delay: 4s;
+	}
+
+	.bg-bubbles li:nth-child(4) {
+		left: 40%;
+		width: 60px;
+		height: 60px;
+		background-color: rgba(32, 165, 58, 0.02);
+		animation-duration: 8s;
+	}
+
+	.bg-bubbles li:nth-child(5) {
+		left: 70%;
+	}
+
+	.bg-bubbles li:nth-child(6) {
+		left: 80%;
+		width: 90pt;
+		height: 90pt;
+		background-color: rgba(32, 165, 58, 0.02);
+		animation-delay: 3s;
+	}
+
+	.bg-bubbles li:nth-child(7) {
+		left: 32%;
+		width: 10pc;
+		height: 10pc;
+		animation-delay: 2s;
+	}
+
+	.bg-bubbles li:nth-child(8) {
+		left: 55%;
+		width: 20px;
+		height: 20px;
+		animation-delay: 4s;
+		animation-duration: 15s;
+	}
+
+	.bg-bubbles li:nth-child(9) {
+		left: 25%;
+		width: 10px;
+		height: 10px;
+		background-color: rgba(32, 165, 58, 0.05);
+		animation-delay: 2s;
+		animation-duration: 12s;
+	}
+
+	.bg-bubbles li:nth-child(10) {
+		left: 85%;
+		width: 10pc;
+		height: 10pc;
+		animation-delay: 5s;
+	}
+
+	@keyframes square {
+		0% {
+			opacity: 0.5;
+			transform: translatey(0) rotate(45deg);
+		}
+
+		25% {
+			opacity: 0.75;
+			transform: translatey(-400px) rotate(90deg);
+		}
+
+		50% {
+			opacity: 1;
+			transform: translatey(-600px) rotate(135deg);
+		}
+
+		to {
+			opacity: 0;
+			transform: translatey(-1000px) rotate(180deg);
+		}
+	}
+
+	@-webkit-keyframes square {
+		0% {
+			opacity: 0.5;
+			-webkit-transform: translatey(0) rotate(45deg);
+		}
+
+		25% {
+			opacity: 0.75;
+			-webkit-transform: translatey(-400px) rotate(90deg);
+		}
+
+		50% {
+			opacity: 1;
+			-webkit-transform: translatey(-600px) rotate(135deg);
+		}
+
+		to {
+			opacity: 0;
+			-webkit-transform: translatey(-1000px) rotate(180deg);
+		}
+	}
+
+	@-webkit-keyframes removeLeft {
+		0% {
+			visibility: visible;
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+
+		to {
+			-webkit-transform: translateX(-350px);
+			transform: translateX(-350px);
+		}
+	}
+
+	@keyframes removeLeft {
+		0% {
+			visibility: visible;
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+
+		to {
+			-webkit-transform: translateX(-350px);
+			transform: translateX(-350px);
+		}
+	}
+
+	@-webkit-keyframes removeRight {
+		0% {
+			opacity: 0;
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+
+		to {
+			opacity: 1;
+			-webkit-transform: translateX(500px);
+			transform: translateX(500px);
+		}
+	}
+
+	@keyframes removeRight {
+		0% {
+			opacity: 0;
+			-webkit-transform: translateX(0);
+			transform: translateX(0);
+		}
+
+		to {
+			opacity: 1;
+			-webkit-transform: translateX(500px);
+			transform: translateX(500px);
+		}
+	}
+
+	@-webkit-keyframes slideInLeft {
+		0% {
+			visibility: visible;
+			-webkit-transform: translate3d(-100%, 0, 0);
+			transform: translate3d(-100%, 0, 0);
+		}
+
+		to {
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+	}
+
+	@keyframes slideInLeft {
+		0% {
+			visibility: visible;
+			-webkit-transform: translate3d(-100%, 0, 0);
+			transform: translate3d(-100%, 0, 0);
+		}
+
+		to {
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+	}
+
+	@-webkit-keyframes slideInRight {
+		0% {
+			visibility: visible;
+			-webkit-transform: translate3d(100%, 0, 0);
+			transform: translate3d(100%, 0, 0);
+		}
+
+		to {
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+	}
+
+	@keyframes slideInRight {
+		0% {
+			visibility: visible;
+			-webkit-transform: translate3d(100%, 0, 0);
+			transform: translate3d(100%, 0, 0);
+		}
+
+		to {
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+	}
+
+	@keyframes ellipsis {
+		0% {
+			content: '';
+		}
+
+		25% {
+			content: '.';
+		}
+
+		50% {
+			content: '..';
+		}
+
+		75% {
+			content: '...';
+		}
+
+		100% {
+			content: '';
+		}
+	}
+
+	.animated {
+		-webkit-animation-duration: 1s;
+		animation-duration: 1s;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+	}
+
+	.direction-column {
+		flex-direction: column;
+	}
+
+	#DiskAnalysis {
+		height: 526px;
+		width: 1000px;
+		position: relative;
+		overflow: hidden;
+		padding-bottom: 24px;
+	}
+
+	.scan-header,
+	.scan-view,
+	.file-view {
+		position: relative;
+		z-index: 999;
+	}
+
+	.file-view {
+		padding: 0 24px 24px;
+	}
+
+	/* 省略动画效果 */
+	.omit {
+		display: inline-block;
+	}
+
+	.omit::after {
+		content: '';
+		animation: ellipsis 2s infinite;
+	}
+
+	/* 省略 */
+	.nowrap {
+		display: inline-block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	/* 初始化状态 */
+	.scan-header.init {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		border-radius: 4px;
+	}
+
+	/* 扫描左侧内容 */
+	.scan-header .scan-left {
+		height: 136px;
+		width: 136px;
+		position: relative;
+		margin-right: 96px;
+		transition: all 500ms;
+		margin-left: 8px;
+	}
+
+	.scan-left .filescan-serach {
+		width: 136px;
+		height: 136px;
+		position: absolute;
+		transition: all 500ms;
+	}
+
+	.scan-left .filescan-icon {
+		width: 60px;
+		height: 60px;
+		position: absolute;
+		right: -10px;
+		bottom: 0;
+		transition: all 500ms;
+	}
+
+	/* 扫描右侧内容 */
+	.scan-right .scan-title {
+		font-size: 24px;
+		
+		color: #555;
+		/* 邓 */
+		margin-bottom: 14px;
+		font-weight: 600;
+	}
+
+	.scan-right .scan-dir {
+		margin-bottom: 16px;
+	}
+
+	.scan-right .scan-dir span {
+		margin-right: 10px;
+		font-size: 13px;
+	}
+
+	.scan-right .scan-dir .btlink {
+		font-size: 13px;
+	}
+
+	.scan-btn button {
+		/* 邓 */
+		margin-right: 16px;
+		font-size: 14px;
+		padding: 6px 16px;
+		transition: all 500ms;
+	}
+
+	.scan-btn button:last-child {
+		margin-right: 8px;
+	}
+
+	.scan-btn .cancel-scan {
+		display: none;
+	}
+
+	/* 启动扫描后 */
+	.scan-header.scan,
+	.scan-header.result {
+		padding: 24px 24px 16px;
+		display: flex;
+	}
+
+	.scan-header.scan .scan-left,
+	.scan-header.result .scan-left {
+		height: 60px;
+		width: 60px;
+		position: relative;
+		margin-right: 40px;
+		/*邓 */
+		/* top:6px */
+	}
+
+	.scan-header.scan .filescan-serach,
+	.scan-header.result .filescan-serach {
+		height: 60px;
+		width: 60px;
+	}
+
+	.scan-header.scan .filescan-icon,
+	.scan-header.result .filescan-icon {
+		height: 25px;
+		width: 25px;
+	}
+
+	.scan-header.scan .scan-right,
+	.scan-header.result .scan-right {
+		display: flex;
+		flex: 1;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.scan-header.scan .scan-title {
+		font-size: 20px;
+		margin-bottom: 4px;
+	}
+
+	.scan-header.scan .scan-dir,
+	.scan-header.result .scan-dir {
+		display: none;
+	}
+
+	.scan-header.result .scan-title {
+		font-size: 16px;
+		line-height: 24px;
+		/* width: 350px; */
+		margin-bottom: 0;
+	}
+
+	.scan-header.result .scan-dir {
+		margin-bottom: 0;
+	}
+	.scan-header .scan-dir {
+		display: flex;
+		padding-left: 2px;
+	}
+	.scan-header.result .scan-btn {
+		display: flex;
+	}
+
+	.scan-header .scan-dir .catalogue {
+		display: inline-block;
+    	/* max-width: 100px; */
+		vertical-align: middle;
+		border: 1px solid #DCDFE6;
+		
+		width: 300px;
+		padding: 0px 30px 0px 8px;
+		
+		/* 邓 */
+		color: #666666;
+		font-size: 12px;
+		line-height: 30px;
+		border-radius: 2px;
+	}
+
+	.scan-header.result .scan-dir span,
+	.scan-header.result .scan-dir .btlink {
+		font-size: 12px;
+		margin-left: 4px;
+	}
+
+	.scan-header.scan .scan-btn .scan-now,
+	.scan-header.scan .scan-btn .history-scan {
+		display: none;
+	}
+
+	.scan-header.scan .scan-btn .cancel-scan {
+		display: block;
+	}
+
+	.scan-view {
+		padding: 0 24px 24px;
+	}
+
+	.scan-view pre {
+		overflow: auto;
+		border: 0 none;
+		line-height: 23px;
+		padding: 15px;
+		margin: 0;
+		white-space: pre-wrap;
+		background-color: #00192b;
+		color: #f1f1f1;
+		border-radius: 2px;
+		transition: all 200ms;
+	}
+
+	/* 文件表格 */
+
+	.filescan-nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		/* 邓 */
+		height: 61px;
+		line-height: 30px;
+		border-top: 1px solid #efefef;
+		padding: 0 4px;
+	}
+
+	.filescan-nav .divider {
+		display: inline-block;
+		height: 16px;
+		line-height: 16px;
+		padding: 0 8px;
+		color: #bbb;
+		position: relative;
+		top: -1px;
+	}
+
+	.filescan-nav .filescan-nav-item {
+		max-width: 120px;
+		display: inline-block;
+		height: 20px;
+		line-height: 20px;
+		/* 邓 */
+		font-size: 12px;
+	}
+
+	.filescan-list {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		color: #666666;
+	}
+
+	.file-type-icon {
+		/* 邓 */
+		width: 16px;
+		height: 18px;
+		/* 邓  end*/
+		display: inline-block;
+		vertical-align: middle;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.file_folder {
+		height: 16px;
+		background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYuMDAwMDAwIiBoZWlnaHQ9IjE2LjAwMDAwMCIgdmlld0JveD0iMCAwIDE2IDE2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KCTxkZXNjPgoJCQlDcmVhdGVkIHdpdGggUGl4c28uCgk8L2Rlc2M+Cgk8ZGVmcz4KCQk8Y2xpcFBhdGggaWQ9ImNsaXA2XzEzOTAiPgoJCQk8cmVjdCBpZD0i5paH5Lu25Zu+5qCHIiB3aWR0aD0iMTYuMDAwMDAwIiBoZWlnaHQ9IjE2LjAwMDAwMCIgZmlsbD0id2hpdGUiLz4KCQk8L2NsaXBQYXRoPgoJPC9kZWZzPgoJPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXA2XzEzOTApIj4KCQk8cGF0aCBpZD0icGF0aCIgZD0iTTEuMjY4MTMgNi40Mzg1N0wwIDExLjA4ODNMMCAyLjE2NjZDMC4wMDA2MTAzNTIgMS42MTE2NSAwLjI3ODM4MSAxLjMzMzg4IDAuODMzMzEzIDEuMzMzMjVMNC43OTI5MSAxLjMzMzI1QzUuMDIzMzIgMS4zMzI2MyA1LjIxOTczIDEuNDEzOTcgNS4zODIyIDEuNTc3MzJMNy4wODkyOSAzLjI4NDM5QzcuMTIxNyAzLjMxNzEyIDcuMTYxMDEgMy4zMzM0IDcuMjA3MDkgMy4zMzMyNUwxMy4xNjY3IDMuMzMzMjVDMTMuNzIxNiAzLjMzMzg4IDEzLjk5OTQgMy42MTE2NSAxNCA0LjE2NjZMMTQgNS4zMzMyNUwyLjcxNTIxIDUuMzMzMjVDMS45NTIzOSA1LjMzNDQ5IDEuNDcwMDMgNS43MDI5MyAxLjI2ODEzIDYuNDM4NTdaTTE1LjY3NDQgNi4zMjc0MkMxNS41MDgxIDYuMTA4MDUgMTUuMjg3NCA1Ljk5ODg3IDE1LjAxMjEgNS45OTk5MkwyLjcxNTIxIDUuOTk5OTJDMi4yOTEyNiA2LjAwMDczIDIuMDIzMjUgNi4yMDU1OCAxLjkxMTI1IDYuNjE0NUwwLjE4Mzk2IDEyLjk0NzhDMC4xMTE5MzggMTMuMjEyOSAwLjE1OTI0MSAxMy40NTQ1IDAuMzI1OTg5IDEzLjY3MjZDMC40OTI3MzcgMTMuODkwOCAwLjcxMzM3OSAxMy45OTk5IDAuOTg3OTE1IDEzLjk5OTlMMTMuMjg0OCAxMy45OTk5QzEzLjcwODcgMTMuOTk5MSAxMy45NzY3IDEzLjc5NDMgMTQuMDg4NyAxMy4zODUzTDE1LjgxNiA3LjA1MkMxNS44ODkyIDYuNzg2OTMgMTUuODQyIDYuNTQ1MzkgMTUuNjc0NCA2LjMyNzQyWiIgZmlsbC1ydWxlPSJub256ZXJvIiBmaWxsPSIjRjhENjcyIi8+Cgk8L2c+Cjwvc3ZnPgo=');
+	}
+	/* .file_folder {
+		height: 16px;
+		background-image: url('./static/img/svg_path.png');
+	} */
+	.file_icon {
+		background-size: 24px 24px;
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAFpOLgnAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAMqADAAQAAAABAAAAMgAAAAB1y6+rAAAD10lEQVRoBe1Z3U5aQRBeKBUxpEikll4oNsWnqOHed+lN05foG+ELaPwJl+gFCaW1qZYgBBChFKUz1N3sWWbZ3fOTcsEmJ2dndma+mdnZnwOM2bS7u7spPuVyecrlY7yDA7y/tbU148c5g3r7H6SsmXkzj6y85EJaD90HzO65SIikoxL3VjZwfn4+Iw8PD4VsQhbAfrPZZA8PD4K9vb3N9vb2BI2dOaVcLsfG47FHSCXmlOLxOFtfX1flPPScEo7GYjEsKv4gSxQZEtE3kb52u/04nU7npv7q6qp1cHDwmrsiC5C+9vv93NnZWZUryAhjQHjJB9Q3X1VypmYIjUbDI6udRLD+hJKqgEcbiDmE0WjkkVEnU1aYIagCHm0gjFlapDBDUAVUWkb4jINYS/A8PT+P8J4Ae6AqLhctqkN2C2qxDnP5Tubp+tVqtVcqlTK6ceTLuZLlCjKxqD8YDF7hqXBycvJNJ6eL5A9EItePTn+Oz9eDPKCLhFyJsqJLXwdiVZe2QGRKIFUikm63y4bD4UJ7+Xx+4TgJAhoikkwmw/AJ0nQgIhL1IKLAXLYsWV9Egqdb0KabeBFJUICV/nJmgNy7qIsX5X69XmfZbPZNsVhsUuOcp6suPm5812q1X7CW0osEA4Og8Uql0oedSHtTCQUEgY6OjvBKRKafZNrOCRpX2gjOk5TC056MqlwgOrR0oRdwrSEzo9uFhefqLVIMPHc2NjaYaRM1gpi2cQWUjCTUdAEgCWKM5Pb2VnHWS6ZSKePJaQTZ3Nz0WlWotbU1meMvEtNdXUaAPgkS9pwomP9IY7ocS5iMxAjiWMJkJGGni4wkVBDdLhwqCJkrYJJzAvvcb/AqiUrQl+9gVF/mfdIBrfirDESRAXJ9UkDwZf8RivoLFDTu7KqeE82X7M3NzfdkMvlhf3//B4XpwlMd0OpCIE/cAa2Q4wBepFutFkun053d3d33hUKh42hCiLvsW/LWIQyE0bm/v89eXl62j4+Pf0KyFv9AqgFcikC4b71e7y3c2Yenp6c1COgF59u8XQKxsReKTKfTKUJAk4uLi4qtQZc14vvHL1tnCDnyQ4eQc/r4iWyNUI658sj7g8YIGQhe9k2/tWnsCTZ+EFC/x8FWb10xLoEIYLlDOSCPB+xbB+Ky2MkZCehoaOrWgcB2+D8CsZ4Rl9IiA7m+vmaTCf6l4r8lEgm2s7NDGYgkEApI5wApGyXTurTACXJGonQObFvPyLIHYp2nwGskynPEZUZcAiGzszpHyLT4Zy71GoGjK/zFDteehv98+dMEzK/+NFdaqwyEloG/engwwneEWvEAAAAASUVORK5CYII=');
+	}
+
+	.filescan-list-title {
+		height: 32px;
+		line-height: 32px;
+		padding: 0 8px;
+		color: #555;
+		background: #F6F6F6;
+		border-bottom: 1px solid #efefef;
+	}
+
+	.filescan-list-body {
+		font-size: 12px;
+		flex: 1;
+		max-height: 328px;
+		overflow-y: auto;
+		color: #666;
+	}
+
+	.filescan-list-item {
+		height: 40px;
+		line-height: 40px;
+		border-bottom: 1px solid #efefef;
+		padding: 0 8px;
+	}
+
+	.filescan-list-item:hover {
+		/* 邓 */
+		background-color: #F5F7FA;
+	}
+
+	.filescan-list-title,
+	.filescan-list-item {
+		display: flex;
+		align-items: center;
+		/* 邓 */
+		justify-content: space-between; 
+		color: #666666;
+	}
+
+	.filescan-list-col:nth-child(1),
+	.filescan-list-title-item:nth-child(1){
+		width: 200px;
+	}
+	
+	.filescan-list-col:nth-child(2){
+		/* 邓 */
+		width: 200px; 
+		padding:0 15px;
+		display: flex;
+		align-items: center;
+	}
+	.filescan-list-title-item:nth-child(2) {
+		width: 180px;
+		padding-left: 15px;
+	}
+
+	.filescan-list-col:nth-child(3),
+	.filescan-list-title-item:nth-child(3) {
+		width: 140px;
+	}
+
+	.filescan-list-col:nth-child(4),
+	.filescan-list-title-item:nth-child(4) {
+		/* width: 78px; 邓*/
+		width: 120px;
+	}
+
+	.filescan-list-col:nth-child(5),
+	.filescan-list-title-item:nth-child(5) {
+		width: 90px;
+	}
+
+
+	.filescan-list-col:nth-child(6),
+	.filescan-list-title-item:nth-child(6) {
+		width: 130px;
+	}
+
+	.filescan-list-col:nth-child(7),
+	.filescan-list-title-item:nth-child(7) {
+		width: 130px;
+	}
+
+	.filescan-list-col:nth-child(8),
+	.filescan-list-title-item:nth-child(8) {
+		width: 80px;
+		text-align: right;
+	}
+
+	.filescan-list-col a:hover {
+		background-color: transparent;
+	}
+
+	.filescan-list-col a:focus {
+		text-decoration: none;
+	}
+
+	.filescan-list-col .path {
+		margin-left: 8px;
+	}
+
+	.present{
+		max-width: 220px !important;
+	}
+	
+	.progress_box{
+		flex:1;
+	   	height: 10px;
+		background-color: #e3e3e3;
+		border-radius: 8px;
+		margin-right: 5px;
+		overflow: hidden;
+	}
+	.progress_item{
+		height: 100%;
+	   	background-color: #20a53a;
+		border-radius: 8px;
+	}
+	/* 新增加  邓 */
+	.bt-cp-hover:hover{
+		background-color:#F1F9F3 !important;
+		border: #BCE4C4 1px solid !important;
+		color: #20A53A !important;
+	}
+	/* 按钮点击后的样式 */
+	.btn-dianji{
+		background-color:#F1F9F3 !important;
+		border: #1d9534 1px solid !important;
+		color: #1d9534 !important;
+	}
+	.cursor_ScanPath{
+		position: absolute;
+		left: 275px;
+		top: 8px;
+		font-size: 16px;
+		color: #666666;
+	}
+	.bt-cp{
+		padding-left: 12px !important;
+		padding-right: 12px !important;
+		
+	}
+	#historyTable > .divtable {
+   		 border: 0px;
+	}
+	#historyTable tbody tr td:nth-child(4) {
+		width: 80px;
+		text-align: right;
+		color: #DCDFE6;
+	}
+	#scan_peizi input,#scan_peizi textarea,.catalogue{
+		outline-color:#1D9534;	
+		/* opacity: ; */
+	}
+	/* #scan_peizi input::-webkit-outer-spin-button,
+    #scan_peizi input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+	#scan_peizi input[type="number"] {
+        -moz-appearance: textfield;
+    } */
+	.info-fen {
+		border: 1px dashed #DCDFE6;
+		margin-right: 25px;
+		margin-top: 7px;
+		/* margin-bottom: 15px; */
+	}
+	.title_hover{
+		position: absolute;
+		/* top: 20px;
+		left: 5px; */
+		background: #fff;
+		margin-top: 7px;
+		padding: 10px 12px;
+		z-index: 999;
+		/* width: 290px; */
+		/* min-height: 285px; */
+		/* display: none; */
+		box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+	}
+	.scan-dir{
+		height: 32px;
+	}
+	.table-hover>tbody>tr:hover{
+		background-color: #F5F7FA !important
+	}
+	.scan-set:active{
+		background-color:#F1F9F3 !important;
+		border: #1d9534 1px solid !important;
+		color: #1d9534 !important;
+	}
+	.cursor_ScanPath:active{
+		color: #333;
+	}
+	.cursor_ScanPath:hover{
+		color: #333;
+	}
+	.scan-auxiliary.bt-cp-hover:active{
+		background-color:#F1F9F3 !important;
+		border: #1d9534 1px solid !important;
+		color: #1d9534 !important;
+	}
+	/* .bt-cp-hover:active{
+		background-color:#F1F9F3 !important;
+		border: #1d9534 1px solid !important;
+		color: #1d9534 !important;
+	} */
+	.bt-cp-hover:focus{
+		background-color:#fff !important;
+		border: #ccc 1px solid !important;
+		color: #666666 !important;
+	}
+	span.tname {
+		font-size: 14px;
+		color: #666666;
+	}
+	.line {
+    padding: 10px 0;
+}
+	.line .info-r {
+    	margin-bottom: 0px;
+		/* margin-left: 100px;
+		position: relative; */
+	}
+	#scan_peizi form .line:nth-child(2){
+		padding-top: 0px
+	}
+
+	.layui-layer-btn {
+		background-color: #f6f8f8;
+		border-top: 1px solid #edf1f2;
+		border-bottom: 1px solid #edf1f2;
+		float: left;
+		padding: 10px 18px 10px;
+		pointer-events: auto;
+		text-align: right;
+		width: 100%;
+		user-select: none;
+		-webkit-user-select: none;
+	}
+	.bt-search .glyphicon-search {
+		/* height: 28px;
+		line-height: 28px;
+		padding: 0 10px;
+		color: #888;
+		position: absolute; */
+		right: 1px !important;
+		/* font-size: 14px;
+		cursor: pointer; */
+	}
+	.xin_search{
+		background-color: #F5F7FA;
+		width: 44px;
+		text-align: center;
+		border-left: 1px solid #ccc;
+		/* border-right: 1px solid #ccc; */
+		height: 30px !important;
+    	line-height: 30px!important;
+	}
+	.btlink:hover,.btlink:active{
+		color:#238B37 ;	
+	}
+	div#filescan-nav-search {
+   		 height: 32px;
+	}
+	input.search-input {
+   		height: inherit !important;
+	}
+	button#screen {
+		/* height: 32px; */
+		border-radius: 2px;
+	}
+	.scan-result{
+		display: inline-block;
+		height: 24px !important;
+		line-height: 24px ;		
+	}
+	.scan-result.deng{
+		font-weight: 400;
+	}
+	.glyphicon-search:before {
+    		content: "" !important;
+   }
+   	#DiskAnalysis button.btn.btn-default{
+		color: #666666;
+	}
+	.btn.active, .btn:active {
+		background-image: none;
+		outline: 0;
+		-webkit-box-shadow: none !important;
+		box-shadow: none !important;
+	}
+	a{
+		color: #666666;
+	}
+	/* 排序图标 */
+	 .caret-wrapper {
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
+		height: 34px;
+		width: 24px;
+		vertical-align: middle;
+		cursor: pointer;
+		overflow: initial;
+		position: relative;
+		justify-content: center;
+	}
+	.caret-wrapper svg{
+		width: 10px;
+		height: 14px;
+
+	}
+	#caret1{
+		color: #CDCDCD;
+	}
+	#caret2{
+		color: #CDCDCD;
+	}
+	.filescan-list-item .filescan-list-col:nth-child(3){
+		text-align: center;
+	}
+	.deng_cursor{
+		cursor: pointer
+	}
+	.hide-show{
+		display: none;
+	}
+	.Catalogue_show{
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	.File_show{
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
+		/* border-left: none; */
+	}
+</style>
+<div id="DiskAnalysis">
+	<div class="scan-header init">
+		<div class="scan-left">
+			<img
+				class="filescan-serach"
+				src="data:image/png;base64,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"
+				alt=""
+			/>
+			<img
+				class="filescan-icon"
+				src="data:image/png;base64,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"
+				alt=""
+			/>
+		</div>
+		<div class="scan-right">
+			<div class="flex direction-column">
+				<div class="scan-title">扫描分析指定目录占用大小</div>
+				<div class="scan-dir" style="position: relative;">
+					<input title="" class="catalogue nowrap mr10"></input><i class="glyphicon glyphicon-folder-open  cursor_ScanPath deng_cursor"></i>
+					<!-- <a href="javascript:;" class="btlink select-path">点击选择目录</a> -->
+					<!-- <input type="text" class="hide catalogue-path" /> -->
+					<button class="btn btn-default btn-sm scan-set bt-cp-hover bt-cp" id="scan-set">排除路径</button>
+				</div>
+			</div>
+			<div class="scan-btn">
+				<button class="btn btn-success btn-sm scan-now bt-cp">立即扫描</button>
+				<button class="btn btn-default btn-sm scan-auxiliary bt-cp-hover bt-cp" style="color:#666">历史记录</button>
+			</div>
+		</div>
+	</div>
+	<div class="scan-view hide">
+		<pre id="scanProgress">正在获取扫描日志</pre>
+	</div>
+	<div class="file-view hide">
+		<div class="filescan-nav" >
+			<div class="filescan-nav" id="fileScanPath"></div>
+			<div class="filescan-nav-right" style="display: flex;align-items: center;">
+				<button class="btn btn-default btn-sm mr10  bt-cp screen bt-cp-hover hide-show screen_scan" id="screen">筛选设置</button>
+				<span class="hide-show screen_scan" style="border-left: 1px solid #ccc;margin-right: 10px;height: 20px;" ></span>
+				<button class="btn btn-default btn-sm  bt-cp-hover bt-cp Catalogue_show" id="Catalogue_show">目录结构</button>
+				<button class="btn btn-default btn-sm mr10 bt-cp-hover bt-cp File_show" id="File_show">文件结构</button>
+				
+				<!-- <button class="btn btn-default btn-sm mr5 bt-cp-hover bt-cp">历史记录</button> -->
+				<div class="bt-search" id="filescan-nav-search">
+					<input type="text" class="search-input" placeholder="请输入文件/文件夹">
+					<span class="glyphicon glyphicon-search xin_search" aria-hidden="true">
+						<svg  width="11.729492" height="11.479126" viewBox="0 0 11.7295 11.4791" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<desc>
+									Created with Pixso.
+							</desc>
+							<defs/>
+							<path id="path" d="M11.6377 10.8342L8.9585 8.24921C9.67993 7.3559 10.1023 6.19971 10.1023 5.05139C10.1023 2.26624 7.83643 0 5.05176 0C2.26636 0 0 2.26624 0 5.05139C0 7.83655 2.26636 10.1026 5.05176 10.1026C6.27222 10.1026 7.45142 9.65894 8.37183 8.85449L11.0747 11.3843C11.1423 11.4319 11.2458 11.4791 11.3289 11.4791C11.55 11.4791 11.7295 11.2988 11.7295 11.0784C11.7295 10.9933 11.6987 10.9108 11.6377 10.8342ZM5.05176 9.29993C2.70898 9.29993 0.803223 7.39423 0.803223 5.05139C0.803223 2.70886 2.70898 0.803589 5.05176 0.803589C7.39404 0.803589 9.29956 2.70886 9.29956 5.05139C9.29956 7.39423 7.39404 9.29993 5.05176 9.29993Z" fill-rule="nonzero" fill="#999999"/>
+						</svg>
+					</span>
+				</div>
+			</div>
+
+		</div>
+		<div class="filescan-list" id="fileScanTable">
+			<div class="filescan-list-title">
+				<div class="filescan-list-title-item text-left">文件名</div>
+				<!-- <div class="filescan-list-title-item">占比</div> -->
+				<div class="filescan-list-title-item item_Size deng_cursor">大小
+					<span class="caret-wrapper Size" data-type="total_asize">
+						<svg width="8.000000" height="12.000000" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<desc>
+									Created with Pixso.
+							</desc>
+							<defs/>
+							<path id="caret1" d="M4 0L0.535898 5.39999L7.4641 5.39999L4 0Z" fill-rule="evenodd" fill="currentColor"/>
+							<path id="caret2" d="M4 12L0.535898 6.60001L7.4641 6.60001L4 12Z" fill-rule="evenodd" fill="currentColor"/>
+						</svg>
+					</span>
+				</div>
+				<!-- 文件夹 /  -->
+				<div class="filescan-list-title-item item_feile deng_cursor" style="display: flex;justify-content: center;align-items: center;" ><span class="feile">文件数</span>
+					<span class="caret-wrapper feile_srot" data-type="file_num">
+						<svg width="8.000000" height="12.000000" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<desc>
+									Created with Pixso.
+							</desc>
+							<defs/>
+							<path id="caret1" d="M4 0L0.535898 5.39999L7.4641 5.39999L4 0Z" fill-rule="evenodd" fill="currentColor"/>
+							<path id="caret2" d="M4 12L0.535898 6.60001L7.4641 6.60001L4 12Z" fill-rule="evenodd" fill="currentColor"/>
+						</svg>
+					</span>
+				</div>
+				<!-- <div class="filescan-list-title-item hide">最后修改时间</div> -->
+				<div class="filescan-list-title-item">权限 / 所有者</div>
+				<!-- <div class="filescan-list-title-item">最后修改时间</div>
+				<div class="filescan-list-title-item">权限变更时间</div> -->
+				<div class="filescan-list-title-item text-right">操作</div>
+			</div>
+			<div class="filescan-list-body"></div>
+		</div>
+	</div>
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+<script type="text/javascript">
+	// 构造函数：磁盘扫描
+	function DiskAnalysis(config) {
+		this.$el = $(config.el);
+		this.diskPath = bt.get_cookie('diskPath')
+		this.$bgBubbles = this.$el.find('.bg-bubbles')
+		this.$scanHeader = this.$el.find('.scan-header'); // 首页的那个图片
+		this.$scanTitle = this.$el.find('.scan-title'); // 首页的文字标题
+		this.$scanNow = this.$el.find('.scan-now'); // 立即扫描按钮
+		this.$scanAuxiliary = this.$el.find('.scan-auxiliary'); // 历史记录
+		this.$cancelScan = this.$el.find('.cancel-scan'); //
+		this.$scanView = this.$el.find('.scan-view');  //日志
+		this.$fileView = this.$el.find('.file-view'); //磁盘列表
+		this.$fileTableBody = this.$el.find('#fileScanTable .filescan-list-body'); // 文件列表
+		this.$scanPath = this.diskPath && $('#memuA').hasClass('current') ? this.diskPath : '/www/wwwroot'; // 默认扫描目录
+		this.taskId = null; // 任务ID
+		this.id = null; // 扫描刷新任务ID
+		this.taskPath = ''; // 扫描目录
+		this.cutPath = ''; // 当前目录
+		this.taskStatus = false; // 扫描状态
+		this.taskType = 'init'; // 扫描执行阶段
+		this.taskList = {}; // 扫描缓存列表
+		this.isRecycle = false; // 是否开启回收站
+		this.historyList = []; // 历史记录
+		this.taskCancel = false; // 是否取消扫描
+		this.ScanConfiguration={ //扫描配置
+			exclude_path_list:"", //排除路径  带，字符串 在发请求时做了转换为数组
+			sort:'total_asize',//排序方式
+			reverse:true, //排序时候为降序
+			exts:'', //显示以下后缀的文件
+			total_num:'', //显示文件数量
+			show_type:'', //展示类型
+		};
+		this.TemporaryScan={ //临时扫描文件显示的配置
+			total_num:'',
+			exts:''
+		}
+		this.Show_type='';//扫描展示的类型
+		this.scan_id='';//扫描id
+		this.btn='' //判断筛选按钮的
+		this.subpath='' //子路劲
+		this.init();
+	}
+
+	DiskAnalysis.prototype = {
+		// 初始化
+		init: function () {
+			var that = this;
+			this.event();
+			that.getScanAllocation() 
+			$('.layui-layer-page').css({
+				height: '590px',
+				width: '1000px',
+			});
+			setTimeout(function () {
+				bt_tools.setLayerArea('.layui-layer-page');
+			}, 100);
+			this.$scanHeader.find('.catalogue').val(this.$scanPath).attr('title',this.$scanPath);
+			// 获取回收站状态
+			this.getFilesRecycleRequest(function (rdata) {
+				that.isRecycle = rdata.status;
+			});
+		},
+
+		// 事件处理
+		event: function () {
+			var that = this;			
+			// 立即扫描按钮
+			this.bind('.scan-now', function () {
+				var type = that.taskType;
+				if (type == 'init') {
+					var $this = $(this);
+					var $path = that.$scanPath; //扫描路径
+					var $scanView = that.$scanView; // 日志
+					var $scanHeader = that.$scanHeader;//头部
+					var $scanTitle = that.$scanTitle; //首页的文字标题
+					var $scanNow = that.$scanNow; //扫描按钮
+					var $scanAuxiliary = that.$scanAuxiliary; //历史记录
+					var $fileView = that.$fileView; //表格
+					var shellView = $scanView.find('pre');
+					$scanHeader.removeClass('init').addClass('scan');
+					$scanAuxiliary.html('取消扫描');
+					$scanView.removeClass('hide').find('pre').css({
+						height: '400px',
+					});
+					$scanNow.hide();
+					that.renderScanTitle(
+						$scanTitle,
+						'正在扫描目录：<span class="nowrap" style="max-width:380px;vertical-align: middle;" title="' + $path + '">' + $path + '</span>',
+						true
+					);
+					that.renderScanTitle(shellView, '正在创建扫描任务\n', true);
+					that.renderScanTitle(shellView, '<span style="display:flex;" class="omit">目录正在扫描中<span>\n');
+					that.taskType = 'scan';
+					that.taskCancel = false;
+					that.createScanTaskRequest(function (rdata) {
+						if (!that.taskCancel){
+							
+							that.taskStatus = true;
+							if (!rdata.status) {
+								
+								 layer.msg('目录不存在',{icon:0})
+								 return $('.scan-auxiliary').trigger('click')
+							};
+
+							//邓
+							that.taskId = rdata.data.scan_id;
+							that.scan_id=rdata.data.scan_id 
+							that.ScanConfiguration.show_type=rdata.data.show_type
+							that.renderScanTitle(shellView, '扫描完成，等待扫描结果返回\n');
+							// 渲染扫描结果
+							that.renderFilesView({
+								id: that.taskId,
+								path: that.taskPath,
+								init: true,
+								show_type:rdata.data.show_type
+							});
+						}
+					});
+				} else {
+					that.renderHistoryScan();
+				}
+			});
+			if(this.diskPath !== '' && $('#memuA').hasClass('current')) $('.scan-now').click()
+			// 辅助扫描按钮，历史、取消、返回
+			this.bind('.scan-auxiliary', function () {
+				var type = that.taskType;
+				switch (type) {
+					case 'init':
+						that.renderHistoryScan();
+						break;
+					case 'scan':
+						that.taskStatus = false;
+						that.taskCancel = true;
+						that.renderInitView();
+						that.getScanAllocation()
+						break;
+					case 'result':
+						that.renderInitView();
+						that.getScanAllocation()
+						break;
+				}
+			});
+			//扫描设置
+			// this.bind('.scan-set',function(){
+			// 	that.btn=''
+			// 	that.getScanAllocation(true)
+				
+			// })
+			// 删除文件
+			this.bind('.remove-files', function () {
+				var path = $(this).data('path'),
+				    fullpath = $(this).data('fullpath'),
+				    filename = $(this).data('filename'),
+					type = $(this).data('type');
+				that.delFileDir(
+					{
+						path: path,
+						type: type,
+						filename: path,
+					},
+					function (rdata) {
+						// delete that.taskList[that.taskId];
+						that.renderFilesInfo({
+							id: that.taskId,
+							path: that.cutPath,
+							exts:that.ScanConfiguration.exts,
+							total_num:that.ScanConfiguration.total_num
+						});
+						$('#caret1, #caret2').css("color","#CDCDCD")
+						$('.Size').find('#caret2').css("color","#20A43A")
+						that.ScanConfiguration.reverse=true
+				        // var list = that.taskList[fullpath].list.filter(function (item) { return item.name !== filename.toString() })
+                        // that.taskList[fullpath].list = list;
+				        // that.renderFilesTable(that.taskList[fullpath], fullpath);
+					}
+				);
+			});
+
+			// 选择扫描路径
+			this.bind('.cursor_ScanPath', function () {
+				bt.select_path(
+					'diskScanPath',
+					'dir',
+					function (path) {
+						if (path.startsWith("//")) {
+							path = path.slice(1);
+						}
+						that.$scanHeader.find('.catalogue').val(path).attr('title', path);
+						that.$scanPath = (path + '/').replace(/\/\//g, '/'); 
+					},
+					that.$scanPath
+				);
+			});
+			$('.catalogue').blur(function(){
+				that.$scanPath=$(this).val()
+			})
+			//切换为目录结构
+			this.bind('#Catalogue_show',function(){
+				that.ScanConfiguration.show_type='1'
+				var value = $('#filescan-nav-search .search-input').val()
+				that.renderFilesInfo({
+					id: that.taskId,
+					path: that.subpath,
+					name:value,
+				});
+				$('#screen').hide()
+				$('#caret1, #caret2').css("color","#CDCDCD")
+				$('.Size').find('#caret2').css("color","#20A43A")
+				that.ScanConfiguration.reverse=true
+			})
+			//切换为文件结构
+			this.bind('#File_show',function(){
+				that.ScanConfiguration.show_type='2'
+				var value = $('#filescan-nav-search .search-input').val()
+				that.renderFilesInfo({
+					id: that.taskId,
+					name:value,
+					path: that.subpath,
+					exts:that.ScanConfiguration.exts,
+					total_num:that.ScanConfiguration.total_num
+				});
+				$('#screen').show()
+				$('#caret1, #caret2').css("color","#CDCDCD")
+				$('.Size').find('#caret2').css("color","#20A43A")
+				that.ScanConfiguration.reverse=true
+			})
+			//排除路径
+			this.bind('#scan-set',function(){
+				that.getScanAllocation(true)
+			})
+			//筛选配置
+			this.bind('#screen',function(){
+				that.renderSwitch()
+			})
+			
+			// 打开目录按钮
+			this.bind('.cut-path', function () {
+				var path = $(this).data('path'),
+					type = $(this).data('type');
+					
+				if(type == 'paichu') return layer.msg('已排除暂不支持打开', { icon: 0 });
+				if (type !== 'folder' && typeof type != 'undefined') return layer.msg('文件暂不支持打开', { icon: 0 });
+				that.subpath=path
+				if (!that.taskList.hasOwnProperty(path)) {
+					that.renderFilesInfo({
+						id: that.taskId,
+						path: path,
+					});
+					$('#caret1, #caret2').css("color","#CDCDCD")
+					$('.Size').find('#caret2').css("color","#20A43A")
+					that.ScanConfiguration.reverse=true
+				} else {
+					var rdata = that.taskList[path];
+					that.renderFilesTable(rdata, path); // 渲染文件表格
+					that.renderFilesPath(path); // 渲染文件路径
+				}
+			});
+
+			// 双击打开目录
+			this.$el.on('dblclick', '.filescan-list-item', function () {
+				$(this).find('.cut-path:eq(0)').trigger('click');
+			});
+			//右边的搜索 邓
+			$('#filescan-nav-search .search-input').keyup(function (e) {
+				var value = $(this).val();
+				if (e.keyCode == 13){
+					that.renderFilesInfo({
+						id: that.taskId,
+						name:value,
+						path:that.subpath,
+						exts:that.ScanConfiguration.exts,
+						total_num:that.ScanConfiguration.total_num
+					})
+					$('#caret1, #caret2').css("color","#CDCDCD")
+					$('.Size').find('#caret2').css("color","#20A43A")
+					that.ScanConfiguration.reverse=true
+				}
+			});
+			$('#filescan-nav-search').on('click', '.glyphicon-search', function () {
+				var value = $('#filescan-nav-search .search-input').val();
+				// that.getPlugLogs(that.thatPlugname, value);
+				that.renderFilesInfo({
+						id: that.taskId,
+						name:value,
+						path:that.subpath,
+						exts:that.ScanConfiguration.exts,
+						total_num:that.ScanConfiguration.total_num
+				})
+					$('#caret1, #caret2').css("color","#CDCDCD")
+					$('.Size').find('#caret2').css("color","#20A43A")
+					that.ScanConfiguration.reverse=true
+			});
+			//大小排序
+			// var revers_sort=true
+
+			$('.Size').find('#caret2').css("color","#20A43A")
+			// $((that.ScanConfiguration.sort=='total_dsize' ? '.Size':'.feile_srot')+(that.ScanConfiguration.reverse ? ' #caret2':' #caret1')).css("color","#20A43A")
+			this.bind('.item_Size ',function(){
+				that.ScanConfiguration.reverse=!that.ScanConfiguration.reverse
+				var _type =$('.Size').data('type')
+				$('#caret1, #caret2').css("color","#CDCDCD")
+				$('.Size').find('#caret'+(!that.ScanConfiguration.reverse?'1':'2')).css("color","#20A43A")		
+				that.renderFilesInfo({
+						id: that.taskId,
+						path:that.subpath,
+						reverse: that.ScanConfiguration.reverse,
+						sort:_type,
+						exts:that.ScanConfiguration.exts,
+						total_num:that.ScanConfiguration.total_num
+						
+				})
+				// revers_sort=!revers_sort
+			})
+			var revers_time=false
+			this.bind('.item_feile ',function(){
+				$('#caret1, #caret2').css("color","#CDCDCD")
+				var _type=$('.feile_srot').data('type')
+				revers_time=!revers_time
+				$('.feile_srot').find('#caret'+(!revers_time?'1':'2')).css("color","#20A43A")
+				that.renderFilesInfo({
+						id: that.taskId,
+						path:that.subpath,
+						reverse: revers_time,
+						sort:_type,
+						exts:that.ScanConfiguration.exts,
+						total_num:that.ScanConfiguration.total_num
+				})
+			})
+			//右边的搜索 end
+			
+		},
+
+		// 初始化数据
+		initData: function () {
+			this.taskId = null; // 任务ID
+			this.id = null; // 扫描刷新任务ID
+			this.taskPath = ''; // 扫描目录
+			this.cutPath = ''; // 当前目录
+			this.taskStatus = false; // 扫描状态
+			this.taskType = 'init'; // 扫描执行阶段
+			this.taskList = {}; // 扫描缓存列表
+		},
+
+		/**
+		 * @description 渲染扫描初始化页面
+		 */
+		renderInitView: function () {
+			var that = this;
+			this.initData();
+			this.$scanHeader.removeClass('result scan').addClass('init');
+			this.$scanHeader.find('.scan-title').html('扫描分析指定目录占用大小');
+			this.$scanNow.show().html('立即扫描');
+			this.$scanAuxiliary.html('历史记录');
+			this.$scanView.addClass('hide');
+			this.$fileView.addClass('hide');
+			this.$bgBubbles.find('li').css({'animation-play-state':'running','-webkit-animation-play-state':'running'})
+		},
+
+		/**
+		 * @description 渲染扫描页面
+		 * @param {object} data 配置参数
+		 */
+		renderFilesView: function (data) {
+			var that = this;
+			that.renderFilesInfo(
+				{
+					id: data.id,
+					path: data.path || '',
+					init: data.init || false,
+					show_type:data.show_type || '1',
+					name:data.name ||''
+				},
+				function (rdata) {
+					that.taskType = 'result';
+					that.renderFilesPath(that.taskPath);
+					that.$scanView.addClass('hide').find('pre').animate({ height: '0px' }, 100);
+					that.$scanNow.show().html('历史记录');
+					that.$scanAuxiliary.html('返回首页');
+					that.$fileView.removeClass('hide');
+					that.$scanHeader.removeClass('scan init').addClass('result');
+					that.renderScanTitle(
+							that.$scanTitle,
+							'<span class="deng_max" style="color:#666666;font-size:16px">扫描目录：</span><span class="nowrap deng_max" style="max-width:180px;vertical-align: middle;color:#666666;font-size:16px" title="' +
+								that.taskPath +
+								'">' +
+								that.taskPath +
+							'</span>&nbsp;&nbsp;'+
+							'<span class="scan-result deng_max" style="color:#666666;font-size:16px">扫描时间：' +
+							bt.format_data(rdata.scan_time) +
+							'</span>'+
+							'<span class="scan-result deng" style="color:#666">共扫描到：' +
+								rdata.file_num +
+								'个文件，总大小：' +
+								bt.format_size(rdata.total_asize) +
+							'</span>'+
+							'',
+						true
+					);
+				}
+			);
+		},
+
+		/**
+		 * @description 渲染文件列表 
+		 * @param {Object} param 请求参数
+		 * @param {Function} callback 回调函数
+		 */
+		renderFilesInfo: function (param, callback) {
+			var that = this;
+			if (that.ScanConfiguration.show_type=='1') {
+					$('#Catalogue_show').addClass('btn-dianji').removeClass('bt-cp-hover')
+					$('#File_show').removeClass('btn-dianji').addClass('bt-cp-hover')
+					$('.screen_scan').hide()
+			}
+			if (that.ScanConfiguration.show_type=='2') {
+					$('#File_show').addClass('btn-dianji').removeClass('bt-cp-hover')
+					$('#Catalogue_show').removeClass('btn-dianji').addClass('bt-cp-hover')
+					$('.screen_scan').show()
+			}
+			if (that.ScanConfiguration.show_type !=='2') {
+				this.getScanHistoryRequest(param, function (res) {
+				var rdata=res.data
+				var path = rdata.full_path;
+				path = path.replace(/(\\)+/g, '/');
+				if (param.init) that.taskPath = path;
+				// if (!that.taskList.hasOwnProperty(path)) that.taskList[path] = rdata; //保存每个路径下的数据
+				that.renderFilesTable(rdata, path); // 渲染文件表格
+				that.renderFilesPath(path); // 渲染文件路径
+				if (callback) callback(rdata); // 回调函数
+				});		
+			}else{
+				this.getScanFileRequest(param,function(res){
+				var rdata=res.data
+				var path = rdata.full_path;
+				path = path.replace(/(\\)+/g, '/');
+				if (param.init) that.taskPath = path;
+				// if (!that.taskList.hasOwnProperty(path)) that.taskList[path] = rdata;
+				that.renderFilesTable(rdata, path); // 渲染文件表格
+				that.renderFilesPath(path); // 渲染文件路径
+				if (callback) callback(rdata); // 回调函数
+				})
+			}
+
+			that.$bgBubbles.find('li').css({'animation-play-state':'paused','-webkit-animation-play-state':'paused','border':'1px soild #000'})
+		},
+
+		/**
+		 * @description 渲染文件追加功能
+		 * @param {Element} el 控制器
+		 * @param {String} html 文本
+		 * @param {Boolean} isCover 是否覆盖，默认不覆盖
+		 */
+		renderScanTitle: function (el, html, isCover) {
+			var $el = typeof el === 'string' ? this.$el.find(el) : el;
+			if (isCover) {
+				$el.html(html);
+			} else {
+				$el.append(html);
+			}
+		},
+
+		/**
+		 * @description 渲染文件表格结构
+		 * @param {Object} rdata 数据
+		 * @param {String} path 路径
+		 *
+		 */
+		renderFilesTable: function (rdata, path) {
+			 var _that=this
+			if (_that.ScanConfiguration.show_type=='1') {
+				$('.feile').text('文件数')
+				$('.feile_srot').data("type", "file_num")
+			} else{
+				$('.feile').text('最后修改时间')
+				$('.feile_srot').data("type", "mtime")
+			}
+			var list = rdata.list;
+			var html = '';
+			for (var i = 0; i < list.length; i++) {
+				var element = list[i];
+				var item = rdata.list[i];
+				var isDir = item.type == 1;
+				var isRemove = "";
+				if(item.excluded){
+					isRemove = '<a style="color: #666666;">' +
+					"已排除" +
+					'</a>'
+				}else if (item.status == 1){
+					isRemove = '<a href="javascript:;" data-filename="'+ item.name +'" data-fullpath="'+ rdata.full_path +'" data-path="' +
+					(item.full_path) +
+					'" data-type="' +
+					(isDir ? '文件夹' : '文件') +
+					'" class="btlink remove-files">删除</a>'
+				}else{
+					isRemove = '<a style="color: #666666;">' +
+					"已删除" +
+					'</a>'
+				}
+
+				html +=
+					'<div class="filescan-list-item" data-path="' +
+					(path + '/' + item.name) +
+					'">' +
+					'<div class="filescan-list-col text-left nowrap" style="position: ;" title="' +
+					(isDir?(path + '/' + item.name):item.full_path) +
+					'">' +
+					'<span class="file-type-icon file_' +
+					(isDir ? 'folder' : 'icon') +
+					'"></span>' +
+					'<a class="path cut-path cursor" data-type="' +(
+						!item.excluded ? 
+					(isDir ? 'folder' : 'files'): 'paichu')+
+					'" data-path="' +
+					(path + '/' + item.name) +
+					'">' +
+					item.name +
+					'</a>' +
+					'<div class="title_hover" style="display:none">路径:&nbsp;&nbsp' + item.full_path + '</div>'+
+					'</div>' +(item.excluded ? '<div class="filescan-list-col">--</div>':
+					'<div class="filescan-list-col">' +
+					'<div style="width:70px;padding-right:8px">'+
+						bt.format_size(isDir ? item.total_asize : item.asize)+
+					'</div>'+
+					'<div class="progress_box" style="max-width:50px">'+
+					'<div class="progress_item" style="width:'+item.percent+'%;"></div>'+
+				    '</div>'+
+					'<div style="width:45px;">'+
+					item.percent+
+					'%</div>'+
+					'</div>') +(_that.ScanConfiguration.show_type=='1' ? 
+					'<div class="filescan-list-col">' +
+					(isDir ?  (item.file_num || '0') : '--') + //(item.dir_num || '0') + ' / ' +
+					'</div>' :
+					'<div class="filescan-list-col">' +
+					(item.mtime ? bt.format_data(item.mtime): "--") +
+					'</div>' )+
+					// '<div class="filescan-list-col">' +
+					// bt.format_size(isDir ? item.total_asize : item.asize) +
+					// '</div>' +
+					'<div class="filescan-list-col">' +
+					(item.accept ? item.accept: "--") + ' / ' + (item.user ? item.user: "--") +
+					'</div>' +
+
+					// '<div class="filescan-list-col">' +
+					// (item.ctime ? bt.format_data(item.ctime): "--") +
+					// '</div>' +
+					'<div class="filescan-list-col text-right">' +
+					'<a href="javascript:;" data-type="' +
+					(isDir ? 'folder' : 'files') +
+					'"  data-path="' +
+					(path + '/' + item.name) +
+					'" class="cut-path btlink ' +
+					(isDir&&!item.excluded? 'show' : 'hide') +
+					' ">打开</a>' +
+					(isDir&&!item.excluded ? '&nbsp;&nbsp;|&nbsp;&nbsp;' : '') +
+					isRemove +
+					'</div>' +
+					'</div>';
+			}
+			this.$fileTableBody.html(html);
+		},
+
+		/**
+		 * @description 渲染文件路径
+		 * @param {String} path 路径
+		 */
+		renderFilesPath: function (path) {
+			var that = this; 
+			var html = '';
+			var newPath = '';
+			var pathArr = [];
+			var isLevel = false;
+			var isInit = true;
+			that.cutPath = path;
+			pathArr = path.replace(this.taskPath.replace(/(\/\/)+/g, '/'), '').split('/');
+			if (pathArr.length >= 1 && pathArr[0] !== '') pathArr.unshift('');
+			if (pathArr.length > 1 && pathArr[1] !== '') {
+				var upperPath = (that.getDirPath(path, false) + '/').replace(/(\/\/)+/g, '/');
+				if (pathArr.length > 1) upperPath = upperPath.replace(/\/$/g, '');
+				isLevel = true;
+				html += '<a class="filescan-nav-item btlink return-btn cut-path" data-path="' + upperPath + '" title="点击返回上一级目录">返回上一级</a>' + '<span class="divider">|</span>';
+			}
+			if (pathArr.length > 3) isInit = true;
+			for (var i = 0; i < pathArr.length; i++) {
+				var element = pathArr[i];
+				newPath += '/' + element;
+				if (element === '' && i > 0) continue;
+				if (i > 1 && i < pathArr.length - 2 && pathArr.length > 3) {
+					if (isInit) html += '<a class="filescan-nav-item" title="部分目录已经省略">...</a><span class="divider">></span>';
+					isInit = false;
+				} else {
+					var isLast = pathArr.length - 1 === i;
+					var isFirst = i === 0;
+					var currentPath = isFirst ? that.taskPath : that.taskPath + newPath;
+					var divider = !isLast ? '<span class="divider">></span>' : '';
+					var menuPath = isFirst ? '当前目录(' + that.taskPath + ')' : element;
+					currentPath = currentPath.replace(/\/\//g, '/');
+					html +=
+						'<a class="filescan-nav-item nowrap ' + (isLevel && !isLast ? 'btlink cut-path' : '') + (isFirst ? ' present' : '') + '" data-path="' + currentPath + '" title="' + currentPath.replaceAll('//','/') + '">' + menuPath + '</a>' + divider;
+				}
+			}
+			$('#fileScanPath').html(html);
+		},
+
+
+		/**
+		 * @description: 渲染扫描配置
+		 * @return {*}
+		 */		
+		renderScanAllocation:function(){
+			var _that = this;
+			bt_tools.open({
+				title: '排除路径',
+				area: ['540px', '290px'],
+				btn:['保存','取消'],
+				skin: 'scan_set',
+				content: '<div id="scan_peizi" style="padding-left:25px;padding-top:20px"></div>',
+				success: function (layero, indexs) {
+					bt_tools.form({
+						el:'#scan_peizi',
+						data:_that.ScanConfiguration,
+						form:[
+							{
+								label:'排除路径',
+								formLabelWidth:'140px',
+								group:{
+										type:'textarea',
+										name:'val',
+										width:'260px',
+										placeholder:'www/xxx\nwww/yyy',
+										style: {
+											'min-height': '100px',
+											'line-height': '22px',
+											'padding-top': '5px',
+											'resize': 'none'
+										},
+										value:rdata = _that.ScanConfiguration.exclude_path_list.replace(new RegExp(/(,)/g), '\n'),
+										blur:function(formData){
+											_that.ScanConfiguration.exclude_path_list=_that.removeDuplicates(formData.val.replace(new RegExp(/(\r\n)/g),','))
+										}
+								}
+							},
+							{
+								label: '',
+								formLabelWidth:'140px',
+								style:{
+									'padding':'0px'
+								},
+								group: {
+									type: 'button',
+									name: 'Select_Directory',
+									// width: '110px',
+									title:'选择路径',
+									style:{
+										'border-radius': '2px',
+									},
+									event:function(formData, element, that){
+										bt.select_path(
+											'diskScanPath',
+											'dir',
+											function (path) {
+												
+												_that.ScanConfiguration.exclude_path_list =_that.removeDuplicates( _that.ScanConfiguration.exclude_path_list+','+path)
+												that.$replace_render_content(0)
+												$('[name="val"]').text(_that.ScanConfiguration.exclude_path_list.replace(new RegExp(/(,)/g), '\n'))
+											},
+											_that.$scanPath
+										);
+									}
+									// display:false,
+								}
+                      		},
+							{
+								label: '扫描后的展示方式',
+								formLabelWidth:'140px',
+								display:false,
+								group: {
+									type: 'button',
+									name: 'division_line',
+									width: '110px',
+									style:{
+										'opacity':'0'
+									}
+									// display:false,
+								}
+                      		},
+							{
+								label: '显示方式',
+								formLabelWidth:'140px',
+								display:false,
+								group:[
+									{ 
+										type: 'button',
+										name: 'show_Name',
+										title: '目录结构',
+										style: {
+											'border-radius': '2px',
+											'border-top-right-radius':'0',
+											'border-bottom-right-radius':"0"
+										} ,
+										event: function (formData, element, that) {
+
+											$('[name="show_Name"]').addClass('btn-dianji').removeClass('bt-cp-hover')
+											$('[name="show_Name2"]').removeClass('btn-dianji').addClass('bt-cp-hover')
+											_that.ScanConfiguration.show_type='1'
+
+											that.config.form[4].display=false;
+											that.config.form[5].display=false;
+											that.$replace_render_content(4)
+											that.$replace_render_content(5)
+										}
+									},
+									{ 
+										type: 'button',
+										name: 'show_Name2',
+										title: '显示所有文件',
+										style: {
+											'border-radius': '3px',
+											'border-top-left-radius':'0',
+											'border-bottom-left-radius':"0"
+										} ,
+										event: function (formData, element, that) {
+											// 触发submit
+											
+											$('[name="show_Name2"]').addClass('btn-dianji').removeClass('bt-cp-hover')
+											$('[name="show_Name"]').removeClass('btn-dianji').addClass('bt-cp-hover')
+											_that.ScanConfiguration.show_type='2'
+											that.config.form[4].display=true;
+											that.config.form[5].display=true;
+											that.$replace_render_content(4)
+											that.$replace_render_content(5)
+	
+										}
+									}
+								]
+							},
+							// {
+							// 	label: '排序方式',
+							// 	formLabelWidth:'140px',
+							// 	display:_that.ScanConfiguration.show_type=="2" ? false : true,
+							// 	group: {
+							// 		type: 'select',
+							// 		name: 'sortName',
+							// 		width: '110px',
+							// 		value: _that.ScanConfiguration.sort,
+							// 		list: [
+							// 			{
+							// 				title: '文件大小',
+							// 				value: 'total_dsize'
+							// 			}, {
+							// 				title: '文件数量',
+							// 				value: 'file_num'
+							// 			},
+							// 		],
+							// 		change: function (formData, element, that) {
+							// 			_that.ScanConfiguration.sort=formData.sortName
+							// 		}
+							// 	}
+                      		// },
+							{
+								label:'显示后缀文件',
+								formLabelWidth:'140px',
+								// display:_that.ScanConfiguration.show_type=="1" ? false : true,
+								display:false,
+								group:{
+									type:'text',
+									name:'SuffixName',
+									placeholder:'zip|json',
+									value:_that.ScanConfiguration.exts,
+									blur:function(formData, element, that){
+										_that.ScanConfiguration.exts=formData.SuffixName
+									},
+								}
+							},
+							{
+								label: '显示文件数量',
+								formLabelWidth:'140px',
+								// display:(_that.ScanConfiguration.show_type=="1" ? false : true),
+								display:false,
+								group: [
+									{
+										type: 'number',
+										name: 'numberName',
+										value:_that.ScanConfiguration.total_num,
+										'class': 'group_span',
+										blur:function(formData, element, that){
+											_that.ScanConfiguration.total_num=formData.numberName
+										}
+									}
+								]
+                          	},
+
+
+						],
+						submit: function (formData) {
+							//此处执行上面
+						},     
+
+					})
+					$('[name="division_line"]').parent().parent().after('<div class="info-fen"></div>')
+					$('[name="show_Name"],[name="show_Name2"]').removeClass('btn-success bt-sm')
+					$('[name="show_Name"],[name="show_Name2"]').addClass('btn-default bt-cp-hover')
+					if (_that.ScanConfiguration.show_type=='1') {
+						$('[name="show_Name"]').addClass('btn-dianji').removeClass('bt-cp-hover')
+					}
+					if (_that.ScanConfiguration.show_type=='2') {
+						$('[name="show_Name2"]').addClass('btn-dianji').removeClass('bt-cp-hover')
+					}
+				},
+				cancel: function () {
+							//点击右上角关闭时,如果btn:false,当前事件将无法使用
+				},
+				yes:function(indexs){
+							//点击确定时,如果btn:false,当前事件将无法使用
+					var sdata={
+						exclude_path_list:JSON.stringify(_that.ScanConfiguration.exclude_path_list.split(',')),
+						// sort:'total_dsize',
+						exts:_that.ScanConfiguration.exts,
+						total_num:_that.ScanConfiguration.total_num,
+						show_type:_that.ScanConfiguration.show_type
+					}
+					
+					bt_tools.send({url:'plugin?action=a&name=disk_analysis&s=set_scan_config',data:sdata},function(res){
+							//请求回调
+							layer.msg('设置成功',{icon:res.status? 1: 2})
+					},'xxx')
+					if (_that.btn=='screen') {
+						_that.renderFilesInfo({
+						id: _that.taskId,
+						path: _that.subpath,
+					});
+					}
+					layer.close(indexs)
+				},
+
+
+			});
+
+		},
+		/**
+		 * @description: 渲染筛选配置
+		 * @return {*}
+		 */		
+		renderSwitch:function(){
+			var _that = this;
+			bt_tools.open({
+				title: '筛选设置',
+				area: ['420px', '240px'],
+				btn:['确定','取消'],
+				skin: 'scan_set',
+				content: '<div id="Switch_peizi" style="padding-left:25px;padding-top:20px"></div>',
+				success: function (layero, indexs) {
+					bt_tools.form({
+						el:'#Switch_peizi',
+						data:_that.TemporaryScan,
+						form:[
+							{
+								label: '显示方式',
+								formLabelWidth:'140px',
+								display:false,
+								group:[
+									{ 
+										type: 'button',
+										name: 'show_Name',
+										title: '目录结构',
+										style: {
+											'border-radius': '2px',
+											'border-top-right-radius':'0',
+											'border-bottom-right-radius':"0"
+										} ,
+										event: function (formData, element, that) {
+											$('[name="show_Name"]').addClass('btn-dianji').removeClass('bt-cp-hover')
+											$('[name="show_Name2"]').removeClass('btn-dianji').addClass('bt-cp-hover')
+											_that.ScanConfiguration.show_type='1'
+
+											that.config.form[1].display=false;
+											that.config.form[2].display=false;
+											that.$replace_render_content(1)
+											that.$replace_render_content(2)
+										}
+									},
+									{ 
+										type: 'button',
+										name: 'show_Name2',
+										title: '显示所有文件',
+										style: {
+											'border-radius': '3px',
+											'border-top-left-radius':'0',
+											'border-bottom-left-radius':"0"
+										} ,
+										event: function (formData, element, that) {
+											// 触发submit
+									
+											$('[name="show_Name2"]').addClass('btn-dianji').removeClass('bt-cp-hover')
+											$('[name="show_Name"]').removeClass('btn-dianji').addClass('bt-cp-hover')
+											_that.ScanConfiguration.show_type='2'
+											that.config.form[1].display=true;
+											that.config.form[2].display=true;
+											that.$replace_render_content(1)
+											that.$replace_render_content(2)
+											// that.submit(formData)
+										}
+									}
+								]
+							},
+							{
+								label:'显示后缀文件',
+								formLabelWidth:'140px',
+								// display:_that.ScanConfiguration.show_type=="1" ? false : true,
+								group:{
+									type:'text',
+									name:'SuffixName',
+									placeholder:'zip|json',
+									value:_that.TemporaryScan.exts,
+									blur:function(formData, element, that){
+										_that.TemporaryScan.exts=formData.SuffixName.trim()
+									},
+								}
+							},
+							{
+								label: '显示文件数量',
+								formLabelWidth:'140px',
+								// display:(_that.ScanConfiguration.show_type=="1" ? false : true),
+								group: [
+									{
+										type: 'number',
+										name: 'numberName',
+										value:_that.TemporaryScan.total_num,
+										placeholder:'必填项 不填写为100',
+										'class': 'group_span',
+										blur:function(formData, element, that){
+											if (isNaN(formData.numberName)||formData.numberName==0) {
+												return _that.TemporaryScan.total_num=100
+											}
+											_that.TemporaryScan.total_num=formData.numberName
+										}
+									}
+								]
+                          	},
+
+
+						],
+						submit: function (formData) {
+							//此处执行上面
+						},     
+
+					})
+					$('[name="division_line"]').parent().parent().after('<div class="info-fen"></div>')
+					$('[name="show_Name"],[name="show_Name2"]').removeClass('btn-success bt-sm')
+					$('[name="show_Name"],[name="show_Name2"]').addClass('btn-default bt-cp-hover')
+					if (_that.ScanConfiguration.show_type=='1') {
+						$('[name="show_Name"]').addClass('btn-dianji').removeClass('bt-cp-hover')
+						// $('[name="show_Name2"]').removeClass('btn-dianji bt-cp-hover')
+					}
+					if (_that.ScanConfiguration.show_type=='2') {
+						$('[name="show_Name2"]').addClass('btn-dianji').removeClass('bt-cp-hover')
+						// $('[name="show_Name"]').removeClass('btn-dianji bt-cp-hover')
+					}
+				},
+				cancel: function () {
+					_that.TemporaryScan.exts=_that.ScanConfiguration.exts
+					_that.TemporaryScan.total_num=_that.ScanConfiguration.total_num
+				},
+				yes:function(indexs){
+							//点击确定时,如果btn:false,当前事件将无法使用
+						_that.ScanConfiguration.exts=_that.TemporaryScan.exts
+						_that.ScanConfiguration.total_num=_that.TemporaryScan.total_num
+						_that.renderFilesInfo({
+							id: _that.taskId,
+							path: _that.subpath,
+							exts:_that.ScanConfiguration.exts,
+							total_num:_that.ScanConfiguration.total_num
+						});
+					$('#caret1, #caret2').css("color","#CDCDCD")
+					$('.Size').find('#caret2').css("color","#20A43A")
+					_that.ScanConfiguration.reverse=true
+					layer.close(indexs)
+				},
+				btn2: function(index, layero){
+					_that.TemporaryScan.exts=_that.ScanConfiguration.exts
+					_that.TemporaryScan.total_num=_that.ScanConfiguration.total_num
+  				}
+
+			});
+		},
+		/**
+		 * @description: 获取扫描配置
+		 * @param {String} isPop 是否开启弹窗，默认不开启
+		 */		
+		getScanAllocation:function(isPop){
+			var _that=this
+			bt_tools.send(' plugin?action=a&name=disk_analysis&s=get_scan_config',function (res) {
+				var rdata=res.data
+				if (res.status) {
+					_that.ScanConfiguration.exclude_path_list=rdata.scan_config.exclude_path_list.join(',')
+					_that.ScanConfiguration.sort=rdata.scan_show.sort
+					_that.ScanConfiguration.show_type=rdata.scan_show.show_type
+					_that.ScanConfiguration.exts=rdata.file_show.exts
+					_that.ScanConfiguration.total_num=rdata.file_show.total_num
+					//临时扫描配置 
+					_that.TemporaryScan.exts=rdata.file_show.exts,
+					_that.TemporaryScan.total_num=rdata.file_show.total_num
+					
+				}
+				if (isPop) {
+					_that.renderScanAllocation()
+				}
+				
+			})
+		},
+		/**
+		 * @description 渲染扫描历史
+		 * @param {Object} data
+		 */
+		renderHistoryScan: function () {
+			var that = this;
+			bt_tools.open({
+				title: '历史记录',
+				area: ['540px', '480px'],
+				btn: false,
+				content: '<div id="historyTable" style="padding:0 10px"></div>',
+				success: function (layero, indexs) {
+					that.getScanFilesRequest(layero, indexs, function (){
+						bt_tools.setLayerArea(layero);
+					});
+				},
+			});
+		},
+
+		/**
+		 * @description 删除文件或目录
+		 * @param {Object} data
+		 */
+		delFileDir: function (data, callback) {
+			var that = this;
+			if (that.isRecycle) {
+				bt.confirm(
+					{
+						title: '删除' + data.type + '【' + data.filename + '】',
+            msg: '删除'+ data.type +'后，'+ data.type +'将迁移至文件回收站，<span class="color-org">请确认删除的文件是不需要的文件，误删文件可能会导致系统崩溃，</span>是否继续操作？</span>'
+					},
+					function () {
+						that.delFileRequest(data, function (res) {
+							if (callback) callback(res);
+							layer.msg(res.msg, {
+								icon: res.status ? 1 : 2,
+							});
+						});
+					}
+				);
+			} else {
+				bt.compute_confirm({title: '删除' + data.type + '【' + data.filename + '】', 
+					msg: '风险操作，当前未开启文件回收站，删除'+ data.type +'将彻底删除，无法恢复，<span class="color-org">请确认删除的文件是不需要的文件，误删文件可能会导致系统崩溃，</span>是否继续操作？'
+				}, function () {
+						that.delFileRequest(data, function (res) {
+							if (callback) callback(res);
+							layer.msg(res.msg, {
+								icon: res.status ? 1 : 2,
+							});
+						});
+					}
+				);
+			}
+		},
+
+		/**
+		 * @description 获取扫描日志
+		 * @param {object} config 配置参数
+		 * @param {function} callback 回调函数
+		 */
+		getScanHistoryRequest: function (config, callback) { 
+			var _that=this
+			bt_tools.send(
+				{
+					url:'plugin?action=a&name=disk_analysis&s=get_scan_result',
+					data:{
+						scan_id: config.id,
+						sub_path:config.path,
+						sort:config.sort,
+						file_name:config.name,
+						reverse:config.reverse
+					},
+				},
+				function (rdata) {
+					if (rdata.length) {
+				        this.taskStatus = true
+				    }
+					if (callback) callback(rdata);
+				},
+				{
+					load: '获取文件信息',
+					// plugin: true,
+				}
+			);
+		},
+		/**
+		 * @description: 获取文件结构的日志
+		 * @param {*} config 配置参数
+		 * @param {*} cahllback
+		 */		
+		getScanFileRequest:function(config,cahllback){
+			var _that=this
+			bt_tools.send(
+				{
+					url:'plugin?action=a&name=disk_analysis&s=filter_file',
+					data:{
+							scan_id: config.id,
+							sub_path:config.path,
+							file_name:config.name,
+							reverse:config.reverse,
+							sort:config.sort,
+							// sort:_that.ScanConfiguration.sort,
+							exts:config.exts,
+							total_num:config.total_num,
+					}
+			
+				}, 
+				function (rdata) {
+					if(rdata.status){
+						this.taskStatus = true
+					}
+					if(cahllback) cahllback(rdata)
+				},
+				{
+					load: '获取文件信息',
+					// plugin: true,
+				}
+			)
+
+		},
+
+		/**
+		 * @description 获取历史扫描日志
+		 * @param {function} layero xx
+		 * @param {function} indexs xx
+		 * @param {function} callback xx
+		 */
+		getScanFilesRequest: function (layero, indexs, callback) {
+			var that = this;
+			bt_tools.table({
+				el: '#historyTable',
+				url: '/plugin?action=a&name=disk_analysis&s=get_scan_log',
+				load: true,
+				height: '418px',
+				dataFilter: function (res) {
+					var data = [];
+					if(res.status){
+						for (var i = 0; i < res.data.length; i++) {
+						var item = res.data[i];
+						if (item.size != 0) data.push(item);
+					}
+					}
+
+					return { data: data };
+				},
+				success: function (rdata) {
+					that.historyList = rdata.data;
+					callback();
+				},
+				column: [
+					{
+						fid: 'scan_path',
+						title: '扫描目录',
+						width: 150,
+						fixed: true,
+					},
+					{
+						fid: 'mtime',
+						title: '扫描时间',
+						width: 130,
+						template: function (row) {
+							return '<span>' + bt.format_data(row.scan_time) + '</span>';
+						},
+					},
+					{
+						fid: 'mtime',
+						title: '日志大小',
+						width: 85,
+						template: function (row) {
+							return '<span>' + bt.format_size(row.size) + '</span>';
+						},
+					},
+					{
+						title: '操作',
+						type: 'group',
+						width: 80,
+						align: 'right',
+						group: [
+							{
+								title: '查看',
+								event: function (row) {
+									that.getScanAllocation()
+									that.taskId = row.scan_id;
+									that.subpath=''
+									that.renderFilesView({ id: that.taskId, init: true });
+									layer.close(indexs);
+								},
+							},
+							{
+								title: '删除',
+								event: function (row) {
+									that.taskId = row.scan_id;
+									that.delScanFilesRequest({ id: that.taskId }, function (){
+										that.getScanFilesRequest(layero, indexs);
+									});
+								},
+							},
+						],
+					},
+				],
+			});
+		},
+
+		/**
+		 * @description 删除历史扫描日志
+		 * @param {object} config 配置参数
+		 * @param {function} callback 回调函数
+		 */
+		delScanFilesRequest: function (config, callback) {
+			bt_tools.send(
+				// 'disk_analysis/del_scan_files',
+				//'/plugin?action=a&name=disk_analysis&s=del_scan_log',//邓
+				// {
+				// 	scan_id: config.id,
+				// },
+				{
+					url:'plugin?action=a&name=disk_analysis&s=del_scan_log',
+					data:{
+						scan_id: config.id
+					}
+				},
+				function (rdata) {
+					if (rdata.status) {
+						bt_tools.msg(rdata.msg);
+						callback();
+					}
+				},
+				{
+					load: '删除历史记录',
+					plugin: true,
+				}
+			);
+		},
+
+		/**
+		 * @description 创建扫描任务
+		 * @param {function} callback 回调函数
+		 */
+		createScanTaskRequest: function (callback) {
+			var that = this;
+			// var timestamp = new Date().getTime();
+			bt_tools.send(
+				{
+					url:' plugin?action=a&name=disk_analysis&s=start_scan',
+					data:{
+						// id: timestamp,
+						scan_path: that.$scanPath,
+						exclude_path:JSON.stringify(that.ScanConfiguration.exclude_path_list.split(','))
+					},
+				},
+				function (rdata) {
+					if (callback) callback(rdata);
+				},
+				{
+					// load: '创建扫描任务中',
+					plugin: true,
+					verify:false
+				}
+			);
+		},
+
+
+		/**
+		 * @description 获取回收站文件
+		 * @param {function} callback 回调函数
+		 */
+		getFilesRecycleRequest: function (callback) {
+			bt_tools.send(
+				'files/Get_Recycle_bin',
+				// {},
+				function (rdata) {
+					if (callback) callback(rdata);
+				},
+				{
+					load: false,
+				}
+			);
+		},
+
+		/**
+		 * @description 删除文件（文件和文件夹）
+		 * @param {Object} data 文件目录参数
+		 * @param {Function} callback 回调函数
+		 * @return void
+		 */
+		delFileRequest: function (data, callback) {
+			var _req = data.type === '文件' ? 'DeleteFile' : 'DeleteDir';
+			bt_tools.send(
+				'files/' + _req,
+				{
+					path: data.path,
+				},
+				function (res) {
+					if (callback) callback(res);
+				},
+				{
+					load: '删除文件/目录',
+				}
+			);
+		},
+
+		/**
+		 * @description 获取目录地址
+		 * @param {string} path 路径
+		 * @param {number} param 参数
+		 */
+		getDirPath: function (path, param) {
+			path.replace(/\/$/, '');
+			var pathArr = path.split('/');
+			if (pathArr.length === 1) return path;
+			if (param === -1) pathArr.push(status);
+			if (typeof param === 'boolean') pathArr.pop();
+			return pathArr.join('/').replace(/(\/)$/, '');
+		},
+
+		/**
+		 * @description 获取文件大小
+		 * @param {object} el 文件大小
+		 * @param {function} fn 回调函数
+		 */
+		bind: function (el, fn) {
+			if (typeof el === 'string') {
+				this.$el.on('click', el, fn);
+			} else {
+				el.on('click', fn);
+			}
+		},
+		/**
+		 * @description: 讲用逗号拼接的字符串去重原格式返回
+		 * @param {string} str  '/sdsf/sdf,/sdsf/sdf'
+		 * @return {string}    '/sdsf/sdf,'
+		 */		
+		removeDuplicates:function (str) {
+			var arr = str.split(',').filter(function(item) {
+				return item.trim() !== '';
+			});
+			var uniqueArr = [];
+			for (var i = 0; i < arr.length; i++) {
+				var item = arr[i];
+				// 去除最后面的斜杠字符
+				if (item.slice(-1) === '/') {
+					item = item.slice(0, -1);
+				}
+				if (uniqueArr.indexOf(item) === -1) {
+					uniqueArr.push(item);
+				}
+			}
+			return uniqueArr.join(',');
+		}
+	};
+
+	var disk_analysis = new DiskAnalysis({
+		el: '#DiskAnalysis',
+	});
+</script>

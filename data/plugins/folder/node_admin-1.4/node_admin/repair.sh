@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/node_admin/install.sh install

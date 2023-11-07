@@ -1,0 +1,100 @@
+{
+    "retry": {
+        "name": "密码验证失败后重试的次数",
+        "value": 3,
+        "default": 3,
+        "very": 3,
+        "ps": "密码验证失败后允许重试 N 次，默认值为 3 次。"
+    },
+    "difok": {
+        "name": "与旧密码不同的字符数",
+        "value": 0,
+        "default": 0,
+        "very": 2,
+        "ps": "指定在新密码中至少有 N 个字符不同于旧密码。这可用于防止用户只是轻微更改密码而不选择更强的密码"
+    },
+    "minlen": {
+        "name": "密码最小长度",
+        "value": 0,
+        "default": 0,
+        "very": 12,
+        "ps": "指定密码的最小长度为 N 个字符，<span style='color:red;'>注意：部分系统为 N+1 个字符</span>"
+    },
+    "dcredit": {
+        "name": "数字字符最小数量",
+        "value": 0,
+        "default": 0,
+        "very": 0,
+        "ps": "密码中至少要包含 N 个数字字符（0-9）"
+    },
+    "ucredit": {
+        "name": "大写字母最小数量",
+        "value": 0,
+        "default": 0,
+        "very": 0,
+        "ps": "密码中至少要包含 N 个大写字母"
+    },
+    "ocredit": {
+        "name": "特殊符号最小数量",
+        "value": 0,
+        "default": 0,
+        "very": 0,
+        "ps": "密码中至少要包含 N 个特殊符号"
+    },
+    "lcredit": {
+        "name": "小写字母最小数量",
+        "value": 0,
+        "default": 0,
+        "very": 0,
+        "ps": "密码中至少要包含 N 个小写字母"
+    },
+    "minclass": {
+        "name": "密码中必须包含的字符类的最小数目",
+        "value": 0,
+        "default": 0,
+        "very": 3,
+        "ps": "指定密码中必须包含的字符类的最小数目为 N。字符类是数字、大写字母、小写字母和其他字符的组合"
+    },
+    "maxrepeat": {
+        "name": "重复字符的最大次数",
+        "value": 0,
+        "default": 0,
+        "very": 3,
+        "ps": "指定在密码中允许重复字符的最大次数为 N"
+    },
+    "maxsequence": {
+        "name": "允许的最大字符序列长度",
+        "value": 0,
+        "default": 0,
+        "very": 3,
+        "ps": "指定允许的最大字符序列长度为 N。这是防止使用连续字符的常见模式，例如\"12345\"或\"abcd\""
+    },
+    "maxclassrepeat": {
+        "name": "最大同类连续重复字符数",
+        "value": 0,
+        "default": 0,
+        "very": 0,
+        "ps": "指定在密码中允许重复字符类的最大次数为 N，示例：\"actj\"=No，\"a2tj\"=Yes"
+    },
+    "gecoscheck": {
+        "name": "检查密码中是否包含用户名",
+        "value": 0,
+        "default": 0,
+        "very": 1,
+        "ps": "指定是否检查密码中是否包含用户名等信息。如果启用此功能，则密码中的用户名或全名将被拒绝"
+    },
+    "enforce_for_root": {
+        "name": "强制 root 用户使用复杂密码",
+        "value": 0,
+        "default": 0,
+        "very": 1,
+        "ps": "指定是否强制 root 用户使用复杂密码，如果不启用此功能，则 root 用户可以使用简单密码"
+    },
+    "PASS_MAX_DAYS":{
+        "name": "密码过期时间",
+        "value": 99999,
+        "default": 99999,
+        "very": 90,
+        "ps": "密码过期时间，单位(天)，<span style='color:red'>注意：密码过期后将无法登录</span>"
+    }
+}

@@ -1,0 +1,1361 @@
+<style>
+    .layui-layer-page .layui-layer-content {
+        overflow: inherit;
+    }
+
+    .bt-w-main {
+        height: 700px;
+    }
+
+    .bt-w-menu span {
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        display: inline-block;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .bt-w-item {
+        display: none;
+        width: 100%;
+    }
+
+    .bt-w-item.active {
+        display: inline-block;
+    }
+
+    /*任务管理器*/
+    .man-menu-sub {
+        background-color: #fff;
+        border-bottom: 1px solid #ccc;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .man-menu-sub {
+        background-color: #fff;
+        border-bottom: 1px solid #ccc;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .man-menu-sub span {
+        height: 50px;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        width: 65px;
+        margin: 0 7px;
+        text-align: center;
+    }
+
+    .man-menu-sub .on {
+        border-bottom: 2px solid #20a53a;
+        color: #20a53a;
+        font-weight: bold;
+    }
+
+    .table-cont {
+        max-height: 505px;
+        overflow: auto;
+        position: relative;
+        margin: 15px;
+    }
+
+    .ts-line {
+        position: absolute;
+        top: 99px;
+        height: 1px;
+        background-color: #ddd;
+        left: 16px;
+        z-index: 2;
+    }
+
+    .data-count-all {
+        border: #ddd 1px solid;
+        margin: 15px;
+        display: none;
+    }
+
+    .active.data-count-all {
+        display: block;
+    }
+
+    .data-count-all .data-count-box {
+        height: 100%;
+        text-align: center;
+        width: 21%;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+    .data-count-box .dname {
+        color: #666;
+        margin-top: 12px;
+        margin-bottom: 10px;
+        font-family: 'PingFangSC-Semibold', 'PingFang SC Semibold', 'PingFang SC';
+        font-weight: 650;
+        font-style: normal;
+        font-size: 15px;
+        color: #666666;
+    }
+
+    .data-count-box .dval span {
+        font-family: arial;
+        color: #121313;
+        font-size: 16px;
+    }
+
+    .men-count span {
+        display: inline-block;
+        height: 30px;
+        width: 27%;
+    }
+
+    .men-count span:nth-child(1),
+    .men-text-color:nth-child(2) {
+        background-color: rgba(255, 144, 0, 1);
+    }
+
+    .men-count span:nth-child(2),
+    .men-text-color:nth-child(4) {
+        background-color: rgba(129, 182, 0, 1);
+    }
+
+    .men-count span:nth-child(3),
+    .men-text-color:nth-child(6) {
+        background-color: rgba(61, 140, 215, 1);
+    }
+
+    .men-text span {
+        display: inline-block;
+        margin-right: 35px;
+        font-size: 13px;
+    }
+
+    .men-text-color {
+        border-width: 0px;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: inherit;
+        border: none;
+        border-radius: 0px;
+        box-shadow: none;
+        margin-right: 7px;
+    }
+
+    #flow_table .divtable {
+        height: 136px;
+        overflow: auto;
+    }
+
+    #flow_table {
+        margin-top: -10px;
+    }
+
+    .flow_text {
+        padding: 7px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: #666;
+        background: #d2d2d2;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    .jc-detail h3.tname {
+        margin-bottom: 10px;
+        margin-top: 15px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-right: 10px;
+        color: #999;
+    }
+
+    .mini-info {
+        width: 100%;
+        border-top: #DBDBEA 1px solid;
+        background-color: #f6f6f6;
+        padding: 15px;
+    }
+
+    #sites_table {
+        max-height: 675px;
+        overflow: auto;
+    }
+
+    .help-info-text {
+        display: none;
+    }
+
+    .active.help-info-text {
+        display: block;
+    }
+
+    .net-info .net-info-box,.disk-info .disk-info-box {
+        margin: 0 auto;
+        margin-top: 17px;
+        background-color: #fff;
+        border: #DBDBEA 1px solid;
+        border-radius: 6px;
+        height: 66px;
+        box-shadow: 0 0 40px #eee;
+        width: 790px;
+    }
+
+    .net-info .net-info-con,.disk-info .disk-info-con {
+        float: left;
+        height: 100%;
+        width: 20%;
+        line-height: 26px;
+        padding: 6px 16px;
+        border-right:#DBDBEA 1px solid;
+        padding-right: 0;
+    }
+    .net-info .net-info-con span[data-type],.disk-info .disk-info-con span[data-type] {
+        display: inline-block;
+        max-width: 91.5px;
+        word-break: break-all;
+        line-height: 1;
+        vertical-align: middle;
+    }
+    .disk-info .disk-info-con{
+        width: 25%;
+    }
+</style>
+<div id="resource_manager" class="bt-w-main">
+    <div class="bt-w-menu" bt-event-click="tabCut|p">
+        <p class="bgw">服务器资源</p>
+        <p>网站</p>
+    </div>
+    <div class="bt-w-con">
+        <div class="bt-w-item active">
+            <div class="man-menu-sub mlr15" bt-event-click="menuSub|span">
+                <span class="on">CPU</span>
+                <span>内存</span>
+                <span>磁盘</span>
+                <span>网络</span>
+            </div>
+            <div class="ts-line"></div>
+            <div>
+                <div class="data-count-all site-all active">
+                    <div class="data-count-box">
+                        <p class="dname">CPU占用</p>
+                        <p class="dval"><span style="color: #20A53A;">25%</span></p>
+                    </div>
+                    <div class="data-count-box">
+                        <p class="dname">活跃进程数</p>
+                        <p class="dval"><span style="color: #20A53A;">10</span></p>
+                    </div>
+                    <div class="data-count-box" style="width: auto;margin-left: 33px;">
+                        <p class="dname">负载(1分钟，5分钟，15分钟)</p>
+                        <p class="dval"><span style="color: #666;">0.1，0.4，0.5</span></p>
+                    </div>
+                </div>
+                <div class="data-count-all pd15">
+                    <div class="men-count">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="men-text mt10">
+                        <span>总内存：<a>1024</a>MB</span>
+                        <div class="men-text-color"></div><span>已使用内存 (<a>200</a>MB)</span>
+                        <div class="men-text-color"></div><span>可用内存 (<a>200</a>MB)</span>
+                        <div class="men-text-color"></div><span>Buffer/Cache内存占用 (<a>80</a>MB)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="divtable table-cont" id="table-cont" bt-event-click="choice|tr">
+                <table id="cpu_table" class="table table-hover table-show" width="100%" bt-event-click="reverse|th">
+                    <thead style="transform: translateY(0px);">
+                        <tr style="cursor: pointer;">
+                            <th width="150" data-sort="name">进程名</th>
+                            <th width="120" data-sort="cpu_percent">CPU使用率(%)<span
+                                    class="glyphicon glyphicon-triangle-bottom"
+                                    style="margin-left:5px;color:#bbb"></span></th>
+                            <th width="70" data-sort="threads">线程数</th>
+                            <th width="70" data-sort="pid">PID</th>
+                            <th width="200" data-sort="ps">描述</th>
+                            <th width="80" data-sort="user">用户</th>
+                            <th data-sort="status">状态</th>
+                            <th class="opt" width="50">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <table id="mem_table" class="table table-hover table-show" width="100%" bt-event-click="reverse|th"
+                    style="display:none">
+                    <thead style="transform: translateY(0px);">
+                        <tr style="cursor: pointer;">
+                            <th width="150" data-sort="name">进程名</th>
+                            <th width="100" data-sort="rss">RSS<span class="glyphicon glyphicon-triangle-bottom"
+                                    style="margin-left:5px;color:#bbb"></span></th>
+                            <th width="100" data-sort="uss">USS</th>
+                            <th data-sort="swap">SWAP</th>
+                            <th width="90" data-sort="pid">PID</th>
+                            <th width="180" data-sort="ps" class="opt">描述</th>
+                            <th width="80" data-sort="user">用户</th>
+                            <th class="opt" width="50">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <table id="disk_table" class="table table-hover table-show" width="100%" bt-event-click="reverse|th"
+                    style="display:none">
+                    <thead style="transform: translateY(0px);">
+                        <tr style="cursor: pointer;">
+                            <th width="150" data-sort="name">进程名</th>
+                            <th width="100" data-sort="io_total_speed">io总速度<span
+                                    class="glyphicon glyphicon-triangle-bottom"
+                                    style="margin-left:5px;color:#bbb"></span></th>
+                            <th width="100" data-sort="io_write_speed">io写速度</th>
+                            <th width="100" data-sort="io_read_speed">io读速度</th>
+                            <th width="90" data-sort="pid">PID</th>
+                            <th width="180" data-sort="ps" class="opt">描述</th>
+                            <th width="80" data-sort="user">用户</th>
+                            <th class="opt" width="50">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="divtable table-show" id="flow_table" style="display:none">
+                    <div class="flow_text">网络活动进程<span class="glyphicon glyphicon-triangle-bottom"
+                            style="margin-left:10px;color:#666"></span></div>
+                    <div class="divtable">
+                        <table id="process_flow_list" class="table table-hover" width="100%"
+                            bt-event-click="reverse|th">
+                            <thead style="transform: translateY(0px);">
+                                <tr style="cursor: pointer;">
+                                    <th width="230" data-sort="name">进程名</th>
+                                    <th width="110" data-sort="send">上行速度<span
+                                            class="glyphicon glyphicon-triangle-bottom"
+                                            style="margin-left:5px;color:#bbb"></span></th>
+                                    <th width="110" data-sort="recv">下行速度</th>
+                                    <th width="90" data-sort="pid">PID</th>
+                                    <th width="150" data-sort="ps" class="opt">描述</th>
+                                    <th class="opt" width="50">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="flow_text">TCP连接<span class="glyphicon glyphicon-triangle-bottom"
+                            style="margin-left:10px;color:#666"></span></div>
+                    <div class="divtable">
+                        <table id="tcp_list" class="table table-hover" width="100%" bt-event-click="reverse|th">
+                            <thead style="transform: translateY(0px);">
+                                <tr style="cursor: pointer;">
+                                    <th width="150" data-sort="process">进程名</th>
+                                    <th class="opt">本地地址</th>
+                                    <th class="opt">远程地址</th>
+                                    <th width="70" data-sort="family">地址族</th>
+                                    <th width="90" data-sort="pid" class="opt">PID</th>
+                                    <th data-sort="status">状态<span class="glyphicon glyphicon-triangle-bottom"
+                                            style="margin-left:5px;color:#bbb"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="flow_text">侦听端口<span class="glyphicon glyphicon-triangle-bottom"
+                            style="margin-left:10px;color:#666"></span></div>
+                    <div class="divtable">
+                        <table id="listen_list" class="table table-hover" width="100%" bt-event-click="reverse|th">
+                            <thead style="transform: translateY(0px);">
+                                <tr style="cursor: pointer;">
+                                    <th width="150" data-sort="process">进程名</th>
+                                    <th width="150" data-sort="listen_addr">监听地址</th>
+                                    <th width="110" data-sort="listen_port">监听端口<span
+                                            class="glyphicon glyphicon-triangle-bottom"
+                                            style="margin-left:5px;color:#bbb"></span></th>
+                                    <th width="90" data-sort="family">地址族</th>
+                                    <th width="90" data-sort="is_port_release">防火墙状态</th>
+                                    <th width="90" data-sort="pid">PID</th>
+                                    <th width="90" data-sort="type">协议</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="net-info">
+                        <div class="net-info-box">
+                            <div class="net-info-con">
+                                <p>总发送：<span data-type="upTotal"></span></p>
+                                <p>总接收：<span data-type="downTotal"></span></p>
+                            </div>
+                            <div class="net-info-con">
+                                <p>上行：<span data-type="up"></span></p>
+                                <p>下行：<span data-type="down"></span></p>
+                            </div>
+                            <div class="net-info-con">
+                                <p>tcp连接总数：<span data-type="tcp_count"></span></p>
+                                <p>侦听端口总数：<span data-type="listen_count"></span></p>
+                            </div>
+                            <div class="net-info-con">
+                                <p>总发包：<span data-type="upPackets"></span></p>
+                                <p>总收包：<span data-type="downPackets"></span></p>
+                            </div>
+                            <div class="net-info-con" style="border: none;">
+                                <p>包发送：<span data-type="upPackets_s"></span>/秒</p>
+                                <p>包接收：<span data-type="downPackets_s"></span>/秒</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="disk-info" style="display: none;">
+                <div class="disk-info-box">
+                    <div class="disk-info-con">
+                        <p>总的读次数：<span data-type="read_count">26720687</span></p>
+                        <p>总的写次数：<span data-type="write_count">24547628</span></p>
+                    </div>
+                    <div class="disk-info-con">
+                        <p>每秒读次数：<span data-type="read_count_s">0</span>/秒</p>
+                        <p>每秒写次数：<span data-type="write_count_s">6</span>/秒</p>
+                    </div>
+                    <div class="disk-info-con">
+                        <p>总的读字节数：<span data-type="read_bytes">59</span></p>
+                        <p>总的写字节数：<span data-type="write_bytes">11</span></p>
+                    </div>
+                    <div class="disk-info-con" style="border: none;">
+                        <p>每秒读字节数：<span data-type="read_bytes_s">3906.878</span></p>
+                        <p>每秒写字节数：<span data-type="write_bytes_s">42923.47</span></p>
+                    </div>
+                </div>
+            </div>
+            <ul class="help-info-text c7 plr15">
+                <li>rss：实际使用物理内存（包含共享库占用的内存）。</li>
+                <li>uss：进程独自占用的物理内存（不包含跨进程共享的内存）。</li>
+                <li>swap：进程占用的交换区（虚拟内存）大小。</li>
+            </ul>
+        </div>
+        <div class="bt-w-item pd15">
+            <div class="divtable" id="sites_table">
+                <div class="divtable">
+                    <table id="get_sites" class="table table-hover" width="100%" bt-event-click="reverse|th">
+                        <thead style="transform: translateY(0px);">
+                            <tr style="cursor: pointer;">
+                                <th data-sort="name">网站名</th>
+                                <th data-sort="day_request">今日请求数<span class="glyphicon glyphicon-triangle-bottom"
+                                        style="margin-left:5px;color:#bbb"></span></th>
+                                <th data-sort="qps">每秒请求数</th>
+                                <th data-sort="status">状态</th>
+                                <th width="90" data-sort="id">ID</th>
+                                <th width="50" class="opt">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var resource_manager = {
+        pluginName: 'resource_manager',
+        sites_data: {
+            data: {
+                sort: 'day_request',
+                reverse: 1
+            },
+            url: 'get_sites'
+        },
+        cpu_data: {
+            data: {
+                sort: 'cpu_percent',
+                reverse: 1
+            },
+            url: 'get_process_cpu'
+        },
+        mem_data: {
+            data: {
+                sort: 'uss',
+                reverse: 1
+            },
+            url: 'get_process_mem'
+        },
+        disk_data: {
+            data: {
+                sort: 'io_total_speed',
+                reverse: 1
+            },
+            url: 'get_process_disk'
+        },
+        tcp_list_data: {
+            data: {
+                sort: 'status',
+                reverse: 1,
+            },
+            url: 'get_tcp_list'
+        },
+        render_data: {},
+        open_path: '',
+        network_data: {
+            data: {
+                flow_sort: 'send',
+                flow_reverse: 1,
+                tcp_sort: 'status',
+                tcp_reverse: 1,
+                listen_sort: 'listen_port',
+                listen_reverse: 1
+            },
+            url: 'get_network'
+        },
+        interval: -1,
+        ajaxList: {
+            'get_process_cpu': '获取进程CPU使用率',
+            'get_process_mem': '获取进程内存使用率',
+            'get_process_disk': '获取进程磁盘io速度',
+            'get_process_flow_list': '获取进程流量',
+            'get_tcp_list': '获取TCP连接列表',
+            'get_listen_list': '获取侦听端口列表',
+            'kill_process': '结束进程/进程树',
+            'get_process_info_api': '获取进程属性详情',
+            'get_network': '获取网络数据概览',
+            'get_sites': '获取站点内容',
+        },
+        // 初始化
+        init: function () {
+            var that = this;
+            //$('.layui-layer-page').css('top',$('.layui-layer-page').offset().top/2);
+            $('.layui-layer-page')['width'](1000);
+            that.set_process_cpu(that.cpu_data); // 获取数据库任务列表
+            this.methods = this.methods();
+            this.event();
+            $('#resource_manager .divtable').scroll(function () {
+                var scrollTop = $(this).scrollTop();
+                $(this).find('thead').css('transform', 'translateY(' + scrollTop + 'px)');
+            });
+            $('.layui-layer-close').click(function () {
+                clearInterval(that.interval);
+            });
+            //物理监视暂停网站
+            $('#sites_table tbody').on('click', ' td.btlink', function () {
+                var _id = $(this).parent().data('pid'),
+                    _type = 3,
+                    _text = $(this).text();
+                if (_text == '暂停' || _text == '重启') {
+                    var name = $(this).parent().data('name'),
+                        status = $(this).parent().data('status');
+                    that.sites_ending(name, _id, status);
+                } else {
+                    that.process_detail(_id);
+                }
+            });
+            //表格结束进程
+            $('#table-cont tbody').on('click', ' td.btlink', function () {
+                var pid = $(this).parent().data('pid');
+                if ($(this).text() == '结束') {
+                    var name = $(this).siblings('.btlink').text();
+                    that.process_ending(name, pid);
+                } else {
+                    that.process_detail(pid);
+                }
+            });
+            //打开文件所在位置
+            $('body').on('click', ' .open_path', function () {
+                var path = that.open_path;
+                tmp = path.split('/')
+                tmp[tmp.length - 1] = '';
+                path = '/' + tmp.join('/');
+                openPath(path);
+            });
+            //进程弹窗页结束进程
+            $('body').on('click', ' .process_ending', function () {
+                var pid = $(this).attr('data-pid'),
+                    name = $(this).attr('data-name');
+                that.process_ending(name, pid);
+            });
+            //隐藏流量页三个表格
+            $('#flow_table').on('click', ' .flow_text', function () {
+                $(this).next().slideToggle(300);
+                $(this).find('.glyphicon').toggleClass('glyphicon-triangle-top');
+            });
+        },
+        // 进程详情弹窗
+        process_detail: function (pid, callback) {
+            var loadT = layer.msg('正在获取进程信息[' + pid + ']..', {
+                    icon: 16,
+                    time: 0,
+                    shade: [0.3, '#000']
+                }),
+                that = this;
+            that.ajaxTask({
+                method: 'get_process_info_api',
+                data: {
+                    pid: pid
+                },
+                success: function (rdata) {
+                    layer.close(loadT);
+                    var fileBody = '',
+                        path = rdata.exe;
+                    for (var i = 0; i < rdata.open_files.length; i++) {
+                        fileBody += '<tr><td>' + rdata.open_files[i].path + '</td><td>' + rdata
+                            .open_files[i].mode + '</td><td>' + rdata.open_files[i].position +
+                            '</td><td>' + rdata.open_files[i].flags + '</td><td>' + rdata
+                            .open_files[i].fd + '</td></tr>';
+                    }
+                    var cbody = '<div class="pd15 jc-detail">\
+                                <div class="divtable">\
+                                    <table class="table">\
+                                        <tbody>\
+                                            <tr>\
+                                                <th width="70">名称</th><td  width="180">' + rdata.name + '</td>\
+                                                <th width="50">PID</th><td  width="180">' + rdata.pid + '</td>\
+                                                <th width="50">状态</th><td  width="180">' + rdata.status + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <th>父进程</th><td>' + rdata.pname + '(' + rdata.ppid + ')</td>\
+                                                <th>用户</th><td>' + rdata.user + '</td>\
+                                                <th>线程</th><td>' + rdata.threads + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <th>Socket</th><td>' + rdata.connects + '</td>\
+                                                <th>io读</th><td>' + ToSize(rdata.io_read_bytes) + '</td>\
+                                                <th>io写</th><td>' + ToSize(rdata.io_write_bytes) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <th>启动时间</th><td>' + getLocalTime(rdata.create_time) + '</td>\
+                                                <th>描述</th><td colspan="3">' + rdata.ps + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <th>启动命令</th><td colspan="5">' + rdata.comline.join(" ") + '</td>\
+                                            </tr>\
+                                        </tbody>\
+                                    </table>\
+                                </div>\
+                                <h3 class="tname">内存</h3>\
+                                <div class="divtable">\
+                                    <table class="table">\
+                                        <tbody>\
+                                            <tr>\
+                                                <th width="70">rss</th><td width="180">' + ToSize(rdata.memory_full
+                            .rss) + '</td>\
+                                                <th width="50">pss</th><td width="180">' + ToSize(rdata.memory_full
+                            .pss) + '</td>\
+                                                <th width="50">uss</th><td width="180">' + ToSize(rdata.memory_full
+                            .uss) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <th>vms</th><td>' + ToSize(rdata.memory_full.vms) + '</td>\
+                                                <th>swap</th><td>' + ToSize(rdata.memory_full.swap) + '</td>\
+                                                <th>shared</th><td>' + ToSize(rdata.memory_full.shared) + '</td>\
+                                            </tr>\
+                                            <tr>\
+                                                <th>data</th><td>' + ToSize(rdata.memory_full.data) + '</td>\
+                                                <th>text</th><td>' + ToSize(rdata.memory_full.text) + '</td>\
+                                                <th>dirty</th><td>' + ToSize(rdata.memory_full.dirty) + '</td>\
+                                            </tr>\
+                                        </tbody>\
+                                    </table>\
+                                </div>\
+                                <h3 class="tname">打开的文件列表</h3>\
+                                <div class="divtable">\
+                                    <div id="jc-file-table" class="jc-file-table" style="height:206px;overflow:auto;border:#ddd 1px solid">\
+                                        <table class="table table-hover" style="border:none">\
+                                            <thead>\
+                                                <tr>\
+                                                    <th>文件</th>\
+                                                    <th>mode</th>\
+                                                    <th>position</th>\
+                                                    <th>flags</th>\
+                                                    <th>fd</th>\
+                                                </tr>\
+                                            </thead>\
+                                            <tbody>' + fileBody + '</tbody>\
+                                        </table>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                            <div class="mini-info">\
+                                <button class="btn btn-sm btn-default mr5 open_path">打开文件位置</button>\
+                                <button class="btn btn-sm btn-default process_ending" data-name="' + rdata.name +
+                        '" data-pid="' + rdata.pid + '">结束进程树</button>\
+                            </div>';
+                    layer.open({
+                        type: 1,
+                        title: '进程属性[' + rdata.name + '] -- ' + rdata.exe,
+                        area: '750px',
+                        closeBtn: 2,
+                        shadeClose: false,
+                        content: cbody
+                    });
+                    that.open_path = path;
+                }
+            });
+        },
+        // 暂停网站
+        sites_ending: function (name, id, status, callback) {
+            var that = this,
+                _text = status == 1 ? '暂停' : '启用',
+                url = status == 1 ? 'stop_site' : 'start_site';
+            layer.confirm('是否要' + _text + '【<span style="color: #20a53a;">' + name + '</span>】该站点？', {
+                title: '确认' + _text + '站点',
+                closeBtn: 2,
+                icon: 0
+            }, function () {
+                that.ajaxTask({
+                    method: url,
+                    data: {
+                        id: id
+                    },
+                    success: function (rdata) {
+                        that.get_sites(that.sites_data);
+                        layer.msg(rdata.msg, {
+                            icon: rdata.status ? 1 : 2
+                        });
+                    }
+                });
+            });
+        },
+        // 结束进程
+        process_ending: function (name, pid, callback) {
+            var that = this;
+            layer.confirm('是否要结束【<span style="color: #20a53a;">' + name + '</span>】该进程？', {
+                title: '确认结束进程',
+                closeBtn: 2,
+                icon: 0
+            }, function () {
+                that.ajaxTask({
+                    method: 'kill_process',
+                    data: {
+                        pid: pid,
+                        killall: 1
+                    },
+                    success: function (rdata) {
+                        layer.msg(rdata.msg, {
+                            icon: rdata.status ? 1 : 2
+                        });
+                    }
+                });
+            });
+        },
+        // 获取json
+        get_json: function (data, callback) {
+            var that = this;
+            // if (typeof data == "object" && data.reverse == undefined) data.data.reverse = 1
+            // if (typeof data == "function") {
+            //     callback = data;
+            //     data.data = {
+            //         sort: 'cpu_percent',
+            //         reverse: 1
+            //     }
+            // }
+            that.ajaxTask({
+                method: data.url,
+                data: data.data,
+                success: function (res) {
+                    if (callback) callback(res)
+                }
+            });
+        },
+        // 执行循环遍历功能
+        render_table_menu: function (target_table, data, callback) {
+            var that = this,
+                ckeck_cpu = setInterval(function () {
+                    if (target_table == '#flow_table') {
+                        var res,
+                            json_list = ['process_flow_list', 'tcp_list', 'listen_list'];
+                        data.data.notips = true;
+                        that.get_json(data, function (rdata) {
+                            for (var i = 0; i < json_list.length; i++) {
+                                res = rdata[json_list[i]];
+                                that.render_table_tbody(res, '#' + json_list[i]);
+                            }
+                            if (callback) callback(rdata);
+                        });
+                    } else {
+                        data.data.notips = true;
+                        that.get_json(data, function (rdata) {
+                            that.render_table_tbody(rdata, target_table, callback);
+                        });
+                    }
+                }, 5000);
+            //console.log(that.interval,ckeck_cpu)
+            if (that.interval != ckeck_cpu && that.interval != -1) clearInterval(that.interval);
+            that.interval = ckeck_cpu;
+        },
+        // 遍历json的数据
+        render_table_tbody: function (rdata, target_table, callback) {
+            var that = this,
+                res = {
+                    'process_list': []
+                };
+            if (target_table == '#listen_list' || target_table == '#process_flow_list' || target_table ==
+                '#tcp_list') {
+                res.process_list = rdata;
+            } else if (target_table == '#get_sites') {
+                res.process_list = rdata.site_list;
+            } else {
+                res = rdata;
+            }
+            if (callback) callback(res);
+            var task_tbody = $(target_table + ' tbody');
+            if (res.process_list.length == 0) {
+                task_tbody.empty();
+                return false;
+            }
+            if (target_table == '#tcp_list' || target_table == '#listen_list') task_tbody.empty();
+            for (var index = 0; index < res.process_list.length; index++) {
+                if (target_table == '#tcp_list' || target_table == '#listen_list') {
+                    that.change_render_tr_new(target_table, res.process_list[index], 'new_tr');
+                    continue;
+                }
+                var item = res.process_list[index];
+                if (target_table == '#get_sites') {
+                    item.pid = item.id;
+                }
+                var tr = task_tbody.find('[data-pid=' + item.pid + ']'),
+                    before = index == 0 ? 0 : index - 1,
+                    item_old = index == 0 ? 'new_tr' : res.process_list[before].pid;
+                if (tr.length != 0 && (JSON.stringify(tr.data()) == JSON.stringify(item))) { //已存在的进程
+                    tr.attr("data-active", 1);
+                } else {
+                    if (tr.length != 0) tr.remove();
+                    that.change_render_tr_new(target_table, item, item_old);
+                }
+            }
+            $(target_table + ' tbody tr').remove('[data-active!="1"]').removeAttr("data-active");
+        },
+        change_render_tr_new: function (target_table, item, item_old, callback) {
+            var that = this;
+            switch (target_table) {
+                case '#get_sites':
+                    that.set_sites_tr(item, target_table, item_old);
+                    break;
+                case '#cpu_table':
+                    that.set_cpu_tr(item, target_table, item_old);
+                    break;
+                case '#mem_table':
+                    that.set_mem_tr(item, target_table, item_old);
+                    break;
+                case '#disk_table':
+                    that.set_disk_tr(item, target_table, item_old);
+                    break;
+                case '#process_flow_list':
+                    that.set_process_flow_list_tr(item, target_table, item_old);
+                    break;
+                case '#tcp_list':
+                    that.set_tcp_list_tr(item, target_table, item_old);
+                    break;
+                case '#listen_list':
+                    that.set_listen_list_tr(item, target_table, item_old);
+                    break;
+            }
+        },
+        //渲染表格tbody的tr
+        render_table_tr: function (total, item, target, setting, data_active, ps) {
+            var tr = '<tr data-pid="' + total.pid + '">',
+                td_set = '',
+                td_ps = '';
+            if (ps) {
+                for (var i = 0; i < item.length; i++) {
+                    tr += '<td ' + setting[i] + '>' + item[i] + ps[i] + '</td>';
+                }
+            } else {
+                for (var i = 0; i < item.length; i++) {
+                    tr += '<td ' + setting[i] + '>' + item[i] + '</td>';
+                }
+            }
+            tr += '</tr>';
+            if (data_active) {
+                if (data_active == 'new_tr') {
+                    target.prepend($(tr).data(total).attr('data-active', 1));
+                } else {
+                    target.find('[data-pid=' + data_active + ']').after($(tr).data(total).attr('data-active',
+                        1));
+                }
+            } else {
+                target.append($(tr).data(total));
+            }
+
+        },
+        // 生成网站监视页面新tr
+        set_sites_tr: function (data, target, item_old, callback) {
+            var that = this,
+                item = data,
+                loop = false,
+                td_data = [item.name, item.day_request, item.qps, item.status == 1 ? '运行中' : '未启用', item.id,
+                    item.status == 1 ? '暂停' : '重启'
+                ],
+                td_set = ['style="color: #20a53a;"', '', '', item.status == 1 ? 'style="color: #20a53a;"' :
+                    'style="color: #F98B0A;"', '', item.status == 1 ? 'style="color: #20a53a;" class="btlink"' :
+                    'style="color: #F98B0A;" class="btlink"'
+                ];
+            if (item_old) loop = item_old;
+            if (!item_old) item.pid = item.id;
+            that.render_table_tr(item, td_data, $(target + " tbody"), td_set, loop);
+        },
+        // 生成CPU页面新tr
+        set_cpu_tr: function (data, target, item_old, callback) {
+            var that = this,
+                item = data,
+                loop = false,
+                td_data = [item.name, item.cpu_percent, item.threads, item.pid, item.ps, item.user, item.status,
+                    '结束'
+                ],
+                td_set = ['class="btlink"', '', '', '', '', '', item.status == '睡眠' ?
+                    'style="color: #F98B0A;"' : 'style="color: #20a53a;"', 'class="btlink"'
+                ];
+            if (item_old) loop = item_old;
+            that.render_table_tr(item, td_data, $(target + " tbody"), td_set, loop);
+        },
+        // 生成内存页面新tr
+        set_mem_tr: function (data, target, item_old, callback) {
+            var that = this,
+                item = data,
+                loop = false,
+                td_data = [item.name, that.num_unit(item.rss), that.num_unit(item.uss), that.num_unit(item
+                    .swap), item.pid, item.ps, item.user, '结束'],
+                td_set = ['class="btlink"', '', '', '', '', '', '', 'class="btlink"'];
+            if (item_old) loop = item_old;
+            that.render_table_tr(item, td_data, $(target + " tbody"), td_set, loop);
+        },
+        // 生成IO磁盘页面新tr
+        set_disk_tr: function (data, target, item_old, callback) {
+            var that = this,
+                item = data,
+                loop = false,
+                td_data = [item.name, that.num_unit(item.io_total_speed), that.num_unit(item.io_write_speed),
+                    that.num_unit(item.io_read_speed), item.pid, item.ps, item.user, '结束'
+                ],
+                td_set = ['class="btlink"', '', '', '', '', '', '', 'class="btlink"'],
+                td_ps = ['', '/秒', '/秒', '/秒', '', '', '', ''];
+            if (item_old) loop = item_old;
+            that.render_table_tr(item, td_data, $(target + " tbody"), td_set, loop, td_ps);
+        },
+        // 生成进程流量页面新tr
+        set_process_flow_list_tr: function (data, target, item_old, callback) {
+            var that = this,
+                item = data,
+                loop = false,
+                td_data = [item.name, that.num_unit(item.send * 1024), that.num_unit(item.recv * 1024), item
+                    .pid, item.ps, '结束'
+                ],
+                td_set = ['class="btlink"', '', '', '', '', 'class="btlink"'],
+                td_ps = ['', '/秒', '/秒', '', '', ''];
+            if (item_old) loop = item_old;
+            that.render_table_tr(item, td_data, $(target + " tbody"), td_set, loop, td_ps);
+        },
+        // 生成tcp页面新tr
+        set_tcp_list_tr: function (data, target, item_old, callback) {
+            var that = this,
+                item = data,
+                loop = false,
+                td_data = [item.process, item.laddr[0] + ':' + item.laddr[1], item.raddr[0] + ':' + item.raddr[
+                    1], item.family == 2 ? 'ipv4' : 'ipv6', item.pid, item.status],
+                td_set = [item.pid ? 'class="btlink"' : 'class="opt"', '', '', '', '', ''];
+            if (item_old) loop = item_old;
+            that.render_table_tr(item, td_data, $(target + " tbody"), td_set, loop);
+        },
+        // 生成侦听页面新tr
+        set_listen_list_tr: function (data, target, item_old, callback) {
+            var that = this,
+                item = data,
+                loop = false,
+                td_data = [item.process, item.listen_addr, item.listen_port, item.family == 2 ? 'ipv4' : 'ipv6',
+                    item.is_port_release ? '放行' : '不放行', item.pid, item.type
+                ],
+                td_set = ['class="btlink"', '', '', '', '', '', ''];
+            if (item_old) loop = item_old;
+            that.render_table_tr(item, td_data, $(target + " tbody"), td_set, loop);
+        },
+        // 渲染网站监视页面
+        get_sites: function (data, callback) {
+            var that = this,
+                load;
+            this.get_json(data, function (res) {
+                $("#sites_table tbody").empty();
+                for (var i = 0; i < res.site_list.length; i++) {
+                    that.set_sites_tr(res.site_list[i], '#get_sites');
+                }
+                that.render_data = JSON.parse(JSON.stringify(that.sites_data));
+                that.render_table_menu('#get_sites', that.render_data);
+            });
+        },
+        // 渲染CPU页面
+        set_process_cpu: function (data, callback) {
+            var that = this,
+                load;
+            this.get_json(data, function (res) {
+                load = res.info.load_average
+                $('.site-all .dval span:eq(0)').text(res.info.cpu + '%');
+                $('.site-all .dval span:eq(1)').text(res.info.activity);
+                $('.site-all .dval span:eq(2)').text(load[1] + '，' + load[5] + '，' + load[15] + '，');
+                $("#table-cont tbody").empty();
+                for (var i = 0; i < res.process_list.length; i++) {
+                    that.set_cpu_tr(res.process_list[i], '#cpu_table');
+                }
+                that.render_data = JSON.parse(JSON.stringify(that.cpu_data));
+                that.render_table_menu('#cpu_table', that.render_data, function (res) {
+                    var load = res.info.load_average,
+                        task_tbody = $('#cpu_table tbody');
+                    $('.site-all .dval span:eq(0)').text(res.info.cpu + '%');
+                    $('.site-all .dval span:eq(1)').text(res.info.activity);
+                    $('.site-all .dval span:eq(2)').text(load[1] + '，' + load[5] + '，' + load[
+                        15] + '，');
+                });
+            });
+        },
+        // 渲染内存页面
+        set_process_mem: function (data, callback) {
+            var that = this;
+            that.get_json(data, function (res) {
+                $('.men-count span:eq(0)')['width'](res.info.memRealUsed / res.info.memTotal * 100 +
+                    '%');
+                $('.men-count span:eq(1)')['width'](res.info.memFree / res.info.memTotal * 100 + '%');
+                $('.men-count span:eq(2)')['width'](res.info.memCached / res.info.memTotal * 100 + '%');
+                $('.men-text a:eq(0)').text(res.info.memTotal);
+                $('.men-text a:eq(1)').text(res.info.memRealUsed);
+                $('.men-text a:eq(2)').text(res.info.memFree);
+                $('.men-text a:eq(3)').text(res.info.memCached);
+                $("#table-cont tbody").empty();
+                for (var i = 0; i < res.process_list.length; i++) {
+                    that.set_mem_tr(res.process_list[i], '#mem_table');
+                }
+                that.render_data = JSON.parse(JSON.stringify(that.mem_data));
+                that.render_table_menu('#mem_table', that.render_data, function (res) {
+                    $('.men-count span:eq(0)')['width'](res.info.memRealUsed / res.info
+                        .memTotal * 100 + '%');
+                    $('.men-count span:eq(1)')['width'](res.info.memFree / res.info.memTotal *
+                        100 + '%');
+                    $('.men-count span:eq(2)')['width'](res.info.memCached / res.info.memTotal *
+                        100 + '%');
+                    $('.men-text a:eq(0)').text(res.info.memTotal);
+                    $('.men-text a:eq(1)').text(res.info.memRealUsed);
+                    $('.men-text a:eq(2)').text(res.info.memFree);
+                    $('.men-text a:eq(3)').text(res.info.memCached);
+                });
+            });
+        },
+        // 渲染IO磁盘页面
+        set_process_disk: function (data, callback) {
+            var that = this;
+            that.get_json(data, function (res) {
+                for (var i in res.disk_info) {
+                    var _text = res.disk_info[i];
+                    if(i=='read_bytes'||i=='read_bytes_s'||i=='write_bytes'||i=='write_bytes_s') _text=that.num_unit(_text);
+                    $(".disk-info span[data-type='"+i+"']").text(_text);
+                }
+                $("#table-cont tbody").empty();
+                for (var i = 0; i < res.process_list.length; i++) {
+                    that.set_disk_tr(res.process_list[i], '#disk_table');
+                }
+                that.render_data = JSON.parse(JSON.stringify(that.disk_data));
+                that.render_table_menu('#disk_table', that.render_data, function (res) {
+                    for (var i in res.disk_info) {
+                        var _text = res.disk_info[i];
+                        if(i=='read_bytes'||i=='read_bytes_s'||i=='write_bytes'||i=='write_bytes_s') _text=that.num_unit(_text);
+                        $(".disk-info span[data-type='"+i+"']").text(_text);
+                    }
+                });
+            });
+        },
+        // 渲染进程流量页面
+        set_process_flow_list: function (data, callback) {
+            var that = this;
+            $("#table-cont tbody").empty();
+            that.get_json(data, function (res) {
+                for (var i = 0; i < res.process_flow_list.length; i++) {
+                    that.set_process_flow_list_tr(res.process_flow_list[i], '#process_flow_list');
+                }
+                for (var i = 0; i < res.tcp_list.length; i++) {
+                    that.set_tcp_list_tr(res.tcp_list[i], '#tcp_list');
+                }
+                for (var i = 0; i < res.listen_list.length; i++) {
+                    that.set_listen_list_tr(res.listen_list[i], '#listen_list');
+                }
+                for (var i in res.network_info) {
+                    var _text = res.network_info[i];
+                    if(i=='upTotal'||i=='downTotal'||i=='up'||i=='down') _text=that.num_unit(_text);
+                    $(".net-info span[data-type='"+i+"']").text(_text);
+                }
+            });
+            that.render_data = JSON.parse(JSON.stringify(that.network_data));
+            that.render_table_menu('#flow_table', that.network_data, function (res) {
+                for (var i in res.network_info) {
+                    var _text = res.network_info[i];
+                    if(i=='upTotal'||i=='downTotal'||i=='up'||i=='down') _text=that.num_unit(_text);
+                    $(".net-info span[data-type='"+i+"']").text(_text);
+                }
+            });
+        },
+        // 单位换算
+        num_unit: function (a) {
+            var d = [" B", " KB", " MB", " GB", " TB", " PB"];
+            var e = 1024;
+            for (var b = 0; b < d.length; b++) {
+                if (a < e) {
+                    return (b == 0 ? a : a.toFixed(2)) + d[b]
+                }
+                a /= e
+            }
+        },
+        // 事件方法
+        methods: function () {
+            var that = this;
+            return {
+                focusInputTips: function (ev) {
+                    var _this = $(this),
+                        tips = _this.attr('placeholder');
+                    _this.attr('placeholder', '');
+                    var loadT = layer.tips(tips, _this, {
+                        tips: [1, '#20a53a'],
+                        time: 0,
+                        area: _this[0].clientWidth + 'px'
+                    });
+                    $(this).one('blur', function () {
+                        $(this).attr('placeholder', tips);
+                        layer.close(loadT);
+                    });
+                },
+                // tab切换左侧页面
+                tabCut: function (ev) {
+                    var _index = $(this).index();
+                    if (typeof ev != "undefined") {
+                        $(this).addClass('bgw').siblings().removeClass('bgw');
+                    } else {
+                        $('.bt-w-menu span').eq(ev).addClass('bgw').siblings().removeClass('bgw');
+                    }
+                    $('.bt-w-con .bt-w-item').eq(_index).addClass('active').siblings().removeClass(
+                        'active');
+                    switch (_index) {
+                        case 0:
+                            $('.man-menu-sub span.on').click();
+                            break;
+                        case 1:
+                            that.get_sites(that.sites_data);
+                            break;
+                    }
+                },
+                //切换顶部tab栏
+                menuSub: function (ev) {
+                    var _index = $(this).index();
+                    if (typeof ev != "undefined") {
+                        $(this).addClass("on").siblings().removeClass("on");
+                    } else {
+                        $('.man-menu-sub span').eq(ev).addClass('on').siblings().removeClass('on');
+                    }
+                    $('.data-count-all,.help-info-text').removeClass("active");
+                    $('.disk-info').css('display',_index == 2?'block':'none');
+                    if (_index < 3) $('.data-count-all').eq(_index).addClass("active");
+                    if (_index == 1) $('.help-info-text').addClass("active");
+                    $('#table-cont .table-show').eq(_index).show().siblings().hide();
+                    switch (_index) {
+                        case 0:
+                            that.set_process_cpu(that.cpu_data);
+                            $(".table-cont").css('max-height', '505px');
+                            break;
+                        case 1:
+                            that.set_process_mem(that.mem_data);
+                            $(".table-cont").css('max-height', '404px');
+                            break;
+                        case 2:
+                            that.set_process_disk(that.disk_data);
+                            $(".table-cont").css('max-height', '538px');
+                            break;
+                        case 3:
+                            that.set_process_flow_list(that.network_data);
+                            $(".table-cont").css('max-height', '622px');
+                            break;
+                    }
+                },
+                //表格正反序
+                reverse: function (ev) {
+                    if ($(this).hasClass('opt')) return false;
+                    var _index = $(this).index(),
+                        _sort = $(this).attr('data-sort'),
+                        config,
+                        _reverse,
+                        _id = $(this).parents('table').attr('id'),
+                        _choose = $(
+                            '<span class="glyphicon glyphicon-triangle-bottom" style="margin-left:5px;color:#bbb"></span>'
+                        );
+                    switch (_id) {
+                        case 'cpu_table':
+                            config = that.cpu_data;
+                            _reverse = config.data.reverse;
+                            break;
+                        case 'mem_table':
+                            config = that.mem_data;
+                            _reverse = config.data.reverse;
+                            break;
+                        case 'disk_table':
+                            config = that.disk_data;
+                            _reverse = config.data.reverse;
+                            break;
+                        case 'process_flow_list':
+                            config = that.network_data;
+                            _reverse = config.data.flow_reverse;
+                            break;
+                        case 'tcp_list':
+                            config = that.network_data;
+                            _reverse = config.data.tcp_reverse;
+                            break;
+                        case 'listen_list':
+                            config = that.network_data;
+                            _reverse = config.data.listen_reverse;
+                            break;
+                    }
+                    if (_sort != config.data.sort && $(this).find('.glyphicon').length == 0) {
+                        _reverse = 1;
+                        $(this).append(_choose).siblings().find('.glyphicon').remove();
+                    } else {
+                        _reverse = 1 ^ _reverse;
+                        $(this).find('.glyphicon').toggleClass("glyphicon-triangle-top");
+                    }
+                    switch (_id) {
+                        case 'cpu_table':
+                            config.data.sort = _sort;
+                            config.data.reverse = _reverse;
+                            that.set_process_cpu(config);
+                            break;
+                        case 'mem_table':
+                            config.data.sort = _sort;
+                            config.data.reverse = _reverse;
+                            that.set_process_mem(config);
+                            break;
+                        case 'disk_table':
+                            config.data.sort = _sort;
+                            config.data.reverse = _reverse;
+                            that.set_process_disk(config);
+                            break;
+                        case 'process_flow_list':
+                            config.data.flow_sort = _sort;
+                            config.data.flow_reverse = _reverse;
+                            that.set_process_flow_list(that.network_data);
+                            break;
+                        case 'tcp_list':
+                            config.data.tcp_sort = _sort;
+                            config.data.tcp_reverse = _reverse;
+                            that.set_process_flow_list(that.network_data);
+                            break;
+                        case 'listen_list':
+                            config.data.listen_sort = _sort;
+                            config.data.listen_reverse = _reverse;
+                            that.set_process_flow_list(that.network_data);
+                            break;
+                    }
+                }
+            }
+        },
+        // 行内模拟事件绑定
+        event: function (el) {
+            var that = this;
+            _html = $('#resource_manager')[0].innerHTML, event_list = {};
+            if (el != undefined) _html = $(el)[0].innerHTML;
+            _reg = new RegExp(/bt-event-(click|change|focus)="([a-z0-9A-Z]+)\|*([a-z0-9A-Z]*)"/g);
+            _html.replace(_reg, function ($1, $2, $3, $4) {
+                if (!event_list[($2)]) {
+                    if ($4 != "") {
+                        $('[' + $1 + ']').unbind($2).on($2, $4, function (ev) {
+                            that.methods[$3].apply(this, [ev, $(this).index]);
+                        });
+                    } else {
+                        $('[' + $1 + ']').unbind($2).on($2, function (ev) {
+                            that.methods[$3].apply(this, [ev]);
+                        });
+                    }
+                    event_list[$3] = true;
+                }
+            });
+        },
+        // 请求任务处理
+        ajaxTask: function (config) {
+            if (config.middle === false) {
+                config.success();
+                return false;
+            }
+            var data = {
+                tips: '正在' + this.ajaxList[config.method] + ',请稍后...',
+                method: config.method,
+                data: config.data || '',
+                success: function (rdata) {
+                    if (config.success) config.success(rdata);
+                },
+                error: function (rdata) {
+                    if (config.error) config.error(rdata);
+                }
+            }
+            if (config.data.notips) {
+                data.tips = 5;
+                delete data.data.notips;
+            }
+            this.http(data);
+        },
+        // 请求封装
+        http: function (obj) {
+            var loadT = '';
+            if (obj.load == undefined) obj.load = 0;
+            if (obj.url == undefined) {
+                if (obj.pluginName === undefined && this.pluginName !== undefined) {
+                    obj.pluginName = this.pluginName
+                }
+                if (!obj.pluginName || !obj.method) {
+                    layer.msg('插件类名称，或插件方法名称缺失!', {
+                        icon: 2
+                    });
+                    return false;
+                }
+            }
+            if (obj.tips != 5 && (obj.load === 0 || obj.tips != '')) {
+                loadT = layer.msg(obj.tips, {
+                    icon: 16,
+                    time: 0,
+                    shade: 0.3
+                });
+            } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+                loadT = layer.load();
+            }
+            $.ajax({
+				type: 'POST',
+				url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.pluginName + '&s=' + obj.method),
+				data: obj.data || {},
+				timeout: obj.timeout || 99999999,
+				complete: function (res) {
+					if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+				},
+				success: function (rdata) {
+					if (obj.check) {
+						obj.success(rdata);
+						return false
+					}
+					if (rdata.status === false) {
+						layer.msg(rdata.msg, { icon: 2 });
+						return false;
+					}
+					obj.success(rdata);
+				}
+			});
+            // $.ajax({
+            //     type: 'POST',
+            //     url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.pluginName + '&s=' + obj.method),
+            //     data: obj.data || {},
+            //     timeout: obj.timeout || 99999999,
+            //     complete: function (xhr, status) {
+            //         if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+            //         var rdata = {};
+            //         if (status === "success") {
+            //             rdata = xhr.responseJSON;
+            //             if (typeof rdata.status != undefined && rdata.status === false) {
+            //                 layer.msg(rdata.msg, {
+            //                     icon: 2
+            //                 });
+            //                 if (obj.error) obj.error(rdata);
+            //             } else {
+            //                 if (obj.success) obj.success(rdata);
+            //             }
+            //         } else {
+            //             layer.msg('请求状态码:' + xhr.status + ',请求发生错误!', {
+            //                 icon: 2
+            //             });
+            //         }
+            //     }
+            // });
+        }
+    }
+    resource_manager.init();
+</script>

@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/database_mater/install.sh install

@@ -1,0 +1,11 @@
+{
+	"title":"反垃圾邮件网关",
+	"name":"anti_spam",
+	"ps":"允许你将邮件服务器接入过滤垃圾/病毒邮件",
+	"versions":"1.2",
+	"checks":"/www/server/panel/plugin/anti_spam",
+	"author":"宝塔",
+	"beta": false,
+	"force_message": "",
+	"not_substituted":["config.json|f"]
+}

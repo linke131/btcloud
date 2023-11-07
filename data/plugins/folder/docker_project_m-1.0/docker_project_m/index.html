@@ -1,0 +1,67 @@
+<style>
+.dkp_header {
+    background: rgb(233 254 238 / 50%);
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.dkp_content--logo,
+.dkp_content--introduce{
+    display: inline-block;
+}
+.dkp_content--introduce{
+    vertical-align: top;
+    margin-top: 36px;
+}
+.dkp_content--introduce .dkp_content--name{
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+</style>
+
+<div class="docker_project_box pd20">
+    <div class="dkp_header">
+        <span>左侧菜单开关</span>
+        <div style="display: inline-block;vertical-align: middle;margin-left:5px;">
+            <input type="checkbox" class="btswitch btswitch-ios" id="serviceStatus">
+            <label class="btswitch-btn serviceStatus" for="serviceStatus"></label>
+        </div>
+        <span style="margin-left:10px">*此功能为面板集成模块，开启后刷新页面，进入面板<a class="btlink" href="/docker">docker</a>模块页面</span>
+    </div>
+    <div class="dkp_content">
+        <div class="dkp_content--logo">
+            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="144px" height="120px"><path fill="#03A9F4" d="M40,20c0.391-1.735-0.092-3.78-2.5-6c-3.914,3.543-2.795,7.227-1.5,9c0,0-0.166,1-4,1S2,24,2,24S0.167,40,18,40c15.593,0,19.973-12.003,20.828-15.076C39.182,24.972,39.579,25.003,40,25c2.147-0.017,4.93-1.171,6-5.484C43.162,18.533,41.339,18.978,40,20z"/><path fill="#0288D1" d="M2.165,28C2.9,32.739,5.983,40,18,40c12.185,0,17.523-7.33,19.682-12H2.165z"/><path fill="#81D4FA" d="M19.812,39.938C18.892,39.616,14.74,38.848,14,33c-4.209,1.863-7.938,1.375-9.579,1.008C6.583,37.237,10.591,40,18,40C18.623,40,19.224,39.976,19.812,39.938z"/><path fill="#FFF" d="M18 30A2 2 0 1 0 18 34A2 2 0 1 0 18 30Z"/><path fill="#37474F" d="M14.914,33.597c0.224,0.505,0.02,1.162-0.51,1.318c-3.301,0.973-6.146,1.102-8.297,1.102c-0.644-0.619-1.194-1.279-1.656-1.963c2.585,0,6.71-0.12,9.144-0.966C14.117,32.906,14.69,33.09,14.914,33.597z M2,27c0,0,1.875,0.125,3-1c1.875,1.688,5.94,1.088,7,0c1.063,1.688,6.938,1.375,8,0c1.25,1.438,6.625,1.75,8,0c0.479,1.461,6.819,1.874,8,0c1.061,1.088,5.063,1.938,7.311,0C43.875,27.188,46,27,46,27v1H2 M17,32c0,0.552,0.448,1,1,1s1-0.448,1-1s-0.448-1-1-1S17,31.448,17,32z"/><path fill="#01579B" d="M11,24H6v-5h5V24z M21,19h-5v5h5V19z M31,19h-5v5h5V19z M16,14h-5v5h5V14z M26,14h-5v5h5V14z"/><path fill="#0288D1" d="M16,24h-5v-5h5V24z M26,19h-5v5h5V19z M26,9h-5v5h5V9z M21,14h-5v5h5V14z"/></svg>
+        </div>
+        <div class="dkp_content--introduce">
+            <p class="dkp_content--name">Docker项目模块</p>
+            <p class="dkp_content--title">支持常用项目快速部署、自定义、容器监控、终端管理</p>
+        </div>
+    </div>
+    <ul class="help-info-text c7">
+        <li>相关教程：<a class="btlink" href="https://www.bt.cn/bbs/thread-90656-1-1.html" target="_blank">《Docker集成模块》</a><a class="btlink" href="https://www.bt.cn/bbs/thread-95674-1-1.html" target="_blank">《Docker模块使用手册》</a></li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $('.layui-layer-page').css({
+        width: '630px',
+        height: '310px',
+        left: (($(window).width() - 630) / 2) + 'px',
+        top: (($(window).height() - 310) / 2) + 'px'
+    }).find('.bt-w-main').css({height: (310 - 42) + 'px'})
+    // 获取栏目状态
+    $.post('/plugin?action=a&name=docker_project_m&s=get_config',function(res){
+        if(typeof res.status != 'undefined' && typeof res.msg != 'undefined') return layer.msg(res.msg,{icon:2})
+        $('#serviceStatus').prop('checked',res.show)
+    })
+    
+    // 设置栏目开关
+    $('#serviceStatus').on('change',function(){
+        var _status = $(this).prop('checked'),_param = {hide_list:JSON.stringify(_status?[]:['memuDocker'])};
+        $.post('/plugin?action=a&name=docker_project_m&s=set_config',_param,function(res){
+            layer.msg(res.msg,{icon:res.status?1:2})
+        })
+    })
+</script>

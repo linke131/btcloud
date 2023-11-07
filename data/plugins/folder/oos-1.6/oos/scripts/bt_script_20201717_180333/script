@@ -1,0 +1,8 @@
+_bin="/etc/init.d/php-fpm-"
+versions="52 53 54 55 56 70 71 72 73 74"
+for v in $versions;
+do
+	if [ -f ${_bin}${v} ];then
+		${_bin}${v} reload
+	fi 
+done

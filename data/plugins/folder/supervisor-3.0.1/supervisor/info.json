@@ -1,0 +1,9 @@
+{
+  "title": "Supervisor进程管理器",
+  "name": "supervisor",
+  "ps": "基于Supervisor开发的进程守护工具，可以让进程开机启动，异常关闭自动重启",
+  "versions": "3.0.1",
+  "checks": "/www/server/panel/plugin/supervisor",
+  "author": "宝塔",
+  "home": "https://www.bt.cn"
+}

@@ -1,0 +1,373 @@
+<style>
+
+  .upyunCon {
+    padding: 30px;
+  }
+
+  .up-place {
+    height: 62px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .up-place .btn {
+    border-radius: 0;
+  }
+
+  .up-place .place-input {
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    height: 30px;
+    line-height: 28px;
+    overflow: hidden;
+    margin: 1px 0 0 -1px;
+    width: 340px;
+  }
+
+  .place-input ul {
+    display: inline-block;
+    position: relative;
+    width: auto;
+  }
+
+  .place-input ul li {
+    background: url("/static/img/ico/ico-ltr.png") no-repeat right center;
+    float: left;
+    padding-left: 10px;
+    padding-right: 18px;
+  }
+
+  .place-input ul li a {
+    height: 28px;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .upyunlist {
+    height: 516px;
+    overflow: auto;
+  }
+
+  .up-bottom {
+    background-color: #fafafa;
+    border-top: 1px solid #eee;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  .up-use {
+    line-height: 50px
+  }
+
+  .list-list .cursor span {
+    line-height: 30px;
+  }
+
+  .btn-title {
+    margin-top: 1px
+  }
+
+  .step_item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .step_item .serial_box {
+    flex: 1;
+  }
+
+  .step_item .serial {
+    display: flex;
+    justify-content: center;
+    min-width: 30px;
+    margin-right: 30px;
+  }
+  .step_item .serial span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #20a53a;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #20a53a;
+  }
+  .step_item .serial_title{
+    margin-bottom: 15px;
+    font-size: 15px;
+    line-height: 30px;
+    color: #666;
+  }
+  .step_two_rul {
+    display: inline-block;
+    overflow: hidden;
+    width: 380px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 30px;
+    line-height: 30px;
+    background: #ececec;
+    margin-right: 10px;
+    border-radius: 2px;
+    padding: 0 10px;
+    float: left;
+  }
+  .btn_btlink {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid #20a53a;
+    color: #fff;
+    background-color: #20a53a;
+    margin-right:10px;
+  }
+  .btn_btlink:hover{
+    color: #fff;
+    background-color: #10952a;
+    border-color: #398439;
+  }
+  .btn_btlink a:visited{
+    color: #fff;
+    background-color: #10952a;
+    border-color: #398439;
+  }
+  .view_video{
+    width: 350px;
+    height: 150px;
+    border: 1px solid #ececec;
+  }
+  .serial_conter textarea {	
+    width: 450px;
+    height: 100px;
+  }
+  .setp_one {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+  }
+  .setp_one i {
+    width: 30px;
+    height: 30px;
+  }
+  .setp_one_tips {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    margin-bottom: 40px;
+    line-height: 30px;
+    font-size: 14px;
+  }
+  .setp_one_tips .text {
+    margin-left: 80px;
+  }
+</style>
+<div class="upyunCon">
+  <div class="step_form">
+    <!-- <div class="step_item">
+      <div class="serial"><span>01</span></div>
+      <div class="serial_box">
+        <div class="serial_title">获取谷歌Token有效期</div>
+        <div class="serial_conter">
+          <span>验证失败，请按以下GDrive提示操作</span>
+        </div>
+      </div>
+    </div> -->
+    <div class="step_item">
+      <div class="serial"><span>1</span></div>
+      <div class="serial_box">
+        <div class="serial_title">点击下面👇链接，完成Google Drive授权</div>
+        <div class="serial_conter step_two">
+          <a href="" class="step_two_rul" target="_blank"></a>
+          <a href="" class="btn_btlink open_btlink" target="_blank">打开链接</a>
+        </div>
+      </div>
+    </div>
+    <div class="step_item">
+      <div class="serial"><span>2</span></div>
+      <div class="serial_box">
+        <div class="serial_title">如何获取验证URL地址</div>
+        <div class="serial_conter">
+          <div class="view_video">
+            <iframe width="350" height="150" src="https://www.youtube.com/embed/UnlTKetIBrk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="step_item">
+      <div class="serial"><span>3</span></div>
+      <div class="serial_box">
+        <div class="serial_title">Google Drive验证</div>
+        <div class="serial_conter">
+          <textarea row="3" placeholder="验证URL地址" class="bt-input-text"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="step_item">
+      <div class="serial"></div>
+      <div class="serial_box serial_conter">
+        <button type="button" class="btn btn-success btn-sm">立即验证</button>
+      </div>
+    </div>
+  </div>
+  <div class="setp_one" style="display: none;">
+    <span class="setp_one_tips">
+      <i class="layui-layer-ico layui-layer-ico1"></i>
+      <span class="text">验证Google Token成功</span>
+    </span>
+    <!--<div class="setp_one_bottom">-->
+    <!--  <button class="btn btn-success btn-sm mt10 dnsExport">导出密钥</button>-->
+    <!--</div>-->
+  </div>
+</div>
+
+<script>
+  $(function () {
+    // 验证谷歌token有效期
+    function get_config_token (callback) {
+      var loadT = layer.msg('正在验证谷歌Token有效期，请稍后...', {icon: 16,time: 0,shade: [0.3, '#000']});
+      $.ajax({
+        url: '/plugin?action=a&s=get_token&name=gdrive',
+        type: 'GET',
+        async: true,
+        timeout: 3000,
+        success: function (res) {
+          if (res.status) {
+            $('.setp_one').show();
+            $('.step_form').hide();
+          } else {
+            get_auth_url(function (res) {
+              $('.step_form').show();
+              $('.setp_one').hide();
+              $('.step_two_rul').attr('href', res).text(res);
+              $('.open_btlink').attr('href', res);
+            });
+            layer.msg(res.msg, { icon: 2, time: 6000 });
+          }
+        },	
+        error: function (res) {
+          get_auth_url(function (res) {
+          $('.setp_one').hide().next().show();
+            $('.step_two_rul').attr('href', res).text(res);
+            $('.open_btlink').attr('href', res);
+          });
+        },
+        complete:function(){
+          layer.close(loadT);
+        }
+      });
+    }
+
+    // 获取验证地址
+    function get_auth_url (callback) {
+      $.post('/plugin?action=a&s=get_auth_url&name=gdrive', function (rdata) {
+        if (callback) callback(rdata)
+      });
+    }
+
+    // 提交谷歌验证URL
+    function set_auth_url (obj, callback) {
+      var loadT = layer.msg('正在验证URL地址，请稍后...', {icon: 16,time: 0,shade: [0.3, '#000']});
+      $.post('/plugin?action=a&s=set_auth_url&name=gdrive',{url:obj.url}, function (rdata) {
+        layer.close(loadT);
+        if(callback) callback(rdata)
+        layer.msg(rdata.msg, {icon: rdata.status ? 1 : 2});
+      });
+    }
+
+    // 导出数据
+    function export_key(){
+      $.post('/plugin?action=a&s=export_conf&name=gdrive', function (rdata) {
+        if (rdata.status) {
+          fileName = rdata.msg;
+          window.open('/download?filename=' + encodeURIComponent(fileName));
+        }
+      });
+    }
+
+    // 导入数据
+    function select_file (files, start) {
+      // var _this = this;
+      setTimeout(function () {
+        var _files = files[0];
+        var end = Math.min(_files.size, start + (1024 * 1024 * 2));
+        var form = new FormData();
+        form.append("f_name", _files.name);
+        form.append("f_size", _files.size);
+        form.append("f_start", start);
+        form.append("blob", _files.slice(start, end));
+        layer.confirm('Whether to import the [' + _files.name + '] file', { title: 'import Data' }, function () {
+          // 上传文件
+          updata_file(form);
+        });
+      }, 500);
+    }
+
+    function updata_file (form) {
+      var _this = this;
+      $.ajax({
+        url: '/plugin?action=a&name=gdrive&s=import_data',
+        type: "POST",
+        data: form,
+        async: true,
+        processData: false,
+        contentType: false,
+        success: function (res) {
+          if (res.status) {
+            clearInterval(_this.setTime);
+            layer.msg(res.msg, { icon: 1 })
+            get_config_token()
+          }
+          else{
+            _this.setTime = setInterval(function () {
+              _this.select_file()
+            }, 1000)
+          }
+        },
+        error: function (e) {
+          console.log(e.msg)
+        }
+      })
+    }
+
+    function check_connect(callback){
+      var loadT = layer.msg('正在检查Google drive连接状态，请稍后...', {icon: 16,time: 0,shade: [0.3, '#000']});
+      $.post('/plugin?action=a&s=check_connect&name=gdrive', function (rdata) {
+        layer.close(loadT);
+        if (callback) callback(rdata)
+        layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+      });
+    }
+
+    $('.serial_conter button').click(function () {
+      var _val = $('.serial_conter textarea').val();
+      if (_val == '') {
+        layer.msg('验证URL地址不能为空！', { icon: 0 });
+        return false;
+      }
+      set_auth_url({ url: _val }, function (res) {
+        if (res.status) {
+          $('.setp_one').show();
+          $('.step_form').hide();
+        }
+      });
+    });
+
+    $('.dnsExport').click(function () {
+      export_key();
+    });
+    
+    get_config_token();
+    // $('.layui-layer-page').height('630px');
+  });
+</script>

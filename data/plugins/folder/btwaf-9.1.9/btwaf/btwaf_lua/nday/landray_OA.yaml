@@ -1,0 +1,11 @@
+models:
+  - Meterspher:
+    info: "蓝凌OA代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/data/sys-common/treexml.tmpl"
+    keys:
+      s_bean: "ruleFormulaValidate"
+      script: ""

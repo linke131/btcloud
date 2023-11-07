@@ -1,0 +1,15 @@
+{
+	"title":"微软OneDrive",
+	"tip":"lib",
+	"name":"msonedrive",
+	"type":"计划任务",
+	"ps":"微软家的云网盘服务。支持<a class='link' href='https://www.microsoft.com/zh-cn/microsoft-365/onedrive/compare-onedrive-plans?activetab=tab:primaryr2' target='_blank'>商业版</a>和<a class='link' href='https://www.microsoft.com/zh-cn/microsoft-365/onedrive/compare-onedrive-plans?activetab=tab:primaryr1' target='_blank'>个人/家庭版</a>。<a class='link' href='https://www.bt.cn/bbs/thread-54124-1-1.html' target='_blank'>图文教程和反馈</a>",
+	"versions":"1.6",
+	"shell":"msonedrive.sh",
+	"checks":"/www/server/panel/plugin/msonedrive",
+	"author":"宝塔",
+	"home":"https://www.bt.cn/bbs/thread-54124-1-1.html",
+	"date":"2020-9-19",
+	"default":false,
+	"display":0
+}

@@ -1,0 +1,17 @@
+{
+	"title":"宝塔防入侵",
+	"tip":"lib",
+	"name":"bt_security",
+	"type":"系统工具",
+	"ps":"防御大多数的提权攻击,有效拦截webshell执行提权,并及时告警通知",
+	"versions":"2.0",
+	"shell":"btwaf.sh",
+	"checks":"/www/server/panel/plugin/bt_security",
+	"author":"宝塔",
+	"home":"http://www.bt.cn/bbs",
+	"date":"2022-09-06",
+	"default":false,
+	"display":0,
+	"not_os_bit": 32,
+	"not_cpu_type":["arm","mips"]
+}

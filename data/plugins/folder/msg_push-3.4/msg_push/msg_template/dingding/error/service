@@ -1,0 +1,13 @@
+#### {title}
+>服务器：{ip}
+
+>服务：{service}
+
+>服务状态：<font color=#FF0000>{status}</font>
+
+>尝试重启：{restart}
+
+>重启成功：{restart_success}
+
+>重启失败：{restart_fail}
+

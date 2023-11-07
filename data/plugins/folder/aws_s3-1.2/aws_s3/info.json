@@ -1,0 +1,12 @@
+{
+	"title":"AWS S3存储",
+	"name":"aws_s3",
+	"type":"扩展",
+	"ps":"让你的数据备份到亚马逊对象存储",
+	"versions":"1.2",
+	"checks":"/www/server/panel/plugin/aws_s3",
+	"author":"宝塔",
+	"beta": false,
+	"force_message": "",
+	"not_substituted":["config.json|f"]
+}

@@ -1,0 +1,284 @@
+<style>
+    .conf_content{
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: #ccc 1px dashed;
+    }
+    .conf_content .bt-input-text,
+    .conf_content .bt-input-text:focus{
+        outline: none;
+    }
+    .conf_content .tname{
+        width: 80px;
+    }
+    .conf_content input{
+        padding-left: 10px;
+    }
+    .update_title{
+        padding-top: 25px;
+        margin-bottom: 15px;
+    }
+    .update_title span {
+        display: inline-block;
+        color: #333;
+        height: 30px;
+        margin-top: 3px;
+        text-align: center;
+        width: 100%;
+        font-size: 20px;
+    }
+    .update_title  .layui-layer-ico {
+        position: absolute;
+        top: 16px;
+        left: 15px;
+        _left: -40px;
+        width: 30px;
+        height: 30px;
+    }
+    .update_title .layui-layer-ico {
+        display: block;
+        left: 80px !important;
+        top: 26px !important;
+    }
+    .update_conter {
+        background: #f9f9f9;
+        border-radius: 4px;
+        padding:25px;
+        margin: 15px 75px;
+        margin-top: 15px;
+    }
+    .update_version {
+        font-size: 13.5px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    .update_logs {
+        margin-bottom: 10px;
+    }
+    .update_logs {
+        line-height: 24px;
+        word-break: break-all;
+        font-size: 14px;
+    }
+    .update_btn{
+        margin: 25px 0 35px 0;
+        text-align: center;
+    }
+    .update_btn button{
+        width: 250px;
+        height: 40px;
+        font-size: 15px;
+    }
+</style>
+<div class="coll_admin_conter">
+    <div class="install_view" style="display: none">
+        <div class="update_title"><i class="layui-layer-ico layui-layer-ico0"></i><span>安装堡塔云控免费版，是否继续？</span></div>
+        <div class="update_conter">
+            <div class="update_version">最新版本：<a href="https://www.bt.cn/platform" target="_blank" class="btlink" title="查看版本更新日志">堡塔云控平台2.5.9</a>&nbsp;&nbsp;更新日期：2022-02-16</div>
+            <div class="update_logs">
+
+            </div>
+        </div>
+        <div class="update_btn">
+            <button class="btn btn-success install_coll_admin" >安装堡塔云控平台</button>
+        </div>
+    </div>
+    <div class="bt-w-main" style="display: none">
+        <div class="bt-w-menu bt-soft-menu">
+            <p class="bgw bt_server">服务</p>
+        </div>
+        <div id="webEdit-con" class="bt-w-con pd15" style="height:555px;overflow:auto">
+            <div class="soft-man-con bt-form">
+                <p class="status">当前状态：</p>
+                <div class="sfm-opt">
+                    <button class="btn btn-default btn-sm set_coll_status_event" data-state="0" style="display: none">停止</button>
+                    <button class="btn btn-default btn-sm set_coll_status_event" data-state="1" style="display: none">开启</button>
+                    <button class="btn btn-default btn-sm set_coll_status_event" data-state="2">重启</button>
+                </div>
+                <div class="conf_content">
+                    <div class="bt-form">
+                        <div class="line">
+                        	<span class="tname">云控地址</span>
+                            <div class="info-r c4">
+                                <input class="bt-input-text" readonly="readonly" name="coll_url" type="text" style="width:250px" value="">
+                            </div>
+                        </div>
+                        <div class="line">
+                        	<span class="tname">用户名</span>
+                            <div class="info-r c4">
+                                <input class="bt-input-text" readonly="readonly" name="username" type="text" style="width:250px" value="">
+                            </div>
+                        </div>
+                        <div class="line">
+                        	<span class="tname">密码</span>
+                            <div class="info-r c4">
+                                <input class="bt-input-text" readonly="readonly" name="password" type="text" style="width:250px" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var coll_admin = {
+        plugin_name:'coll_admin',
+        coll_admin_status:false,
+        // 初始化
+        init:function(){
+            var _this = this;
+            $('.set_coll_status_event').click(function(){
+                var _state = $(this).attr('data-state');
+                switch(_state){
+                    case '0':
+                    case '1':
+                        _this.set_coll_admin_status(_state,function(rdata){
+                            _this.get_coll_admin_stat(function(res){
+                                layer.msg(rdata.msg,{icon:rdata.status?1:2});
+                                _this.set_coll_admin_view(res);
+                            });
+                        });
+                    break;
+                    case '2':
+                        _this.restart_coll_admin_status(function(rdata){
+                            _this.get_coll_admin_stat(function(res){
+                                layer.msg(rdata.msg,{icon:rdata.status?1:2});
+                                _this.set_coll_admin_view(res);
+                            });
+                        });
+                    break;
+                }
+            });
+            $('.install_coll_admin').click(function(){
+                _this.install_coll_admin(function(res){
+                    layer.msg(rdata.msg,{icon:rdata.status?1:2});
+                })
+            });
+            this.get_coll_admin_stat(function(res){
+                _this.set_coll_admin_view(res);
+            });
+        },
+
+        set_coll_admin_view:function(res){
+            if(res.status === false){
+                $('.install_view').show().siblings().hide();
+                $('.layui-layer-page').css('width','550');
+            }else{
+                $('.install_view').hide().siblings().show();
+                $('.layui-layer-page').css('width','650');
+            }
+            if (res.status === false) {
+                this.coll_admin_status = res.state
+            } 
+            $('[data-state='+ (res.state?1:0) +']').hide().siblings().show();
+            $('.soft-man-con .status').html(res.state?'当前状态：<span>启动</span><span style="color: #20a53a; margin-left: 3px;" class="glyphicon glyphicon glyphicon-play"></span>':'当前状态：<span>关闭</span><span style="color: red; margin-left: 3px;" class="glyphicon glyphicon-pause"></span>');
+            $('[name=coll_url]').val('http://'+res.host+':'+res.port+res.admin_path);
+            $('[name=username]').val(res.username);
+            $('[name=password]').val(res.password);
+        },
+        // 安装云控
+        install_coll_admin:function(){
+            this.send({
+                tips:'正在安装，这需要5-20分钟，请稍后...',
+                method:'install',
+                check:true,
+                success:function(rdata){
+                    if (rdata.status === true) {
+                    	layer.closeAll();
+                    	task_stat();
+                        return
+                    }
+                   // layer.msg(rdata.msg,{icon:0,time:0,shadeClose:true,shade:0.3});
+                }
+            })
+        },
+        // 获取云控状态
+        get_coll_admin_stat: function(callback) {
+            this.send({
+                tips:'正在获取云控状态，请稍后...',
+                method:'get_stat',
+                check:true,
+                success:function(res){
+                    if(callback) callback(res)
+                }
+            });
+        },
+        // 设置云控状态
+        set_coll_admin_status:function(status,callback){
+            this.send({
+                tips:'正在设置云控服务，请稍后...',
+                method: parseInt(status)?'start':'stop',
+                check:true,
+                success:function(res){
+                    if(callback) callback(res)
+                }
+            });
+        },
+        // 重启云控
+        restart_coll_admin_status:function(callback){
+            this.send({
+                tips:'正在重启云控服务，请稍后...',
+                method:'restart',
+                check:true,
+                success:function(res){
+                    if(callback) callback(res)
+                }
+            });
+        },
+        // 请求
+		send: function (obj) {
+			var loadT = '';
+			if (obj.load == undefined) obj.load = 0;
+			if (obj.url == undefined) {
+				if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this
+					.plugin_name
+				if (!obj.plugin_name || !obj.method) {
+					layer.msg('插件类名称，或插件方法名称缺失!', {
+						icon: 2
+					});
+					return false;
+				}
+			}
+			if (obj.load === 0 || obj.tips != '') {
+				loadT = layer.msg(obj.tips, {
+					icon: 16,
+					time: 0,
+					shade: 0.3
+				});
+			} else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+				loadT = layer.load();
+			}
+			$.ajax({
+				type: 'POST',
+				url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+				data: obj.data || {},
+				timeout: obj.timeout || 99999999,
+				complete: function (res) {
+					if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+				},
+				success: function (rdata) {
+					if (obj.check) {
+						obj.success(rdata);
+						return false
+					}
+					if (rdata.status === false) {
+						layer.msg(rdata.msg, { icon: 2 });
+						return false;
+					}
+					obj.success(rdata);
+				},
+				error: function (ex) {
+					if (!obj.error) {
+						obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+							icon: 2
+						}) : '';
+						return;
+					}
+					return obj.error(ex);
+				}
+			});
+        }
+    }
+    coll_admin.init();
+</script>

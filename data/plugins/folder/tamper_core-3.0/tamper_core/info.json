@@ -1,0 +1,16 @@
+{
+    "title": "堡塔企业级防篡改 - 重构版",
+    "tip": "lib",
+    "name": "tamper_core",
+    "type": "付费插件",
+    "ps": "内核驱动型防篡改程序,为网站文件提供低层保护",
+    "versions": "3.0",
+    "shell": "tamper_core.sh",
+    "checks": "/www/server/panel/plugin/tamper_core",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs",
+    "beta": false,
+    "force_message": "",
+    "not_substituted":[],
+    "replace_files":[]
+}

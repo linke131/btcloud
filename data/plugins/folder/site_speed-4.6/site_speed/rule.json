@@ -1,0 +1,2878 @@
+[
+    {
+        "name": "Default",
+        "ps": "默认规则，加速所有动态请求!",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        }
+    },
+    {
+        "name": "WordPress",
+        "ps": "针对WordPress的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/wp-login.php$",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "wordpress_logged_in_"
+            ]
+        }
+    },
+    {
+        "name": "Discuz",
+        "ps": "针对Dsicuz的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/misc.php$",
+                "^/member.php$",
+                "mod=register",
+                "admin.php",
+                "uc_server/",
+                "uc_client/",
+                "captcha",
+                "mod=space&do=notice"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "_auth"
+            ]
+        }
+    },
+    {
+        "name": "ZFAKA发卡系统",
+        "ps": "针对ZFAKA发卡系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/member/",
+                "^/Admin/",
+                "^/Captcha",
+                "^/product/query",
+                "^/product/order",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/member/login/ajax/"
+            ],
+            "method": "POST",
+            "success": [
+                "success"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/member/logout/"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "emlog博客系统",
+        "ps": "针对emlog博客系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admin/index.php$",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "EM_AUTHCOOKIE"
+            ]
+        }
+    },
+    {
+        "name": "ShopXO开源商城",
+        "ps": "针对ShopXO开源商城的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/index/user/",
+                "/admin/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/index/user/login.html",
+                "/admin/login.html",
+                "/index/user/reg.html",
+                "/index/plugins/index/pluginsname/touristbuy/pluginscontrol/index/pluginsaction/login.html"
+            ],
+            "method": "ALL",
+            "success": [
+                "登录成功",
+                "注册成功",
+                ".code.:0",
+                "欢迎来到"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/index/user/logout.html",
+                "/admin/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "JTBC网站内容管理系统",
+        "ps": "针对JTBC的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/console/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "jtbc_console"
+            ]
+        }
+    },
+    {
+        "name": "PHP宝塔IDC分销系统",
+        "ps": "针对PHP宝塔IDC分销系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/user/",
+                "^/admin",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/user/login.html",
+                "/admin/login.html"
+            ],
+            "method": "POST",
+            "success": [
+                "登录成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/admin/logout.html",
+                "/user/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "米拓企业建站系统",
+        "ps": "针对米拓企业建站系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/member/",
+                "/admin/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "met_",
+                "acc_"
+            ]
+        }
+    },
+    {
+        "name": "新起点网校",
+        "ps": "针对新起点网校的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/login.html",
+                "^/reg.html",
+                "/admin",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/login.html",
+                "/reg.html"
+            ],
+            "method": "POST",
+            "success": [
+                ".code.:1",
+                "登录成功",
+                "注册成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/index/user/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "帝国CMS",
+        "ps": "针对帝国CMS的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/e/member/",
+                "/e/admin/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "kvhcrmlusername",
+                "ukucaloginecmsckpass"
+            ]
+        }
+    },
+    {
+        "name": "优客365网址导航开源版",
+        "ps": "针对优客365网址导航开源版的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/member",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/member/login.html"
+            ],
+            "method": "POST",
+            "success": 301
+        },
+        "login_out": {
+            "uri": [
+                "/member/logout.html",
+                "/admin/index/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "影视全搜索网站",
+        "ps": "针对影视全搜索网站的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/login$",
+                "^/admin$",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        }
+    },
+    {
+        "name": "HYBBS论坛",
+        "ps": "针对HYBBS论坛的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/\\\\?user",
+                "^/\\\\?admin",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "HYBBS_HEX"
+            ]
+        }
+    },
+    {
+        "name": "星辰短语|密语生成系统",
+        "ps": "针对星辰短语|密语生成系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admin",
+                "captcha",
+                "shorturl.php"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/admin/"
+            ],
+            "method": "POST",
+            "success": [
+                "登陆成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/admin/logout.php"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "杨小杰工具箱",
+        "ps": "针对此杨小杰工具箱网站的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admin/login.php$",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "cookie_user"
+            ]
+        }
+    },
+    {
+        "name": "tipask问答系统",
+        "ps": "针对tipask问答系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/login",
+                "/register",
+                "/forgetPassword",
+                "admin",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "remember_web_"
+            ]
+        }
+    },
+    {
+        "name": "DM企业建站系统",
+        "ps": "针对DM企业建站系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admindm-yourname/mod_common/login.php$",
+                "/admin",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "usercookie"
+            ]
+        }
+    },
+    {
+        "name": "ecshop商城系统",
+        "ps": "针对ecshop商城系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/user.php",
+                "/admin",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "ECS_ID",
+            "uri": [
+                "/user.php"
+            ],
+            "method": "POST",
+            "success": [
+                "登录成功",
+                302,
+                "注册成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "user.php\\\\?act=logout"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "DSMall多店铺B2B2C商城",
+        "ps": "针对DSMall多店铺B2B2C商城的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/home/login/",
+                "/Admin/",
+                "captcha",
+                "sellerlogin"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/home/login/login.html",
+                "/home/login/register.html",
+                "/home/Api/oa_qq_callback.html",
+                "/Home/sellerlogin/login.html"
+            ],
+            "method": "POST",
+            "success": [
+                ".code.:10000",
+                302
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/home/login/logout.html",
+                "/home/sellerlogin/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ".code.:10000",
+                ""
+            ]
+        }
+    },
+    {
+        "name": "sentcms网站管理系统",
+        "ps": "针对sentcms网站管理系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin",
+                "captcha",
+                "user"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/user/index/login"
+            ],
+            "method": "POST",
+            "success": [
+                "登录成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/user/index/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "FastAdmin",
+        "ps": "针对FastAdmin极速后台开源框架的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/index/user/",
+                "captcha",
+                "/index/login"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "uid"
+            ]
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/index/login"
+            ],
+            "method": "POST",
+            "success": [
+                "登录成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/index/logout"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "WDJA网站内容管理系统",
+        "ps": "针对WDJA网站内容管理系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admin/",
+                "^/passport/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "password"
+            ]
+        }
+    },
+    {
+        "name": "DSShop单店铺B2C商城",
+        "ps": "针对DSShop单店铺B2C商城的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/home/login/",
+                "/Admin/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/home/login/login.html",
+                "/home/login/register.html"
+            ],
+            "method": "POST",
+            "success": [
+                302,
+                ".code.:10000",
+                "注册成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/home/login/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ".code.:10000",
+                ""
+            ]
+        }
+    },
+    {
+        "name": "壹度同城新零售网站",
+        "ps": "针对壹度同城新零售网站的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admin/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/admin/login/login.html"
+            ],
+            "method": "POST",
+            "success": [
+                "操作成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/admin/login/logout"
+            ],
+            "method": "POST",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "SchoolCMS教务系统",
+        "ps": "针对SchoolCMS教务系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admin",
+                "^/admin.php",
+                "m=Admin",
+                "/admin",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/index.php\\\\?m=Home&c=User&a=Login",
+                "/Home/User/Login"
+            ],
+            "method": "POST",
+            "success": [
+                ".code.:0"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/index.php\\\\?m=Home&c=User&a=Logout",
+                "/Home/User/Logout",
+                "/Admin/Admin/Logout",
+                "m=Admin&c=Admin&a=Logout"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "phpcms",
+        "ps": "针对phpcms的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/index.php\\\\?m=member&c=index&a=login",
+                "captcha",
+                "/index.php\\\\?m=admin"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "_auth",
+                "admin_username"
+            ]
+        }
+    },
+    {
+        "name": "迅睿CMS免费开源建站程序",
+        "ps": "针对迅睿CMS建站的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "s=member",
+                "captcha",
+                "admin"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "member_uid=[^0]+"
+            ]
+        }
+    },
+    {
+        "name": "奇乐中介担保交易系统",
+        "ps": "针对奇乐中介担保交易系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/user/",
+                "captcha",
+                "admin"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/user/login/index.html",
+                "/user/register/index.html"
+            ],
+            "method": "POST",
+            "success": [
+                ".code.:0",
+                "登录成功",
+                "注册的成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/user/logout.html",
+                "/admin/logout/index.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "jizhicms建站系统",
+        "ps": "针对jizhicms建站系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/login/",
+                "captcha",
+                "admin"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/login/index.html"
+            ],
+            "method": "POST",
+            "success": 302
+        },
+        "login_out": {
+            "uri": [
+                "/login/loginout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "蝉知企业门户系统",
+        "ps": "针对蝉知企业门户系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admin.php",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "^lang"
+            ]
+        }
+    },
+    {
+        "name": "齐博cms",
+        "ps": "针对齐博cms的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admin.php",
+                "^/index.php/index/reg/index.html",
+                "^/index.php/index/login/index.html",
+                "^/index.php/index/login/phone.html",
+                "^/index.php/index/getpassword/index.html",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "passport"
+            ]
+        }
+    },
+    {
+        "name": "子枫后台CMS系统",
+        "ps": "针对子枫后台CMS系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/admin/login/login.html"
+            ],
+            "method": "POST",
+            "success": [
+                ".result.:.1."
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/admin/login/loginout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "z-BlogPHP",
+        "ps": "针对z-BlogPHP的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/zb_system/login.php$",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "addinfo"
+            ]
+        }
+    },
+    {
+        "name": "ICMS内容管理系统",
+        "ps": "针对ICMS内容管理系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "app=user",
+                "admincp.php",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "userid",
+                "_ADMIN_AUTH"
+            ]
+        }
+    },
+    {
+        "name": "奇乐自媒体新闻管理系统",
+        "ps": "针对奇乐自媒体新闻管理系统的cms加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/user/",
+                "captcha",
+                "admin"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/user/login/index.html",
+                "/user/register/index.html"
+            ],
+            "method": "POST",
+            "success": [
+                ".code.:0",
+                "登录成功",
+                "注册的成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/user/logout/index.html",
+                "/admin/logout/index.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "DSCMS内容管理系统",
+        "ps": "针对DCMS内容管理系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/home/login/",
+                "/Admin/",
+                "/member/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/home/login/login.html",
+                "/admin/login/index.html"
+            ],
+            "method": "POST",
+            "success": [
+                ".code.:10000",
+                "登录成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/home/login/logout.html",
+                "/admin/login/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ".code.:10000",
+                ""
+            ]
+        }
+    },
+    {
+        "name": "phpok企业站系统",
+        "ps": "针对phpok企业站系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/index.php\\\\?c=register",
+                "/index.php\\\\?c=login",
+                "admin.php",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSION",
+            "uri": [
+                "/api.php\\\\?c=login&f=save"
+            ],
+            "method": "POST",
+            "success": [
+                "user_id"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/api.php\\\\?c=logout"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "云课网校系统",
+        "ps": "针对云课网校系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/reg.html",
+                "/login.html",
+                "/user/",
+                "captcha",
+                "admin"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/login.html",
+                "/reg.html"
+            ],
+            "method": "POST",
+            "success": [
+                "登录成功",
+                "注册成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/index/user/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "网钛CMS新闻网站",
+        "ps": "针对网钛CMS新闻网站的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin/",
+                "/users.php",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "jgSCn_memberInfo",
+                "jgSCn_username=[^%][^2][^0]+"
+            ]
+        }
+    },
+    {
+        "name": "OmoCms",
+        "ps": "针对OmoCms知识付费源码系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin/",
+                "/users.php",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "gJZmM_memberInfo",
+                "gJZmM_username=[^%][^2][^0]+"
+            ]
+        }
+    },
+    {
+        "name": "易优建站系统",
+        "ps": "针对易优建站系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "m=user&c=Users",
+                "/login",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "users_id+"
+            ]
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "m=admin&c=Admin&a=login"
+            ],
+            "method": "POST",
+            "success": [
+                "登录成功"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "m=admin&c=Admin&a=logout"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "苹果cms",
+        "ps": "针对苹果cms的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin/index/",
+                "/index.php/user/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "user_id",
+                "admin_id"
+            ]
+        }
+    },
+    {
+        "name": "drupal",
+        "ps": "针对drupal博客系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/user/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "SESS"
+            ]
+        }
+    },
+    {
+        "name": "typecho博客系统",
+        "ps": "针对typecho博客系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin/",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "__typecho_authCode"
+            ]
+        }
+    },
+    {
+        "name": "bwblog博客系统",
+        "ps": "针对bwblog博客系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin.php",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "users_id+"
+            ]
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/admin.php\\\\?go=/login/verify/"
+            ],
+            "method": "GET",
+            "success": [
+                ".error.:0"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/admin.php\\\\?go=/login/logout/"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "PbootCMS企业建站",
+        "ps": "针对PbootCMS企业建站的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin.php",
+                "captcha",
+                "code.php",
+                "/\\\\?member"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        }
+    },
+    {
+        "name": "DESTOON B2B网站管理系统",
+        "ps": "针对PDESTOON B2B网站管理系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/member",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "_auth"
+            ]
+        }
+    },
+    {
+        "name": "DBShop商城系统",
+        "ps": "针对DBShop商城系统的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin",
+                "^/home",
+                "captcha",
+                "user"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/user/login",
+                "/user/register"
+            ],
+            "method": "POST",
+            "success": [
+                302
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/user/loginout"
+            ],
+            "method": "GET",
+            "success": [
+                302,
+                ""
+            ]
+        }
+    },
+    {
+        "name": "cmseasy企业建站",
+        "ps": "针对cmseasy企业建站的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "admin",
+                "captcha",
+                "user",
+                "login"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "login_password"
+            ]
+        }
+    },
+    {
+        "name": "赞片CMS",
+        "ps": "针对赞片CMS v9的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "/admin",
+                "/home-verify",
+                "/home/playlog/get",
+                "/home/ajax/login"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "user_auth_sign",
+                "user_auth"
+            ]
+        }
+    },
+    {
+        "name": "织梦",
+        "ps": "针对织梦的加速专属规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "member",
+                "login.php",
+                "user",
+                "login",
+                "dede",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "UserID"
+            ]
+        }
+    },
+    {
+        "name": "OpenCart商城",
+        "ps": "OpenCart商城的加速规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "login",
+                "register",
+                "/admin",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "OCSESSID",
+            "uri": [
+                "account/login",
+                "account/register"
+            ],
+            "method": "POST",
+            "success": [
+                302
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "account/logout"
+            ],
+            "method": "GET",
+            "success": [
+                302,
+                ""
+            ]
+        }
+    },
+    {
+        "name": "飞飞影视导航",
+        "ps": "飞飞影视导航的加速规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "login",
+                "user",
+                "admin",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "ff_user"
+            ]
+        }
+    },
+    {
+        "name": "WHMCS",
+        "ps": "WHMCS的加速规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "login",
+                "register",
+                "admin",
+                "captcha",
+                "user",
+                "clientarea.php"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "WHMCSy551iLvnhYt7",
+            "uri": [
+                "dologin.php",
+                "register.php"
+            ],
+            "method": "POST",
+            "success": [
+                ""
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "logout"
+            ],
+            "method": "GET",
+            "success": [
+                ""
+            ]
+        }
+    },
+    {
+        "name": "ZKEYS",
+        "ps": "ZKEYS的加速规则",
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "admin",
+                "user",
+                "login",
+                "verify",
+                "register"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": [
+                "css",
+                "js"
+            ],
+            "type": [
+                "video",
+                "octet-stream",
+                "image"
+            ],
+            "method": [
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTION"
+            ],
+            "args": [],
+            "cookie": [
+                "first_config"
+            ]
+        },
+        "login_success": {
+            "sessionid_key": "PHPSESSID",
+            "uri": [
+                "/login/login.html",
+                "/register/reg.html"
+            ],
+            "method": "POST",
+            "success": [
+                "/user",
+                "true"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "/user/logout"
+            ],
+            "method": "GET",
+            "success": [
+                302
+            ]
+        }
+    },
+    {
+        "name": "ShopWind商城",
+        "ps": "ShopWind商城的加速规则，需要最新版网站加速插件",
+        "is_no_cache": true,
+        "force": {
+            "uri": [],
+            "ext": [],
+            "type": [],
+            "args": [],
+            "host": [],
+            "ip": []
+        },
+        "white": {
+            "not_uri": [],
+            "uri": [
+                "^/admin/",
+                "^/seller",
+                "^/login.html",
+                "^/seller/login.html",
+                "^/find_password/",
+                "^/refund/",
+                "^/deposit/",
+                "^/buyer_order/",
+                "^/user/",
+                "^/apply/",
+                "^/my_",
+                "^/connect/",
+                "^/register.html",
+                "verify",
+                "register",
+                "captcha"
+            ],
+            "host": [],
+            "ip": [],
+            "ext": ["css","js"],
+            "type": [
+                "video","octet-stream","image"
+            ],
+            "method": [
+                "POST","PUT","DELETE","OPTION"
+            ],
+            "args": [],
+            "cookie": []
+        },
+        "login_success": {
+            "sessionid_key": "advanced-frontend",
+            "uri": [
+                "^/login.html","^/seller/login.html","^/register.html"
+            ],
+            "method": "POST",
+            "success": [
+                "登录成功","恭喜！您已完成注册"
+            ]
+        },
+        "login_out": {
+            "uri": [
+                "^/logout.html"
+            ],
+            "method": "GET",
+            "success": [
+                302
+            ]
+        }
+    }
+]

@@ -1,0 +1,9 @@
+{
+  "title": "堡塔Docker模块",
+  "name": "docker_project_m",
+  "ps": "宝塔面板Docker集成模块，支持一键快速部署容器应用",
+  "versions": "1.0",
+  "checks": "/www/server/panel/plugin/docker_project_m",
+  "author": "堡塔",
+  "home": "https://www.bt.cn"
+}

@@ -1,0 +1,3251 @@
+<style>
+  .bt_select_updown{
+    vertical-align: unset;
+  }
+  .bt-form input{
+    padding-left: 10px;
+  }
+  .form-checkbox-label{
+    height: 32px;
+    line-height: 32px;
+  }
+  .form-checkbox-label input{
+    vertical-align: middle;
+    margin-top: 0;
+    margin-right: 5px;
+  }
+  .form-checkbox-label .vertical_middle{
+    vertical-align: middle;
+  }
+  .bt-box{
+    display: none;
+  }
+  .bt-box.active{
+    display: block;
+  }
+  .action-line .node-group {
+    display: inline-block;
+  }
+
+  .action-line .node-group-span {
+    padding: 7px 10px;
+    float: left;
+    border: 1px solid #aaaaaa;
+    cursor: pointer;
+  }
+
+  .action-line .node-group-span.active {
+    background: #ccc;
+    color: #717171;
+  }
+
+  #nodeFormInput .line input {
+    width: 250px;
+  }
+
+  #syncTaskTable .task-line {
+    height: 14px;
+    background: #D8D8D8;
+    border-radius: 20px;
+    margin: 15px 0;
+  }
+
+  #syncTaskTable .task-line .task-line-persent {
+    display: inline-block;
+    height: 100%;
+    width: 50%;
+    border-radius: 20px;
+    background: #5CB85C;
+  }
+
+  #syncTaskTable .task-textarea {
+    height: 115px;
+    background: #424250;
+    width: 100%;
+    border-radius: 5px;
+    resize: none;
+    color: #EEEEEE;
+    padding: 10px 15px;
+  }
+
+  #syncTaskTable .task-tr {
+    background: #FCFCFC;
+  }
+
+  #groupTable .new-group-name {
+    width: 100%;
+    margin: 0;
+    padding: 0 7px;
+    height: 100%;
+    border: 2px solid red;
+  }
+
+  #groupTable .save-new-group,
+  #groupFormInput .cancel-new-group {
+    float: left;
+    width: 50%;
+    text-align: center;
+    background: #20A53A;
+    height: 33px;
+    line-height: 33px;
+    cursor: pointer;
+  }
+
+  #groupTable .new-group-name {
+    width: 100%;
+    margin: 0;
+    padding: 0 7px;
+    height: 100%;
+    border: 1px solid #20a53a;
+  }
+
+  #groupTable .group-name-input {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    display: none;
+  }
+
+  #taskFormInput .server-list,
+  #taskFormInput .task-list {
+    border: 1px solid #ccc;
+  }
+
+  #taskFormInput .node-list-one,
+  #taskFormInput .task-list ul li {
+    padding: 5px 15px;
+  }
+
+  #taskFormInput .server-list input,
+  #taskFormInput .task-list input {
+    cursor: pointer;
+    vertical-align: -2px;
+    margin-right: 5px;
+  }
+
+  #taskFormInput .server-list ul li {
+    padding: 5px 10px 5px 25px;
+  }
+
+  #taskFormInput .task-list ul li:hover,
+  #taskFormInput .node-list-one:hover,
+  #taskFormInput .server-list ul li:hover {
+    background: #eee;
+    cursor: pointer;
+  }
+
+  .alarmcon {
+    float: left;
+    width: 100%;
+  }
+
+  .bt-legend {
+    border-color: #ccc;
+    font-size: 14px;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+
+  .bt-legend .btswitch+.btswitch-btn {
+    width: 2.4em;
+    height: 1.4em;
+    margin-bottom: 0;
+  }
+
+  #nodeupstreamForm .line .tname {
+    width: 125px;
+  }
+
+  #nodeupstreamForm .line .info-r {
+    margin-left: 125px;
+  }
+
+  #upstreamcon tr {
+    cursor: pointer;
+  }
+
+  .bt_tab_list {
+    background-color: #ececec;
+    font-size: 0;
+    text-align: center;
+  }
+
+  .bt_tab_list .bt_tab_index {
+    height: 43px;
+    line-height: 42px;
+    display: inline-block;
+    font-size: 14px;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .bt_tab_list .active {
+    background: #fff;
+  }
+
+  #nodeupstreamForm .add-node-line {
+    border-bottom: #ccc 1px solid;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+
+  .limiti-word {
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+  }
+
+  #set-location-table>tbody>tr>td {
+    padding: 6px;
+  }
+
+  .word-limit {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+  }
+  .search-day {
+    height: 32px;
+    margin-left: 1px;
+  }
+
+  .search-day span {
+    float: left;
+    height: 32px;
+    line-height: 30px;
+    border: #ddd 1px solid;
+    padding: 0 20px;
+    margin-left: -1px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .search-day span.cur {
+    background-color: #20a53a;
+    color: #fff;
+  }
+
+  .search-day span.cur input,
+  .search-day span.cur em {
+    color: #666;
+  }
+
+  .search-day span:last-child {
+    padding: 0;
+  }
+
+  .search-day span input {
+    border: 0 none;
+    height: 30px;
+    padding: 0 10px;
+    width: 120px;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHBAMAAADOnLEXAAAAA3NCSVQICAjb4U/gAAAAElBMVEX////v7++oqKiSkpJgYGAzMzNVUvUKAAAABnRSTlMA//////96eeD+AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAFnRFWHRDcmVhdGlvbiBUaW1lADA3LzEzLzE442/mwwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAApSURBVAiZYxBiAAJFBhEDBgZmRwbmYAYGUwMQBrGAXBAHyAVxgFwgBwBYpgOoNMjLNgAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    background-position: 100px center;
+  }
+
+  .search-day span input:active {
+    border: 0 none;
+  }
+
+  .search-day span.cur input {
+    color: #fff;
+    background-color: #20a53a;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHBAMAAADOnLEXAAAAA3NCSVQICAjb4U/gAAAAElBMVEX////f8+Pg8+Sx2LghpTsgpTp3yIRgAAAACXBIWXMAAA6cAAAOnAEHlFPdAAAAFnRFWHRDcmVhdGlvbiBUaW1lADA3LzEzLzE442/mwwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAxSURBVAiZY1B2DQ0NNWJQMA0NDWZkCGYODTUwZQBiIIshNJjZwBRIhRoAhYFUMFARAPlECn96zZKZAAAAAElFTkSuQmCC");
+  }
+  .new-node input,
+  .editor input{
+    padding-left: 5px;
+  }
+  .logs_page{float:right;padding:0 5px;height:30px;font-size:13px;margin-top: 15px;}
+  .logs_page span.Pcurrent{display:inline-block;margin-right:2px;width:30px;height:30px;border-radius:2px;background-color:#5cb85c;color:#fff;text-align:center;line-height:30px}
+  .logs_page span.Pcount{margin-right:0;margin-left:5px}
+  .logs_page a{display:inline-block;margin:0 3px;padding:0 10px;height:30px;border-radius:2px;background-color:#f5f5f5;color:#666;text-align:center;line-height:30px;cursor:pointer}
+  .logs_page a:hover{background:#e5e5e5}
+  .hide {
+    display: none !important;
+  }
+  .bt-form .line label.cursor-pointer i.form-checkbox.active {
+    background-color: #20a53a;
+    border-color: #20a53a;
+  }
+  .bt-form .line label.cursor-pointer i.form-checkbox.active::after {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 50%;
+    top: 50%;
+    margin-left: -2.5px;
+    margin-top: -6px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+	.error_tips{
+		border: 1px solid red;
+    border-radius: 8px;
+    color: red;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-size: 12px;
+    font-style: normal;
+    height: 14px;
+    line-height: 14px;
+    margin-left: 5px;
+    text-align: center;
+    width: 14px;
+	}
+	.table_top{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.search-input input {
+        border: 1px solid #20a53a;
+        display: inline-block;
+        height: 30px;
+        box-sizing: border-box;
+        width: 180px;
+        padding-left: 8px;
+        box-sizing: border-box;
+        outline: none;
+        border-right: none;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        font-size: 12px;
+    }
+    
+    .search-input button {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        background: #20a53a;
+        vertical-align: top;
+        color: #fff;
+        border: none;
+        width: 35px;
+        text-align: center;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        cursor: pointer;
+        outline: none;
+        font-size: 16px;
+    }
+    
+    .search-input button span {
+        position: relative;
+        top: 2px;
+    }
+		.module-check label{
+			margin-right: 10px;
+		}
+		.module-check.check_disabled label,
+    .module-check.check_disabled i{
+        cursor: no-drop;
+    }
+		.send_number_line .info-r,
+		.status_code_checkbox .info-r{
+			margin-top: 5px;
+		}
+		.send_number_line .inlineBlock input{
+			border: 1px solid #ccc;
+		}
+		#alert_setting_table td span,.text_format{
+			overflow: hidden;
+			/* max-width: 120px; */
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.set_ps{
+			outline: none;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			width: 104px;
+			border: none;
+			padding-left: 0 !important;
+			background-color: transparent;
+		}
+		.status_code_checkbox .info-r span{
+			margin-right: 14px;
+		}
+		.status_code_checkbox .info-r input{
+			margin-right: 4px;
+			vertical-align:-2px
+		}
+		#nodeMonitorTable tr{
+			height:39px;
+		}
+		.load_bottom_help ul{
+			list-style: disc;
+		}
+		.relative{
+			position: relative;
+		}
+</style>
+<div class="bt-form" id="node_admin">
+  <div class="bt-w-main">
+    <div class="bt-w-menu">
+      <p class="bgw">网站负载均衡</p>
+      <p>网站节点监控</p>
+      <p>TCP负载均衡</p>
+			<p>节点告警设置</p>
+    </div>
+    <div class="bt-w-con pd15 divtable">
+      <div class="bt-box active">
+        <div class="mb10">
+					<div class="table_top">
+						<button class="btn btn-success btn-sm" data-index='0' onclick="nodeAdmin.add_balance()">添加负载</button>
+					<div class="search-input">
+						<input type="text" class="search_name_val" placeholder="输入负载名称模糊查询">
+						<button type="submit" class="search_name_btn" onclick="nodeAdmin.search_balance()">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						</button>
+					</div>
+					</div>
+          <div class="divtable mt10">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>负载名称</th>
+                  <th>网站</th>
+                  <th>节点</th>
+                  <th>请求数</th>
+                  <th>错误数</th>
+                  <th>并发数</th>
+                  <th>回源耗时</th>
+                  <th>上次访问</th>
+                  <th>日志</th>
+                  <th width="100" style="text-align: right;">操作</th>
+                </tr>
+              </thead>
+              <tbody id="nodeTable"></tbody>
+            </table>
+            <div class="nodeTablePage page" data-type="nodePage"></div>
+          </div>
+        </div>
+				<div style="margin-left:10px" class="load_bottom_help help-info-text c7 ptb10">
+					<ul>
+						<li>若访问以".php"结尾的网址出错，请到【网站-“负载均衡关联站点”-设置-PHP】中把php版本改为静态
+						</li>
+					</ul>
+				</div>
+      </div>
+      <div class="bt-box">
+        <div class="mb10">
+					<!-- <div id="nodeMonitorTable"></div> -->
+          <div class="divtable mt10">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>节点IP</th>
+									<th>节点状态</th>
+                  <th>网站</th>
+                  <th>请求数</th>
+                  <th>错误数</th>
+                  <th>并发数</th>
+                  <th>回源耗时</th>
+                  <th>上次请求时间</th>
+									<th>备注</th>
+                </tr>
+              </thead>
+              <tbody id="nodeMonitorTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="bt-box">
+        <div class="mb10">
+          <button class="btn btn-success btn-sm" onclick="nodeAdmin.edit_tcp_load_view()">添加TCP/UDP负载</button>
+          <div class="divtable mt10">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>负载名称</th>
+                  <th>监听地址</th>
+                  <th>节点</th>
+                  <th>请求数</th>
+                  <th>错误数</th>
+                  <th>并发数</th>
+                  <th>回源耗时</th>
+                  <th>上次访问</th>
+                  <th>日志</th>
+                  <th>备注</th>
+                  <th width="100" style="text-align: right;">操作</th>
+                </tr>
+              </thead>
+              <tbody id="tcpLoadTable"></tbody>
+            </table>
+          </div>
+          <ul style="margin-left:10px" class="help-info-text c7 ptb10">
+            <li>TCP/UDP负载均衡使用场景：</li>
+            <li>1、PHP-FPM服务多节点负载均衡(TCP模式)</li>
+            <li>2、MySQL只读服务多节点负载均衡</li>
+            <li>3、其它TCP/UDP服务负载均衡或端口转发</li>
+          </ul>
+        </div>
+      </div>
+			<div class="bt-box">
+				<div id="alert_setting_table"></div>
+			</div>
+    </div>
+  </div>
+</div>
+<!-- 创建负载页面 -->
+<script type="text/html" id="addBalanceFormA">
+  <div class="bt-form pd20 normal">
+    <div class="line">
+      <span class="tname">域名</span>
+      <div class="info-r c4" style="margin-bottom:0;"><textarea class="bt-input-text" name="domains"
+          style="width:100%;height:90px;line-height:20px;padding-top:5px;resize: none;"
+          placeholder="每行填写一个域名，默认为80端口&#13;泛解析添加方法 *.domain.com&#13;如另加端口格式为 www.domain.com:88"></textarea></div>
+    </div>
+    <div style="margin-left:100px;margin-bottom:5px;color:red;">
+      * 注意：如果节点网站不能通过ip直接访问，请添加同样的域名到节点的网站域名列表
+    </div>
+    <div class="line">
+      <span class="tname">负载名称</span>
+      <div class="info-r c4">
+        <input class="bt-input-text" name="up_name" type="text" style="width:100%" placeholder="负载名称,可以是英文字母和下划线,不能使用中文"
+          value="">
+      </div>
+    </div>
+    <div class="line">
+      <span class="tname">会话跟随</span>
+      <div class="info-r c4">
+        <select name="session_type" class="bt-input-text" style="width:400px;margin-right:15px">
+          <option value="sticky">[Cookie] - 适用于大多数需要会话跟随的场景</option>
+          <option value="ip_hash">[IP地址] - 当您的用户分布范围广且区域性不明显时，建议使用此项</option>
+          <option value="off">[关闭] - 不需要用户登录的情况下使用此项</option>
+        </select>
+        <span>保持用户会话(登陆状态)不丢失</span>
+      </div>
+    </div>
+    <div class="line">
+      <span class="tname">节点</span>
+      <div class="info-r c4">
+        <div class="table-con divtable" style="max-height:120px;overflow:auto; margin-bottom:8px;width:100%">
+          <table class="table table-hover" id="fixTable3">
+            <thead>
+              <tr>
+                <th width="160">IP地址</th>
+                <th width="120">验证路径</th>
+                <th width="60">端口</th>
+                <th width="60">状态</th>
+                <th width="60">权重</th>
+                <th width="60">阀值</th>
+                <th width="95">恢复时间</th>
+                <th width="95">备注</th>
+                <th width="60" class="text-right">操作</th>
+              </tr>
+            </thead>
+            <tbody id="nodecon">
+              <tr class="nulltr">
+                <td colspan="8" align="center">当前节点为空，请至少添加一个普通节点</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <span class="btn btn-success btn-sm" style="vertical-align:0" onclick="nodeAdmin.add_node('nodecon')">添加节点</span>
+      </div>
+    </div>
+  </div>
+
+</script>
+<!-- 修改负载均衡 -->
+<script type="text/html" id="editBalance">
+  <div class="bt-form pd20">
+    <div class="line">
+      <span class="tname">节点资源</span>
+      <div class="info-r c4">
+        <div class="table-con divtable" style="max-height:150px;overflow:auto; margin-bottom:10px;width:100%;">
+          <table class="table table-hover" id="set-upstream-table">
+            <thead>
+              <tr>
+                <th width="45">选择</th>
+                <th>资源名称</th>
+                <th>会话跟随</th>
+                <th>节点数量</th>
+                <th>添加时间</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-bottom:10px;color:red;">
+          * 选择根目录默认使用的节点资源，如果列表中不存在，可以点击添加资源进行添加
+        </div>
+        <span class="btn btn-success btn-sm" style="vertical-align:0" onclick="nodeAdmin.add_upstream()">添加资源</span>
+      </div>
+    </div>
+    <div class="line">
+      <span class="tname" style="padding-right: 14px;">自定义Location</span>
+      <div class="info-r c4">
+        <div class="index-item" style="margin-top: 5px;">
+          <input class="btswitch btswitch-ios" id="location_set" type="checkbox">
+          <label class="btswitch-btn" for="location_set" onclick="$('.set-table').toggle();"></label>
+        </div>
+      </div>
+    </div>
+    <div class="line set-table" style="border-top: 1px solid #ccc;padding-bottom: 0;">
+      <div class="line" style="padding-bottom: 0;">
+        <span class="tname" style="padding-bottom: 0;">Location</span>
+        <div class="info-r c4" style="margin-bottom: 0;">
+          <div class="table-con divtable" style="max-height:165px;overflow:auto; margin-bottom:15px;width:100%;">
+            <table id="set-location-table" class="table table-hover">
+              <thead>
+                <tr>
+                  <th>发送的域名<span class="bt-ico-ask" id="domain_tips" style="margin-left:5px;" tip="需要发送的域名">?</span>
+                  </th>
+                  <th>匹配规则<span class="bt-ico-ask" id="rule_tips" style="margin-left:5px;"
+                      tip="用于URL匹配的规则,需要自定义">?</span></th>
+                  <th>匹配方式<span class="bt-ico-ask" id="path_tips" style="margin-left:5px;" tip="用于URL匹配的方式">?</span>
+                  </th>
+                  <th>资源<span class="bt-ico-ask" id="sourt_tips" style="margin-left:5px;" tip="设置请求要转发到的后端节点资源">?</span>
+                  </th>
+                  <th width="40">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input class="bt-input-text" name="host" type="text" style="width:90px;height:23px;"
+                      value="$host"></td>
+                  <td><input class="bt-input-text" name="rule" type="text" style="width:90px;height:23px;"
+                      placeholder="/abc"></td>
+                  <td>
+                    <select class="bt-input-text" name="type" style="max-width:160px;">
+                      <option value="">空 :必须以指定模式开始</option>
+                      <option value="=">= :必须与指定的模式精确匹配</option>
+                      <option value="~">~ :指定的正则表达式要区分大小写</option>
+                      <option value="~*">~* :指定的正则表达式不区分大小写</option>
+                      <option value="^~">^~ :类似于无修饰符的行为</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="bt-input-text" name="proxy_pass" style="max-width:70px;">
+                      <option value="1">aaa</option>
+                      <option value="2">bbb</option>
+                    </select>
+                  </td>
+                  <td align="center"><span style="color: #20a53a;cursor: pointer;" class="del_rule_line">删除</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <span class="btn btn-success btn-sm set-location-add" style="vertical-align:0">添加Location</span>
+        </div>
+      </div>
+    </div>
+    <ul class="help-info-text c7">
+      <li>自定义匹配根目录以外的Location规则</li>
+      <li>发送域名：将域名添加到请求头传递到代理服务器，默认为目标URL域名</li>
+    </ul>
+  </div>
+</script>
+<!-- 添加upstream的表单 -->
+<script type="text/html" id="addupstream">
+  <div class="bt-form pd20" id="nodeupstreamForm" style="padding-top: 10px;">
+    <div class="add-node-line" style="text-align: left;margin-bottom: 5px;">
+      <button class="btn btn-success btn-sm va0" onclick="nodeAdmin.add_node('nodecontent');">添加节点</button>
+    </div>
+    <form class="bt-form node-port">
+      <div class="line">
+        <span class="tname">节点列表</span>
+        <div class="info-r c4">
+          <div class="table-con divtable" style="max-height:150px;overflow:auto;">
+            <table class="table table-hover" id="fixTable1">
+              <thead>
+                <tr>
+                  <th>IP地址</th>
+                  <th width="75">验证路径</th>
+                  <th width="50">端口</th>
+                  <th width="50">类型</th>
+                  <th width="50">权重</th>
+                  <th width="50">阀值</th>
+                  <th width="50">恢复时间</th>
+                  <th width="95">备注</th>
+                  <th style="text-align:right;">操作</th>
+                </tr>
+              </thead>
+              <tbody id="nodecontent">
+                <tr class="nulltr">
+                  <td colspan="8" align="center">当前节点为空，请至少添加一个普通节点</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="line">
+        <span class="tname">负载名称</span>
+        <div class="info-r c4">
+          <input class="bt-input-text" name="up_name" type="text" style="width: 100%;"
+            placeholder="负载名称,可以是英文字母和下划线,不能使用中文" value="">
+        </div>
+      </div>
+			<div class="line status_code_checkbox">
+				<span class="tname">错误状态码</span>
+				<div class="info-r c4">
+						<input name="status_code" type="checkbox" placeholder="httponly"  value="500"><span>500</span>
+						<input name="status_code" type="checkbox" placeholder="httponly"  value="502"><span>502</span>
+						<input name="status_code" type="checkbox" placeholder="httponly"  value="503"><span>503</span>
+						<input name="status_code" type="checkbox" placeholder="httponly"  value="504"><span>504</span>
+						<input name="status_code" type="checkbox" placeholder="httponly"  value="404"><span>404</span>
+						<input name="status_code" type="checkbox" placeholder="httponly"  value="403"><span>403</span>
+						<input name="status_code" type="checkbox" placeholder="httponly"  value="429"><span>429</span>
+				</div>
+			</div>
+      <div class="line">
+        <span class="tname">会话跟随</span>
+        <div class="info-r c4">
+          <select name="session_type" class="bt-input-text" style="width:400px;margin-right:15px">
+            <option value="sticky">[Cookie] - 通过Cookie来识别用户会话,建议使用CDN的用户选择此项</option>
+            <option value="ip_hash">[IP地址] - 通过客户的IP地址来保持会话</option>
+            <option value="off">[关闭] - 不需要用户登录的情况下使用此项</option>
+          </select>
+          <span>保持用户会话(登陆状态)不丢失的方法</span>
+        </div>
+      </div>
+      <div class="line cookie-line">
+        <span class="tname">Cookie标识</span>
+        <div class="info-r c4">
+          <input class="bt-input-text" name="cookie_name" type="text" style="width: 170px;" value="bt_route">
+          <span>会话跟随Cookie标识名称</span>
+        </div>
+      </div>
+      <div class="line cookie-line">
+        <span class="tname">过期时间(小时)</span>
+        <div class="info-r c4">
+          <input class="bt-input-text" name="expires" type="number" style="width:170px;"
+            placeholder="cookie过期时间，单位小时，默认为12小时" value="12">
+          <span>会话跟随Cookie过期时间</span>
+        </div>
+      </div>
+      <div class="line cookie-line">
+        <span class="tname">HttpOnly保护</span>
+        <div class="info-r c4" style="line-height:30px">
+          <input style="vertical-align:-2px" name="httponly" type="checkbox" placeholder="httponly" checked="true">
+          <span>禁止通过JS脚本获取Cookie</span>
+        </div>
+      </div>
+      <div class="line cookie-line">
+        <span class="tname">Secure保护</span>
+        <div class="info-r c4" style="line-height:30px">
+          <input style="vertical-align:-2px" name="secure" type="checkbox" placeholder="secure">
+          <span>Cookie只对https协议有效</span>
+        </div>
+      </div>
+      <ul style="margin-left:10px;margin-top: 0;" class="help-info-text c7 ptb10">
+        <li>[类型]: 节点在负载均衡中的参与类型, 参与：参与负载均衡, 备用: 无可用节点时启用, 停用: 停止使用的节点</li>
+        <li>[权重]: 当前节点在负载均衡中的节点负载权重, 数值越大，使用率越高，请根据节点负载能力设置</li>
+        <li>[阀值]: 当负载节点访问故障次数超过指定阀值时，自动暂停此节点</li>
+        <li>[恢复时间]: 当负载节点因访问故障被自动暂停后，尝试自动恢复的间隔时间</li>
+        <li>[错误状态码]: 当后端节点返回的http状态码在错误状态码中时，该节点将会被视为处理失败</li>
+				<li>当该节点在恢复时间内失败次数到达阀值后将会自动暂停访问该节点，并在间隔恢复时间时长后再次尝试使用该节点</li>
+      </ul>
+    </form>
+  </div>
+</script>
+<!-- 添加节点表单 -->
+<script type="text/html" id="addNodeForm">
+  <div class="bt-form node-port pd20">
+    <form class="add-node-form">
+      <div class="line">
+        <span class="tname">IP地址</span>
+        <div class="info-r c4">
+          <input class="bt-input-text" name="server" type="text" style="width:250px" placeholder="仅支持IP地址,否则无法正常参与负载均衡"
+            value="">
+        </div>
+      </div>
+      <div class="line">
+        <span class="tname">验证文件路径</span>
+        <div class="info-r c4">
+          <input class="bt-input-text server_path" name="path" type="text" style="width:250px"
+            placeholder="输入路径,例如:/aa.txt" value="/">
+        </div>
+      </div>
+      <div class="line">
+        <span class="tname">端口</span>
+        <div class="info-r c4">
+          <input class="bt-input-text" name="port" type="text" style="width:250px" placeholder="输入端口" value="80">
+        </div>
+      </div>
+      <div class="line">
+        <span class="tname">节点状态</span>
+        <div class="info-r c4">
+          <select name="state" class="bt-input-text" style="width:100px;margin-right:5px">
+            <option value="1">参与</option>
+            <option value="2">备份</option>
+            <option value="0">停用</option>
+          </select>
+        </div>
+      </div>
+      <div class="line">
+        <span class="tname">权重</span>
+        <div class="info-r c4">
+          <input class="bt-input-text" name="weight" type="text" style="width:250px" placeholder="初始值为1" value="1">
+        </div>
+      </div>
+      <div class="line">
+        <span class="tname">阈值</span>
+        <div class="info-r c4">
+          <input class="bt-input-text" name="max_fails" type="text" style="width:250px" placeholder="初始值为2次" value="2">
+          次
+        </div>
+      </div>
+      <div class="line">
+        <span class="tname">恢复时间</span>
+        <div class="info-r c4">
+          <input class="bt-input-text" name="fail_timeout" type="text" style="width:250px" placeholder="初始值为10秒"
+            value="10"> 秒
+        </div>
+      </div>
+			<div class="line">
+        <span class="tname">备注</span>
+        <div class="info-r c4">
+          <input class="bt-input-text" name="ps" type="text" style="width:250px" placeholder="请输入备注" value="">
+        </div>
+      </div>
+    </form>
+    <ul style="margin-left:10px" class="help-info-text c7">
+      <li>备份状态: 指当其它节点都无法使用时才会使用此节点</li>
+      <li>参与状态: 正常参与负载均衡,请至少添加1个普通节点</li>
+      <li>验证文件路径: 用于检查文件路径地址是否可用</li>
+      <li>IP地址: 仅支持IP地址,否则无法正常参与负载均衡</li>
+      <li>阈值: 在恢复时间的时间段内，如果Nginx与节点通信尝试失败的次数达到此值，Nginx就认为服务器不可用</li>
+    </ul>
+  </div>
+</script>
+<script type="text/html" id="addRuleLine">
+  <tr>
+    <td><input class="bt-input-text" name="host" type="text" style="width:90px;height:23px;" placeholder="$host"></td>
+    <td><input class="bt-input-text" name="rule" type="text" style="width:90px;height:23px;" placeholder="/abc"></td>
+    <td>
+      <select class="bt-input-text" name="type" style="max-width:160px;">
+        <option value="">空 :必须以指定模式开始</option>
+        <option value="=">= :必须与指定的模式精确匹配</option>
+        <option value="~">~ :指定的正则表达式要区分大小写</option>
+        <option value="~*">~* :指定的正则表达式不区分大小写</option>
+        <option value="^~">^~ :类似于无修饰符的行为</option>
+      </select>
+    </td>
+    <td>
+      <select class="bt-input-text" name="proxy_pass" style="max-width:70px;"></select>
+    </td>
+    <td align="center"><span style="color: #20a53a;cursor: pointer;" class="del_rule_line">删除</span></td>
+  </tr>
+</script>
+
+<script>
+  bt_tools.form = function (config) {
+    var _that = this;
+    function ReaderForm(config) {
+        this.config = config;
+        this.data = config.data || {};
+        this.$load();
+    }
+    ReaderForm.prototype = {
+        element: null,
+        style_list: [], // 样式列表
+        event_list: {}, // 事件列表,已绑定事件
+        event_type: ['click', 'event', 'focus', 'keyup', 'blur', 'change'],
+        hide_list: [],
+        form_element: {},
+        form_config: {},
+        random: bt.get_random(5),
+        $load: function () {
+            var that = this;
+            if (that.el) {
+                this.$reader_content(function () {
+                    that.$event_bind();
+                });
+            }
+        },
+
+        /**
+         * @description 渲染Form内容
+         * @param {Function} callback 回调函数
+         */
+        $reader_content: function (callback) {
+            var that = this,
+                html = '',
+                _content = '',
+                event_list = {};
+            $.each(that.config.form, function (index, item) {
+              html += that.$reader_content_row(index, item);
+            });
+            that.element = $('<form class="bt-form" data-form="' + that.random + '">' + html + '</form>');
+            _content = $('<div class="' + _that.$verify(that.config.class) + '"></div>');
+            _content.append(that.element);
+            if (callback) callback();
+            return _content[0].outerHTML;
+        },
+
+        /**
+         * @description 渲染行内容
+         * @param {object} data Form数据
+         * @param {number} index 下标
+         * @return {string} HTML结构
+         */
+        $reader_content_row: function (index, data) {
+            var that = this,help = data.help,labelWidth = this.config.formLabelWidth || data.formLabelWidth;
+            return '<div class="line' + _that.$verify(data.class) + _that.$verify(data.hide, 'hide', true) + '"' + _that.$verify(data.id, 'id') + '>' +
+                (data.label ? '<span class="tname" '+ (labelWidth?'style="width:'+ labelWidth +'"':'') +'>' + data.label + '</span>' : '') +
+                '<div class="' + (data.label ? 'info-r' : '') + _that.$verify(data.line_class) + '"' + _that.$verify(that.$reader_style($.extend(data.style,labelWidth?{'margin-left':labelWidth}:{})), 'style') + '>' +
+                that.$reader_form_element(data.group, index) +
+                (help ? ('<div class="c9 mt5 ' + _that.$verify(help.class, 'class') + '" ' + _that.$verify(that.$reader_style(help.style), 'style') + '>' + help.list.join('</br>') + '</div>') : '') +
+                '</div>' +
+                '</div>';
+        },
+
+        /**
+         * @description 渲染form类型
+         * @param {object} data 表单数据
+         * @param {number} index 下标
+         * @return {string} HTML结构
+         */
+        $reader_form_element: function (data, index) {
+            var that = this,html = '';
+            if (!Array.isArray(data)) data = [data];
+            $.each(data, function (key, item) {
+                item.find_index = index;
+                html+= that.$reader_form_find(item);
+                that.form_config[item.name] = item;
+            });
+            return html;
+        },
+        /**
+         * @descripttion 渲染单个表单元素
+         * @param {Object} item 配置
+         * @return: viod
+         */
+        $reader_form_find:function(item){
+            var that = this,html = '',style = that.$reader_style(item.style) + _that.$verify(item.width, 'width', 'style'),
+            attribute = that.$verify_group(item, ['name', 'placeholder', 'disabled', 'readonly', 'autofocus', 'autocomplete', 'min', 'max']),
+            event_group = that.$create_event_config(item),
+            eventName = '',index = item.find_index;
+            html += item.label ? '<span class="mr5">' + item.label + '</span>' : '';
+            if (typeof item['name'] !== "undefined") that.event_list[item.name] = event_group;
+            html += '<div class="' + (item.dispaly || 'inlineBlock') + ' ' + _that.$verify(item.hide, 'hide', true) + ' ' + (item['class'] || '') + '">';
+            switch (item.type) {
+                case 'text': // 文本选择
+                case 'checkbox': // 复选框
+                case 'password': // 密码
+                case 'radio': // 单选框
+                case 'number': // 数字
+                    var _event = 'event_' + item.name + '_' + that.random;
+                    switch(item.type){
+                        case 'checkbox': // 复选框
+                          html += '<label class="cursor-pointer form-checkbox-label"><i class="form-checkbox cursor-pointer mr5 '+ _event + '_label ' + ((that.data[item.name] || item.value) ? 'active' : '') + '"></i><input type="checkbox" ' + attribute + ' '+ ((that.data[item.name] || item.value) ?'checked':'')  +' class="form—checkbox-input hide mr10 '+ _event +'" name="'+ item.name +'" /><span class="vertical_middle">'+ item.title +'</span></label>';
+                          that.event_list[_event + '_label'] = {click:{type:'checkbox_icon',config:item}};
+                          that.event_list[_event] = {input:{type:'checkbox',config:item}};
+                        break;
+                        default:
+                          html += '<input type="' + item.type + '"' + attribute + ' ' + (item.icon ? 'id="' + _event + '"' : '') + ' class="bt-input-' + (item.type != 'select_path' ? item.type : 'text') + ' mr10 ' + (item.label ? 'vertical_middle' : '') + _that.$verify(item.class, 'class') + '"' + _that.$verify(style, 'style') + ' value="'+ (that.data[item.name] || item.value || '') +'"/>';
+                        break;
+                    }
+                    if(item.icon){
+                        html += '<span class="glyphicon ' + item.icon.type + ' ' + item.name + '_icon cursor" ' + _that.$verify(that.$reader_style(item.icon.style), 'style') + '></span>';
+                        if(typeof item.icon.event !== 'undefined'){
+                            that.event_list[item.name + '_icon'] = {
+                                'click': {
+                                    type: 'select_path',
+                                    config: item,
+                                    event:item.icon.event
+                                }
+                            };
+                        }
+                    }
+                    html += item.unit?'<span>'+ item.unit +'</span>':'';
+                break;
+                case 'textarea':
+                    html += '<textarea class="bt-input-text"' + _that.$verify(style, 'style') + attribute + ' >' + (item.value || '') + '</textarea>';
+                    $.each(['blur', 'focus', 'input'], function (index, items) {
+                        if (item.tips) {
+                            var added = null;
+                            switch (items) {
+                                case 'blur':
+                                    added = function (ev,item,element){
+                                        if ($(this).val() === '') $(this).next().show();
+                                        layer.close(item.tips.loadT);
+                                        $(ev.target).data('layer','');
+                                    }
+                                    break;
+                                case 'focus':
+                                    added = function (ev, item) {
+                                        $(this).next().hide();
+                                        item.tips.loadT = layer.tips(tips, $(this), {
+                                            tips: [1, '#20a53a'],
+                                            time: 0,
+                                            area: $(this).width()
+                                        });
+                                    }
+                                    break;
+                            }
+                        }
+                        that.event_list[item.name][items] ? (that.event_list[item.name][items]['added'] = added) : (that.event_list[item.name][items] = {
+                            type: item.type,
+                            cust: false,
+                            event: item[items],
+                            added: added
+                        });
+                    });
+                    if (item.tips) {
+                        var tips = '';
+                        if (typeof item.tips.list === "undefined") {
+                            tips = item.tips.text;
+                        } else {
+                            tips = item.tips.list.join('</br>');
+                        }
+                        html += '<div class="placeholder c9 ' + item.name + '_tips" ' + _that.$verify(that.$reader_style(item.tips.style), 'style') + '>' + tips + '</div>';
+                        that.event_list[item.name + '_tips'] = {
+                            'click': {
+                                type: 'textarea_tips',
+                                config: item
+                            }
+                        };
+                    }
+                    break;
+                case 'select':
+                    html += that.$reader_select(item, style, attribute, index);
+                    that.event_list['custom_select'] = {
+                        'click': {
+                            type: 'custom_select',
+                            children: '.bt_select_value'
+                        }
+                    };
+                    that.event_list['custom_select_item'] = {
+                        'click': {
+                          type: 'custom_select_item',
+                          children: 'li.item',
+                          event:item.event
+                        }
+                    };
+                    break;
+                case 'link':
+                    eventName = 'event_' + bt.get_random(6);
+                    html += '<a href="' + (item.href || 'javascript:;') + '" class="btlink offsetY7' + _that.$verify(item.class, 'class') + ' ' + eventName + '" ' + _that.$verify(that.$reader_style(item.style), 'style') + '>' + item.title + '</a>';
+                    that.event_list[eventName] = {
+                        'click': {
+                            type: 'link_event',
+                            event: item.event
+                        }
+                    }
+                    break;
+                case 'help':
+                    var _html = '';
+                    $.each(item.list, function (index, items) {
+                        _html += '<li>' + items + '</li>';
+                    })
+                    html += '<ul class="help-info-text c7' + _that.$verify(item.class) + '"' + _that.$verify(that.$reader_style(item.style), 'style') + '>' + _html + '</ul>';
+                    break;
+                case 'html':
+                  html += item.html;
+                break;
+            }
+            html += '</div>'
+            return html;
+        },
+        /**
+         * @description 创建事件配置
+         * @param {object} item 行内配置
+         * @return {object} 配置信息
+         */
+        $create_event_config: function (item) {
+          var config = {};
+          if (typeof item['name'] === "undefined") return {};
+          $.each(this.event_type, function (key, items) {
+              if (item[items]) {
+                  config[(items === 'event' ? 'click' : items)] = {
+                      type: item.type,
+                      event: item[items],
+                      cust: (['select', 'checkbox', 'radio'].indexOf(item.type) > -1 ? true : false),
+                      config: item
+                  };
+              }
+          });
+          return config;
+        },
+        /**
+         * @description 渲染样式
+         * @param {object|string} data 样式配置
+         * @return {string} 样式
+         */
+        $reader_style: function (data) {
+          var style = '';
+          if (typeof data === 'string') return data;
+          if (typeof data === 'undefined') return '';
+          $.each(data, function (key, item) {
+              style += key + ':' + item + ';';
+          });
+          return style;
+        },
+        /**
+         * @descripttion 局部刷新form表单元素
+         * @param {String} name 需要刷新的元素
+         * @param {String} name 元素新数据
+         * @return: viod
+         */
+        $local_refresh:function(name,config){
+          this.element.find('[data-name='+name+']').replaceWith(this.$reader_form_find(config))
+        },
+        /**
+         * @description 渲染下拉，内容方法
+         */
+        $reader_select: function (item, style, attribute, index) {
+            var that = this,
+                list = '',
+                option = '',
+                active = {};
+            if (!Array.isArray(item.list)) {
+                var config = item.list;
+                bt_tools.send({
+                    url: config.url,
+                    data: config.param || config.data || {}
+                }, function (res) {
+                    if (res.status !== false) {
+                        item.list = item.list.dataFilter ? item.list.dataFilter(res, that) : res;
+                        that.$replace_render_content(index);
+                    } else {
+                        bt.msg(res);
+                    }
+                });
+            }
+            if (typeof that.data[item.name] === "undefined") active = item.list[0]
+            $.each(item.list, function (key, items) {
+              if (items.value === item.value || items.value === that.data[item.name]) {
+                active = items
+                return false
+              }
+            })
+            $.each(item.list, function (key, items) {
+                list += '<li class="item' + _that.$verify(items.value === active.value ? 'active' : '') + ' ' + (items.disabled ? 'disabled' : '') + '">' + items.title + '</li>';
+                option += '<option value="' + items.value + '"' + (items.disabled ? 'disabled' : '') + ' ' + _that.$verify(items.value === active.value ? 'selectd' : '') + '>' + items.title + '</option>';
+            });
+            if (!active.title && Array.isArray(item.list)) active = item.list[0];
+            return '<div class="bt_select_updown mr10 ' + (item.disabled ? 'bt-disabled' : '') + ' ' + _that.$verify(item.hide, 'hide', true) + _that.$verify(item.class) + '" ' + _that.$verify(style, 'style') + ' data-name="' + item.name + '">' +
+                '<span class="bt_select_value"><span class="bt_select_content">' + (active.title || '获取数据中...') + '</span><span class="glyphicon glyphicon-triangle-bottom ml5"></span></span>' +
+                '<ul class="bt_select_list">' + (list || '') + '</ul>' +
+                '<select' + attribute + ' class="hide" ' + (item.disabled ? 'disabled' : '') + '>' + (option || '') + '</select>' +
+                '</div>';
+        },
+
+        /**
+         * @description 替换渲染内容
+         */
+        $replace_render_content: function (index) {
+            var that = this,
+                config = this.config.form[index];
+            $('[data-form=' + that.random + ']').find('.line:eq(' + index + ')').replaceWith(that.$reader_content_row(index, config));
+        },
+
+        /**
+         * @description 事件绑定功能
+         * @param {Array} eventList 事件列表
+         * @param {Function} callback 回调函数
+         * @return void
+         */
+        $event_bind: function (eventList, callback) {
+            var that = this,_event = {};
+            that.element = $(typeof eventList === 'object' ? that.element : ('[data-form=' + that.random + ']'));
+            if (typeof eventList === 'undefined') _event = that.event_list;
+            $.each(_event, function (key, item) {
+                if ($.isEmptyObject(item)) return true;
+
+                $.each(item, function (keys, items) {
+                    var childNode = '';
+                    if (typeof items.cust === "boolean") {
+                        childNode = '[' + (items.cust ? 'data-' : '') + 'name=' + key + ']';
+                    } else {
+                        childNode = '.' + key;
+                    }
+                    (function (items, key) {
+                        if (items.onEvent === false) {
+                            switch (items.type) {
+                                case 'input_checked':
+                                    $(childNode).on(keys != 'event' ? keys : 'click', function (ev) {
+                                        items.event.apply(this, [ev, that]);
+                                    });
+                                    break;
+                            }
+                            return true;
+                        } else {
+                            that.element.on(keys != 'event' ? keys : 'click', items.children ? items.children : childNode, function (ev) {
+                                var form = that.$get_form_element(true), value = that.$get_form_value(), config = that.form_config[key];
+                                switch (items.type) {
+                                    case 'textarea_tips':
+                                        $(this).hide().prev().focus();
+                                        break;
+                                    case 'custom_select':
+                                        if ($(this).parent().hasClass('bt-disabled')) return false;
+                                        var select_value = $(this).next();
+                                        if (!select_value.hasClass('show')) {
+                                            $('.bt_select_list').removeClass('show');
+                                            select_value.addClass('show');
+                                        } else {
+                                            select_value.removeClass('show');
+                                        }
+                                        $(document).click(function () {
+                                            that.element.find('.bt_select_list').removeClass('show');
+                                            $(this).unbind('click');
+                                            return false;
+                                        });
+                                        return false;
+                                        break;
+                                    case 'custom_select_item':
+                                        config = that.form_config[$(this).parents('.bt_select_updown').attr('data-name')], item_config = config.list[$(this).index()]
+                                        if ($(this).hasClass('disabled')) {
+                                            $(this).parent().removeClass('show');
+                                            if (item_config.tips) layer.msg(item_config.tips, {icon: 2});
+                                            return true;
+                                        }
+                                        if(items.event) items.event.apply(this, [value,form, that, config, ev])
+                                        if (!$(this).hasClass('active') && !$(this).hasClass('disabled')) {
+                                            $(this).parent().prev().find('.bt_select_content').text($(this).text());
+                                            $(this).addClass('active').siblings().removeClass('active');
+                                            $(this).parent().next().val(item_config.value.toString());
+                                            $(this).parent().removeClass('show');
+                                            $(this).parent().next().trigger("change");
+                                        }
+                                        return false
+                                        break;
+                                    case 'select_path':
+                                        bt.select_path('event_' + $(this).prev().attr('name') + '_' + that.random,items.config.icon.select||"");
+                                        break;
+                                    case 'checkbox':
+                                        var checked = $(this).is(':checked');
+                                        if(checked){
+                                            $(this).prev().addClass('active');
+                                        }else{
+                                            $(this).prev().removeClass('active');
+                                        }
+                                    break;
+                                }
+                                if (items.event) items.event.apply(this, [value,form, that, config, ev]); // 事件
+                                if (items.added) items.added.apply(this, [ev,config,form]);
+                            });
+                        }
+                    }(items, key));
+                });
+            });
+            if (callback) callback();
+        },
+
+        /**
+         * @description 获取表单数据
+         * @return {object} 表单数据
+         */
+        $get_form_value:function(){
+          return this.element.serializeObject();
+        },
+
+        /**
+         * @description 设置指定数据
+         *
+         */
+        $set_find_value: function (name, value) {
+          var config = {},that = this;
+          typeof name != 'string' ? config = name : config[name] = value;
+          $.each(config, function (key, item) {
+              that.form_element[key].val(item);
+          });
+        },
+
+        /**
+         * @description 获取Form，jquery节点
+         * @param {Boolean} afresh 是否强制刷新
+         * @return {object}
+         */
+        $get_form_element: function (afresh) {
+            var form = {},
+                that = this;
+            if (afresh || $.isEmptyObject(that.form_element)) {
+                this.element.find(':input').each(function (index) {
+                    form[$(this).attr('name')] = $(this);
+                });
+                that.form_element = form;
+                return form;
+            } else {
+                return that.form_element;
+            }
+        },
+
+        /**
+         * @description 验证值整个列表是否存在，存在则转换成属性字符串格式
+         */
+        $verify_group: function (config, group) {
+            var that = this,
+                str = '';
+            $.each(group, function (index, item) {
+                if (typeof config[item] === "undefined") return true;
+                if (['disabled', 'readonly'].indexOf(item) > -1) {
+                    str += ' ' + (config[item] ? (item + '="' + item + '"') : '');
+                } else {
+                    str += ' ' + item + '="' + config[item] + '"';
+                }
+            });
+            return str;
+        },
+
+        /**
+         * @description 验证绑定事件
+         * @param {String} value
+         */
+        $verify_bind_event: function (eventName, row, group) {
+            var event_list = {};
+            $.each(group, function (index, items) {
+                var event_fun = row[items];
+                if (event_fun) {
+                    if (typeof event_list[eventName] === "object") {
+                        if (!Array.isArray(event_list[eventName])) event_list[eventName] = [event_list[eventName]];
+                        event_list[eventName].push({
+                            event: event_fun,
+                            eventType: items
+                        });
+                    } else {
+                        event_list[eventName] = {
+                            event: event_fun,
+                            eventType: items
+                        };
+                    }
+                }
+            });
+            return event_list;
+        },
+
+        /**
+         * @description 验证值是否存在
+         * @param {String} value 内容/值
+         * @param {String|Boolean} attr 属性
+         * @param {String} type 属性
+         */
+        $verify: function (value, attr, type) {
+            if (!value) return '';
+            if (type === true) return value ? ' ' + attr : '';
+            if (type === 'style') return attr ? attr + ':' + value + ';' : value;
+            return attr ? ' ' + attr + '="' + value + '"' : ' ' + value;
+        },
+        /**
+         * @description 验证form表单
+        */
+        $verify_form:function(){
+            var form_list = {},form = this.config.form,form_value = this.$get_form_value(),form_element = this.$get_form_element(true);
+            for(var key = 0; key< form.length; key++){
+                var item = form[key];
+                if(!Array.isArray(item.group)) item.group = [item.group];
+                for(var i=0;i<item.group.length;i++){
+                    var items = item.group[i],name = items.name;
+                    if(items.type === 'help') continue;
+                    if(typeof items.verify != "undefined"){
+                        var value = items.verify(form_value[name],form_element[name],items,true);
+                        if(value === false && form_value[name] !== false) return false;
+                        form_list[name] = value;
+                    }else{
+                        form_list[name] = form_value[name];
+                    }
+                }
+            }
+            return form_list;
+        },
+        /**
+         * @description 提交内容，需要传入url
+         * @param {Object|Function} param 附加参数或回调函数
+         * @param {Function} callback 回调
+        */
+        $submit: function (param,callback,tips) {
+            var form = this.$verify_form();
+            if(typeof param === "function") tips = callback,callback = param,param = {};
+            if(!form) return false;
+            form = $.extend(form,param);
+            if(typeof this.config.url == "undefined"){
+                bt_tools.msg('请求提交地址不能为空！',false);
+                return false;
+            }
+            bt_tools.send({
+                url:this.config.url,
+                data:form
+            },function(res){
+                if(callback){
+                    callback(res,form);
+                }else{
+                    bt_tools.msg(res);
+                }
+            },(tips || '提交中'));
+        }
+    }
+    return new ReaderForm(config);
+}
+  bt_tools.open = function (config) {
+    var _config = {},layerT = null,form = null;
+    _config = $.extend({type: 1,area: '640px',closeBtn: 2,btn: ['确认', '取消']},config);
+    if(typeof _config.content == "object"){
+      var param = _config.content;
+      form = bt_tools.form(param);
+      _config.success = function(layero,indexs){
+        form.$event_bind();
+        if(typeof config.success != "undefined") config.success(layero,indexs,form);
+      }
+      _config.yes = function(indexs,layero){
+        var form_val = form.$verify_form();
+        if(!form_val) return false;
+        if(typeof config.yes != "undefined"){
+          var yes = config.yes.apply(form,[form_val,indexs,layero]);
+          if(!yes) return false;
+        }
+      }
+      _config.content = form.$reader_content();
+    }
+    layerT = layer.open(_config);
+    return {
+      close: function () {
+        layer.close(layerT);
+      },
+      form:form
+    }
+  }
+  var nodeAdmin = {
+    plugin_name: 'load_balance',
+    balance_methods: {
+      get_server_list: '获取负载均衡列表',
+      get_node_list: '获取节点监控列表',
+      get_total_today: "获取负载均衡统计信息",
+      get_load_logs: "获取负载均衡访问日志",
+      check_url: '检测节点是否可用',
+      check_tcp: '检测TCP节点是否可用',
+      add_lbs_general: '添加负载均衡',
+      delete_server: '删除负载',
+      get_all_upstream: '获取节点列表',
+      add_server: '添加负载均衡',
+      modify_heartbeat_conf: '设置心跳包',
+      get_heartbeat_conf: '获取心跳包设置',
+      heartbeat_off: '关闭心跳包设置',
+      modify_server: '修改负载',
+      modify_upstream:"修改资源配置",
+      get_tcp_load_list:'获取TCP负载均衡列表',
+      create_tcp_load:'创建TCP负载均衡',
+      modify_tcp_load:'修改TCP负载均衡',
+      remove_tcp_load:'删除TCP负载均衡',
+      get_tcp_load_find:'获取TCP负载均衡统计信息',
+      get_tcp_load_logs:'获取TCP负载均衡统计信息',
+    },
+		alertListModule:[],   //告警设置获取的消息模块列表
+		dirList:[],       //告警设置获取的目录列表
+    node_list_normal: [],
+    node_list_senior: [],
+    set_node_list: [],
+    upstream_data: [],
+    balance_data: [],
+    tcp_load_data:[],
+    refresh_node_monitor_timer: -1,
+    refresh_nonde_timer: -1,
+    refresh_time:3000,
+    node_page:1,
+    init: function () {
+      var _this = this;
+      $('.layui-layer-page .layui-layer-close2').click(function () {
+        clearInterval(_this.refresh_nonde_timer)
+        clearInterval(_this.refresh_node_monitor_timer)
+      })
+      $('.layui-layer-page').hide()
+      setTimeout(function(){
+        $('.layui-layer-page').css({width:'1000px',top:((window.innerHeight - 600)/2)+'px',left:((window.innerWidth - 1000)/2)+'px'}).show()
+      },100)
+      // 挂载请求方法
+      this.mount_methods_event(this.balance_methods);
+      $(".bt-w-menu p").click(function () {
+        var index = $(this).index();
+        $(this).addClass("bgw").siblings().removeClass("bgw");
+        $('.bt-w-con .bt-box').eq(index).show().siblings().hide();
+        clearInterval(_this.refresh_nonde_timer)
+        clearInterval(_this.refresh_node_monitor_timer)
+        switch (index) {
+          case 0:
+            _this.get_node_list_table();
+            _this.refresh_nonde_timer = setInterval(function(){
+              _this.get_node_list_table(_this.node_page,function(){},false,undefined)
+            }, _this.refresh_time);
+            break;
+          case 1:
+            _this.get_node_monitor_list_table()
+            _this.refresh_node_monitor_timer = setInterval(function(){
+              _this.get_node_monitor_list_table(function(){},false)
+            }, _this.refresh_time);
+            break;
+          case 2:
+            _this.create_tcp_load_table()
+            break;
+					case 3:
+						_this.renderAlertSetting()
+						bt_tools.send({url:'config?action=get_msg_configs'},function(res){
+								var resetChannelMessage = [],prevArray = []
+								Object.getOwnPropertyNames(res).forEach(function(key) { 
+										var mod = res[key]
+										key == 'wx_account' ? prevArray.push(mod) :resetChannelMessage.push(mod)
+								})
+								_this.alertListModule = prevArray.concat(resetChannelMessage)
+						})
+						bt_tools.send({url:'/plugin?action=a&name=load_balance&s=get_push_project'},function(dirList){
+								_this.dirList = dirList
+						})
+        }
+
+      });
+
+
+
+      //普通-高级模式切换
+      $('body').on('click', '.bt_tab_list .bt_tab_index', function (e) {
+        var _i = $(this).index()
+        $(this).addClass("active").siblings().removeClass("active");
+        if (_i == 0) {
+          $('.normal').show();
+          $('.senior').hide();
+        } else {
+          $('.senior').show();
+          $('.normal').hide();
+        }
+      });
+      //节点删除功能
+      $('body').on('click', '.minus', function (e) {
+        var _tbody = $(this).parents("tbody"),
+          _tr = $(this).parents("tr"),
+          _name = _tr.attr('data-host'),
+          _index = _tr.index();
+        layer.confirm('请确认是否删除【' + _name + '】节点？', {
+          title: '确认删除',
+          icon: 3,
+          closeBtn: 2
+        }, function (index) {
+          _tr.remove();
+          layer.close(index);
+          if (_tbody.attr('id') == 'nodecon') {
+            _this.node_list_normal.splice(_index);
+          } else {
+            _this.node_list_senior.splice(_index, 1);
+          }
+          if (_tbody.find('tr').length == 0) _tbody.html(
+            '<tr class="nulltr"><td colspan="8" align="center">当前节点为空，请至少添加一个节点</td></tr>');
+        });
+      });
+      //节点提示功能
+      $("body").on("mouseenter", "#rule_tips,#domain_tips,#path_tips,#sourt_tips", function () {
+        var idd = $(this).attr('id'),
+          tip = $(this).attr('tip');
+        layer.tips(tip, '#' + idd + '', {
+          tips: [1, '#ddd'],
+          time: 0
+        });
+      });
+      $("body").on("mouseleave", "#rule_tips,#domain_tips,#path_tips,#sourt_tips", function () {
+        layer.closeAll('tips');
+      });
+      $("#nodeTable").on("mouseenter", ".domain_list.btlink", function () {
+        var tip = $(this).attr('data-nodes'),
+          _index = $(this).parents('tr').index();
+        layer.tips("<span style='color:#333;'>" + tip + "</span>", '.show_' + _index, {
+          tips: [1, '#ddd'],
+          time: 0
+        });
+      });
+      $("#nodeTable").on("mouseleave", ".domain_list.btlink", function () {
+        layer.closeAll('tips');
+      });
+      $("#upstream-main-table").on("mouseenter", ".d_list.btlink", function () {
+        var tip = $(this).attr('data-nodes'),
+          _index = $(this).parents('tr').index();
+        layer.tips("<span style='color:#333;'>" + tip + "</span>", '.node_' + _index, {
+          tips: [1, '#ddd'],
+          time: 0
+        });
+      });
+      $("#upstream-main-table").on("mouseleave", ".d_list.btlink", function () {
+        layer.closeAll('tips');
+      });
+      //修改资源弹窗
+      $('#upstream-main-table').on('click', '.set_upstresm', function (e) {
+        var _id = $(this).attr("data-id"),
+          _i = $(this).parents("tr").index();
+        _this.add_upstream(_i, _id);
+      });
+      //翻页功能
+      $('.page').on('click', 'a', function (e) {
+        e.preventDefault()
+        if ($("#bt_app_list").is(":visible")) {
+          clearInterval(_this.interval);
+          _this.app_interval();
+        }
+        var data = _this.get_url_param($(this).attr('href')) , _type = $(this).parents('.page').data('type')
+        switch (_type) {
+          case 'nodePage':
+            _this.node_page = data.p
+            _this.get_node_list_table(data.p);
+            break;
+          // case 'upstreamPage':
+          //   _this.get_upstream_list_table(_p);
+          //   break;
+          default:
+            // 		_this.get_logs_list(_p);
+            break;
+        }
+      });
+      $(".bt-w-menu p:eq(0)").click()
+    },
+    /**
+     * @description 获取url参数
+     * @param {string} url地址
+    */
+    get_url_param: function(url) {
+        var p = url.split('?')[1]
+        var keyValue = p.split('&');
+        var obj = {};
+        for (var i = 0; i < keyValue.length; i++) {
+          var item = keyValue[i].split('=');
+          var key = item[0];
+          var value = item[1];
+          obj[key] = value;
+        }
+        return obj
+      },
+    /**
+     * @description 渲染网站均衡列表
+     * @param {Number} num 传页码，不传则默认为1
+     */
+    get_node_list_table: function (num, callback,tips,search_val) {
+      var _this = this,
+        tbody = '',
+        _page = typeof num == 'undefind' ? _this.node_page : num;
+      _this.$get_server_list({
+				search:search_val,
+        p: _page,
+        size: 10
+      }, function (rdata) {
+        for (var i = 0; i < rdata.data.length; i++) {
+          var domain_tips = '',
+            item = rdata.data[i],
+            tootls = item.total;
+          $.each(item.domains, function (j, val) {
+            domain_tips += val + '<br>';
+          });
+          tbody += '<tr>\
+					<td>' + item.default_upstream + '</td>\
+					<td>' + item.main_domain + '</td>\
+					<td><a class="btlink" onclick="nodeAdmin.open_total_logs(\''+ item.default_upstream +'\',\''+ item.main_domain +'\')">查看(' + tootls.nodes.length + ')</a></td>\
+					<td>' + tootls.day_count + '</td>\
+					<td>' + tootls.day_error + '</td>\
+					<td>' + tootls.day_speed + '</td>\
+					<td>' + tootls.request_timeout + 'ms</td>\
+					<td>' + (tootls.last_request_time === 0?'无':bt.format_data(tootls.last_request_time)) + '</td>\
+					<td><a class="btlink" onclick="nodeAdmin.open_server_logs(\''+ item.main_domain +'\')">查看</a></td>\
+					<td style="text-align: right;"><a class="btlink" onclick="nodeAdmin.add_upstream(' + i + ',\'' + item.upstream_info.id + '\',\'' + item.id + '\')">修改</a> | <a class="btlink" onclick="nodeAdmin.del_balance(\'' + item.id + '\',\'' + item.main_domain + '\')">删除</a></td>\
+				</tr>'
+        }
+        $("#nodeTable").html(tbody);
+        $(".nodeTablePage").html(rdata.page);
+        _this.balance_data = rdata.data;
+      },tips);
+    },
+    /**
+     * @description 打开网站负载日志
+    */
+    open_server_logs:function (domain) {
+      var date = new Date().getTime(),nowDay = bt.format_data(date,'yyyy-MM-dd'),yesterDay = bt.format_data(date - 86400000,'yyyy-MM-dd'),_that = this,page = 1;
+			_that.get_load_logs({main_domain:domain,day_date:nowDay,p:1},function (html,res) {
+        layer.open({
+          type:1,
+          title:'['+ domain +']-负载均衡访问日志',
+          closeBtn:2,
+          area:['1100px','550px'],
+          btn:false,
+          content:'<div class="tabel_logs pd15"></div>',
+          success:function(){
+             bt_tools.table({
+              el:'.tabel_logs',
+              height: '380px',
+              data:[],
+              default: "负载均衡访问日志列表为空", //数据为空时的默认提示
+              column: [
+                {title: '时间' },
+                {title: '客户端IP' },
+                {title: '网站' },
+                {title: '请求类型' },
+                {title: '分发节点' },
+                {title: '回源耗时ms' },
+                {title: '主体大小' },
+                {title: '传输大小' },
+                {title: '响应状态' },
+                {title: '缓存状态' },
+								{title: 'URI地址' },
+              ]
+            })
+            $('.tabel_logs').prepend('<div class="search-day">\
+              <span class="cur" data-date="'+ nowDay +'">今日</span>\
+              <span data-date="'+ yesterDay +'">昨日</span>\
+              <span class="last-span">\
+                <input id="webdate-select" type="text" value="'+ yesterDay +'">\
+              </span>\
+            </div>')
+            $('.tabel_logs').append('<div class="logs_page"></div>')
+						$('.tabel_logs .divtable tbody').addClass('server_logs_table')
+            if(html) $('.tabel_logs .divtable tbody').addClass('server_logs_table').html(html)
+            $('.search-day span').click(function(){
+              var date = $(this).data('date') || $(this).find('input').val();
+              if($(this).hasClass('last-span')) return false
+              $(this).addClass('cur').siblings().removeClass('cur');
+              _that.get_load_logs({main_domain:domain,day_date:date,p:page})
+            })
+            laydate.render({
+              elem: '#webdate-select',
+              format: 'yyyy-MM-dd',
+              done: function(value, date){
+                $('.last-span').addClass('cur').siblings().removeClass('cur')
+								var date_format = date.year + '-' + (date.month>=10?date.month:'0'+date.month) + '-' + (date.date<10?'0'+date.date:date.date)
+                _that.get_load_logs({main_domain:domain,day_date:date_format,p:page})
+              }
+            })
+            $('.logs_page').html(_that.render_logs_pages(res.end,page))
+            $('.logs_page').on('click','a',function(){
+              var day = $('.search-day span'),date = day.data('date') || day.find('input').val();
+              page = $(this).data('page')
+              _that.get_load_logs({main_domain:domain,day_date:date,p:page},function(html,res){
+                $('.logs_page').html(_that.render_logs_pages(res.end,page))
+              })
+            })
+          }
+        })
+      })
+    },
+
+    /**
+     * @description 渲染负载日志列表
+     * @param {object} config 传页码，不传则默认为1
+     */
+    get_load_logs:function(config,callback){
+      this.$get_load_logs({main_domain:config.main_domain,day_date:config.day_date,p:config.p},function(res){
+        var html = '',rdata = res.data
+        for (let i = 0; i < rdata.length; i++) {
+          var item = rdata[i];
+          html += '<tr>'
+          for(let j=0;j<item.length;j++){ 
+            if(j === 6 || j === 7){
+              var node_list = item[j].split(',');
+              for (let z = 0; z < node_list.length; z++) {
+                const items = node_list[z];
+                node_list[z] =  bt.format_size(items)
+              }
+              html +='<td>'+ node_list.join(',') +'</td>'
+            }else{
+              html +='<td>'+ item[j] +'</td>'
+            }
+          }
+          html += '</tr>'
+        }
+        $('.server_logs_table').html(html)
+        if(callback) callback(html,res)
+      })
+    },
+
+    open_total_logs:function(upstream,domain){
+      var date = new Date().getTime(),nowDay = bt.format_data(date,'yyyy-MM-dd'),yesterDay = bt.format_data(date - 86400000,'yyyy-MM-dd'),_that = this;
+      _that.get_total_logs({upstream_name:upstream,day_date:nowDay},function (html) {
+        layer.open({
+          type:1,
+          title:'['+ domain +']-负载均衡统计信息',
+          closeBtn:2,
+          area:['700px','500px'],
+          btn:false,
+          content:'<div class="tabel_logs pd15">\
+            <div class="search-day">\
+              <span class="cur" data-date="'+ nowDay +'">今日</span>\
+              <span data-date="'+ yesterDay +'">昨日</span>\
+              <span class="last-span">\
+                <input id="webdate-select" type="text" value="'+ yesterDay +'">\
+              </span>\
+            </div>\
+            <div class="divtable mt10">\
+              <table class="table table-hover">\
+                <thead>\
+                  <tr><th>节点IP</th><th>请求数</th><th>错误数</th><th>并发数</th><th>回源耗时</th><th>上次访问</th><th>备注</th></tr>\
+                </thead>\
+                <tbody id="total_logs_table">'+ html +'</tbody>\
+              </table>\
+            </div>\
+          </div>',
+          success:function(){
+            $('.search-day span').click(function(){
+              var date = $(this).data('date') || $(this).find('input').val();
+              if($(this).hasClass('last-span')) return false
+              $(this).addClass('cur').siblings().removeClass('cur');
+              _that.get_total_logs({upstream_name:upstream,day_date:date})
+            })
+            laydate.render({
+              elem: '#webdate-select',
+              format: 'yyyy-MM-dd',
+              done: function(value, date){
+                $('.last-span').addClass('cur').siblings().removeClass('cur')
+								var date_format = date.year + '-' + (date.month>=10?date.month:'0'+date.month) + '-' + (date.date<10?'0'+date.date:date.date)
+								_that.get_total_logs({upstream_name:upstream,day_date:date_format})
+              }
+            })
+          }
+        })
+      })
+    },
+
+    get_total_logs:function (config,callback) {
+      this.$get_total_today(config,function (rdata) {
+        var tbody = ''
+        for (var i = 0; i < rdata.nodes.length; i++) {
+          var item = rdata.nodes[i];
+          tbody += '<tr>\
+            <td>' + item.node + '</td>\
+            <td>' + item.day_count + '</td>\
+            <td>' + item.day_error + '</td>\
+            <td>' + item.day_speed + '</td>\
+            <td>' + item.request_timeout + 'ms</td>\
+            <td>' + (item.last_request_time === 0?'无':bt.format_data(item.last_request_time))  + '</td>\
+						<td>' + (item.ps?item.ps:'无')+ '</td>\
+        </tr>'
+        }
+        $('#total_logs_table').html(tbody)
+        if (callback) callback(tbody)
+      })
+    },
+
+    /**
+     * @description 渲染节点监控表格
+     * @param {Number} num 传页码，不传则默认为1
+     */
+    get_node_monitor_list_table: function (callback,tips) {
+			var _this = this
+			// bt_tools.table({
+            //   el:'#nodeMonitorTable',
+            //   height: '380px',
+            //   url:'/plugin?action=a&name=load_balance&s=get_node_list',
+            //   default: "节点监控列表为空", //数据为空时的默认提示
+						// 	load:false,
+            //   column: [
+            //     {title: '节点IP',fid:'node'},
+            //     {title: '节点状态',fid:'status',template:function(row){
+						// 			if(row.status){
+						// 				return '<span style="color:#20a53a">正常</span>'
+						// 			}else{
+						// 				return '<span style="color:red">异常<i class="error_tips">!</i><span>'
+						// 			}
+						// 		} },
+            //     {title: '网站',fid:'main_domain' },
+            //     {title: '请求数',fid:'day_count' },
+            //     {title: '错误数',fid:'day_error' },
+            //     {title: '并发数',fid:'day_speed' },
+            //     {title: '回源耗时',fid:'request_timeout',template:function(row){
+						// 			return '<span>' + row.request_timeout + 'ms</span>'
+						// 		}},
+            //     {title: '上次请求时间',fid:'last_request_time',template:function(row){ 
+						// 			return '<span>' + (row.last_request_time === 0?'无':bt.format_data(row.last_request_time))  + '</span>'
+						// 		}},
+						// 		{title: '备注',fid:'ps',
+						// 			type: 'input',
+						// 			blur: function (row, index, ev, key, that) {
+						// 				if (row.ps == ev.target.value) return false;
+						// 					$.post('/plugin?action=a&name=load_balance&s=set_node_ps',{id:row.id,ps:ev.target.value,port:row.port,server:row.server},function(rdata){
+						// 						if(rdata.status) bt.msg(rdata)
+						// 					})
+						// 			},
+						// 			keyup: function (row, index, ev) {
+						// 				if (ev.keyCode === 13) {
+						// 					$(this).blur();
+						// 				}
+						// 			}
+						// 		},
+            //   ],
+						// 	success:function(){
+						// 			// 错误提示
+						// 		var showTips_status = ''
+						// 		$('.error_tips').hover(function () {
+						// 			showTips_status = setTimeout(function () {
+						// 				layer.tips('访问测试路径出错！', $('.error_tips'), {
+						// 					tips: [1, 'red'],
+						// 					time: 0,
+						// 				})
+						// 			}, 200)
+						// 		}, function () {
+						// 			clearTimeout(showTips_status)
+						// 			layer.closeAll('tips');
+						// 		})
+						// 	}
+            // })
+      this.$get_node_list(function (rdata) {
+        var tbody = ''
+        for (var i = 0; i < rdata.length; i++) {
+          var item = rdata[i];
+          tbody += '<tr>\
+            <td>' + item.node + '</td>\
+						<td>' + (item.status?'<span style="color:#20a53a">正常</span>':'<span style="color:red">异常<i class="error_tips">!</i><span>') + '</td>\
+            <td>' + item.main_domain + '</td>\
+            <td>' + item.day_count + '</td>\
+            <td>' + item.day_error + '</td>\
+            <td>' + item.day_speed + '</td>\
+            <td>' + item.request_timeout + 'ms</td>\
+            <td>' + (item.last_request_time === 0?'无':bt.format_data(item.last_request_time))  + '</td>\
+						<td><input data-id="'+item.id+'" data-index="'+i+'"  data-port="'+item.port+'" data-server="'+item.server+'" class="set_ps" value="'+(item.ps?item.ps:'无')+'" /></td>\
+        </tr>'
+        }
+        $('#nodeMonitorTable').html(tbody)
+				// 错误提示
+				var showTips_status = ''
+				$('.error_tips').hover(function () {
+					showTips_status = setTimeout(function () {
+						layer.tips('访问测试路径出错！', $('.error_tips'), {
+							tips: [1, 'red'],
+							time: 0,
+						})
+					}, 200)
+				}, function () {
+					clearTimeout(showTips_status)
+					layer.closeAll('tips');
+				})
+				$('#nodeMonitorTable .set_ps').hover(function(){
+						$(this).css('border','1px solid #ccc')
+						$(this).css('background-color','white')
+					},function(){
+						if($(this).is(':focus')) return
+						$(this).css('background-color','transparent')
+						$(this).css('border','none')
+					})
+					$('#nodeMonitorTable .set_ps').focus(function(){
+						clearInterval(_this.refresh_node_monitor_timer)
+						$(this).css('border','1px solid #20A53A')
+					})
+					$('#nodeMonitorTable .set_ps').blur(function(){
+						if($(this).val() != rdata[$(this).data('index')].ps){
+							$.post('/plugin?action=a&name=load_balance&s=set_node_ps',{id:$(this).data('id'),ps:$(this).val(),port:$(this).data('port'),server:$(this).data('server')},function(rdata){
+								if(rdata.status) bt.msg(rdata)
+							})
+						}
+						_this.refresh_node_monitor_timer = setInterval(function(){
+              _this.get_node_monitor_list_table(function(){},false)
+            }, _this.refresh_time);
+						$(this).css('border','none')
+					})
+        if (callback) callback(rdata)
+      },tips)
+    },
+
+    /**
+     * @description 添加节点/编辑节点
+     * @param {Object} form 添加节点对象 例如 {tilte:节点标识，address:节点IP,panel:面板地址,token:面板API秘钥,group_id:节点分组,connect_type:连接类型,ps:节点备注}
+     * @param {Object} form 编辑节点对象 例如 {sid节点标识,:tilte:节点名称，address:节点IP,panel:面板地址,token:面板API秘钥,group_id:节点分组,connect_type:连接类型,ps:节点备注}
+     * @param {Number} id 用于判断添加或删除
+     */
+    add_balance: function (id, callback) {
+      var _this = this,create_l = layer.open({
+          type: 1,
+          title: "创建负载",
+          area: ['840px','540px'],
+          closeBtn: 2,
+          shadeClose: false,
+          btn: ['提交', '取消'],
+          content: addBalanceFormA.innerHTML,
+          success: function (layero, index) {
+            $(layero).height('auto')
+            $('.createLb').on('click', '.del-line', function () {
+              $(this).parents('.line').remove();
+            });
+            $('#location-table').on('click', '.del_rule_line', function () {
+              $(this).parents('tr').remove();
+            });
+            // bt.fixed_table('fixTable2');
+            bt.fixed_table('fixTable3');
+            // bt.fixed_table('location-table');
+          },
+          yes: function () {
+            var _domain = $('[name="domains"]').val();
+            if (_domain == '') {
+              layer.msg('域名不能为空', {
+                icon: 2
+              });
+              return false;
+            }
+            nodeAdmin.add_server_general(create_l);
+          }
+        });
+    },
+
+
+    edit_balance: function (id, num, callback) {
+      var _this = this,
+        type;
+      _this.$get_all_upstream(function (rdata) {
+        var tbody = '',
+          node_list = '';
+        for (var i = 0; i < rdata.length; i++) {
+          var nodes_ul = rdata[i].nodes,
+            nodes_text = '',
+            node_type = [' 停用', ' 参与', ' 备用'];
+          $.each(nodes_ul, function (index, val) {
+            nodes_text += nodes_ul[index].server + ':' + nodes_ul[index].port + node_type[nodes_ul[index]
+              .state] + '<br>';
+          });
+          tbody += '<tr>\
+						<td><input type="checkbox" name="upstream_input" data-name="' + rdata[i].name + '"></td>\
+						<td class="stream-name">' + rdata[i].name + '</td>\
+						<td>' + (rdata[i].session_type == "sticky" ? "Cookie" : rdata[i].session_type) + '</td>\
+						<td><span class="btlink show_nodes' + i + '" data-nodes="' + nodes_text + '">' + nodes_ul.length + '个</span></td>\
+						<td>' + bt.format_data(rdata[i].addtime) + '</td>\
+					</tr>';
+          node_list += '<option value="' + rdata[i].name + '">' + rdata[i].name + '</option>'
+        }
+        var index_data = _this.balance_data[parseInt(num)],
+          create_l = layer.open({
+            type: 1,
+            title: "修改负载",
+            area: '665px',
+            closeBtn: 2,
+            shadeClose: false,
+            btn: ['提交', '取消'],
+            content: editBalance.innerHTML,
+            success: function (layero, index) {
+              $('.set-table').hide();
+              $('#set-location-table').on('click', '.del_rule_line', function () {
+                $(this).parents('tr').remove();
+              });
+              $('#set-upstream-table').on('click', 'tr', function () {
+                $('#set-upstream-table tr input').prop('checked', false);
+                $(this).find('input').prop('checked', true);
+              });
+              $('#set-location-table [name="proxy_pass"].bt-input-text').html(node_list);
+              $("#set-upstream-table").on("mouseenter", "span.btlink", function () {
+                var tip = $(this).attr('data-nodes'),
+                  _index = $(this).parents('tr').index();
+                layer.tips("<span style='color:#333;'>" + tip + "</span>", '.show_nodes' + _index, {
+                  tips: [1, '#ddd'],
+                  time: 0
+                });
+              });
+              $("#set-upstream-table").on("mouseleave", "span.btlink", function () {
+                layer.closeAll('tips');
+              });
+              if (index_data.locations.length != 0) {
+                $("[for='location_set'").click();
+                $("#set-location-table tbody").empty();
+                for (var i = 0; i < index_data.locations.length; i++) {
+                  $("#set-location-table tbody").append(addRuleLine.innerHTML);
+                  $("#set-location-table tbody tr:eq(" + i + ") [name='proxy_pass']").html(node_list);
+                  for (var j in index_data.locations[i]) {
+                    $("#set-location-table tbody tr:eq(" + i + ") [name='" + j + "']").val(index_data
+                      .locations[i][j])
+                  }
+                }
+              }
+              $("#set-upstream-table tbody").html(tbody);
+              $('#set-upstream-table [data-name="' + index_data.default_upstream + '"]').prop('checked',
+                true);
+              $('.set-table').on('click', '.set-location-add', function () {
+                $("#set-location-table tbody").append(addRuleLine.innerHTML);
+                var _default = $('#set-upstream-table [name="upstream_input"]:checked').attr(
+                  'data-name');
+                $("#set-location-table tbody tr:last [name='proxy_pass']").html(node_list).val(
+                _default);
+              });
+              bt.fixed_table('set-upstream-table');
+              bt.fixed_table('set-location-table');
+            },
+            yes: function () {
+              var _type = $("#location_set").prop('checked'),
+                default_upstream = $('#set-upstream-table [name="upstream_input"]:checked').attr(
+                  'data-name'),
+                locations = [];
+              if ($('#set-upstream-table [name="upstream_input"]:checked').length == 0) {
+                layer.msg('请勾选节点资源', {
+                  icon: 2
+                });
+                return false;
+              }
+              if (_type && $('#set-location-table tbody tr').length != 0) {
+                for (var i = 0; i < $('#set-location-table tbody tr').length; i++) {
+                  var host = $('#set-location-table tbody tr').eq(i).find('[name="host"]').val(),
+                    proxy_pass = $('#set-location-table tbody tr').eq(i).find('[name="proxy_pass"]').val(),
+                    type = $('#set-location-table tbody tr').eq(i).find('[name="type"]').val(),
+                    rule = $('#set-location-table tbody tr').eq(i).find('[name="rule"]').val();
+                  if (host == '' || rule == '') {
+                    layer.msg('Location参数不能留空，请填写完整', {
+                      icon: 2
+                    });
+                    return false;
+                  }
+                  locations.push({
+                    type: type,
+                    rule: rule,
+                    proxy_pass: proxy_pass,
+                    host: host
+                  });
+                }
+              }
+              var _data = {
+                id: id,
+                domains: JSON.stringify(index_data.domains),
+                locations: JSON.stringify(locations),
+                default_upstream: default_upstream
+              };
+              _this.$modify_server(_data, function (res) {
+                if (res.status) {
+                  layer.close(create_l);
+                  _this.get_node_list_table();
+                }
+                layer.msg(res.msg, {
+                  icon: res.status ? 1 : 2
+                });
+              });
+            }
+          });
+      });
+    },
+    /**
+     * @description 删除负载
+     * @param {Number} id 该负载的id，传参删除
+     * @param {String} name 该负载的名称
+     */
+    del_balance: function (id, name) {
+      var _this = this;
+      layer.confirm('请确认是否删除【' + name + '】负载？', {
+        title: '确认删除',
+        icon: 3,
+        closeBtn: 2
+      }, function () {
+        _this.$delete_server({
+          id: id
+        }, function (res) {
+          _this.get_node_list_table();
+          layer.msg(res.msg, {
+            icon: res.status ? 1 : 2
+          });
+        });
+      });
+    },
+		/**
+		 * @description 搜索负载
+		 */
+		search_balance: function () {
+			var _this = this,
+				search_val = $('.search_name_val').val();
+			_this.get_node_list_table(1,function(){
+			},false,search_val);
+			clearInterval(_this.refresh_nonde_timer)
+			if(search_val == ''){
+				_this.refresh_nonde_timer = setInterval(function(){
+              _this.get_node_list_table(_this.node_page,function(){},false,undefined)
+            }, _this.refresh_time);
+			}
+		},
+
+    /**
+     * @description 普通模式添加负载
+     * @param {Object} top 添加负载的弹窗对象
+     */
+    add_server_general: function (top) {
+      var node_list = this.get_node_data('nodecon');
+      var _this = this,
+        domains = $('.normal [name="domains"]').val(),
+        up_name = $('.normal [name="up_name"]').val(),
+        session_type = $('.normal [name="session_type"]').val(),
+        domains = domains.trim().split(/\s+/),
+        _data = {
+          domains: JSON.stringify(domains),
+          up_name: up_name,
+          session_type: session_type,
+          nodes: node_list
+        };
+      if (!nodecon) return false;
+      if(_data.up_name == '') return layer.msg('负载名称不能为空',{icon:2})
+      _this.$add_lbs_general(_data, function (res) {
+        layer.close(top);
+        _this.get_node_list_table();
+        layer.msg(res.msg, {
+          icon: res.status ? 1 : 2
+        });
+      });
+    },
+
+    /**
+     * @description 添加资源/编辑资源
+     * @param {Number} config 编辑资源对象的顺序
+     * @param {string} data_id 编辑资源对象的ID
+     */
+    add_upstream: function (config, data_id,item_id) {
+      var _this = this,
+        tid, is_site = true,
+        is_new = true;
+      _this.node_list_senior = [];
+      if (typeof config == 'number') {
+        tid = _this.balance_data[config]; //编辑资源对象的配置参数
+        is_site = false;
+        if (typeof data_id == 'string') {
+          is_new = false;
+          _this.node_list_senior = _this.balance_data[config].nodes.concat(); //编辑资源对象的节点列表
+        }
+      }
+			
+      var loadP = layer.open({
+        type: 1,
+        title: is_new ? "添加资源" : '编辑资源',
+        area: '800px',
+        closeBtn: 2,
+        shadeClose: false,
+        btn: [is_new ? '添加' : '保存', '取消'],
+        content: addupstream.innerHTML,
+        success: function (layero, index) {
+          $('#nodeupstreamForm [name="session_type"]').change(function () {
+            if ($(this).val() == 'sticky') {
+              $('#nodeupstreamForm .cookie-line').show();
+            } else {
+              $('#nodeupstreamForm .cookie-line').hide();
+            }
+          });
+					$.ajaxSettings.async = false;
+					$.post('/plugin?action=a&name=load_balance&s=sever_err_code',{ id: item_id },function(rdata){
+						if(rdata.status){
+							$.each(rdata.code,function(index,item){
+								$('#nodeupstreamForm input[name="status_code"][value='+item+']').prop("checked",true);
+							})
+						}
+					})
+					$.ajaxSettings.async = true;
+          if (!is_site && !is_new) {
+            $('#nodeupstreamForm [name="up_name"]').css('background', '#eee').attr('readOnly', true);
+            for (var i in tid.upstream_info) {
+              var item = tid.upstream_info[i]
+              $('#nodeupstreamForm [name="' + i + '"]').val(item);
+              if (i == 'name') $('#nodeupstreamForm [name="up_name"]').val(item);
+              if (i == 'session_type' && item != 'sticky') {
+                $('#nodeupstreamForm .cookie-line').hide();
+                continue
+              }
+              if (i == 'httponly' || i == 'secure') $('#nodeupstreamForm [name="' + i + '"]').prop('checked',item);
+            }
+            var node_type = ['停用', '参与', '备用'];
+            if (tid.nodes.length != 0) {
+              for (var i = 0; i < tid.nodes.length; i++) {
+                var stip = tid.nodes[i].server + ':' + tid.nodes[i].port;
+                var ttip = stip.replace(':', '-').replace(/\./g, '_')
+                nodecon = '<tr class="new-node" data-host="' + stip + '">\
+										<td>' + tid.nodes[i].server + '</td>\
+										<td><span title="'+(tid.nodes[i].path)+'" class="word-limit" style="max-width:100px;">' + tid.nodes[i].path + '</span></td>\
+										<td>' + tid.nodes[i].port + '</td>\
+										<td>\
+											<select class="node-' + ttip + '-state">\
+												<option value="1" ' + (tid.nodes[i].state == 1 ? 'selected' : '') + '>参与</option>\
+												<option value="2" ' + (tid.nodes[i].state == 2 ? 'selected' : '') + '>备用</option>\
+												<option value="0" ' + (tid.nodes[i].state == 0 ? 'selected' : '') + '>停用</option>\
+											<select>\
+										</td>\
+										<td><input style="width: 50px;" type="number" class="node-' + ttip + '-weight" value="' + tid.nodes[i]
+                  .weight + '" /></td>\
+										<td><input style="width: 50px;" type="number" class="node-' + ttip + '-max_fails" value="' + tid.nodes[i]
+                  .max_fails + '" /></td>\
+										<td><input style="width: 50px;" type="number" class="node-' + ttip + '-fail_timeout" value="' + tid.nodes[i]
+                  .fail_timeout + '" /></td>\
+									<td><input class="set_ps" data-index="'+i+'" value="'+(tid.nodes[i].ps?tid.nodes[i].ps:'无')+'"></td>\
+										<td class="text-right" width="50"><a href="javascript:;" class="btlink minus">删除</a></td>\
+									</tr>';
+                if ($("#nodecontent .nulltr").length == 1) $("#nodecontent .nulltr").remove();
+                $("#nodecontent").append(nodecon);
+								$('.set_ps').hover(function(){
+									$(this).css('border','1px solid #ccc')
+									$(this).css('background-color','white')
+								},function(){
+									if($(this).is(':focus')) return
+									$(this).css('background-color','transparent')
+									$(this).css('border','none')
+								})
+								$('.set_ps').focus(function(){
+									$(this).css('border','1px solid #20A53A')
+								})
+								$('.set_ps').blur(function(){
+									// tid.nodes[i].ps = $(this).val()
+									$(this).css('border','none')
+								})
+              }
+            }
+          }
+          bt.fixed_table('fixTable1');
+        },
+        yes: function (layero, index) {
+          var _data = {},
+            empty_line = false;
+          $('.node-port [type="text"]').each(function (i, val) {
+            if ($(this).val() == '') {
+              empty_line = $(this).parent().prev().text();
+              return false;
+            }
+          });
+          if (empty_line) {
+            layer.msg(empty_line + '不能为空', {
+              icon: 2
+            });
+            return false;
+          }
+          if ($('.node-port [name="session_type"]').val() == 'sticky') {
+            _data = $('.node-port').serializeObject();
+            $('.node-port [type="checkbox"]').each(function () {
+              var _name = $(this).attr('name');
+              _data[_name] = $(this).prop('checked') ? 1 : 0;
+            });
+            _data.expires = parseInt(_data.expires);
+          } else {
+            _data.up_name = $('.node-port [name="up_name"]').val();
+            _data.session_type = $('.node-port [name="session_type"]').val();
+          }
+					
+          if (_this.node_list_senior.length == 0) {
+            layer.msg('当前节点为空，请至少添加一个节点', {
+              icon: 2
+            });
+            return false;
+          }
+
+          for (var i = 0; i < _this.node_list_senior.length; i++) {
+            var stip = _this.node_list_senior[i].server.replace(/\./g, '_') + '-' + _this.node_list_senior[i]
+              .port;
+            if ($(".node-" + stip + "-state").val()) {
+              _this.node_list_senior[i].state = Number($(".node-" + stip + "-state").val());
+              _this.node_list_senior[i].weight = Number($(".node-" + stip + "-weight").val());
+              if (_this.node_list_senior[i].weight < 1) {
+                layer.msg('权重不能小于1');
+                return;
+              }
+              _this.node_list_senior[i].max_fails = Number($(".node-" + stip + "-max_fails").val());
+              if (_this.node_list_senior[i].max_fails < 1) {
+                layer.msg('最大重试阀值不能小于1');
+                return;
+              }
+              _this.node_list_senior[i].fail_timeout = Number($(".node-" + stip + "-fail_timeout").val());
+              if (_this.node_list_senior[i].fail_timeout < 3) {
+                layer.msg('恢复时间不能小于3秒');
+                return;
+              }
+							_this.node_list_senior[i].ps = $('#nodecontent .set_ps').eq(i).val()
+            }
+          }
+          _data.nodes = JSON.stringify(_this.node_list_senior);
+          if (is_new) {
+            _this.$add_upstream(_data, function (res) {
+              if (res.status) {
+                layer.close(loadP);
+                _this.get_node_list_table();
+              }
+              layer.msg(res.msg, {
+                icon: res.status ? 1 : 2
+              });
+            });
+          } else {
+						var _code_arry = []
+						$('#nodeupstreamForm input[name="status_code"]:checked').each(function(index, element) {
+                //追加到数组中
+                _code_arry.push($(this).val());
+            });
+            _data.id = data_id;
+						_data.status_code = JSON.stringify(_code_arry);
+            _this.$modify_upstream(_data, function (res) {
+              if (res.status) {
+                layer.close(loadP);
+                _this.get_node_list_table();
+              }
+              layer.msg(res.msg, {
+                icon: res.status ? 1 : 2
+              });
+            });
+						// $.post('/plugin?action=a&name=load_balance&s=set_sever_err_code',{id:data_id,codes:JSON.stringify($('#nodeupstreamForm [name="status_code"]').val().split(','))},function(rdata){
+						// 	if(!rdata.status) layer.msg("设置状态码失败，请重试！",{icon:2})
+						// })
+          }
+        }
+      });
+    },
+    /**
+     * @description 添加节点
+     * @param {string} table 添加节点到哪个目标表格
+     * @param {string} type 排除类型
+     */
+    add_node: function (table,type) {
+      var _this = this,
+      layerT = layer.open({
+        type: 1,
+        title: "添加节点",
+        area: '450px',
+        closeBtn: 2,
+        btn: ['添加', '取消'],
+        shadeClose: false,
+        content: addNodeForm.innerHTML,
+        success:function(){
+          if(type === 'TCP'){
+            $('.node-port .line:eq(1)').hide();
+						$('.node-port .line:eq(7)').hide()
+            $('.node-port .help-info-text li:eq(2)').hide();
+            $('[name="port"]').val('')
+          }
+					$(".node-port .line:eq(0) input").on("input propertychange",function(){
+						$('.node-port .line:eq(7) input').val($(this).val())
+					})
+        },
+        yes: function (layero, index) {
+          var upnode = $("#" + table + " .new-node"),
+            node_data = $('.add-node-form').serializeObject(),
+            newIP = node_data.server + ':' + node_data.port;
+          for (var i = 0; i < upnode.length; i++) {
+            if (upnode.eq(i).attr('data-host') == newIP) {
+              layer.msg('指定节点已经添加过了!', {
+                icon: 2
+              });
+              return false;
+            }
+          }
+          for (var i in node_data) {
+            if (node_data[i] == '') {
+              var text = $('.add-node-form [name="' + i + '"]').parent().prev().text();
+              layer.msg(text + '为空!', {
+                icon: 2
+              });
+              return false;
+            }
+            if (i != 'server' && i != 'path' && i != 'ps') {
+              node_data[i] = parseInt(node_data[i]);
+            }
+          }
+          if(!bt.check_ip($('[name="server"]').val())){
+            layer.msg('IP地址格式错误',{icon:2})
+            return false
+          }
+          _this[type === 'TCP'?'$check_tcp':'$check_url']({
+            ip: node_data.server,
+            port: node_data.port,
+            path: node_data.path
+          }, function (rdata) {
+            if (rdata.status) {
+              layer.close(layerT);
+              var node_type = [['参与',1], ['备用',2],['停用',0]],
+                nodecon = $('<tr class="new-node" data-host="' + node_data.server + ':' + node_data.port +'">\
+                <td>' + node_data.server +'</td>'+
+                (type === 'TCP'?'':'<td><span class="word-limit" style="max-width:100px;" title="'+(node_data.path)+'">' + node_data.path + '</span></td>') +
+                '<td>'+ node_data.port +'</td>\
+                <td>' +
+                  (function(){
+                    var select = '<select name="state">'
+                    for (var i = 0; i < node_type.length; i++) {
+                      const item = node_type[i];
+                      select += '<option value="'+ item[1] +'" '+ (item[1] === node_data.state?'selected':'') +'>'+ item[0] +'</option>';
+                    }
+                    return select + '</select>'
+                  }())
+                +'</td>\
+                <td><input type="number" name="weight" value="'+ node_data.weight +'" style="width:50px"/></td>\
+                <td><input type="number" name="max_fails" value="'+ node_data.max_fails +'" style="width:50px"/></td>\
+                <td><input type="number" name="fail_timeout" value="'+ node_data.fail_timeout +'" style="width:60px"/></td>\
+								<td class="'+(type === 'TCP'?'hide':'')+'"><input class="set_ps " value="'+(node_data.ps?node_data.ps:'无')+'"/></td>\
+                <td class="text-right" width="50"><a href="javascript:;" class="btlink minus">删除</a></td>\
+              </tr>').data('node',node_data)
+                if(type === 'TCP'){
+                  node_data.address = node_data.server
+                  delete node_data.path
+                  delete node_data.server
+                }
+              if ($("#" + table + " .nulltr").length == 1) $("#" + table + " .nulltr").remove();
+              $("#" + table).append(nodecon);
+							$('.set_ps').hover(function(){
+									$(this).css('border','1px solid #ccc')
+									$(this).css('background-color','white')
+								},function(){
+									if($(this).is(':focus')) return
+									$(this).css('background-color','transparent')
+									$(this).css('border','none')
+								})
+								$('.set_ps').focus(function(){
+									$(this).css('border','1px solid #20A53A')
+								})
+								$('.set_ps').blur(function(){
+									node_data.ps = $(this).val()
+									$(this).css('border','none')
+								})
+              if (table == 'nodecon') {
+                _this.node_list_normal.unshift(node_data);
+              } else {
+                _this.node_list_senior.unshift(node_data);
+              }
+            }
+            layer.msg(rdata.msg, {
+              icon: rdata.status ? 1 : 2
+            });
+          });
+        }
+      });
+    },
+    // 渲染分页
+    render_logs_pages:function(end,p){
+			return (p != 1?'<a class="nextPage" data-page="1">首页</a>':'<a class="nextPage" data-page="1">首页</a>') +
+      (p != 1?'<a class="nextPage" data-page="'+ (p-1) +'">上一页</a>':'') +
+      (!end?'<a class="nextPage" data-page="'+ (p+1) +'">下一页</a>':'')
+		},
+    /**
+     * @description 获取添加的节点数据
+     * @param {string} table 节点表格
+     * @return 表格json数据
+     */
+    get_node_data:function(table){
+      var data = [],_table = $('#' + table +' tr').not('.nulltr');
+      if(_table.length === 0){
+        layer.msg('当前节点为空，请至少添加一个普通节点',{icon:2})
+        return false
+      }
+      _table.each(function(index,items){
+        var node = $(items).data('node'),formItem = $(items).find('input,select');
+        formItem.each(function (index,item) {
+          var name = $(item).attr('name'), val = $(item).val();
+          node[name] = name == 'address'?val:Number(val)
+        })
+        data.push(node)
+      })
+      return JSON.stringify(data)
+    },
+    /**
+     * @description 心跳包设置
+     * @param {string} type 打开或者关闭的类型
+     */
+    modify_heartbeat: function (type) {
+      var _this = this,
+        pdata = {
+          time: $("input[name='htime']").val(),
+          warning: $("input[name='hwarning']").val()
+        };
+      if (pdata['time'] < 10 || pdata['time'] > 1440) {
+        layer.msg('心跳周期必需为10 - 1440分钟之间');
+        return;
+      }
+      if (pdata['warning'] < 1 || pdata['warning'] > 100) {
+        layer.msg('预警阈值必需为 1 - 100次之间');
+        return;
+      }
+
+      var loadT = layer.msg('正在保存..', {
+        icon: 16,
+        time: 10000,
+        shade: [0.3, '#000']
+      });
+      if (!type && $('#Heartbeat').prop('checked')) {
+        _this.$heartbeat_off(function (rdata) {
+          layer.close(loadT);
+          layer.msg(rdata.msg, {
+            icon: rdata.status ? 1 : 2
+          });
+        });
+      } else {
+        _this.$modify_heartbeat_conf(pdata, function (rdata) {
+          layer.close(loadT);
+          layer.msg(rdata.msg, {
+            icon: rdata.status ? 1 : 2
+          });
+        });
+      }
+    },
+
+    /**
+     * @description 获取心跳包设置
+     */
+    get_heartbeat: function () {
+      var _this = this;
+      _this.$get_heartbeat_conf(function (res) {
+        $('.bt-fieldset [name="hname"]').val(res.emails);
+        $('.bt-fieldset [name="htime"]').val(res.heartbeat.time);
+        $('.bt-fieldset [name="hwarning"]').val(res.heartbeat.warning);
+        $('#Heartbeat').prop('checked', res.heartbeat.open);
+      });
+    },
+
+
+    /**
+     * @description 创建tcp负载表格
+     */
+    create_tcp_load_table:function(){
+      var _that = this;
+      this.$get_tcp_load_list(function (rdata) {
+        var html = '';
+        for (let i = (rdata.length - 1); i>=0; i--) {
+          const item = rdata[i];
+          html += '<tr>\
+            <td>'+ item.load_name +'</td>\
+            <td>'+ item.load_address+':'+ item.load_port +'</td>\
+            <td> '+ item.nodes.length +'个</a></td>\
+            <td>'+ item.total.count +'</td>\
+            <td>'+ item.total.error +'</td>\
+            <td>'+ item.total.speed +'</td>\
+            <td>'+ item.total.request_timeout +'ms</td>\
+            <td>'+ (item.total.last_request_time === 0?'无':bt.format_data(item.total.last_request_time)) +'</td>\
+            <td><a class="btlink" href="javascript:;" onclick="nodeAdmin.open_tcp_load_logs(\''+ item.load_name +'\',\''+ item.load_address +'\')">查看</a></td>\
+            <td>'+ item.load_ps +'</td>\
+            <td style="text-align: right;"><a class="btlink" href="javascript:;" onclick="nodeAdmin.edit_tcp_load_view('+ i +')">修改</a>&nbsp;|&nbsp;<a class="btlink" onclick="nodeAdmin.del_tcp_load(\''+ item.load_name +'\',\''+ item.load_address +'\')" href="javascript:;">删除</a></td>\
+          </td>'
+        }
+        $('#tcpLoadTable').html(html)
+        _that.tcp_load_data = rdata;
+      })
+    },
+		 /**
+		 * @description 渲染防篡改告警设置表格
+		 * @param
+		 */
+			renderAlertSetting: function (){
+				var that = this;
+				var AlertSettingTable = bt_tools.table({
+						el:'#alert_setting_table',
+						url:'/push?action=get_push_list',
+						load:true,
+						default:'暂无告警任务',
+						dataFilter: function(res){
+							var data = res.load_balance_push, data1 = []
+							for(var ckey in data){
+								data1.push($.extend(data[ckey],{alertID:ckey}))
+							}
+							return {data:data1}
+						},
+						column:[{
+							fid: 'title',
+							title: '负载名称',
+							width:100,
+							type: 'text',
+							template:function(row){
+								return '<span style="width:100px;display:inline-block;" title="'+row.title+'">'+(row.title)+'</span>'
+							}
+						},
+						{
+							fid: 'status',
+							title: '状态',
+							width:56,
+							config: {
+								icon: true,
+								list: [
+										[true, '正常', 'bt_success', 'glyphicon-play'],
+										[false, '停用', 'bt_danger', 'glyphicon-pause']
+								]
+							},
+							type: 'status',
+							event: function(row){
+								bt_tools.send({url:'/push?action=set_push_status'}, {id:row.alertID,name:'load_balance_push',status:row.status?0:1}, function (rdata) {
+									bt_tools.msg(rdata);
+									if (rdata.status) {
+											AlertSettingTable.$refresh_table_list()
+									}
+								},'删除告警任务')
+							}
+						},
+						{
+							title: '告警方式',
+							width:120,
+							type: 'text',
+							template: function(row) { 
+									var alertMode = row.module.split(','), _mode = '', _modeList = [{title:'微信公众号',name:'wx_account'},{title:'企业微信',name:'weixin'},{title:'邮箱',name:'mail'},{title:'钉钉',name:'dingding'}, {title:'飞书',name:'feishu'},{title:'短信',name:'sms'}]
+									_modeList.forEach(function(mod) {
+											if ($.inArray(mod.name, alertMode) >= 0) _mode += mod.title + ','
+									})
+									_mode = _mode.substring(0,_mode.length-1)
+									return '<span style="display:inline-block;width:120px"title="'+_mode+'">'+_mode+'</span>'
+							}
+						},{
+								fid: 'cycle',
+								title: '告警条件',
+								template: function(row) {
+										return '<span title="当访问节点得到的状态码<strong>不为</strong>'+row.cycle+'，推送告警信息，每日推送'+row.push_count+'次，次日重置推送次数" style="width:420px;display: inline-block;">当访问节点得到的状态码<strong>不为</strong>'+row.cycle+'，推送告警信息，每日推送'+row.push_count+'次，次日重置推送次数</span>'
+								}
+						},{
+								title: '操作',
+								type: 'group',
+								width: 85,
+								align: 'right',
+								group: [{
+									title: '编辑',
+									event: function(row) {
+											that.setAlertTaskConfig(row)
+									}
+								},{
+									title: '删除',
+									event:function(row) {
+										bt.confirm({ title: '删除告警任务', msg: '删除后将不再告警此条任务，是否继续？' }, function () {
+												bt_tools.send({url:'/push?action=del_push_config'}, {id:row.alertID,name:'load_balance_push'}, function (rdata) {
+														bt_tools.msg(rdata);
+														if (rdata.status) {
+																AlertSettingTable.$refresh_table_list()
+														}
+												},'删除告警任务')
+										})
+									}
+								}]
+						}],
+						tootls: [{
+								type: 'group',
+								positon: ['left', 'top'],
+								list: [{
+										title: '添加告警任务',
+										active: true,
+										event: function() {
+												that.setAlertTaskConfig()
+										}
+								}]
+						}]
+				})
+		},
+				/**
+		 * @description 设置告警任务
+		 * @param {Object} row   当前行数据
+		 */
+			setAlertTaskConfig: function (row) {
+				var _title = '编辑告警任务',_btn = ['保存', '取消'],isEdit = row ? true : false,that = this
+				if(!row){
+						_title = '创建告警任务'
+						row = {}
+						_btn = ['创建', '取消']
+				}
+				bt_tools.open({
+						type: 1,
+						title: _title,
+						area: '520px',
+						skin:'load-alert-task',
+						btn: _btn,
+						content: {
+								class:'pd15',
+								data: row,
+								form: [{
+										label: '负载名称',
+										group: {
+												type: 'select',
+												name: 'pid',
+												width: '320px',
+												class:'projectBox',
+												value: '',
+												disabled:isEdit,
+												list: (function(){
+													var list = []
+														that.dirList.forEach(function(item){
+																list.push({title:item.title,value:item.value})
+														})
+														return list
+												})()
+										}
+								},{
+										label: '成功状态码',
+										class:'status_code_line',
+										group: {
+												type: 'textarea',
+												placeholder: '状态码以竖线分隔，如：200|301|302|403|404',
+												style:{
+													'min-height': '75px',
+													'line-height': '22px',
+													'resize': 'both'
+												},
+												name: 'cycle',
+												width: '320px',
+												value: row.cycle?row.cycle:'200|301|302|403|404'
+										}
+								},{
+										label: '配置发送次数',
+										class:'send_number_line',
+										group: {
+												type: 'number',
+												name: 'push_count',
+												width: '70px',
+												value: 2,
+												unit: '次后停止推送，次日再次监控'
+										}
+								}, {
+										label:'告警方式',
+										class:'lastChild',
+										group: that.switchPushType(row)
+								},
+							]
+						},
+						success: function(layers) {
+							if(row){
+								if( row.project != 'all') $('.projectBox .bt_select_content').text(row.project)
+								$('.projectBox .bt_select_content').val(row.project)
+							}
+							
+								// 点击安装
+								$('.alertInstall').click(function(ev) {
+										var type = $(ev.currentTarget).parent('span').siblings('input').attr('name'),
+												_config = that.alertListModule.find(function(item) {
+														return item.name == type
+												})
+										switch (type) {
+												case 'mail':
+														renderMailConfigView(_config)
+														break;
+												case 'dingding':
+												case 'feishu':
+												case 'weixin':
+														renderAlertUrlTypeChannelView(_config)
+														break;
+												case 'wx_account':
+												case 'sms':
+														alertOtherTypeInstall(_config)
+														break;
+										}
+								})
+						},
+						yes:function(formData,indexs){
+								if(formData.cycle == '') return layer.msg('状态码不可为空',{icon:2})
+								if(formData.push_count == '' || formData.push_count <= 0) return layer.msg('发送次数不能小于1',{icon:2})
+								var eData = $.extend(true,{},{
+										cycle:formData.cycle,
+										push_count:Number(formData.push_count),
+										project:_title == '编辑告警任务'?row.project:formData.pid,
+								}),
+								isCheck = [],thatPid
+								checkDir = that.dirList.find(function(item){
+										return item.pid == thatPid
+								})
+
+								$('.load-alert-task .module-check').not('.check_disabled').each(function(){
+										if($(this).find('input').prop('checked')){
+												isCheck.push($(this).find('input').prop('name'))
+										}
+								})
+								eData['module'] = isCheck.join();
+								eData['type'] = ' '
+								if(!eData['module']){
+										layer.msg('请选择一种告警方式。',{icon:2})
+										return false
+								}
+								bt_tools.send({url:'/plugin?action=a&name=load_balance&s=set_push_config',data:{id:Number(Date.now ()),data:JSON.stringify(eData)}},function(res){
+										bt_tools.msg(res)
+										if (res.status) {
+												layer.close(indexs)
+												that.renderAlertSetting();
+										}
+								})
+						}
+				})
+		},
+		/**
+		 * @description 告警类型展示内容
+		 * @param {Object} formData  表单数据
+		 */
+			switchPushType:function(formData){
+				var _checklist = [],isCheckType = [],accountConfigStatus = false;
+				this.alertListModule.forEach(function(mod, i) {
+						if(formData.module){
+								isCheckType = formData.module.split(',')
+						}
+						if(mod.name === 'wx_account'){
+								if(!$.isEmptyObject(mod.data) && mod.data.res.is_subscribe && mod.data.res.is_bound){
+										accountConfigStatus = true   //安装微信公众号模块且绑定
+								}    
+						} 
+						if(mod.name !== 'sms'){
+								_checklist.push({
+									type: 'checkbox',
+									name:mod.name,
+									class:'module-check '+((!mod.setup || $.isEmptyObject(mod.data))?'check_disabled':((mod.name == 'wx_account' && !accountConfigStatus)?'check_disabled':''))+'',
+									style:{'margin-right': '10px'},
+									disabled:(!mod.setup || $.isEmptyObject(mod.data))?true:((mod.name == 'wx_account' && !accountConfigStatus)?true:false),
+									value:$.inArray(mod.name,isCheckType) >= 0 ?1:0,
+									title:(mod.name == 'wx_account'?'<b style="color: #fc6d26;">[推荐]</b>':'')+mod.title+((!mod.setup || $.isEmptyObject(mod.data))?'<span style="color:red;cursor: pointer;" class="alertInstall">[点击安装]</span>':(((mod.name == 'wx_account' && !accountConfigStatus)?'[<a target="_blank" class="bterror alertInstall">未配置</a>]':''))),
+									event: function(formData, element, thatE) {
+											// thatE.config.form[4].group[i].value = !formData[mod.name]?0:1;
+									}
+							})
+						}
+				})
+				return _checklist
+		},
+
+    /**
+     * @description 编辑tcp负载视图
+     * @param {number} index 当前数据序列，可为空
+    */
+    edit_tcp_load_view:function(index){
+      var is_edit = typeof index === 'number',_that = this,config = {}
+      if(is_edit) config = _that.tcp_load_data[index]
+      var addressList = [{title:'127.0.0.1 - 仅允许本服务器访问',value:'127.0.0.1'},{title:'0.0.0.0 - 允许所有人访问(需从防火墙放行)',value:'0.0.0.0'}]
+      var udp_list = [{title:"TCP协议",value:0},{title:"UDP协议",value:1}]
+      bt_tools.open({
+        title:is_edit?'编辑TCP负载':'添加TCP负载',
+        area:'700px',
+        btn:[is_edit?'保存':'提交','取消'],
+        content:{
+          class:'pd20',
+          formLabelWidth:'110px',
+          data:config || {},
+          form:[{
+            label:'负载名称',
+            group:{
+              type:'text',
+              name:'load_name',
+              placeholder:'负载名称,可以是英文字母和下划线,不能使用中文',
+              width:'450px',
+              disabled:is_edit
+            }
+          },{
+            label:'备注信息',
+            group:{
+              type:'text',
+              name:'load_ps',
+              width:'450px',
+              placeholder:'备注信息，可为空'
+            }
+          },{
+            label:'协议类型',
+            group:{
+              type:'select',
+              name:'load_udp',
+              list:udp_list,
+              width:'450px',
+              change: function(formValue,form, that){
+                if(formValue.load_udp == undefined) formValue.load_udp = 0;
+                that.data.load_udp = formValue.load_udp
+              }
+            }
+          },{
+            label:'监听地址',
+            group:{
+              type:'select',
+              name:'load_address',
+              list:addressList,
+              width:'450px',
+              change: function(formValue,form, that){
+                that.config.form[6].hide = (formValue.load_address === '127.0.0.1'? true:false)
+                that.$replace_render_content(6,that.config.form[6])
+                that.data.load_address = formValue.load_address
+              }
+            }
+          },{
+            label:'监听端口',
+            group:{
+              type:'text',
+			        unit:'通过此端口访问负载均衡，端口范围1-65535',
+              name:'load_port',
+              placeholder:'监听端口,端口范围1-65535',
+              width:'180px'
+            }
+          },{
+            label:'超时时间',
+            group:{
+              type:'text',
+              name:'load_connect_timeout',
+              unit:'秒，连接节点时的最大超时时间',
+              placeholder:'连接超时时间',
+              width:'180px',
+              value:'8'
+            }
+          },{
+            label:'保持时间',
+            group:{
+              type:'text',
+              name:'load_timeout',
+              unit:'秒，连接成功后最长无操作时间',
+              placeholder:'连接保持时间',
+              width:'180px',
+              value:'86400'
+            }
+          },{
+            label:'IP跟随',
+            hide: config.load_address === '127.0.0.1' || !config.load_address ? true : false,
+            group:{
+              type:'checkbox',
+              name:'load_iphash',
+              title:'启用IP跟随',
+            }
+          },{
+            label:'节点',
+            group:{
+              type:'html',
+              name:'nodes',
+              html:'<div class="table-con divtable" style="max-height:150px;overflow:auto; margin-bottom:15px;width:100%;overflow-x: hidden;padding:1px">\
+                <table class="table table-hover" id="fixTable3">\
+                  <thead>\
+                    <tr>\
+                      <th width="160">IP地址</th>\
+                      <th width="95">端口</th>\
+                      <th width="60">状态</th>\
+                      <th width="60">权重</th>\
+                      <th width="60">阀值</th>\
+                      <th width="95">恢复时间</th>\
+                      <th width="60" class="text-right" style="border-right: 1px solid #dddddd;">操作</th>\
+                    </tr>\
+                  </thead>\
+                  <tbody id="nodecon">\
+                    <tr class="nulltr">\
+                      <td colspan="8" align="center">当前节点为空，请至少添加一个普通节点</td>\
+                    </tr>\
+                  </tbody>\
+                </table>\
+              </div>\
+              <span class="btn btn-success btn-sm" onclick="nodeAdmin.add_node(\'nodecon\',\'TCP\')">添加节点</span>',
+            }
+          }]
+        },
+        success:function(){
+          $('[name="load_name"]').keyup(function () {
+            $('[name="load_ps"]').val($(this).val())
+          })
+          if(is_edit){
+            var node_type = [['参与',1], ['备用',2],['停用',0]];
+            if (config.nodes.length != 0) {
+              for (var i = 0; i < config.nodes.length; i++) {
+                var item = config.nodes[i],
+                stip = item.server + ':' + item.port,
+                ttip = stip.replace(':', '-').replace(/\./g, '_')
+                nodecon = $('<tr class="editor">\
+										<td>'+ item.address + '</td>\
+										<td>' + item.port + '</td>\
+										<td>'+
+                      (function(){
+                        var select = '<select name="state">'
+                        for (var i = 0; i < node_type.length; i++) {
+                          const items = node_type[i];
+                          select += '<option value="'+ items[1] +'" '+ (items[1] === item.state?'selected':'') +'>'+ items[0] +'</option>';
+                        }
+                        return select + '</select>'
+                      }())
+										+ '</td>\
+										<td><input style="width: 50px;" class="node-' + ttip + '-weight" name="weight" value="' + item.weight + '" /></td>\
+										<td><input style="width: 50px;" class="node-' + ttip + '-max_fails" name="max_fails" value="' + item.max_fails + '" /></td>\
+										<td><input style="width: 70px;" class="node-' + ttip + '-fail_timeout" name="fail_timeout" value="' + item.fail_timeout + '" /></td>\
+										<td class="text-right" width="50"><a href="javascript:;" class="btlink minus">删除</a></td>\
+									</tr>').data('node',item)
+                if ($("#nodecon .nulltr").length == 1) $("#nodecon .nulltr").remove();
+                $("#nodecon").append(nodecon);
+              }
+            }
+          }
+          $("#nodecon").on('click','.minus',function () {
+            $(this).parent().parent().remove()
+          })
+        },
+        yes:function(data,indexs,layero){
+          if(data.load_name === ''){
+            bt.msg({msg:'请输入负载名称，不可为空',status:0})
+            return false
+          }else if(data.load_port === ''){
+            bt.msg({msg:'请输入监听端口，不可为空',status:0})
+            return false;
+          }else if(data.load_connect_timeout === ''){
+            bt.msg({msg:'请输入连接超时时间，不可为空',status:0})
+            return false;
+          }else if(data.load_timeout === ''){
+            bt.msg({msg:'请输入连接保持时间，不可为空',status:0})
+            return false;
+          }else if(data.nodes == '[]'){
+            bt.msg({msg:'当前节点为空，请至少添加一个普通节点，不可为空',status:0})
+            return false
+          }
+          var nodes = _that.get_node_data('nodecon')
+          if(!nodes) return false
+          data.nodes = nodes
+          data.load_iphash = $('[name="load_iphash"]').is(':checked')?1:0
+          if(is_edit){
+            config.nodes = data.nodes
+            data.load_address = undefined
+          }
+          data = $.extend(config,data)
+          if(data.load_address === '127.0.0.1') data.load_iphash = 0
+          _that[is_edit?'$modify_tcp_load':'$create_tcp_load'](data,function (rdata) {
+            bt.msg(rdata)
+            if(rdata.status){
+              layer.close(indexs)
+              setTimeout(function(){
+                _that.create_tcp_load_table()
+              },1000)
+            }
+          })
+        }
+      })
+    },
+
+
+    /**
+     * @description 删除负载
+     * @param {Number} id 该负载的id，传参删除
+     * @param {String} name 该负载的名称
+     */
+    del_tcp_load: function (load_name, name) {
+      var _this = this;
+      layer.confirm('请确认是否删除【' + name  + '】TCP负载均衡？', {
+        title: '确认删除',
+        icon: 3,
+        closeBtn: 2
+      }, function () {
+        _this.$remove_tcp_load({load_name:load_name }, function (res) {
+          _this.create_tcp_load_table();
+          bt.msg(res)
+        });
+      });
+    },
+
+    /**
+     * @description 打开网站负载日志
+    */
+    open_tcp_load_logs:function (load_name,load_address) {
+      var _that = this,page = 1
+      _that.get_tcp_load_logs({load_name:load_name},function (html,res) {
+        layer.open({
+          type:1,
+          title:'['+ load_address +']-TCP负载均衡访问日志',
+          closeBtn:2,
+          area:['1100px','500px'],
+          btn:false,
+          content:'<div class="tabel_logs pd15"></div>',
+          success:function(){
+            bt_tools.table({
+              el:'.tabel_logs', 
+              height: '360px',
+              data:[],
+              default: "TCP负载均衡访问日志列表为空", //数据为空时的默认提示
+              column: [
+                {title: '时间' },
+                {title: '客户端IP' },
+                {title: '协议' },
+                {title: '响应状态' },
+                {title: '发送大小' },
+                {title: '接收大小' },
+                {title: '会话耗时' },
+                {title: '节点地址' },
+                {title: 'TO大小' },
+                {title: 'RE大小' },
+                {title: '连接耗时' }
+              ]
+            })
+            $('.tabel_logs').append('<div class="logs_page"></div>')
+            if(html) $('.tabel_logs .divtable tbody').addClass('server_logs_table').html(html)
+            $('.logs_page').html(_that.render_logs_pages(res.end,page))
+            $('.logs_page').on('click','a',function(){
+              page = $(this).data('page')
+              _that.get_tcp_load_logs({load_name:load_name,p:page},function(html,res){
+                $('.logs_page').html(_that.render_logs_pages(res.end,page))
+              })
+            })
+          }
+        })
+      })
+    },
+
+    /**
+     * @description 渲染节点监控表格
+     * @param {object} config 传页码，不传则默认为1
+     */
+     get_tcp_load_logs:function(config,callback){
+      this.$get_tcp_load_logs(config,function(res){
+        var html = '',rdata = res.data
+        for (let i = 0; i < rdata.length; i++) {
+          var item = rdata[i];
+          html += '<tr>'
+          for(let j=0;j<item.length;j++){
+            html +='<td>'+ item[j] +'</td>'
+          }
+          html += '</tr>'
+        }
+        $('.server_logs_table').html(html)
+        if(callback) callback(html,res)
+      })
+    },
+
+
+
+    /**
+     * @description 挂载接口渲染
+     * @param {Object} config 接口数组
+     */
+    mount_methods_event: function (config) {
+      var that = this;
+      $.each(config, function (key, item) {
+        that['$' + key] = function (data, callback, tips) {
+          if (typeof data == 'function') {
+            if (typeof callback == "boolean") tips = callback;
+            callback = data, data = {};
+          }
+          that.$http({
+            method: key,
+            tips: tips === false? tips : ('正在' + item + ',请稍后...'),
+            data: data,
+            plugin: that.plugin_name,
+            success: function (res) {
+              if (callback) callback(res);
+            }
+          })
+        }
+      })
+    },
+
+    /**
+     * @description 请求方法封装
+     * @param {Object} 配置对象 例如 {tips:loading信息，false则关闭,data:参数,method:方法名称,success:成功函数,error:失败函数}
+     * @return void
+     */
+    $http: function (obj) {
+      var loadT = '';
+      if (obj.url == undefined) {
+        if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this.plugin_name
+        if (!obj.plugin_name || !obj.method) {
+          layer.msg('缺少插件方法', {icon: 2})
+          return false;
+        }
+      }
+      if (obj.tips !== false) {
+        if (typeof obj.tips === "undefined") obj.tips = 1; //默认为 layer.load()
+        if (obj.tips === 1) {
+          loadT = layer.load()
+        } else {
+          loadT = layer.msg(obj.tips, {icon: 16,time: 0,shade: 0.3})
+        }
+      }
+      $.ajax({
+        type: 'POST',
+        url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin + '&s=' + obj.method),
+        data: obj.data || {},
+        timeout: obj.timeout || 99999999,
+        complete: function (res) {
+          if (loadT) layer.close(loadT)
+        },
+        success: function (rdata) {
+          if (obj.check) {
+            obj.success(rdata);
+            return false
+          }
+          if (rdata.status === false) {
+            layer.msg(rdata.msg, {icon: 2})
+            return false;
+          }
+          obj.success(rdata);
+        }
+      });
+    }
+  }
+  nodeAdmin.init();
+	$.fn.serializeObject = function() {
+  var obj = {};
+  var arr = this.serializeArray();
+  $.each(arr, function() {
+    if (obj[this.name] !== undefined) {
+      if (!obj[this.name].push) {
+        obj[this.name] = [obj[this.name]];
+      }
+      obj[this.name].push(this.value || '');
+    } else {
+      obj[this.name] = this.value || '';
+    }
+  });
+  return obj;
+};
+  // jQuery.prototype.serializeObject = function () {
+  //   var a, o, h, i, e;
+  //   a = this.serializeArray();
+  //   o = {};
+  //   h = o.hasOwnProperty;
+  //   for (i = 0; i < a.length; i++) {
+  //     e = a[i];
+  //     if (!h.call(o, e.name)) {
+  //       o[e.name] = e.value;
+  //     }
+  //   }
+  //   return o;
+  // }
+</script>

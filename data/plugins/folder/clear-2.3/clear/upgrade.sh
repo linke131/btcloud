@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/clear/install.sh install

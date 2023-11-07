@@ -1,0 +1,9 @@
+{
+	"title":"堡塔云控",
+	"name":"coll_admin",
+	"ps":"云控平台包含多机管理，多用户管理，监控大屏，SSH终端，多机互备，安全预警等功能",
+	"versions":"2.5.9",
+	"checks":"/www/server/panel/plugin/coll_admin/coll_admin_main.py",
+	"author":"宝塔",
+	"home":"http://www.bt.cn/bbs"
+}

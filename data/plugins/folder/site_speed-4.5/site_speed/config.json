@@ -1,0 +1,17 @@
+{
+	"settings": {
+		"open": true,
+		"ip_for": ["x-forwarded-for", "x-real-ip"],
+		"cache": {
+			"type": "simple",
+			"size": "64",
+			"host": "",
+			"port": "",
+			"username": "",
+			"password": ""
+		}
+	},
+	"sites": {
+		
+	}
+}

@@ -1,0 +1,22 @@
+name: "openssl_reverse_shell_detect_basic"
+vuln_id: 1012
+systemname: "openssl反弹shell检测"
+vulnname: "openssl反弹shell检测"
+level: "high"
+tag: [ "当前机器权限已丢失,请及时检查是否存在漏洞"]
+ps: "当前机器权限已经被攻击者获取,请及时检查是否存在漏洞,并及时修复"
+type: "system"
+status: 0
+author: "wpl@bt.cn"
+detect_id: "42"
+msg: "当前机器被反弹shell 攻击IP为:【bt_ip】"
+repair: "在root权限下执行【kill -9 bt_pid】中断反弹shell进程"
+rule:
+    exe: "/usr/bin/openssl"
+    comm: "openssl"
+    dip: "^(?!.*127.0.0.1)[^-]*$"
+    sip: "^[^-]*$"
+    sport: "^[^-]*$"
+    dport: "^[^-]*$"
+    ppid_argv: "bash"
+

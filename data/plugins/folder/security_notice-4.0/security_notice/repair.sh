@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/security_notice/install.sh install

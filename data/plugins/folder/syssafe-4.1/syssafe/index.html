@@ -1,0 +1,2179 @@
+<style>
+	.wafview-head {
+		height: 30px;
+		border-bottom: #ccc 1px solid;
+		margin-bottom: 10px;
+	}
+
+	.sys-table {
+		max-height: inherit;
+		height: 490px;
+		overflow: auto;
+		border: 1px solid #ddd;
+	}
+	.equ-config .tab-nav-border {
+		flex: 1;
+		height: 32px;
+    margin-right: 20px;
+	}
+	.equ-config .bt-search .search-input{
+		height: 32px;
+    line-height: 32px;
+	}
+	.equ-config .tab-nav-border span {
+		height: 31px;
+    line-height: 31px;
+	}
+	.ss-type--item {
+		margin-bottom: 12px;
+	}
+	.ss-type--item .ss-type--header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 4px 8px;
+		background: #F9F9F9;
+	}
+	.ss-type--item .ss-type--header span{
+		content: '';
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		margin-right: 5px;
+	}
+	.ss-type--item .ss-type--header .ss-type--selectIcon {
+		color: #333;
+	}
+	.ss-type--header .btn-default,.ss-type--cont .info-r .btn-default{
+		background: #F0F9EB;
+		border: 1px solid #C2E7B0;
+		color: #67C23A;
+		line-height: 12px;
+    height: 24px;
+	}
+	.ss-type--header .btn-default:hover {
+    color: #fff;
+    background-color: #10952a;
+    border-color: #398439
+	}
+	.equ-config-open .ss-type--cont {
+		/* padding: 30px 60px; */
+		padding: 0 40px;
+	}
+	.sys-re-con .tab-block {
+		overflow: auto;
+    height: 480px;
+	}
+	.mr8 {
+		margin-right: 8px;
+	}
+	.equ-config-open .bt-w-block {
+		display: none;
+		overflow: auto;
+    height: 610px;
+	}
+	.equ-config-open .bt-w-block.on {
+		display: block;
+	}
+	.access_control .tab-block {
+		height: auto;
+	}
+	.access_control .tab-nav-border {
+		flex: 1;
+		height: 32px;
+	}
+	.access_control .bt-search {
+		margin-left: 20px;
+	}
+	.access_control .bt-search .search-input{
+		height: 32px;
+    line-height: 32px;
+	}
+	.access_control .tab-nav-border span {
+		height: 31px;
+    line-height: 31px;
+	}
+	.ss-type--cont .inlineBlock.group span.unit {
+		height: 32px;
+    line-height: 30px;
+	}
+	.ss-type--cont .line,.ad_set_open .line{
+		display: flex;
+		align-items: center;
+	}
+	.ss-type--cont .line .info-r,.ad_set_open .line .info-r {
+		display: flex;
+    align-items: center;
+		line-height: 32px;
+    height: 32px;
+		margin-left: 0 !important;
+		margin-bottom: 0;
+	}
+	.ss-type--cont span.unit {
+		line-height: normal;
+	}
+	.ss-type--cont .line .info-r label,.ad_set_open .line .info-r label {
+		margin-bottom: 0;
+	}
+	.ss-type--cont .ad_set_click {
+		margin: 4px 0 16px 0;
+    border-bottom: 1px solid #EFEFEF;
+    padding: 6px 0 6px 280px;
+    color: #666;
+	}
+	.ss-type--cont .ad_set_click div,.ss-type--header div {
+		cursor: pointer;
+	}
+	.ss-type--cont .ad_set {
+		display: none;
+	}
+	.ad_set_open .line .tname {
+		width: 190px;
+	}
+	.ssh-basic-settings .line .tname {
+		width: 104px;
+	}
+	.key_file_permissions.bt_table .divtable  {
+		margin: 0;
+	}
+	.thumbnail-box{
+			position: relative;
+			display: flex;
+	}
+	.thumbnail-introduce{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 40px;
+	}
+	.thumbnail-introduce span{
+			font-size: 20px;
+			font-weight: bold;
+	}
+	.thumbnail-introduce ul {
+			display: flex;
+			font-size: 16px;
+			line-height: 30px;
+			margin: 20px 0;
+			list-style-type: square;
+	}
+	.thumbnail-introduce ul li + li {
+			margin-left: 40px;
+	}
+	.thumbnail-box .thumbnail-tab {
+		margin-right: 20px;
+		width: 120px;
+		border-right: 1px solid #def2e2;
+	}
+	.thumbnail-tab li {
+		padding: 0 20px;
+		line-height: 36px;
+		width: 120px;
+		cursor: pointer;
+		font-size: 12px;
+	}
+	.thumbnail-tab li.on {
+		border-right: 2px solid #20a53a;
+		color: #20a53a;
+		font-size: 14px;
+	}
+	.table .btswitch+.btswitch-btn {
+		width: 2.4em;
+    height: 1.4em;
+		font-size: 12px;
+	}
+	.warp_text {
+		word-wrap: break-word;
+		white-space: pre-wrap;
+		display: inline-block;
+	}
+	.mt8 {
+		margin-top: 8px;
+	}
+	.ss-type--cont.log_audit .line .tname {
+		width: 154px;
+	}
+	.bt_success {
+		color: #20a53a;
+	}
+	.bt_danger {
+		color: #d9534f;
+	}
+	.bt_danger:hover {
+		color: #af332e;
+	}
+	.table .bt-checkbox {
+		height: 18px;
+    width: 18px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin-right: 8px;
+    position: relative;
+	}
+	.table .bt-checkbox.disabled {
+		cursor: not-allowed;
+	}
+	.table .bt-checkbox.active {
+		background-color: #20a53a;
+    border-color: #20a53a;
+	}
+	.table .bt-checkbox.active::after{
+		content: '';
+    display: block;
+    width: 11px;
+    height: 5.5px;
+    transform: rotate(-45deg);
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
+    margin: 3px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -5px;
+    margin-top: -4px;
+	}
+	.intrusion_prevention_cont .firewall_box {
+		line-height: 32px;
+    display: inline-flex;
+    align-items: center;
+		margin-bottom: 6px;
+	}
+	.ssh-basic-settings .bt_select_updown .bt_select_list {
+		max-height: 140px;
+	}
+	.identity_auth .line .tname{
+		width: 172px;
+	}
+</style>
+<div class="bt-form">
+	<div class="bt-w-main">
+		<div class="bt-w-menu">
+			<p class="bgw" onclick="system_reinforcement.all_config()">防护配置</p>
+			<p onclick="system_reinforcement.equ_config()">等保加固</p>
+			<!-- <p onclick="system_reinforcement.show_lock_address()">封锁IP</p> -->
+			<p onclick="system_reinforcement.show_logs()">日志审计</p>
+			<p onclick="system_reinforcement.operation_log()">操作日志</p>
+		</div>
+		<div class="bt-w-con pd15">
+			<div class="sys-re-con"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('.layui-layer-page').css('width', '1000px');
+	$(".bt-w-menu p").click(function () {
+		if($(this).index() !== 1) $(this).addClass('bgw').siblings().removeClass('bgw')
+	});
+	//系统加固
+	var system_reinforcement = {
+		message_box_noe: null,
+		box: function () {
+			layer.open({
+				type: 1,
+				title: '系统加固',
+				area: "700px",
+				closeBtn: 2,
+				shadeClose: true,
+				content: system_reinforcement.html()
+			})
+			$(".bt-w-menu p").click(function () {
+				$(this).addClass('bgw').siblings().removeClass('bgw')
+			});
+			system_reinforcement.all_config();
+		},
+		set_open: function () {
+			var loadT = layer.msg('正在保存配置...', { icon: 16, time: 0 })
+			var pdata = {
+				'status': $("#close_syssafe").prop("checked") ? 0 : 1
+			}
+			$.post('/plugin?name=syssafe&action=a&s=set_open', pdata, function (rdata) {
+				layer.close(loadT);
+				layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+				if (rdata.status) {
+					system_reinforcement.all_config()
+				}
+			});
+		},
+		set_safe_status: function (s_key) {
+			var loadT = layer.msg('正在保存配置...', { icon: 16, time: 0 })
+			$.post('/plugin?name=syssafe&action=a&s=set_safe_status', { s_key: s_key }, function (rdata) {
+				layer.close(loadT);
+				layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+				var timer = setTimeout(function () {
+					system_reinforcement.all_config()
+					clearTimeout(timer)
+				}, 1000)
+			});
+		},
+		add_safe_config: function (s_key) {
+			pdata = {
+				s_key: s_key,
+				path: $("input[name='s_path']").val(),
+				d_mode: $("input[name='d_mode']").val(),
+				chattr: $("select[name='chattr']").val()
+			}
+			var loadT = layer.msg('正在添加对象...', { icon: 16, time: 0 });
+			$.post('/plugin?name=syssafe&action=a&s=add_safe_path', pdata, function (rdata) {
+				layer.close(loadT)
+				setTimeout(function () {
+					layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+				}, 500)
+				if (rdata.status) system_reinforcement.safe_config(s_key);
+			});
+
+		},
+		remove_safe_config: function (s_key, path) {
+			var loadT = layer.msg('正在删除对象...', { icon: 16, time: 0 });
+			$.post('/plugin?name=syssafe&action=a&s=remove_safe_path', { s_key: s_key, path: path }, function (rdata) {
+				layer.close(loadT)
+				setTimeout(function () {
+					layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+				}, 500)
+				if (rdata.status) system_reinforcement.safe_config(s_key);
+			});
+
+		},
+		add_process_config: function () {
+			pdata = {
+				process_name: $("input[name='p_name']").val()
+			}
+			var loadT = layer.msg('正在添加对象...', { icon: 16, time: 0 });
+			$.post('/plugin?name=syssafe&action=a&s=add_process_white', pdata, function (rdata) {
+				layer.close(loadT)
+				setTimeout(function () {
+					layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+				}, 500)
+				if (rdata.status) system_reinforcement.process_config();
+			});
+
+		},
+		remove_process_config: function (p_name) {
+			var loadT = layer.msg('正在删除对象...', { icon: 16, time: 0 });
+			$.post('/plugin?name=syssafe&action=a&s=remove_process_white', { process_name: p_name }, function (rdata) {
+				layer.close(loadT)
+				setTimeout(function () {
+					layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+				}, 500)
+				if (rdata.status) system_reinforcement.process_config();
+			});
+
+		},
+		unlock_address: function (s_address) {
+			var loadT = layer.msg('正在解封IP地址...', { icon: 16, time: 0 });
+			$.post('/plugin?name=syssafe&action=a&s=remove_ssh_limit', { ip: s_address }, function (rdata) {
+				layer.close(loadT)
+				setTimeout(function () {
+					layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+				}, 500)
+				if (rdata.status) system_reinforcement.show_lock_address();
+			});
+
+		},
+		add_lock_address: function () {
+			var loadT = layer.msg('正在提交IP地址...', { icon: 16, time: 0 });
+			var s_address = $("input[name='s_address']").val()
+			if (!bt.check_ip(s_address)) {
+				layer.msg('IP地址格式不正确!', { icon: 2 });
+				return;
+			}
+			$.post('/plugin?name=syssafe&action=a&s=add_ssh_limit', { ip: s_address }, function (rdata) {
+				layer.close(loadT)
+				setTimeout(function () {
+					layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+				}, 500)
+				if (rdata.status) system_reinforcement.show_lock_address();
+			});
+
+		},
+		show_lock_address: function () {
+			var loadT = layer.msg('正在获取数据...', { icon: 16, time: 0 })
+			$.post('/plugin?name=syssafe&action=a&s=get_ssh_limit_info', {}, function (rdata) {
+				layer.close(loadT)
+				var my_list = '';
+				for (var i = 0; i < rdata.length; i++) {
+					my_list += '<tr><td>' + rdata[i].address + '</td><td>' + ((rdata[i].end > 0) ? bt.format_data(rdata[i].end) : '手动解封') + '</td><td style="text-align: right;"><a class="btlink" onclick="system_reinforcement.unlock_address(\'' + rdata[i].address + '\')">立即解封</a></td></tr>';
+				}
+
+				var con = '<div class="sys_rule_list">\
+                        <div style="margin-bottom:10px;">\
+                            <input class="bt-input-text" name="s_address" type="text" value="" style="width:250px;margin-right:12px;" placeholder="IP地址">\
+                            <button class="btn btn-success btn-sm va0" onclick="system_reinforcement.add_lock_address();">添加</button>\
+                        </div>\
+                        <div class="divtable">\
+                        <div class="table_head_fix" style="max-height:375px;overflow:auto;">\
+						<table class="table table-hover">\
+							<thead>\
+								<tr><th>IP地址</th><th>解封时间</th><th style="text-align: right;">操作</th></tr>\
+							</thead>\
+							<tbody>'+ my_list + '</tbody>\
+						</table></div>\
+					</div><ul class="help-info-text c7 ptb10" style="margin-top: 5px;">\
+					    <li>【封锁IP】此处封锁的IP仅针对SSH服务，即被封锁的IP将无法连接SSH</li>\
+                        <li>【添加】手动添加的IP封锁只能手动解封!</li>\
+				    </ul></div>';
+				$(".sys-re-con").html(con);
+			});
+		},
+		process_config: function () {
+			var loadT = layer.msg('正在获取数据...', { icon: 16, time: 0 });
+			$.post('/plugin?name=syssafe&action=a&s=get_process_white', {}, function (rdata) {
+				layer.close(loadT)
+				var tbody = '';
+				for (var i = 0; i < rdata.length; i++) {
+					tbody += '<tr><td>' + rdata[i] + '</td>\
+                            <td style="text-align: right;"><a class="btlink" onclick="system_reinforcement.remove_process_config(\'' + rdata[i] + '\')">删除</a></td></tr>'
+				}
+				if (system_reinforcement.message_box_noe) {
+					layer.close(system_reinforcement.message_box_noe);
+					system_reinforcement.message_box_noe = null;
+				}
+
+				system_reinforcement.message_box_noe = layer.open({
+					type: 1,
+					title: "管理进程白名单",
+					area: ['700px', '550px'],
+					closeBtn: 2,
+					shadeClose: false,
+					content: '<div class="pd15">\
+					<div style="border-bottom:#ccc 1px solid;margin-bottom:10px;padding-bottom:10px">\
+					<input class="bt-input-text" name="p_name" id="s_path" type="text" value="" style="width:250px;margin-right:12px;" placeholder="完整的进程名称">\
+					<button class="btn btn-success btn-sm va0 pull-right" onclick="system_reinforcement.add_process_config();">添加</button>\</div>\
+					<div class="divtable">\
+					<div id="jc-file-table" class="table_head_fix" style="max-height:300px;overflow:auto;border:#ddd 1px solid">\
+					<table class="table table-hover" style="border:none">\
+						<thead>\
+							<tr>\
+								<th width="360">进程名称</th>\
+                                <th style="text-align: right;">操作</th>\
+							</tr>\
+						</thead>\
+						<tbody class="gztr">'+ tbody + '</tbody>\
+					</table>\
+					</div>\
+				</div>\
+				<ul class="help-info-text c7 ptb10" style="margin-top: 5px;">\
+					<li>【进程名称】请填写完整的进程名称,如: mysqld</li>\
+                    <li>【说明】在白名单列表中的进程将不再检测范围,建议将常用软件的进程添加进白名单</li>\
+				</ul></div>'
+				});
+			});
+
+		},
+		save_ssh_config: function () {
+			pdata = {
+				cycle: $("input[name='s_cycle']").val(),
+				limit: $("input[name='s_limit']").val(),
+				limit_count: $("input[name='s_limit_count']").val()
+			}
+			console.log(pdata)
+			var loadT = layer.msg('正在保存配置...', { icon: 16, time: 0 });
+			$.post('/plugin?name=syssafe&action=a&s=save_ssh_config', pdata, function (rdata) {
+				layer.close(loadT)
+				layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+			});
+		},
+		ssh_config: function () {
+			var loadT = layer.msg('正在获取数据...', { icon: 16, time: 0 });
+			$.post('/plugin?name=syssafe&action=a&s=get_ssh_config', {}, function (rdata) {
+				layer.close(loadT)
+				layer.open({
+					type: 1,
+					title: "配置SSH加固策略",
+					area: ['700px'],
+					closeBtn: 2,
+					shadeClose: false,
+					content: '<div class="pd15">\
+					<div style="border-bottom:#ccc 1px solid;margin-bottom:10px;padding-bottom:10px">\
+					在(检测周期)<input class="bt-input-text" min="30" max="1800" name="s_cycle" type="number" value="'+ rdata.cycle + '" style="width:80px;margin-right:12px;">秒内,\
+                    登录错误(检测阈值)<input min="3" max="100" class="bt-input-text" name="s_limit_count" type="number" value="'+ rdata.limit_count + '" style="width:80px;margin-right:12px;">次,\
+					封锁(封锁时间)<input min="60" class="bt-input-text" name="s_limit" type="number" value="'+ rdata.limit + '" style="width:80px;margin-right:12px;">秒\
+					<button class="btn btn-success btn-sm va0 pull-right" onclick="system_reinforcement.save_ssh_config();">保存</button>\</div>\
+				<ul class="help-info-text c7 ptb10" style="margin-top: 5px;">\
+					<li>触发以上策略后，客户端IP将被封锁一段时间</li>\
+                    <li>请在面板日志或操作日志中查看封锁记录</li>\
+                    <li>请在面板日志或操作日志中查看SSH成功登录的记录</li>\
+				</ul></div>'
+				});
+			});
+		},
+		safe_config: function (s_key) {
+			if (s_key == 'process') {
+				system_reinforcement.process_config()
+				return;
+			}
+
+			if (s_key == 'ssh') {
+				system_reinforcement.ssh_config()
+				return;
+			}
+
+
+			var loadT = layer.msg('正在获取数据...', { icon: 16, time: 0 });
+			$.post('/plugin?name=syssafe&action=a&s=get_safe_config', { s_key: s_key }, function (rdata) {
+				layer.close(loadT)
+				var chattrs = { "a": "追加", "i": "只读" }
+				var states = { true: "<a style=\"color:green;\">已保护</a>", false: "<a style=\"color:red;\">未保护</a>" }
+				var tbody = '';
+				for (var i = 0; i < rdata.paths.length; i++) {
+					tbody += '<tr><td>' + rdata.paths[i].path + '</td>\
+                            <td>' + chattrs[rdata.paths[i].chattr] + '</td>\
+                            <td>' + (rdata.paths[i].s_mode == rdata.paths[i].d_mode ? rdata.paths[i].s_mode : (rdata.paths[i].s_mode + ' >> ' + rdata.paths[i].d_mode)) + '</td>\
+                            <td>' + states[rdata.paths[i].state] + '</td>\
+                            <td style="text-align: right;"><a class="btlink" onclick="system_reinforcement.remove_safe_config(\''+ s_key + '\',\'' + rdata.paths[i].path + '\')">删除</a></td></tr>'
+				}
+				if (system_reinforcement.message_box_noe) {
+					layer.close(system_reinforcement.message_box_noe);
+					system_reinforcement.message_box_noe = null;
+				}
+
+				system_reinforcement.message_box_noe = layer.open({
+					type: 1,
+					title: "配置【" + rdata.name + "】",
+					area: ['700px', '550px'],
+					closeBtn: 2,
+					shadeClose: false,
+					content: '<div class="pd15">\
+					<div style="border-bottom:#ccc 1px solid;margin-bottom:10px;padding-bottom:10px">\
+					<input class="bt-input-text" name="s_path" id="s_path" type="text" value="" style="width:250px;margin-right:5px;" placeholder="被保护的文件或目录完整路径"><a class="glyphicon cursor glyphicon-folder-open" onclick="bt.select_path(\'s_path\')" style="color:#edca5c;margin-right:20px;font-size:16px"></a>\
+                    <select class="bt-input-text" name="chattr"><option value="i">只读</option><option value="a">追加</option></select>\
+					<input class="bt-input-text mr5" name="d_mode" type="text" style="width:120px;" placeholder="权限">\
+					<button class="btn btn-success btn-sm va0 pull-right" onclick="system_reinforcement.add_safe_config(\''+ s_key + '\');">添加</button>\</div>\
+					<div class="divtable">\
+					<div id="jc-file-table" class="table_head_fix" style="max-height:300px;overflow:auto;border:#ddd 1px solid">\
+					<table class="table table-hover" style="border:none">\
+						<thead>\
+							<tr>\
+								<th width="360">路径</th>\
+								<th>模式</th>\
+								<th>权限</th>\
+								<th>状态</th>\
+                                <th style="text-align: right;">操作</th>\
+							</tr>\
+						</thead>\
+						<tbody class="gztr">'+ tbody + '</tbody>\
+					</table>\
+					</div>\
+				</div>\
+				<ul class="help-info-text c7 ptb10" style="margin-top: 5px;">\
+					<li>【只读】无法修改、创建、删除文件和目录</li>\
+					<li>【追加】只能追加内容，不能删除或修改原有内容</li>\
+					<li>【权限】设置文件或目录在受保护状态下的权限(非继承),关闭保护后权限自动还原</li>\
+                    <li>【如何填写权限】请填写Linux权限代号,如:644、755、600、555等,如果不填写,则使用文件原来的权限</li>\
+				</ul></div>'
+				});
+
+			});
+		},
+		all_config: function () {
+			var loadT = layer.msg('正在获取数据...', { icon: 16, time: 0 })
+			$.post('/plugin?name=syssafe&action=a&s=get_safe_status', {}, function (rdata) {
+				layer.close(loadT)
+
+				var tbody = '';
+				for (var i = 0; i < rdata.list.length; i++) {
+					tbody += '<tr>'
+						+ '<td>' + rdata.list[i].name + '</td>'
+						+ '<td>' + rdata.list[i].ps + '</td>'
+						+ '<td><div class="ssh-item">'
+						+ '<input class="btswitch btswitch-ios" id="close_' + rdata.list[i].key + '" type="checkbox" ' + (rdata.list[i].open ? 'checked' : '') + '>'
+						+ '<label class="btswitch-btn" for="close_' + rdata.list[i].key + '" style="width: 2em; height: 1.1em;padding:1px;" onclick="system_reinforcement.set_safe_status(\'' + rdata.list[i].key + '\')"></label>'
+						+ '</div></td>'
+						+ '<td class="text-right"><a class="btlink" onclick="system_reinforcement.safe_config(\'' + rdata.list[i].key + '\')">配置</a></td>'
+						+ '</tr>'
+				}
+
+				var con = '<div class="wafview-head"><span class="pull-left" style="font-weight:bold">宝塔系统加固</span><div class="waf-switch pull-left" style="margin-left:20px;margin-top:-2px"><input class="btswitch btswitch-ios" id="close_syssafe" type="checkbox" ' + (rdata.open ? 'checked' : '') + '><label class="btswitch-btn" for="close_syssafe" onclick="system_reinforcement.set_open()"></label></div></div>'
+					+ '<div class="divtable">'
+					+ '<table class="table table-hover waftable" >'
+					+ '<thead >'
+					+ '<tr>'
+					+ '<th>名称</th><th>描述</th><th style="text-align: center;">状态</th><th style="text-align: right;">操作</th>'
+					+ '</tr>'
+					+ '</thead>' + tbody + '<tbody>'
+					+ '</tbody>'
+					+ '</table>'
+					+ '<ul class="help-info-text c7" >'
+					+ '<li>【异常进程监控】与【SSH服务加固】会占用一定服务器开销</li>'
+					+ '<li>开启系统加固功能后，一些如软件安装等敏感操作将被禁止</li>'
+					+ '<li>开启【SSH服务加固】之后，用户登录SSH的行为将受到监控，若连续多次登录失败，将采取封IP措施</li>'
+					+ '<li style="color:red;">【注意】如果您需要安装软件或插件，请先将系统加固关闭!</li>'
+					+ '</ul>'
+				$(".sys-re-con").html(con);
+			});
+
+		},
+		operation_log: function (p) {
+			var loadT = layer.msg('正在获取数据...', { icon: 16, time: 0 })
+			if (p == undefined) p = 1;
+			$(".sys-re-con").html('<div class="sys_rule_list"></div>');
+			bt_tools.table({
+				el: '.sys_rule_list',
+				url: '/plugin?name=syssafe&action=a&s=get_logs',
+				param: {
+					p: p,
+					tojs: 'system_reinforcement.operation_log'
+				},
+				height: '460px',
+				dataFilter: function (res) {
+					layer.close(loadT)
+					$('.sys_rule_list .tootls_group.tootls_bottom').remove()
+					$('.sys_rule_list').append('<div class="tootls_group tootls_bottom"><div class="pull-left"></div><div class="pull-right"></div></div>')
+					$('.sys_rule_list .tootls_bottom .pull-right').append($(res.page).addClass('page'))
+					return { data: res.data };
+				},
+				column: [
+					{ fid: 'addtime', title: '时间', width: 150 },
+					{ fid: 'log', title: '详情' }
+				]
+			})
+		},
+		/**
+		 * @name 固定表头
+		 * @param {string} el element选择器
+		*/
+		fixed_table_thead: function (a) {
+			$(a).scroll(function () { var b = this.scrollTop; this.querySelector("thead").style.transform = "translateY(" + b + "px)" })
+		},
+		/**
+		 * @name 日志审计
+		 * @author hwliang<2021-09-32>
+		 * @return void
+		 */
+		show_logs: function () {
+			var loadT = layer.msg('正在获取数据...', { icon: 16, time: 0 })
+			$.post('/plugin?name=syssafe&action=a&s=get_sys_logfiles', {}, function (rdata) {
+				layer.close(loadT)
+				var opt = '';
+				for (var i = 0; i < rdata.length; i++) {
+					opt += '<option value="' + rdata[i].name + '">' + rdata[i].name + ' - ' + rdata[i].title + '(' + ToSize(rdata[i].size) + ')</option>';
+				}
+
+				var con = '<div class="sys_rule_list">'
+					+ '<select class="bt-input-text">' + opt + '</select>'
+					+ '<div class="divtable logs-data sys-table" style="margin-top: 10px">'
+					+ '</div>'
+					+ '</div>';
+				$(".sys-re-con").html(con);
+
+				$(".sys_rule_list select").change(function () {
+					var log_name = $(this).val();
+					system_reinforcement.get_syslog(log_name);
+				});
+				var log_name = $(".sys_rule_list select").val();
+				system_reinforcement.get_syslog(log_name);
+			});
+		},
+		get_syslog: function (log_name) {
+			var loadT = layer.msg('正在获取数据...', { icon: 16, time: 0 })
+			$.post('/plugin?name=syssafe&action=a&s=get_sys_log', { log_name: log_name }, function (rdata) {
+				layer.close(loadT)
+				var table_headers = ''
+				var table_body = ''
+				if (!rdata.length) {
+					table_body = '<tr><td colspan="3">暂无数据</td></tr>'
+					return;
+				}
+				if (typeof rdata != 'string') {
+					var _keys = [];
+					$.each(rdata[0], function (k, v) {
+						if (k != '_line') {
+							table_headers += '<th>' + k + '</th>';
+							_keys.push(k);
+						}
+
+					})
+					for (var i = 0; i < rdata.length; i++) {
+						var _tr = '<tr>';
+						for (var j = 0; j < _keys.length; j++) {
+							_tr += '<td>' + rdata[i][_keys[j]] + '</td>';
+						}
+						_tr += '</tr>';
+						table_body += _tr;
+					}
+
+					var log_body = '<table class="table table-hover">'
+						+ '<thead>' + table_headers + '</thead>'
+						+ '<tbody>' + table_body + '</tbody>'
+						+ '</table>'
+					$(".logs-data").html(log_body);
+					system_reinforcement.fixed_table_thead('.logs-data');
+					$(".logs-data").scrollTop(0);
+				} else {
+					var log_body = '<pre style="height: 478px;background-color: #333;color: #fff;">' + rdata + '</pre>';
+					$(".logs-data").html(log_body);
+					$(".logs-data pre").scrollTop(9999999999999);
+				}
+
+
+			});
+		},
+		//等保加固
+		equ_config: function (search) {
+			var that = this
+			search = search || '';
+			bt_tools.open({
+				type: 1,
+				area: ['1000px', '700px'],
+				title: '宝塔系统加固-【等保加固】',
+				closeBtn: 2,
+				btn: false,
+				content: `<div class="bt-form equ-config-open">
+					<div class="bt-w-main" style="height: 658px;">
+						<div class="bt-w-menu">
+							<p class="bgw">身份鉴别</p>
+							<p>访问控制</p>
+							<p class="hide">日志审计</p>
+							<p>入侵防范</p>
+							<p>恶意代码防范</p>
+							<p>资源控制</p>
+						</div>
+						<div class="bt-w-con pd20">
+							<div class="bt-w-block on"></div>
+							<div class="bt-w-block"></div>
+							<div class="bt-w-block"></div>
+							<div class="bt-w-block"></div>
+							<div class="bt-w-block"></div>
+							<div class="bt-w-block"></div>
+						</div>
+					</div>
+				</div>`,
+				success: function () {
+					that.render_overall(0,search)
+					$('.equ-config-open .bt-w-menu p').click(function () {
+						var index = $(this).index()
+						$(this).addClass('bgw').siblings().removeClass('bgw')
+						$('.equ-config-open .bt-w-block').eq(index).addClass('on').siblings().removeClass('on')
+						that.render_overall(index,search)
+					})
+				}
+			})
+			return
+			$('.sys-re-con').html(`<div class="flex align-center equ-config">
+				<div class="tab-nav-border">
+					<span class="on">身份鉴别</span>
+					<span>访问控制</span>
+					<span>日志审计</span>
+					<span>入侵防范</span>
+					<span>恶意代码防范</span>
+					<span>资源控制</span>
+				</div>
+				<div class="bt-search">
+					<input type="text" class="search-input" placeholder="搜索配置项" value="`+ search +`">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				</div>
+			</div>
+			<div class="tab-con" style="padding: 20px 0 0 0">
+				<div class="tab-block on"></div>
+				<div class="tab-block"></div>
+				<div class="tab-block"></div>
+				<div class="tab-block"></div>
+				<div class="tab-block"></div>
+				<div class="tab-block"></div>
+			</div>`)
+			that.render_overall(0,search)
+			$('.equ-config .tab-nav-border span').click(function () {
+				var index = $(this).index()
+				$(this).addClass('on').siblings().removeClass('on')
+				$('.sys-re-con .tab-con .tab-block').eq(index).addClass('on').siblings().removeClass('on')
+				that.render_overall(index,search)
+			})
+		},
+		render_overall: function (index,search) {
+			var that = this
+			search = search || '';
+			switch (index) {
+				case 0://身份鉴别
+					that.render_identity_auth(search)
+					break;
+				case 1://访问限制
+					that.render_access_control(search)
+					break;
+				case 2://日志审计
+					that.render_log_audit(search)
+					break;
+				case 3://入侵防范
+					that.render_intrusion_prevention(search)
+					break;
+				case 4://恶意代码防范
+					that.render_malicious_code(search)
+					break;
+				case 5://资源控制
+					that.render_resource_control(search)
+					break;
+			}
+		},
+		//资源控制
+		render_resource_control: function (search) {
+			var that = this
+			$('.equ-config-open .bt-w-block.on').html(`<div class="access_control resource_control"><div class="flex align-center" style="">
+					<div class="tab-nav-border">
+						<span class="on">访问控制（SSH）</span>
+						<span>SSH超时时间</span>
+					</div>
+				</div>
+				<div class="tab-con" style="padding: 20px 0 0 0">
+					<div class="resource_control_cont"></div>
+				</div>
+			</div>`)
+			that.resource_control_cont(0)
+			$('.resource_control .tab-nav-border span').click(function () {
+				var index = $(this).index()
+				$(this).addClass('on').siblings().removeClass('on')
+				that.resource_control_cont($(this).index())
+			})
+		},
+		//资源控制内容
+		resource_control_cont: function (index,type) {
+			var that = this
+			switch (index) {
+				case 0://访问控制（SSH）
+					type = type || 0
+					$('.resource_control_cont').empty()
+					var access_policy_table = bt_tools.table({
+						el: '.resource_control_cont',
+						url: '/syssafe/get_hosts_all_list.json',
+						default: '暂无数据',
+						load: true,
+						height: 470,
+						dataFilter: function (res) {
+							var data = []
+							for (var i = 0; i < res.msg.length; i++) {
+								var obj = {}
+								$.each(res.msg[i],function (key,val) {
+									obj[key] = val.value
+								})
+								data.push(obj)
+							}
+							if(type) {
+								data = data.filter(function (item) {
+									return item.type === (type == 1 ? 'allow' : 'deny')
+								})
+							}
+							$('.resource_control_cont .tootls_top .pull-right').html(`<div class="btn-group cutLoginLogsType">
+								<button type="button" class="btn btn-sm `+ (type == 0 ? `btn-success`:`btn-default`) +`" data-type="0">全部</button>
+								<button type="button" class="btn btn-sm `+ (type == 1 ? `btn-success`:`btn-default`) +`" data-type="1">允许</button>
+								<button type="button" class="btn btn-sm `+ (type == 2 ? `btn-success`:`btn-default`) +`" data-type="2">禁止</button>
+							</div>`)
+							$('.resource_control_cont .tootls_top .cutLoginLogsType button').click(function () {
+								that.resource_control_cont(0,$(this).data('type'))
+							})
+							return {data: data}
+						},
+						column: [
+							{
+								fid: 'app_name',
+								title: '应用名称',
+								width: 200,
+								template: function (row) {
+									return '<span>'+ $('<div></div>').text(row.app_name).html() +'</span>'
+								}
+							},
+							{
+								fid: 'host',
+								title: '主机地址',
+								width: 200,
+								template: function (row) {
+									return '<span>'+ (row.host == 'all' ? '所有' : row.host) +'</span>'
+								}
+							},
+							{
+								fid: 'type',
+								title: '策略',
+								width: 100,
+								template: function (row) {
+									return row.type === 'allow'?'<span class="bt_success">允许</span>':'<span class="bt_danger">禁止</span>'
+								}
+							},
+							{
+								title: '操作',
+								type: 'group',
+								align: 'right',
+								width: 100,
+								group: [{
+									title: '删除',
+									event: function (row, index, ev, key, _that) {
+										bt.simple_confirm({title: '删除访问策略', msg: '是否删除访问策略【'+ row.app_name +'】'}, function () {
+											var url = row.type == 'allow' ? '/syssafe/delete_hosts_allow.json' : '/syssafe/delete_hosts_deny.json'
+											bt_tools.send({url: url, data: {app_name: row.app_name, host: row.host}}, function (res) {
+												bt_tools.msg(res)
+												access_policy_table.$refresh_table_list()
+											},'删除访问策略')
+										})
+									}
+								}]
+							}
+						],
+						tootls: [
+							{
+								type: 'group',
+								positon: ['left', 'top'],
+								list: [{
+									title: '添加访问策略',
+									active: true,
+									event: function (ev, _that) {
+										var access_policy_form = null
+										bt_tools.open({
+											type: 1,
+											area: '400px',
+											title: '添加访问策略',
+											btn: ['确定', '取消'],
+											content: '<div class="access_policy_form pd20"></div>',
+											success: function () {
+												access_policy_form = bt_tools.form({
+													el: '.access_policy_form',
+													form: [
+														{
+															label: '应用名称',
+															group: {
+																type: 'text',
+																name: 'app_name',
+																placeholder: '例：sshd',
+																width: '200px',
+															}
+														},
+														{
+															label: '主机地址',
+															group: {
+																type: 'text',
+																name: 'host',
+																placeholder: '支持通配符，例：192.168.1.*',
+																width: '200px',
+															}
+														},
+														{
+															label: '策略',
+															group: {
+																type: 'select',
+																name: 'type',
+																verify: 'required',
+																width: '200px',
+																list: [
+																	{title: '允许', value: 'allow'},
+																	{title: '禁止', value: 'deny'}
+																]
+															}
+														},
+														{
+															group: {
+																type: 'help',
+																style: 'margin-left: 36px',
+																list: ['【主机地址】通常是IP地址，也可是以主机名，支持通配符，如果设置为ALL则表示所有主机']
+															}
+														}
+													]
+												})
+											},
+											yes: function (index) {
+												var data = access_policy_form.$get_form_value()
+												var _type = data.type == 'allow'
+												if(data.app_name === '') return layer.msg('请输入应用名称',{icon: 2})
+												if(data.host === '') return layer.msg('请输入主机地址',{icon: 2})
+												delete data['type']
+												bt_tools.send({url: _type ? '/syssafe/create_hosts_allow.json' : '/syssafe/create_hosts_deny.json', data:data}, function (res) {
+													bt_tools.msg(res)
+													access_policy_table.$refresh_table_list()
+													layer.close(index)
+												},'添加访问策略')
+											}
+										})
+									}
+								}]
+							}
+						],
+						success: function () {
+							$('.resource_control_cont .help-info-text').remove()
+							$('.resource_control_cont').append(bt.render_help(['注意：应先配置【允许访问策略】再配置禁止访问策略，否则可能导致访问权限失联']))
+						}				
+					})
+					break;
+				case 1://SSH超时时间
+					$('.resource_control_cont').html(`<div class="ss-type--cont ssh_timeout_period"></div>`)
+					bt_tools.send({url: '/syssafe/get_ssh_tmout.json'},function(res) {
+						bt_tools.form({
+							el: '.ssh_timeout_period',
+							form: [
+								{
+									label: 'SSH超时时间',
+									group: [
+										{
+											type: 'text',
+											name: 'tmout',
+											width: '100px',
+											class: 'group',
+											value: res.msg.value.toString(),
+											unit: '秒'
+										},{
+											type: 'button',
+											name: 'save',
+											style: 'margin-left: 16px',
+											title: '保存',
+											event: function (formData) {
+												if(formData.tmout === '') return layer.msg('请输入SSH超时时间',{icon: 2})
+												bt_tools.send({url: '/syssafe/set_ssh_tmout.json', data: formData}, function (res) {
+													bt_tools.msg(res)
+													that.resource_control_cont(1)
+												},'设置SSH超时时间')
+											}
+										}
+									]
+								},{
+									group: {
+										type: 'help',
+										list: ['设置SSH连接超时时间，如果设置为0，则表示不超时','SSH连接成功后的超时时间设置，到期后自动断开该SSH连接']
+									}
+								}
+							]
+						})
+						that.input_verify() //输入框验证
+					},'获取SSH超时时间')
+					break;
+			}
+		},
+		//恶意代码防范
+		render_malicious_code: function (search) {
+			$('.equ-config-open .bt-w-block.on').html('<div class="line">杀毒软件：</div><div class="malicious_code"></div>')
+			var loadT = bt_tools.load('正在检测是否安装杀毒软件，请稍后...')
+			bt_tools.send({url: '/syssafe/check_antivirus_installed.json',data:{}},function(res){
+				loadT.close()
+				// if(res.status) {
+					var data = res.status && res.msg.length ? res.msg : []
+					bt_tools.table({
+						el: '.malicious_code',
+						data: data,
+						default: res.msg,
+						column: [
+							{ fid: 'name', title: '软件名称', width: 200 },
+							{ fid: 'files', title: '文件', template: function(row){
+								return '<span>'+ row.files.join('、') +'</span>'
+							}},
+						],
+						success: function () {
+							$('.malicious_code .help-info-text').remove()
+							$('.malicious_code').append(bt.render_help(['检测是否安装有主流杀毒软件件，支持市场上超过30款主流杀毒软件的检测，推荐其购买或安装宝塔WAF防火墙']))
+						}
+					})
+				// }else{
+				// 	$('.malicious_code').html('杀毒软件：'+res.msg)
+				// 	$('.malicious_code').append(bt.render_help(['检测是否安装有主流杀毒软件，支持市场上超过30款主流杀毒软件的检测，推荐其购买或安装宝塔WAF防火墙']))
+				// }
+			},{verify:false})
+		},
+		//入侵防范
+		render_intrusion_prevention: function (search) {
+			var that = this
+			$('.equ-config-open .bt-w-block.on').html(`<div class="access_control user_audit"><div class="flex align-center" style="">
+					<div class="tab-nav-border">
+						<span class="on">系统防火墙</span>
+						<span>WAF防火墙</span>
+						<span>Linux服务</span>
+					</div>
+				</div>
+				<div class="tab-con" style="padding: 20px 0 0 0">
+					<div class="intrusion_prevention_cont"></div>
+				</div>
+			</div>`)
+			that.intrusion_prevention_cont(0)
+			$('.user_audit .tab-nav-border span').click(function () {
+				var index = $(this).index()
+				$(this).addClass('on').siblings().removeClass('on')
+				that.intrusion_prevention_cont($(this).index())
+			})
+		},
+		//渲染入侵防范内容
+		intrusion_prevention_cont: function(index) {
+			switch (index) {
+				case 0:
+					$('.intrusion_prevention_cont').empty()
+					var num = -1
+					bt_tools.table({
+						el: '.intrusion_prevention_cont',
+						url: '/syssafe/get_firewall_status.json',
+						default: '暂无数据',
+						load: true,
+						height: '370px',
+						dataFilter: function(res){
+							$('.intrusion_prevention_cont .firewall_box').remove()
+							$('.intrusion_prevention_cont').prepend(`<div class="firewall_box">
+									<span class="pull-left" style="font-weight:bold">系统防火墙状态</span>
+									<div class="waf-switch pull-left" style="margin-left:20px;margin-top:-2px">
+										<input class="btswitch btswitch-ios" id="isFirewall" type="checkbox" `+ (res.msg.status.value ? `checked` : ``) +`>
+										<label class="btswitch-btn isFirewall" for="isFirewall"></label>
+									</div>
+									<span class="unit ml16">* 建议开启系统防火墙，并在【安全页面】 - 【系统防火墙】中配置合适的防火墙规则</span>
+								</div>`)
+							$('#isFirewall').change(function () {
+								var status = !$(this).prop('checked')
+								bt.simple_confirm({title: (status?'停用':'启用')+'系统防火墙',msg:(status?'停用系统防火墙，服务器将失去安全防护，是否继续操作？':'推荐启用，启用系统防火墙后，可以更好的防护当前的服务器安全，是否继续操作？')},function() {
+									bt_tools.send({
+										url:'/safe/firewall/firewall_admin',
+										data:{data: JSON.stringify({status:!status?'start':'stop'})},
+									},function(rdata){
+										bt_tools.msg(rdata);
+									},'设置防火墙状态')
+								},function() {
+									$('#isFirewall').prop('checked',status)
+								})
+							})
+							return {data: res.msg.listen_list.value}
+						},
+						column: [
+							{ 
+								title: '监听地址',width: 120,template: function (row) {
+								return '<span>'+ row.ip.value +'</span>'
+							}},
+							{
+								title: '监听端口',width: 120,template: function (row) {
+									return '<span>'+ row.port.value +'</span>'
+							}}
+							,
+							{
+								title: '进程ID',width: 120,template: function (row) {
+									return '<span>'+ row.pid.value +'</span>'
+							}}
+							,
+							{
+								title: '进程路径',width: 200,template: function (row) {
+									return '<span>'+ row.process_exe.value +'</span>'
+							}}
+							,
+							{
+								title: '是否允许外网访问',width: 120,template: function (row, _index  ) {
+									num++
+									return `<div class="bt-checkbox `+ (row.is_allow.value ? `active` : ``) +` disabled"></div>`
+							},event: function (row, _index, ev, key, _that) {
+								layer.msg('当前暂不支持修改，请前往【安全页面】 - 【系统防火墙】中配置',{icon: 7,time: 2000})
+							}}
+						],
+						success: function () {
+							$('.intrusion_prevention_cont .help-info-text').remove()
+							$('.intrusion_prevention_cont').append(bt.render_help([
+								'检测系统中所有应用监听的端口，其中【是否允许外网访问】的检测由于检测方法的原因，我们无法保证绝对准确，建议核实后再做下一步处理',
+								'【监听地址】通常为127.0.0.1或0.0.0.0，如果监听地址为127.0.0.1或::1说明该端口只能本地访问',
+								'【监听端口】应用监听的端口，如：80，443通常为HTTP服务端口',
+								'【是否允许外网访问】检测该端口是否允许外网访问，如果允许外网访问，建议在【安全页面】 - 【系统防火墙】中配置防火墙规则',
+								'此处只检测防火墙状态和端口监听列表，不提供相关管理功能，请到面板【安全】-【系统防火墙】相关页面管理系统防火墙',
+							]))
+						}
+					})
+					break;
+				case 1:
+					$('.intrusion_prevention_cont').empty()
+					bt_tools.send({url: '/syssafe/get_bywaf_status.json',data: {}},function (res) {
+						var _status = res.msg.value,is_pay = res.msg.pay_status
+						$('.intrusion_prevention_cont').html(`<div class="line">
+							<span class="tname">WAF安装状态</span>
+							<div class="info-r">
+								<div class="inlineBlock" style="line-height: 32px;">
+									<a class="`+ (_status && is_pay ? 'btlink' : 'bterror uninstall') +`" target="_blank" title="`+ (_status ? '' : !is_pay ? '点击购买' : '点击安装') +`">`+ (_status ? '已安装' : !is_pay ? '未购买' : '未安装') +`</a>
+								</div>
+							</div>
+						</div>`+bt.render_help([res.msg.ps]))
+						$('.intrusion_prevention_cont .uninstall').click(function() {
+							if(is_pay) {
+								bt.soft.install('btwaf')
+							}else {
+								bt.soft.get_soft_find('btwaf',function (rdata) {
+									bt.soft.product_pay_view({
+										"name": rdata.title,
+										"pid": rdata.pid,
+										"type": rdata.type,
+										"plugin":true,
+										"renew":-1,
+										"ps": rdata.ps,
+										"ex1": rdata.ex1,
+										"totalNum": 150
+									})
+								})
+							}
+						})
+					},'获取WAF安装状态')
+					break;
+				case 2:
+					$('.intrusion_prevention_cont').empty()
+					var service_table = bt_tools.table({
+						el: '.intrusion_prevention_cont',
+						url: '/syssafe/get_service_list.json',
+						load: true,
+						default: '暂无数据',
+						height: '510px',
+						dataFilter: function(res){
+							return {data: res.serviceList}
+						},
+						column: [
+							{
+								fid: 'name',
+								title: '服务名',
+								width: 120
+							},
+							{
+								title: '服务状态',
+            		fid:'status',
+								type: 'switch',
+								width: 80,
+								event: function (row, index, ev, key, that) {
+									var _st = row.status
+									bt.simple_confirm({title: _st ? '停止服务' : '启动服务', msg: '是否'+ (_st ? '停止' : '启动') +'服务【'+ row.name +'】？'}, function () {
+										bt_tools.send({url: '/syssafe/set_service_state.json',data: {service_name: row.name, status: _st ? 0 : 1}},function (res) {
+											bt_tools.msg(res)
+											service_table.$refresh_table_list()
+										},(_st ? '停止' : '启动') +'服务【'+ row.name +'】')
+									},function () {
+										$(ev.currentTarget).prop('checked', _st)
+									})
+								}
+							},
+							{
+								fid: 'ps',
+								title: '备注',
+							}
+						],
+						success: function() {
+							$('.intrusion_prevention_cont .divtable').removeClass('mtb10')
+							$('.intrusion_prevention_cont .help-info-text').remove()
+							$('.intrusion_prevention_cont').append(bt.render_help([
+								'检测Linux服务状态，提供/etc/init.d/以及systemctl管理的所有服务信息，并提供服务用途简介',
+							]))
+						}
+					})
+					break;
+			}
+		},
+		//渲染日志审计   
+		render_log_audit: function (search) {
+			var that = this
+			$('.equ-config-open .bt-w-block.on').html('<div class="ss-type--cont log_audit"></div>')
+			//获取audit审计状态
+			bt_tools.send({url: '/syssafe/get_audit_status.json',data: {}},function (res) {
+				var form = that.render_form_data(res.msg.status)
+				form.push({
+					group: {
+						type: 'help',
+						list: ['audit可用于监控和记录系统上发生的安全事件和活动。它可以帮助系统管理员跟踪和分析系统的安全状态，识别潜在的安全威胁和异常行为','<span class="color-org">注意：此处只能修改日志审计启用状态，暂不支持管理审计规则，请通过auditctl命令管理审计规则</span>']
+					}
+				})
+				bt_tools.form({
+					el: '.log_audit',
+					form: form
+				})
+				$.each(res.msg.status,function (key,obj) {
+					if(key !== 'enabled') {
+						if(key == 'service_status') $('.log_audit .'+key).click(function() { bt_tools.msg('抱歉，当前版本暂不支持修改，敬请期待后续升级~',{icon: 7}) })
+						else {
+							$('.log_audit [name='+key+']').prop('disabled',true)
+						}
+					}else{
+						$('.log_audit .'+key).click(function() {
+							var _status = $(this).hasClass('bt_danger') ? 1 : 0
+							bt.simple_confirm({title: _status ? '开启日志审计状态' : '关闭日志审计状态',msg: (_status ? '开启后，将' : '关闭后，将无法') +'监控和记录系统上发生的安全事件和活动，是否继续操作？'},function () {
+								bt_tools.send({url: '/syssafe/set_audit_status.json',data: {status: _status}},function (res) {
+									if(res.status) {
+										$('.log_audit .'+key).removeClass('bt_danger bt_success').addClass(_status ? 'bt_success' : 'bt_danger')
+										$('.log_audit .'+key).find('span').eq(0).html(_status ? '启用' : '禁用')
+									}
+									bt_tools.msg(res)
+								},'设置日志审计状态')
+							})
+						})
+					}
+				})
+			},'获取audit审计状态')
+		},
+		//渲染访问限制
+		render_access_control: function (search) {
+			var that = this
+			$('.equ-config-open .bt-w-block.on').html(`<div class="access_control">
+				<div class="flex align-center">
+					<div class="tab-nav-border">
+						<span class="on">SSH基础设置</span>
+						<span>文件默认权限</span>
+						<span>关键文件权限</span>
+						<span>用户审计</span>
+						<span>安全增强（SELinux）</span>
+					</div>
+				</div>
+				<div class="tab-con" style="padding: 20px 0 0 0">
+					<div class="tab-block on"></div>
+					<div class="tab-block"></div>
+					<div class="tab-block"></div>
+					<div class="tab-block"></div>
+					<div class="tab-block"></div>
+				</div>
+			</div>`)
+			this.render_access_control_overall(0,search)
+			$('.access_control .tab-nav-border span').click(function () {
+				var index = $(this).index()
+				$(this).addClass('on').siblings().removeClass('on')
+				$('.access_control .tab-block').eq(index).addClass('on').siblings().removeClass('on')
+				that.render_access_control_overall(index,search)
+			})
+		},
+		//渲染访问限制切换
+		render_access_control_overall: function (index,search) {
+			var that = this
+			search = search || '';
+			switch (index) {
+				case 0://SSH基础设置
+					that.render_ssh_basic_settings(search)
+					break;
+				case 1://文件默认权限
+					that.render_file_default_permissions(search)
+					break;
+				case 2://关键文件权限
+					that.render_key_file_permissions(search)
+					break;
+				case 3://用户审计
+					that.render_user_audit(search)
+					break;
+				case 4://安全增强（SELinux）
+					that.render_security_enhancement(search)
+					break;
+			}
+		},
+		//渲染SSH基础设置
+		render_ssh_basic_settings: function (search) {
+			var that = this
+			$('.access_control .tab-block:eq(0)').html('<div class="ss-type--cont ssh-basic-settings"></div>')
+			bt_tools.send({url: '/syssafe/get_ssh_config_options.json',data: {}},function (res) {
+				var data = res.msg
+				var form_data = that.render_form_data(data)//渲染表单数据配置
+				form_data.push({
+					group: {
+						type: 'button',
+						name: 'ssh_basic_config_btn',
+						title: '保存配置',
+						event: function (formData) {
+							formData['PasswordAuthentication'] = formData['PasswordAuthentication'] ? 'yes' : 'no'
+							formData['PermitRootLogin'] = formData['PermitRootLogin'] ? 'yes' : 'no'
+							formData['PermitEmptyPasswords'] = formData['PermitEmptyPasswords'] ? 'yes' : 'no'
+							bt_tools.send({url: '/syssafe/set_ssh_config_options.json',data: formData},function(rdata) {
+								bt_tools.msg(rdata)
+							},'设置SSH基础配置')
+						}
+					}
+				})
+				bt_tools.form({
+					el: '.ssh-basic-settings',
+					form: form_data
+				})
+				$('#PermitRootLogin,#PermitEmptyPasswords,#PasswordAuthentication').change(function () {
+					$('[name=ssh_basic_config_btn]').click()
+				})
+				that.input_verify()//输入框验证
+			},'获取SSH基础配置')
+		},
+		//渲染文件默认权限
+		render_file_default_permissions: function (search) {
+			var that = this
+			$('.access_control .tab-block:eq(1)').html('<div class="ss-type--cont file_default_permissions"></div>')
+			bt_tools.send({url: '/syssafe/get_umask.json',data: {}},function (res) {
+				var data = res.msg
+				bt_tools.form({
+					el: '.file_default_permissions',
+					form: [
+						{
+							label: '默认文件权限',
+							group: [{
+								type: 'text',
+								name: 'umask',
+								width: '100px',
+								value: data.value
+							},
+							{
+								type: 'button',
+								name: 'file_default_permissions_btn',
+								title: '保存',
+								event: function (formData) {
+									if(formData.umask === '') return bt.msg({status: false, msg: '请输入默认文件权限'})
+									bt_tools.send({url: '/syssafe/set_umask.json',data: formData},function(rdata) {
+										bt_tools.msg(rdata)
+									},'设置默认文件权限')
+								}
+							}]
+						},
+						{
+							group: {
+								type: 'help',
+								list: [data.ps]
+							}
+						}
+					]
+				})
+				that.input_verify()//输入框验证
+			}, '获取文件默认权限')
+		},
+		//渲染关键文件权限
+		render_key_file_permissions: function (search) {
+			var that = this
+			var that = this
+			$('.access_control .tab-block:eq(2)').html('<div class="key_file_permissions"></div>')
+			var key_file_table = bt_tools.table({
+				el: '.key_file_permissions',
+				url: '/syssafe/get_keyfile_list.json',
+				default: '暂无数据',
+				load: true,
+				dataFilter: function (res) {
+					return {data: res.msg}
+				},
+				height: '550px',
+				column: [
+					{
+						fid: 'fullpath',
+						title: '路径',
+						width: 160
+					},
+					{
+						fid: 'type',
+						title: '类型',
+						width: 50,
+						template: function (row) {
+							return '<span>' +(row.type === 'file' ? '文件' : '目录') + '</span>'
+						}
+					},
+					{
+						fid: 'mode',
+						title: '权限',
+						width: 60,
+						template: function (row) {
+							var isRed = row.mode > row.default_mode
+							return '<span '+ (isRed ? 'class="color-red" title="当前权限大于建议权限"' : '') +'>' + row.mode + '</span>'
+						}
+					},
+					,
+					{
+						fid: 'default_mode',
+						title: '建议权限',
+						width: 80,
+					},
+					{
+						fid: 'user',
+						title: '用户',
+						width: 60
+					},
+					{
+						fid: 'group',
+						title: '用户组',
+						width: 60
+					},
+					{
+						fid: 'ps',
+						title: '备注',
+					},
+					{
+						title: '操作',
+						width: 70,
+						type: 'group',
+						align: 'right',
+						group: [
+							{
+								title: '设置权限',
+								event: function (row, index, ev, key, _that) {
+									_that.set_keyfile(row)
+								}
+							}
+						]
+					}
+				],
+				methods: {
+					set_keyfile: function (row) {
+						var arr = row.fullpath.split('/')
+						bt_tools.open({
+							type: 1,
+							area: '420px',
+							title: '设置【'+ arr[arr.length - 1] +'】关键文件权限',
+							btn: ['设置','取消'],
+							content: {
+								class: 'pd20',
+								form: [
+									{
+										label: '路径',
+										group: [{
+											type: 'text',
+											name: 'fullpath',
+											width: '200px',
+											value: row.fullpath,
+											disabled: true
+										}]
+									},
+									{
+										label: '权限',
+										group: [{
+											type: 'text',
+											name: 'mode',
+											width: '200px',
+											placeholder: '权限值，如：644，755，777等',
+											value: row.mode
+										}]
+									},
+									{
+										label: '用户',
+										group: [{
+											type: 'select',
+											name: 'user',
+											width: '200px',
+											value: row.user,
+											list: {
+												url: '/syssafe/get_linux_user_list.json',
+												dataFilter: function (res) {
+													var _list = []
+													$.each(res,function (key,item) {
+														_list.push({title: key,value: key})
+													})
+													return _list
+												}
+											}
+										}]
+									},
+									{
+										label: '用户组',
+										group: [{
+											type: 'select',
+											name: 'group',
+											width: '200px',
+											value: row.group,
+											list: {
+												url: '/syssafe/get_linux_group_list.json',
+												dataFilter: function (res) {
+													var _list = []
+													$.each(res,function (key,item) {
+														_list.push({title: key,value: key})
+													})
+													return _list
+												}
+											}
+										}]
+									}
+								]
+							},
+							success: function(layers){
+								$(layers).find('.layui-layer-content').css({
+									overflow: 'inherit'
+								})
+							},
+							yes: function (form,indexs) {
+								if(form.mode === '') return bt.msg({status: false,msg: '权限不能为空'})
+								bt_tools.send({url: '/syssafe/set_keyfile.json',data: form},function (res) {
+									bt_tools.msg(res)
+									key_file_table.$refresh_table_list()
+									layer.close(indexs)
+								},'设置关键文件权限')
+							}
+						})
+					}
+				}
+			})
+		},
+		//渲染用户审计
+		render_user_audit: function (search) {
+			var that = this
+			$('.access_control .tab-block:eq(3)').html(
+				`<div class="user_audit thumbnail-box">
+					<ul class="thumbnail-tab">
+						<li class="on">Linux用户</li>
+						<li>Linux用户组</li>
+					</ul>
+					<div class="user_audit_cont" style="flex: 1;"></div>
+				</div>`)
+			that.user_audit_cont(0)
+			$('.user_audit .thumbnail-tab li').click(function () {
+				$(this).addClass('on').siblings().removeClass('on')
+				that.user_audit_cont($(this).index())
+			})
+		},
+		//渲染用户审计内容
+		user_audit_cont: function (index) {
+			var that = this
+			$('.user_audit_cont').empty()
+			var user_audit_table = bt_tools.table({
+				el: '.user_audit_cont',
+				url: !index ? '/syssafe/get_linux_user_list.json' : '/syssafe/get_linux_group_list.json',
+				default: '暂无数据',
+				load: true,
+				dataFilter: function (res) {
+					var data = []
+					$.each(res, function (key, obj) {
+						data.push(obj)
+					})
+					data.sort(function (a, b) {
+						return (!index ? b.uid.value : b.gid.value)- (!index ? a.uid.value : a.gid.value)
+					})
+					return {data: data}
+				},
+				height: '508',
+				column: !index ? [
+					{
+						title: 'UID',
+						width: 50,
+						template: function (row) {
+							return '<span class="warp_text" style="max-width: 64px;">' + row.uid.value + '</span>'
+						}
+					},
+					{
+						fid: 'user',
+						title: '用户名',
+						width: 80,
+						template: function (row) {
+							return '<span class="warp_text" style="max-width: 64px;">' + row.user.value + '</span>'
+						}
+					},
+					{
+						title: '用户组',
+						width: 80,
+						template: function (row) {
+							return '<span class="warp_text" style="max-width: 64px;">' + row.group.value + '</span>'
+						}
+					},
+					{
+						title: '主目录',
+						width: 106,
+						template: function (row) {
+							return '<span class="warp_text" style="max-width: 90px;">' + row.dir.value + '</span>'
+						}
+					},
+					{
+						title: 'Shell',
+						width: 100,
+						template: function (row) {
+							return '<span class="warp_text" style="max-width: 84px;">' + row.shell.value + '</span>'
+						}
+					},
+					{
+						title: '备注',
+						width: 100,
+						template: function (row) {
+							return '<span class="warp_text" style="max-width: 84px;">' + $('<div></div>').text(row.gecos.value).html() + '</span>'
+						}
+					},
+					{
+						title: '锁定',
+						width: 60,
+						template: function (row, _index, ev, key, _that) {
+							return that.render_switch_config('user_audit_'+  row.uid.value, {value: row.is_lock.value})
+						},
+						event: function (row, _index, ev, key, _that) {
+							if(ev.target.className.indexOf('btswitch-btn') > -1) {
+								var is_lock = row.is_lock.value
+								bt.simple_confirm({title: (is_lock ? '解锁': '锁定') +'Linux用户【'+row.user.value+'】',msg: is_lock ? '解锁Linux用户，解锁后用户恢复正常，是否继续操作？<br><span class="color-red" style="font-size: 12px;">注意：用户密码为空以及shell为/sbin/nologin时无需解锁</span>' : '锁定Linux用户，锁定后的用户无法登录，是否继续操作？'},
+								function () {
+									bt_tools.send({url: is_lock ? '/syssafe/unlock_linux_user.json':'/syssafe/lock_linux_user.json',data: {user: row.user.value}},function (res) {
+										bt_tools.msg(res)
+										user_audit_table.$refresh_table_list(true);
+										if(!res.status) $('#user_audit_'+  row.uid.value).prop('checked', is_lock)
+									},{verify:false,load: (is_lock ? '解锁': '锁定') +'Linux用户'})
+								},function () {
+									$('#user_audit_'+  row.uid.value).prop('checked', is_lock)
+								})
+							}
+						}
+					},
+					{
+						title: '操作',
+						width: 80,
+						type: 'group',
+						align: 'right',
+						group: [
+							{
+								title: '编辑',
+								event: function (row, _index, ev, key, _that) {
+									_that.edit_user_or_group(index, row)
+								}
+							},{
+								title: '删除',
+								event: function (row, _index, ev, key, _that) {
+									if(row.uid.value < 1000) return bt_tools.msg({status: false, msg: 'UID<1000的用户不能删除'})
+									bt.simple_confirm({title: '删除Linux用户【'+row.user.value+'】',msg: '删除指定Linux用户后，<span class="color-org">该Linux用户不可登录，依赖该用户的应用可能无法正常启动，该用户所属的文件将出现权限异常的情况</span>，是否继续操作？'},function () {
+										bt_tools.send({url: '/syssafe/delete_linux_user.json',data:{user: row.user.value}},function (res) {
+											bt_tools.msg(res)
+											user_audit_table.$refresh_table_list(true);
+										},'删除Linux用户')
+									})
+								}
+							}
+						]
+					}
+				] : [
+					{
+						title: 'GID',
+						width: 50,
+						template: function (row) {
+							return '<span class="warp_text" style="max-width: 64px;">' + row.gid.value + '</span>'
+						}
+					},
+					{
+						fid: 'name',
+						title: '用户组名称',
+						width: 146,
+						template: function (row) {
+							return '<span class="warp_text" style="max-width: 130px;">' + row.name.value + '</span>'
+						}
+					},
+					{
+						fid: 'members',
+						title: '用户组成员列表',
+						width: 406,
+						template: function (row) {
+							return '<span class="warp_text" style="max-width: 390px;">' + (row.members.value.length ? row.members.value.join('、') : '--')  + '</span>'
+						}
+					},
+					{
+						title: '操作',
+						width: 50,
+						type: 'group',
+						align: 'right',
+						group: [{
+								title: '删除',
+								event: function (row, _index, ev, key, _that) {
+									if(row.gid.value < 1000) return bt_tools.msg({status: false, msg: 'GID<1000的用户组不能删除'})
+									bt.simple_confirm({title: '删除Linux用户【'+row.name.value+'】',msg: '删除指定Linux用户组后，<span class="color-org">归属于该用户组的文件会出现权限异常的情况，如果该用户组下存在关联用户，则无法删除</span>，是否继续操作？'},function () {
+										bt_tools.send({url: '/syssafe/delete_linux_group.json',data:{user: row.name.value}},function (res) {
+											bt_tools.msg(res)
+											user_audit_table.$refresh_table_list(true);
+										},'删除Linux用户')
+									})
+								}
+							}
+						]
+					}
+				],
+				methods: {
+					edit_user_or_group: function (index, row) {
+						bt_tools.open({
+							type: 1,
+							area: index ? '400px' : '600px',
+							title: (row ? '编辑' : '添加') + '用户' + (index ? '组' : ''),
+							skin: 'add_user_or_group',
+							content: {
+								class: 'pd20',
+								form: index ? [
+									{
+										label: '用户组名称',
+										group: {
+											type: 'text',
+											name: 'group',
+											width: '200px',
+											placeholder: '请输入用户组名称'
+										}
+									}
+								] : [
+									{
+										label: '用户名',
+										group: {
+											type: 'text',
+											name: 'user',
+											width: '400px',
+											disabled: row ? true : false,
+											value: row ? row.user.value : '',
+											placeholder: '请输入用户名'
+										}
+									},
+									{
+										label: '用户组',
+										group: {
+											type: 'select',
+											name: 'group',
+											width: '400px',
+											value: row ? row.group.value : '',
+											list: {
+												url: '/syssafe/get_linux_group_list.json',
+												dataFilter: function (res, that) {
+													var group_list = []
+													$.each(res,function(key,obj){
+														group_list.push({title: key,value: key})
+													})
+													return group_list
+												},
+											}
+										}
+									},
+									{
+										label: '用户密码',
+										group: {
+											type: 'text',
+											name: 'password',
+											width: '400px',
+											placeholder: row ? '不修改，请留空' : '请输入用户密码，可为空'
+										}
+									},
+									{
+										label: 'Shell',
+										group: {
+											type: 'select',
+											name: 'shell',
+											value: row ? row.shell.value : '',
+											width: '400px',
+											placeholder: '/sbin/nologin',
+											list: [
+												{title: '/bin/bash（允许登录）',value: '/bin/bash'},
+												{title: '/sbin/nologin（禁止登录）',value: '/sbin/nologin'}
+											]
+										}
+									},
+									{
+										label: '备注',
+										group: {
+											type: 'text',
+											name: 'gecos',
+											value: row ? row.gecos.value : '',
+											width: '400px',
+											placeholder: '请输入备注信息'
+										}
+									},
+									{
+										group: {
+											type: 'help',
+											style: 'margin-left: 36px;',
+											list: ['【Shell】登录SHELL，如果允许登录，一般为/bin/bash，反之禁止登录使用 /sbin/nologin','用户密码为空以及Shell为/sbin/nologin时无需解锁','Shell=/sbin/nologin的用户无需锁定']
+										}
+									}
+								]
+							},
+							yes: function (form,indexs) {
+								if(index) {//添加用户组
+									if(form.group === '') return bt_tools.msg({status: false, msg: '用户组名称不能为空'}) 
+									bt_tools.send({url: '/syssafe/create_linux_group.json',data:form},function (res) {
+										bt_tools.msg(res)
+										user_audit_table.$refresh_table_list(true);
+										layer.close(indexs)
+									},'添加用户组')
+								}else{
+									if(form.user === '') return bt_tools.msg({status: false, msg: '用户名不能为空'}) 
+									if(form.shell === '') return bt_tools.msg({status: false, msg: 'Shell不能为空'})
+									var loadT = bt.load('正在'+ (row ? '修改' : '添加') +'用户信息，请稍候...')
+									bt_tools.send({url: row ? '/syssafe/set_linux_user.json' : '/syssafe/create_linux_user.json',data:form},function (res) {
+										if(res.msg.indexOf('passwd: 已经超出服务重试的最多次数') > -1)  {
+											layer.msg('用户信息添加成功，但<span class="color-org">'+ res.msg +'</span>，请手动设置密码',{icon: 1,time: 0,closeBtn: 2,shade: 0.3,shadeClose: true})
+											layer.close(indexs)
+										}else {
+											bt_tools.msg(res)
+											if(res.status) layer.close(indexs)
+										}
+										user_audit_table.$refresh_table_list(true);
+									}, {verify: false})
+								}
+							}
+						})
+					}
+				},
+				tootls: [{
+					type: 'group',
+					positon: ['left', 'top'],
+					list: [{
+						title: '添加用户' + (index ? '组' : ''),
+						active: true,
+						event: function (ev, _that) {
+							_that.edit_user_or_group(index)
+						}
+					}]
+        }]
+			})
+		},
+		//渲染安全增强（SELinux）
+		render_security_enhancement: function (search) {
+			var that = this
+			$('.access_control .tab-block:eq(4)').html('<div class="ss-type--cont security_enhancement" style="height: 400px;"></div>')
+			bt_tools.send({url: '/syssafe/get_selinux_status.json',data: {}},function (res) {
+				var data = res.msg,_options = []
+				$.each(data.options,function (key,obj) {
+					_options.push({title: obj,value: key})
+				})
+				bt_tools.form({
+					el: '.security_enhancement',
+					form: [
+						{
+							label: 'SELinux状态',
+							group: [{
+								type: 'select',
+								name: 'status',
+								width: '120px',
+								value: data.value,
+								list: _options
+							},
+							{
+								type: 'button',
+								name: 'security_enhancement_btn',
+								title: '保存',
+								event: function (formData) {
+									if(formData.status === 'Enforcing') {
+										bt.simple_confirm({title: '开启SELinux状态',msg: '开启SELinux状态后，<span class="color-org">部分应用可能出现异常</span>，是否继续操作？'}, function () {
+											open_selinux()
+										})
+									}else{
+										open_selinux()
+									}
+									function open_selinux() {
+										bt_tools.send({url: '/syssafe/set_selinux_status.json',data: formData},function(rdata) {
+											bt_tools.msg(rdata)
+										},'设置SELinux状态')
+									}
+								}
+							}]
+						},
+						{
+							group: {
+								type: 'help',
+								list: ['<span class="color-org">开启SELinux后，部分应用可能出现异常，请谨慎开启！</span>']
+							}
+						}
+					]
+				})
+			},'获取SELinux状态')
+		},
+		//渲染身份鉴别
+		render_identity_auth: function (search) {
+			var that = this
+			//按照顺序排列
+			var	sort_list = ['PASS_MAX_DAYS', 'retry', 'minlen', 'minclass', 'enforce_for_root', 'dcredit', 'ucredit', 'lcredit', 'ocredit', 'difok', 'maxrepeat', 'maxsequence', 'maxclassrepeat', 'gecoscheck'],
+					_html = '',config_html = ``
+			$('.equ-config-open .bt-w-block.on').html('<div class="ss-type--cont identity_auth"></div>')
+			bt_tools.send({url: '/syssafe/get_ssh_password_auth.json',data:{}},function(res) {
+				var data = res.msg
+				for (var i = 0; i < sort_list.length; i++) {
+					var key = sort_list[i]
+					if(i<5) _html += that.render_line_config(key, data[key])
+					else config_html += that.render_line_config(key, data[key])
+				}
+				$('.equ-config-open .bt-w-block.on .ss-type--cont').html(
+					_html + `<div class="ad_set_click"><div>高级设置<span class="glyphicon glyphicon-triangle-bottom ml5"></span></div></div>
+					<button type="button" title="保存配置" class="btn btn-success btn-sm ssh_config_btn" style="margin-left: 172px;">保存配置</button>`)
+				//<div class="ad_set" style="height: 259px;overflow: auto;margin-bottom: 16px;">`+ config_html +`</div>
+				$('.ss-type--header div').click(function () {
+					$(this).parent().next().toggle('show')
+					$(this).find('.glyphicon').toggleClass('glyphicon-menu-down').toggleClass('glyphicon-menu-right')
+				})
+				var ad_set_param = {}
+				//高级设置点击事件
+				$('.ad_set_click div').click(function () {
+					bt_tools.open({
+						type: 1,
+						area: '950px',
+						title: '高级设置',
+						btn: ['保存', '取消'],
+						content: '<div class="pd20 ad_set_open">' + config_html + '</div>',
+						success: function () {
+							if(!$.isEmptyObject(ad_set_param)) {
+								$('.ad_set_open .line').each(function () {
+									var name = $(this).find('input').prop('name')
+									if(name == 'enforce_for_root' || name == 'minclass') {
+										$(this).find('input').prop('checked', ad_set_param[name] == 1 ? true : false)
+									} else {
+										$(this).find('input').val(ad_set_param[name])
+									}
+								})
+							}
+							that.input_verify()//输入框验证
+						},
+						yes: function (indexs) {
+							ad_set_param = {}
+							$('.ad_set_open .line').each(function () {
+								var name = $(this).find('input').prop('name')
+								ad_set_param[name] = name == 'enforce_for_root' ? $(this).find('input').prop('checked') ? 1 : 0 : name == 'minclass' ? $(this).find('input').prop('checked') ? 3 : 0 : parseInt($(this).find('input').val())
+							})
+							layer.close(indexs)
+							$('.ssh_config_btn').click()
+						}
+					})
+					//直接显示隐藏
+					// $('.ad_set').toggleClass('show')
+					// $(this).find('.glyphicon').toggleClass('glyphicon-triangle-bottom').toggleClass('glyphicon-triangle-top')
+				})
+				that.input_verify()//输入框验证
+				//复选框点击事件
+				$('.form-checkbox-label i,.form-checkbox-label span').click(function () {
+					$(this).parent().find('input').prop('checked', $(this).parent().find('i').hasClass('active') ? true : false)
+					$(this).parent().find('i').toggleClass('active')
+				})
+				$('#enforce_for_root').change(function () {
+					$('.ssh_config_btn').click()
+				})
+				//保存配置
+				$('.ssh_config_btn').click(function () {
+					var param = {}
+					$('.ss-type--cont .line').each(function () {
+						var name = $(this).find('input').prop('name')
+						param[name] = name == 'enforce_for_root' ? ($(this).find('input').prop('checked') ? 1 : 0) : name == 'minclass' ? ($(this).find('input').prop('checked') ? 3 : 0) : parseInt($(this).find('input').val())
+					})
+					if(param['PASS_MAX_DAYS'] === '' || Number(param['PASS_MAX_DAYS']) < 0) return bt_tools.msg({status: false, msg: '密码过期时间不能小于0天'})
+					if(param['retry'] === '' || Number(param['retry']) < 0) return bt_tools.msg({status: false, msg: '密码重试次数不能小于0次'})
+					if(param['minlen'] === '' || Number(param['minlen']) < 0) return bt_tools.msg({status: false, msg: '密码最小长度不能小于0'})
+					if(param['remember'] === '' || Number(param['remember']) < 0) return bt_tools.msg({status: false, msg: '密码复用次数不能小于0'})
+					if($.isEmptyObject(ad_set_param)) {
+						$.each(data,function (key,obj){
+							if(!param.hasOwnProperty(key)) param[key] = obj.value
+						})
+					}
+					param = $.extend(param, ad_set_param)
+					bt_tools.send({url: '/syssafe/set_ssh_password_auth.json',data: param},function (res) {
+						bt_tools.msg(res)
+						that.render_identity_auth()
+					},'保存配置')
+				})
+			},'获取配置信息')
+			// bt_tools.send({url: '/config?action=check_two_step',data: {}},function (res) {
+			// 	$('.sys-re-con .tab-block:eq(0) .ss-type--item:eq(1) .ss-type--cont').html(that.render_line_config('check_two_step', {
+			// 		value: res.status,
+			// 		name: '动态口令认证',
+			// 		ps: `(Google Authenticator，谷歌身份认证)为面板提供动态口令的登录的验证，<a href="https://www.bt.cn/bbs/forum.php?mod=viewthread&amp;tid=105839" class="btlink" target="_blank">了解详情</a>`
+			// 	}))
+			// },{verify:false})
+		},
+		//输入框验证事件
+		input_verify: function () {
+			$('input[type="text"]').on('input', function () {
+				var val = $(this).val()
+				if(val === '') {
+					layer.tips('该值不能为空', $(this), {tips: [1, '#ff0000'], time: 2000})
+				}
+			})
+		},
+		//渲染开关
+		render_switch_config: function (key,obj) {
+			return `<div class="waf-switch mr10" style="vertical-align: middle;display: inline-block;">
+								<input class="btswitch btswitch-ios" id="`+ key +`" name="`+ key +`" type="checkbox" `+ ((obj.value && (typeof obj.value == 'boolean' || typeof obj.value == 'number')) || obj.value === 'yes' ? `checked` : ``) +`>
+								<label class="btswitch-btn" for="`+ key +`"></label>
+							</div>`
+		},
+		//渲染表单配置
+		render_form_data: function (data) {
+			var that = this
+			var arr = []
+			$.each(data,function (key,obj) {
+				var param = {}
+				switch (key) {
+					case 'service_status':
+					case 'enabled':
+						var _type = typeof obj.value == 'boolean'
+						//运行状态
+						param = {
+							label: obj.name || obj.title,
+							group: {
+								type: 'other',
+								boxcontent: `<a class="btlink `+ key + (obj.value ? ` bt_success` : ` bt_danger`) +`" style="" href="javascript:;">
+									<span>`+ (obj.value ? !_type ? ` 启用` : ` 运行中` : !_type ? ` 禁用` : ` 已停止`) +`</span>`
+									+ (_type ? `<span class="glyphicon `+ (obj.value ? ` glyphicon-play` : ` glyphicon-pause`) +`"></span>`:``) +
+								`</a>`,
+							}
+						}
+						break;
+					case 'LogLevel':
+						var _option = []
+						if(key == 'LogLevel') {
+							_option = [
+									{title: 'QUIET',value: 'QUIET'},
+									{title: 'FATAL',value: 'FATAL'},
+									{title: 'ERROR',value: 'ERROR'},
+									{title: 'INFO',value: 'INFO'},
+									{title: 'VERBOSE',value: 'VERBOSE'},
+									{title: 'DEBUG',value: 'DEBUG'},
+								]
+						}
+						param = {
+							label: obj.name || obj.title,
+							group: {
+								type: 'select',
+								name: key,
+								width: '100px',
+								value: obj.value,
+								list: _option,
+								unit: '* '+obj.ps
+							}
+						}
+						break;
+					case 'PermitRootLogin':
+					case 'PermitEmptyPasswords':
+					case 'PasswordAuthentication':
+						//开关状态
+						param = {
+							label: obj.name || obj.title,
+							group: {
+								type: 'other',
+								boxcontent: that.render_switch_config(key, obj),
+								unit: '* '+obj.ps
+							}
+						}
+						break;
+					default:
+						param = {
+							label: obj.name || obj.title,
+							group: {
+								class: obj.hasOwnProperty('very') && obj.value !== obj.very ? (key === 'Port' && obj.value !== 22) ? '' :'color-org' : '',
+								type: 'text',
+								name: key,
+								width: '100px',
+								value: obj.value.toString(),
+								unit: '* '+obj.ps
+							}
+						}
+						break;
+				}
+				arr.push(param)
+			})
+			return arr
+		},
+		//渲染配置项 obj:配置项对象
+		render_item_config: function(obj){
+			return `<div class="ss-type--item">
+					<div class="ss-type--header">
+						<div><i class="ss-type--selectIcon glyphicon glyphicon-menu-down mr8"></i>`+ obj.name +`</div>
+						`+ (obj.btn ? `<button type="button" title="保存配置" class="btn btn-default btn-sm ssh_config_btn">保存配置</button>` : ``) +`
+					</div>
+					<div class="ss-type--cont"></div>
+				</div>`
+		},
+		//行数据渲染 key:配置项键  obj:配置项值
+		render_line_config: function (key, obj) {
+			var line = ''
+			switch (key) {
+				case 'minclass':
+					line = `<label class="cursor-pointer form-checkbox-label">
+										<i class="form-checkbox cust—checkbox cursor-pointer mr5 `+ (obj.value == 3 ? `active` : ``) +`"></i>
+										<input type="checkbox" class="form—checkbox-input hide mr10" name="`+ key +`" `+ (obj.value == 3 ? `checked` : ``) +`>
+										<span class="vertical_middle">任意三项验证方式（数字、大写、小写、特殊字符）</span>
+									</label>`
+					break;
+				case 'enforce_for_root':
+				case 'check_two_step'://动态口令认证
+				case 'PermitRootLogin': //允许root登录
+				case 'PermitEmptyPasswords': //允许空密码登录
+				case 'PasswordAuthentication': //允许密码登录
+					line = `<div class="waf-switch">
+										<input class="btswitch btswitch-ios" id="`+ key +`" name="`+ key +`" type="checkbox" `+ (obj.value || obj.value === 'yes' ? `checked` : ``) +`>
+										<label class="btswitch-btn" for="`+ key +`"></label>
+									</div>`		
+					break;
+				default:
+					var is_exit = ['PASS_MAX_DAYS','retry','MaxAuthTries','MaxAuthTries','ClientAliveCountMax','LoginGraceTime','']
+					var is_unit = is_exit.indexOf(key) > -1 ? true : false,_unit = ''
+					if(is_unit) {
+						switch (key) {
+							case 'retry':
+							case 'MaxAuthTries':
+							case 'ClientAliveCountMax':
+								_unit = '次'
+								break;
+							case 'ClientAliveInterval':
+							case 'LoginGraceTime':
+								_unit = '秒'
+								break;
+							default:
+								_unit = '天'
+								break;
+						}
+					}
+					line = `<input type="text" name="`+ key +`" class="bt-input-text" value="`+ obj.value +`" style="width: `+ (is_unit ? `56` : `100`) +`px;">`
+					if(is_unit) line += `<span class="unit">`+ _unit +`</span>`
+					break;
+			}
+			return `<div class="line">
+								<span class="tname">`+ (key == 'retry' ? '密码重试次数' : key == 'minclass' ? '密码复杂度' : obj.name) +`</span>
+								<div class="info-r">
+									<div class="inlineBlock `+ (is_unit ? 'group' : '') +`">` 
+										+ line +
+									`</div>`+ 
+									(key == 'check_two_step' ? `<button type="button" class="btn btn-default btn-xs checkTwoStepConfig" style="vertical-align: middle; margin-left: 16px">认证配置</button>` : ``)+
+									(key == 'minclass' ? `` : `<span class="unit ml20">* `+ obj.ps +`</span>`) +
+								`</div>
+							</div>`
+		}
+	}
+	system_reinforcement.all_config()
+</script>

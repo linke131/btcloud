@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/tomcat2/install.sh install

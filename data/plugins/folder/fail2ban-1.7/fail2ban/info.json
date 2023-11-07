@@ -1,0 +1,11 @@
+{
+	"title":"Fail2ban防爆破",
+	"name":"fail2ban",
+	"ps":"防止恶意主机爆破服务、站点，禁止导致多个身份验证错误的主机",
+	"versions":"1.7",
+	"checks":"/www/server/panel/plugin/fail2ban",
+	"author":"宝塔",
+	"beta": false,
+	"force_message": "",
+	"not_substituted":["config.json|f"]
+}

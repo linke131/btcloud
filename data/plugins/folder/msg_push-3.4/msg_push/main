@@ -1,0 +1,30 @@
+#!/www/server/panel/pyenv/bin/python
+#coding: utf-8
+#-------------------------------------------------------------------
+# 宝塔Linux面板
+#-------------------------------------------------------------------
+# Copyright (c) 2015-2099 宝塔软件(http://bt.cn) All rights reserved.
+#-------------------------------------------------------------------
+# Author: hwliang<hwl@bt.cn>
+#-------------------------------------------------------------------
+
+import os,sys
+panel_path = '/www/server/panel'
+os.chdir(panel_path)
+sys.path.insert(0,'class/')
+try:
+    import public
+    from pluginAuth import Plugin
+    plugin_name = 'msg_push'
+    p = Plugin(plugin_name)
+
+    def_name = 'check_main'
+    if not p.isdef(def_name):
+        raise public.PanelError('指定方法不存在!')
+    start = p.get_fun(def_name)
+    start()
+except:
+    sys.path.insert(0, '/www/server/panel/plugin/msg_push/')
+    import msg_push_main
+    m = msg_push_main.msg_push_main()
+    m.check_main()

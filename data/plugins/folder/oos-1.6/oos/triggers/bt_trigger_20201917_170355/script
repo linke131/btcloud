@@ -1,0 +1,5 @@
+#被计算的目录(请修改)
+s_path="/www/wwwroot"
+
+#使用du命令计算大小
+du -b $s_path|awk 'END {printf("%.3f",$1/1024/1024/1024)}'

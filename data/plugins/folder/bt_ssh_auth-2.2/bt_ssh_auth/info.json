@@ -1,0 +1,9 @@
+{
+	"title": "堡塔SSH二次认证",
+	"name": "bt_ssh_auth",
+	"ps": "保护您的SSH登录安全!",
+	"versions": "2.2",
+	"checks": "/www/server/panel/plugin/bt_ssh_auth",
+	"author": "官方",
+	"home": "http://www.bt.cn"
+}

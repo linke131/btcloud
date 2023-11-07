@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/btwaf_httpd/install.sh install

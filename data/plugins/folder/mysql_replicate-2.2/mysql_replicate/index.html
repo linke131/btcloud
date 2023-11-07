@@ -1,0 +1,2141 @@
+<style>
+    #top {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    .line .tname {
+        width: 148px;
+    }
+
+    .steps {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .steps .steps_circle {
+        width: 52px;
+        height: 52px;
+        line-height: 51px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 50%;
+        background-color: #D0D0D0;
+        color: #666;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 99;
+    }
+
+    .steps .steps_circle:nth-child(n+2)::after {
+        content: '';
+        position: absolute;
+        height: 3px;
+        background: #D0D0D0;
+        width: 309%;
+        left: -309%;
+        top: 26px;
+        margin-top: -1.5px;
+        z-index: 98;
+    }
+
+    .steps .steps_circle_active {
+        background-color: #20a53a;
+        color: #fff;
+    }
+
+    .steps .steps_circle_active:nth-child(n+2)::after {
+        background-color: #20a53a;
+    }
+
+    .steps .steps_circle_text_active {
+        color: #20a53a;
+    }
+
+    .bt_search_detail,
+    .bt_search {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+    }
+
+    .bt_search_detail .search_input,
+    .bt_search .search_input {
+        height: 30px;
+        line-height: 30px;
+        border-radius: 2px;
+        border: 1px solid #ccc;
+        outline: none;
+        padding-left: 8px;
+        vertical-align: top;
+        width: 230px;
+    }
+
+    .bt_search_detail .glyphicon-search,
+    .bt_search .glyphicon-search {
+        height: 28px;
+        line-height: 28px;
+        padding: 0 10px;
+        color: #888;
+        position: absolute;
+        right: 0;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .bt-checkbox, .bt-checkbox-all {
+        height: 18px;
+        width: 18px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        margin-right: 8px;
+        position: relative;
+    }
+
+    .item-table-all,
+    .item-synchronization,
+    .item-all,
+    .item {
+        height: 36px;
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid rgb(242, 242, 242);
+        justify-content: flex-start;
+        align-items: center;
+        padding: 9px 16px;
+    }
+
+    .item-all {
+        border: 1px solid rgb(242, 242, 242);
+        border-top: 0;
+    }
+
+    .item_header {
+        height: 36px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #e9e9e954;
+        padding: 9px 16px;
+        border-bottom: 1px solid rgb(242, 242, 242);
+    }
+
+    .hint_title {
+        font-size: 13px;
+        color: #111;
+        display: flex;
+        align-items: center;
+    }
+
+    .hint_title .hint-confirm-icon {
+        background: url(../static/img/hint-confirm-icon.svg) no-repeat;
+        min-width: 40px;
+        height: 40px;
+        align-self: center;
+    }
+
+    .item-synchronization-data .bt-checkbox-all.active,
+    .item-synchronization-table .bt-checkbox-all.active,
+    .item-synchronization-data .bt-checkbox-all.active1,
+    .item-synchronization-table .bt-checkbox-all.active1,
+    .item .bt-checkbox.active,
+    .item .bt-checkbox.active1,
+    .item-all .bt-checkbox-all.active,
+    .item-table-all .bt-checkbox-all.active,
+    .item-table-all .bt-checkbox-all.active1,
+    .item-all .bt-checkbox-all.active1 {
+        background-color: #20a53a;
+        border-color: #20a53a;
+    }
+
+    .item-synchronization-data .bt-checkbox-all.active::after,
+    .item-synchronization-table .bt-checkbox-all.active::after,
+    .item-table-all .bt-checkbox-all.active::after,
+    .item .bt-checkbox.active::after,
+    .item-all .bt-checkbox-all.active::after {
+        content: '';
+        display: block;
+        width: 11px;
+        height: 5.5px;
+        transform: rotate(-45deg);
+        border-bottom: 2px solid #fff;
+        border-left: 2px solid #fff;
+        margin: 3px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -5px;
+        margin-top: -4px;
+    }
+
+    .item-table-all .bt-checkbox-all.active1::after,
+    .item-all .bt-checkbox-all.active1::after,
+    .item .bt-checkbox.active1::after {
+        content: '';
+        display: block;
+        width: 9px;
+        height: 2px;
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -4.5px;
+        margin-top: -1px;
+    }
+
+    .choose_database {
+        height: 320px;
+        width: 401px;
+        border-top: 1px solid rgb(242, 242, 242);
+        border-left: 1px solid rgb(242, 242, 242);
+        border-bottom: 1px solid rgb(242, 242, 242);
+    }
+
+    .choose_database_table {
+        height: 320px;
+        width: 401px;
+        border: 1px solid rgb(242, 242, 242);
+        margin: 0 0 0 -1px;
+        z-index: 0;
+    }
+
+    #create_pop_config_main {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+
+    .item_main_table,
+    .item_main {
+        height: 282px;
+        overflow: auto;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    .item_main_table {
+        padding: 18px;
+    }
+
+    #create_pop_config_main::-webkit-scrollbar {
+        display: none;
+    }
+
+    .item_main_table {
+        height: 318px;
+    }
+
+    .item_main_table::-webkit-scrollbar,
+    .item_main::-webkit-scrollbar {
+        display: none;
+    }
+
+    .line-li {
+        height: 40px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        letter-spacing: 0;
+        text-align: left;
+    }
+
+    .collapse {
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .text_content {
+        display: none;
+        padding: 10px;
+    }
+
+    .text_success {
+        color: #20A53A;
+    }
+
+    .text_error {
+        color: #919191;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .daily-table .daily-title {
+        font-weight: bold;
+        background: #f7f7f7;
+
+    }
+
+    .divtable .table {
+        border: 0.5px solid #ddd;
+        color: #666;
+        font-size: 12px;
+        margin-bottom: 0;
+        word-break: break-all;
+    }
+
+    .daily-table tr td {
+        border-right: 1px solid #ddd;
+    }
+
+    .text_content_item {
+        border-bottom: 1px solid rgb(229, 229, 229);
+        margin-top: 7px;
+        display: flex;
+        padding: 1px 3px 7px 7px;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .text_content_item_one {
+        margin-bottom: 5px;
+        margin-left: 10px;
+    }
+
+    .layui-show {
+        display: none;
+        height: 13px;
+        background-size: 13px;
+    }
+
+    .tip {
+        position: absolute;
+        line-height: 22px;
+        color: #777;
+        margin: 20px 0 20px 0;
+        bottom: 0;
+    }
+
+    .text-default {
+        color: #979797;
+    }
+
+    .item-name,
+    .item-size {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 400;
+        color: #666666;
+    }
+
+    .item-name {
+        width: 194px;
+        margin-left: 5px;
+    }
+
+    .item-size {
+        width: 90px;
+    }
+</style>
+
+<div style="padding: 2rem">
+  <div id="top">
+    <button class="btn btn-sm btn-success creat">创建从数据库</button>
+    <button class="btn btn-sm btn-default refresh" style="margin: 0">刷新同步列表</button>
+  </div>
+  <div id="content">
+    <div id="content-table" style="height: 310px"></div>
+  </div>
+  <div id="bottom">
+    <span class="tip">
+		温馨提示：<br>
+		1. 此插件只需要在主库安装！<br/>
+		<span style="color: red;">2. 当前MySQL主从复制插件仅支持一主多从,如需其他主从模式，请等待后期插件更新。</span><br/>
+		3. 如需修复主从，请严格按照提示进行操作<br/>
+		4. <a class="btlink" target="_blank"
+          href="https://www.bt.cn/bbs/thread-114340-1-1.html">详细使用方法，请点击这里查看教程</a>
+        <a href="https://www.bt.cn/bbs/thread-114340-1-1.html" target="_blank" class="bt-ico-ask"
+           style="cursor: pointer;">?</a>
+	</span>
+  </div>
+</div>
+
+
+<script>
+  var masterSlave = {
+    plugin_name: 'masterslave',
+    ip_reg: /^((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}$/,
+    port_reg: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{4}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/,
+    db_List: [],
+    table_List: [],
+    checkbox_db_list: [],
+    checkbox_mysql_list: [],
+    checkbox_table_list: [],
+    retinue_server_list: [],
+    master_list: ['file_status', 'dbs', 'port_released', 'gtid_status', 'bin_log_status', 'gtid_support'],
+    master_span: ['主库备份文件状态', '需要同步的数据库', '数据库端口已经对从库放行', 'GTID状态', '二进制日志状态', '数据库版本支持GTID同步'],
+    retinue_list: ['file_status', 'mysql_status', 'slave_ip', 'gtid_status', 'binlog_status', 'server_id', 'read_only', 'port_released'],
+    retinue_span: ['从库恢复文件状态', '数据库版本', '从库IP', 'GTID状态', '二进制日志状态', '服务器同步ID', '读写状态', '主服务器端口放行状态'],
+    replicate_status: false,
+    log_keys: 0,
+    timer_index: '',
+    loadT: [],
+    progress: [],
+    bt_table: '',
+    config: false,
+    send_num: 0,
+    close: false,
+    del_database: function (ip, callback) {
+      var title = '删除【' + ip + '】主从任务',
+        tips = '<span class="color-red">删除任务可能导致主从同步中断</span>，请仔细核对以防误删。';
+      var countDown = 4;
+      var param = {url: 'plugin?action=a&name=mysql_replicate&s=remove_replicate_info', data: {slave_ip: ip}};
+      layer.open({
+        type: 1,
+        title: title,
+        skin: 'verify_site_layer_info active',
+        closeBtn: 2,
+        shadeClose: true,
+        content: '<div class="check_delete_site_main hint_confirm pd30">\
+          <div class="hint_title">\
+            <i class="hint-confirm-icon"></i>\
+            <div class="hint_con">' + tips + '</div>\
+          </div>\
+          </div>',
+        btn: ['确认(' + countDown + '秒后继续操作)', '取消'],
+        yes: function (layers) {
+          if ($(layers).hasClass('active')) {
+            layer.tips('请确认信息，稍候再尝试，还剩' + countDown + '秒', $(layers).find('.layui-layer-btn0'), {
+              tips: [1, 'red'],
+              time: 3000
+            })
+            return;
+          }
+        },
+        success: function (layers, index) {
+          var interVal = setInterval(function () {
+            countDown--;
+            $(layers).find('.layui-layer-btn0').text('确认(' + countDown + '秒后继续操作)')
+            $(layers).find('.check_layer_message .count_down').text(countDown)
+            return;
+          }, 1000);
+          setTimeout(function () {
+            $(layers).find('.layui-layer-btn0').text('确认');
+            $(layers).removeClass('active');
+            clearInterval(interVal)
+            $(layers).find('.layui-layer-btn0').on('click', function () {
+              bt_tools.send(param, function (res) {
+                if (res.status) {
+                  layer.msg(res.msg, {icon: 1});
+                  layer.close(index);
+                } else {
+                  layer.msg(res.msg, {icon: 2});
+                }
+              }, '删除【' + ip + '】主从任务');
+            })
+          }, countDown * 1000)
+        },
+        end: function () {
+          masterSlave.bt_table.$refresh_table_list(true);
+        }
+      });
+    },
+    // 获取实时任务
+    get_task_req: function (data, callback) {
+      bt.send('get_task_lists', 'task/get_task_lists', {
+        status: data.status
+      }, function (res) {
+        if (callback) callback(res);
+      });
+    },
+    /**
+     * @description 获取实时任务视图
+     * @returns void
+     */
+    get_present_task_view: function () {
+      this.file_present_task = layer.open({
+        type: 1,
+        title: "实时任务队列",
+        area: '500px',
+        closeBtn: 2,
+        skin: 'present_task_list',
+        shadeClose: false,
+        shade: false,
+        offset: 'auto',
+        content: '<div style="margin: 10px;" class="message-list"></div>',
+      });
+    },
+    /**
+     * @description 渲染实时任务列表数据
+     * @returns void
+     */
+    render_present_task_list: function () {
+      var that = this;
+      this.get_task_req({status: -3}, function (lists) {
+        if (lists.length == 0) {
+          layer.close(that.file_present_task);
+          that.file_present_task = null;
+          that.reader_file_list({path: that.file_path, is_operating: false});
+          return;
+        }
+        var task_body = '',
+          is_add = false;
+        $.each(lists, function (index, item) {
+          if (item.status == -1) {
+            if (!that.file_present_task) that.get_present_task_view();
+            if (item.type == '1') {
+              task_body += '<div class="mw-con">\
+                            <ul class="waiting-down-list">\
+                                <li>\
+                                    <div class="down-filse-name"><span class="fname" style="width:80%;" title="正在下载: ' + item.shell + '">正在下载: ' + item.shell + '</span><span style="position: absolute;left: 84%;top: 25px;color: #999;">' + item.log.pre + '%</span><span class="btlink" onclick="bt_file.remove_present_task(' + item.id + ')" style="position: absolute;top: 25px;right: 20px;">取消</span></div>\
+                                    <div class="down-progress"><div class="done-progress" style="width:' + item.log.pre + '%"></div></div>\
+                                    <div class="down-info"><span class="total-size"> ' + item.log.used + '/' + ToSize(item.log.total) + '</span><span class="speed-size">' + (item.log.speed == 0 ? '正在连接..' : item.log.speed) + '/s</span><span style="margin-left: 20px;">预计还要: ' + item.log.time + '</span></div>\
+                                </li>\
+                            </ul>\
+                            </div>';
+            } else {
+              task_body += '<div class="mw-title"><span style="max-width: 88%;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">' + item.name + ': ' + item.shell + '</span><span class="btlink" onclick="bt_file.remove_present_task(' + item.id + ')"  style="position: absolute;top: 10px;right: 15px;">取消</span></div>\
+                        <div class="mw-con codebg">\
+                            <code>' + item.log + '</code>\
+                        </div>';
+            }
+          } else {
+            if (!is_add) {
+              task_body += '<div class="mw-title">等待执行任务</div><div class="mw-con"><ul class="waiting-list">';
+              is_add = true;
+            }
+            task_body += '<li><span class="wt-list-name" style="width: 90%;">' + item.name + ': ' + item.shell + '</span><span class="mw-cancel" onclick="bt_file.remove_present_task(' + item.id + ')">X</span></li>';
+          }
+        });
+        if (that.file_present_task) {
+          if (is_add) task_body += '</ul></div>';
+          $(".message-list").html(task_body);
+        }
+        setTimeout(function () {
+          that.render_present_task_list();
+        }, 1000);
+      });
+    },
+
+    /**
+     * @description 请求接口配置
+     */
+    api: {
+      flag: false,
+      /**
+       * @description 获取配置信息
+       * @param slave_ip 从库IP
+       * @param cheek 是否只是进行配置信息检测
+       * @param {Function} callback
+       */
+      getConfigList: function (slave_ip, cheek, callback) {
+        //已经完成的步骤数量
+        var success_num = 0;
+        cheek = typeof cheek === 'undefined' ? false : cheek;
+        //是否打开配置页面
+        if ($(".create").length == 0) {
+          return;
+        }
+        //获取配置信息，如果是检测配置信息则不需要渲染页面
+        if (cheek) {
+          bt_tools.send('plugin?action=a&name=mysql_replicate&s=get_replicate_conf', {slave_ip: slave_ip}, function (rdata) {
+            callback(rdata.data);
+          });
+        } else {
+
+          $.post('plugin?action=a&name=mysql_replicate&s=get_replicate_conf', {slave_ip: slave_ip}, function (rdata) {
+            if (rdata.status) {
+              masterSlave.popover.create.config.renderingConfig(rdata.data, true);
+              if (masterSlave.api.flag) {
+                for (var i = 0; i < rdata.data.length; i++) {
+                  if (!rdata.data[i].status) {
+                    masterSlave.popover.create.config.renderingConfig(rdata.data, true);
+                    if (!masterSlave.config) {
+                      $($('.layui-layer-btn0')[0]).hide();
+                      masterSlave.api.send({slave_ip: slave_ip, action_name: rdata.data[i].api}, rdata.data[i].msg);
+                    }
+                    return;
+                  } else {
+                    masterSlave.popover.create.config.renderingConfig(rdata.data, true);
+                    success_num++;
+                  }
+                }
+                if (success_num < rdata.data.length - 1) {
+                  $($('.layui-layer-btn0')[0]).text('重新配置');
+                  $($('.layui-layer-btn0')[0]).off().click(function () {
+                    masterSlave.api.getConfigList(slave_ip);
+                  });
+                } else {
+                  $($('.layui-layer-btn0')[0]).hide();
+                }
+              }
+            } else {
+              layer.msg(rdata.msg, {icon: 2});
+              callback(rdata.data);
+            }
+          });
+        }
+      },
+      sync_database: function (data) {
+        const intervalDuration = 2000; // 指定间隔时间（以毫秒为单位），此处为2000毫秒（2秒）
+
+        const makeRequest = function () {
+          $.post("plugin?action=a&name=mysql_replicate&s=sync_database", {'slave_ip': data.slave_ip}, function (rdata2) {
+            if (rdata2.status) {
+              //是否打开配置页面
+              if ($(".create").length == 0) {
+                return;
+              }
+              if (rdata2.type == undefined) {
+                masterSlave.api.getConfigList(data.slave_ip, false)
+                return;
+              }
+              if ($("#sync_database").find("#upload_spead").length == 0) {
+                $("#sync_database").append('<span id ="upload_spead">' + rdata2.msg + "</span>");
+              } else {
+                $("#sync_database").find("#upload_spead").text(rdata2.msg);
+              }
+              setTimeout(makeRequest, intervalDuration); // 使用 setTimeout 在指定间隔时间后再次调用 makeRequest 函数
+            } else {
+              layer.msg(rdata2.msg, {icon: 2});
+              $($('.layui-layer-btn0')[0]).text('重新配置');
+              $($('.layui-layer-btn0')[0]).off().click(function () {
+                masterSlave.api.getConfigList(data.slave_ip);
+              });
+              $($('.layui-layer-btn0')[0]).show();
+              $('#sync_database .text_error .layui-show').hide()
+              $("#sync_database").find("#upload_spead").text("");
+            }
+          });
+
+        };
+
+        makeRequest(); // 执行第一次请求
+      },
+      send: function (data, msg) {
+        var that = this;
+        $($('.layui-layer-btn0')[0]).hide();
+        $('#' + data.action_name + ' .text_error .layui-show').show();
+        $.post('plugin?action=a&name=mysql_replicate&s=replicate_main', data, function (rdata) {
+          if (rdata.status) {
+            //业务逻辑
+            switch (data.action_name) {
+              case 'sync_database':
+                if (rdata.type != undefined) {
+                  if (rdata.type == 2) {
+                    that.sync_database(data);
+                    return;
+                  }
+                }
+                break
+              case 'check_slave_conf':
+                if (rdata.type != undefined) {
+                  layer.confirm(rdata.msg, {
+                    icon: 3, title: '警告', closeBtn: 2,
+                    cancel: function (index, layero) {
+                      $($('.layui-layer-btn0')[0]).show();
+                      $($('.layui-layer-btn0')[0]).text('重新配置');
+                      $($('.layui-layer-btn0')[0]).off().click(function () {
+                        masterSlave.api.send({
+                          slave_ip: data.slave_ip,
+                          action_name: 'check_slave_conf',
+                        }, '从库配置信息检查并配置');
+                        return;
+                      });
+                      $('#' + data.action_name + ' .text_error .layui-show').hide();
+                      layer.close(index);
+                    },
+                  }, function () {
+                    masterSlave.api.send({
+                      slave_ip: data.slave_ip,
+                      action_name: 'check_slave_conf',
+                      type: 1,
+                      msg: '重新配置',
+                    });
+                    layer.close(layer.index);
+                  }, function () {
+                    $($('.layui-layer-btn0')[0]).show();
+                    $($('.layui-layer-btn0')[0]).text('重新配置');
+                    $($('.layui-layer-btn0')[0]).off().click(function () {
+                      masterSlave.api.send({
+                        slave_ip: data.slave_ip,
+                        action_name: 'check_slave_conf',
+                      }, '从库配置信息检查并配置');
+                      return;
+                    });
+                    $('#' + data.action_name + ' .text_error .layui-show').hide();
+                    layer.close(layer.index);
+                  });
+                  return;
+                }
+                break;
+              case 'start_replicate':
+                bt_tools.msg(rdata);
+                layer.close(masterSlave.popover.create.id);
+                masterSlave.bt_table.$refresh_table_list(true);
+                masterSlave.popover.create.stepsNum = 1;
+                return;
+            }
+
+            //判断我在那一层
+            masterSlave.api.getConfigList(data.slave_ip, false, function () {
+              $($('.layui-layer-btn0')[0]).text('重新配置')
+              $($('.layui-layer-btn0')[0]).off().click(function () {
+                masterSlave.api.send(data, msg)
+              })
+              $('#' + data.action_name + ' .text_error .layui-show').hide()
+            })
+          } else {
+            bt_tools.msg(rdata)
+            $($('.layui-layer-btn0')[0]).show()
+            $($('.layui-layer-btn0')[0]).text('重新配置')
+            $($('.layui-layer-btn0')[0]).off().click(function () {
+              masterSlave.api.send(data, msg)
+            })
+            $('#' + data.action_name + ' .text_error .layui-show').hide()
+          }
+
+        })
+      },
+      stopReplicate: function (slave_ip) {
+        bt_tools.send({
+          url: 'plugin?action=a&name=mysql_replicate&s=stop_replicate',
+          data: {slave_ip: slave_ip}
+        }, function (rdata) {
+          bt_tools.msg(rdata)
+          masterSlave.bt_table.$refresh_table_list(true)
+        }, '停止主从同步')
+      },
+      startReplicate: function (slave_ip, callback) {
+        bt_tools.send({
+          url: 'plugin?action=a&name=mysql_replicate&s=start_replicate',
+          data: {slave_ip: slave_ip}
+        }, function (rdata) {
+          if (typeof callback == 'function') {
+            callback(rdata)
+          }
+          bt_tools.msg(rdata)
+          masterSlave.bt_table.$refresh_table_list(true)
+        }, '启用主从同步')
+      },
+      setupReadonlyStatus: function (slave_ip, status) {
+        bt_tools.send({
+          url: 'plugin?action=a&name=mysql_replicate&s=setup_readonly_status', data: {
+            slave_ip: slave_ip,
+            status: status
+          }
+        }, function (rdata) {
+          masterSlave.bt_table.$refresh_table_list(false)
+          bt_tools.msg(rdata)
+        }, '设置只读状态')
+      },
+      getReplicateInfo: function (slave_ip, callback) {
+        bt_tools.send({
+            url: 'plugin?action=a&name=mysql_replicate&s=get_replicate_info',
+            data: {slave_ip: slave_ip}
+          }, function (rdata) {
+            if (typeof callback == 'function') {
+              callback(rdata.data)
+            } else {
+              masterSlave.popover.create.stepsNum = 3
+              masterSlave.open(slave_ip,undefined,'config')
+            }
+          }
+        )
+      },
+      getReplicateStatus: function (slave_ip, callback) {
+        bt_tools.send({
+            url: 'plugin?action=a&name=mysql_replicate&s=get_replicate_status',
+            data: {slave_ip: slave_ip}
+          }, function (rdata) {
+            if (typeof callback == 'function') {
+              callback(rdata.data)
+            }
+          }, '获取主从同步状态'
+        )
+      },
+      setReplicateInfo: function (slave_ip, replicate_db, replicate_db_type, replicate_table_type, callback) {
+        bt_tools.send({
+          url: 'plugin?action=a&name=mysql_replicate&s=set_replicate_info',
+          data: {
+            slave_ip: slave_ip,
+            replicate_db: replicate_db,
+            replicate_db_type: replicate_db_type,
+            replicate_table_type: replicate_table_type
+          }
+        }, function (rdata) {
+          if (typeof callback == 'function') {
+            callback(rdata)
+          } else {
+            bt_tools.msg(rdata)
+          }
+        }, '数据库设置中')
+
+      }
+    },
+    //弹窗配置
+    popover: {
+      create: {
+        id: '',
+        title: '创建主从数据库信息',
+        stepsNum: 1,
+        database: [],
+        getDataBaseFlag: true,
+        ip: '',
+        html: '\
+        <div id="create_pop" style="padding: 3rem;padding-bottom: 0;" xmlns="http://www.w3.org/1999/html">\
+          <div id = "steps">\
+            <div class= "steps">\
+              <div class="steps_circle steps_circle_active">1</div>\
+              <div class="steps_circle">2</div>\
+              <div class="steps_circle">3</div>\
+            </div>\
+            <div class= "steps">\
+              <p class="steps_circle_text steps_circle_text_active">填写从库信息</p>\
+              <p class="steps_circle_text">选择数据库</p>\
+              <p class="steps_circle_text">主从同步配置</p>\
+            </div>\
+          </div>\
+          <div style="margin-top: 3rem;display: flex;flex-direction: column;flex-wrap: wrap;align-items: center;">\
+            <div id="create_pop_form">\
+              <div id="create_pop_top">\
+                <div class="warning_info mb10" style="text-align: center;"><span class="glyphicon glyphicon-alert" style="color: #f39c12; margin-right: 10px;"></span>请填写从库面板api密钥和面板地址!</div>\
+              </div>\
+              <form style="margin-top: 43px">\
+                <div class="line" >\
+					<span class="tname">从库面板地址</span>\
+					<div class="info-r c4"><input class="bt-input-text" type="text" name="panel_addr" placeholder="从面板地址,如：http://1.2.3.4:8888" value="" style="width:330px"></div>\
+				</div>\
+				<div class="line" style="margin-top: 25px">\
+					<span class="tname">从库面板api密钥</span>\
+					<div class="info-r c4" style="display:inline-block;margin-left:0">\
+						<input class="bt-input-text" type="text" name="panel_key" placeholder="从面板api密钥，在从库面板--设置->API内获取" value="" style="width:330px">\
+					</div>\
+					<a href="https://www.bt.cn/bbs/thread-113890-1-1.html" style="display:inline-block" target="_blank" class="btlink ml5">如何获取API秘钥</a>\
+				</div>\
+              </form>\
+            </div>\
+            <div id="create_pop_data_table">\
+              <span style="color: rgb(51, 51, 51);font-family: Noto Sans SC;font-size: 14px;font-weight: 400;line-height: 21px;letter-spacing: 0px;text-align: left;">选择需要同步的数据库和表：</span>\
+                <div style="border: 1px solid #F2F2F2;width: 805px;height: 438px;margin-top: 19px;padding: 17px">\
+                  <div>\
+                    <div class="bt_search">\
+                      <input  type="text" placeholder="搜索数据库" class="search_input"/>\
+                      <span class="glyphicon glyphicon-search " aria-hidden="true"></span>\
+                    </div>\
+                  </div>\
+                  <div class="choose" style="margin-top: 17px">\
+                    <div style="display: flex;flex-direction: row;align-items: flex-start;flex-wrap: nowrap;">\
+                      <div class="choose_database">\
+                         <div>\
+                            <div class="item-all">\
+                               <label label class="flex align-center choose-checkbox" >\
+                                    <div class="bt-checkbox-all"></div>\
+                                    <span style="overflow: hidden;width: 319px;text-overflow: ellipsis;font-weight: 400;color: #666666" title="全选">全选</span>\
+                                </label>\
+                            </div>\
+                        </div>\
+                        <div class="item_main"></div>\
+                      </div>\
+                      <div class="choose_database_table">\
+                        <div class="item_main_table">\
+                          <div style="text-align: center;\
+                                      display: flex;\
+                                      flex-direction: column;\
+                                      flex-wrap: nowrap;\
+                                      align-content: center;\
+                                      justify-content: center;\
+                                      top: 42%;\
+                                      position: relative;\
+                                      align-items: center;">\
+                          <svg style="margin-bottom: 14px" width="35.923065" height="30.481750" viewBox="0 0 35.9231 30.4818" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
+                            <path id="path" d="M30.738 9.54529L5.18906 9.54529L0 18.8584L0 30.4818L35.9231 30.4818L35.9231 18.8584L30.738 9.54529ZM22.526 18.9625C22.526 21.481 20.484 23.5229 17.9615 23.5229C15.4391 23.5229 13.3971 21.481 13.3971 18.9625L2.14209 18.9625L6.29816 11.0348L29.6209 11.0348L33.7769 18.9625L22.526 18.9625ZM17.5451 0L19.1107 0L19.1107 5.62952L17.5451 5.62952L17.5451 0ZM6.92096 2.7948L8.02792 1.68787L12.0085 5.66846L10.9016 6.77545L6.92096 2.7948ZM24.1655 5.67102L28.1461 1.69037L29.2531 2.79736L25.2725 6.77795L24.1655 5.67102Z" fill-rule="nonzero" fill="#CCCCCC"/>\
+                          </svg>未选择数据库，数据表为空\
+                          </div>\
+                        </div> \
+                      </div>\
+                    </div>\
+                    <div style="display: flex;\
+                                flex-direction: column;\
+                                flex-wrap: nowrap;\
+                                align-content: center;\
+                                justify-content: center;\
+                                margin-top: 6px;\
+                                align-items: flex-start;">\
+                      <div class="item-synchronization-data">\
+                        <label label class="flex align-center choose-checkbox" >\
+                          <div class="bt-checkbox-all"></div>\
+                          <span style="overflow: hidden;text-overflow: ellipsis;font-weight: 400;color: #666666" title="同步新增数据库【后续创建的数据库也会同步】">同步新增数据库【后续创建的数据库也会同步】</span>\
+                        </label>\
+                      </div>\
+                      <div class="item-synchronization-table">\
+                        <label label class="flex align-center choose-checkbox" >\
+                          <div class="bt-checkbox-all active"></div>\
+                          <span style="overflow: hidden;text-overflow: ellipsis;font-weight: 400;color: #666666" title="同步新增数据库表【后续创建的数据库表也会同步】">同步新增数据库表【后续创建的数据库表也会同步】</span>\
+                        </label>\
+                      </div>\
+                    </div>\
+                  </div>\
+                </div>\
+            </div>\
+            <div id="create_pop_config">\
+              <div id="create_pop_top" style="background-color: #FDF6EC">\
+                <div class="hint_title" style="width: 805px;height: 60px;padding: 20px"><i class="hint-confirm-icon"></i><div class="hint_con" style="margin-left:10px;color: #ff7600;">请根据提示完成操作,运行过程中请勿关闭此窗口' + "</br>" + '大数据库导出后可自行上传</div></div>\
+              </div>\
+              <div id="create_pop_config_main" style="width: 807px;height: 391px;overflow: auto;margin-top: 27px;border-top: 1px solid #e5e5e5;">\
+              </div>\
+            </div>\
+          </div>\
+        </div>',
+        config: {
+          index: 0,
+          renderingConfig: function (configData, cheek = false) {
+            const createTextContent = function (data) {
+              var html = ''
+              if (data.length == 0) {
+                return html
+              }
+              $.each(data, function (index, value) {
+                html += '\
+                <div class="text_content_item_one">\
+                  <span class="text_content_item_title">' + value.msg + '</span>\
+                </div>'
+              })
+              return html
+            }
+            var ren = function (rdata) {
+              var html = '';
+              $.each(rdata, function (index, value) {
+                var statusClass = value.status ? 'text_success' : 'text_error';
+                var statusText = value.status ? '完成！' : '未完成！';
+                var icon = value.status ? '' : '<i class="layui-layer-ico layui-layer-ico16 layui-show"></i>';
+                var arrow = value.msg_list.length !== 0 ? value.status ? '<div><span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-left: 10px;"></span></div>' : '<div><span class="glyphicon glyphicon-menu-down" aria-hidden="true" style="margin-left: 10px;"></span></div>' : '';
+                var textContentClass = value.status ? 'text_content' : 'text_content_info';
+                html += '<div id="' + value.api + '" class="collapse">' +
+                  '<span class="' + statusClass + '">' +
+                  '● ' + value.msg + statusText + icon +
+                  '</span>' +
+                  arrow +
+                  '</div>' +
+                  '<div class="' + textContentClass + '">' +
+                  createTextContent(value.msg_list) +
+                  '</div>';
+              });
+              $('#create_pop_config_main').html(html);
+              $('.collapse').click(function () {
+                if (!$(this).next().hasClass('text_content') || $(this).next().text() == '                                          ') {
+                  if ($(this).next().hasClass('text_content_info')) {
+                    $(this).next().removeClass('text_content_info').addClass('text_content');
+                    $(this).find('.glyphicon').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down');
+                  }
+                  return;
+                }
+                var _this = $(this);
+                $(this).find('.glyphicon').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down');
+                $(this).next().slideToggle('fast', function () {
+                  if (!_this.find('.glyphicon').hasClass('glyphicon-menu-down')) {
+                    _this.css({'border-bottom': '1px solid #e5e5e5', 'box-shadow': 'none'});
+                    _this.next().css('border-bottom', '0');
+                  }
+                });
+                if (_this.find('.glyphicon').hasClass('glyphicon-menu-down')) {
+                  _this.next().css({'border-bottom': '1px solid #e5e5e5'});
+                }
+              });
+            }
+            if (cheek) {
+              ren(configData)
+            } else {
+              var reg = new RegExp(/https?:\/\/([^:/]+)(:\d+|\/)?/);
+              const ip_path = $('#create_pop_form input[name="panel_addr"]').val()
+              masterSlave.api.getConfigList(ip_path.match(reg)[1], true, function (rdata) {
+                ren(rdata)
+              })
+            }
+
+          },
+
+          renderingList: function (data, type) {
+            var isChooseDatabase = type == 'choose_database';
+            var dataListClass = isChooseDatabase ? '.item_main' : '.item_main_table';
+            var $dataList = $('.' + type + ' ' + dataListClass);
+
+            var html = isChooseDatabase ? masterSlave.popover.create.event.renderDatabaseItems(data) : masterSlave.popover.create.event.renderTableItems(data);
+            $dataList.html(html);
+          }
+        },
+        event: {
+          createItem: function (name, size, active, index, isDatabaseItem, is_exist) {
+            var icon = isDatabaseItem ?
+              (
+                '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-database text-default" viewBox="0 0 16 16">\n' +
+                '  <path fill-rule="evenodd" d="M4.318 2.687C3.356 3.125 3 3.627 3 4c0 .374.356.875 1.318 1.313C5.234 5.729 6.536 6 8 6s2.766-.27 3.682-.687C12.644 4.875 13 4.373 13 4c0-.374-.356-.875-1.318-1.313C10.766 2.271 9.464 2 8 2s-2.766.27-3.682.687ZM13 5.698a4.92 4.92 0 0 1-.904.525C11.022 6.711 9.573 7 8 7s-3.022-.289-4.096-.777A4.92 4.92 0 0 1 3 5.698V7c0 .374.356.875 1.318 1.313C5.234 8.729 6.536 9 8 9s2.766-.27 3.682-.687C12.644 7.875 13 7.373 13 7V5.698ZM14 4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16s3.022-.289 4.096-.777C13.125 14.755 14 14.007 14 13V4Zm-1 4.698a4.92 4.92 0 0 1-.904.525C11.022 9.71 9.573 10 8 10s-3.022-.289-4.096-.777A4.92 4.92 0 0 1 3 8.698V10c0 .374.356.875 1.318 1.313C5.234 11.729 6.536 12 8 12s2.766-.27 3.682-.687C12.644 10.875 13 10.373 13 10V8.698Zm0 3c-.271.202-.58.378-.904.525C11.022 12.71 9.573 13 8 13s-3.022-.289-4.096-.777A4.916 4.916 0 0 1 3 11.698V13c0 .374.356.875 1.318 1.313C5.234 14.729 6.536 15 8 15s2.766-.27 3.682-.687C12.644 13.875 13 13.373 13 13v-1.302Z"/>\n' +
+                '</svg>'
+              ) :
+              '<svg width="12.995361" height="10.674744" viewBox="0 0 12.9954 10.6747" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
+                <path id="path" d="M12.9954 6.25726L12.9954 3.0307L12.9954 0.464111C12.9954 0.154724 12.8407 0 12.5312 0L0.464111 0C0.154663 0 0 0.154724 0 0.464111L0 3.00842L0 6.25726L0 10.2106C0 10.5201 0.154663 10.6747 0.464111 10.6747L12.5312 10.6747C12.8407 10.6747 12.9954 10.5201 12.9954 10.2106L12.9954 6.25726ZM4.87329 5.80426L4.87329 3.4837L7.89001 3.4837L7.89001 5.80426L4.87329 5.80426ZM7.89001 6.73254L7.89001 9.74652L4.87329 9.74652L4.87329 6.73254L7.89001 6.73254ZM0.928223 3.4837L3.94507 3.4837L3.94507 5.80426L0.928223 5.80426L0.928223 3.4837ZM8.81824 3.4837L12.0671 3.4837L12.0671 5.80426L8.81824 5.80426L8.81824 3.4837ZM12.0671 0.928223L12.0671 2.55542L0.928223 2.55542L0.928223 0.928223L12.0671 0.928223ZM0.928223 6.73254L3.94507 6.73254L3.94507 9.74652L0.928223 9.74652L0.928223 6.73254ZM8.81824 9.74652L8.81824 6.73254L12.0671 6.73254L12.0671 9.74652L8.81824 9.74652Z" fill-rule="nonzero" fill="#999999"/>\
+              </svg>'
+            return (
+              '<div>' +
+              '  <div class="item" index="' + index + '">' +
+              '    <label label class="flex align-center choose-checkbox">' +
+              '      <div class="bt-checkbox' + (isDatabaseItem ? ' data-element ' : ' ') + active + '" id="' + index + '" data-name="' + name + '"></div>' +
+              icon +
+              '      <span class="item-name" title="' + name + '">' + name + (is_exist == true ? '  (已同步)' : '') + '</span>' +
+              '      <span class="item-size" title="' + size + '">' + size + '</span>' +
+              '    </label>' +
+              '  </div>' +
+              '</div> '
+            );
+          },
+          renderItem: function (item, index, isDatabaseItem) {
+            var that = this;
+            var sizeInBytes = item.size;
+            var units = ["B", "KB", "MB", "GB", "TB", "PB"];
+            var size = sizeInBytes;
+            var unitIndex = 0;
+            while (size > 1024) {
+              size /= 1024;
+              unitIndex++;
+            }
+            var sizeStr = size.toFixed(2) + units[unitIndex];
+            return that.createItem(item.name, sizeStr, item.active, index, isDatabaseItem, item.is_exist);
+          },
+          renderDatabaseItems: function (data) {
+            var that = this;
+            var html = '';
+            for (var idx in data) {
+              html += that.renderItem(data[idx], idx, true);
+            }
+            return html;
+          },
+          renderTableItems: function (data) {
+            if (data.length == 0) {
+              return '<div style="text-align: center;\
+                                      display: flex;\
+                                      flex-direction: column;\
+                                      flex-wrap: nowrap;\
+                                      align-content: center;\
+                                      justify-content: center;\
+                                      top: 42%;\
+                                      position: relative;\
+                                      align-items: center;">' +
+                '<svg style="margin-bottom: 14px" width="35.923065" height="30.481750" viewBox="0 0 35.9231 30.4818" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
+                <path id="path" d="M30.738 9.54529L5.18906 9.54529L0 18.8584L0 30.4818L35.9231 30.4818L35.9231 18.8584L30.738 9.54529ZM22.526 18.9625C22.526 21.481 20.484 23.5229 17.9615 23.5229C15.4391 23.5229 13.3971 21.481 13.3971 18.9625L2.14209 18.9625L6.29816 11.0348L29.6209 11.0348L33.7769 18.9625L22.526 18.9625ZM17.5451 0L19.1107 0L19.1107 5.62952L17.5451 5.62952L17.5451 0ZM6.92096 2.7948L8.02792 1.68787L12.0085 5.66846L10.9016 6.77545L6.92096 2.7948ZM24.1655 5.67102L28.1461 1.69037L29.2531 2.79736L25.2725 6.77795L24.1655 5.67102Z" fill-rule="nonzero" fill="#CCCCCC"/>\
+              </svg>' +
+                '该数据库下没有表</div>';
+            }
+            var $chooseDatabaseCheckboxAll = $('.choose_database .item_main .item .choose-checkbox #' + masterSlave.popover.create.config.index);
+            var getStatus = function () {
+              if ($chooseDatabaseCheckboxAll.hasClass('active')) {
+                return '<div class="bt-checkbox-all active"></div>'
+              } else if ($chooseDatabaseCheckboxAll.hasClass('active1')) {
+                return '<div class="bt-checkbox-all active1"></div>'
+              } else {
+                return '<div class="bt-checkbox-all"></div>'
+              }
+            }
+            var html =
+              '<div class="item-table-all">\
+                <label label class="flex align-center choose-checkbox" >' +
+              getStatus()
+              + '<span style="overflow: hidden;width: 314px;text-overflow: ellipsis;font-weight: 400;color: #666666" title="全选">全选</span>\
+                 </label>\
+              </div>'
+            for (var idx in data) {
+              html += this.renderItem(data[idx], idx, false);
+            }
+            return html;
+          },
+          getDataBase: function () {
+            var that = this;
+            if (masterSlave.popover.create.database.length > 0) return
+            bt_tools.send({url: 'plugin?action=a&name=mysql_replicate&s=get_database'}, function (rdata) {
+              masterSlave.popover.create.database = rdata.data
+              masterSlave.popover.create.config.renderingList(rdata.data, 'choose_database')
+              that.dataBaseEvent()
+              that.databaseTableEvent()
+            }, '正在获取数据库列表')
+          },
+          dataBaseEvent: function () {
+            var $chooseDatabase = $('.choose_database');
+            var $chooseDatabaseItems = $chooseDatabase.find('.item');
+            var $chooseDatabaseCheckboxAll = $chooseDatabase.find('.item-all .choose-checkbox .bt-checkbox-all');
+            var old, time
+            // 滑动单个数据库条目
+            $chooseDatabase.on('mouseover', '.item', function (e) {
+              var that = this;
+              clearTimeout(time)
+              time = setTimeout(function () {
+                masterSlave.popover.create.config.index = $(that).attr('index');
+                if (old != undefined) {
+                  $chooseDatabase.find('.item[index=' + old + ']').find('.bi-database').removeClass('text-success').addClass('text-default');
+                }
+                old = $(that).attr('index');
+
+                $(that).find('.bi-database').removeClass('text-default').addClass('text_success');
+                masterSlave.popover.create.config.index = old
+
+                masterSlave.popover.create.event.chooseDatabase(masterSlave.popover.create.config.index, masterSlave.popover.create.database[masterSlave.popover.create.config.index].table_list);
+              }, 50)
+            });
+            $chooseDatabase.on('mouseout', '.item', function (e) {
+              $chooseDatabase.find('.item[index=' + old + ']').find('.bi-database').removeClass('text-default').addClass('text_success');
+              clearTimeout(time)
+            })
+            $chooseDatabaseCheckboxAll.click(function (e) {
+              $(this).removeClass('active1').toggleClass('active');
+              var isActive = $(this).hasClass('active');
+              var activeStatus = isActive ? 'active' : '';
+
+              // 遍历可见的 .item 元素
+              $('.item:visible').each(function () {
+                // 只操作可见的 .bt-checkbox 元素
+                $(this)
+                  .find('.bt-checkbox')
+                  .removeClass('active1')
+                  .toggleClass('active', isActive);
+              });
+
+              $.each(masterSlave.popover.create.database, function (index, value) {
+                value['active'] = activeStatus;
+                $.each(value.table_list, function (index1, value1) {
+                  value1['active'] = activeStatus;
+                });
+              });
+              masterSlave.popover.create.event.chooseDatabase(masterSlave.popover.create.config.index, masterSlave.popover.create.database[masterSlave.popover.create.config.index].table_list);
+            });
+
+            // 点击单个数据库条目的复选框
+            $chooseDatabase.on('click', '.choose-checkbox .bt-checkbox', function (e) {
+              $(this).removeClass('undefined active1').toggleClass('active');
+              masterSlave.popover.create.config.index = $(this).parents('.item').attr('index');
+              var isActive = $(this).hasClass('active');
+              var activeStatus = isActive ? 'active' : '';
+
+              masterSlave.popover.create.database[masterSlave.popover.create.config.index]['active'] = activeStatus;
+              $.each(masterSlave.popover.create.database[masterSlave.popover.create.config.index].table_list, function (index, value) {
+                value['active'] = activeStatus;
+              });
+
+              masterSlave.popover.create.event.chooseDatabase(masterSlave.popover.create.config.index, masterSlave.popover.create.database[masterSlave.popover.create.config.index].table_list);
+
+              var activeCheckboxesCount = $chooseDatabaseItems.find('.choose-checkbox .bt-checkbox.active').length;
+              var activeCheckboxesCount1 = $chooseDatabaseItems.find('.choose-checkbox .bt-checkbox.active1').length;
+              if (activeCheckboxesCount === $chooseDatabaseItems.length) {
+                $chooseDatabaseCheckboxAll.removeClass('active1').addClass('active');
+              } else {
+                $chooseDatabaseCheckboxAll.removeClass('active').addClass('active1');
+              }
+              if (activeCheckboxesCount === 0 && activeCheckboxesCount1 === 0) {
+                $chooseDatabaseCheckboxAll.removeClass('active').removeClass('active1');
+              }
+
+              e.stopPropagation();
+            });
+          },
+          databaseTableEvent: function () {
+            var _this = masterSlave.popover.create.config
+            var $chooseDatabaseTable = $('.choose_database_table');
+            var $chooseDatabase = $('.choose_database');
+            var $chooseDatabaseItems = $chooseDatabase.find('.item');
+            var $chooseDatabaseCheckboxAll = $chooseDatabase.find('.item-all .choose-checkbox .bt-checkbox-all');
+            var $chooseDatabaseTableCheckboxAll = $chooseDatabaseTable.find('.item_main_table');
+            // 点击表格条目的复选框
+            $chooseDatabaseTable.on('click', '.item .choose-checkbox', function (e) {
+              var $checkbox = $(this).find('.bt-checkbox');
+              $checkbox.toggleClass('active');
+              var $choose = $('.choose_database .item_main .item .choose-checkbox #' + _this.index);
+              var $table_choose_all = $('.choose_database_table .item_main_table .item-table-all .bt-checkbox-all');
+              if ($chooseDatabaseTable.find('.item .choose-checkbox .bt-checkbox.active').length === masterSlave.popover.create.database[_this.index].table_list.length) {
+                $choose.removeClass('active1').addClass('active');
+                $table_choose_all.removeClass('active1').addClass('active');
+              } else {
+                $choose.removeClass('active').addClass('active1');
+                $table_choose_all.removeClass('active').addClass('active1');
+              }
+              masterSlave.popover.create.database[_this.index]['active'] = 'active';
+              if ($chooseDatabaseTable.find('.item .choose-checkbox .bt-checkbox.active').length === 0) {
+                $choose.removeClass('active').removeClass('active1');
+                $table_choose_all.removeClass('active').removeClass('active1');
+                masterSlave.popover.create.database[_this.index]['active'] = '';
+              }
+              masterSlave.popover.create.database[_this.index].table_list[$(this).parents('.item').attr('index')]['active'] = $checkbox.hasClass('active') ? 'active' : '';
+              var activeCheckboxesCount = $chooseDatabaseItems.find('.choose-checkbox .bt-checkbox.active').length;
+              var activeCheckboxesCount1 = $chooseDatabaseItems.find('.choose-checkbox .bt-checkbox.active1').length;
+              if (activeCheckboxesCount === $chooseDatabaseItems.length) {
+                $chooseDatabaseCheckboxAll.removeClass('active1').addClass('active');
+              } else {
+                $chooseDatabaseCheckboxAll.removeClass('active').addClass('active1');
+              }
+              if (activeCheckboxesCount === 0 && activeCheckboxesCount1 === 0) {
+                $chooseDatabaseCheckboxAll.removeClass('active').removeClass('active1');
+              }
+            });
+            // 表格全选
+            $chooseDatabaseTableCheckboxAll.off().on('click', '.item-table-all', function (e) {
+              var $chooseDatabase = $('.choose_database .choose-checkbox #' + _this.index);
+              $chooseDatabase.click()
+            });
+          },
+          searchDatabase: function () {
+            var html = '<div style="text-align: center;display: flex;flex-direction: column;flex-wrap: nowrap;align-content: center;justify-content: center;top: 42%;position: relative;align-items: center;">' +
+              '<svg style="margin-bottom: 14px" width="35.923065" height="30.481750" viewBox="0 0 35.9231 30.4818" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
+              <path id="path" d="M30.738 9.54529L5.18906 9.54529L0 18.8584L0 30.4818L35.9231 30.4818L35.9231 18.8584L30.738 9.54529ZM22.526 18.9625C22.526 21.481 20.484 23.5229 17.9615 23.5229C15.4391 23.5229 13.3971 21.481 13.3971 18.9625L2.14209 18.9625L6.29816 11.0348L29.6209 11.0348L33.7769 18.9625L22.526 18.9625ZM17.5451 0L19.1107 0L19.1107 5.62952L17.5451 5.62952L17.5451 0ZM6.92096 2.7948L8.02792 1.68787L12.0085 5.66846L10.9016 6.77545L6.92096 2.7948ZM24.1655 5.67102L28.1461 1.69037L29.2531 2.79736L25.2725 6.77795L24.1655 5.67102Z" fill-rule="nonzero" fill="#CCCCCC"/>\
+            </svg>' +
+              '未选择数据库，数据表为空</div>'
+            var $items = $('.choose_database .item_main .item')
+
+            function performSearch() {
+              var search = $('.search_input').val();
+              var noResults = true;
+              // 遍历数据元素
+              $('.data-element').each(function () {
+                var name = $(this).data('name') + '';// 获取元素名称
+                if (name.indexOf(search) !== -1) {
+                  $(this).parents('.item').show(); // 显示匹配元素
+                  $(this).parents('.item').css({
+                    "box-shadow": "none",
+                    "z-index": "0"
+                  })
+                  $(this).parents('.item').find('.bi-database').removeClass('text-success').addClass('text-default');
+                  noResults = false;
+                } else {
+                  $(this).parents('.item').hide(); // 隐藏其他元素
+                }
+              });
+              var $chooseDatabase = $('.choose_database');
+              var $chooseDatabaseCheckboxAll = $chooseDatabase.find('.item-all .choose-checkbox .bt-checkbox-all');
+
+              if (noResults) {
+                bt_tools.msg('没有搜索到相关数据库', 2);
+              } else {
+                // 检查所有可见 .item 的选中状态
+                var allVisibleItemsSelected = $('.item:visible .bt-checkbox:not(.active)').length === 0;
+                var someVisibleItemsSelected = $('.item:visible .bt-checkbox.active').length > 0;
+
+                if (allVisibleItemsSelected) {
+                  $chooseDatabaseCheckboxAll.removeClass('active1').addClass('active');
+                } else if (someVisibleItemsSelected) {
+                  $chooseDatabaseCheckboxAll.removeClass('active').addClass('active1');
+                } else {
+                  $chooseDatabaseCheckboxAll.removeClass('active active1');
+                }
+              }
+            }
+
+            var $dataList = $('.item_main_table');
+            $('.bt_search').on('click', '.glyphicon-search', function () {
+              $dataList.html(html);
+              $('.choose_database_table').css("box-shadow", "none")
+              performSearch()
+            })
+            $('.bt_search').on('keydown', '.search_input', function (e) {
+              if (e.keyCode === 13) {
+                $dataList.html(html);
+                $('.choose_database_table').css("box-shadow", "none")
+                performSearch()
+              }
+            })
+          },
+          // 选择数据库
+          addReplicateDB: function (fun, ip) {
+            var ip_path = $('#create_pop_form input[name="panel_addr"]').val()
+            var panelKey = $('#create_pop_form input[name="panel_key"]').val()
+            var replicate_db_type = $('.item-synchronization-data .choose-checkbox .bt-checkbox-all').hasClass('active') ? 1 : 0
+            var replicate_table_type = $('.item-synchronization-table .choose-checkbox .bt-checkbox-all').hasClass('active') ? 1 : 0
+            var replice_db = []
+            $.each(masterSlave.popover.create.database, function (index, value) {
+              var db = {}
+              if (value.active == 'active' || value.active == 'active1') {
+                db = JSON.parse(JSON.stringify(value))
+                db['table_list'] = []
+                $.each(value.table_list, function (index1, value1) {
+                  if (value1.active == 'active') {
+                    db['table_list'].push(value1)
+                  }
+                })
+                replice_db.push(db)
+              }
+
+            })
+            if (ip != undefined) {
+              masterSlave.api.setReplicateInfo(ip, JSON.stringify(replice_db), replicate_db_type, replicate_table_type, function (rdata) {
+                bt_tools.msg(rdata)
+                fun()
+              })
+            } else {
+              bt_tools.send({
+                url: 'plugin?action=a&name=mysql_replicate&s=add_replicate_info', data: {
+                  replicate_db: JSON.stringify(replice_db),
+                  replicate_db_type: replicate_db_type,
+                  replicate_table_type: replicate_table_type,
+                  panel_addr: ip_path,
+                  panel_key: panelKey
+                }
+              }, function (rdata) {
+                bt_tools.msg(rdata)
+                fun()
+              }, '创建主从信息')
+            }
+          },
+
+          nextSteps: function (ip, type) {
+            if (masterSlave.popover.create.stepsNum == 1) {
+              if ($('#create_pop_form input[name="panel_addr"]').val() == '' || $('#create_pop_form input[name="panel_key"]').val() == '') {
+                bt.msg({msg: '请填写完整信息', icon: 2})
+                return false
+              }
+              bt_tools.send({
+                url: 'plugin?action=a&name=mysql_replicate&s=check_slave',
+                data: {
+                  panel_addr: $('#create_pop_form input[name="panel_addr"]').val(),
+                  panel_key: $('#create_pop_form input[name="panel_key"]').val()
+                }
+              }, function (rdata) {
+                masterSlave.popover.create.stepsNum = 2
+                $($('.layui-layer-btn2')[0]).show()
+
+                $($('.layui-layer-btn2')[0]).off().click(function () {
+                  masterSlave.popover.create.stepsNum = 1
+                  $('#create_pop_form').show()
+                  $('#create_pop_data_table').hide()
+                  $($('.layui-layer-btn2')[0]).hide()
+                  $($('.layui-layer-btn1')[0]).show()
+                  $('.steps_circle')[1].classList.remove('steps_circle_active')
+                  $('.steps_circle_text')[1].classList.remove('steps_circle_text_active')
+                })
+                $($('.layui-layer-btn1')[0]).hide()
+                $('#create_pop_form').hide()
+                $('#create_pop_data_table').show()
+                $('.steps_circle')[1].classList.add('steps_circle_active')
+                $('.steps_circle_text')[1].classList.add('steps_circle_text_active')
+                masterSlave.popover.create.event.getDataBase()
+                masterSlave.popover.create.event.searchDatabase()
+              })
+            } else if (masterSlave.popover.create.stepsNum == 2) {
+
+              var that = this
+
+              var addrep = function () {
+                masterSlave.popover.create.stepsNum = 3
+                masterSlave.popover.create.database = []
+                $('#create_pop_data_table').hide()
+                $('#create_pop_config').show()
+                $('.steps_circle')[2].classList.add('steps_circle_active')
+                $('.steps_circle_text')[2].classList.add('steps_circle_text_active')
+
+                $($('.layui-layer-btn1')[0]).hide()
+                $($('.layui-layer-btn2')[0]).hide()
+                $($('.layui-layer-btn0')[0]).off().text('开始配置').click(function () {
+                  masterSlave.config = false
+                  masterSlave.api.flag = true
+                  if (ip != undefined) {
+                    masterSlave.api.getConfigList(ip)
+                  } else {
+                    var reg = new RegExp(/https?:\/\/([^:/]+)(:\d+|\/)?/);
+                    const ip_path = $('#create_pop_form input[name="panel_addr"]').val()
+                    masterSlave.api.getConfigList(ip_path.match(reg)[1])
+                  }
+
+                })
+                if (ip != undefined) {
+                  masterSlave.api.getConfigList(ip)
+                } else {
+                  var reg = new RegExp(/https?:\/\/([^:/]+)(:\d+|\/)?/);
+                  const ip_path = $('#create_pop_form input[name="panel_addr"]').val()
+                  masterSlave.api.getConfigList(ip_path.match(reg)[1])
+                }
+              }
+
+              if (type == 'edit') {
+                var flag = []
+                var html = '';
+                for (
+                  var i = 0;
+                  i < masterSlave.popover.create.database.length;
+                  i++
+                ) {
+                  var item = masterSlave.popover.create.database[i];
+                  if (item.is_exist == true) {
+                    var table = item.table_list;
+                    if(table.length == 0){
+                      if(item.active != 'active') {
+                        html +=
+                          '<tr><td>' +
+                          item.name +
+                          '</td><td><div style="float:left;"><span style="color:red;">发生变动</span></div></td></tr>';
+                        flag.push(true)
+                      }
+                    }else {
+                      for (var j = 0; j < table.length; j++) {
+                        if (table[j].is_exist == true) {
+                          if (table[j].active != 'active') {
+                            html +=
+                              '<tr><td>' +
+                              item.name +
+                              '</td><td><div style="float:left;"><span style="color:red;">发生变动</span></div></td></tr>';
+                            flag.push(true)
+                            break
+                          }
+                        }
+                      }
+                    }
+
+                  }
+                }
+                if(flag.length>0){
+                  //快速创建open弹窗
+                  bt_tools.open({
+                    title: '警告',
+                    area: [420, 360],
+                    btn: ['确定', '取消'],
+                    content: '<div id="content">\
+                              <div class="check_delete_site_main hint_confirm pd30">\
+                                <div class="hint_title">\
+                                  <i class="hint-confirm-icon"></i>\
+                                    <div class="hint_con"><span class="color-red">检测到以下已同步数据库发生变动</span>，请仔细核对以防误操作。</div>\
+                                </div>\
+                              </div>\
+                              <div class="check_delete_site_main">\
+                                <table class="table table-hover">\
+                                  <thead>\
+                                    <tr>\
+                                      <th>数据库名称</th>\
+                                      <th>状态</th>\
+                                    </tr>\
+                                  </thead>\
+                                  <tbody>' + html + '</tbody>\
+                                </table>\
+                             </div></div>',
+                    yes: function (index, layero) {
+                      layer.close(index)
+                      //点击确定时,如果btn:false,当前事件将无法使用
+                      that.addReplicateDB(function () {
+                        addrep()
+                      }, ip)
+                    },
+                  })
+                }else {
+                  that.addReplicateDB(function () {
+                    addrep()
+                  }, ip)
+                }
+
+              }else {
+                that.addReplicateDB(function () {
+                  addrep()
+                }, ip)
+              }
+
+            }
+          },
+          previousStep: function () {
+            masterSlave.popover.create.stepsNum -= 1
+            if (masterSlave.popover.create.stepsNum == 1) {
+              $('#create_pop_form').show()
+              $('#create_pop_data_table').hide()
+              $('.steps_circle')[1].classList.remove('steps_circle_active')
+              $('.steps_circle_text')[1].classList.remove('steps_circle_text_active')
+            }
+          },
+          chooseDatabase: function (index, data) {
+            masterSlave.popover.create.config.renderingList(data, 'choose_database_table')
+            const $items = $('.choose_database .item')
+            $('.choose_database_table').css("box-shadow", "rgb(201 201 201 / 14%) -7px 0px 6px 0px")
+            $items.css({
+              "background-color": "#FFFFFF",
+              "border-right": "1px solid #F2F2F2",
+              "position": "none",
+              "box-shadow": "none",
+              "z-index": "0"
+            })
+            $($items[index]).css({
+              "background-color": "#FFFFFF",
+              "border-right": "none",
+              "position": "relative",
+              "box-shadow": " 0px 0px 11px 2px rgb(201 201 201 / 44%)",
+              "z-index": "5"
+            })
+          },
+        }
+      },
+      details: {
+        id: '',
+        title: '主从同步详情',
+        ip: '',
+        html: '\
+          <div style="padding: 14px 30px;">\
+          <div>基础信息：</div>\
+            <div style="margin-top: 12px;border: 1px solid #F2F2F2;padding: 20px;width: 805px">\
+              <div>从库IP地址：' + '<span id="ip"></span>' + '</div>\
+              <div>同步新增数据库：<a class="btlink detail_db" ></a></div>\
+              <div>同步新增数据库表：<a class="btlink detail_table"></a></div>\
+            </div>\
+            <div class="details_text" style="margin-top: 14px;">需要同步的数据库和表：</div>\
+                <div style="border: 1px solid #F2F2F2;width: 805px;height: 401px;margin-top: 12px;padding: 17px;overflow: auto;">\
+                  <div style="display: flex;flex-direction: row;flex-wrap: nowrap;justify-content: space-between;align-items: center;">\
+                    <div class="bt_search_detail">\
+                      <input  type="text" placeholder="搜索数据库" class="search_input"/>\
+                      <span class="glyphicon glyphicon-search " aria-hidden="true"></span>\
+                    </div>\
+                    <button class="btn btn-sm btn-success edit">编辑数据库</button>\
+                  </div>\
+                  <div id="presentation" style="margin-top: 17px">\
+                  </div>\
+                </div>\
+          </div>\
+        ',
+        event: {
+          search: function () {
+            function filterTextSuccessContent(searchKeyword) {
+              var textSuccessElements = $('.text_success');
+              var isFound = false;
+              textSuccessElements.each(function () {
+                var elementText = $(this).text();
+                if (elementText.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+                  $(this).parent().hide();
+                  $(this).parent().next().hide();
+                } else {
+                  $(this).parent().show();
+                  isFound = true
+                }
+              });
+              if (!isFound) {
+                isFound = false
+                $('#search-message').show();
+                $('#search-message').text('未找到匹配的内容。');
+              } else {
+                $('#search-message').hide();
+              }
+            }
+
+            $('.bt_search_detail .glyphicon-search').click(function () {
+              var searchKeyword = $('.bt_search_detail input').val();
+              $('.bt_search_detail input').val('');
+              filterTextSuccessContent(searchKeyword + '');
+            });
+            // 添加回车键搜索功能
+            $('.bt_search_detail input').on('keydown', function (e) {
+              if (e.keyCode === 13) { // 如果按下的是回车键
+                var searchKeyword = $('.bt_search_detail input').val();
+                $('.bt_search_detail input').val('');
+                filterTextSuccessContent(searchKeyword + '');
+              }
+            });
+          },
+          edit: function (row) {
+            var editBtn = $('.edit')
+            editBtn.click(function () {
+              layer.close(masterSlave.popover.details.id)
+              bt_tools.send({
+                url: 'plugin?action=a&name=mysql_replicate&s=get_set_database',
+                data: {slave_ip: row.ip}
+              }, function (res) {
+                masterSlave.popover.create.stepsNum = 2
+                masterSlave.open(row.ip, res)
+              }, '获取数据库列表')
+            })
+
+          },
+          add: function (row) {
+            const createTextContent = function (data) {
+              var html = ''
+              if (data.length == 0) {
+                return '<div class="text_content_item" style="margin-top: 0">\
+                  <span class="text_content_item_title" style="flex: 5;">该数据库下没有需要同步的表</span>\
+                </div>'
+              }
+              $.each(data, function (index, value) {
+                html += '\
+                <div class="text_content_item" style="display: flex;align-items: center;margin-top: 0">\
+                <svg width="12.995361" height="10.674744" viewBox="0 0 12.9954 10.6747" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
+                <path id="path" d="M12.9954 6.25726L12.9954 3.0307L12.9954 0.464111C12.9954 0.154724 12.8407 0 12.5312 0L0.464111 0C0.154663 0 0 0.154724 0 0.464111L0 3.00842L0 6.25726L0 10.2106C0 10.5201 0.154663 10.6747 0.464111 10.6747L12.5312 10.6747C12.8407 10.6747 12.9954 10.5201 12.9954 10.2106L12.9954 6.25726ZM4.87329 5.80426L4.87329 3.4837L7.89001 3.4837L7.89001 5.80426L4.87329 5.80426ZM7.89001 6.73254L7.89001 9.74652L4.87329 9.74652L4.87329 6.73254L7.89001 6.73254ZM0.928223 3.4837L3.94507 3.4837L3.94507 5.80426L0.928223 5.80426L0.928223 3.4837ZM8.81824 3.4837L12.0671 3.4837L12.0671 5.80426L8.81824 5.80426L8.81824 3.4837ZM12.0671 0.928223L12.0671 2.55542L0.928223 2.55542L0.928223 0.928223L12.0671 0.928223ZM0.928223 6.73254L3.94507 6.73254L3.94507 9.74652L0.928223 9.74652L0.928223 6.73254ZM8.81824 9.74652L8.81824 6.73254L12.0671 6.73254L12.0671 9.74652L8.81824 9.74652Z" fill-rule="nonzero" fill="#999999"/>\
+              </svg>\
+                  <span class="text_content_item_title" style="flex: 5;">&nbsp;' + value.name + '</span>\
+                </div>'
+              })
+              return html
+            }
+            var createHtml = function (rdata) {
+              var html = '<div id="search-message"></div>'
+              $.each(rdata, function (index, value) {
+                html += '\
+                  <div class="collapse">\
+                    <span class="text_success" style="display: flex;">\
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-database text-default" viewBox="0 0 16 16">\
+                      <path fill-rule="evenodd" d="M4.318 2.687C3.356 3.125 3 3.627 3 4c0 .374.356.875 1.318 1.313C5.234 5.729 6.536 6 8 6s2.766-.27 3.682-.687C12.644 4.875 13 4.373 13 4c0-.374-.356-.875-1.318-1.313C10.766 2.271 9.464 2 8 2s-2.766.27-3.682.687ZM13 5.698a4.92 4.92 0 0 1-.904.525C11.022 6.711 9.573 7 8 7s-3.022-.289-4.096-.777A4.92 4.92 0 0 1 3 5.698V7c0 .374.356.875 1.318 1.313C5.234 8.729 6.536 9 8 9s2.766-.27 3.682-.687C12.644 7.875 13 7.373 13 7V5.698ZM14 4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16s3.022-.289 4.096-.777C13.125 14.755 14 14.007 14 13V4Zm-1 4.698a4.92 4.92 0 0 1-.904.525C11.022 9.71 9.573 10 8 10s-3.022-.289-4.096-.777A4.92 4.92 0 0 1 3 8.698V10c0 .374.356.875 1.318 1.313C5.234 11.729 6.536 12 8 12s2.766-.27 3.682-.687C12.644 10.875 13 10.373 13 10V8.698Zm0 3c-.271.202-.58.378-.904.525C11.022 12.71 9.573 13 8 13s-3.022-.289-4.096-.777A4.916 4.916 0 0 1 3 11.698V13c0 .374.356.875 1.318 1.313C5.234 14.729 6.536 15 8 15s2.766-.27 3.682-.687C12.644 13.875 13 13.373 13 13v-1.302Z"/>\
+                    </svg>\
+                          &nbsp;' + value.name + '\
+                    </span>\
+                    <div>\
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-left: 10px;"></span>\
+                    </div>\
+                  </div>\
+                  <div class="text_content" style="padding: 0">\
+                        ' + createTextContent(value.table_list) + '\
+                  </div>'
+              })
+              return html
+            }
+            var html = ''
+            masterSlave.api.getReplicateInfo(row.ip, function (rdata) {
+              function setSlaveConf(slave_ip, replicate_type, replicate_type_value) {
+                bt_tools.send({
+                    url: 'plugin?action=a&name=mysql_replicate&s=set_slave_conf',
+                    data: {slave_ip: slave_ip, replicate_type: replicate_type, replicate_type_value: replicate_type_value}
+                  },
+                  function (rdata) {
+                    bt.msg(rdata)
+                    masterSlave.popover.details.event.add(row)
+                  }, '设置同步方式中')
+              }
+
+              $('.detail_db').text(rdata.replicate_db_type == 1 ? '已开启' : '未开启').css('color', rdata.replicate_db_type == 1 ? '#20a53a' : 'red').off().on('click', function () {
+                if (rdata.replicate_db_type == 1) {
+                  setSlaveConf(row.ip, 'replicate_db_type', 0)
+                } else {
+                  setSlaveConf(row.ip, 'replicate_db_type', 1)
+                }
+              })
+              $('.detail_table').text(rdata.replicate_table_type == 1 ? '已开启' : '未开启').css('color', rdata.replicate_table_type == 1 ? '#20a53a' : 'red').off().click(function () {
+                if (rdata.replicate_table_type == 1) {
+                  setSlaveConf(row.ip, 'replicate_table_type', 0)
+                } else {
+                  setSlaveConf(row.ip, 'replicate_table_type', 1)
+                }
+              })
+              html = createHtml(rdata.replicate_db)
+              $('#presentation').html(html)
+              $('.collapse').click(function () {
+                if ($(this).next().text() == '                                          ') {
+                  return
+                }
+                var _this = $(this)
+                $(this).find('.glyphicon').toggleClass('glyphicon-menu-right').toggleClass('glyphicon-menu-down')
+                $(this).next().slideToggle('fast', function () {
+                  if (!_this.find('.glyphicon').hasClass('glyphicon-menu-down')) {
+                    _this.css('border-bottom', '1px solid #e5e5e5')
+                    _this.next().css('border-bottom', '0')
+                  }
+                })
+                if (_this.find('.glyphicon').hasClass('glyphicon-menu-down')) {
+                  _this.css('border-bottom', '0')
+                }
+              })
+
+            })
+          }
+        }
+      },
+      runInformation: {
+        id: '',
+        title: '运行状态信息',
+        html: '\
+            <div class="divtable daily-table" style="padding: 20px">\
+                <button class="btn btn-sm btn-success repair">异常修复</button>\
+                <table class="table table-hover" style="margin-top: 10px;">\
+                    <tbody>\
+                    </tbody>\
+                </table>\
+            </div>\
+        ',
+        event: {
+          add: function (row) {
+            masterSlave.api.getReplicateStatus(row.ip, function (rdata) {
+              if (rdata.length == 0) {
+                $('.daily-table tbody').html('<tr><td>暂无运行状态，请检查配置信息</td></tr>')
+                $('.repair').hide()
+                return
+              }
+              var html = ''
+              $.each(rdata, function (index, value) {
+                html += '\
+                    <tr class="daily-title">\
+                      <td width="400">' + value.name + '（' + value.ps + '）</td>\
+                      <td width="402" style="background-color: #ffff;overflow: auto">' + value.value + '</td>\
+                    </tr>'
+              })
+              $('.daily-table tbody').html(html)
+            })
+          },
+          repair: function (row) {
+            $('.repair').click(function () {
+              bt_tools.send({
+                url: 'plugin?action=a&name=mysql_replicate&s=repair_replicate',
+                data: {slave_ip: row.ip}
+              }, function (rdata) {
+                  layer.open({
+                    type: 1,
+                    title: '异常修复',
+                    area: ['700px', '490px'],
+                    shadeClose: false,
+                    closeBtn: 2,
+                    content: '<div class="setchmod bt-form">\
+                      <pre class="crontab-log" style="overflow: auto; border: 0 none; line-height:23px;padding: 15px; margin: 0;white-space: pre-wrap; height: 430px; background-color: rgb(51,51,51);color:#f1f1f1;border-radius:0;"></pre>\
+                        <div class="bt-form-submit-btn" style="margin-top: 0"  >\
+                      </div>\
+                    </div>',
+                    success: function () {
+                      var nScrollHight = 0;  //滚动距离总长(注意不是滚动条的长度)
+                      var nScrollTop = 0;   //滚动到的当前位置
+                      var nDivHight = $(".crontab-log").height();
+                      var isDb = true
+                      $(".crontab-log").scroll(function(){
+                        nScrollHight = $(this)[0].scrollHeight;
+                        nScrollTop = $(this)[0].scrollTop;
+                        var paddingBottom = parseInt( $(this).css('padding-bottom') ),paddingTop = parseInt( $(this).css('padding-top') );
+                        isDb = false
+                        //判断是否滚动到底部
+                        if(nScrollTop + paddingBottom + paddingTop + nDivHight >= nScrollHight){
+                          isDb = true
+                        }
+                      });
+                      var data_text = ''
+                      log_interval = setInterval(function () {
+                        bt_tools.send({
+                          url: 'plugin?action=a&name=mysql_replicate&s=repair_replicate',
+                          data: {slave_ip: row.ip}
+                        }, function (res) {
+                          if(res.type == undefined) {
+                            clearInterval(log_interval)
+                            $('.crontab-log').text(res.msg)
+                            return
+                          }else {
+                            render_content(res)
+                            return;
+                          }
+                        })
+                      }, 2000)
+                      render_content(rdata)
+                      function render_content(data) {
+                        data_text = data.msg
+                        var log_body = data.msg === '' ? '当前日志为空' : data.msg,setchmod = $(".setchmod pre"),crontab_log = $('.crontab-log')[0]
+                        setchmod.text(log_body);
+                        crontab_log.scrollTop = crontab_log.scrollHeight;
+                      }
+                    },
+                    cancel: function(indexs){
+                      clearInterval(log_interval)
+                      masterSlave.popover.runInformation.event.add(row)
+                      layer.close(indexs)
+                    }
+                  })
+              }, '正在尝试修复')
+            })
+          }
+        }
+      },
+      addrKey: {
+        html: '\
+            <div id="create_pop_form" style="padding: 20px">\
+              <div id="create_pop_top">\
+                <div class="warning_info mb10" style="text-align: center;"><span class="glyphicon glyphicon-alert" style="color: #f39c12; margin-right: 10px;"></span>连接从数据库面板异常，请检查面板地址和密钥是否正确!</div>\
+              </div>\
+              <form style="margin-top: 24px">\
+                <div class="line" >\
+					        <span class="tname">从库面板地址</span>\
+					        <div class="info-r c4"><input class="bt-input-text" type="text" name="panel_addr" placeholder="从面板地址,如：http://1.2.3.4:8888" value="" style="width:330px"></div>\
+				        </div>\
+				        <div class="line" style="margin-top: 25px">\
+					        <span class="tname">从库面板api密钥</span>\
+					        <div class="info-r c4" style="display:inline-block;margin-left:0">\
+						        <input class="bt-input-text" type="text" name="panel_key" placeholder="从面板api密钥，在从库面板--设置->API内获取" value="" style="width:330px">\
+					        </div>\
+					        <a href="https://www.bt.cn/bbs/thread-113890-1-1.html" style="display:inline-block" target="_blank" class="btlink ml5">如何获取API秘钥</a>\
+				        </div>\
+              </form>\
+            </div>\
+        ',
+        event: {
+          update: function (row, index) {
+            var panel_addr = $('input[name=panel_addr]').val()
+            var panel_key = $('input[name=panel_key]').val()
+            if (!panel_addr || !panel_key) {
+              bt_tools.msg('面板地址或面板api密钥不能为空', 2);
+              return
+            }
+            bt_tools.send({
+              url: 'plugin?action=a&name=mysql_replicate&s=set_slave_addr_key',
+              data: {slave_ip: row.ip, panel_addr: panel_addr, panel_key: panel_key}
+            }, function (rdata) {
+              bt_tools.msg(rdata)
+              layer.close(index)
+            }, '正在更新密钥')
+          },
+          cheek: function (row) {
+
+            layer.open({
+              type: 1,
+              title: '连接异常请重新填写API密钥',
+              area: ['622px', '338px'],
+              btn: ['确认', '取消'],
+              closeBtn: 2,
+              content: masterSlave.popover.addrKey.html,
+              success: function (layero, index) {
+                bt_tools.send({
+                  url: 'plugin?action=a&name=mysql_replicate&s=get_addr_key',
+                  data: {slave_ip: row.ip}
+                }, function (res) {
+                  if (res.status) {
+                    $('input[name=panel_addr]').val(res.data.panel_addr)
+                    $('input[name=panel_key]').val(res.data.panel_key)
+                  }
+                })
+              },
+              yes: function (index, layero) {
+                masterSlave.popover.addrKey.event.update(row, index)
+              },
+              end: function () {
+                masterSlave.bt_table.$refresh_table_list(true);
+              }
+            })
+            return
+
+          }
+        }
+      }
+    },
+    open: function (slave_ip, data, type) {
+      this.popover.create.id = layer.open({
+        type: 1,
+        title: this.popover.create.title,
+        area: ['860px', '728px'],
+        closeBtn: 2,
+        shadeClose: false,
+        skin: 'create',
+        btn: ['下一步', '取消', '上一步'],
+        content: this.popover.create.html,
+        success: function (layero, index) {
+          $($('.layui-layer-btn2')[0]).hide()
+          $($('.layui-layer-btn2')[0]).css({'border-color': '#cbcbcb', 'background-color': '#cbcbcb', 'color': '#fff'})
+          masterSlave.popover.create.database = []
+          if (masterSlave.popover.create.stepsNum == 3) {
+            if(type == 'config'){
+              $('#steps').hide()
+              $('.layui-layer-title').find('span').text('配置【' + slave_ip + '】主从复制')
+            }
+            $('.steps_circle')[1].classList.add('steps_circle_active')
+            $('.steps_circle_text')[1].classList.add('steps_circle_text_active')
+            $('#create_pop_form').hide()
+            $('#create_pop_form input[name="panel_addr"]').val('http://' + slave_ip)
+            $('#create_pop_data_table').hide()
+            $('#create_pop_config').show()
+            $('.steps_circle')[2].classList.add('steps_circle_active')
+            $('.steps_circle_text')[2].classList.add('steps_circle_text_active')
+            $($('.layui-layer-btn1')[0]).hide()
+            $($('.layui-layer-btn2')[0]).hide()
+            $($('.layui-layer-btn0')[0]).text('重新配置')
+            $($('.layui-layer-btn0')[0]).show()
+            masterSlave.api.getConfigList(slave_ip)
+            $($('.layui-layer-btn0')[0]).off().click(function () {
+              masterSlave.config = false
+              masterSlave.api.flag = true
+              masterSlave.api.getConfigList(slave_ip)
+              return
+            })
+          } else if (masterSlave.popover.create.stepsNum == 2) {
+            if (type == 'edit') {
+              $('#steps').hide()
+              $('.layui-layer-title').find('span').text('编辑【' + slave_ip + '】主从复制')
+              $('#steps').before('<div><span id="ip" style="font-size: 14px;">从库IP地址：' + slave_ip + '</span></div>')
+              $('.choose_database').css('height', '364px')
+              $('.choose_database_table').css('height', '364px')
+              $('.item_main').css('height', '323px')
+              $('.item_main_table').css('height', '362px')
+              $('.choose').parent('div').css('height', '488px')
+            }
+            $($('.layui-layer-btn2')[0]).hide()
+            $($('.layui-layer-btn1')[0]).hide()
+            $('#create_pop_form').hide()
+            $('#create_pop_config').hide()
+            $('#create_pop_data_table').show()
+            $('.steps_circle')[1].classList.add('steps_circle_active')
+            $('.steps_circle_text')[1].classList.add('steps_circle_text_active')
+            $('.item-synchronization-data .choose-checkbox').on('click', '.bt-checkbox-all', function () {
+              $(this).toggleClass('active')
+            })
+            $('.item-synchronization-table .choose-checkbox').on('click', '.bt-checkbox-all', function () {
+              $(this).toggleClass('active')
+            })
+            if (data == undefined) {
+              masterSlave.popover.create.event.getDataBase()
+            } else {
+              masterSlave.popover.create.database = data.data.replicate_db
+              masterSlave.popover.create.config.renderingList(data.data.replicate_db, 'choose_database')
+              masterSlave.popover.create.event.dataBaseEvent()
+              masterSlave.popover.create.event.databaseTableEvent()
+              if (data.data.replicate_db_type == 0) {
+                $('.item-synchronization-data .choose-checkbox .bt-checkbox-all').removeClass('active')
+              } else {
+                $('.item-synchronization-data .choose-checkbox .bt-checkbox-all').addClass('active')
+              }
+              if (data.data.replicate_table_type == 0) {
+                $('.item-synchronization-table .choose-checkbox .bt-checkbox-all').removeClass('active')
+              } else {
+                $('.item-synchronization-table .choose-checkbox .bt-checkbox-all').addClass('active')
+              }
+            }
+            masterSlave.popover.create.event.searchDatabase()
+          } else {
+            $('#create_pop_data_table').hide()
+            $('#create_pop_config').hide()
+            $('.item-synchronization-data .choose-checkbox').on('click', '.bt-checkbox-all', function () {
+              $(this).toggleClass('active')
+            })
+            $('.item-synchronization-table .choose-checkbox').on('click', '.bt-checkbox-all', function () {
+              $(this).toggleClass('active')
+            })
+            $($('.layui-layer-btn1')[0]).click(function () {
+              masterSlave.popover.create.stepsNum = 1
+              layer.close(masterSlave.popover.create.id)
+            })
+          }
+        },
+        yes: function (index, layero) {
+          if (masterSlave.popover.create.stepsNum == 3) {
+            masterSlave.popover.create.stepsNum = 1
+            $($('.layui-layer-btn0')[0]).off()
+          } else {
+            masterSlave.popover.create.event.nextSteps(slave_ip, type)
+          }
+        },
+        cancel: function () {
+          masterSlave.popover.create.stepsNum = 1
+          layer.close(masterSlave.popover.create.id)
+        },
+        end: function () {
+          masterSlave.bt_table.$refresh_table_list(true);
+          $('.layui-layer-title').find('span').text('MySQL主从复制(重构版)')
+        }
+      });
+    },
+    // 事件
+    event: function () {
+      var _this = this;
+      // 刷新表格
+      $('.refresh').click(function () {
+        _this.bt_table.$refresh_table_list(true)
+      })
+      // 创建从数据库
+      $('.creat').click(function () {
+        masterSlave.config = false
+        masterSlave.open()
+      })
+
+    },
+    // 初始化
+    init: function () {
+      var _this = this;
+      $('.layui-layer-page').width(860)
+      _this.bt_table = bt_tools.table({
+        el: '#content-table',
+        url: 'plugin?action=a&name=mysql_replicate&s=get_slave_list',
+        height: '300px',
+        column: [
+          {
+            fid: 'ip',
+            title: '从数据库服务器IP地址',
+            template:function (row) {
+              if(row.slave_host !== row.ip && row.slave_host !== null){
+                return '<span>'+row.ip+'('+row.slave_host+')</span>'
+              }else {
+                return '<span>'+row.ip+'</span>'
+              }
+
+            }
+          },
+          {
+            title: '读写状态',
+            template: function (row) {
+              if (row.slave_readonly) {
+                return '<a href="javascript:;" style="color: #20a53a">只读</a>';
+              } else {
+                return '<a href="javascript:;" style="color: #20a53a">读写</a>';
+              }
+            },
+            event: function (row, index, ev, key, that) {
+              if (row.slave_status == 4) {
+                masterSlave.popover.addrKey.event.cheek(row)
+                return
+              }
+              // 读写状态设置
+              _this.api.setupReadonlyStatus(row.ip, row.slave_readonly == 0 ? 1 : 0)
+            }
+          },
+          {
+            fid: 'slave_status',
+            title: '同步状态',
+            template: function (row) {
+              switch (row.slave_status) {
+                case 0:
+                  return '<a href="javascript:;" class="slave_status" style="color: red">异常</a>';
+                case 1:
+                  return '<a href="javascript:;" class="slave_status" style="color: #20a53a">正常</a>';
+                case 2:
+                  return '<a href="javascript:;" class="slave_status" style="color: orange">连接中</a>';
+                case 3:
+                  return '<a href="javascript:;" class="slave_status" style="color: red">需要进行相关配置</a>';
+                case 4:
+                  return '<a href="javascript:;" class="slave_status" style="color: red">连接从库异常</a>';
+              }
+            },
+            event: function (row, index, ev, key, that) {
+              if (row.slave_status == 4) {
+                masterSlave.popover.addrKey.event.cheek(row)
+                return
+              }
+              if (!row.config_status) {
+                masterSlave.config = true
+                masterSlave.api.getReplicateInfo(row.ip)
+              }else {
+                _this.popover.runInformation.id = layer.open({
+                  type: 1,
+                  title: _this.popover.runInformation.title,
+                  area: ['860px', '597px'],
+                  closeBtn: 2,
+                  shadeClose: false,
+                  content: _this.popover.runInformation.html,
+                  success: function (layero, index) {
+                    _this.popover.runInformation.event.add(row)
+                    _this.popover.runInformation.event.repair(row)
+                  },
+                  end: function () {
+                    masterSlave.bt_table.$refresh_table_list(true);
+                  }
+                })
+              }
+
+
+            }
+          },
+
+          {
+            fid: 'status',
+            title: '启动状态',
+            template: function (row) {
+              switch (row.status) {
+                case 0:
+                  return '<a href="javascript:;" class="status" style="color: red">停止</a>';
+                case 1:
+                  return '<a href="javascript:;" class="status" style="color: #20a53a">运行</a>';
+                case 2:
+                  return '<a href="javascript:;" class="status" style="color: red">连接从库错误</a>';
+              }
+            },
+            event: function (row, index, ev, key, that) {
+              if (row.slave_status == 4) {
+                masterSlave.popover.addrKey.event.cheek(row)
+                return
+              }
+              // 同步状态设置
+              switch (row.status) {
+                case 0:
+                  _this.api.startReplicate(row.ip)
+                  break
+                case 1:
+                  _this.api.stopReplicate(row.ip)
+                  break
+                case 3:
+                  break
+              }
+            }
+          },
+          {
+            title: '操作',
+            type: 'group',
+            align: 'right',
+            group: [
+              {
+                title: '状态',
+                event: function (row) {
+                  if (row.slave_status == 4) {
+                    masterSlave.popover.addrKey.event.cheek(row)
+                    return
+                  }
+                  _this.popover.runInformation.id = layer.open({
+                    type: 1,
+                    title: _this.popover.runInformation.title,
+                    area: ['860px', '597px'],
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content: _this.popover.runInformation.html,
+                    success: function (layero, index) {
+                      _this.popover.runInformation.event.add(row)
+                      _this.popover.runInformation.event.repair(row)
+                    },
+                    end: function () {
+                      masterSlave.bt_table.$refresh_table_list(true);
+                    }
+                  })
+                }
+              },
+              {
+                title: '主从配置',
+                event: function (row) {
+                  if (row.slave_status == 4) {
+                    masterSlave.popover.addrKey.event.cheek(row)
+                    return
+                  }
+                  masterSlave.config = true
+                  // 配置主从同步
+                  masterSlave.api.getReplicateInfo(row.ip)
+                },
+              },
+              {
+                title: '修改',
+                event: function (row) {
+                  if (row.slave_status == 4) {
+                    masterSlave.popover.addrKey.event.cheek(row)
+                    return
+                  }
+                  // 主从同步详情
+                  // _this.popover.details.id = layer.open({
+                  //   type: 1,
+                  //   title: _this.popover.details.title,
+                  //   area: ['860px', '640px'],
+                  //   closeBtn: 2,
+                  //   shadeClose: false,
+                  //   content: _this.popover.details.html,
+                  //   success: function (layero, index) {
+                  //     $('#ip').text(row.ip)
+                  //     masterSlave.popover.details.event.add(row)
+                  //     masterSlave.popover.details.event.search()
+                  //     masterSlave.popover.details.event.edit(row)
+                  //   },
+                  // });
+                  bt_tools.send({
+                    url: 'plugin?action=a&name=mysql_replicate&s=get_set_database',
+                    data: {slave_ip: row.ip}
+                  }, function (res) {
+                    masterSlave.popover.create.stepsNum = 2
+                    masterSlave.open(row.ip, res, 'edit')
+
+                  }, '获取数据库列表')
+                }
+              },
+              {
+                title: '删除',
+                event: function (row) {
+                  if (row.slave_status == 4) {
+                    masterSlave.popover.addrKey.event.cheek(row)
+                    return
+                  }
+                  // 删除从数据库
+                  masterSlave.del_database(row.ip)
+                }
+              }
+            ]
+          }
+        ]
+      })
+      // 挂载事件
+      _this.event()
+    }
+  }
+  masterSlave.init();
+</script>

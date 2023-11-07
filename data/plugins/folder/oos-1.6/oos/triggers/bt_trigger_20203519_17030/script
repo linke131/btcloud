@@ -1,0 +1,8 @@
+#指定域名
+domain="www.bt.cn"
+
+timems=$(ping -c 1 $domain|grep -Eo 'time=([0-9\.]+)'|awk -F '=' '{print $2}')
+if [ "$timems" = "" ];then
+	timems=20000
+fi
+printf $timems

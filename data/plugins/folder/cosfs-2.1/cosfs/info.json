@@ -1,0 +1,18 @@
+{
+  "pid": 9,
+  "title": "腾讯云COSFS",
+  "tip": "lib",
+  "name": "cosfs",
+  "type": "插件",
+  "id": 2,
+  "sort": 1001,
+  "ps": "COSFS 工具支持将 COS 存储桶挂载到本地，像使用本地文件系统一样直接操作腾讯云对象存储",
+  "versions": "2.1",
+  "shell": "cosfs.sh",
+  "checks": "/www/server/panel/plugin/cosfs",
+  "author": "宝塔",
+  "home": "https://www.bt.cn/yunwei",
+  "date": "2017-10-18",
+  "default": false,
+  "display": 0
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>访问不正当！</title>
+<style>
+	body{
+		font-size:14px;
+	}
+	h3{
+		font-size:14px;
+		text-align:center;
+		font-weight:normal;
+	}
+</style>
+</head>
+
+<body>
+<h3>请不要提出非法请求！</h3>
+</body>
+</html>

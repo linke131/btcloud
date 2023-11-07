@@ -1,0 +1,7 @@
+#### {title}
+>服务器：{ip}
+
+>资源类型：{resource_type}
+
+>资源状态: <font color=#00EC00>{status}</font>
+

@@ -1,0 +1,19 @@
+针对上架新应用商店 修改：
+1、install.sh 脚本中所有插件文件下载相关代码不再需要
+2、若安装成功请在脚本结束前输出 Successify ，安装失败输出 Error: 失败原因 , 注意是直接使用echo输出
+3、付费插件不再需要编译成so文件
+4、移除付费插件中的授权检测代码，由面板授权模块统一检测
+5、新增repair.sh脚本，用于修复插件，若未提供此脚本，则代表此插件不支持修复功能
+6、新增upgrade.sh脚本，用于升级插件，若未提供此脚本，则使用install.sh脚本
+7、info.json中新增not_substituted配置项，用于配置在升级和修复时不替换的文件或文件夹名称【可选】
+   示例："not_substituted":["config|d","sites.json|f","re|^config.*","rule.json"]
+   说明：
+	   "config|d": 匹配名为config的文件夹
+	   "sites.json|f": 匹配名为sites.json的文件
+	   "rule.json": 匹配名为rule.json的文件或文件夹
+	   "re|^config.*": 表示匹配此正则表达式的文件或文件夹
+	   "re|^config.*|d": 表示匹配此正则表达式文件夹
+	   "re|^config.*|f": 表示匹配此正则表达式文件
+
+8、info.json中新增force_message配置项，用于强制消息提醒，不支持HTML脚本，换行请用\n，没有强制提醒消息，请留空
+9、info.json中新增beta配置项，用于配置此版本是否为测试版本，bool类型

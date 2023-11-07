@@ -1,0 +1,12 @@
+{
+  "title": "Node.js版本管理器",
+  "name": "nodejs",
+  "ps": "安装、卸载、配置node.js版本",
+  "versions": "1.8",
+  "checks": "/www/server/panel/plugin/nodejs",
+  "author": "宝塔",
+  "home": "http://www.bt.cn/bbs",
+  "beta": false,
+  "force_message": "",
+  "not_substituted":["version_list.json|f"]
+}

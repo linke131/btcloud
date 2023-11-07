@@ -1,0 +1,509 @@
+<style>
+	.ossfs_add_mount.layui-layer-page .layui-layer-content {
+		overflow: inherit;
+	}
+</style>
+<div id="storage_device_ossfs">
+	<div class="bt-w-main">
+		<div class="bt-w-menu">
+			<p class="bgw" name="alioss">阿里云</p>
+			<p name="txcos">腾讯云</p>
+			<p name="bos">百度云</p>
+			<p name="obs">华为云</p>
+			<p name="jdoss">京东云</p>
+			<p name="ks3">金山云</p>
+			<p name="qiniu">七牛云</p>
+		</div>
+		<div class="bt-w-con pd15">
+			<div id="ossfs_table"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},bt_tools={table:function(e){function t(e){this.config=e,this.$load()}var s=this,a=$(e.el),i=a.data("table");if(i&&a.find("table").length>0)return void 0!==e.url?i.$refresh_table_list(!0):void 0!==e.data&&i.$reader_content(e.data),i;t.prototype={style_list:[],event_list:{},checkbox_list:[],batch_active:{},event_rows_model:{},data:[],cache_set_column:[],cache_set_all:{},page:"",column:[],batch_thread:[],random:bt.get_random(5),init:!1,checked:!1,$load:function(){var e=this;this.config.init&&this.config.init(this),$(this.config.el).addClass("bt_table"),this.config.minWidth&&this.style_list.push({className:this.config.el+" table",css:"min-width:"+this.config.minWidth}),this.config.tootls?this.$reader_tootls(this.config.tootls):0===$(e.config.el+".divtable").length&&$(e.config.el).append('<div class="divtable mtb10" style="max-height:'+(this.config.height||"auto")+'"></div>'),this.$reader_content(),void 0!==e.config.url?this.$refresh_table_list(e.config.load||!1):void 0!==this.config.data?this.$reader_content(this.config.data):alert("缺少data或url参数"),this.config.methods&&$.extend(this,this.config.methods),this.config.height&&bt_tools.$fixed_table_thead(this.config.el+" .divtable")},$refresh_table_list:function(e,t){var s=this;this.$http(e,function(e){t&&t(e),s.$reader_content(e.data,void 0!==e.total?parseInt(e.total):e.page)})},$reader_content:function(e,t){var s=this,a="",i="",n=0,l=this.config.column,c={},r=$(s.config.el+" .checkbox_"+s.random);e=e||[],this.data=e;var o=this.config.setting_btn;if(o){var d=(this.config.el,s.random,"");this.cache_set_column=[];for(var p=0;p<l.length;p++)"checkbox"!=l[p].type&&this.cache_set_column.push({title:l[p].real_title?l[p].real_title:l[p].title,value:!0,idx:p,disabled:!!l[p].hasOwnProperty("isDisabled")&&l[p].isDisabled,pay:!!l[p].hasOwnProperty("pay")&&l[p].pay});if(this.config.hasOwnProperty("setting_list"))for(var p=0;p<this.config.setting_list.length;p++)this.cache_set_column.unshift(this.config.setting_list[p]);this.cache_set_all=bt.get_storage("cache_set_all")?JSON.parse(bt.get_storage("cache_set_all")):this.cache_set_all,this.cache_set_column=this.cache_set_all[this.config.el]?this.cache_set_all[this.config.el]:this.cache_set_column;for(var p=0;p<this.cache_set_column.length;p++){var h=this.cache_set_column[p],u=$(h.title).text();d+='<li class="setting_ul_li'+(h.value?" active":"")+(h.disabled?" disabled":"")+'">              <i></i>              <span class="ml10">'+(u||h.title)+"</span>"+(u||h.pay?'<span class="glyphicon icon-vipLtd" style="margin-left: 6px;position: relative;top: -2px;"></span>':"")+"</li>",h.idx&&(l[h.idx].display=h.value)}$(this.config.el+" .set_list_fid_dropdown").length||$(this.config.el+" .tootls_top .pull-right").append('<div class="set_list_fid_dropdown"><div class="setting_btn"><i class="glyphicon glyphicon-cog icon-setting"></i></div>              <ul class="setting_ul">'+d+"</ul></div>");var f=null;$(this.config.el+" .setting_btn").hover(function(){$(this).next().show()},function(e){var t=$(this),s=0,a=0;$(document).mousemove(function(e){s=e.pageY,a=e.pageX}),f=setInterval(function(){if("block"==t.next().css("display")){var e=t.width(),i=t.height(),n=t.offset().top,l=t.offset().left,c=t.next().width(),r=t.next().height(),o=t.next().offset().top,d=t.next().offset().left,p=a>l&&a<l+e&&s>n&&s<n+i,h=a>d&&a<d+c&&s>o&&s<o+r;p||h||t.next().hide()}else clearInterval(f)},200)}),$(this.config.el+" .setting_ul .setting_ul_li").unbind("click").click(function(a){if($(this).hasClass("disabled"))return!1;$(this).hasClass("active")?$(this).removeClass("active"):$(this).addClass("active");var i=$(this).index();s.cache_set_column[i].value=!s.cache_set_column[i].value,s.cache_set_all[s.config.el]=s.cache_set_column,bt.set_storage("cache_set_all",JSON.stringify(s.cache_set_all)),s.init=!1,s.style_list=[s.style_list[0]],$("#bt_table_"+s.random).remove(),s.$reader_content(e,t)})}r.length&&(r.removeClass("active selected"),s.checkbox_list=[],s.$set_batch_view());do{var _=e[n],v=0;e.length>0&&(i+="<tr>");for(var p=0;p<l.length;p++)if(o&&!1===l[p].display)l[p].hasOwnProperty("class")||v++;else{var b=l[p];if($.isEmptyObject(b))v++;else{if(0===n&&!this.init){this.init||this.style_list.push(this.$dynamic_merge_style(b,p-v));var m="sort_"+this.random,g="checkbox_"+this.random,y=b.sortValue||"desc";a+="<th><span "+(b.sort?'class="not-select '+m+(b.sortValue?" sort-active":"")+' cursor-pointer"':"")+' data-index="'+p+'" '+(b.sort?'data-sort="'+y+'"':"")+">"+("checkbox"==b.type?'<label><i class="cust—checkbox cursor-pointer '+g+'" data-checkbox="all"></i><input type="checkbox" class="cust—checkbox-input"></label>':"<span>"+b.title+"</span>")+(b.sort?'<span class="glyphicon glyphicon-triangle-'+("desc"==y?"bottom":"top")+' ml5"></span>':"")+"</span></th>",0===n&&(!c[m]&&b.sort&&(c[m]={event:this.config.sortEvent,eventType:"click",type:"sort"}),c[g]||(c[g]={event:b.checked,eventType:"click",type:"checkbox"}))}if(void 0!==_){var x="",k="event_"+b.fid+"_"+this.random;b.template&&(x=s.$custom_template_render(b,_,p)),void 0!==x&&void 0!==b.template||(x=this.$reader_column_type(b,_),c=$.extend(c,x[1]),x=x[0]);var w=!1;void 0!==b.fixed&&b.fixed&&(void 0!==b.class?-1===b.class.indexOf("fixed")&&(b.class+=" fixed"):b.class="fixed",w=!0),i+="<td><span "+(w?'style="width:'+(b.width-16)+'px" title="'+x+'"':" ")+(b.class?'class="'+b.class+'"':"")+" "+(b.tips?'title="'+b.tips+'"':"")+">"+x+"</span></td>",0===n&&!c[k]&&b.event&&(c[k]={event:b.event,eventType:"click",type:"rows"})}}}e.length>0&&(i+="</tr>"),0==e.length&&(i+='<tr class="no-tr"><td colspan="'+l.length+'" style="text-align:center;">'+(this.config.default||"数据为空")+"</td></tr>"),n++}while(n<e.length);if(this.init||this.$style_bind(this.style_list),this.$event_bind(c),this.init?($(this.config.el+" .divtable tbody").html(i),this.config.page&&$(this.config.el+" .page").replaceWith(this.$reader_page(this.config.page,t))):($(this.config.el+" .divtable .table").remove(),$(this.config.el+" .divtable").append('<table class="table table-hover"><thead style="position: relative;z-index: 1;">'+a+"</thead><tbody>"+i+"</tbody></table></div></div>")),o&&this.config.hasOwnProperty("setting_list"))for(var p=0;p<this.cache_set_column.length;p++){var h=this.cache_set_column[p];h.hasOwnProperty("class")&&(h.value?$(this.config.el+" ."+h.class).show():$(this.config.el+" ."+h.class).hide())}this.init=!0,this.config.success&&this.config.success(this)},$custom_template_render:function(e,t,s){var a="event_"+e.fid+"_"+this.random,i=e.template(t,s),n=$(i);return n.length>0?template=n.addClass(a)[0].outerHTML:"text"===e.type?template='<span class="'+a+" "+e.class+'">'+i+"</span>":template='<a href="javascript:;" class="btlink '+a+'">'+i+"</a>",template},$modify_row_data:function(e){this.event_rows_model.rows=$.extend(this.event_rows_model.rows,e);var t=this.event_rows_model,s=null;void 0!==t.model.template?(s=$(this.$custom_template_render(t.model,t.rows,t.index)),s.length||(s=$(this.$reader_column_type(t.model,t.rows)[0]))):s=$(this.$reader_column_type(t.model,t.rows)[0]),"group"==t.model.type?$(t.el).parent().empty().append(s):t.el.replaceWith(s),t.el=s},$batch_success_table:function(e){var t=this,s=$(e.html).length;bt.open({type:1,title:e.title,area:e.area||["350px","350px"],shadeClose:!1,closeBtn:2,content:e.content||'<div class="batch_title"><span class><span class="batch_icon"></span><span class="batch_text">'+e.title+'操作完成！</span></span></div><div class="'+(s>4?"fiexd_thead":"")+' batch_tabel divtable" style="margin: 15px 30px 15px 30px;overflow: auto;height: 200px;"><table class="table table-hover"><thead><tr><th>'+e.th+'</th><th style="text-align:right;width:120px;">操作结果</th></tr></thead><tbody>'+e.html+"</tbody></table></div>",success:function(){s>4&&t.$fixed_table_thead(".fiexd_thead")}})},$fixed_table_thead:function(e){$(e).scroll(function(){var e=this.scrollTop;this.querySelector("thead").style.transform="translateY("+(e-1)+"px)"})},$delete_table_row:function(e){this.data.splice(e,1),this.$reader_content(this.data)},$set_batch_view:function(){if(void 0!==this.config.batch){var e=$(this.config.el+" .set_batch_option");if(void 0!==this.config.batch.config)this.checkbox_list.length>0?e.removeClass("bt-disabled btn-default").addClass("btn-success").text("批量"+this.batch_active.title+"(已选中"+this.checkbox_list.length+")"):e.addClass("bt-disabled btn-default").removeClass("btn-success").text("批量"+this.batch_active.title);else{var t=$(this.config.el+" .bt_table_select_group .bt_select_value");this.checkbox_list.length>0?(e.removeClass("bt-disabled btn-default").addClass("btn-success").prev().removeClass("bt-disabled"),t.find("em").html("(已选中"+this.checkbox_list.length+")")):(e.addClass("bt-disabled btn-default").removeClass("btn-success").prev().addClass("bt-disabled"),t.children().eq(0).html("请选择批量操作<em></em>"),t.next().find("li").removeClass("active"),this.batch_active={})}}},$reader_column_type:function(e,t){var s=t[e.fid],a={},i="click_"+e.fid+"_"+this.random,n=[],l=this;switch(e.type){case"text":n=[s,a];break;case"checkbox":n=['<label><i class="cust—checkbox cursor-pointer checkbox_'+this.random+'"></i><input type="checkbox" class="cust—checkbox-input"></label>',a];break;case"password":var i="ico_"+l.random+"_",c='<span class="bt-table-password mr10"><i>**********</i></span>';e.eye_open&&(c+='<span class="glyphicon cursor pw-ico glyphicon-eye-open mr10 '+i+'eye_open" title="显示密码"></span>',a[i+"eye_open"]||(a[i+"eye_open"]={type:"eye_open_password"})),e.copy&&(c+='<span class="ico-copy cursor btcopy mr10 '+i+'copy" title="复制密码"></span>',a[i+"copy"]||(a[i+"copy"]={type:"copy_password"})),n=[c,a];break;case"link":i+="_"+e.fid,!a[i]&&e.event&&(a[i]={event:e.event,type:"rows"}),n=['<a class="btlink '+i+'" href="'+(e.href?s:"javascript:;")+'" '+(e.href?'target="'+(e.target||"_blank")+'"':"")+' title="'+s+'">'+s+"</a>",a];break;case"input":blurName="blur_"+e.fid+"_"+this.random,keyupName="keyup_"+e.fid+"_"+this.random,!a[blurName]&&e.blur&&(a[blurName]={event:e.blur,eventType:"blur",type:"rows"}),!a[keyupName]&&e.keyup&&(a[keyupName]={event:e.keyup,eventType:"keyup",type:"rows"}),n=['<input type="text" title="点击编辑内容，按回车或失去焦点自动保存"  class="table-input '+blurName+" "+keyupName+'" data-value="'+s+'" value="'+s+'" />',a];break;case"status":var r="";$.each(e.config.list,function(e,t){t[0]===s&&(r=t)}),!a[i]&&e.event&&(a[i]={event:e.event,type:"rows"}),n=['<a class="btlink '+i+" "+(r[2].indexOf("#")>-1?"":r[2])+'" style="'+(r[2].indexOf("#")>-1?"color:"+r[2]+";":"")+'" href="javascript:;"><span>'+r[1]+"</span>"+(e.config.icon?'<span class="glyphicon '+r[3]+'"></span>':"")+"</a>",a];break;case"switch":var r="",o=bt.get_random(5);r=1==new Number(s)?"checked":"",!a[i]&&e.event&&(a[i]={event:e.event,type:"rows"}),n=['<div class="bt_switch_group"><input class="btswitch btswitch-ios '+i+'" id="'+o+'" type="checkbox" '+r+'><label class="btswitch-btn" for="'+o+'" data-index="0" bt-event-click="set_site_server_status"></label></div>',a];break;case"group":var d="";$.each(e.group,function(s,n){i=(e.fid?e.fid:"group")+"_"+s+"_"+l.random;var c=!1;if(n.template){var r=n.template(t,l),o=$(r);o.length>0?d+=o.addClass(i)[0].outerHTML:d+='<a href="javascript:;" class="btlink '+i+'" title="'+(n.title||"")+'">'+r+"</a>"}else{if(void 0!==n.hide&&"boolean"!=typeof(c="boolean"==typeof n.hide?n.hide:n.hide(t)))return!1;d+='<a href="javascript:;" class="btlink '+i+'" '+(c?'style="display:none;"':"")+' title="'+(n.tips||n.title)+'">'+n.title+"</a>"}c||(d+=e.group.length==s+1?"":"&nbsp;&nbsp;|&nbsp;&nbsp;"),!a[i]&&n.event&&(a[i]={event:n.event,type:"rows"})}),n=[d,a];break;default:n=[s,a]}return n},$reader_tootls:function(e){function t(e,t){var s=bt.load("正在执行批量"+e.title+"，请稍候..."),a={},n=i.$get_data_batch_list(e.paramId,t);e.beforeRequest?a[e.paramName]=e.beforeRequest(t):a[e.paramName]=n.join(","),bt_tools.send({url:e.url||i.config.batch.url,data:$.extend(e.param||{},a)},function(a){if(s.close(),!1===a.status&&void 0===a.success)return bt_tools.msg(a),!1;if(void 0===e.tips||e.tips){var n="";$.each(a.error,function(e,t){n+='<tr><td><span class="text-overflow" title="'+e+'">'+e+'</span/></td><td><div style="float:right;" class="size_ellipsis"><span style="color:red">'+t+"</span></div></td></tr>"}),$.each(a.success,function(e,t){n+='<tr><td><span class="text-overflow" title="'+t+'">'+t+'</span></td><td><div style="float:right;" class="size_ellipsis"><span style="color:#20a53a">操作成功</span></div></td></tr>'}),i.$batch_success_table({title:"批量"+e.title,th:e.theadName,html:n}),e.refresh&&i.$refresh_table_list(!0)}else if(!e.success){var n="";$.each(t,function(t,s){n+='<tr><td><span class="text-overflow" title="'+s.name+'">'+s.name+'</span></td><td><div style="float:right;"><span style="color:'+(a.status?"#20a53a":"red")+'">'+((void 0!==e.theadValue?e.theadValue[a.status?0:1]:null)||a.msg)+"</span></div></td></tr>"}),i.$batch_success_table({title:"批量"+e.title+"完成",th:e.theadName,html:n}),e.refresh&&i.$refresh_table_list(!0)}e.success&&e.success(a,t,i)})}function a(e,s,a){var n={loadT:0,config:{},check_list:s,bacth_status:!0,start_batch:function(t,s){void 0===t&&(t={}),"function"==typeof t&&(s=t,t={}),e.load&&(this.loadT=layer.msg("正在执行批量"+e.title+'，<span class="batch_progress">进度:0/'+this.check_list.length+"</span>,请稍候...",{icon:16,skin:"batch_tips",shade:.3,time:0,area:"400px"})),this.config={param:t,url:e.url},this.bacth(s)},bacth:function(t,n){var l=this,c={};if("function"!=typeof t&&void 0!==t||(n=t,t=0),t<this.check_list.length){if("function"==typeof e.url?this.config.url=e.url(s[t]):this.config.url=e.url,c="function"==typeof e.param?e.param(s[t]):e.param,this.config.param=$.extend(this.config.param,c),void 0!==e.paramId&&(l.config.param[e.paramName||e.paramId]=l.check_list[t][e.paramId]),void 0!==e.beforeBacth&&(this.config.param=$.extend(this.config.param,e.beforeBacth(l.check_list[t]))),this.config.param.bacth&&t==this.check_list.length-1&&delete this.config.param.bacth,!l.bacth_status)return!1;e.load&&$("#layui-layer"+l.loadT).find(".layui-layer-content").html('<i class="layui-layer-ico layui-layer-ico16"></i>正在执行批量'+e.title+'，<span class="batch_progress">进度:'+t+"/"+l.check_list.length+"</span>，请稍候..."+(e.clear?'<a href="javascript:;" class="btlink clear_batch" style="margin-left:20px;">取消</a>':"")),bt_tools.send({url:this.config.url,data:this.config.param,bacth:!0},function(e){$.extend(l.check_list[t],{request:{status:"boolean"==typeof e.status&&e.status,msg:e.msg||"请求网络错误"}},{requests:e}),t++,l.bacth(t,n)})}else{if(a&&a(),n&&n(this.check_list),e.automatic){for(var r="",o=0;o<this.check_list.length;o++){var d=this.check_list[o];r+="<tr><td>"+(void 0!==d[e.paramThead]?d[e.paramThead]:d.name)+'</td><td><div style="float:right;"><span style="color:'+(d.request.status?"#20a53a":"red")+'">'+d.request.msg+"</span></div></td></tr>"}i.$batch_success_table({title:"批量"+e.title,th:e.theadName,html:r}),e.refresh&&i.$refresh_table_list(!0),i.$clear_table_checkbox()}layer.close(this.loadT)}},clear_bacth:function(){this.bacth_status=!1,layer.close(this.loadT)}};e.callback?e.callback(n):!e.confirm||e.recursion?e.confirmVerify?bt.show_confirm("批量操作"+e.title+"已选中","批量"+e.title+"，该操作可能会存在风险，是否继续？",function(a){layer.close(a),e.recursion?n.start_batch():t(e,s)}):bt.confirm({title:"批量"+e.title,msg:void 0!==e.tips?e.tips:"批量"+e.title+"，该操作可能会存在风险，是否继续？",shadeClose:!!e.shadeClose&&e.shadeClose},function(a){layer.close(a),e.recursion?n.start_batch():t(e,s)}):t(e,s)}for(var i=this,n={},l=0;l<e.length;l++){var c="",r=e[l],o=[];switch(r.type){case"group":o=r.positon||["left","top"],$.each(r.list,function(e,t){var a=r.type+"_"+i.random+"_"+e,l="";"division"==t.type?c+='<span class="mlr5"></span>':t.group?(c+='<div class="btn-group" style="vertical-align: top;">                        <button type="button" class="btn btn-default '+a+' btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span style="margin-right:2px;">分类管理</span><span class="caret" style="position: relative;top: -1px;"></span></button>                        <ul class="dropdown-menu"></ul>                    </div>',r.list&&$.each(r.list,function(e,t){l+='<li><a href="javascript:;" NaN'+t[r.key]+"</a></li>"}),t.init&&setTimeout(function(){t.init(a)},400)):c+='<button type="button" title="'+(t.tips||t.title)+'" class="btn '+(t.active?"btn-success":"btn-default")+" "+a+' btn-sm mr5" '+s.$verify(i.$reader_style(t.style),"style")+">"+(t.icon?'<span class="glyphicon glyphicon-'+t.icon+' mr5"></span>':"")+"<span>"+t.title+"</span></button>",n[a]||(n[a]={event:t.event,type:"button"})});break;case"search":o=r.positon||["right","top"],r.value=r.value||"",this.config.search=r;var d="search_input_"+this.random,p="search_focus_"+this.random,h="search_btn_"+this.random;c='<div class="bt_search"><input type="text" class="search_input '+d+'" style="'+(r.width?"width:"+r.width:"")+'" placeholder="'+(r.placeholder||"")+'"/><span class="glyphicon glyphicon-search '+h+'" aria-hidden="true"></span></div>',n[d]||(n[d]={eventType:"keyup",type:"search_input"}),n[p]||(n[p]={type:"search_focus",eventType:"focus"}),n[h]||(n[h]={type:"search_btn"});break;case"batch":o=r.positon||["left","bottom"],r.placeholder=r.placeholder||"请选择批量操作",r.buttonValue=r.buttonValue||"批量操作",this.config.batch=r;var u=[],f="",_=r.config;void 0!==r.config?(i.batch_active=_,$(i.config.el).on("click",".set_batch_option",function(e){for(var s=[],n=0;n<i.checkbox_list.length;n++)s.push(i.data[i.checkbox_list[n]]);if($(this).hasClass("bt-disabled"))return layer.tips(i.config.batch.disabledTips||"请选择需要批量操作的数据",$(this),{tips:[1,"red"],time:2e3}),!1;switch(_typeof(_.confirm)){case"function":_.confirm(_,function(e,t){_.param=$.extend(_.param,e),a(_,s,t)});break;case"undefined":a(_,s);break;case"object":var l=_.confirm;bt.open({title:l.title||"批量操作",area:l.area||"350px",btn:l.btn||["确认","取消"],content:l.content,success:function(e,t){l.success(e,t,_)},yes:function(e,a){l.yes(e,a,function(e,a){_.param=$.extend(_.param,e),t(_,s)})}})}})):($.each(r.selectList,function(e,t){t.group?($.each(t.group,function(e,s){u.push($.extend({},t,s)),f+='<li class="item">'+s.title+"</li>"}),delete t.group):(u.push(t),f+='<li class="item">'+t.title+"</li>")}),$(i.config.el).unbind().on("click",".bt_table_select_group .bt_select_value",function(e){var t=$(this).parent(),s=t.find(".bt_selects"),a=t.offset(),n=i.$get_win_area();return t.hasClass("bt-disabled")?(layer.tips(i.config.batch.disabledSelectValue,t,{tips:[1,"red"],time:2e3}),!1):(t.hasClass("active")?t.removeClass("active"):t.addClass("active"),s.height()>n[1]-a.top?s.addClass("top"):s.removeClass("top"),$(document).one("click",function(){return $(i.config.el).find(".bt_table_select_group").removeClass("active"),!1}),!1)}),$(i.config.el).on("click",".bt_table_select_group .item",function(e){var t=$(this).text(),s=$(this).index();$(this).addClass("active").siblings().removeClass("active"),$(i.config.el+" .bt_select_tips").html("批量"+t+"<em>(已选中"+i.checkbox_list.length+")</em>"),i.batch_active=u[s],i.checked||$(".bt_table_select_group").removeClass("active")}),$(i.config.el).on("click",".set_batch_option",function(e){var s=[],n=i.batch_active;if($(this).hasClass("bt-disabled"))return layer.tips(i.config.batch.disabledSelectValue,$(this),{tips:[1,"red"],time:2e3}),!1;for(var l=0;l<i.checkbox_list.length;l++)s.push(i.data[i.checkbox_list[l]]);if("{}"===JSON.stringify(n)){var c=$(i.config.el+" .bt_table_select_group");return layer.tips("请选择需要批量操作的类型",c,{tips:[1,"red"],time:2e3}),c.css("border","1px solid red"),setTimeout(function(){c.removeAttr("style")},2e3),!1}switch(_typeof(n.confirm)){case"function":n.confirm(n,function(e,t){n.param=$.extend(n.param,e),a(n,s,t)});break;case"undefined":a(n,s);break;case"object":var r=n.confirm;bt.open({type:1,title:r.title||"批量操作",area:r.area||"350px",btn:r.btn||["确认","取消"],content:'<div class="pd20">'+r.content+"</div>",success:function(e,t){r.success(e,t,n)},yes:function(e,a){r.yes(e,a,function(a,i){n.param=$.extend(n.param,a),layer.close(e),t(n,s)})}})}})),c='<div class="bt_batch"><label><i class="cust—checkbox cursor-pointer checkbox_'+this.random+'" data-checkbox="all"></i><input type="checkbox" lass="cust—checkbox-input" /></label>'+(void 0!==r.config?'<button type="button" class="btn btn-default btn-sm set_batch_option bt-disabled">批量'+r.config.title+"</button>":'<div class="bt_table_select_group bt-disabled not-select"><span class="bt_select_value"><span class="bt_select_tips">请选择批量操作<em></em></span><span class="glyphicon glyphicon-triangle-bottom ml5"></span></span><ul class="bt_selects ">'+f+'</ul></div><button type="button" class="btn btn-default btn-sm set_batch_option bt-disabled" >'+r.buttonValue+"</button>")+"</div>";break;case"page":o=r.positon||["right","bottom"],r.page=e.page||1,r.pageParam=r.pageParam||"p",r.number=r.number||20,r.numberList=r.numberList||[10,20,50,100,200],r.numberParam="boolean"==typeof r.numberParam?r.numberParam:r.numberParam||"limit",this.config.page=r;var v=this.$get_page_number();v&&(this.config.page.number=v),c=this.$reader_page(this.config.page,'<div><span class="Pcurrent">1</span><span class="Pcount">共0条数据</span></div>')}if(c){var b=$(i.config.el+" .tootls_"+o[1]);if(b.length){b.find(".pull-"+o[0]).append(c)}else{var m='<div class="tootls_group tootls_'+o[1]+'"><div class="pull-left">'+("left"===o[0]?c:"")+'</div><div class="pull-right">'+("right"===o[0]?c:"")+"</div></div>";"top"===o[1]?($(i.config.el).append(m),0===$(i.config.el+" .divtable").length&&$(i.config.el).append('<div class="divtable mtb10" style="max-height:'+i.config.height+'px"></div>')):(0===$(i.config.el+" .divtable").length&&$(i.config.el).append('<div class="divtable mtb10" style="max-height:'+i.config.height+'px"></div>'),$(i.config.el).append(m))}}}this.init||this.$event_bind(n)},$clear_table_checkbox:function(){$(this.config.el).find(".bt_table .cust—checkbox").removeClass("selected active")},$get_data_batch_list:function(e,t){var s=[];return $.each(t||this.data,function(t,a){s.push(a[e])}),s},$reader_page:function(e,t){var s="",a={},i=this,n=null;if(e.number&&!t)s=(1!==e.page?'<a class="Pnum page_link_'+this.random+'"  data-page="1">首页</a>':"")+(1!==e.page?'<a class="Pnum page_link_'+this.random+'" data-page="'+(e.page-1)+'">上一页</a>':"")+(i.data.length===e.number?'<a class="Pnum page_link_'+this.random+'" data-page="'+(e.page+1)+'">下一页</a>':"")+'<span class="Pcount">第 '+e.page+" 页</span>",a["page_link_"+this.random]={type:"cut_page_number"};else{if("number"==typeof t&&(t=this.$custom_page(t)),n=$(t),n.find("a").addClass("page_link_"+this.random),s+=n.html(),e.numberStatus){var l="page_select_"+this.random,c=i.$get_page_number();s+='<select class="page_select_number '+l+'">',$.each(e.numberList,function(t,a){s+='<option value="'+a+'" '+((c||e.number)==a?"selected":"")+">"+a+"条/页</option>"}),s+="</select>",a[l]={eventType:"change",type:"page_select"}}if(e.jump){var r="page_jump_input_"+this.random,o="page_jump_btn_"+this.random;s+='<div class="page_jump_group"><span class="page_jump_title">跳转到</span><input type="number" class="page_jump_input '+r+'" value="'+e.page+'" /><span class="page_jump_title">页</span><button type="button" class="page_jump_btn '+o+'">确认</button></div>',a[r]={eventType:"keyup",type:"page_jump_input"},a[o]={type:"page_jump_btn"}}a["page_link_"+this.random]={type:"cut_page_number"},i.config.page.total=0===n.length?0:"number"==typeof t?t:parseInt(n.find(".Pcount").html().match(/([0-9]*)/g)[1])}return i.$event_bind(a),'<div class="page">'+s+"</div>"},$reader_style:function(e){var t="";return"string"==typeof e?e:void 0===e?"":($.each(e,function(e,s){t+=e+":"+s+";"}),t)},$custom_page:function(e){var t='<div class="page">',s=this.config.page,a=Math.ceil(e/s.number),i=0;if(s.page>1&&a>1&&(t+='<a class="Pstart" href="p=1">首页</a><a class="Pstart" href="p='+(s.page-1)+'">上一页</a>'),a<=10)for(var n=1;n<=a;n++)n==s.page?t+='<span class="Pcurrent">'+n+"</span>":t+='<a class="Pnum" href="p='+n+'">'+n+"</a>";else if(s.page<10){for(var n=1;n<=10;n++)n==s.page?t+='<span class="Pcurrent">'+n+"</span>":t+='<a class="Pnum" href="p='+n+'">'+n+"</a>";t+="<span>...</span>"}else if(a-s.page<7){a-7>1&&(t+='<a class="Pnum" href="p=1">1</a>',t+="<span>...</span>");for(var n=a-7;n<=a;n++)n==s.page?t+='<span class="Pcurrent">'+n+"</span>":t+=1==n?"<span>...</span>":'<a class="Pnum" href="p='+n+'">'+n+"</a>"}else{0==i&&(i=s.page),(i<=s.page-5||i>=s.page+5)&&(i=s.page),t+='<a class="Pnum" href="p=1">1</a>',t+="<span>...</span>";for(var n=i-3;n<=i+3;n++)n==s.page?t+='<span class="Pcurrent">'+n+"</span>":t+='<a class="Pnum" href="p='+n+'">'+n+"</a>";t+="<span>...</span>",t+='<a class="Pnum" href="p='+a+'">'+a+"</a>"}return a>1&&s.page<a&&(t+='<a class="Pstart" href="p='+(s.page+1)+'">下一页</a><a class="Pstart" href="p='+a+'">尾页</a>'),t+='<span class="Pcount">共'+e+"条</span></div>"},$dynamic_merge_style:function(e,t){var s="";return $.each(e,function(e,t){switch(e){case"align":s+="text-align:"+t+";";break;case"width":s+="width:"+("string"==typeof t?t:t+"px")+";";break;case"style":s+=t;break;case"minWidth":s+="min-width:"+("string"==typeof t?t:t+"px")+";";break;case"maxWidth":s+="max-width:"+("string"==typeof t?t:t+"px")+";"}}),{index:t,css:s}},$event_bind:function(e){var t=this;$.each(e,function(e,s){if(t.event_list[e]&&t.event_list[e].eventType===s.eventType)return!0;t.event_list[e]=s,$(t.config.el).on(s.eventType||"click","."+e,function(a){var i=$(this).parents("tr").index(),n=$(this).data(),l=[],c=t.config.column[$(this).parents("td").index()];switch(s.type){case"rows":t.event_rows_model={el:$(this),model:c,rows:t.data[i],index:i},l=[t.event_rows_model.rows,t.event_rows_model.index,a,e,t];break;case"sort":var r=t.config.column[n.index];$(this).hasClass("sort-active")&&$(".sort_"+t.random+" .sort-active").data({sort:"desc"}),$(".sort_"+t.random).removeClass("sort-active").find(".glyphicon").removeClass("glyphicon-triangle-top").addClass("glyphicon-triangle-bottom"),$(this).addClass("sort-active"),"asc"==n.sort?($(this).data({sort:"desc"}),$(this).find(".glyphicon").removeClass("glyphicon-triangle-top").addClass("glyphicon-triangle-bottom")):($(this).data({sort:"asc"}),$(this).find(".glyphicon").removeClass("glyphicon-triangle-bottom").addClass("glyphicon-triangle-top")),t.config.sort=t.config.sortParam({name:r.fid,sort:n.sort}),t.$refresh_table_list(!0);break;case"checkbox":var o=$(t.config.el+' [data-checkbox="all"]'),d=$(t.config.el+" tbody .checkbox_"+t.random);void 0==n.checkbox?$(this).hasClass("active")?($(this).removeClass("active"),t.checkbox_list.splice(t.checkbox_list.indexOf(i),1),t.checkbox_list.length>0?o.addClass("selected").removeClass("active"):o.removeClass("selected active")):($(this).addClass("active"),t.checkbox_list.push(i),t.data.length===t.checkbox_list.length?o.addClass("active").removeClass("selected"):t.checkbox_list.length>0&&o.addClass("selected")):t.checkbox_list.length===t.data.length?(t.checkbox_list=[],d.removeClass("active selected").next().prop("checked","checked"),o.removeClass("active")):(d.each(function(e,s){$(this).hasClass("active")||($(this).addClass("active").next().prop("checked","checked"),t.checkbox_list.push(e))}),o.removeClass("selected").addClass("active")),t.$set_batch_view();break;case"button":l.push(a,t);break;case"search_focus":var p=$(t.config.el+" .bt_search_tips");$(t.config.el+" .bt_search_tips").length>0&&p.remove();break;case"search_input":if(13==a.keyCode)return $(t.config.el+" .search_btn_"+t.random).click(),!1;break;case"search_btn":var h=$(t.config.el+" .search_input"),u=$(t.config.el+" .search_input").val();u=$("<div></div>").text(u).html(),u=u.replace(/(^\s*)|(\s*$)/g,""),h.text(u),t.config.search.value=u,t.config.page&&(t.config.page.page=1),h.append('<div class="bt_search_tips"><span>'+u+'</span><i class="bt_search_close"></i></div>'),t.$refresh_table_list(!0);break;case"page_select":var f=parseInt($(this).val());return t.$set_page_number(f),t.config.page.number=f,t.config.page.page=1,t.$refresh_table_list(!0),!1;case"page_jump_input":return 13===a.keyCode&&($(t.config.el+" .page_jump_btn_"+t.random).click(),$(this).focus()),!1;case"page_jump_btn":var _=parseInt($(t.config.el+" .page_jump_input_"+t.random).val()),v=Math.ceil(t.config.page.total/t.config.page.number);isNaN(_)&&(_=1),_>v&&(_=t.config.page.page),t.config.page.page=_,t.$refresh_table_list(!0);break;case"cut_page_number":var b=$(this).data("page")||parseInt($(this).attr("href").match(/([0-9]*)$/)[0]);return t.config.page.page=b,t.$refresh_table_list(!0),!1;case"eye_open_password":return $(this).hasClass("glyphicon-eye-open")?($(this).addClass("glyphicon-eye-close").removeClass("glyphicon-eye-open"),$(this).prev().text(t.data[i][c.fid])):($(this).addClass("glyphicon-eye-open").removeClass("glyphicon-eye-close"),$(this).prev().html("<i>**********</i>")),!1;case"copy_password":return bt.pub.copy_pass(t.data[i][c.fid]),!1}s.event&&s.event.apply(this,l)})})},$style_bind:function(e,t){var s="",a=this;$.each(e,function(t,i){if(""!=i.css)if(i.className)s+=i.className+"{"+i.css+"}";else{var n=e[0].hasOwnProperty("className")?t:i.index+1;s+=a.config.el+" thead th:nth-child("+n+"),"+a.config.el+" tbody tr td:nth-child"+(i.span?" span":"")+"("+n+"){"+i.css+"}"}}),0==$("#bt_table_"+a.random).length&&$(a.config.el).append('<style type="text/css" id="bt_table_'+a.random+'">'+s+"</style>")},$get_win_area:function(){return[window.innerWidth,window.innerHeight]},$get_page_number:function(){var e=this.config.pageName;if(e)return bt.get_cookie(e+"_page_number")},$set_page_number:function(e){var t=this.config.pageName;t&&bt.set_cookie(t+"_page_number",e)},$http:function(e,t){var s=this.$get_page_number(),a=this,i={},n=this.config,l=n.page,c=n.search,r=n.sort||{};l&&(s&&!l.number&&(l.number=s),l.defaultNumber&&(l.number=l.defaultNumber),l.numberParam&&(i[l.numberParam]=l.number),i[l.pageParam]=l.page),c&&(i[c.searchParam]=c.value);var o=$.extend(n.param,i,r);this.config.beforeRequest?"model"===this.config.beforeRequest?n.param=function(){if(o.hasOwnProperty("data")&&"string"==typeof o.data){var e=JSON.parse(o.data);return delete o.data,{data:JSON.stringify($.extend(e,o))}}return{data:JSON.stringify(o)}}():n.param=this.config.beforeRequest(o):n.param=o,bt_tools.send({url:n.url,data:n.param},function(e){if(void 0!==n.dataFilter){var s=n.dataFilter(e,a);void 0!==s.tootls&&(s.tootls=parseInt(s.tootls)),t&&t(s)}else void 0===e.data?t&&t({data:e}):t&&t({data:e.data,page:e.page})},{load:!!e&&"获取列表数据",verify:void 0===n.dataVerify||!!n.dataVerify})}};var n=new t(e);return $(e.el).data("table",n),n},verifyForm:function(e,t,s){for(var a=!1,i=this.getFormValue(e,[]),n=0;n<t.length;n++){var l=t[n];if("string"==typeof(a=l.validator.apply(this,[i[l.name],i])))return this.error(a),!1}s&&s("string"!=typeof a,i)},getFormValue:function(e,t){var s=$(e).serializeObject();t=t&&[];for(var a in s)t.indexOf(a)>-1&&delete s[a];return s},setLayerArea:function(e){var t=$(e),s=t.width(),a=t.height(),i=$(window).width(),n=$(window).height();t.css({left:(i-s)/2,top:(n-a)/2})},line:function(e){var t=$('<div class="line '+(e.lineClass?e.lineClass:"")+'" style="'+(e.labelStyle||"")+'"><span class="tname" style="'+(e.labelWidth?"width:"+e.labelWidth:"")+'">'+((void 0!==e.must&&""!=e.must?'<span class="color-red mr5">'+e.must+"</span>":"")+e.label||"")+'</span><div class="info-r" style="'+(e.labelWidth?"margin-left:"+e.labelWidth:"")+'"></div></div>'),s=this.renderLineForm(e);return s.data({line:t}),t.find(".info-r").append(s),{$line:t,$form:s}},help:function(e){for(var t="",s=0;s<e.list.length;s++){t+="<li>"+e.list[s]+"</li>"}return $('<ul class="help-info-text c7" style="'+(e.style||"")+'">'+t+"</ul>")},renderLineForm:function(e){e.type=e.type||"text";var t=["label","labelWidth","group","on","width","options","type"],s=null,a=function(){var s={};for(var a in e)-1===t.indexOf(a)&&(s[a]=e[a]);return s}(),i=e.width?'style="width:'+e.width+'"':"";switch(e.type){case"textarea":s='<textarea class="bt-input-text mr5" '+i+"></textarea>";break;case"select":for(var n=e.options,l="",c=0;c<n.length;c++){var r=n[c],o=r;"string"==typeof r&&(o={label:r,value:r}),l+='<option value="'+o.value+'">'+o.label+"</option>"}s='<select class="bt-input-text mr5" '+i+">"+l+"</select>";break;case"text":s='<input type="text" class="bt-input-text mr5" />'}s=$(s),s.width(e.width||"100%").attr(a),e.on||(e.on={});for(var d in e.on)!function(t){s.on(t,function(s){e.on[t].apply(this,[s,$(this).val()])})}(d);return s},fromGroup:function(e,t,s){for(var a=$(e),i={},n=0;n<t.length;n++){var l=t[n];if("tips"===l.type)a.append(this.help(l));else{var c=this.line(l);void 0!==s&&c.$form.val(s[l.name]||""),i[c.$form.attr("name")]=c,a.append(c.$line)}}return i},form:function(e){function t(e){this.config=e,this.el=e.el,this.submit=e.submit,this.data=e.data||{},this.$load()}var s=this;return t.prototype={element:null,style_list:[],event_list:{},event_type:["click","event","focus","keyup","blur","change","input"],hide_list:[],form_element:{},form_config:{},random:bt.get_random(5),$load:function(){if(this.el){if($(this.el).html(this.$reader_content()),$("#editCrontabForm .bt_multiple_select_updown").length>0){var e=$("#editCrontabForm .bt_multiple_select_updown").parent().height();$("#editCrontabForm .line:eq(3) .tname").css({height:e+"px","line-height":e+"px"})}this.$event_bind()}},$reader_content:function(e){var t=this,a="",i="";return $.each(t.config.form,function(e,s){s.separate?a+='<div class="bt_form_separate"><span class="btn btn-sm btn-default">'+s.separate+"</span></div>":a+=t.$reader_content_row(e,s)}),t.element=$('<form class="bt-form" data-form="'+t.random+'" onsubmit="return false">'+a+"</form>"),i=$('<div class="'+s.$verify(t.config.class)+'"></div>'),i.append(t.element),e&&e(),i[0].outerHTML},$reader_content_row:function(e,t){try{var a=this,i=t.help||!1,n=t.formLabelWidth||this.config.formLabelWidth;return!1===t.display?'<div class="line" style="padding:0"></div>':'<div class="line'+s.$verify(t.class)+s.$verify(t.hide,"hide",!0)+'"'+s.$verify(t.id,"id")+">"+(void 0!==t.label?'<span class="tname" '+(n?'style="width:'+n+'"':"")+">"+(void 0!==t.must&&""!=t.must?'<span class="color-red mr5">'+t.must+"</span>":"")+t.label+"</span>":"")+'<div class="'+(t.label?"info-r":"")+s.$verify(t.line_class)+'"'+s.$verify(a.$reader_style($.extend(t.style,n?{"margin-left":n}:{})),"style")+">"+a.$reader_form_element(t.group,e)+(i?'<div class="c9 mt5 '+s.$verify(i.class,"class")+'" '+s.$verify(a.$reader_style(i.style),"style")+">"+i.list.join("</br>")+"</div>":"")+"</div></div>"}catch(e){console.log(e)}},$reader_form_element:function(e,t){var s=this,a="";return Array.isArray(e)||(e=[e]),$.each(e,function(e,i){i.find_index=t,a+=s.$reader_form_find(i),s.form_config[i.name]=i}),a},$reader_form_find:function(e){var t=this,a="",i=t.$reader_style(e.style)+s.$verify(e.width,"width","style"),n=t.$verify_group(e,["name","placeholder","disabled","readonly","autofocus","autocomplete","min","max"]),l=t.$create_event_config(e),c="",r=e.find_index;if(!1===e.display)return a;a+=e.label?'<span class="mr5 inlineBlock">'+e.label+"</span>":"",void 0!==e.name&&t.$check_event_bind(e.name,l),a+='<div class="'+(e.dispaly||"inlineBlock")+" "+s.$verify(e.hide,"hide",!0)+" "+(e.class||"")+'">';var o=void 0!==t.data[e.name]&&""!==t.data[e.name]?t.data[e.name]:e.value||"";switch(e.type){case"text":case"checkbox":case"password":case"radio":case"number":var d="event_"+e.name+"_"+t.random;switch(e.type){case"checkbox":a+='<label class="cursor-pointer form-checkbox-label" '+s.$verify(t.$reader_style(e.style),"style")+'><i class="form-checkbox cust—checkbox cursor-pointer mr5 '+d+"_label "+(o?"active":"")+'"></i><input type="checkbox" class="form—checkbox-input hide mr10 '+d+'" name="'+e.name+'" '+(o?"checked":"")+'/><span class="vertical_middle">'+e.title+"</span></label>",void 0!==e.disabled&&e.disabled||(t.$check_event_bind(d+"_label",{click:{type:"checkbox_icon",config:e}}),t.$check_event_bind(d,{input:{type:"checkbox",config:e,event:e.event}}));break;default:a+='<input type="'+e.type+'"'+n+" "+(e.icon?'id="'+d+'"':"")+' class="bt-input-'+("select_path"!==e.type&&"number"!==e.type&&"password"!==e.type?e.type:"text")+" mr10 "+(e.label?"vertical_middle":"")+s.$verify(e.class)+'"'+s.$verify(i,"style")+' value="'+o+'"/>'}e.btn&&!e.disabled&&(a+='<span class="btn '+e.btn.type+" "+e.name+'_btn cursor" '+s.$verify(t.$reader_style(e.btn.style),"style")+">"+e.btn.title+"</span>",void 0!==e.btn.event&&t.$check_event_bind(e.name+"_btn",{click:{config:e,event:e.btn.event}})),e.icon&&(a+='<span class="glyphicon '+e.icon.type+" "+e.name+"_icon cursor "+(e.disabled?"hide":"")+' mr10" '+s.$verify(t.$reader_style(e.icon.style),"style")+"></span>",void 0!==e.icon.event&&t.$check_event_bind(e.name+"_icon",{click:{type:"select_path",select:e.icon.select||"",config:e,defaultPath:e.icon.defaultPath||"",children:"."+e.name+"_icon",event:e.icon.event,callback:e.icon.callback}}));break;case"textarea":if(a+='<textarea class="bt-input-text"'+s.$verify(i,"style")+n+" >"+o+"</textarea>",$.each(["blur","focus","input"],function(s,a){if(e.tips){var i=null;switch(a){case"blur":i=function(e,t,s){""===$(this).val()&&$(this).next().show(),layer.close(t.tips.loadT),$(e.target).data("layer","")};break;case"focus":i=function(e,t){$(this).next().hide(),t.tips.loadT=layer.tips(p,$(this),{tips:[1,"#20a53a"],time:0,area:$(this).width()})}}}t.event_list[e.name][a]?t.event_list[e.name][a].added=i:t.event_list[e.name][a]={type:e.type,cust:!1,event:e[a],added:i}}),e.tips){var p="";p=void 0===e.tips.list?e.tips.text:e.tips.list.join("</br>"),a+='<div class="placeholder c9 '+e.name+'_tips" '+s.$verify(t.$reader_style(e.tips.style),"style")+">"+p+"</div>",t.$check_event_bind(e.name+"_tips",{click:{type:"textarea_tips",config:e}})}break;case"select":a+=t.$reader_select(e,i,n,r),t.$check_event_bind("custom_select",{click:{type:"custom_select",children:".bt_select_value"}}),t.$check_event_bind("custom_select_item",{click:{type:"custom_select_item",children:"li.item"}});break;case"multipleSelect":a+=t.$reader_multipleSelect(e,i,n,r),t.$check_event_bind("custom_select",{click:{type:"custom_select",children:".bt_select_value"}}),t.$check_event_bind("custom_select_item",{click:{type:"custom_select_item",children:"li.item"}}),t.$check_event_bind("icon_trem_close",{click:{type:"icon_trem_close",children:".icon-trem-close"}});break;case"secondaryMenu":a+=t.$reader_secondaryMenu(e,i,n,r),t.$check_event_bind("secondary_menu_parent",{"mouseover click":{type:"secondary_menu_parent",children:".item-parent"}}),t.$check_event_bind("secondary_menu_child",{click:{type:"secondary_menu_child",children:".item-child"}});break;case"link":c="event_link_"+t.random+"_"+e.name,a+='<a href="'+(e.href||"javascript:;")+'" class="'+(e.subclass?e.subclass:"btlink")+" "+c+'" '+s.$verify(t.$reader_style(e.style),"style")+">"+e.title+"</a>",t.$check_event_bind(c,{click:{type:"link_event",event:e.event}});break;case"button":a+='<button class="btn btn-success btn-'+(e.size||"sm ")+" "+c+" "+s.$verify(e.class)+'"  '+s.$verify(t.$reader_style(e.style),"style")+" "+n+">"+e.title+"</button>";break;case"help":var h="";$.each(e.list,function(e,t){h+="<li>"+t+"</li>"}),a+='<ul class="help-info-text c7'+s.$verify(e.class)+'"'+s.$verify(t.$reader_style(e.style),"style")+" "+n+">"+h+"</ul>";break;case"other":a+=e.boxcontent}return a+=e.unit?'<span class="'+("text-tips"===e.type?"text-tips":"unit")+'">'+e.unit+"</span>":"",a+="</div>"},$check_event_bind:function(e,t){this.event_list[e]||this.event_list.hasOwnProperty(e)||(this.event_list[e]=t)},$create_event_config:function(e){var t={};return void 0===e.name?{}:($.each(this.event_type,function(s,a){e[a]&&(t["event"===a?"click":a]={type:e.type,event:e[a],cust:["select","checkbox","radio"].indexOf(e.type)>-1,config:e})}),t)},$reader_style:function(e){var t="";return"string"==typeof e?e:void 0===e?"":($.each(e,function(e,s){t+=e+":"+s+";"}),t)},$local_refresh:function(e,t){var s=this.element.find("[data-name="+e+"]");0===this.element.find("[data-name="+e+"]").length&&(s=this.element.find("[name="+e+"]")),s.parent().replaceWith(this.$reader_form_find(t))},$reader_select:function(e,t,a,i){var n=this,l="",c="",r={};if("function"==typeof e.list){e.list.call(this,this.config.form),e.list=[]}if(!Array.isArray(e.list)){var o=e.list;return bt_tools.send({url:o.url,data:o.param||o.data||{}},function(t){if(!1!==t.status){var s=e.list.dataFilter?e.list.dataFilter(t,n):t;e.list.success&&e.list.success(t,n,n.config.form[i],s),e.list=s,e.list.length||(e.disabled=!0,layer.msg(e.placeholder||"数据获取为空",{icon:2})),n.$replace_render_content(i)}else bt.msg(t)}),!1}void 0===n.data[e.name]&&(r=e.list[0]),$.each(e.list,function(t,s){if(s.value===e.value||s.value===n.data[e.name])return r=s,!1}),$.each(e.list,function(e,t){l+='<li class="item'+s.$verify(t.value===r.value?"active":"")+" "+(t.disabled?"disabled":"")+'" title="'+t.title+'">'+t.title+"</li>",c+='<option value="'+t.value+'"'+(t.disabled?"disabled":"")+" "+s.$verify(t.value===r.value?"selected":"")+">"+t.title+"</option>"});var d=Array.isArray(e.list)?r?r.title:e.placeholder:"获取数据中";return'<div class="bt_select_updown mr10 '+(e.disabled?"bt-disabled":"")+" "+ +s.$verify(e.class)+'" '+s.$verify(t,"style")+' data-name="'+e.name+'"><span class="bt_select_value"><span class="bt_select_content" title="'+(d||e.placeholder)+'">'+(d||e.placeholder)+'</span><div class="icon-down"><svg width="12.000000" height="12.000000" viewBox="0 0 12 5" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n\t<desc>\n\t\t\tCreated with Pixso.\n\t</desc>\n\t<defs/>\n\t<path id="path" d="M0.123291 0.809418L4.71558 5.84385C4.8786 6.02302 5.16846 6.04432 5.33038 5.86389L9.87927 0.783104C10.0412 0.602676 10.04 0.311989 9.87701 0.132816C9.79626 0.0446892 9.68945 0 9.58374 0C9.47693 0 9.36938 0.0459404 9.28827 0.136574L5.02881 4.89284L0.708618 0.15662C0.627869 0.0684967 0.522217 0.0238075 0.415405 0.0238075C0.307434 0.0238075 0.20105 0.0697479 0.119873 0.160381C-0.041626 0.338303 -0.0393677 0.630241 0.123291 0.809418Z" fill-rule="nonzero" fill="#999999"/>\n</svg>\n</div></span><ul class="bt_select_list">'+(l||"")+"</ul><select"+a+' class="hide" '+(e.disabled?"disabled":"")+' autocomplete="off">'+(c||"")+'</select><div class="bt_select_list_arrow"></div><div class="bt_select_list_arrow_fff"></div></div>'},$reader_multipleSelect:function(e,t,a,i){var n=this,l="",c="",r={},o=[],d="";if("function"==typeof e.list){e.list.call(this,this.config.form),e.list=[]}if($.isArray(e.value))o=e.value;else{if(!Array.isArray(e.list)){var p=e.list;return bt_tools.send({url:p.url,data:p.param||p.data||{}},function(t){if(!1!==t.status){var s=e.list.dataFilter?e.list.dataFilter(t,n):t;e.list.success&&e.list.success(t,n,n.config.form[i],s),e.list=s,e.list.length||(e.disabled=!0,layer.msg(e.placeholder||"数据获取为空",{icon:2})),n.$replace_render_content(i)}else bt.msg(t)}),!1}void 0===n.data[e.name]&&(r=e.list[0]),$.each(e.list,function(t,s){if(s.value===e.value||s.value===n.data[e.name])return r=s,!1})}$.each(e.list,function(t,a){if($.isArray(e.value))for(var i=0;i<o.length;i++)o.indexOf(a.value)>-1&&(r.value=a.value);l+='<li class="item item1'+s.$verify(a.value===r.value?"active":"")+" "+(a.disabled?"disabled":"")+'" title="'+a.title+'">            <span>'+a.title+'</span>            <span class="icon-item-active"></span>          </li>',c+='<option value="'+a.value+'"'+(a.disabled?"disabled":"")+" "+s.$verify(a.value===r.value?"selected":"")+">"+a.title+"</option>"});for(var h=0;h<e.list.length;h++)o.indexOf(e.list[h].value)>-1&&(d+='<span class="bt_select_content"><span>'+e.list[h].title+'</span><span class="icon-trem-close"></span></span>');var u=Array.isArray(e.list)?r?r.title:e.placeholder:"获取数据中";return'<div class="bt_multiple_select_updown bt_select_updown mr10 '+(e.disabled?"bt-disabled":"")+" "+ +s.$verify(e.class)+'" '+s.$verify(t,"style")+' data-name="'+e.name+'"><span class="bt_select_value">'+(0==e.value.length?'<span class="bt_select_content"><span>'+(u||e.placeholder)+'</span><span class="icon-trem-close"></span></span>':d)+'<div class="icon-down"><svg width="12.000000" height="12.000000" viewBox="0 0 12 5" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">              \t<desc>              \t\t\tCreated with Pixso.              \t</desc>              \t<defs></defs>              \t<path id="path" d="M0.123291 0.809418L4.71558 5.84385C4.8786 6.02302 5.16846 6.04432 5.33038 5.86389L9.87927 0.783104C10.0412 0.602676 10.04 0.311989 9.87701 0.132816C9.79626 0.0446892 9.68945 0 9.58374 0C9.47693 0 9.36938 0.0459404 9.28827 0.136574L5.02881 4.89284L0.708618 0.15662C0.627869 0.0684967 0.522217 0.0238075 0.415405 0.0238075C0.307434 0.0238075 0.20105 0.0697479 0.119873 0.160381C-0.041626 0.338303 -0.0393677 0.630241 0.123291 0.809418Z" fill-rule="nonzero" fill="#999999"></path>              </svg>              </div>            </span><ul class="bt_select_list">'+(l||"")+"</ul><select"+a+' class="hide" '+(e.disabled?"disabled":"")+' autocomplete="off" multiple>'+(c||"")+'</select><div class="bt_select_list_arrow"></div><div class="bt_select_list_arrow_fff"></div></div>'},$reader_secondaryMenu:function(e,t,a,i){var n=this,l="",c={};return $.each(e.list,function(t,a){l+='<li class="item-parent"><div class="item-menu-title">'+a.title+"</div>"+function(){return a.child.length>0?'<span class="glyphicon glyphicon-triangle-right ml5"></span><div class="item-menu-body-list">\t\t\t\t\t\t\t\t<ul class="">'+function(){var t="";return $.each(a.child,function(a,i){i.value!=e.value&&i.value!=n.data[e.name]||(c=i),t+='<li class="item-child'+s.$verify(i.value===c.value?"active":"")+'" title="'+i.title+'" data-value="'+i.value+'"><div class="item-menu-title">'+i.title+"</div></li>"}),t}()+"</ul></div>":'<span style="top: 0;color: #ccc;">[空]</span>'}()+"</li>"}),'<div class="bt_select_updown bt_seconday_menu" '+s.$verify(t,"style")+' data-name="'+e.name+'">\t\t\t\t\t<span class="bt_select_value"><span class="bt_select_content">'+($.isEmptyObject(c)?e.placeholder:c.title)+'</span>\t\t\t\t\t\t<span class="glyphicon glyphicon-triangle-bottom ml5"></span>\t\t\t\t\t</span>\t\t\t\t\t<ul class="bt_select_list">'+l+"</ul>\t\t\t\t\t<input "+a+' class="hide" value="'+(c.value||"")+'">\t\t\t\t\t</div>'},$replace_render_content:function(e){var t=this,s=this.config.form[e],a=t.$reader_content_row(e,s);$("[data-form="+t.random+"]").find(".line:eq("+e+")").replaceWith(a),this.$event_bind()},$again_render_form:function(e){var t=$("[data-form="+this.random+"]"),s=this;e=e||this.config.form,t.empty();for(var a=0;a<e.length;a++){var i=e[a];!1!==i.display&&t.append(s.$reader_content_row(a,i))}this.config.form=e,this.$event_bind()},$event_bind:function(e,t){var s=this,a={};s.element=$("object"===(void 0===e?"undefined":_typeof(e))?s.element:"[data-form="+s.random+"]"),a=e,void 0===e&&(a=s.event_list),$.each(a,function(e,t){if($.isEmptyObject(t))return!0;$.each(t,function(a,i){if(t.type)return!1;if(i.hasOwnProperty("bind"))return!1;i.bind=!0;var n="";n="boolean"==typeof i.cust?"["+(i.cust?"data-":"")+"name="+e+"]":"."+e,function(e,t){if(!1===e.onEvent){switch(e.type){case"input_checked":$(n).on("event"!=a?a:"click",function(t){e.event.apply(this,[t,s])})}return!0}if("select"===e.type)return!0;s.element.on("event"!==a?a:"click",e.children?e.children:n,function(a){var i=s.$get_form_element(!0),n=s.form_config[t];switch(e.type){case"textarea_tips":$(this).hide().prev().focus();break;case"custom_select":if($(this).parent().hasClass("bt-disabled"))return!1;var l=$(this).next();if(l.parent(".bt_select_updown").css("border","1px solid rgb(220, 223, 230)"),s.element.find(".item-parent").removeClass("down"),s.element.find(".bt_select_list,.item-menu-body-list").parent(".bt_select_updown").css("border","1px solid rgb(220, 223, 230)"),$(".bt_select_list_arrow").hide(),$(".bt_select_list_arrow_fff").hide(),$(".icon_up").remove(),$(".icon-down").show(),l.hasClass("show"))l.parent(".bt_select_updown").css("border","1px solid rgb(220, 223, 230)"),$(".bt_select_list_arrow").hide(),$(".bt_select_list_arrow_fff").hide(),$(".icon_up").remove(),$(".icon-down").show(),l.removeClass("show");else{$(".bt_select_list").removeClass("show"),l.addClass("show"),l.prev().append('<div class=\'icon_up\'><svg width="12.000000" height="12.000000" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n\t<desc>\n\t\t\tCreated with Pixso.\n\t</desc>\n\t<defs/>\n\t<path id="path" d="M1.12328 8.19058L5.71558 3.15616C5.87862 2.97699 6.16847 2.95569 6.33038 3.13611L10.8793 8.21689C11.0412 8.39731 11.04 8.68802 10.877 8.86719C10.7962 8.95532 10.6894 9 10.5838 9C10.477 9 10.3694 8.95407 10.2883 8.86343L6.02883 4.10715L1.70864 8.84338C1.62788 8.93152 1.5222 8.9762 1.41539 8.9762C1.30746 8.9762 1.20103 8.93024 1.11988 8.83963C0.958351 8.66171 0.960617 8.36975 1.12328 8.19058Z" fill-rule="nonzero" fill="#999999"/>\n</svg></div>'),l.prev().find(".icon-down").hide(),l.parent(".bt_select_updown").css("border","1px solid #20A53A");var c=$(this).height();l.css("top",c+12+"px"),$(l.siblings()[2]).css("top",c-4+"px"),$(l.siblings()[3]).css("top",c-3+"px"),$(l.siblings()[2]).show(),$(l.siblings()[3]).show()}return $(document).click(function(){return s.element.find(".bt_select_list,.item-menu-body-list").removeClass("show"),s.element.find(".item-parent").removeClass("down"),s.element.find(".bt_select_list,.item-menu-body-list").parent(".bt_select_updown").css("border","1px solid rgb(220, 223, 230)"),$(".bt_select_list_arrow").hide(),$(".bt_select_list_arrow_fff").hide(),$(".icon_up").remove(),$(".icon-down").show(),$(this).unbind("click"),!1}),!1;case"custom_select_item":n=s.form_config[$(this).parents(".bt_select_updown").attr("data-name")];var r=n.list[$(this).index()],o=$(this).parent().find(".item"),d=[],p="",h=[];if($(this).hasClass("disabled"))return $(this).parent().removeClass("show"),r.tips&&layer.msg(r.tips,{icon:2}),!0;if($(this).hasClass("active")||$(this).hasClass("disabled"))"multipleSelect"==n.type&&$(this).removeClass("active");else{var u=r.value.toString();$(this).parent().prev().find(".bt_select_content").text($(this).text()),$(this).parent().prev().find(".bt_select_content").prop("title",$(this).text()),"multipleSelect"!=n.type?($(this).addClass("active").siblings().removeClass("active"),$(this).parent().next().val(u),$(this).parent().removeClass("show"),$(".bt_select_list_arrow").hide(),$(".bt_select_list_arrow_fff").hide()):$(this).addClass("active")}if("multipleSelect"==n.type){for(var f=0;f<o.length;f++)o.eq(f).hasClass("active")&&d.push(o.eq(f).text().trim().replace(/\s/g,""));for(var f=0;f<n.list.length;f++)d.indexOf(n.list[f].title)>-1&&h.push(n.list[f].value);if(0==d.length)p+='<span class="bt_select_content_def">'+n.placeholder+"</span>";else{$(this).parent().prev().find(".bt_select_content_def").remove();for(var f=0;f<d.length;f++)p+='<span class="bt_select_content"><span>'+d[f]+'</span><span class="icon-trem-close"></span></span>'}$(this).parent().prev().find(".bt_select_content").remove(),$(this).parent().prev().find(".icon-down").before(p),$(this).parent().next().val(h);var c=$(this).parent().parent().parent().height();$(this).parent().parent().parent().parent().siblings().css({height:c+"px","line-height":c+"px"}),$(this).parent().css("top",c+12+"px"),$(".bt_select_list_arrow_fff").css("top",c-3+"px"),$(".bt_select_list_arrow").css("top",c-4+"px")}$(".icon-trem-close").click(function(){for(var e=$(this).siblings().text().trim().replace(/\s/g,""),t=0;t<o.length;t++)e==o.eq(t).prop("title")&&o.eq(t).click();return!1}),s.data[n.name]="multipleSelect"==n.type?h:u,e.event&&(e.event=null),n.change&&(e.event=n.change),a.stopPropagation();break;case"icon_trem_close":for(var _=$(this).siblings().text().trim().replace(/\s/g,""),o=$(this).parent().parent().siblings(".bt_select_list").find(".item"),f=0;f<o.length;f++)_==o.eq(f).prop("title")&&o.eq(f).click();return!1;case"secondary_menu_parent":$(this).addClass("down").siblings().removeClass("down").find(".item-menu-body-list").removeClass("show"),$(this).find(".item-menu-body-list").length>0&&$(this).find(".item-menu-body-list").addClass("show").parent().siblings().find(".item-menu-body-list").removeClass("show"),a.stopPropagation();break;case"secondary_menu_child":var v=$(this).attr("data-value");n=s.form_config[$(this).parents(".bt_select_updown").attr("data-name")],s.data[n.name]=v,e.event&&(e.event=null),n.change&&(e.event=n.change),a.stopPropagation();break;case"select_path":bt.select_path("event_"+$(this).prev().attr("name")+"_"+s.random,e.select||"",!e.callback||e.callback.bind(s),e.defaultPath||"");break;case"checkbox":$(this).is(":checked")?$(this).prev().addClass("active"):$(this).prev().removeClass("active")}e.event&&e.event.apply(this,[s.$get_form_value(),i,s,n,a]),e.added&&e.added.apply(this,[a,n,i])})}(i,e)})}),t&&t()},$get_form_value:function(){var e={};return this.element.find('input,textarea[disabled="disabled"]').each(function(t,s){var a=$(this).val();"checkbox"===$(this).attr("type")&&(a=$(this).prop("checked")),e[$(this).attr("name")]=a}),$.extend({},this.element.serializeObject(),e)},$set_find_value:function(e,t){var s={},a=this;"string"!=typeof e?s=e:s[e]=t,$.each(s,function(e,t){a.form_element[e].val(t)})},$get_form_element:function(e){var t={},s=this;return e||$.isEmptyObject(s.form_element)?(this.element.find(":input").each(function(e){t[$(this).attr("name")]=$(this)}),s.form_element=t,t):s.form_element},$verify_group:function(e,t){var s="";return $.each(t,function(t,a){if(void 0===e[a])return!0;["disabled","readonly"].indexOf(a)>-1?s+=" "+(e[a]?a+'="'+a+'"':""):s+=" "+a+'="'+e[a]+'"'}),s},$verify_bind_event:function(e,t,s){var a={};return $.each(s,function(s,i){var n=t[i];n&&("object"===_typeof(a[e])?(Array.isArray(a[e])||(a[e]=[a[e]]),a[e].push({event:n,eventType:i})):a[e]={event:n,eventType:i})}),a},$verify:function(e,t,s){return e?!0===s?e?" "+t:"":"style"===s?t?t+":"+e+";":e:t?" "+t+'="'+e+'"':" "+e:""},$verify_form:function(){for(var e=this.config.form,t=this.$get_form_value(),s=this.$get_form_element(!0),a=!0,i=0;i<e.length;i++){var n=e[i];if(Array.isArray(n.group)||(n.group=[n.group]),!n.separate)for(var l=0;l<n.group.length;l++){var c=n.group[l],r=c.name;if("help"!==c.type&&"function"==typeof c.verify){var a=c.verify(t[r],s[r],c,!0);a="boolean"!=typeof a}}}return a?t:a},$submit:function(e,t,s){var a=this.$verify_form();return"function"==typeof e&&(s=t,t=e,e={}),!!a&&(a=$.extend(a,e),void 0===this.config.url?(bt_tools.msg("请求提交地址不能为空！",!1),!1):void bt_tools.send({url:this.config.url,data:a},function(e){t?t(e,a):bt_tools.msg(e)},s||"提交中"))}},new t(e)},load:function(e){var t=bt.get_random(5),s=$('<div class="layui-layer layui-layer-dialog layui-layer-msg layer-anim" id="'+t+'" type="dialog" style="z-index: 99891031;"><div class="layui-layer-content layui-layer-padding"><i class="layui-layer-ico layui-layer-ico16"></i>正在'+e+'，请稍候...</div><span class="layui-layer-setwin"></span></div><div class="layui-layer-shade" id="layer-mask-'+t+'" times="17" style="z-index:99891000; background-color:#000; opacity:0.3; filter:alpha(opacity=30);"></div>'),a="";$("body").append(s);var i=$(window),s=($(".layer-loading-mask"),$("#"+t));return s.css({top:(i.height()-64)/2,left:(i.width()-320)/2}),!0===e&&(a=layer.load()),{close:function(){"number"==typeof a?layer.close(a):$("body").find("#"+t+",#layer-mask-"+t).remove()}}},open:function(e){var t={},s=null,a=null;if(t=$.extend({type:1,area:"640px",closeBtn:2,btn:["确认","取消"]},e),"object"==_typeof(t.content)){var i=t.content;a=bt_tools.form(i),t.success=function(t,s){a.$event_bind(),void 0!==e.success&&e.success(t,s,a)},t.yes=function(t,s){var i=a.$verify_form();if(!i)return!1;if(void 0!==e.yes){if(!e.yes.apply(a,[i,t,s]))return!1}},t.content=a.$reader_content()}return s=layer.open(t),{close:function(){layer.close(s)},form:a}},msg:function(e,t){var s=null,a="",i={};return"object"===(void 0===e?"undefined":_typeof(e))&&"boolean"==typeof e.status&&(a=e.msg,i={icon:e.status?1:2},e.status||(i=$.extend(i,{time:t?3e3:0,closeBtn:2,shade:.3,shadeClose:!0}))),"string"==typeof e&&(a=e,i={icon:void 0!==t?t:1,shadeClose:!0}),s=layer.msg(a,i),{close:function(){layer.close(s)}}},success:function(e){this.msg({msg:e,status:!0})},error:function(e){this.msg({msg:e,status:!1})},send:function(e,t,s,a,i,n){function l(e){try{r="function"==d[e][1]?d[e][0]:null,o="function"==d[e+1][1]?d[e+1][0]:null}catch(e){}}var c={},r=null,o=null,d=[],p="";switch($.each(arguments,function(e,t){d.push([t,void 0===t?"undefined":_typeof(t)])}),p=d[0],p[1]){case"string":$.each(d,function(e,t){var s=t[0],a=t[1];if(e>1&&("boolean"==a||"string"==a||"object"==a)){var i=p[0].split("/");return c.url="/"+i[0]+"?action="+i[1],"object"==a?(c.load=s.load,c.verify=s.verify,s.plugin&&(c.url="/plugin?action=a&name="+i[0]+"&s="+i[1])):"string"==a&&(c.load=s),!1}c.url=p[0]}),"object"===d[1][1]?(c.data=d[1][0],l(2)):l(1);break;case"object":c.url=p[0].url,c.data=p[0].data||{},$.each(d,function(e,t){var s=t[0],a=t[1];if(e>1&&("boolean"==a||"string"==a||"object"==a)){switch(a){case"object":c.load=s.load,c.verify=s.verify;break;case"string":c.load=s}return!0}}),"object"===d[1][1]?(c.data=d[1][0],l(2)):l(1)}c.load&&(c.load=this.load(c.load)),$.ajax({type:c.type||"POST",url:c.url,data:c.data||{},dataType:c.dataType||"JSON",complete:function(e){c.load&&c.load.close()},success:function(e){return"boolean"!=typeof c.verify||c.verify?"string"==typeof e?(layer.msg(e,{icon:2,time:0,closeBtn:2}),!1):c.batch?(r&&r(e),!1):!1===e.status&&(e.hasOwnProperty("msg")||e.hasOwnProperty("error_msg"))?(o?o(e):bt_tools.msg({status:e.status,msg:e.hasOwnProperty("msg")?e.msg:e.error_msg}),!1):(c.tips&&bt_tools.msg(e),void(r&&r(e))):(r&&r(e),!1)}})},$clear_verify_tips:function(e){e.removeClass("bt-border-error bt-border-sucess"),layer.close("tips")},$verify_tips:function(e,t,s){void 0===s&&(s=!0),e.removeClass("bt-border-error bt-border-sucess").addClass(s?"bt-border-error":"bt-border-sucess"),e.focus(),layer.tips('<span class="inlineBlock">'+t+"</span>",e,{tips:[1,s?"red":"#20a53a"],time:3e3,area:e.width()})},$verify:function(e,t,s){return e?!0===s?e?" "+t:"":"style"===s?t?t+":"+e+";":e:t?" "+t+'="'+e+'"':" "+e:""},$batch_success_table:function(e){var t=this,s=$(e.html).length;bt.open({type:1,title:e.title,area:e.area||["350px","350px"],shadeClose:!1,closeBtn:2,content:e.content||'<div class="batch_title"><span class><span class="batch_icon"></span><span class="batch_text">'+e.title+'操作完成！</span></span></div><div class="'+(s>4?"fiexd_thead":"")+' batch_tabel divtable" style="margin: 15px 30px 15px 30px;overflow: auto;height: 200px;"><table class="table table-hover"><thead><tr><th>'+e.th+'</th><th style="text-align:right;width:120px;">操作结果</th></tr></thead><tbody>'+e.html+"</tbody></table></div>",success:function(){s>4&&t.$fixed_table_thead(".fiexd_thead")}})},$fixed_table_thead:function(e){$(e).scroll(function(){var e=this.scrollTop;this.querySelector("thead").style.transform="translateY("+(e-1)+"px)"})},$piugin_view_set:function(e,t){var s=$("string"==typeof e?"#layui-layer"+e:e).hide(),a=$(window);setTimeout(function(){var e=t.width||s.width(),i=t.height||s.height();s.css($.extend(t,{left:(a.width()-e)/2,top:(a.height()-i)/2})).addClass("custom_layer")},50),setTimeout(function(){s.show()},500)}};
+	$.fn.serializeObject = function () {
+		var e = Object.prototype.hasOwnProperty;
+		return this.serializeArray().reduce(function (t, a) {
+			return e.call(t, a.name) || (t[a.name] = a.value), t;
+		}, {});
+	};
+</script>
+<script type="text/javascript">
+	$('.layui-layer-page').css('width', '800px');
+	var ossfs = {
+		plugin_name: 'ossfs',
+		globalUrl: '/plugin?action=a&name=ossfs&s=',
+		globalAction: 'alioss', //当前操作的云存储类型
+		globalTable: null, //当前操作的表格对象
+		global: {},
+		address: [], //可选地址
+		ajaxList: {
+			create_bucket: '创建存储桶',
+			get_region: '获取地域',
+			get_oss_info: '获取密钥信息',
+			set_oss_config: '设置存储桶密钥',
+			oss_mount: '挂载存储桶',
+			oss_unmount: '卸载存储桶',
+		},
+		ossLable: {
+			alioss: '阿里云OSS',
+			jdoss: '京东云OSS',
+			bos: '百度云OSS',
+			obs: '华为云OSS',
+			ks3: '金山云OSS',
+			txcos: '腾讯云OSS',
+			qiniu: '七牛云',
+		}, //oss存储类型标签
+		init: function () {
+			var that = this;
+			$('.bt-w-menu p').click(function () {
+				var _name = $(this).attr('name');
+				that.globalAction = _name;
+				that.globalTable = null;
+				$(this).addClass('bgw').siblings().removeClass('bgw');
+				that.render_table_list();
+
+				// 获取地域
+				that.ajaxTask(
+					'get_region',
+					{ type: that.globalAction },
+					function (res) {
+						that.address = res;
+					}
+				);
+			});
+
+			$('.bt-w-menu p:eq(0)').click();
+		},
+		/**
+		 * 渲染表格数据
+		 */
+		render_table_list: function (page) {
+			var that = this,
+				pHTML = '',
+				fixedThead = true,
+				num = 0;
+			$('#ossfs_table').empty();
+			globalTable = bt_tools.table({
+				el: '#ossfs_table',
+				load: true,
+				url: this.globalUrl + 'get_mount_list',
+				height: 418,
+				param: { type: that.globalAction, p: page || 1 },
+				default: '列表数据为空',
+				dataFilter: function (res) {
+					pHTML = res.page;
+					return { data: res.data };
+				},
+				column: [
+					{
+						fid: 'bucket_name',
+						width: 150,
+						title: '存储桶名',
+						template: function (row) {
+							return (
+								'<div title="' +
+								row.bucket_name +
+								'"><span style="max-width: 150px;display:inline-block;overflow: hidden;vertical-align: middle;word-break: break-word;text-overflow: ellipsis;">' +
+								row.bucket_name +
+								'</span></div>'
+							);
+						},
+					},
+					{
+						fid: 'mount_path',
+						width: 320,
+						title: '挂载目录',
+						template: function (row) {
+							if (!row.mount)
+								return (
+									'<span class="bt_warning btlink" onclick="ossfs.set_disk_mount(\'' +
+									row.bucket_name +
+									"','" +
+									row.default_path +
+									'\')">点击挂载</span>'
+								);
+							return (
+								'<div><span style="max-width: 300px;display:inline-block;overflow: hidden;vertical-align: middle;word-break: break-word;text-overflow: ellipsis;">' +
+								row.mount_path +
+								'</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span class="btlink" style="color:red" onclick="ossfs.set_umount_cosfs(\'' +
+								row.bucket_name +
+								"','" +
+								row.mount_path +
+								'\')">卸载</a></div>'
+							);
+						},
+					},
+					{ fid: 'bucket_location', title: '所在地区' },
+				],
+				tootls: [
+					{
+						type: 'group',
+						positon: ['left', 'top'],
+						list: [
+							{
+								title: '添加存储桶',
+								active: true,
+								event: function () {
+									that.add_ossfs_mount();
+								},
+							},
+							{
+								title: '密钥配置',
+								event: function () {
+									that.keycode_config();
+								},
+							},
+						],
+					},
+				],
+				success: function () {
+					if ($('#ossfs_table .page').length == 0) {
+						$('#ossfs_table').append('<div class="page">' + pHTML + '</div>');
+					} else {
+						$('#ossfs_table .page').html(pHTML);
+					}
+					$('#ossfs_table .page a').on('click', function (e) {
+						var page = $(this).attr('href');
+						page = page.match(/p=([0-9])$/)[1];
+						that.render_table_list(page);
+						e.stopPropagation();
+						e.preventDefault();
+					});
+				},
+			});
+		},
+		/**
+		 * 添加存储桶
+		 */
+		add_ossfs_mount: function () {
+			var that = this;
+			bt_tools.open({
+				title: '添加【' + that.ossLable[that.globalAction] + '】挂载桶',
+				area: '460px',
+				skin: 'ossfs_add_mount',
+				btn: ['添加', '关闭'],
+				content: {
+					class: 'pd20',
+					form: [
+						{
+							label: '存储桶名',
+							group: {
+								name: 'bucket_name',
+								type: 'text',
+								value: '',
+								width: '300px',
+								placeholder: '请输入存储桶名',
+							},
+						},
+						{
+							label: '地区',
+							group: {
+								name: 'region_url',
+								type: 'select',
+								width: '300px',
+								list: that.address,
+							},
+						},
+					],
+				},
+				yes: function (formD, indexs) {
+					if (formD.bucket_name == '')
+						return bt_tools.msg('存储桶名不能为空', 2);
+					formD['type'] = that.globalAction;
+					that.ajaxTask('create_bucket', formD, function (res) {
+						if (res.status) {
+							layer.close(indexs);
+							globalTable.$refresh_table_list(true);
+						}
+						bt_tools.msg(res);
+					});
+				},
+			});
+		},
+		/**
+		 * 密钥配置
+		 */
+		keycode_config: function () {
+			var that = this;
+			this.ajaxTask(
+				'get_oss_info',
+				{ type: this.globalAction },
+				function (res) {
+					var isTencent = that.globalAction == 'txcos',
+						_definedConfig = [
+							{
+								label: 'key_id',
+								group: {
+									name: 'access_key_id',
+									type: 'text',
+									value: res.key_info.access_key_id,
+									width: '300px',
+									placeholder: '请输入access_key_id',
+								},
+							},
+							{
+								label: 'key_secret',
+								group: {
+									name: 'access_key_secret',
+									type: 'text',
+									value: res.key_info.access_key_secret,
+									width: '300px',
+									placeholder: '请输入access_key_secret',
+								},
+							},
+							{
+								label: '',
+								group: {
+									type: 'help',
+									style: { 'margin-top': '0' },
+									list: [
+										'<a class="btlink" href="https://www.bt.cn/bbs/forum.php?mod=viewthread&tid=96127" target="_blank">如何获取存储桶密钥信息？</a>',
+									],
+								},
+							},
+						];
+					if (isTencent) {
+						_definedConfig.unshift({
+							label: 'app_id',
+							group: {
+								name: 'app_id',
+								type: 'text',
+								value: res.key_info.app_id,
+								width: '300px',
+								placeholder: '请输入密钥APPID',
+							},
+						});
+					}
+					bt_tools.open({
+						title: '【' + that.ossLable[that.globalAction] + '】密钥配置',
+						area: '460px',
+						skin: 'ossfs_add_mount',
+						btn: ['保存', '关闭'],
+						content: {
+							class: 'pd20',
+							form: _definedConfig,
+						},
+						yes: function (formD, indexs) {
+							if (isTencent && formD.app_id == '')
+								return bt_tools.msg('APPID不能为空', 2);
+							if (formD.access_key_id == '')
+								return bt_tools.msg('access_key_id不能为空', 2);
+							if (formD.access_key_secret == '')
+								return bt_tools.msg('access_key_secret不能为空', 2);
+							formD['type'] = that.globalAction;
+							that.ajaxTask('set_oss_config', formD, function (res) {
+								if (res.status) {
+									layer.close(indexs);
+									globalTable.$refresh_table_list(true);
+								}
+								bt_tools.msg(res);
+							});
+						},
+					});
+				}
+			);
+		},
+		/**
+		 * 点击挂载存储桶
+		 */
+		set_disk_mount: function (name, path) {
+			var that = this,
+				regs = /([-][^-]+)$/,
+				bucket_name = name.replace(regs, ''),
+				isAutoIntranet = $.inArray(that.globalAction,['alioss','jdoss','ks3']) != -1,
+				config = [
+					{
+						label: '挂载目录',
+						group: [
+							{
+								type: 'text',
+								name: 'path',
+								width: '215px',
+								icon: {
+									type: 'glyphicon-folder-open',
+									event: function (ev) {
+										if ($('#PathPlace span').text() == '') {
+											var arry = ev.path.split('/');
+											arry.length = arry.length - 1;
+											GetDiskList(arry.join('/'));
+										}
+									},
+								},
+								value: path,
+								placeholder: '请选择文件目录',
+								verify: function (value, element) {
+									if (value == '') {
+										bt_tools.$verify_tips(element, '文件目录不能为空！');
+										return false;
+									}
+									return value;
+								},
+							},
+						],
+					},{
+					    group:{
+					        type:"help",
+					        style:{"margin-top":"0"},
+					        "class":"ossfs_help",
+					        list:isAutoIntranet?["内网挂载：云服务器与存储桶所在地域和提供商相同时可用内网传输，减少流量费用，加快传输速度"]:["云服务器与存储桶在统一地域时，自动切换为内网挂载"]
+					    }
+				    }];
+			if(isAutoIntranet){
+			    config.splice(1,0,{
+					label: '',
+                    group: {
+                        type: 'checkbox',
+                        name: 'intranet',
+                        title: '开启内网挂载',
+                        event:function(row,el,dthat){}
+                    }
+				})
+			}
+			if(that.globalAction === 'qiniu') config.splice(1,1)
+			var mount_region_selected = bt_tools.open({
+				title: '将【' + name + '】挂载到本机',
+				area: '400px',
+				btn: ['挂载', '取消'],
+				content: {
+					class: 'pd20',
+					formLabelWidth: '80px',
+					form: config,
+				},
+				success:function(){
+				  $('.ossfs_help').parent('div').removeAttr('style')
+				},
+				yes: function (form, indexs, layero) {
+				    var param = { bucket_name: name, path: form.path, type: that.globalAction }
+				    if(isAutoIntranet)param['intranet_endpoint'] = form.intranet?1:0
+					that.ajaxTask(
+						'oss_mount',
+						param,
+						function (res) {
+							if (res.status) {
+								layer.close(indexs);
+								globalTable.$refresh_table_list(true);
+							}
+							bt_tools.msg(res);
+						}
+					);
+				},
+			});
+		},
+		/**
+		 * 卸载挂载
+		 */
+		set_umount_cosfs: function (name, path) {
+			var that = this;
+			bt.confirm(
+				{ msg: '是否卸载[' + name + ']？', title: '卸载存储桶' },
+				function () {
+					that.ajaxTask(
+						'oss_unmount',
+						{ bucket_name: name, path: path, type: that.globalAction },
+						function (res) {
+							if (res.status) {
+								globalTable.$refresh_table_list(true);
+							}
+							bt_tools.msg(res);
+						}
+					);
+				}
+			);
+		},
+		/**
+		 * 动态处理请求，设置全局ajaxList，api和提示语，遍历请求返回成功值
+		 * @param {string} config 需要请求的api
+		 * @param {Function} data 请求参数
+		 * @param {Function} success 成功值
+		 * @param {Function} error 失败值
+		 */
+		ajaxTask: function (config, data, success, error) {
+			if (typeof config == 'string') {
+				if (typeof data == 'object') {
+					config = {
+						method: config,
+						data: data,
+						success: success,
+						error: error,
+					};
+				} else if (typeof data == 'function') {
+					config = { method: config, success: data };
+					if (typeof success == 'function') {
+						config.error = success;
+					}
+				}
+			}
+			if (config.middle === false) {
+				config.success();
+				return false;
+			}
+			this.http({
+				tips: '正在' + this.ajaxList[config.method] + ',请稍侯...',
+				method: config.method,
+				data: config.data || {},
+				success: function (rdata) {
+					if (config.success) config.success(rdata);
+				},
+				error: function (rdata) {
+					if (config.error) config.error(rdata);
+				},
+			});
+		},
+		// 请求封装
+		http: function (obj) {
+			var loadT = '';
+			if (obj.load == undefined) obj.load = 0;
+			if (obj.url == undefined) {
+				if (obj.plugin_name === undefined && this.plugin_name !== undefined)
+					obj.plugin_name = this.plugin_name;
+				if (!obj.plugin_name || !obj.method) {
+					layer.msg('插件类名称，或插件方法名称缺失!', { icon: 2 });
+					return false;
+				}
+			}
+			if (obj.load === 0 || obj.tips != undefined) {
+				loadT = layer.msg(obj.tips, { icon: 16, time: 0, shade: 0.1 });
+			} else if (
+				obj.load === 1 ||
+				(obj.tips == undefined && obj.load == undefined)
+			) {
+				loadT = layer.load();
+			}
+			$.ajax({
+				type: obj.type === undefined ? 'POST' : obj.type,
+				url:
+					obj.url != undefined
+						? obj.url
+						: '/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method,
+				data: obj.data || {},
+				timeout: obj.timeout || 99999999,
+				complete: function (res) {
+					if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+				},
+				success: function (rdata) {
+					if (obj.check) {
+						obj.success(rdata);
+						return;
+					}
+					if (typeof rdata.status !== 'undefined' && rdata.status === false) {
+						layer.msg(rdata.msg, { icon: 2 });
+						return false;
+					}
+					obj.success(rdata);
+				},
+				error: function (ex) {
+					if (!obj.error) {
+						obj.msg || obj.msg == undefined
+							? layer.msg('请求过程发现错误!', { icon: 2 })
+							: '';
+						return;
+					}
+					return obj.error(ex);
+				},
+			});
+		},
+	};
+	ossfs.init(); //初始化
+</script>

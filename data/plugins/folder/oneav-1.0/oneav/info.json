@@ -1,0 +1,10 @@
+{
+	"title": "微步木马检测",
+	"name": "oneav",
+	"ps": "能检测市面上99%的常见流行木马病毒文件，精确检测木马威胁。",
+	"versions": "1.0",
+	"checks": "/www/server/panel/plugin/oneav",
+	"author": "微步在线",
+	"home": "https://www.threatbook.cn/",
+	"not_substituted":[]
+}

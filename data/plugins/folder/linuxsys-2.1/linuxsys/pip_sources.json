@@ -1,0 +1,29 @@
+{
+  "pipsource": {
+    "Offical": {
+      "name": "\u5b98\u65b9\u6e90",
+      "value": "https://pypi.python.org/simple"
+    },
+    "ALi": {
+      "name": "\u963f\u91cc\u6e90",
+      "value": "https://mirrors.aliyun.com/pypi/simple/"
+    },
+    "Baidu": {
+      "name": "\u767e\u5ea6\u6e90",
+      "value": "https://mirror.baidu.com/pypi/simple/"
+    },
+    "QingHua": {
+      "name": "\u6e05\u534e\u6e90",
+      "value": "https://pypi.tuna.tsinghua.edu.cn/simple/"
+    },
+    "ZhongKeDa": {
+      "name": "\u4e2d\u79d1\u5927\u6e90",
+      "value": "https://pypi.mirrors.ustc.edu.cn/simple/"
+    },
+    "DouBan": {
+      "name": "\u8c46\u74e3\u6e90",
+      "value": "https://pypi.douban.com/simple/"
+    }
+  },
+  "last_choice": "http://mirrors.sohu.com/Python/"
+}

@@ -1,0 +1,1 @@
+{"excludePath": ["data","cache", "threadcache", "log", "logs", "config", "runtime", "temp"], "protectExt": ["php", "html", "htm", "shtml", "tpl", "js", "css", "jsp", "do"], "open": true}

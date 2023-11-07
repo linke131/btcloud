@@ -1,0 +1,9 @@
+{
+	"title": "堡塔入侵检测",
+	"name": "bt_hids",
+	"ps": "用于监视和分析服务器上的系统和应用程序，以检测和识别潜在的黑客的入侵行为。",
+	"versions": "1.1",
+	"checks": "/www/server/panel/plugin/bt_hids",
+	"author": "官方",
+	"home": "http://www.bt.cn"
+}

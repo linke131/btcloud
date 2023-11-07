@@ -1,0 +1,13 @@
+{
+    "id": 3,
+    "title": "堡塔资源监视器",
+    "tip": "lib",
+    "name": "resource_manager",
+    "type": "扩展",
+    "ps": "对网站每秒请求数和进程占用的资源进行监视",
+    "versions": "1.6",
+    "checks": "/www/server/panel/plugin/resource_manager",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs",
+	"not_cpu_type":["arm","mips"]
+}

@@ -1,0 +1,1622 @@
+<style>
+    /*样式写这里*/
+    .php_filter-table-logs table tbody tr td span{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width:580px;
+        display:block;
+    }
+    .bt-table .btswitch + .btswitch-btn {
+        width: 2.4em;
+        height: 1.4em;
+        margin-bottom: 0;
+    }
+    .waf_totall_data .item_center {
+        margin: 0 auto;
+        padding: 15px 0;
+        min-width: 200px;
+    }
+    .filter_totall_data{
+        margin: 0;
+        text-align: center;
+        display: inline-block;
+        width: 100%;
+        color: #666;
+    }
+    .filter_totall_data .item_center {
+        margin: 0 auto;
+        padding: 24px 0;
+        min-width: 200px;
+    }
+    .filter_totall_data .item_title {
+        display: block;
+        margin-bottom: 3px;
+        text-align: center;
+        font-size: 17px;
+    }
+    .filter_totall_data .icon i {
+        color: #5cb85c;
+        font-size: 60px;
+    }
+    .filter_totall_data .icon{
+        display: inline-block;
+    }
+    .filter_totall_data .tips {
+        display: inline-block;
+        margin-left: 10px;
+    }
+    .filter_totall_data .item_data {
+        display: block;
+        text-align: center;
+        font-weight: 500;
+        font-size: 21px;
+        color: #20a53a;
+    }
+    .filter_totall_data .item_data i {
+        font-style: initial;
+    }
+    .iconlanjie,.iconanquan{
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        background-size: 50px;
+        background-repeat: no-repeat;
+    }
+    .bt-w-main {
+        height: 100%;
+    }
+    .iconlanjie{
+        background-image: url('data:image/png;base64,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');
+    }
+    .iconanquan{
+        background-image: url('data:image/png;base64,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');
+    }
+    .pt30{
+        padding-top: 30px;
+    }
+    .rule_content_list {
+		overflow: auto;
+		width: 280px;
+		max-height: 200px;
+		border: 1px solid #ececec;
+		padding: 5px;
+		border-radius: 2px;
+	}
+
+	.rule_content_list li {
+		line-height: 30px;
+	}
+
+	.rule_content_list > li:last-child {
+		border-bottom: none;
+	}
+
+	.rule_content_list .rule_checkbox_group {
+		height: 30px;
+		line-height: 30px;
+		position: relative;
+		font-size: 0px;
+		cursor: pointer;
+		padding-left: 10px;
+	}
+    .bt_checkbox_groups.active {
+        border: none;
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        background: #20a53a;
+        color: #fff;
+    }
+	.rule_content_list .bt_checkbox_groups {
+		position: relative;
+		top: 7px;
+	}
+
+	.rule_checkbox_find_list {
+		background: #fff;
+		cursor: pointer;
+	}
+
+	.rule_checkbox_find_list li {
+		position: relative;
+	}
+
+	.rule_content_list .rule_checkbox_group:hover {
+		background-color: #efefef;
+		cursor: pointer;
+	}
+
+	.rule_checkbox_find_list .rule_checkbox_group {
+		background: transparent;
+		padding-left: 45px;
+		margin-left: 10px;
+	}
+
+	.rule_content_list .rule_checkbox_group .glyphicon {
+		width: 25px;
+		display: inline-block;
+		height: 30px;
+		line-height: 28px;
+		text-align: center;
+		color: #bbb;
+	}
+
+	.rule_checkbox_list span, .rule_content_list .rule_checkbox_title {
+		font-size: 12px;
+		color: #666;
+		vertical-align: middle;
+		display: inline-block;
+	}
+
+	.rule_content_list .rule_checkbox_title {
+		margin-left: 10px;
+	}
+
+	.rule_content_list .rule_checkbox_title i {
+		font-style: normal;
+		color: #bbb;
+	}
+	.bt_checkbox_groups {
+        display: inline-block;
+        height: 16px;
+        width: 16px;
+        border-radius: 1px;
+        cursor: pointer;
+        border: 1px solid #c2c2c2;
+        position: relative;
+        text-align: center;
+        line-height: 20px;
+        margin: 0;
+        vertical-align: top;
+    }
+    .bt_checkbox_groups.active:after {
+        content: "\e013";
+        font-size: 12px;
+        transform: scale(.85);
+        position: absolute;
+        left: 2px;
+        top: 2px;
+    }
+
+</style>
+<div class="bt-content" id="php_filter" style="height: 640px;">
+    <div class="bt-w-main">
+        <!--菜单部分-->
+        <div class="bt-w-menu">
+            <p class="bgw"  onclick="php_filter.get_sites()">网站防护</p>
+            <p onclick="php_filter.get_rule_list()">专属规则</p>
+            <p onclick="php_filter.get_index()">PHP设置</p>
+            <p onclick="php_filter.get_logs()">操作日志</p>
+        </div>
+        <!--内容部分-->
+        <div class="bt-w-con pd15">
+            <div class="plugin_body"></div>
+        </div>
+    </div>
+</div>
+
+<!--JS脚本部分，不要将JS脚本写在其它地方-->
+<script type="text/javascript">
+
+
+
+    /**
+     * 插件交互对象
+     * 您的所有JS代码可以写在里面
+     * 若不习惯JS的面向对象编程，可删除此对象，使用传统函数化的方式编写
+     * */
+    var php_filter = {
+        plugin_name:'php_filter',
+        server_names:[],
+        init:function(){
+            var that = this;
+            setTimeout(function(){
+                $('.layui-layer-page').css({ 'width': '900px','top':(($(window).height()- 690) /2) +'px','left':(($(window).width()- 900) /2) +'px'});
+                that.get_sites();
+            },10);
+            //定义窗口尺寸
+            this.event = this.event();
+            
+            //左测菜单切换效果
+            $(".bt-w-menu p").click(function () {
+                $(this).addClass('bgw').siblings().removeClass('bgw')
+            });
+            Array.prototype.indexOf = function(val) { 
+                for (var i = 0; i < this.length; i++) { 
+                    if (this[i] == val) return i; 
+                } 
+                return -1; 
+            };
+            Array.prototype.remove = function(val) { 
+                var index = this.indexOf(val); 
+                if (index > -1) { 
+                    this.splice(index, 1); 
+                } 
+            };
+        },
+        // 表格事件
+        event:function(){
+            var that = this; // 当前对象this指向
+            var stat_arr = {1:0,0:1,'-1':1,'1':0,'0':1}
+            // 统一返回参数 el，当前jquery对象，data:当前row行数据,ev:事件触发的Event 对象
+            return {
+                // 设置PHP过滤模块，没安装的安装，没启动的启动
+                set_php_filter_module:function(el,data,ev){
+                    php_filter.set_php_status(data.v,1,1);
+                },
+                // 设置php过滤服务状态
+                set_php_server_status:function(el,data,ev){
+                    var checked = $(this).prev().prop('checked'),_that = $(this);
+                    bt.confirm({title:'设置FastCGI服务状态',msg:'是否'+ (data.enable?'关闭':'开启') +'【PHP-'+ data.version +'】的FastCGI模式下的防护,是否继续？',cancel:function(){
+                        _that.prev().prop('checked',checked);
+                    }},function(){
+                        php_filter.set_php_status(data.v,stat_arr[data.enable+''],data.cli_enable);
+                    },function(){
+                       _that.prev().prop('checked',checked);
+                    });
+                },
+                // 设置php_cli过滤服务状态
+                set_php_cli_server_status:function(el,data,ev){
+                    var checked = $(this).prev().prop('checked'),_that = $(this);
+                    bt.confirm({title:'设置php-cli服务状态',msg:'是否'+ (data.cli_enable?'关闭':'开启') +'【PHP-'+ data.version +'】的php-cli模式下的防护,是否继续？',cancel:function(){
+                        _that.prev().prop('checked',checked);
+                    }},function(){
+                        php_filter.set_php_status(data.v,data.enable,stat_arr[data.cli_enable+'']);
+                    },function(){
+                       _that.prev().prop('checked',checked);
+                    });
+                },
+                // 设置站点过滤服务状态
+                set_site_server_status:function(el,data,ev){
+                    var checked = $(this).prev().prop('checked'),_that = $(this);
+                    // bt.confirm({title:'设置站点过滤服务状态',msg:'是否'+ (data.open?'关闭':'开启') +'【'+ data.site_name +'】的过滤服务状态,是否继续？',cancel:function(){
+                    //     _that.prev().prop('checked',checked);
+                    // }},function(){
+                        php_filter.set_site_status(data.site_name);
+                    // },function(){
+                    //   _that.prev().prop('checked',checked);
+                    // });
+                },
+                // 设置服务器过滤规则
+                set_site_filter_rule:function(el,data,ev){
+                    php_filter.show_filter_liet(data);
+                },
+                // 获取站点过滤日志
+                get_site_filter_logs:function(el,data,ev){
+                    php_filter.get_site_logs(data.site_name,null);
+                },
+                // 数据库选择事件-ok
+                checkboxMysql: function (el,data,ev) {
+                    var _type = $(this).attr('bt-event-type'), _checkbox = '.bt_checkbox_groups';
+                    switch (_type) {
+                        case 'active_all'://选中全部
+                            var thatActive = $(this).find(_checkbox), thatList = $(this).next();
+                            if (thatActive.hasClass('active')) {
+                                thatActive.removeClass('active').prev().prop('checked', false);
+                                thatList.find(_checkbox).removeClass('active').prev().prop('checked', false);
+                            } else {
+                                thatActive.addClass('active').prev().prop('checked', true);
+                                thatList.find(_checkbox).addClass('active').prev().prop('checked', true);
+                            }
+                            break;
+                        case 'active': //激活选中和取消
+                            var thatActive = $(this).find(_checkbox), thatList = $(this).next();
+                            if (thatActive.hasClass('active')) {
+                                thatActive.removeClass('active').prev().prop('checked', false);
+                                $('.mysql_content_list>.mysql_checkbox_group input').prop('checked', false).next().removeClass('active');
+                                if (thatList.length == 1) {
+                                    thatList.find(_checkbox).removeClass('active').prev().prop('checked', false);
+                                } else {
+                                    var nodeLength = $(this).parent().siblings().length + 1,
+                                        nodeList = $(this).parent().parent();
+                                    if (nodeList.find('.bt_checkbox_groups.active').length != nodeLength) {
+                                        nodeList.prev().find(_checkbox).removeClass('active').prev().prop('checked', false);
+                                    }
+                                }
+                            } else {
+                                thatActive.addClass('active').prev().prop('checked', true);
+                                if (thatList.length == 1) {
+                                    thatList.find(_checkbox).addClass('active').prev().prop('checked', true);
+                                } else {
+                                    var nodeLength = $(this).parent().siblings().length + 1,
+                                        nodeList = $(this).parent().parent();
+                                    if (nodeList.find('.bt_checkbox_groups.active').length == nodeLength) {
+                                        nodeList.prev().find(_checkbox).addClass('active').prev().prop('checked', true);
+                                    }
+                                }
+                            }
+                            break;
+                        case 'fold': //折叠数据库列表
+                            if ($(this).hasClass('glyphicon-menu-down')) {
+                                $(this).removeClass('glyphicon-menu-down').addClass('glyphicon-menu-right').parent().next().hide();
+                            } else {
+                                $(this).removeClass('glyphicon-menu-rigth').addClass('glyphicon-menu-down').parent().next().show();
+                            }
+                            break;
+                    }
+                    $('.rule_content_list').removeAttr('style');
+                    ev.stopPropagation();
+                },
+            }
+        },
+
+        //获取专属规则列表
+        get_rule_list:function(){
+            request_plugin(php_filter.plugin_name, 'get_rule_list',{}, function (rdata) {
+                var index_body = '',my_body= '';
+                php_filter.rule = rdata;
+                php_filter.each(rdata.rule_list,function(index,item){
+                    index_body += '<tr>\
+                        <td>'+ item.name +'</td>\
+                        <td>' + item.ps + '</td>\
+                        <td style="text-align: right;"><a class="btlink" onclick="php_filter.show_rule_site(\''+ item.name +'\')">指派</a></td></tr>';
+                });
+                my_body += '<div class="php_filter-table bt-table"><div class="divtable" style="height: 480px;">'
+                        +'<table class="table table-hover">'
+                            +'<thead>'
+                                +'<tr><th width="110px">规则名称</th><th>描述</th><th width="110px" style="text-align: right;">操作</th></tr>'
+                            +'</thead>'
+                            +'<tbody>'+ index_body+ '</tbody>'
+                        +'</table>'
+                + '</div></div>';
+
+                my_body += '<ul class="help-info-text c7">';
+                my_body += '<li>通过【指派】按钮，可批理为您的站点指派专属规则</li>';
+                my_body += '<li>请根据实际项目类型指派专属规则</li>';
+                my_body += '<li>若指派专属规则后网站访问异常，请指派回默认规则</li>';
+                my_body += '</ul>';
+                $('.plugin_body').html(my_body);
+                php_filter.site_list = rdata.site_list;
+                if(jQuery.prototype.fixedThead){
+                	$('.php_filter-table .divtable').fixedThead({resize:false});
+                }else{
+                	$('.php_filter-table .divtable').css({'overflow':'auto'});
+                }
+            });
+        },
+        // 显示站点专属规则指派列表
+        show_rule_site:function(ruleName){
+            var that = this;
+            layer.open({
+                type:1,
+                area:'500px',
+                title:'专属规则指派',
+                shift: 5,
+                closeBtn: 2,
+                shadeClose: false,
+                btn:['确认','取消'],
+                content:'<div class="bt-form pd20" id="rule_site_from">\
+                		<div class="line"><span class="tname">选择站点</span>\
+                			<div class="info-r">\
+                				<div class="rule_content_list">\
+                					<div class="rule_checkbox_group" bt-event-click="checkboxMysql" bt-event-type="active_all"><input name="*" type="checkbox" style="display: none;">\
+                						<div class="bt_checkbox_groups"></div>\
+                						<span class="rule_checkbox_title">全部选中</span></div>\
+                					<ul class="rule_checkbox_list"></ul>\
+                				</div>\
+                			</div>\
+                		</div>\
+                		<ul style="margin-left:30px" class="help-info-text c7">\
+                            <li>设置规则到对应的站点，支持多个站点同时设置</li>\
+                        </ul>\
+            		</div>',
+                success:function(layers,index){
+                    var rule_site_list = '';
+                    that.each(php_filter.site_list,function(index,item){
+                        rule_site_list += '<li>'
+    						+'<div class="rule_checkbox_group" bt-event-click="checkboxMysql" bt-event-type="active">'
+    							+'<span class="glyphicon glyphicon-menu-right" style="display:none" aria-hidden="true" bt-event-click="checkboxMysql" bt-event-type="fold"></span>'
+    							+'<input name="'+ item +'" type="checkbox" data-type="library" style="display: none;">'
+    							+'<div class="bt_checkbox_groups"></div>'
+    							+'<span class="rule_checkbox_title">'+ item +'</span>'
+    							+'</div>'
+        					+'</li>'
+    					$('.rule_checkbox_list').html(rule_site_list);
+    					that.event_bind('#rule_site_from');
+                    });
+                },
+                yes:function(index,layers){
+                    var siteNameList = [];
+                    $('#rule_site_from .rule_checkbox_list input').each(function(index,el){
+                        if($(this).prop('checked')){
+                            siteNameList.push($(this).attr('name'))
+                        }
+                    });
+                    that.set_rule_site({siteName:siteNameList.join(),ruleName:ruleName},function(){
+                        layer.close(index);
+                    });
+                }
+            })
+        },
+        // 设置站点专属规则
+        show_site_rult_list:function(siteName,ruleName){
+            var that = this;
+            request_plugin(php_filter.plugin_name, 'get_rule_list',{}, function (rdata) {
+                var index_body = '',my_body= '';
+                php_filter.rule = rdata;
+                php_filter.each(rdata.rule_list,function(index,item){
+                    index_body += '<tr>\
+                        <td>'+ item.name +'</td>\
+                        <td><span>' + item.ps + '</span></td>\
+                        <td style="text-align: right;">'+ (ruleName == item.name?'已配置':('<a class="btlink set_rule_site_link" href="javascript:;"  data-rule="'+ item.name + '">指派</a>'))  +'</td></tr>';
+                });
+                my_body += '<div class="php_filter-table bt-table" style="padding:20px;"><div class="divtable" style="height:450px">'
+                        +'<table class="table table-hover">'
+                            +'<thead>'
+                                +'<tr><th width="110px">规则名称</th><th>描述</th><th width="80px" style="text-align: right;">操作</th></tr>'
+                            +'</thead>'
+                            +'<tbody>'+ index_body+ '</tbody>'
+                        +'</table>'
+                + '</div></div>';
+                layer.open({
+                    type:1,
+                    area:'700px',
+                    title:'【'+ siteName +'】专属规则指派',
+                    shift: 5,
+                    closeBtn: 2,
+                    shadeClose: false,
+                    skin:'site_rult_list',
+                    content:my_body,
+                    success:function(layers,index){
+                        if(jQuery.prototype.fixedThead){
+                        	$('.site_rult_list .divtable').fixedThead({resize:false});
+                        }else{
+                        	$('.site_rult_list .divtable').css({'overflow':'auto'});
+                        }
+                        $('.set_rule_site_link').click(function(){
+                            that.set_rule_site({siteName:siteName,ruleName:$(this).attr('data-rule')},function(){
+                                php_filter.get_sites()
+                                layer.close(index);
+                            });
+                        });
+                    }
+                });
+            });
+        },
+        /**
+         * 指派专属规则
+         * @author 黄文良<2020-05-08>
+         * @param obj {siteName:网站名称,ruleName:规则名称} 参数
+         * @param callback  回调
+         * @return void
+         */
+        set_rule_site:function(obj,callback){
+            request_plugin(php_filter.plugin_name, 'set_rule_site',{siteName:obj.siteName,ruleName:obj.ruleName}, function (rdata) {
+                if(callback) callback(rdata);
+                bt.msg(rdata);
+            });
+        },
+
+        //显示过滤规则窗口
+        show_filter_liet:function(data){
+            my_body = '<div class="bt-content" id="php_filter" style="height: 640px;">\
+                        <div class="bt-w-main">\
+                            <div class="bt-w-menu">\
+                                <p class="bgw" >输入过滤</p>\
+                                <p>请求头过滤</p>\
+                                <p>目录滤过</p>\
+                                <p>禁用函数</p>\
+                                <p>函数过滤</p>\
+                            </div>\
+                            <div class="bt-w-con pd15">\
+                                <div class="filter_body"></div>\
+                            </div>\
+                        </div>\
+                    </div>';
+
+            layer.open({
+                    type: 1,
+                    area:"800px",
+                    title: '站点['+data.site_name+']过滤规则设置',
+                    shift: 5,
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:my_body,
+                    success:function(){
+                        //左测菜单切换效果
+                        $(".bt-w-menu p").click(function () {
+                            $(this).addClass('bgw').siblings().removeClass('bgw');
+                            $('.filter_body').empty();
+                            switch($(this).index()){
+                                case 0:
+                                    php_filter.show_request_filter();
+                                break;
+                                case 1:
+                                    php_filter.show_server_filter();
+                                break;
+                                case 2:
+                                    php_filter.show_path_filter();
+                                break;
+                                case 3:
+                                    php_filter.show_disable_funs();
+                                break;
+                                case 4:
+                                    php_filter.show_funs_filter();
+                                break;
+                            }
+                        });
+                        php_filter.show_request_filter();
+                    }
+            });
+        },
+
+        //显示$_SERVER过滤窗口
+        show_server_filter:function(){
+            var table_body = '';
+            var my_body = '';
+            var rule_fu = [" = "," ⊇ "];
+            for(var i=0;i<php_filter.pdata.server.black.length;i++){
+                var last_where = '未设置';
+                if(php_filter.pdata.server.black[i][0] != '*'){
+                    last_where = php_filter.server_names[php_filter.pdata.server.black[i][0]].name + rule_fu[php_filter.pdata.server.black[i][1]] + php_filter.pdata.server.black[i][2];
+                }
+                var done_where = php_filter.server_names[php_filter.pdata.server.black[i][3]].name + rule_fu[php_filter.pdata.server.black[i][4]] + php_filter.pdata.server.black[i][5];
+                table_body += '<tr><td>'+last_where+'</td><td>'+done_where+'</td><td>拦截</td><td style="text-align: right;"><a class="btlink" onclick="php_filter.remove_request_filter(\'server\',\'black\','+i+')">删除</a></td></tr>';
+            }
+
+            for(var i=0;i<php_filter.pdata.server.white.length;i++){
+                var last_where = '未设置';
+                if(php_filter.pdata.server.white[i][0] != '*'){
+                    last_where = php_filter.server_names[php_filter.pdata.server.white[i][0]].name + rule_fu[php_filter.pdata.server.white[i][1]] + php_filter.pdata.server.white[i][2];
+                }
+                var done_where = php_filter.server_names[php_filter.pdata.server.white[i][3]].name + rule_fu[php_filter.pdata.server.white[i][4]] + php_filter.pdata.server.white[i][5];
+                table_body += '<tr><td>'+last_where+'</td><td>'+done_where+'</td><td>放行</td><td style="text-align: right;"><a class="btlink" onclick="php_filter.remove_request_filter(\'server\',\'white\','+i+')">删除</a></td></tr>';
+            }
+
+
+            my_body += '<div class="php_filter-table bt-table">'
+                        +'<button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="php_filter.create_server_filter()">创建过滤规则</button>'
+                        +'<div class="divtable" style="height:420px">'
+                        +'<table class="table table-hover">'
+                            +'<thead>'
+                                +'<tr><th>前置条件</th><th>过滤条件</th><th>动作</th><th width="100px" style="text-align: right;">操作</th></tr>'
+                            +'</thead>'
+                            +'<tbody>'+ table_body + '</tbody>'
+                        +'</table>'
+                + '</div></div>';
+
+            my_body += '<ul class="help-info-text c7">';
+            my_body += '<li>针对$_SERVER中的字段值进行过滤，可过滤URI/客户端IP/UA/文件等等</li>';
+            my_body += '<li>添加前置过滤条件，可进行多条件精确匹配</li>';
+            my_body += '</ul>';
+
+            $(".filter_body").html(my_body);
+            if(jQuery.prototype.fixedThead){
+            	$('.filter_body .divtable').fixedThead({resize:false});
+            }else{
+            	$('.filter_body .divtable').css({'overflow':'auto'});
+            }
+        },
+
+        //显示目录过滤窗口
+        show_path_filter:function(){
+            var table_body = '';
+            var my_body = '';
+            for(var i=0;i<php_filter.pdata.filter_dir.length;i++){
+                table_body += '<tr><td>'+php_filter.pdata.filter_dir[i]+'</td><td style="text-align: right;"><a class="btlink" onclick="php_filter.remove_filter_dir(\''+php_filter.pdata.filter_dir[i]+'\')">删除</a></td></tr>';
+            }
+            my_body += '<div class="php_filter-table bt-table">'
+                        +'<button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="php_filter.add_path_filter()">添加防护目录</button>'
+                        +'<div class="divtable" style="height:420px">'
+                        +'<table class="table table-hover">'
+                            +'<thead>'
+                                +'<tr><th>防护目录</th><th width="100px" style="text-align: right;">操作</th></tr>'
+                            +'</thead>'
+                            +'<tbody>'+ table_body + '</tbody>'
+                        +'</table>'
+                + '</div></div>';
+
+            my_body += '<ul class="help-info-text c7">';
+            my_body += '<li>添加到防护目录列表后的目录，PHP解析器将拒绝解析此目录下的所有PHP文件!</li>';
+            my_body += '<li>请添加目录全路径，内核模块是从左到右进行模糊匹配的</li>';
+            my_body += '</ul>';
+            $(".filter_body").html(my_body);
+            if(jQuery.prototype.fixedThead){
+            	$('.filter_body .divtable').fixedThead({resize:false});
+            }else{
+            	$('.filter_body .divtable').css({'overflow':'auto'});
+            }
+        },
+
+
+        //添加防护目录
+        add_path_filter:function(){
+            php_filter.add_show_index = layer.open({
+                    type: 1,
+                    title: "添加防护目录到["+php_filter.pdata.site_name+"]",
+                    area: '540px',
+                    closeBtn: 2,
+                    btn:['提交','取消'],
+                    shadeClose: false,
+                    content:'<div class="bt-form pd20 pt30">\
+                        <div class="line">\
+                            <span class="tname" style="width:80px">防护目录</span>\
+                            <div class="info-r c4" style="margin-left:80px">\
+                                <input id="filter_path" class="bt-input-text" name="filter_path" type="text" style="width:375px;margin-right:10px;" placeholder="请指定目录全路径"  value="'+php_filter.pdata.path+'/">\
+                                <span class="glyphicon cursor mr5 glyphicon-folder-open" onclick="bt.select_path(\'filter_path\')"></span>\
+                            </div>\
+                        </div>\
+                        <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                            <li>请输入或选择受保护的目录全路径，务必确保防护路径包含站点根目录!</li>\
+                            <li>若要完整匹配目录路径，请在路径结尾加"/"，以确保正确匹配!</li>\
+                        </ul>\
+                    </div>',
+                    yes:function(){
+                        php_filter.create_filter_dir();
+                    }
+                });
+        },
+
+        //提交防护目录
+        create_filter_dir:function(){
+            pdata = {
+                siteName: php_filter.pdata.site_name,
+                path:$("#filter_path").val()
+            }
+
+            if(php_filter.pdata.path == pdata.path || php_filter.pdata.path + '/' == pdata.path){
+                layer.msg('不能直接将站点根目录作为防护路径!');
+                return;
+            }
+
+            if(pdata.path.indexOf(php_filter.pdata.path) === -1) {
+                layer.msg('请务必确保防护路径包含站点根目录!');
+                return;
+            }
+            request_plugin(php_filter.plugin_name, 'create_filter_dir',pdata, function (rdata) {
+                if(rdata.status === true){
+                    layer.close(php_filter.add_show_index);
+                    php_filter.pdata.filter_dir.unshift(pdata.path);
+                    php_filter.show_path_filter();
+                }
+                bt.msg(rdata);
+            });
+        },
+
+        //删除防护目录
+        remove_filter_dir:function(path){
+            pdata = {
+                siteName: php_filter.pdata.site_name,
+                path:path
+            }
+            request_plugin(php_filter.plugin_name, 'remove_filter_dir',pdata, function (rdata) {
+                if(rdata.status === true){
+                    php_filter.pdata.filter_dir.remove(path);
+                    php_filter.show_path_filter();
+                    bt.msg(rdata);
+                }
+            });
+        },
+
+        //格式化函数过滤参数
+        format_funs_args:function(data){
+            if(data === '*' || data === undefined){
+                return '跳过';
+            }
+            return data
+        },
+
+        //显示函数过滤窗口
+        show_funs_filter:function(){
+            var table_body = '';
+            var my_body = '';
+            for(var i=0;i<php_filter.pdata.filter_funs.length;i++){
+                table_body += '<tr><td>'+php_filter.pdata.filter_funs[i][0]+'</td><td>'
+                    +php_filter.format_funs_args(php_filter.pdata.filter_funs[i][1])+'</td><td>'
+                    +php_filter.format_funs_args(php_filter.pdata.filter_funs[i][2])+'</td><td>'
+                    +php_filter.format_funs_args(php_filter.pdata.filter_funs[i][3])+'</td><td>'
+                    +php_filter.format_funs_args(php_filter.pdata.filter_funs[i][4])
+                    +'</td><td style="text-align: right;"><a class="btlink" onclick="php_filter.remove_funs_filter('+i+')">删除</a></td></tr>';
+            }
+            my_body += '<div class="php_filter-table bt-table">'
+                        +'<button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="php_filter.add_funs_filter()">添加过滤规则</button>'
+                        +'<div class="divtable" style="height:420px">'
+                        +'<table class="table table-hover">'
+                            +'<thead>'
+                                +'<tr><th>函数名称</th><th>参数1</th><th>参数2</th><th>参数3</th><th>参数4</th><th width="100px" style="text-align: right;">操作</th></tr>'
+                            +'</thead>'
+                            +'<tbody>'+ table_body + '</tbody>'
+                        +'</table>'
+                + '</div></div>';
+
+            my_body += '<ul class="help-info-text c7">';
+            my_body += '<li>此处可创建过滤规则对所有内置函数的参数进行过滤!</li>';
+            my_body += '<li>最多支持函数的前4个参数进行过滤</li>';
+            my_body += '</ul>';
+                
+            $(".filter_body").html(my_body);
+            if(jQuery.prototype.fixedThead){
+            	$('.filter_body .divtable').fixedThead({resize:false});
+            }else{
+            	$('.filter_body .divtable').css({'overflow':'auto'});
+            }
+        },
+
+        //添加函数过滤规则
+        add_funs_filter:function(){
+            php_filter.add_show_index = layer.open({
+                    type: 1,
+                    title: "添加函数过滤规则到["+php_filter.pdata.site_name+"]",
+                    area: '550px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    btn:['提交','取消'],
+                    content:'<div class="bt-form pd20 pt30">\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">被过滤的函数名称</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="filter_funs" type="text" style="width:290px" placeholder="请填写函数名称，如：system"  value="">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">第一个参数匹配值</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="args1" type="text" style="width:290px" placeholder="第一个参数匹配值，填*为跳过此参数"  value="">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">第二个参数匹配值</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="args2" type="text" style="width:290px" placeholder="第二个参数匹配值，填*为跳过此参数"  value="*">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">第三个参数匹配值</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="args3" type="text" style="width:290px" placeholder="第三个参数匹配值，填*为跳过此参数"  value="*">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">第四个参数匹配值</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="args4" type="text" style="width:290px" placeholder="第四个参数匹配值，填*为跳过此参数"  value="*">\
+                                    </div>\
+                                </div>\
+                                <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                    <li>过滤特定函数的特定参数值，必需匹配上所有非*的匹配值才会拦截</li>\
+                                    <li>必需填写一个有效的匹配参数才有效!</li>\
+                                    <li>如果只想匹配第三个参数，或该函数只有一个参数，可将其它参数设为*</li>\
+                                </ul>\
+                            </div>',
+                    yes:function(){
+                        php_filter.create_funs_filter();
+                    }
+                });
+        },
+
+        //提交函数过滤规则
+        create_funs_filter:function(){
+            pdata = {
+                siteName: php_filter.pdata.site_name,
+                functionName:$("input[name='filter_funs']").val(),
+                args:[]
+            }
+
+            if(!pdata.functionName){
+                layer.msg('函数名称不能为空!');
+                return;
+            }
+
+            //判断参数匹配值是否可用
+            pdata.args.push($("input[name='args1']").val());
+            pdata.args.push($("input[name='args2']").val());
+            pdata.args.push($("input[name='args3']").val());
+            pdata.args.push($("input[name='args4']").val());
+            x = 0;
+            for(var i=0;i<pdata.args.length;i++){
+                if(pdata.args[i] == ''){
+                    layer.msg("参数匹配值不能为空,若不匹配此参数，可填写*代替");
+                    return;
+                }
+                if(pdata.args[i] === '*') x++;
+            }
+
+            if(x == 4){
+                layer.msg('至少需要匹配1个参数，不能都为*');
+                return;
+            }
+
+            //重新组装args，去尾*
+            var tmp_args = [];
+            var k = true;
+            for(var i=pdata.args.length -1;i>=0;i--){
+                if(k === true && pdata.args[i] === '*') continue;
+                tmp_args.unshift(pdata.args[i]);
+                k = false;
+            }
+
+            pdata.args = JSON.stringify(tmp_args);            
+            request_plugin(php_filter.plugin_name, 'create_filter_funs',pdata, function (rdata) {
+                if(rdata.status === true){
+                    layer.close(php_filter.add_show_index);
+                    tmp_args.unshift(pdata.functionName);
+                    php_filter.pdata.filter_funs.unshift(tmp_args);
+                    php_filter.show_funs_filter();
+                }
+                bt.msg(rdata);
+            });
+        },
+
+        //删除函数过滤规则
+        remove_funs_filter:function(functionIndex){
+            pdata = {
+                siteName: php_filter.pdata.site_name,
+                functionIndex:functionIndex
+            }
+            request_plugin(php_filter.plugin_name, 'remove_filter_funs',pdata, function (rdata) {
+                if(rdata.status === true){
+                    php_filter.pdata.filter_funs.splice(functionIndex,1);
+                    php_filter.show_funs_filter();
+                }
+                bt.msg(rdata);
+            });
+        },
+
+        //显示禁用函数列表
+        show_disable_funs:function(){
+            var table_body = '';
+            var my_body = '';
+            for(var i=0;i<php_filter.pdata.filter_disable_funs.length;i++){
+                table_body += '<tr><td>'+php_filter.pdata.filter_disable_funs[i]+'</td><td style="text-align: right;"><a class="btlink" onclick="php_filter.remove_disable_funs(\''+php_filter.pdata.filter_disable_funs[i]+'\')">删除</a></td></tr>';
+            }
+            my_body += '<div class="php_filter-table bt-table">'
+                        +'<button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="php_filter.add_disable_funs()">添加禁用函数</button>'
+                        +'<div class="divtable" style="height:420px;">'
+                        +'<table class="table table-hover">'
+                            +'<thead>'
+                                +'<tr><th>函数名称</th><th width="100px" style="text-align: right;">操作</th></tr>'
+                            +'</thead>'
+                            +'<tbody>'+ table_body + '</tbody>'
+                        +'</table>'
+                + '</div></div>';
+
+            my_body += '<ul class="help-info-text c7">';
+            my_body += '<li>此处禁用函数是仅针对单一网站的，不会影响其它站点!</li>';
+            my_body += '<li>建议尽可能禁用此站点用不上的风险函数，以增强安全性!</li>';
+            my_body += '<li>支持除用户函数以外的所有函数</li>';
+            my_body += '</ul>';
+                
+            $(".filter_body").html(my_body);
+            if(jQuery.prototype.fixedThead){
+            	$('.filter_body .divtable').fixedThead({resize:false});
+            }else{
+            	$('.filter_body .divtable').css({'overflow':'auto'});
+            }
+        },
+        
+        //添加禁用函数
+        add_disable_funs:function(){
+            php_filter.add_show_index = layer.open({
+                    type: 1,
+                    title: "添加禁用函数到["+php_filter.pdata.site_name+"]",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    btn:['提交','取消'],
+                    content:'<div class="bt-form pd20 pt30">\
+                                <div class="line">\
+                                    <span class="tname" style="width:130px">被禁用的函数名称</span>\
+                                    <div class="info-r c4" style="margin-left:130px">\
+                                        <input class="bt-input-text" name="filter_disable_funs" type="text" style="width:400px" placeholder="请填写函数名称，如：system"  value="">\
+                                    </div>\
+                                </div>\
+                                <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                    <li>此处可禁用所有PHP内置函数，包括在disable_functions中无法禁用的，且只针对指定站点生效!</li>\
+                                    <li>若禁用指定函数后项目运行异常，请解除禁用!</li>\
+                                </ul>\
+                            </div>',
+                    yes:function(){
+                        php_filter.create_disable_funs()
+                    }
+                });
+        },
+
+        //提交禁用函数
+        create_disable_funs:function(){
+            pdata = {
+                siteName: php_filter.pdata.site_name,
+                functionName:$("input[name='filter_disable_funs']").val()
+            }
+
+            if(!pdata.functionName){
+                layer.msg('函数名称不能为空!');
+                return;
+            }
+            request_plugin(php_filter.plugin_name, 'create_disable_funs',pdata, function (rdata) {
+                if(rdata.status === true){
+                    layer.close(php_filter.add_show_index);
+                    php_filter.pdata.filter_disable_funs.unshift(pdata.functionName);
+                    php_filter.show_disable_funs();
+                }
+                bt.msg(rdata);
+            });
+        },
+
+        //删除禁用函数
+        remove_disable_funs:function(functionName){
+            pdata = {
+                siteName: php_filter.pdata.site_name,
+                functionName:functionName
+            }
+            request_plugin(php_filter.plugin_name, 'remove_disable_funs',pdata, function (rdata) {
+                if(rdata.status === true){
+                    php_filter.pdata.filter_disable_funs.remove(functionName);
+                    php_filter.show_disable_funs();
+                }
+                bt.msg(rdata);
+            });
+        },
+
+        //显示创建输入过滤窗口
+        show_request_filter:function(){
+            var table_body = '';
+            var my_body = '';
+            var rule_fu = [" = "," ⊇ "];
+            for(var i=0;i<php_filter.pdata.input.black.length;i++){
+                var last_where = '未设置';
+                if(php_filter.pdata.input.black[i][0] != '*'){
+                    last_where = php_filter.server_names[php_filter.pdata.input.black[i][0]].name + rule_fu[php_filter.pdata.input.black[i][1]] + php_filter.pdata.input.black[i][2];
+                }
+                var done_where = php_filter.pdata.input.black[i][3] + rule_fu[php_filter.pdata.input.black[i][4]] + php_filter.pdata.input.black[i][5];
+                table_body += '<tr><td>'+last_where+'</td><td>'+done_where+'</td><td>拦截</td><td style="text-align: right;"><a class="btlink" onclick="php_filter.remove_request_filter(\'input\',\'black\','+i+')">删除</a></td></tr>';
+            }
+
+            for(var i=0;i<php_filter.pdata.input.white.length;i++){
+                var last_where = '未设置';
+                if(php_filter.pdata.input.white[i][0] != '*'){
+                    last_where = php_filter.server_names[php_filter.pdata.input.white[i][0]].name + rule_fu[php_filter.pdata.input.white[i][1]] + php_filter.pdata.input.white[i][2];
+                }
+                var done_where = php_filter.pdata.input.white[i][3] + rule_fu[php_filter.pdata.input.white[i][4]] + php_filter.pdata.input.white[i][5];
+                table_body += '<tr><td>'+last_where+'</td><td>'+done_where+'</td><td>放行</td><td style="text-align: right;"><a class="btlink" onclick="php_filter.remove_request_filter(\'input\',\'white\','+i+')">删除</a></td></tr>';
+            }
+
+
+            my_body += '<div class="php_filter-table bt-table">'
+                        +'<button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="php_filter.create_request_filter()">创建过滤规则</button>'
+                        +'<div class="divtable" style="height:420px;">'
+                        +'<table class="table table-hover">'
+                            +'<thead>'
+                                +'<tr><th>前置条件</th><th>过滤条件</th><th>动作</th><th width="100px" style="text-align: right;">操作</th></tr>'
+                            +'</thead>'
+                            +'<tbody>'+ table_body + '</tbody>'
+                        +'</table>'
+                + '</div></div>';
+
+            my_body += '<ul class="help-info-text c7">';
+            my_body += '<li>此处可创建过滤规则对$_GET/$_POST参数进行过滤!</li>';
+            my_body += '<li>可设置前置规则进行定点过滤!</li>';
+            my_body += '</ul>';
+
+            $(".filter_body").html(my_body);
+            if(jQuery.prototype.fixedThead){
+            	$('.filter_body .divtable').fixedThead({resize:false});
+            }else{
+            	$('.filter_body .divtable').css({'overflow':'auto'});
+            }
+        },
+
+        //删除指定过滤规则
+        remove_request_filter:function(filter_name,filter_type,filter_index){
+            pdata = {
+                siteName: php_filter.pdata.site_name,
+                filter_name:filter_name,
+                filter_type:filter_type,
+                filter_index:filter_index
+            }
+            bt.confirm({title:'删除过滤规则',msg:'是否删除当前选中的过滤规则，是否继续？'},function(){
+                request_plugin(php_filter.plugin_name, 'remove_request_filter',pdata, function (rdata) {
+                    if(rdata.status === true){
+                        php_filter.pdata[filter_name][pdata.filter_type].splice(filter_index,1);
+                        //php_filter.data[php_filter.data_index][filter_name][pdata.filter_type].splice(filter_index,1);
+                        if(filter_name == 'input'){
+                            php_filter.show_request_filter();
+                        }else{
+                            php_filter.show_server_filter();
+                        }
+                        bt.msg(rdata);
+                    }
+                });
+            });
+        },
+
+        //创建HEAD过滤规则
+        create_server_filter:function(){
+            var server_names = '';
+            for(var i=0;i<php_filter.server_names.length;i++){
+                server_names += '<option value="'+php_filter.server_names[i].id+'">'+php_filter.server_names[i].name + ' -- '+php_filter.server_names[i].title+'</option>'
+            }
+
+            php_filter.add_show_index = layer.open({
+                    type: 1,
+                    title: "添加输入过滤规则到["+php_filter.pdata.site_name+"]",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    btn:['提交','取消'],
+                    content:'<div class="bt-form pd20 pt30">\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">匹配字段</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_where2" class="bt-input-text" style="width:290px;margin-right:15px">'+server_names+'</select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">匹配方式</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_type2" class="bt-input-text" style="width:290px;margin-right:15px">\
+                                            <option value="0">完全匹配</option>\
+                                            <option value="1">模糊匹配</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">匹配值</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="filter_value2" type="text" style="width:290px" placeholder="指定参数的匹配值"  value="">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">匹配成功后的动作</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_type" class="bt-input-text" style="width:290px;margin-right:15px">\
+                                            <option value="black">拦截</option>\
+                                            <option value="white">放行</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">前置规则</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_last" class="bt-input-text" style="width:290px;margin-right:15px">\
+                                            <option value="0">禁用</option>\
+                                            <option value="1">启用</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line last-filter">\
+                                    <span class="tname" style="width:160px">前置匹配项</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_where1" class="bt-input-text" style="width:290px;margin-right:15px">'+server_names+'</select>\
+                                    </div>\
+                                </div>\
+                                <div class="line last-filter">\
+                                    <span class="tname" style="width:160px">前置匹配方式</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_type1" class="bt-input-text" style="width:290px;margin-right:15px">\
+                                            <option value="0">完全匹配</option>\
+                                            <option value="1">模糊匹配</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line last-filter">\
+                                    <span class="tname" style="width:160px">前置匹配值</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="filter_value1" type="text" style="width:290px" placeholder="指定项的匹配值"  value="">\
+                                    </div>\
+                                </div>\
+                                <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                    <li>前置规则为$_SERVER数组中的字段，有前置规则的的情况下，上述规则需前置匹配成立才生效!</li>\
+                                    <li>匹配成功后的动作， 若多条规则同时生效的情况下，放行规则具备优先权!</li>\
+                                </ul>\
+                            </div>',
+                    success: function(){
+                        $(".last-filter").hide();
+                        $("select[name='filter_last']").change(function(){
+                            if($(this).val() !== '0'){
+                                $(".last-filter").show();
+                            }else{
+                                $(".last-filter").hide();
+                            }
+                        });
+                    },
+                    yes:function(){
+                        php_filter.create_request_filter_to('server');
+                    }
+                });
+        },
+
+        //创建输入过滤规则
+        create_request_filter:function(){
+            var server_names = '';
+            for(var i=0;i<php_filter.server_names.length;i++){
+                server_names += '<option value="'+php_filter.server_names[i].id+'">'+php_filter.server_names[i].name + ' -- '+php_filter.server_names[i].title+'</option>'
+            }
+            php_filter.add_show_index = layer.open({
+                    type: 1,
+                    title: "添加输入过滤规则到["+php_filter.pdata.site_name+"]",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    btn:['提交','取消'],
+                    content:'<div class="bt-form pd20 pt30">\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">过滤参数</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="filter_where2" type="text" style="width:290px" placeholder="$_POST/$_GET中的参数字段名称,如：username"  value="">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">匹配方式</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_type2" class="bt-input-text" style="width:290px;margin-right:15px">\
+                                            <option value="0">完全匹配</option>\
+                                            <option value="1">模糊匹配</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">匹配值</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="filter_value2" type="text" style="width:290px" placeholder="指定参数的匹配值"  value="">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">匹配成功后的动作</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_type" class="bt-input-text" style="width:290px;margin-right:15px">\
+                                            <option value="black">拦截</option>\
+                                            <option value="white">放行</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">前置规则</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_last" class="bt-input-text" style="width:290px;margin-right:15px">\
+                                            <option value="0">禁用</option>\
+                                            <option value="1">启用</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line last-filter">\
+                                    <span class="tname" style="width:160px">前置匹配项</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_where1" class="bt-input-text" style="width:290px;margin-right:15px">'+server_names+'</select>\
+                                    </div>\
+                                </div>\
+                                <div class="line last-filter">\
+                                    <span class="tname" style="width:160px">前置匹配方式</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="filter_type1" class="bt-input-text" style="width:290px;margin-right:15px">\
+                                            <option value="0">完全匹配</option>\
+                                            <option value="1">模糊匹配</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line last-filter">\
+                                    <span class="tname" style="width:160px">前置匹配值</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="filter_value1" type="text" style="width:290px" placeholder="指定项的匹配值"  value="">\
+                                    </div>\
+                                </div>\
+                                <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                    <li>前置规则为$_SERVER数组中的字段，有前置规则的的情况下，上述规则需前置匹配成立才生效!</li>\
+                                    <li>匹配成功后的动作， 若多条规则同时生效的情况下，放行规则具备优先权!</li>\
+                                </ul>\
+                            </div>',
+                    success: function(){
+                        $(".last-filter").hide();
+                        $("select[name='filter_last']").change(function(){
+                            if($(this).val() !== '0'){
+                                $(".last-filter").show();
+                            }else{
+                                $(".last-filter").hide();
+                            }
+                        });
+                    },
+                    yes:function(){
+                        php_filter.create_request_filter_to('input');
+                    }
+                });
+        },
+
+        //提交输入过滤规则
+        create_request_filter_to:function(filter_name){
+            var pdata = {
+                siteName: php_filter.pdata.site_name,
+                filter_name:filter_name,
+                filter_type:$("select[name='filter_type']").val(),
+                where_index1:$("select[name='filter_where1']").val(),
+                where_type1:$("select[name='filter_type1']").val(),
+                where_val1:$("input[name='filter_value1']").val(),
+                where_type2:$("select[name='filter_type2']").val(),
+                where_val2:$("input[name='filter_value2']").val()
+            }
+            if(filter_name == 'server'){
+                pdata['where_index2'] = $("select[name='filter_where2']").val();
+            }else{
+                pdata['where_index2'] = $("input[name='filter_where2']").val();
+            }
+            if(pdata['where_index2'] == ''){
+                layer.msg('过滤参数不能为空',{icon:0});
+                return false;
+            }
+            if(pdata['where_val2'] == ''){
+                layer.msg('匹配值不能为空',{icon:0});
+                return false;
+            }
+            if(pdata.where_val1 == '' || $("select[name='filter_last']").val() === '0'){
+                pdata.where_val1 = '';
+                pdata.where_index1 = '*';
+            }
+
+            request_plugin(php_filter.plugin_name, 'create_request_filter',pdata, function (rdata) {
+                if(rdata.status === true){
+                    layer.close(php_filter.add_show_index);
+                    if(pdata.where_index1!= '*') pdata.where_index1 = Number(pdata.where_index1);
+                    pdata.where_type1 = Number(pdata.where_type1);
+                    pdata.where_type2 = Number(pdata.where_type2);
+                    var tmp_rule = [pdata.where_index1,pdata.where_type1,pdata.where_val1,pdata.where_index2,pdata.where_type2,pdata.where_val2];
+                    php_filter.pdata[filter_name][pdata.filter_type].unshift(tmp_rule)
+                    //php_filter.data[php_filter.data_index][filter_name][pdata.filter_type].unshift(tmp_rule)
+                    if(filter_name == 'input'){
+                        php_filter.show_request_filter();
+                    }else{
+                        php_filter.show_server_filter();
+                    }
+                    
+                }
+
+                setTimeout(function(){
+                    bt.msg(rdata);
+                },1000);
+            });
+
+        },
+
+        /**
+         * 获取站点日志
+         * @author 黄文良<2020-05-06>
+         * @param siteName 站点名称
+         * @param day 指定日期
+         * @return void
+         */
+        get_site_logs:function(siteName,day){
+            
+            var my_body = '';
+            my_body += '<div class="php_filter-table php_filter-table-logs bt-table">'
+                +'<select class="bt-input-text filter-days" style="margin: 15px 15px 0px 15px;"></select>'
+                +'<div class="divtable" style="height:450px;margin: 15px;">'
+                    +'<table class="table table-hover">'
+                        +'<thead>'
+                            +'<tr><th>时间</th><th>过滤类型</th><th>文件位置</th><th>用户IP</th><th>类型</th><th>域名</th><th>URI</th></tr>'
+                        +'</thead>'
+                        +'<tbody class="filter-logs"></tbody>'
+                    +'</table>'
+            + '</div></div>';
+
+            
+            php_filter.log_index = layer.open({
+                type: 1,
+                area:"900px",
+                title: '站点['+siteName+']防护日志',
+                shift: 5,
+                skin:'phpFilterSiteLogs',
+                closeBtn: 2,
+                shadeClose: false,
+                content:my_body,
+                success:function(){
+                    php_filter.get_site_log_to(siteName,day);
+                    $(".filter-days").change(function(){
+                        php_filter.get_site_log_to(siteName,$(this).val());
+                    });
+                }
+            });
+        },
+
+        /**
+         * 从后台获取日志信息
+         * @author 黄文良<2020-05-09>
+         * @param siteName 网站名称
+         * @param day 日志日期
+         * @return void
+         */
+        get_site_log_to:function(siteName,day){
+            request_plugin(php_filter.plugin_name, 'get_site_logs',{siteName:siteName,day:day}, function (rdata) {
+                if(rdata.days.length === 0){
+                    layer.close(php_filter.log_index);
+                    layer.msg('暂无日志!');
+                    return;
+                }
+
+                if(!day) {
+                    for(var i=0;i<rdata.days.length;i++){
+                        day_body += '<option value="'+rdata.days[i]+'">'+rdata.days[i]+'</option>';
+                    }
+                    $(".filter-days").html(day_body);
+                }
+                var filter_types = {input_black:'输入过滤',server_black:"请求头过滤",filter_funs:"函数过滤"}               
+                var log_body = '';
+                var day_body = '';
+                for(var i=0;i<rdata.logs.length;i++){
+                    log_body += '<tr>\
+                                    <td><span style="width:120px;">'+rdata.logs[i][0]+'</span></td>\
+                                    <td><span style="width:70px;" title="'+filter_types[rdata.logs[i][1]]+'">'+filter_types[rdata.logs[i][1]]+'</span></td>\
+                                    <td><span style="width:180px;" title="'+rdata.logs[i][2]+'">'+rdata.logs[i][2]+'</span></td>\
+                                    <td><span style="width:90px;" title="'+rdata.logs[i][5]+'">'+rdata.logs[i][5]+'</span></td>\
+                                    <td><span style="width:50px;" title="'+rdata.logs[i][6]+'">'+rdata.logs[i][6]+'</span></td>\
+                                    <td><span style="width:90px;" title="'+rdata.logs[i][7]+'">'+rdata.logs[i][7]+'</span></td>\
+                                    <td><span style="width:130px;" title="'+rdata.logs[i][8]+'">'+rdata.logs[i][8]+'</span></td>\
+                                </tr>';
+                }
+                
+                $(".filter-logs").html(log_body);
+                if(jQuery.prototype.fixedThead){
+                    $(".phpFilterSiteLogs .divtable").fixedThead({resize:false});
+                }else{
+                    $('.phpFilterSiteLogs.divtable').css({'overflow':'auto'});
+                }
+            });
+        },
+
+        /**
+         * 设置站点状态
+         * @author 黄文良<2020-05-06>
+         * @param siteName 站点名称
+         * @return void
+         */
+        set_site_status:function(siteName){
+            request_plugin(php_filter.plugin_name, 'set_site_status',{siteName:siteName}, function (rdata) {
+                layer.msg(rdata.msg,{icon:rdata.status?1:2,shade:false});
+                if(rdata.status === true){
+                    setTimeout(function(){
+                        //php_filter.get_sites();
+                    },1000)
+                }
+            });
+        },
+
+        /**
+         * 设置PHP配置状态
+         * @author 黄文良<2020-05-06>
+         * @param php_version 指定PHP版本
+         * @param enable 指定CGI状态
+         * @param cli_enable 指定CLI状态
+         * @return void
+         */
+        set_php_status:function(php_version,enable,cli_enable){
+            if(enable === undefined) enable = 1;
+            if(cli_enable === undefined) cli_enable = 1;
+            var pdata = {
+                enable:enable,
+                cli_enable:cli_enable,
+                php_version:php_version
+            }
+
+            request_plugin(php_filter.plugin_name, 'set_php_status',pdata, function (rdata) {
+                bt.msg(rdata);
+                if(rdata.status === true){
+                    setTimeout(function(){
+                        php_filter.get_index();
+                    },1000)
+                }
+            });
+
+        },
+        
+        // 获取首页数据
+        get_index:function(p){
+            var that = this;
+            request_plugin(php_filter.plugin_name, 'get_index',{callback:false}, function (rdata) {
+                var index_body = '',my_body =  '';
+                php_filter.server_names = rdata.server_names;
+        		php_filter.data = rdata.php_versions;
+                that.each(rdata.php_versions,function(index,item){
+                    index_body += '<tr><td>PHP-' + item.version + '</td>\
+                            <td>'+ item.site_count +'个</td>\
+                            <td>'+ (item.state === -1?'<a href="javascript:;" class="btlink" style="color:red;" bt-event-click="set_php_filter_module" data-index="'+index+'">未安装模块，点击安装</a>':item.state === 0?'<a href="javascript:;" class="btlink" style="color:red;" bt-event-click="set_php_filter_module" data-index="'+index+'">未加载模块，点击加载</a>':'<a href="javascript:;" class="btlink">已加载</a>') +'</td>\
+                            <td><input class="btswitch btswitch-ios" id="cli_enable_switch_'+ index +'" type="checkbox"  '+ (item.cli_enable?'checked':'') +'><label class="btswitch-btn" for="cli_enable_switch_'+ index +'" data-index="'+ index +'" bt-event-click="set_php_cli_server_status"></label></td>\
+                            <td><input class="btswitch btswitch-ios" id="enable_switch_'+ index +'" type="checkbox"  '+ (item.state > 0?(item.enable?'checked':''):'') +'><label class="btswitch-btn" for="enable_switch_'+ index +'" data-index="'+ index +'" bt-event-click="set_php_server_status"></label></td></tr>';
+                });
+                my_body += '<div class="php_filter-table bt-table"><div class="divtable" style="height:510px">'
+                        +'<table class="table table-hover">'
+                            +'<thead>'
+                                +'<tr><th width="120px">PHP版本</th><th>站点数量</th><th>模块状态</th><th>CLI状态</th><th width="100px">FastCGI状态</th></tr>'
+                            +'</thead>'
+                            +'<tbody>'+ index_body + '</tbody>'
+                        +'</table>'
+                + '</div></div>';
+                my_body += '<ul class="help-info-text c7">';
+                my_body += '<li>FastCGI状态： 通过Web运行PHP时的是否开启防护; CLI状态： 通过命令行运行PHP脚本时是否开启防护</li>';
+                my_body += '</ul>';
+                $('.plugin_body').html(my_body);
+                if(jQuery.prototype.fixedThead){
+                	$('.php_filter-table .divtable').fixedThead({resize:false});
+                }else{
+                	$('.php_filter-table .divtable').css({'overflow':'auto'});
+                }
+                that.event_bind('.plugin_body');
+            });
+        },
+        
+        //获取网站列表
+        get_sites: function(){
+            var that = this;
+            request_plugin(php_filter.plugin_name,'get_sites',{},function(rdata){
+                if(rdata === false){
+                    layer.closeAll();
+                    layer.msg('未购买【堡塔PHP安全防护】插件，或已到期!',{iocn:2});
+                    return;
+                }
+                var index_body = '',my_body= '<div class="filter_totall_data row">\
+        				<div class="col-sm-6 col-xs-6 item_mode filter_total">\
+        					<div class="item_center">\
+        						<div class="icon"><i class="iconfont iconlanjie"></i></div>\
+        						<div class="tips">\
+        							<span class="item_title">总过滤次数</span>\
+        							<span class="item_data"><i>'+ rdata.total  +'</i><i>次</i></span>\
+        						</div>\
+        					</div>\
+        				</div>\
+        				<div class="col-sm-6 col-xs-6 item_mode filter_safe_day">\
+        					<div class="item_center">\
+        						<div class="icon"><i class="iconfont iconanquan"></i></div>\
+        						<div class="tips">\
+        							<span class="item_title">保护天数</span>\
+        							<span class="item_data"><i>'+ rdata.safe_time +'</i><i>天</i></span>\
+        						</div>\
+        					</div>\
+        				</div>\
+        			</div>';
+                php_filter.data = rdata.sites;
+                that.each(rdata.sites,function(index,item){
+                    index_body += '<tr>\
+                        <td>'+ item.site_name +'</td>\
+                        <td>PHP-' + item.version + '</td>\
+                        <td>'+ item.total.input_black +'</td>\
+                        <td>'+ item.total.filter_funs +'</td>\
+                        <td>'+ item.total.server_black +'</td>\
+                        <td>'+ item.total.total +'</td>\
+                        <td><a href="javascript:;" onclick="php_filter.show_site_rult_list(\''+ item.site_name +'\',\''+  item.rule_name +'\')" class="btlink">'+ item.rule_name +'</a></td>\
+                        <td><input class="btswitch btswitch-ios" id="enable_switch_'+ index +'" type="checkbox" '+ (item.open?'checked':'') +'><label class="btswitch-btn" for="enable_switch_'+ index +'" data-index="'+ index +'" bt-event-click="set_site_server_status"></label></td>\
+                        <td><a href="javascript:;" class="btlink" bt-event-click="set_site_filter_rule" data-index="'+index+'">过滤规则</a>&nbsp;|&nbsp;<a href="javascript:;" class="btlink" bt-event-click="get_site_filter_logs" data-index="'+index+'">日志</a></td></tr>';
+                    });
+                my_body += '<div class="php_filter-table bt-table"><div class="divtable" style="height:250px">'
+                        +'<table class="table table-hover">'
+                            +'<thead>'
+                                +'<tr><th width="110px">网站名</th><th>PHP版本</th><th>输入过滤</th><th>函数过滤</th><th>请求头</th><th>总计</th><th>专属规则</th><th>过滤开关</th><th width="110px">操作</th></tr>'
+                            +'</thead>'
+                            +'<tbody>'+ index_body + '</tbody>'
+                        +'</table>'
+                + '</div></div>';
+
+                my_body += '<ul class="help-info-text c7">';
+                my_body += '<li>通过【过滤规则】按钮可手动添加规则，但不建议在不熟悉PHP程序的情况下手动创建规则!</li>';
+                my_body += '<li>建议为您的站点指派一个合适的专属规则，可有效防御针对特定项目的攻击!</li>';
+                my_body += '<li>此处的任何设置，都会自动重载php服务，请不要在高并发时修改设置!</li>';
+                my_body += '<li>本防护程序基于PHP内核模块，从PHP虚拟机(ZendVM)底层进行防护，错误的设置可能会导致项目运行异常</li>';
+                my_body += '<li style="color:red;">注意1：若开启防护后，网站运行异常，请尝试关闭防护，并到宝塔论坛发贴提交误报!</li>';
+                my_body += '<li style="color:red;">注意2：此处为对应PHP版本的全局开关，影响所有使用此PHP版本的站点</li>';
+                my_body += '<li style="color:red;">注意3：支持PHP版本：5.3-7.4，建议使用PHP7.x以获取最好的运行性能</li>';
+                my_body += '<li style="color:red;">注意4：开启防护后，根据堡塔高可用实验数据，PHP程序运行性能将下降<=3%，站点综合性能下降<=0.5%，请悉知。</li>';
+                my_body += '</ul>';
+                $('.plugin_body').html(my_body);
+                if(jQuery.prototype.fixedThead){
+                	$('.php_filter-table .divtable').fixedThead({resize:false});
+                }else{
+                	$('.php_filter-table .divtable').css({'overflow':'auto'});
+                }
+                that.event_bind('.plugin_body');
+            });
+        },
+        
+
+        /**
+         * 获取面板日志
+         * @param p 被获取的分页
+         */
+        get_logs : function (p) {
+            var that = this;
+            if (p == undefined) p = 1;
+            request_plugin(php_filter.plugin_name, 'get_logs', { p: p, callback: 'php_filter.get_logs' }, function (rdata) {
+                var log_body = '';
+                that.each(rdata.data,function(index,item){
+                    log_body += '<tr><td>' + item.addtime + '</td><td><span title="' + item.log + '">' + item.log + '</span></td></tr>'
+                })
+                var my_body = '<div class="php_filter-table-logs"><div class="divtable">'
+                            +'<table class="table table-hover">'
+                                +'<thead>'
+                                    +'<tr><th width="150">时间</th><th>详情</th></tr>'
+                                +'</thead>'
+                                +'<tbody>'+ log_body + '</tbody>'
+                            +'</table>'
+                    + '</div><div class="page" style="margin-top:15px">' + rdata.page + '</div</div>';
+
+                $('.plugin_body').html(my_body);
+            });
+        },
+           /**
+         * @description 遍历数组和对象
+         * @param {Array|Object} obj 遍历数组|对象
+         * @param {Function} fn 遍历对象或数组
+         * @return 当前对象
+         */
+        each:function(obj, fn){
+          var key,that = this;
+          if(typeof fn !== 'function') return that;
+          obj = obj || [];
+          if(obj.constructor === Object){
+            for(key in obj){
+              if(fn.call(obj[key], key, obj[key])) break;
+            }
+          } else {
+            for(key = 0; key < obj.length; key++){
+              if(fn.call(obj[key], key, obj[key])) break;
+            }
+          }
+          return that;
+        },
+        
+        // 行内模拟事件绑定
+        event_bind: function (el) {
+            var that = this;
+            _html = $('#php_filter')[0].innerHTML, event_list = {};
+            if (el != undefined) _html = $(el)[0].innerHTML;
+            _reg = new RegExp(/bt-event-(click|change|focus)="(\w+)\|*([a-z0-9A-Z]*)"/g);
+            _html.replace(_reg, function ($1, $2, $3, $4) {
+                if (!event_list[($2)]) {
+                    if ($4 != "") {
+                        $('[' + $1 + ']').unbind($2).on($2, $4, function (ev) {
+                            php_filter.data_index = $(this).attr('data-index');
+                            php_filter.pdata = that.data[php_filter.data_index];
+                            that.event[$3].apply(this, [$(this),php_filter.pdata,ev]);
+                        });
+                    } else {
+                        $('[' + $1 + ']').unbind($2).on($2, function (ev) {
+                            php_filter.data_index = $(this).attr('data-index');
+                            php_filter.pdata = that.data[php_filter.data_index];
+                            that.event[$3].apply(this,[$(this),php_filter.pdata,ev]);
+                        });
+                    }
+                    event_list[$3] = true;
+                }
+            });
+        }
+    }
+
+    /**
+     * 发送请求到插件
+     * 注意：除非你知道如何自己构造正确访问插件的ajax，否则建议您使用此方法与后端进行通信
+     * @param plugin_name    插件名称 如：php_filter
+     * @param function_name  要访问的方法名，如：get_logs
+     * @param args           传到插件方法中的参数 请传入数组，示例：{p:1,rows:10,callback:"php_filter.get_logs"}
+     * @param callback       请传入处理函数，响应内容将传入到第一个参数中
+     */
+    function request_plugin(plugin_name, function_name, args, callback, timeout) {
+        if (!timeout) timeout = 3600 * 1000;
+        var loadT = layer.msg('正在处理请求，请稍后...', {icon: 16, time: 0, shade: 0.3});
+        $.ajax({
+            type:'POST',
+            url: '/plugin?action=a&s=' + function_name + '&name=' + plugin_name,
+            data: args,
+            timeout:timeout,
+            complete:function(){
+                layer.close(loadT);
+            },
+            success: function(rdata) {
+                if (!callback) {
+                    layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+                    return;
+                }
+                return callback(rdata);
+            },
+            error: function(ex) {
+                if (!callback) {
+                    layer.msg('请求过程发现错误!', { icon: 2 });
+                    return;
+                }
+                return callback(ex);
+            }
+        });
+    }
+
+    //第一次打开窗口时调用
+    php_filter.init();
+
+</script>

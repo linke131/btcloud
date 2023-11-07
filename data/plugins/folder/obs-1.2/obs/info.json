@@ -1,0 +1,15 @@
+{
+	"title":"华为云存储",
+	"tip":"lib",
+	"name":"obs",
+	"type":"扩展",
+	"ps":"将网站或数据库打包备份到华为云对象存储 <a class='btlink' href='https://id1.cloud.huawei.com/UnifiedIDMPortal/portal/userRegister/regbyphone.html?themeName=red&access_type=offline&clientID=103493351&loginChannel=88000000&loginUrl=https%3A%2F%2Fauth.huaweicloud.com%2Fauthui%2Flogin.html%3Fservice%3Dhttps%253A%252F%252Factivity.huaweicloud.com%252Fdiscount_area_v5%252Findex.html%253Futm_source%253Dbaidu%2526utm_medium%253Dbrand%2526utm_campaign%253D10056%2526utm_content%253D%2526utm_term%253D%2526utm_adplace%253DAdPlace024711%23&service=https%3A%2F%2Fauth.huaweicloud.com%2Fauthui%2FcasLogin%3Fservice%3Dhttps%253A%252F%252Factivity.huaweicloud.com%252Fdiscount_area_v5%252Findex.html%253Futm_source%253Dbaidu%2526utm_medium%253Dbrand%2526utm_campaign%253D10056%2526utm_content%253D%2526utm_term%253D%2526utm_adplace%253DAdPlace024711&countryCode=cn&scope=https%3A%2F%2Fwww.huawei.com%2Fauth%2Faccount%2Funified.profile+https%3A%2F%2Fwww.huawei.com%2Fauth%2Faccount%2Frisk.idstate&reqClientType=88&state=006255530f4b44e78daf6dfbfd937ff2&lang=zh-cn' target='_blank'>点击申请</a>",
+	"versions":"1.2",
+	"shell":"obs.sh",
+	"checks":["/www/server/panel/plugin/obs"],
+	"author":"宝塔",
+	"home":"http://www.bt.cn/bbs",
+	"date":"2021-10-8",
+	"default":false,
+	"display":0
+}

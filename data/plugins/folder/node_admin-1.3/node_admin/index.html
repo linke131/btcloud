@@ -1,0 +1,1180 @@
+<style>
+    .action-line .node-group {
+        display: inline-block;
+    }
+    .action-line .node-group-span {
+        padding: 7px 10px;
+        float: left;
+        border: 1px solid #aaaaaa;
+        cursor:pointer;
+    }
+    .action-line .node-group-span.active {
+        background: #EDEDED;
+        color: #717171;
+    }
+    #nodeFormInput .line input{
+        width: 250px;
+    }
+    #syncTaskTable .task-line{
+        height: 14px;
+        background: #D8D8D8;
+        border-radius: 20px;
+        margin: 15px 0;
+    }
+    #syncTaskTable .task-line .task-line-persent{
+        display: inline-block;
+        height: 100%;
+        width: 50%;
+        border-radius: 20px;
+        background: #5CB85C;
+    }
+    #syncTaskTable .task-textarea{
+        height: 115px;
+        background: #424250;
+        width: 100%;
+        border-radius: 5px;
+        resize: none;
+        color: #EEEEEE;
+        padding: 10px 15px;
+    }
+    #syncTaskTable .log-textarea{
+        height: 115px;
+        background: #424250;
+        width: 100%;
+        border-radius: 5px;
+        resize: none;
+        color: #EEEEEE;
+        padding: 10px 15px;
+    }
+    .log-textarea::-webkit-scrollbar {
+            display: none;
+    }
+    #syncTask::-webkit-scrollbar {
+            display: none;
+    }
+    #syncTaskTable .task-tr{
+        background: #FCFCFC;
+    }
+    #groupTable .new-group-name{
+        width: 100%;
+        margin: 0;
+        padding: 0 7px;
+        height: 100%;
+        border: 2px solid red;
+    }
+    #groupTable .save-new-group,#groupFormInput .cancel-new-group{
+        float: left;
+        width: 50%;
+        text-align: center;
+        background: #20A53A;
+        height: 33px;
+        line-height: 33px;
+        cursor: pointer;
+    }
+    #groupTable .new-group-name{
+        width: 100%;
+        margin: 0;
+        padding: 0 7px;
+        height: 100%;
+        border: 1px solid #20a53a;
+    }
+    #groupTable .group-name-input{
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        display: none;
+    }
+    #taskFormInput .server-list,#taskFormInput .task-list{
+        border: 1px solid #ccc;
+    }
+    #taskFormInput .node-list-one,#taskFormInput .task-list ul li{
+        padding: 5px 15px;
+    }
+    #taskFormInput .server-list input,#taskFormInput .task-list input{
+        cursor: pointer;
+        vertical-align: -2px;
+        margin-right: 5px;
+    }
+    #taskFormInput .server-list ul li{
+        padding: 5px 10px 5px 25px;
+    }
+    #taskFormInput .task-list ul li:hover,#taskFormInput .node-list-one:hover,#taskFormInput .server-list ul li:hover{
+        background: #eee;
+        cursor: pointer;
+    }
+</style>
+<div class="bt-form" id="node_admin">
+    <div class="bt-w-main">
+        <div class="bt-w-menu">
+            <p class="bgw">节点列表</p>
+            <p>同步任务列表</p>
+            <p>日志列表</p>
+        </div>
+        <div class="bt-w-con pd15 divtable">
+            <div class="bt-box active">
+                <div class="mb10" style="min-height: 100%;height:500px">
+                    <button class="btn btn-success btn-sm" data-index = '0' onclick="nodeAdmin.add_or_modify_node()">添加节点</button>
+                    <div class="action-line mt10" style="padding-top: 10px;border-top: 1px solid #E6E6E6;">
+                        <div style="" class="node-group">
+                            <span class="node-group-span active" style="border-right: none;">全部分组</span>
+                            <span class="node-group-span" style="border-right: none;">华南分组</span>
+                            <span class="node-group-span">华北分组</span>
+                            <button class="btn btn-default btn-sm" onclick="nodeAdmin.get_group_manager()" style="float: left;margin-left: 25px;line-height: 20px;">分组管理</button>
+                        </div>
+                        <div class="soft-search" style="float: right;">
+                            <form target="hid">
+                                <input type="text" id="searchValue" class="ser-text pull-left" placeholder="节点名称/IP/备注" style="width:232px">
+                                <button type="button" class="ser-sub pull-left" onclick="nodeAdmin.get_search_node_list()"></button>
+                            </form>
+                            <iframe name="hid" id="hid" style="display:none"></iframe>
+                        </div>
+                    </div>
+                    <div class="divtable mt10">
+                        <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>节点名称</th>
+                                <th>节点IP</th>
+                                <th>节点分组</th>
+                                <th>连接方式</th>
+                                <th>状态</th>
+                                <th>备注</th>  
+                                <th style="text-align: right;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="nodeTable"></tbody>
+                        </table>
+                        <div class="page" id="nodeTablePage"></div>
+                    </div>
+                </div>
+                <ul class="mtl0 c7" style="font-size: 13px;position:absolute;bottom:0;padding-right: 40px;">
+            		    <li style="list-style:inside disc">此软件当前为免费测试版，会存在一些bug，用前请知悉，做好备份；将在2020年11月26日正式上线企业版，如需继续使用请购买企业版。</li>
+            	</ul>
+            </div>
+            <div class="bt-box" style="display: none;height:500px">
+                <div>
+                    <button class="btn btn-success btn-sm mr10"  onclick="nodeAdmin.add_sync_task()">添加同步任务</button>
+                    <button class="btn btn-default btn-sm start-task-button" onclick="nodeAdmin.start_sync_task()"><span style="color: #20a53a;margin-right: 3px;" class="glyphicon glyphicon glyphicon-play"></span>开始执行任务</button>
+                    <div class="divtable" style="margin-top: 15px;height: 400px;overflow:auto;" id="syncTask">
+                        <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>任务名称</th>
+                                <th>目标服务器</th>
+                                <th>同步状态</th>
+                                <th>同步时间</th>
+                                <th>节点操作</th>
+                                <th style="text-align: right;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="syncTaskTable">
+                            <tr><td>同步网站SSL证书</td><td>199.1.199.1</td><td><a class="btlink">正在执行同步任务</a></td><td style="text-align:right">不可操作</td></tr>
+                            <tr class="task-tr" style="background: #FCFCFC;"><td colspan="4">
+                                <div style="padding: 10px 10px;">
+                                    <div>正在执行<span>【海南节点】</span>-同步网站SSL证书任务45%</div>
+                                    <pre class="task-textarea" style="height: 115px;background: #424250;width: 100%;border-radius: 5px;resize: none;color: #EEEEEE;padding: 10px 15px;">https://www.sketch.com/s/d87f8a6e-c70a-44ca-b24d-0e16ad07d459/a/y2ajDE#Inspector</pre>
+                                </div>
+                            </td></tr>
+                        </tbody>
+                        </table>
+                        <div class="page syncTaskTable" id="syncTaskPage"></div>
+                    </div>
+                </div>
+                <ul class="mtl0 c7" style="font-size: 13px;position:absolute;bottom:0;padding-right: 40px;">
+            	</ul>
+            </div>
+            <div class="bt-box" style="display: none;height:500px">
+                <div>
+                    <div class="divtable" style="margin-top: 10px;">
+                        <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>日志类型</th>
+                                <th>日志信息</th>
+                                <th>操作时间</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logTable"></tbody>
+                        </table>
+                        <div class="page logTable" id="logTablePage"></div>
+                    </div>
+                </div>
+                <ul class="mtl0 c7" style="font-size: 13px;position:absolute;bottom:0;padding-right: 40px;">
+            		    <li style="list-style:inside disc">此软件当前为免费测试版，会存在一些bug，用前请知悉，做好备份；将在2020年11月26日正式上线企业版，如需继续使用请购买企业版。</li>
+            	</ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加节点的表单 -->
+<script type="text/html" id="addNodeForm">
+    <form class="bt-form pd20" id="nodeFormInput">
+        <div class="line">
+            <span class="tname">面板地址</span>
+            <div class="info-r c4">
+                <input class="bt-input-text" type="text" name="panel" placeholder="如：http://193.1.12.3:888，不包含安全入口"/>
+            </div>
+        </div>
+        <div class="line">
+            <span class="tname">面板API秘钥</span>
+            <div class="info-r c4">
+                <textarea name="token" cols="36" rows="5" placeholder="请输入面板API秘钥" style="resize: none;border: 1px solid #ccc;"></textarea>
+            </div>
+        </div>
+        <div class="line">
+            <span class="tname">节点名称</span>
+            <div class="info-r c4">
+                <input class="bt-input-text" type="text" name="title"/>
+            </div>
+        </div>
+        <div class="line">
+            <span class="tname">节点IP</span>
+            <div class="info-r c4">
+                <input class="bt-input-text" type="text" name="address" placeholder="如：192.1.158.6"/>
+            </div>
+        </div>
+        <div class="line">
+            <span class="tname">节点分组</span>
+            <div class="info-r c4">
+                <select class="bt-input-text site_select_mode" style="width:250px" name="group_id"></select>
+            </div>
+        </div>
+        <div class="line" style = "display:none">
+            <span class="tname">连接类型</span>
+            <div class="info-r c4">
+                <select class="bt-input-text site_select_mode" name="connect_type">
+                    <option value="1" selected>面板API</option>
+                    <!-- <option value="1">SSH</option> -->
+                </select>
+            </div>
+        </div>
+        <div class="line node_status">
+            <span class="tname">节点状态</span>
+            <div class="info-r c4">
+                <div class="index-item">
+                    <input class="btswitch btswitch-ios" name="stasus" id="node_status_sid" type="checkbox"  name="stasus">
+                    <label class="btswitch-btn" for="node_status_sid"></label>
+                </div>
+            </div>
+        </div>
+        <div class="line">
+            <span class="tname">备注</span>
+            <div class="info-r c4">
+                <input class="bt-input-text" type="text" name="ps" placeholder=""/>
+            </div>
+        </div>
+        <ul class="help-info-text c7">
+            <li>节点连接类型当前仅支持面板API。</li>
+        </ul>
+    </form>
+</script>
+<!-- 分组管理弹窗 -->
+<script type="text/html" id="addGroupForm">
+    <div class="bt-form pd20" id="groupFormInput">
+        <button class="btn btn-success btn-sm" onclick="nodeAdmin.add_group();return false;">添加分组</button>
+        <div class="divtable mt10">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th width="30">ID</th>
+                        <th>分组名称</th>
+                        <th>分组状态</th>
+                        <th style="text-align: right;" width="100">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="groupTable">
+                    <tr>
+                        <td colspan="3" style="padding: 0;"><span style="display: inline-block;width: 100%;height: 33px;">
+                            <input class="bt-input-text new-group-name" type="text" name="title">
+                        </span></td>
+                        <td style="padding: 0;color: #fff;">
+                            <span  class="save-new-group">保存</span>
+                            <span  class="cancel-new-group" style="background: #C8C8C8;">取消</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
+<!-- 添加同步任务 -->
+<script type="text/html" id="addTaskForm">
+    <form class="bt-form pd20" id="taskFormInput">
+        <div class="line">
+            <span class="tname">任务名称</span>
+            <div class="info-r c4">
+                <input class="bt-input-text" style="width: 100%;" type="text" name="task_name" placeholder="请输入同步任务名称">
+            </div>
+        </div>
+        <div class="line">
+            <span class="tname">同步到</span>
+            <div class="info-r c4 server-list" style="border: 1px solid #ccc;max-height: 250px;overflow: auto;">
+                <div class="node-list-one select-all"><input type="checkbox" name="server-list-all" data-all="">全部选中</div>
+                <div class="node-list-one"><input type="checkbox" name="group_id" data-group="">华南节点</div>
+                <ul>
+                    <li><input type="checkbox" name="sid" style="vertical-align: -2px;margin-right: 5px;" data-sid="">海南节点-v1</li>
+                </ul>
+            </div>
+        </div>
+        <div class="line">
+            <span class="tname">同步内容</span>
+            <div class="info-r c4 task-list" style="border: 1px solid #ccc;max-height: 250px;overflow: auto;">
+                <ul>
+                    <li><input type="checkbox" name="task_info" data-sid="site_config">同步网站配置</li>
+                    <li><input type="checkbox" name="task_info" data-sid="site_files">同步网站文件</li>
+                    <li><input type="checkbox" name="task_info" data-sid="site_cert">同步网站SSL证书</li>
+                    <li><input type="checkbox" name="task_info" data-sid="site_rewrite">同步网站伪静态规则</li>
+                </ul>
+            </div>
+        </div>
+        <div class="line local_site_list_select" style="display:none" >
+            <span class="tname">目标网站</span>
+            <div class="info-r c4">
+                <select class="bt-input-text local_site_list" name="local_site_list" style="width:100%">
+                </select>
+            </div>
+        </div>
+    </form>
+</script>
+<script>
+    var nodeAdmin = {
+        sync_task_flag:false,                  //任务锁
+        resync_task_flag:false,                //同步锁
+        sync_task_id:null,                     //任务进行标识
+        node_list:[],                         //节点信息
+        group_list:[],                        //分组信息
+        methods_list:{
+            get_node_list:'获取节点列表',      //  参数:{p:分页,rows:每页行数,search:搜索条件,group_id:分组标识，不传则返回所有分组下的节点}
+            get_node_find:'获取指定节点数据',  //  参数:{sid:节点标识}
+            get_group_list:'获取分组数据',    //  参数 null
+            get_sync_task_list:'获取任务列表', // 参数:{p:分页,rows:每页行数,callback:js回调}
+            get_logs_list:'获取日志列表',     //  参数 null
+            get_sync_task_find:'',           //  参数 {task_id:任务标识}
+            get_local_site_list:'获取任务网站',//  参数 null
+            get_sync_log:'获取任务日志',      // 参数  {task_id:任务标识}
+            create_node:'创建节点',          //  参数:{title:节点名称,address:节点IP,group_id:分组标识,connect_type:连接类型(0或1)SSH/面板API,connect_info:连接信息,ps:节点备注/描述信息}
+            create_group: '创建分组',        //  参数:{title:分组名称}
+            create_sync_task:'创建同步任务', //  参数:{task_name:任务名称,sid:目标服务器列表,task_info:{"type":"任务信息"}}
+            modify_node:'编辑节点',          //  参数:{path:路径,filename:文件名称}
+            modify_group:'修改分组',         //  参数:{group_id:分组名称,title:分组名称,state:分组状态}
+            remove_node:'删除指定节点',       //  参数:{sid:节点标识}
+            remove_group:'删除分组',         //  参数:{group_id:分组标识}
+            remove_sync_task:'删除任务',     //  参数:{task_id:任务标识}
+            resync_task:'重新执行任务',       //  参数:{task_id:任务标识}
+            start_task:'开始执行同步任务',   //  参数 null
+        },
+        plugin_name: 'node_admin',
+        init: function(){
+            var _this = this;
+            this.mount_methods_event(this.methods_list); // 挂载请求方法
+            $('.layui-layer-page').width(900);
+            _this.get_node_list_table();
+            _this.get_group_span();
+            $(".bt-w-menu p").click(function(){
+                var index = $(this).index();
+                $(this).addClass("bgw").siblings().removeClass("bgw");
+                $('.bt-w-con .bt-box').eq(index).show().siblings().hide();
+                switch(index){
+                    case 0:
+                        _this.get_node_list_table();
+                        break;
+                    case 1:
+                        _this.get_sync_task_list();
+                        break;
+                    case 2:
+                        _this.get_logs_list();
+                        break;
+                }
+            });
+            /**
+            * @description 删除节点
+            * @param {Number} sid 节点标识
+            */
+            $('#nodeTable').on('click','.delsNodeAdmin',function(){
+                var data = $(this).parents('tr').data().data;
+                var _address = data.address,
+                _sid = data.sid;
+                layer.confirm('真的要删除 ['+_address+' ] 吗?', {icon: 3, title:'节点删除',
+                    closeBtn:2,
+                    btn: ['确认','取消']
+                },function(index,layers){
+                    _this.$remove_node({sid:parseInt(_sid)},function(res){
+                        layer.close(index);
+                        layer.msg(res.msg,{icon:res.status?1:2});
+                        _this.get_node_list_table();
+                    })
+                });
+            });
+            /**
+            * @description 查看任务日志
+            * @param {Number} task_id 任务标识
+            */
+            $('#syncTaskTable').on('click','.get_sync_log',function(){
+                var data = $(this).parents('tr').data().data,
+                tet = $(this).parents('tr'),
+                _index = $(this).parents('tr').data().index,
+                _task_id = data.task_id,_task_name = data.task_name;
+                $('.sync-task-log').remove();
+                _this.$get_sync_log({task_id:parseInt(_task_id)},function(rdata){
+                    tet.after(
+                    '<tr class="task-tr sync-task-log" id = "sync-task-log'+_index+'" style="background: #FCFCFC;"><td colspan="6">\
+                        <div style="padding: 5px 10px;">\
+                            <div class="log-speed" style="margin:0px 0px 5px 1px;font-weight:700;letter-spacing:1px">日志信息</div>\
+                            <pre class="log-textarea" style="height: 115px;white-space: pre-wrap;word-wrap: break-word;background: #424250;width: 100%;\
+                            border-radius: 5px;resize: none;color: #EEEEEE;padding: 10px 15px;">'+rdata+'</pre>\
+                        </div>\
+                    </td></tr>');
+                });
+                $(this).addClass('log-conceal').removeClass('get_sync_log');
+                $(this).html('隐藏&nbsp;|&nbsp;');
+                tet.siblings().find('.log-conceal').html('日志&nbsp;|&nbsp;');
+                tet.siblings().find('.log-conceal').css("color","#20a53a");
+                tet.siblings().find('.log-conceal').addClass('get_sync_log').removeClass('log-conceal');
+                $(this).css("color","red");
+            });
+            /**
+            * @description 隐藏任务日志
+            */
+            $('#syncTaskTable').on('click','.log-conceal',function(){
+                var  _index = $(this).parents('tr').data().index;
+                $("#sync-task-log"+_index).remove();
+                $(this).addClass('get_sync_log').removeClass('log-conceal');
+                $(this).html('日志&nbsp;|&nbsp;');
+                $(this).css("color","#20a53a");
+            });
+            /**
+            * @description 重新提交任务
+            * @param {Number} task_id 任务标识
+            */
+            $('#syncTaskTable').on('click','.resync_task',function(){
+                var data = $(this).parents('tr').data().data,
+                _task_id = data.task_id,_task_name = data.task_name;
+                if(_this.resync_task_flag){
+                    layer.msg('已有任务在进行中，请等待任务结束后再同步其他任务！',{icon:2});
+                    return false;
+                }
+                layer.confirm('重新提交 ['+_task_name+' ] 任务吗?', {icon: 0, title:'重新执行',
+                    closeBtn:2,
+                    btn: ['确认','取消']
+                },function(index,layers){
+                    _this.$resync_task({task_id:parseInt(_task_id)},function(res){
+                        layer.close(index);
+                        layer.msg(res.msg,{icon:res.status?1:2}); 
+                        setTimeout(function(){
+                            _this.get_sync_task_list(); 
+                        },2000);  
+                    });
+                  
+                }); 
+            });
+             /**
+            * @description 删除任务
+            * @param {Number} task_id 任务标识
+            */
+            $('#syncTaskTable').on('click','.delSyncTask',function(){
+                var data = $(this).parents('tr').data().data,
+                _task_id = data.task_id,_task_name = data.task_name;
+                layer.confirm('真的要删除 ['+_task_name+' ] 吗?', {icon: 3, title:'任务删除',
+                    closeBtn:2,
+                    btn: ['确认','取消']
+                },function(index,layers){
+                    _this.$remove_sync_task({task_id:parseInt(_task_id)},function(res){
+                        layer.close(index);
+                        layer.msg(res.msg,{icon:res.status?1:2});   
+                        _this.get_sync_task_list();
+                    });
+                });
+            });
+            /**
+            * @description 节点状态修改
+            * @param {Object} data {title:节点名称,address:节点IP,group_id:分组标识,connect_type:连接类型(0或1)SSH/面板API,connect_info:连接信息,ps:节点备注/描述信息}
+            */
+            $('#nodeTable').on('click','.edit-node-state',function(){
+                var _sid = $(this).parents('tr').data().data.sid,
+                _tr = $(this).parents('tr'),
+                _state =  $(this).parents('tr').data().data.state==1?0:1;
+                _this.$get_node_find({sid:parseInt(_sid)},function(rdata){ 
+                    var data = rdata;
+                    data.state = _state;
+                    data.addtime = undefined;
+                    layer.confirm('真的要修改 ['+data.address+' ] 的状态吗?', {icon: 3, title:'状态修改',
+                        closeBtn:2,
+                        btn: ['确认','取消']
+                    },function(index,layers){
+                        _this.$modify_node(data,function(res){                                                  
+                            layer.msg('状态修改成功',{icon:res.status?1:2});
+                        }); 
+                        _this.get_node_list_table();
+                    });                  
+                });               
+            });
+            $('.node-group').on('click','.node-group-span', function (e) {
+                var obj = {};
+                $(this).addClass('active').siblings().removeClass('active');
+                obj["group_id"] = $(this).attr('data-group');
+                _this.get_node_list_table(obj);
+            });
+            /**
+            * @description 列表翻页
+            */
+            $('#logTablePage, #nodeTablePage, #syncTaskPage').on('click', 'a', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var _p = $(this).attr('href').match(/p=([0-9]*)/)[1];
+                if($(this).parent().parent().hasClass('logTable')){
+                    _this.get_logs_list({p: _p});
+                }else 
+                if($(this).parent().parent().hasClass('syncTaskTable')){
+                    _this.get_sync_task_list({p: _p});
+                }else{
+                    var _search = $('#searchValue').val();
+                    _this.get_node_list_table({p: _p, search: _search});
+                }
+            });
+            $('.start-task-button').hover(function (e) {
+                $(this).children('span').css("color","#FFFFFF");
+            },function(){
+                $(this).children('span').css("color","#20a53a");
+            });
+        },
+        /**
+        * @description 获取节点列表
+        * @param {Number} rows 每页个数
+        * @param {Number} p 当前是第几页
+        * @param {String} search 搜索条件
+        */
+        get_node_list_table: function(obj,callback){
+            var _this = this;
+            if(obj == undefined) obj = {'group_id' : '','search':'','p' : 1 };
+            _this.get_group_list();
+            _this.$get_node_list({p:obj.p,rows:'10',search:obj.search,group_id:obj.group_id},function(rdata){
+                if(rdata === false){
+                    layer.closeAll();
+                    layer.msg('当前插件未购买或已过期')
+                    return;
+                }
+                $('#nodeTable').empty();
+                var _group = _this.group_list,_title = "";
+                $.each(rdata.data,function(index,item){
+                    for(var i = 0; i < _group.length; i++){
+                        if(item.group_id ==  _group[i].group_id){
+                            _title = _group[i].title;
+                        }
+                    }
+                    $('#nodeTable').append($(
+                        '<tr>\
+                        <td style="width: 10%;">'+ item.title +'</td>\
+                        <td style="width: 15%;">'+ item.address +'</td>\
+                        <td style="width: 15%;">'+ _title +'</td>\
+                        <td style="width: 15%;">'+  (item.connect_type ==1?"面板连接":"SSH连接") +'</td>\
+                        <td style="width: 10%;">\
+                            <a href="javascript:void(0);" class="edit-node-state" style="width: 100%;height: 18px;">\
+                                <span style="'+(item.state==1?"color:#5CB85C":"color:red")+'">'+(item.state==1?"已启用 ":"已停用 ")+'</span>\
+                                <span style="'+(item.state==1?"color:#5CB85C":"color:red")+'" class="'+(item.state==1?"glyphicon glyphicon-play":"glyphicon glyphicon-pause")+'"></span>\
+                            </a>\
+                        </td>\
+                        <td style="width: 15%;">'+ item.ps +'</td>\
+                        <td style="text-align: right;">\
+                            <a href="javascript:;" class="btlink" onclick="nodeAdmin.add_or_modify_node('+item.sid+')">编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;\
+                            <a href="javascript:;" class="btlink delsNodeAdmin">删除</a>\
+                        </td>\
+                    </tr>'
+                    ).data({data:item,index:index}))
+                });
+                $('#nodeTablePage').html(rdata.page);  
+                if(callback) callback(rdata);
+                _this.node_list = rdata;
+            });
+        },
+        /**
+        * @description 获取分组列表
+        */
+        get_group_list:function(callback){
+            var _this = this;
+            _this.$get_group_list(function(rdata){
+                _this.group_list = rdata;
+            });
+        },
+        /**
+        * @description 查询节点列表
+        * @param {String} search 搜索条件
+        */
+        get_search_node_list:function(callback){
+            var _this = this;
+            var obj = {};
+            obj["search"] = $('#searchValue').val();
+            _this.get_node_list_table(obj);
+        },
+        /**
+        * @description 渲染分组标签
+        */
+        get_group_span:function(callback){
+            var _this = this;
+            _this.$get_group_list(function(rdata){
+                var _group = rdata;
+                $('.node-group').empty();
+                $('.node-group').append('<span class="node-group-span active" style="border-right: none;">全部分组</span>');
+                $.each(_group,function(index,item){
+                    $('.node-group').append('<span class="node-group-span" style="border-right: none;" data-group = "'+item.group_id+'">'+item.title+'</span>');
+                    if(index > 2 ) return false;
+                });
+                $('.node-group').append('<button class="btn btn-default btn-sm" onclick="nodeAdmin.get_group_manager()" style="float: left;margin-left: 25px;line-height: 20px;">分组管理</button>');
+                $('.node-group span').last().removeAttr('style');
+            });
+        },
+        /**
+        * @description 渲染分组列表
+        * @param {Number} group_id 不传为获取全部分组
+        */
+        get_group_manager:function(callback){
+            var _this = this;
+            layer.open({
+                type: 1,
+                title: '节点分组管理',
+                closeBtn: 2, //不显示关闭按钮
+                area:'450px',
+                content: addGroupForm.innerHTML,
+                success:function(index,layers){
+                    $('#groupTable tr:eq(0)').hide();
+                    _this.create_group_table();
+                    //添加分组
+                    $('#groupFormInput').on('click','.save-new-group',function(){
+                        var _title = $('.new-group-name').val();
+                        if(_title == ''){
+                            layer.msg('分组名称不能为空，请重新输入',{icon:2});
+                            return false;
+                        }
+                        _this.$create_group({title:_title},function(res){
+                            layer.msg(res.msg,{icon:1});
+                        }); 
+                        _this.create_group_table();
+                        _this.get_group_span();                            
+                        $('.new-group-name').val(null);
+                    });
+                    //删除分组
+                    $('#groupTable').on('click','.delsGroupAdmin',function(){
+                        var data = $(this).parents('tr').data().data,
+                        _group_id = data.group_id,_title = data.title;
+                        layer.confirm('真的要删除 ['+_title+' ] 吗?', {icon: 3, title:'删除分组',
+                            closeBtn:2,
+                            btn: ['确认','取消']
+                        },function(index,layers){
+                            _this.$remove_group({group_id:parseInt(_group_id)},function(res){
+                                layer.msg(res.msg,{icon:res.status?1:2});
+                            })
+                            _this.create_group_table();
+                            _this.get_group_span(); 
+                            $('#groupTable tr:eq(0)').hide(); 
+                        });
+                    });
+                    //取消按钮
+                    $('#groupFormInput').on('click','.cancel-new-group',function(){
+                        $('#groupTable tr:eq(0)').hide();   
+                    });
+                }
+            });
+        },
+        /**
+        * @description 获取任务列表
+        * @param {Number} rows 每页个数
+        * @param {Number} p 当前是第几页
+        * @param {String} callback js回调
+        */
+        get_sync_task_list:function(obj,callback){
+            var _this = this,flag = false;
+            if(obj == undefined) obj = {'p' : 1 ,'rows':'8'};
+            _this.$get_sync_task_list({p:obj.p,rows:obj.rows},function(rdata){
+                $('#syncTaskTable').empty();
+                $('#syncTaskPage').html(rdata.page);  
+                $.each(rdata.data,function(index,item){
+                    $('#syncTaskTable').append($(
+                        '<tr>\
+                        <td style="width: 25%;">'+ item.task_name +'</td>\
+                        <td style="width: 15%;">'+ item.address +'</td>\
+                        <td style="width: 15%;"><a class="btlink" style ="'+(item.state==2?"color:red":(item.state ==0?"color:#FDBC90":(item.state ==1?"color:#9AAFC1":"")))+';">'+(item.state==2?item.speed:(item.state ==-1?"正在执行同步任务":(item.state ==0?"等待执行":'已执行'))) +'</a></td>\
+                        <td style="width: 20%;">'+ (new Date(item.addtime*1000).toLocaleString()) +'</td>\
+                        <td style="width: 15%;">\
+                                <span><a class="btlink get_sync_log" style="'+(item.state==2?"":(item.state==1?"":"display:none"))+'" >日志&nbsp;|&nbsp;</a>\
+                                <a  class="btlink resync_task">同步</a></span>\
+                        </td>\
+                        <td style="text-align: right;">\
+                            <a href="javascript:;" class="btlink '+(item.state ==1?"delSyncTask":(item.state ==1?"delSyncTask":""))+'">'+(item.state ==1?"删除":(item.state ==2?"删除":""))+'</a>\
+                        '+(item.state ==1?"":(item.state ==2?"":"不可操作"))+'</td>\
+                    </tr>'
+                    ).data({data:item,index:index}))
+                    if(item.state === 0){
+                        flag=true;
+                    }
+                    if(item.state === -1){
+                        _this.sync_task_flag = true;
+                        _this.resync_task_flag = true;
+                        _this.sync_task_id = item.task_id;
+                        $("#syncTaskTable").find("tr").eq(index).after(
+                            '<tr class="task-tr" style="background: #FCFCFC;"><td colspan="6">\
+                                <div style="padding: 5px 10px;">\
+                                    <div class="task-speed" style="margin:0px 0px 5px 1px;font-weight:700;letter-spacing:1px">'+item.speed+'......</div>\
+                                    <pre class="task-textarea" style="height: 115px;white-space: pre-wrap;word-wrap: break-word;background: #424250;width: 100%;\
+                                    border-radius: 5px;resize: none;color: #EEEEEE;padding: 10px 15px;overflow:hidden;">'+item.msg+'</pre>\
+                                </div>\
+                            </td></tr>');
+                    }
+                });
+                if(flag){
+                    $('.start-task-button').attr("disabled",false);
+                }else{
+                    $('.start-task-button').attr("disabled", "disabled");
+                }
+                if(_this.sync_task_flag){
+                    (function(x){
+                        _this.get_sync_task_find()
+                    }())
+                }
+                if(callback) callback(rdata);
+            });
+        },
+        /**
+        * @description 获取日志列表
+        */
+        get_logs_list:function(obj,callback){
+            var _this = this;
+            if(obj == undefined) obj = {'p' : 1 ,};
+            _this.$get_logs_list({p:obj.p,rows:'12'},function(rdata){
+                $('#logTable').empty();
+                $.each(rdata.data,function(index,item){
+                    $('#logTable').append($(
+                        '<tr>\
+                        <td style="width: 20%;">'+ item.log_type +'</td>\
+                        <td style="width: 50%;">'+ item.log_msg +'</td>\
+                        <td style="width: 30%;">'+ (new Date(item.log_addtime*1000).toLocaleString()) +'</td>\
+                    </tr>'
+                    ).data({data:item,index:index}))
+                });
+                $('#logTablePage').html(rdata.page);
+            });
+        },
+        /**
+        * @description 获取指定任务
+        * @param {Number} task_id 任务标识
+        */
+        get_sync_task_find:function(callback){
+            var _this =this;
+            _this.$get_sync_task_find({task_id:_this.sync_task_id},function(rdata){
+                if(rdata.state ==-1){
+                    $('.task-textarea').html(rdata.msg);
+                    $('.task-textarea').scrollTop($('.task-textarea')[0].scrollHeight);
+                    setTimeout(function(){
+                        _this.get_sync_task_find()
+                    },1000);
+                }else{
+                    _this.get_sync_task_list();
+                    _this.sync_task_flag = false;
+                    _this.resync_task_flag = false;
+                }
+            },false);
+        },
+        /**
+        * @description 添加节点/编辑节点
+        * @param {Object} form 添加节点对象 例如 {tilte:节点标识，address:节点IP,panel:面板地址,token:面板API秘钥,group_id:节点分组,connect_type:连接类型,ps:节点备注}
+        * @param {Object} form 编辑节点对象 例如 {sid节点标识,:tilte:节点名称，address:节点IP,panel:面板地址,token:面板API秘钥,group_id:节点分组,connect_type:连接类型,ps:节点备注}
+        * @param {Number} id 用于判断添加或删除
+        */
+        add_or_modify_node:function(id,callback){
+            var _this = this,type;
+            typeof id !== "number"?type = false:type = true;
+            layer.open({
+                type: 1,
+                title:!type?'添加节点':'编辑节点',
+                closeBtn: 2, 
+                area:'450px',
+                btn:['确定','取消'],
+                content: addNodeForm.innerHTML,
+                success:function(index,layers){
+                    _this.$get_group_list(function(rdata){ 
+                        var _rdata = rdata,_select_body = '';
+                        $.each(_rdata,function(index,item){
+                            _select_body += '<option value="'+ item.group_id +'" selected>'+item.title+'</option>'
+                        });
+                        $('[name="group_id"]').html(_select_body);
+                    });                  
+                    if(type == true){
+                        _this.$get_node_find({sid:parseInt(id)},function(rdata){ 
+                            var _connect_info = JSON.parse(rdata.connect_info);                                                 
+                            $('[name="panel"]').val(_connect_info.panel);
+                            $('[name="token"]').val(_connect_info.token);
+                            $('[name="title"]').val(rdata.title);
+                            $('[name="address"]').val(rdata.address);
+                            $('[name="group_id"]').val(rdata.group_id);
+                            $('[name="connnect_type"]').val(rdata.connect_type);
+                            $('[name="ps"]').val(rdata.ps);
+                            $('#node_status_sid').prop("checked",(rdata.state = 1?true:false));
+                        }); 
+                    }else{
+                        $('.node_status').remove();
+                        var urlregex = new RegExp('^((https|http)?://)?'+'(([0-9a-z_!~*().&=+$%-]+: )?[0-9a-z_!~*().&=+$%-]+@)?' +'(([0-9]{1,3}.){3}[0-9]{1,3}|'+'([0-9a-z_!~*()-]+.)*'
+                                +'[a-z]{2,6})'+'(:[0-9]{1,4})?'+'((/?)|(/[0-9a-z_!~*().;?:@&=+$,%#-]+)+/?)$'),
+                        ipregex = new RegExp('^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$');
+                        $('[name="panel"]').bind("input propertychange",function () {                      
+                            if(urlregex.test($('[name="panel"]').val())==true){
+                                var title = $('[name="panel"]').val().split('/'),
+                                _title = title[2],colon = new RegExp(':');
+                                if(colon.test(_title)){ 
+                                    title =  _title.split(':'),_title = title[0];
+                                }                               
+                                $('[name="title"]').val(_title);
+                                if(ipregex.test(_title)==true){
+                                    $('[name="address"]').val(_title);
+                                }
+                            }
+                        });
+                    }     
+                },
+                yes:function(index,layers){
+                    var form = $('#nodeFormInput').serializeObject();
+                    form.connect_info = JSON.stringify({panel:form.panel,token:form.token});
+                    if(form.panel == ''){
+                        layer.msg('面板地址不能为空，请重新输入',{icon:2});
+                        return false;
+                    }else{        
+                        var urlregex = new RegExp('^((https|http|ftp|rtsp|mms)?://)?'+'(([0-9a-z_!~*().&=+$%-]+: )?[0-9a-z_!~*().&=+$%-]+@)?' +'(([0-9]{1,3}.){3}[0-9]{1,3}|'+'([0-9a-z_!~*()-]+.)*'
+                                +'[a-z]{2,6})'+'(:[0-9]{1,5})?'+'((/?)|(/[0-9a-z_!~*().;?:@&=+$,%#-]+)+/?)$');
+                        if(urlregex.test(form.panel)==false){
+                            layer.msg('面板地址格式错误，请重新输入',{icon:2});
+                            return false;
+                        }
+                    }
+                    if(form.token == ''){
+                        layer.msg('面板密钥不能为空，请重新输入',{icon:2});
+                        return false;
+                    }
+                    if(form.title == ''){
+                        layer.msg('节点名称不能为空，请重新输入',{icon:2});
+                        return false;
+                    }
+                    if(form.address == ''){
+                        layer.msg('节点ip不能为空，请重新输入',{icon:2});
+                        return false;
+                    }
+                    if(form.ps == ''){
+                        layer.msg('备注不能为空，请重新输入',{icon:2});
+                        return false;
+                    }else{
+                        var ipregex = new RegExp('^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$');
+                        if(ipregex.test(form.address)==false){
+                            layer.msg('节点ip格式错误，请重新输入',{icon:2});
+                            return false;
+                        }
+                    }
+                    if(type){
+                        form.sid = parseInt(id);
+                        form.state = $('#node_status_sid').is(':checked')?1:0;
+                        _this.$modify_node(form,function(res){                                                  
+                            layer.close(index);
+                            _this.get_node_list_table();
+                            layer.msg(res.msg,{icon:res.status?1:2});
+                        }); 
+                    }else{
+                        form.state = undefined; 
+                        _this.$create_node(form,function(res){                                                 
+                            layer.close(index); 
+                            _this.get_node_list_table();
+                            layer.msg(res.msg,{icon:res.status?1:2});
+                        }); 
+                    }               
+                }
+            });
+        },
+        /**
+        * @description 添加分组
+        */
+        add_group:function(callback){
+            var _this = this;
+            $('#groupTable tr:eq(0)').show();
+            $('.edit-span,.group-title').show().next().hide();   
+        },
+        /**
+        * @description 添加同步任务
+        */
+        add_sync_task:function(callback){
+            var _this = this;
+            layer.open({
+                type: 1,
+                title: '添加同步任务',
+                closeBtn: 2, //不显示关闭按钮
+                area:'450px',
+                btn:['提交','取消'],
+                content: addTaskForm.innerHTML,
+                success:function(index,layers){
+                    _this.get_group_list();
+                    var _node = _this.node_list.data;
+                    $('.server-list').empty();
+                    $('.server-list').append('<div class="node-list-one select-all" name="server-list-all"><input type="checkbox" name="server-list-check" data-all="">全部选中</div>');
+                    for(var i = 0; i < _node.length; i++){
+                    $('.server-list').append(
+                        '<div class="node-list-one"><input type="checkbox" name="sid" data-sid="'+_node[i].sid+'">'+_node[i].title+"("+_node[i].address+")"+'</div>');
+                    }
+                    //添加目标网站选择
+                    _this.$get_local_site_list(function(rdata){
+                        var _rdata = rdata,_select_body = '';
+                        $.each(_rdata,function(index,item){
+                            _select_body += '<option value="'+ item +'" selected>'+item+'</option>'
+                        });
+                        $('.local_site_list').html(_select_body);
+                    });
+                    $('#taskFormInput').on('click',' .task-list ul li, .node-list-one, input[type="checkbox"]',function(e){
+                        var _that = $(this).is('input') ? $(this).parent() : $(this),
+                        _check = _that.find('input').is(":checked")?false:true;
+                        _that.find('input').prop('checked',_check);
+                        //全选事件
+                        if(_that.hasClass('select-all')){
+                            _that.parent().find('input').prop('checked',_check);
+                        }else if($(this).is('li')){
+                            var check_ul = _that.parent(),
+                            allCheck = check_ul.find("input").length,
+                            checkedNum = check_ul.find("input:checked").length,
+                            check_li = allCheck == checkedNum ? true :false;
+                            check_ul.prev().find('input').prop('checked',check_li);
+                            $('.local_site_list_select').css('display','block');
+                            if(checkedNum == 0){
+                                $('.local_site_list_select').css('display','none');
+                            }
+                        }else{
+                            if(_that.next().is('ul')) $(this).next().find('input').prop('checked',_check);
+                        }
+                        var check_div = _that.parents('.info-r'),
+                        all_Check = check_div.find("input[name='sid']").length,
+                        checked_Num = check_div.find("input[name='sid']:checked").length,
+                        check_all = all_Check == checked_Num ? true :false;
+                        check_div.find('.select-all input').prop('checked',check_all);
+                    });
+                    $('.task-list').on('click',' .task-list ul li, input[type="checkbox"]',function(e){
+                        var _check = $(this).is(":checked")?true:false,
+                        _chech_html = $(this).parents('li').text();
+                        if(_check&&_chech_html =="同步网站文件"){layer.msg('此功能会同步网站文件，请谨慎选择！',{icon:0});}
+                    });
+                },
+                yes:function(index,layers){
+                    var _task_name = $('[name="task_name"]').val(),
+                    _check = $("input:checkbox[name=sid]:checked"),_sid = [];
+                    if(_check.length==0){
+                        layer.msg('请选择选择服务列表中的节点',{icon:2});
+                        return false;
+                    }
+                    $.each(_check,function(key,box) {                        
+                        _sid.push($(this).attr('data-sid'));                       
+                    });
+                    var _type = $("input:checkbox[name=task_info]:checked"),_task_info = [];
+                    if(_type.length==0){
+                        layer.msg('请选择选择任务类型列表中的任务',{icon:2});
+                        return false;
+                    }
+                    $.each(_type,function(key,box) {  
+                        _task_info.push({"type":$(this).attr('data-sid'),"name":$('.local_site_list').val()});                                            
+                    });
+                    if(_task_name == ''){
+                        layer.msg('任务名称不能为空，请重新输入',{icon:2});
+                        return false;
+                    }
+                    _this.$create_sync_task({task_name:_task_name,sid:JSON.stringify(_sid),task_info:JSON.stringify(_task_info)},function(res){
+                        layer.close(index);
+                        layer.msg(res.msg,{icon:1});
+                        _this.get_sync_task_list();
+                    });
+                }
+            });
+        },
+        /**
+        * @description 渲染分组列表
+        */
+        create_group_table:function(rdata,callback){
+            var _this = this;
+            _this.$get_group_list(function(rdata){
+                $('#groupTable tr:eq(0)').siblings().empty();
+                $.each(rdata,function(index,item){
+                    $('#groupTable').append($(
+                        '<tr>\
+                            <td style="width: 10%;">'+ (index+1) +'</td>\
+                            <td style="width: 40%;">\
+                                <span class="group-title">'+ item.title +'</span>\
+                                <input class="bt-input-text edit-group-name" type="text" value="'+ item.title +'" name="title" style="width: 100%;display: none;height: 20px;">\
+                            </td>\
+                            <td style="width: 20%;">\
+                                <span class="group-state-span" style="display:none;text-align: center;color: '+(item.state ==1?"#20a53a":"#c8c8c8")+';">'+ (item.state ==1?"开启":"关闭") +'</span>\
+                                <div class="index-item edit-group-state" style="width: 100%;height: 18px;">\
+                                    <input class="btswitch btswitch-ios group_state" name="state" id="group_state'+index+'" type="checkbox"  name="state" '+(item.state==1?"checked":"")+'>\
+                                    <label class="btswitch-btn" for="group_state'+index+'"></label>\
+                                </div>\
+                            </td>\
+                            <td style="text-align: right;">\
+                                <span class="edit-span"><a href="javascript:;" class="btlink group_edit" >编辑</a>\
+                                &nbsp;|&nbsp;<a href="javascript:;" class="btlink delsGroupAdmin">删除</a></span>\
+                                <span class="save-span" style="display: none"><a href="javascript:;" class="btlink modify_group" >保存</a>\
+                                &nbsp;|&nbsp;<a href="javascript:;" class="btlink cancel">取消</a></span>\
+                            </td>\
+                        </tr>'
+                    ).data({data:item,index:index}))                        
+                });
+                //编辑分组
+                $('#groupTable').on('click', '.group_edit', function (){
+                    var _tr = $(this).parents('tr');
+                    _tr.find('.edit-group-name').val(_tr.find('.group-title').text());
+                    _tr.find('.group-title,.edit-span').hide().next().show().focus();                  
+                    _tr.siblings().find('.group-title,.edit-span').show().next().hide();
+                    _tr.find('.group_state').prop("checked",(_tr.find('.group-state-span').text() == "开启"?true:false));                 
+                    //分组文本框隐藏                
+                    $('.save-span').on('click', '.cancel', function (e) {
+                        _tr.find('.edit-span,.group-title').show().next().hide();
+                        _tr.find('.edit-group-name').val(_tr.find('.group-title').text());
+                        _tr.find('.group_state').prop("checked",(_tr.find('.group-state-span').text() == "开启"?true:false));
+                    });
+                    //编辑保存
+                    $('.save-span').on('click', '.modify_group', function (e) {
+                        var _title = _tr.find('.edit-group-name').val(),
+                        _group = _this.group_list,
+                        _group_id = _tr.data().data.group_id,
+                        _state =  _tr.find('.group_state').is(':checked')?1:0,                     
+                        _type = (_state== _tr.data().data.state)?true:false;  
+                        for(var i = 0; i < _group.length; i++){
+                            if(_type == true && _title != _tr.find('.group-title').text() && _title == _group[i].title){
+                                layer.msg('分组标题已存在，请重新输入',{icon:2});
+                                return false;
+                            }else
+                            if(_type == false && _title != _tr.find('.group-title').text() && _title == _group[i].title){
+                                layer.msg('分组标题已存在，请重新输入',{icon:2});
+                                return false;
+                            }
+                        }                               
+                        _this.$modify_group({title:_title,group_id:_group_id,state:_state},function(res){                                                 
+                            layer.msg(res.msg,{icon:1});
+                            _this.create_group_table();
+                        }); 
+                    });
+                    
+                });
+                //节点状态修改
+                $('#groupTable').on('click','.group_state',function(){
+                    var data = $(this).parents('tr').data().data,
+                    _tr = $(this).parents('tr'),
+                    _state =  _tr.find('.group_state').is(':checked')?1:0;
+                    data.state = _state;
+                    _this.$modify_group(data,function(res){                                                  
+                        layer.msg('状态修改成功',{icon:res.status?1:2});
+                    });                        
+                    _this.create_group_table();              
+                });
+                if(callback) callback(rdata);
+            });          
+        },
+        /**
+        * @description 开始执行任务列表
+        */
+        start_sync_task:function(callback){
+            var _this = this;
+            layer.confirm('开始执行同步任务？', {icon: 0, title:'执行同步任务',
+                closeBtn:2,
+                btn: ['确认','取消']
+            },function(index,layers){
+                _this.$start_task(function(res){
+                    layer.close(index);
+                    layer.msg('已开始执行任务',{icon:1});
+                    setTimeout(function(){
+                        _this.get_sync_task_list();
+                    },2000);
+                })
+            });
+
+        },
+        /**
+        * @description 将请求方法对象挂载至当前对象上
+        * @param {Object} config 请求方法对象，例如: { set_local_config:'设置本地配置'}
+        * @return void
+        */
+        mount_methods_event:function(config){
+            var that = this;
+            $.each(config,function(key,item){
+                that['$'+ key ] = function(data,callback,tips){
+                    if(typeof data == 'function'){
+                        if(typeof callback == "boolean") tips = callback;
+                        callback = data,data = {};
+                    }
+                    that.$http({
+                        method:key,
+                        tips:tips === false?tips:'正在'+ item +',请稍后...',
+                        data: data,
+                        success:function(res){
+                            if(callback) callback(res);
+                        }
+                    });
+                }
+            });
+        },
+        /**
+        * @description 请求方法封装
+        * @param {Object} 配置对象 例如 {tips:loading信息，false则关闭,data:参数,method:方法名称,success:成功函数,error:失败函数}
+        * @return void
+        */
+        $http:function(obj){
+            var loadT = '';
+            if (obj.url == undefined) {
+                if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this.plugin_name
+                if (!obj.plugin_name || !obj.method) {
+                    layer.msg('缺少插件方法', {icon: 2 });
+                    return false;
+                }
+            }
+            if(obj.tips !== false){
+                if(typeof obj.tips === "undefined") obj.tips = 1; //默认为 layer.load()
+                if(obj.tips === 1){
+                    loadT = layer.load();
+                }else{
+                    loadT = layer.msg(obj.tips,{icon: 16,time: 0,shade: 0.3});
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+                data: obj.data || {},
+                timeout: obj.timeout || 99999999,
+                complete: function (res) {
+                    if (obj.tips !== false) layer.close(loadT);
+                },
+                success: function (rdata) {
+                    if (obj.check) { 
+                        obj.success(rdata);
+                        return false
+                    }
+                    if (rdata.status === false) {
+                        layer.msg(rdata.msg, { icon: 2 });
+                        return false;
+                    }
+                    obj.success(rdata);
+                },
+                error: function (ex) {
+                    if (!obj.error) {
+                        obj.msg || obj.msg == undefined ? layer.msg('The request process found an error!', {icon: 2}) : '';
+                        return;
+                    }
+                    return obj.error(ex);
+                }
+            });
+        }
+    }
+    nodeAdmin.init();
+    jQuery.prototype.serializeObject = function () {
+        var a,o,h,i,e;
+        a = this.serializeArray();
+        o={};
+        h=o.hasOwnProperty;
+        for(i=0;i<a.length;i++){
+            e=a[i];
+            if(!h.call(o,e.name)){
+                o[e.name]=e.value;
+            }
+        }
+        return o;
+    }
+    Date.prototype.toLocaleString = function() {
+        return this.getFullYear() + "-" + ((this.getMonth() + 1)<10?"0"+(this.getMonth() + 1):(this.getMonth() + 1)) + "-" + 
+                    (this.getDate()<10?"0"+this.getDate():this.getDate())  +  "    " +(this.getHours()<10?"0"+this.getHours():this.getHours())+ ":" + 
+                    (this.getMinutes()<10?"0"+this.getMinutes():this.getMinutes()) + ":" + (this.getSeconds()<10?"0"+this.getSeconds():this.getSeconds());
+    };
+</script>

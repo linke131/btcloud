@@ -1,0 +1,1172 @@
+<style>
+    .bt-w-main {
+        height: 578px;
+    }
+    .bt-w-con{
+        background: white;
+    }
+    .bt-box.active {
+        display: block;
+        height: 100%;
+    }
+    .bt-box {
+        display: none;
+    }
+    .help_info{
+        position: absolute;
+        bottom: 15px;
+    }
+    #ServiceStatus .status {
+        line-height: 40px;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    .mr15{
+        margin-right: 15px;
+    }
+    #ScanConfig{
+        
+    }
+    .inlineBlock.group span {
+        height: 32px;
+        line-height: 30px;
+    }
+
+    .inlineBlock.group span.unit {
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-left: 0;
+        border-radius: 2px;
+        width: 44px;
+        text-align: center;
+        background-color: #f6f6f6;
+        vertical-align: middle;
+        position: relative;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    span.unit {
+        color: #666;
+    }
+    #ScanConfig .inlineBlock {
+        margin-right: 10px;
+    }
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+        border-top: .5px solid #ddd;
+    }
+    .text-org{
+        color: #fc6d26;
+    }
+    .divtable .table,.batch_tabel.divtable,.file-list.divtable{
+        border: none;
+    }
+    .divtable{
+        border: .5px solid #ddd;
+    }
+    .changepath{
+        height: 500px;
+        border-bottom: 1px solid #dddddd;
+    }
+    .changepath .path-top{
+        height: 50px;
+        line-height: 50px;
+        padding-left: 10px;
+        border-bottom: #dddddd 1px solid;
+    }
+    .changepath .path-con-left{
+        width: 160px;
+        height: 450px;
+        float: left;
+        border-right: #dddddd 1px solid;
+        padding-top: 5px;
+    }
+    .changepath .path-con-left dl .open_disk:hover{
+        background: #ececec;
+        cursor: pointer;
+    }
+    .changepath .path-con-right{
+        float: left;
+        height: 450px;
+        width: 590px;
+        overflow: hidden;
+    }
+    .getfile-btn{
+        background: #f7f7f7 none repeat scroll 0 0;
+        padding: 8px 20px 10px;
+        text-align: right;
+        width: 100%;
+        border-top: 0px;
+    }
+    .changepath .path-top .btn span{
+        margin-right: 5px;
+    }
+    .changepath .path-con-left dl dt{
+        height: 40px;
+        line-height: 40px;
+        padding-left: 20px;
+        margin-left: 0;
+        background: none;
+    }
+    .changepath .path-con-left dl dt span{
+        margin-right: 10px;
+    }
+    .file-list .table-hover>tbody>tr{
+        height: 50px;
+        cursor: pointer;
+    }
+    .file-list .table>tbody>tr>td{
+        vertical-align: middle;
+    }
+    .file-list .dir_block{
+        display: inline-block;
+        vertical-align: top;
+        height: 25px;
+        line-height: 25px;
+    }
+    .table_dir .dir_block,
+    .table_files .dir_block{
+        height: 28px;
+        line-height: 28px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .file-list .list-list span.glyphicon-option-horizontal{
+        height: 30px;
+        line-height: 35px;
+        font-size: 15px;
+    }
+
+    .file-list .list-list span.glyphicon-folder-open{
+        margin-right: 15px;
+        font-size: 23px;
+        margin-left: 4px;
+    }
+    .file-list{
+        display: block;
+        overflow: auto;
+        height: 417px;
+        position: relative;
+        top: -1px;
+    }
+    .label_checkbox{
+        position: relative;
+    }
+    .list-list tr:last-child{
+        border-bottom: 1px solid #ddd;
+    }
+    .divtable .table thead th{
+        border-bottom: 0px solid #e6e6e6;
+    }
+    .table_hide th{
+        padding: 0 !important;
+    }
+    .list-list .ico-default{
+        background-position: center center;
+        background-repeat: no-repeat;
+        /* display: inline-block; */
+        height: 30px;
+        margin-right: 10px;
+        width: 33px;
+        z-index: 1;
+        float: left;
+    }
+    #table_thead{
+        border-bottom: 1px solid #ddd !important;
+    }
+    .path-con-right .list-list td{
+        cursor: auto;
+    }
+</style>
+<div class="bt-content one-av">
+    <div class="bt-w-main">
+        <div class="bt-w-menu">
+            <p class="bgw">木马检测</p>
+            <p>检测记录</p>
+            <p>检测日志</p>
+            <p>服务状态</p>
+        </div>
+        <div class="bt-w-con pd15">
+            <div class="bt-box active" data-type="VirusScan">
+                <div id="VirusScan"></div>
+            </div>
+            <div class="bt-box" data-type="ScanHistory">
+                <div id="ScanHistory"></div>
+            </div>
+            <div class="bt-box" data-type="LogStatis">
+                <div id="LogStatis"></div>
+            </div>
+            <div class="bt-box" data-type="ServiceStatus">
+                <div id="ServiceStatus"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var oneav = {
+        plugin_name: 'oneav',
+        area: [900, 660],
+        /**
+        * @description 初始化项目
+        */
+        init: function () {
+            var that = this;
+            /* 插件，第一步设置布局宽度大小 */
+            $('.layui-layer-page').css({
+                width: this.area[0] + 'px',
+                height: this.area[1] + 'px',
+                top: (($(window).height() - this.area[1]) / 2) + 'px',
+                left: (($(window).width() - this.area[0]) / 2) + 'px',
+            }).find('.bt-w-main').css({height: (this.area[1] - 42) + 'px'})
+            /* tab切换功能 */
+            $('.bt-w-menu p').on('click', function () {
+                var tab = $(this), index = tab.index(), box = $('.bt-w-con .bt-box:eq(' + index + ')')
+                tab.addClass('bgw').siblings().removeClass('bgw');
+                box.addClass('active').siblings().removeClass('active');
+                switch (index) {
+                    case 0:
+                        that.reanderVirusScan()
+                        break;
+                    case 1:
+                        that.reanderScanHistory()
+                        break;
+                    case 2:
+                        that.reanderLogStatis()
+                        break;
+                    case 3:
+                        that.reanderServiceStatus(true)
+                        break;
+                    case 4:
+                        that.reanderAboutOneav()
+                        break;
+
+                }
+            })
+            that.reanderVirusScan()
+        },
+        /**
+        * @description 渲染病毒查杀列表
+        * @param
+        */
+        reanderVirusScan: function () {
+            var _this = this
+            bt_tools.send('/plugin?action=a&name=oneav&s=get_config',function(res){
+                var vs_data = []
+                if(res['oneav']){
+                    if(res.oneav['detect_dir']){
+                        for (var i = 0; i < res.oneav.detect_dir.length; i++) {
+                            vs_data.push({path:res.oneav.detect_dir[i]})
+                        }
+                    }
+                }
+                $('#VirusScan').empty()
+                var vs_table = bt_tools.table({
+                    el: '#VirusScan',
+                    load: '获取病毒查杀列表',
+                    default: "病毒查杀列表为空",
+                    height: 460,
+                    data: vs_data,
+                    column: [{
+                        type: 'checkbox',
+                        class: '',
+                        width: 20
+                    }, {
+                        fid: 'path',
+                        title: '检测目录',
+                        tips: '打开目录',
+                        type: 'link',
+                        event: function (row, index, ev) {
+                            openPath(row.path);
+                        }
+                    },{
+                        title: '操作',
+                        type: 'group',
+                        width: 150,
+                        align: 'right',
+                        group: [
+                            {
+                                title: '手动检测',
+                                event: function (rowc, index, ev, key, rthat) {
+                                    var paths = []
+                                    paths.push(rowc.path)
+                                    bt_tools.send({url:'/plugin?action=a&name=oneav&s=start_scan', data: {paths: JSON.stringify(paths)}}, function (res) {
+                                        bt_tools.msg(res);
+                                        if (res.status) {
+                                            task_stat();
+                                            oneav.reanderVirusScan()
+                                        }
+                                    },'手动检测目录')
+                                }
+                            },
+                            {
+                                title: '删除',
+                                event: function (rowc, index, ev, key, rthat) {
+                                    var paths = []
+                                    paths.push(rowc.path)
+                                    bt.confirm({title:'删除目录', msg:'是否删除检测目录-['+ rowc.path +']，继续操作！'},function (){
+                                        _this.send({method: 'del_scan_path',data: {paths:JSON.stringify(paths)},tips: '正在删除检测目录' ,success:function(rdata){
+                                            var msg = ''
+                                            if(Object.keys(rdata.errs).length){
+                                                for(var item in rdata.errs){
+                                                    msg += item + rdata.errs[item]
+                                                }
+                                                bt_tools.msg({status: false,msg:msg})
+                                            }else{
+                                                for(var item in rdata.sucs){
+                                                    msg += item + rdata.sucs[item]
+                                                }
+                                                bt_tools.msg({status: true,msg:msg})
+                                                _this.reanderVirusScan()
+                                                layer.close(index)
+                                            }
+                                        }})
+                                    })
+                                }
+                            },
+                        ]
+                    }],
+                    tootls: [
+                        {
+                            type: 'group',
+                            positon: ['left', 'top'],
+                            list: [
+                                {
+                                    title: '添加检测目录',
+                                    active: true,
+                                    event: function (ev, that) {
+                                        _this.add_scan_path()
+                                    }
+                                },
+                                {
+                                    title: '自动检测配置',
+                                    event: function (ev, that) {
+                                        _this.scan_config(res)
+                                    }
+                                }
+                            ]
+                        },
+                        { // 批量操作
+							type: 'batch',
+							positon: ['left', 'bottom'],
+                            placeholder: '请选择批量操作',
+                            buttonValue: '批量操作',
+                            disabledSelectValue: '请选择需要批量操作的目录!',
+							selectList: [{
+								title: '手动检测',
+								callback:function (data) {
+                                    var paths = []
+                                    for (var i = 0; i < data.check_list.length; i++) {
+                                        paths.push(data.check_list[i].path)
+                                    }
+                                    bt.confirm({
+                                        title: '批量手动检测目录',
+                                        msg: '批量手动检测目录，该操作可能会存在风险，是否继续？',
+                                    }, function (index) {
+                                        layer.close(index)
+                                        bt_tools.send({url:'/plugin?action=a&name=oneav&s=start_scan', data: {paths: JSON.stringify(paths)}}, function (res) {
+                                            bt_tools.msg(res);
+                                            if (res.status) {
+                                                task_stat();
+                                                oneav.reanderVirusScan()
+                                            }
+                                        },'批量手动检测目录')
+                                    })
+                                }
+                            },{
+                                title: '删除目录',
+								callback:function (data) {
+                                    var paths = []
+                                    for (var i = 0; i < data.check_list.length; i++) {
+                                        paths.push(data.check_list[i].path)
+                                    }
+                                    bt.confirm({
+                                        title: '批量删除检测目录',
+                                        msg: '批量删除检测目录，该操作可能会存在风险，是否继续？',
+                                    }, function (index) {
+                                        layer.close(index)
+                                        _this.send({method: 'del_scan_path',data: {paths:JSON.stringify(paths)},tips: '正在批量删除检测目录' ,success:function(rdata){
+                                            if(Object.keys(rdata.errs).length){
+                                                var msg = ''
+                                                for(var item in rdata.errs){
+                                                    msg += item + rdata.errs[item]
+                                                }
+                                                bt_tools.msg({status: false,msg:msg})
+                                            }else{
+                                                var html = ''
+                                                for(var item in rdata.sucs){
+                                                    var status = rdata.sucs[item].indexOf('成功') > -1
+                                                    html += '<tr><td>' + item + '</td><td><div style="float:right;"><span style="color:' + (status ? '#20a53a' : 'red') + '">' + (status ? '成功' : '失败') + '</span></div></td></tr>';
+                                                }
+                                                vs_table.$batch_success_table({
+                                                    title: '批量删除检测目录',
+                                                    th: '检测目录',
+                                                    html: html
+                                                });
+                                                _this.reanderVirusScan()
+                                            }
+                                        }})
+                                    })
+                                }
+                            }]
+                        }
+                    ]
+                })
+                var cycle = res.oneav.cycle.split(" ")
+                $('#VirusScan .tootls_bottom .pull-right').append('<div class="page"><span class="Pcount">共'+ vs_data.length +'条</span></div>')
+                $('#VirusScan').next().remove()
+                $('#VirusScan').after('<ul class="help_info c7">\
+                    <li>当前采用定时检测木马的方式，添加检测目录后，检测程序将在<span class="text-org">每天'+ cycle[1] +'点'+ cycle[0] +'分自动执行</span>，如需修改执行时间，请点击【<a class="btlink scan_config_click">自动检测配置</a>】修改。</li>\
+                </ul>')
+                $('.scan_config_click').click(function () {
+                    _this.scan_config(res)
+                })
+            })
+        },
+        /**
+        * @description 添加检测目录
+        * @param
+        */
+        add_scan_path: function () {
+            var _this = this
+            layer.open({
+                type: 1,
+                area: '440px',
+                title: '添加检测目录',
+                closeBtn: 2,
+                shift: 5,
+                shadeClose: false,
+                btn: ['提交','取消'],
+                content: '<div class="ptb20" id="addScanPathForm"></div>',
+                success:function(layero,index){
+                    bt_tools.form({
+                        el:'#addScanPathForm',
+                        form: [
+                            {
+                                label:'检测目录',
+                                group:{
+                                    type:'textarea',
+                                    name:'paths',
+                                    class: 'paths',
+                                    style: { 'width': '280px', 'height': '120px', 'line-height': '22px' },
+                                    placeholder:'如需填写多个目录请换行填写，例：\n/www/aaa\n/www/bbb',
+                                }
+                            }
+                        ]
+                    })
+                    $('[name=paths]').after('<span class="glyphicon glyphicon-folder-open cursor ml10" style="vertical-align: top;"></span>')
+                    $('.glyphicon-folder-open').click(function (){
+                        _this.change_path('.add_path','dir',function (paths) {
+                            $('[name=paths]').val(paths)
+                        })
+                    })
+                },
+                yes:function(index,layers){
+                    var paths = $('[name=paths]').val().split(/[(\r\n\s)\r\n\s]+/).filter(s => $.trim(s).length > 0)
+                    if(!paths.length) return layer.msg('检测目录不能为空')
+                    _this.send({method: 'add_scan_path',data: {paths:JSON.stringify(paths)},tips:'正在添加检测目录',success:function(rdata){
+                        if(Object.keys(rdata.errs).length){
+                            var msg = ''
+                            for(var item in rdata.errs){
+                                msg += item + rdata.errs[item]
+                            }
+                            bt_tools.msg({status: false,msg:msg})
+                        }else{
+                            bt_tools.msg({status: true,msg:rdata.sucs.path})
+                            _this.reanderVirusScan()
+                            layer.close(index)
+                        }
+                    }})
+                }
+            })
+        },
+        /**
+        * @description 自动检测配置
+        * @param
+        */
+        scan_config: function (res){
+            var _this = this
+            layer.open({
+                type: 1,
+                title: '自动检测配置',
+                area: ['470px', '260px'],
+                shadeClose: false,
+                closeBtn: 2,
+                content: ' <div id="ScanConfig" class="pd20"></div>',
+                success: function (layero,index){
+                    var cycle = res.oneav.cycle.split(" ")
+                    var scan_data = {
+                        layer: res.oneav.layer,
+                        hours: cycle[1],
+                        minute: cycle[0]
+                    }
+                    bt_tools.form({
+                        el:'#ScanConfig',
+                        data: scan_data,
+                        form: [
+                            {
+                                label:'检测目录层级',
+                                group:{
+                                    type:'text',
+                                    name:'layer',
+                                    unit: '级'
+                                }
+                            },
+                            {
+                                label: '检测时间',
+                                group: [{
+                                    type: 'select',
+                                    name: 'type',
+                                    value: 'week',
+                                    disabled: true,
+                                    list: [{ title: '每天', value: 'day' }]
+                                }, {
+                                    type: 'number',
+                                    name: 'hours',
+                                    'class': 'group',
+                                    width: '70px',
+                                    value: '1',
+                                    unit: '小时',
+                                    min: 0,
+                                    max: 24
+                                }, {
+                                    type: 'number',
+                                    name: 'minute',
+                                    'class': 'group',
+                                    width: '70px',
+                                    min: 0,
+                                    max: 59,
+                                    unit: '分钟'
+                                }]
+                            }, {
+                                label: '',
+                                group: {
+                                    type: 'button',
+                                    size: '',
+                                    name: 'submitForm',
+                                    title: '保存配置',
+                                    event: function (formData, element, that) {
+                                        if(formData.hours > 24) return layer.msg('小时范围[0，24]')
+                                        if(formData.minute > 59) return layer.msg('分钟范围[0，59]')
+                                        bt_tools.send({url:'/plugin?action=a&name=oneav&s=set_config', data: {layer: formData.layer,hours: formData.hours,minute: formData.minute}}, function (res) {
+                                            bt_tools.msg(res);
+                                            if (res.status) {
+                                                layer.close(index)
+                                                _this.reanderVirusScan()
+                                            }
+                                        },'保存自动检测配置')
+                                    }
+                                }
+                            }
+                        ]
+                    })
+                    $('#ScanConfig').append('<ul class="help_info c7">\
+                        <li>提示：每天'+ scan_data.hours +'点'+ scan_data.minute +'分进行自动检测</li>\
+                    </ul>')
+                }
+            })
+        },
+        /**
+        * @description 渲染日志统计 自动检测日志
+        * @param
+        */
+        reanderLogStatis: function (p) {
+            var _this = this
+            $('#LogStatis').empty()
+            bt_tools.table({
+                el: '#LogStatis',
+                load: '获取检测日志列表',
+                default: "检测日志列表为空",
+                url: '/plugin?action=a&name=oneav&s=get_logs',
+                height: '500px',
+                beforeRequest: function (data) {
+                    return $.extend(data, { p: p ? p : 1,count: 10 });
+                },
+                dataFilter: function (res) {
+                    if(!$('#LogStatis .page').length) {
+                        $('#LogStatis').next().remove()
+                        $('#LogStatis').append('<div class="tootls_group tootls_bottom">\
+                            <div class="pull-left">\
+                            </div>\
+                            <div class="pull-right"><div class="page"></div></div>\
+                        </div>').after('<ul class="help_info c7">\
+                            <li>注意：该检测日志为定期自动检测的日志</li>\
+                        </ul>')
+                        $('#LogStatis .page').prepend(_this.renderPages(10,(p ? p : 1),res.length))
+                    }
+                    return { data: res };
+                },
+                column: [
+                    {
+                        title: '时间',
+                        width: 150, 
+                        template: function (row) {
+                            return '<span>'+ bt.format_data(row.time) +'</span>';
+                        }
+                    },
+                    {
+                        fid: 'file',
+                        title: '文件',
+                        tips: '打开文件',
+                        type: 'link',
+                        width: 150,
+                        event: function (row, index, ev) {
+                            bt.pub.on_edit_file(0, row.file);
+                        }
+                    },
+                    {
+                        fid: 'threat_name',
+                        title: '类型',
+                        width: 100, 
+                        type: 'text'
+                    },
+                    {
+                        fid: 'engine',
+                        title: '引擎',
+                        width: 100, 
+                        type: 'text'
+                    },
+                    {
+                        fid: 'description',
+                        title: '描述',
+                        type: 'text'
+                    }
+                ],
+                success: function () {
+                    $('#LogStatis .nextPage').click(function (){
+                        var p = $(this).data('page')
+                        _this.reanderLogStatis(p)
+                    })
+                }
+            })
+        },
+        /**
+        * @description 渲染手动检测历史记录
+        * @param
+        */
+        reanderScanHistory: function () {
+            $('#ScanHistory').empty()
+            var sh_table = bt_tools.table({
+                el: '#ScanHistory',
+                load: '获取检测记录列表',
+                default: "检测记录列表为空",
+                url: '/plugin?action=a&name=oneav&s=get_scan_history',
+                height: '500',
+                dataFilter: function (res) {
+                    if(!$('#ScanHistory .page').length) {
+                        $('#ScanHistory').next().remove()
+                        $('#ScanHistory').after('<ul class="help_info c7">\
+                            <li>注意：该检测记录为手动检测的结果</li>\
+                        </ul>')
+                        $('#ScanHistory .tootls_bottom .pull-right').append('<div class="page"><span class="Pcount">共'+ res.length +'条</span></div>')
+                    }
+                    return { data: res };
+                },
+                column: [
+                    {
+                        type: 'checkbox',
+                        class: '',
+                        width: 20
+                    },
+                    {
+                        title: '时间',
+                        width: 150, 
+                        template: function (row) {
+                            return '<span>'+ bt.format_data(row.time) +'</span>';
+                        }
+                    },
+                    {
+                        fid:'size',
+                        title: '日志大小',
+                        width: 100,
+                        template: function (row, index) {
+                            return '<span>'+ bt.format_size(row.size) +'</span>'
+                        }
+                    },
+                    {
+                        fid: 'paths',
+                        title: '目录',
+                        template: function (row) {
+                            return '<span>'+ row.paths.join(', ') +'</span>';
+                        }
+                    },
+                    {
+                        title: '操作',
+                        type: 'group',
+                        width: 100,
+                        align: 'right',
+                        group: [
+                            {
+                                title: '日志',
+                                event: function (row, index, ev, key, rthat) {
+                                    bt_tools.send({url: '/plugin?action=a&name=oneav&s=get_scan_log',data:{scan_id: row.scan_id}},function (data) {
+                                        if(!data.length) return layer.msg('暂无日志',{icon:6})
+                                        layer.open({
+                                            type: 1,
+                                            title: '日志',
+                                            area: ['790px', '520px'],
+                                            shadeClose: false,
+                                            closeBtn: 2,
+                                            content: '<div id="scanHistoryLog" class="plr15"></div>',
+                                            success: function (layero,index){
+                                                bt_tools.table({
+                                                    el: '#scanHistoryLog',
+                                                    load: '获取日志列表',
+                                                    default: "日志列表为空",
+                                                    data: data,
+                                                    height: '400px',
+                                                    dataFilter: function (res) {
+                                                        return { data: res };
+                                                    },
+                                                    column: [
+                                                        {
+                                                            title: '时间',
+                                                            width: 150, 
+                                                            template: function (row) {
+                                                                return '<span>'+ bt.format_data(row.time) +'</span>';
+                                                            }
+                                                        },
+                                                        {
+                                                            fid: 'file',
+                                                            title: '文件',
+                                                            tips: '打开文件',
+                                                            type: 'link',
+                                                            width: 150,
+                                                            event: function (row, index, ev) {
+                                                                bt.pub.on_edit_file(0, row.file);
+                                                            }
+                                                        },
+                                                        {
+                                                            fid: 'threat_name',
+                                                            title: '类型',
+                                                            width: 100, 
+                                                            type: 'text'
+                                                        },
+                                                        {
+                                                            fid: 'engine',
+                                                            title: '引擎',
+                                                            width: 100, 
+                                                            type: 'text'
+                                                        },
+                                                        {
+                                                            fid: 'description',
+                                                            title: '描述',
+                                                            type: 'text'
+                                                        }
+                                                    ]
+                                                })
+                                                if(!$('#scanHistoryLog .page').length) {
+                                                    $('#scanHistoryLog').append('<div class="tootls_group tootls_bottom">\
+                                                        <div class="pull-left">\
+                                                        </div>\
+                                                        <div class="pull-right"><div class="page"><span class="Pcount">共'+ data.length +'条</span></div></div>\
+                                                    </div>')
+                                                }
+                                            }
+                                        })
+                                    })
+                                }
+                            },
+                            {
+                                title: '删除',
+                                event: function (row, index, ev, key, rthat) {
+                                    bt.confirm({title:'删除手动检测历史', msg:'是否删除该手动检测历史记录，继续操作！'},function (){
+                                        bt_tools.send({url:'/plugin?action=a&name=oneav&s=del_scan_history', data: {scan_id: row.scan_id}}, function (res) {
+                                            bt_tools.msg(res);
+                                            if (res.status) {
+                                                rthat.$refresh_table_list(false);
+                                            }
+                                        },'删除手动检测历史')
+                                    })
+                                }
+                            },
+                        ]
+                    }
+                ],
+                tootls: [
+                    { // 批量操作
+                        type: 'batch',
+                        positon: ['left', 'bottom'],
+                        placeholder: '请选择批量操作',
+                        buttonValue: '批量操作',
+                        disabledSelectValue: '请选择需要批量操作的目录!',
+                        selectList: [{
+                            title: '删除手动检测记录',
+                            load: true,
+                            url: '/plugin?action=a&name=oneav&s=del_scan_history',
+                            param: function (row) {
+                                return {scan_id: row.scan_id}
+                            },
+                            callback:function (that) {
+                                bt.confirm({title:'删除手动检测记录', msg:'批量手动检测记录，该操作可能会存在风险，是否继续？'},function (){
+                                    var param = {};
+                                    that.start_batch(param, function (list) {
+                                        var html = ''
+                                        for (var i = 0; i < list.length; i++) {
+                                            var item = list[i];
+                                            html += '<tr><td>' + item.scan_id + '</td><td><div style="float:right;"><span style="color:' + (item.request.status ? '#20a53a' : 'red') + '">' + (item.request.status ? '成功' : '失败') + '</span></div></td></tr>';
+                                        }
+                                        sh_table.$batch_success_table({
+                                            title: '批量删除',
+                                            th: 'ID',
+                                            html: html
+                                        });
+                                        sh_table.$refresh_table_list(false);
+                                    });
+                                });
+                            }
+                        }]
+                    }
+                ]
+            })
+        },
+        /**
+		 * @description 渲染日志分页
+		 * @param pages
+		 * @param p
+		 * @param num
+		 * @returns {string}
+		 */
+		renderPages:function(pages,p,num){
+			return (p > 1 ?'<a class="nextPage" data-page="1">首页</a>':'') + (p !== 1?'<a class="nextPage" data-page="'+ (p-1) +'">上一页</a>':'') + (pages <= num ? '<a class="nextPage" data-page="'+ (p+1) +'">下一页</a>':'')+'<span class="Pcount">第 '+ p +' 页</span>';
+		},
+        /**
+        * @description 渲染服务状态
+        * @param
+        */
+        reanderServiceStatus: function (tips) {
+            var _this = this
+            _this.send({method: 'get_service_status',data:{},load: tips ? 0 : 1,tips: tips ? '正在获取服务状态' : false,success:function(rdata){
+                var _html = '',btn = [{title:'启动', value: 'start'},{title:'停止', value: 'stop'},{title:'重启', value: 'restart'},{title:'重载配置', value: 'reload'}]
+                for (var i = 0; i < btn.length; i++) {
+                    if(rdata.status && btn[i].value == 'start') continue
+                    if(!rdata.status && btn[i].value == 'stop') continue
+                    _html += '<button class="btn btn-default btn-sm mr15" data-action="'+btn[i].value+'">'+btn[i].title+'</button>'
+                }
+                $('#ServiceStatus').empty().append('<div class="bt-form">\
+                    <p class="status">\
+                        当前状态：\
+                        <span>'+ (rdata.status ? '开启' : '关闭') +'</span>\
+                        <span style="color: '+(rdata.status ? '#20a53a' : 'red' ) + '; margin-left: 3px;" class="glyphicon glyphicon '+ (rdata.status ? 'glyphicon-play' : 'glyphicon-pause') +'"></span>\
+                    </p>\
+                    <div>'+_html+'</div>\
+                </div>')
+                $('#ServiceStatus button').click(function () {
+                    var action  = $(this).data('action')
+                    var str = $(this).text(), msg = ''
+                    if(action == 'reload') {
+                        msg = '重载项目后，当前项目服务将重载运行，继续吗？'
+                    }else{
+                        msg = str+'项目后，当前项目服务将'+str+'运行，继续吗？'
+                    }
+                    bt.confirm({
+                        title: str+'OneAV木马检测服务',
+                        msg: msg
+                    }, function () {
+                        bt_tools.send({url:'/plugin?action=a&name=oneav&s=set_service_status', data: {status: action}}, function (res) {
+                            bt_tools.msg(res);
+                            if (res.status) {
+                                oneav.reanderServiceStatus()
+                            }
+                        },str+'OneAV木马检测服务')
+                    })
+                })
+            }})
+        },
+         // 选择目录
+         change_path:function(el,type,success) {
+            var _this = this;
+            layer.open({
+                type: 1,
+                area: "750px",
+                title: type == 'files'?'选择文件':'选择目录',
+                closeBtn: 2,
+                shift: 5,
+                shadeClose: false,
+                content: "<div class='changepath'>\
+                            <div class='path-top'>\
+                                <button type='button' class='btn btn-default btn-sm btn-back-file'><span class='glyphicon glyphicon-share-alt'></span>"+lan.public.return+"</button>\
+                                <div class='place' id='PathPlace'>"+ lan.bt.path +"：<span></span></div>\
+                            </div>\
+                            <div class='path-con'>\
+                                <div class='path-con-left'>\
+                                    <dl><dt id='changecomlist' onclick='BackMyComputer()'><span class='glyphicon glyphicon-hdd'></span>"+ lan.bt.comp  +"</dt></dl>\
+                                </div>\
+                                <div class='path-con-right'>\
+                                    <ul class='default' id='computerDefautl'></ul>\
+                                    <div class='divtable'>\
+                                        <table class='table table-hover' id='table_thead' style='border:0 none'>\
+                                            <thead><tr class='file-list-head'><th width='6%'></th><th width='30%'>"+lan.bt.filename+"</th><th width='25%'>"+lan.bt.etime+"</th><th width='10%'>"+lan.bt.access+"</th><th width='10%'>"+lan.bt.own+"</th><th width='10%'></th></tr></thead>\
+                                        </table>\
+                                    </div>\
+                                    <div class='file-list divtable'>\
+                                        <table class='table table-hover' style='border:0 none;margin-top: -32px;'>\
+                                            <thead><tr class='file-list-head'><th width='6%'></th><th width='30%'>"+lan.bt.filename+"</th><th width='25%'>"+lan.bt.etime+"</th><th width='10%'>"+lan.bt.access+"</th><th width='10%'>"+lan.bt.own+"</th><th width='10%'></th></tr></thead>\
+                                            <tbody id='dir_tbody' class='list-list'></tbody>\
+                                        </table>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>\
+                        <div class='getfile-btn' style='margin-top:0'>\
+                            <button type='button' class='btn btn-default btn-sm pull-left btn_create_folder'>"+ lan.bt.adddir +"</button>\
+                            <button type='button' class='btn btn-danger btn-sm mr5 btn_close'>"+ lan.public.close +"</button>\
+                            <button type='button' class='btn btn-success btn-sm btn_path_ok'>"+ lan.bt.path_ok +"</button>\
+                        </div>",
+                success:function(layero,index){
+                    //设置文件目录
+                    switch(type){
+                        case 'dir':
+                            setCookie('file_paths',$(el).val());
+                        break;
+                        case 'files':
+                            setCookie('file_paths',_this.back_file());
+                        case 'other':
+                        break;
+                    }
+                    // 返回目录
+                    $('.btn-back-file').click(function(){
+                        setCookie('file_paths',_this.back_file());
+                        _this.get_dir_dom(type);
+                    });
+                    // 关闭layer
+                    $('.btn_close').click(function(){
+                        layer.close(index);
+                    });
+                    // 选择目录或文件
+                    $('.btn_path_ok').click(function(){
+                        var selected = $('#dir_tbody .ui-selected'), html = []
+                        var paths = getCookie('file_paths');
+                        var paths_arry = paths.split('/');
+                        for (var i = 0; i < selected.length; i++) {
+                            var file_name = $('#dir_tbody .ui-selected').eq(i).find('.open_files_event').attr('data-name');
+                            var types = $('#dir_tbody .ui-selected').eq(i).find('.open_files_event').attr('data-type');
+                            switch(type){
+                                case 'dir':
+                                    if(file_name == undefined) file_name = '';
+                                break;
+                                case 'files':
+                                    if($('#dir_tbody .ui-selected').length == 0) layer.msg('请选择文件',{icon:2}); return false;
+                                break;
+                                case 'other':
+                                    if(file_name == undefined) file_name = '';
+                                break;
+                            }
+                            if(paths_arry[paths_arry.length -1] != ''){
+                                    paths += '/'
+                            }
+                            html.push(paths + ( file_name == ''?'':file_name))
+                        }
+                        if(!html.length) html.push(paths)
+                        $(el).val(html.join('\n'));
+                        if (typeof success === "function") success(html.join('\n'))
+                        layer.close(index)
+                    });
+                    // 新建文件夹
+                    $('.btn_create_folder').click(function(){
+                        var isCreate = $('#dir_tbody tr:eq(0)').hasClass('table_add_dir');
+                        if(isCreate) return false;
+                        $('#dir_tbody').prepend('<tr class="table_add_dir">\
+                                <td></td><td colspan="2"><span class="glyphicon glyphicon-folder-open"></span><input class="newFolderName" type="text" value="" style="width: 250px;height: 30px;vertical-align: bottom;">\
+                                <td colspan="3"><button type="button" class="btn btn-success btn-sm newFolderEvent">确定</button>&nbsp;&nbsp;<button type="button" class="btn btn-default btn-sm newFolderClaer">取消</button></td>\
+                            </td></tr>');
+                        document.getElementsByClassName('file-list')[0].scrollTop = 0;
+                        setTimeout(function(){
+                            $('.table_add_dir').on('click','.newFolderEvent',function(e){
+                                var fileName = $('.newFolderName').val();
+                                if(fileName == ''){
+                                    layer.msg('请输入新建文件名称',{icon:0});
+                                    return false;
+                                }
+                                _this.new_folder_event(getCookie('file_paths') + '/' + fileName,function(res){
+                                    $(this).parent().parent().remove();
+                                    _this.get_dir_dom(type);
+                                });
+                                e.stopPropagation();
+                            });
+                            $('.table_add_dir').on('click','.newFolderClaer',function(e){
+                                $(this).parent().parent().remove();
+                                e.stopPropagation();
+                            });
+                        },500);
+                    });
+                    // 磁盘目录跳转
+                    $('.path-con-left').on('click','.open_disk',function(){
+                       var dir =  $(this).attr('data-dir');
+                       setCookie('file_paths',dir)
+                        _this.get_dir_dom(type);
+                    });
+                    // 选择文目录或文件
+                    $('#dir_tbody').on('click','tr',function(e){
+                        $(this).find('input[type="checkbox"]').click();
+                        e.stopPropagation();
+                    });
+                    // 选择文件或目录
+                    $('#dir_tbody').on('click','tr input[type="checkbox"]',function(e){
+                        var checked = $(this).prop('checked');
+                        if(!checked){
+                            _this.select = '';
+                            $(this).parent().parent().removeClass('ui-selected');
+                        }else{
+                            _this.select = $(this).attr('data-name');
+                            $(this).parent().parent().addClass('ui-selected')
+                        }
+                        e.stopPropagation();
+                    });
+                    // 跳转指定目录，获取选择文件
+                    $('#dir_tbody').on('click','.open_files_event',function(e){
+                        var type = $(this).attr('data-type');
+                        var name = $(this).attr('data-name');
+                        var path = getCookie('file_paths');
+                        if(type == 'dir'){
+                            setCookie('file_paths',path + '/' + name);
+                            _this.get_dir_dom(type);
+                        }else{
+                            $(this).parent().prev().find('input[type="checkbox"]').click();
+                        }
+                        e.stopPropagation();
+                    })
+                    // 跳转指定目录
+                    $('#dir_tbody').on('click','.open_files_event .path-con-left dl',function(e){
+                        var path = $(this).attr('data-name');
+                        e.stopPropagation();
+                    });
+                    // 跳转指定下一层目录
+                    $('#dir_tbody').on('dblclick','tr',function(e){
+                        $(this).find('.open_files_event').click();
+                        e.stopPropagation();
+                    });
+                    //获取目录DOM
+                    _this.get_dir_dom(type);
+                }
+            });
+        },
+        // 过滤一级目录
+        back_file:function(){
+            c = getCookie('file_paths');
+            if(c == '/') return '/'
+            if(c.substr(c.length - 1, 1) == "/") {
+                c = c.substr(0, c.length - 1)
+            }
+            var d = c.split("/");
+            var a = "";
+            if(d.length > 1) {
+                var e = d.length - 1;
+                for(var b = 0; b < e; b++) {
+                    a += d[b] + "/"
+                }
+                return a.replace("//", "/")
+            } else {
+                a = d[0]
+            }
+            if(d.length == 1) {}
+        },
+        // 获取后缀
+        obtain_suffix:function(fileName){
+            var extArr = fileName.split(".");	
+            var exts = ['folder','folder-unempty','sql','c','cpp','cs','flv','css','js','htm','html','java','log','mht','php','url','xml','ai','bmp','cdr','gif','ico','jpeg','jpg','JPG','png','psd','webp','ape','avi','flv','mkv','mov','mp3','mp4','mpeg','mpg','rm','rmvb','swf','wav','webm','wma','wmv','rtf','docx','fdf','potm','pptx','txt','xlsb','xlsx','7z','cab','iso','rar','zip','gz','bt','file','apk','bookfolder','folder','folder-empty','folder-unempty','fromchromefolder','documentfolder','fromphonefolder','mix','musicfolder','picturefolder','videofolder','sefolder','access','mdb','accdb','sql','c','cpp','cs','js','fla','flv','htm','html','java','log','mht','php','url','xml','ai','bmp','cdr','gif','ico','jpeg','jpg','JPG','png','psd','webp','ape','avi','flv','mkv','mov','mp3','mp4','mpeg','mpg','rm','rmvb','swf','wav','webm','wma','wmv','doc','docm','dotx','dotm','dot','rtf','docx','pdf','fdf','ppt','pptm','pot','potm','pptx','txt','xls','csv','xlsm','xlsb','xlsx','7z','gz','cab','iso','rar','zip','bt','file','apk','css'];
+            var extLastName = extArr[extArr.length - 1];
+            for(var i=0; i<exts.length; i++){
+                if(exts[i]==extLastName){
+                    return exts[i];
+                }
+            }
+            return 'file';
+        },
+        // 生成列表DOM
+        get_dir_dom:function(type){
+            var _this = this;
+            this.get_dirk_list(function(res) {
+                $('.path-con-right .file-list').show();
+                var dir = res.DIR,files = res.FILES,disk = res.DISK,path = res.PATH,page = res.PAGE,dir_html ='',files_html = '',disk_html = '';
+                for(var i=0; i<dir.length; i++){
+                    var dir_arry = dir[i].split(';');
+                    dir_html += '<tr class="table_dir"><td class="label_checkbox"><input type="checkbox" name="dir_input" data-name="'+ dir_arry[0] +'"/></td><td><a href="javascript:;" data-name="'+ dir_arry[0] +'" data-type="dir" class="open_files_event"><span class="glyphicon glyphicon-folder-open"></span><span class="dir_block" style="width:130px;">'+ dir_arry[0] +'</span></td><td>'+ getLocalTime(dir_arry[2]) +'</td><td>'+ dir_arry[3] +'</td><td>'+ dir_arry[4] +'</td><td style="text-align: center;"><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></td></tr>'
+                }
+                for(var j=0;j<files.length;j++){
+                    var files_arry = files[j].split(';');
+                    files_html += '<tr class="table_files">'+(type === 'dir' ? '<td>': '<td class="label_checkbox"><input type="checkbox" name="dir_input" data-name="'+ files_arry[0] +'"/>')+'</td><td><a href="javascript:;"  data-name="'+ files_arry[0] +'" data-type="file" class="open_files_event"><span class="ico-default ico-'+ _this.obtain_suffix(files_arry[0]) +'"></span><span class="dir_block" style="width:130px;">'+ files_arry[0] +'</span></a></td><td>'+ getLocalTime(files_arry[2]) +'</td><td>'+ files_arry[3] +'</td><td>'+ files_arry[4] +'</td><td style="text-align: center;position: relative;"><span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></td></tr>'
+                }
+                for(var z=0;z<disk.length;z++){
+                    var disk_info = disk[z];
+                    var dir_list = disk_info.path.split('/');
+                    dir_list = dir_list[dir_list.length -1];
+                    disk_html += '<dt class="open_disk" data-dir="'+ disk_info.path +'"><span class="glyphicon glyphicon-hdd"></span>'+ (disk_info.path == '/'?'根目录 ('+ disk_info.size[2] +')':'<span class="table_self_conter" style="width:100px" title="'+ disk_info.path +' ('+ disk_info.size[2] +')">'+ dir_list +' ('+ disk_info.size[2] +')</span>') +'</dt>'
+                }
+                setCookie('file_paths',path);
+                $('.changepath .path-con-left dl').html(disk_html);
+                $('#dir_tbody').html(dir_html+files_html);
+                $('#PathPlace span').html(path);
+            });
+        },
+        // 新建文件事件
+        new_folder_event:function(path,callback){
+            this.send({
+                url:'/files?action=CreateDir',
+                tips:'正在新建文件，请稍后...',
+                data:{path:path},
+                success:function(res){
+                    if(callback)callback(res);
+                }
+            })
+        },
+        // 获取文件列表
+        get_dirk_list:function(callback){
+            var dir = getCookie('file_paths');
+            dir = dir.replace(/\/\//g, "/");
+            this.send({
+                url:'/files?action=GetDir',
+                tips:'正在获取文件列表，请稍后...',
+                data:{path:dir,disk:'True'},
+                success:function(res){
+                    if(callback)callback(res);
+                }
+            })
+        },
+        // 请求方法
+        send: function (obj) {
+            var loadT = '';
+            if (obj.load == undefined) obj.load = 0
+            if(!obj.url){
+                if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this.plugin_name
+                if (!obj.plugin_name || !obj.method) {
+                    layer.msg('插件类名称，或插件方法名称缺失!', {
+                        icon: 2
+                    });
+                    return false;
+                }
+            }
+            if (obj.load === 0) {
+                loadT = layer.msg(obj.tips, {
+                    icon: 16,
+                    time: 0,
+                    shade: 0.3
+                });
+            } else if (obj.load === 1 || !obj.tips) {
+                loadT = layer.load();
+            }
+            $.ajax({
+                type: 'POST',
+                url:obj.url || ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+                data: obj.data || {},
+                timeout: obj.timeout || 8000,
+                complete: function (res) {
+                    if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+                },
+                success: function (rdata) {
+                    obj.success(rdata);
+                },
+                error: function (ex) {
+                    if (!obj.error) {
+                        layer.msg('请求过程发现错误!', {
+                            icon: 2
+                        });
+                        return;
+                    }
+                    return obj.error(ex);
+                }
+            });
+        }
+    }
+    oneav.init()
+</script>

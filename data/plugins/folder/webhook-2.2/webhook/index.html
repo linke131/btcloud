@@ -1,0 +1,187 @@
+<style>
+	.help{
+		background-color: #f6f6f6;
+		border: 1px solid #dedede;
+		border-radius: 3px;
+		line-height: 24px;
+		margin-top: 20px;
+		padding: 10px;
+	}
+</style>
+<div class="divtable pd20 table-show">
+	<div id="webhook_table"></div>
+</div>
+<script type="text/javascript">
+    var aceEditor = null;
+
+	//添加
+	function AddHook(){
+		var index = layer.open({
+			type: 1,
+			area: '600px',
+			title: '添加Hook',
+			closeBtn: 2,
+			shift: 5,
+			shadeClose: false,
+			btn:['提交','关闭'],
+			content: "<div class='bt-form pd20'>\
+        			<div class='line'>\
+        			<span class='tname'>名称</span>\
+        			<div class='info-r'><input class='bt-input-text' placeholder='Hook名称' type='text' id='hook_title' name='title' style='width:380px' /></div>\
+        			</div>\
+        			<div class='line'>\
+        			<span class='tname'>执行脚本</span>\
+        			<div class='info-r'>\
+        			    <div id='hook_shell' style='width:380px; height:300px;border:1px solid #ccc;font-size:15px'></div>\
+        		    </div>\
+    			</div>\
+    	      </div>",
+	        success:function(){
+                aceEditor = bt.aceEditor({
+                    el: 'hook_shell',
+                    content: '',
+                    mode: 'sh'
+                })
+                $(aceEditor.ACE.container).css('font-size','13px')
+	        },
+	        yes:function(indexs){
+    			var loadT = layer.msg("提交中...",{icon:16,time:0});
+    			var data = {
+                  title: $("#hook_title").val(),
+                  shell: aceEditor.ACE.getValue()
+                }
+    			$.post("/plugin?action=a&s=AddHook&name=webhook",data,function(rdata){
+    				$(".closeWebHook").click();
+    				layer.close(indexs);
+    				layer.msg(rdata.msg,{icon:rdata.status?1:2});
+    				if(rdata.status) GetHookList();
+    			})
+	        }
+		});
+	}
+	//获取列表
+	function GetHookList(){
+		var webHookTable = bt_tools.table({
+				el:'#webhook_table',
+				load:true,
+				tips:'获取hook列表',
+				url:'/plugin?action=a&name=webhook&s=GetList',
+				default:"hook列表为空", //数据为空时的默认提示
+				dataFilter:function(res){ // 请求响应值格式化过滤
+					return {data:res.list,page:res.page};
+				},
+				column:[
+					{fid:'title',title:'名称',type:'text',width:60},
+					{fid:'addTime',title:'添加时间' ,width:140,template:function(row){
+						return '<span>'+ bt.format_data(row.addtime)+'</span>'
+					}},
+					{fid:'uptime',title:'近期调用',width:140,template:function(row){
+						return '<span>'+ bt.format_data(row.uptime)+'</span>'
+					}},
+					{fid:'count',title:'调用次数',width:80,align:'center'},
+					{fid:'access_key',title:'密钥',width:80,template:function(row){
+						return '<a href="javascript:showWebHookCode(\''+row.url+'\',\''+row.access_key+'\')" class="btlink">查看密钥</a>'
+					}},
+					{title:'操作',type:'group',width:180,align:'right',group:[{
+						title:'测试',
+						event:function(row,index,ev,key,that){
+							RunHook(row.access_key)
+						}
+					},{
+						title:'编辑',
+						event:function(row,index,ev,key,that){
+							bt.pub.on_edit_file(0,'/www/server/panel/plugin/webhook/script/'+row.access_key,'sh')
+						}
+					},{
+						title:'日志',
+						event:function(row,index,ev,key,that){
+							GetLogs('/www/server/panel/plugin/webhook/script/'+row.access_key+'.log')
+						}
+					},{
+						title:'删除',
+						event:function(row,index,ev,key,that){     
+							DeleteHook(row.access_key, row.title)
+						}
+					}]}
+				],
+				tootls:[{
+					type:'group',
+					positon:['left','top'],
+					list:[{title:'添加Hook',active:true,event:function(){
+						AddHook();
+					}},]
+				},{ //分页显示
+						type:'page',
+						positon:['right','bottom'], // 默认在右下角
+						pageParam:'p', //分页请求字段,默认为 : p
+						page:1, //当前分页 默认：1
+						numberParam:'limit',　//分页数量请求字段默认为 : limit
+						number:10,　//分页数量默认 : 10条
+					}],
+			})
+	}
+	//查看密钥
+	function showWebHookCode(url,code){
+		layer.open({
+			type:1,
+			title:'查看密钥',
+			area: '600px', 
+			shadeClose:false,
+			closeBtn:2,
+			content:'<div class="bt-form pd20">\
+				<div class="line"><span class="tname" style="width:50px">密钥</span><input class="bt-input-text mr5" disabled="disabled" value="'+ code +'" style="width:420px" /><button class="btn btn-success btn-sm" onclick="bt.pub.copy_pass(\''+ code +'\')">复制密钥</button></div>\
+				<div class="line help">\
+					<b>宝塔WebHook使用方法:</b><br>\
+					GET/POST:<br>\
+					'+window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '')+'/hook?access_key='+code+'&amp;param=aaa<br>\
+					@param access_key  string  HOOK密钥<br>\
+					@param param string 自定义参数（在hook脚本中使用$1接收）<br>\
+				</div>\
+			</div>'	
+		})
+	}
+	
+	//查看日志
+	function GetLogs(path){
+		loadT = layer.msg('正在获取...',{icon:16,time:0,shade: [0.3, '#000']});
+		var data='&path='+path
+		$.post('/files?action=GetFileBody',data,function(rdata){
+			layer.close(loadT);
+			if(!rdata.status) {
+				layer.msg(rdata.msg,{icon:2});
+				return;
+			};
+			layer.open({
+				type:1,
+				title:'任务执行日志',
+				area: ['600px','400px'], 
+				shadeClose:false,
+				closeBtn:2,
+				content:'<div class="bt-logs" style="font-size:0;"><textarea class="bt-input-text mr20 site_logs pd10" name="site_logs" style="width:100%;line-height:22px;white-space: pre-line;font-size:12px;height:358px;border: none;" readonly="readonly">'+ (rdata.data || '当前没有日志.') +'</textarea></div>',
+				success:function(){
+				    $('[name="site_logs"]').scrollTop($('[name="site_logs"]')[0].scrollHeight)
+				}
+			});
+		});
+	}
+	//运行
+	function RunHook(key){
+		$.post("/plugin?action=a&s=RunShell&name=webhook","access_key="+key,function(rdata){
+			layer.msg(rdata.msg,{icon:rdata.status?1:2});
+			GetHookList();
+		})
+	}
+	//删除
+	function DeleteHook(key,title){
+	    bt.confirm({
+            title:'删除Hook-['+ title +']',
+            msg:'是否删除Hook-['+ title +']任务，是否继续'
+        },function(){
+    		$.post("/plugin?action=a&s=DelHook&name=webhook","access_key="+key,function(rdata){
+        		layer.msg(rdata.msg,{icon:rdata.status?1:2});
+        		GetHookList();
+    		})
+      })
+	}
+	GetHookList();
+</script>

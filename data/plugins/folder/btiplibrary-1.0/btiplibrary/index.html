@@ -1,0 +1,194 @@
+<style>
+.recommend_list {
+    display: flex;
+}
+.recommend_list .recommend_item {
+    position: relative;
+    width: 350px;
+    padding: 18px 22px 30px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+}
+.recommend_list .recommend_item + .recommend_item {
+    margin-left: 20px;
+}
+.recommend_list .recommend_item.active {
+    border: 2px solid #20A53A;
+    background-color: #20a53a05;
+}
+.recommend_item .tips {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 8px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #FF7300;
+    color: #fff;
+    font-size: 12px;
+}
+.recommend_item .recommend_head {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.recommend_head .text {
+    margin-right: 6px;
+    line-height: 30px;
+    font-size: 20px;
+}
+.recommend_item .recommend_desc {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #bbb;
+    color: #aaa;
+}
+.recommend_item .recommend_box {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 12px 14px;
+    background-color: #f9f9f9c7;
+    border-radius: 5px;
+    color: #7F8792;
+}
+.recommend_box .tips {
+    position: absolute;
+    top: -10px;
+    left: 0;
+}
+.recommend_box .rows {
+    display: flex;
+    align-items: center;
+}
+.recommend_box .rows + .rows {
+    margin-top: 10px;
+    line-height: 20px;
+}
+.recommend_box .text {
+    flex: 1;
+    font-size: 13px;
+}
+.recommend_box .icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.recommend_box .icon.right {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAApNJREFUWEfFl81rE1EUxc9tqhVRi9SuRDINRXEpgjRTK/4DfoIVZmIFF4qCLly4UCkVFRcuughURESqSbUVROtaBGteuqkuBZF0RpetiEXFismVN5mMMWYyM8mUmWVy7jk/3tx35z2Czydxe2cnr+vYXwIOEJAAsAlAl13+GcAiA4U24Bl9W54unJr76seavETx+33bKdZ2FoAGoNNLb/8vwye4WEqbQ7PvGtU0BOjJqNeYIMM3+AyulS0RIz2fEpfd6l0BlGz/FMBHmgyuKaPHhp4brOdVF0DJqvMAlHDCHRfD0EVPred/APGsukDlBgv9YWDR1EV3tfE/AEpGfQXCQOjJ1YaMGSMl9lR+cgDshru0ouG2OTGuVxrTArC32mwL3R6Ue4mLpT65RS0AJauOATgd1MVbT88BngMwUkd7y9DFGdp2t3/98ho2AWz0NgygIDw0NKH1Tg10//5VfAqCWlP9peMnxSmeSR4ioicBrD2lDDwwdTFUXl33ecLMh0nJqo8AHPV09S+4Z+jihFe4bTcpAd4A2OHf313JhDumJk76DJeytxLgI4AtIQBYTRUgXEo/SYDvANbWAyDGGJO1OslGgMxImylxLmC4lP9wB2CI9tWxgx8GZxaUieRLMO2tD8Gjhp4/30S4A+D6CpiRMVPimGVeB4KZb5qp/IUmw51X0LAJmZA2NXt5qyGIbhha7mIL4U4Tem5DBl819fzw5vFdXati7S+YaNrUc8MthsvyySCDaMTQxZXE+O6theOv34cQDmsQBRzFFkQY4QDKo7hsFuRjxKNAWy/A+1qcHeWPkTSJ/HMsISI9kFSWMtIjWQUi0kOpsxJRHsv/QkR4MalARHo1c3oiystp9aBZqev5H7bmQ3TKQD4JAAAAAElFTkSuQmCC');
+}
+.recommend_box .icon.error {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAe1JREFUWEftlsFKI0EQhv+a6YkXjbKnwK6JLizx6FFYz3pIHmTR1xF8DPdgFL3ugidRRCHBg0jcBV9gNTGZkp4k0jvMdNe0Qjw45576v/67/uomTPmjKevjA+D9OtCpRVscRz9Xuv/+vqZP2lX1nSgs1297h1l1Mh3o1KJtZtpJfmD12RdCiwPBb12FiJr1295BGiIT4HopWhvGdPKy2APCEE/KlMJ+5esN7kUAepEJQcAZs2pKnZCKax1rE6acOAerhgvCFGfgdCbsN7J2PnHCmQINMYipRcAnAFaIsXgLwLxE3OnAhFIC4SMuBpj0RJ4TvuKFAPIgQP1lIChku5kEZw+kY/PfcTCumVAhYE565uIY2qbfGOKIgHIyqwgXM0F/w9btefUKO6ALXVXVesjBIQizPMryJVhtuiIqHsW23SfiCPZ11AC0Aa4AtOCK6Js4YIpPznzI0bKZjsc4bK7ePfyRXmDiI+hU1TqPd55uuPScKAIhArCJ5w0risNmXeCEE2As/ivpdsdsTzshgbACFBE3nTCvcorDLzYncgF8xH0gsl9Eo4ZLbLc9JlzDSuJEJkB7MfoBol1f8bQTzBgoUONbt3csHsUaoqSe9nzGqymiGxPDoJwlXvg2lA6XIuucMSxSzGftB8DUHXgGTQA0MM+kBzIAAAAASUVORK5CYII=');
+}
+.recommend_item .recommend_info {
+    position: relative;
+}
+.recommend_item .recommend_info .pay_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+}
+.recommend_item .recommend_info .btlink {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.recommend_item .recommend_info .price {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    line-height: 1;
+}
+.recommend_info .price .year {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    font-size: 0;
+}
+.recommend_info .year span {
+    font-size: 16px;
+}
+.recommend_info .year .num {
+    margin-left: 6px;
+    margin-right: 20px;
+    line-height: 30px;
+    font-size: 32px;
+    font-weight: 400;
+}
+.recommend_info .year .text {
+    line-height: 19px;
+}
+.recommend_info .price .day {
+    color: #aaa;
+}
+</style>
+<div class="recommend_list pd20">
+    <div class="recommend_item">
+        <!--<span class="recommend-pay-icon"></span>-->
+        <div class="recommend_head">
+            <div class="text">IP精准数据包</div>
+        </div>
+        <div class="recommend_box">
+            <div class="rows">
+                <div class="text">数据精准，IP定位信息由商业数据库支撑。</div>
+                <div class="icon right"></div>
+            </div>
+            <div class="rows">
+                <div class="text">定位信息详细，提供国内IP区县级归属地信息、运营商信息。</div>
+                <div class="icon right"></div>
+            </div>
+            <div class="rows">
+                <div class="text">数据源每月更新。</div>
+                <div class="icon right"></div>
+            </div>
+            <div class="rows">
+                <div class="text">与网站监控报表深度集成，方便查看网站用户归属信息。购买后网站监控报表插件的IP统计、网站日志详情、错误日志详情、地区访问统计等模块的IP数据通过[IP精准数据包]在线API查询IP精准数据。后续更新集成其他插件。</div>
+                <div class="icon right"></div>
+            </div>
+            
+        </div>
+        <div class="recommend_info">
+            <div class="price">
+                <div class="year">
+                    <span>¥</span>
+                    <span class="num">88</span>
+                    <span class="text">/年</span>
+                </div>
+                <div class="day">无次数限制</div>
+            </div>
+            <button class="btn btn-defult pay_btn" data-type="company">已经开通</button>
+        </div>
+    </div>
+    <div class="recommend_item">
+        <div class="recommend_head">
+            <div class="text">开源免费库</div>
+        </div>
+        <div class="recommend_box" style="height: 252px;">
+            <div class="rows">
+                <div class="text">IP定位信息仅供参考，不定期更新</div>
+                <div class="icon right"></div>
+            </div>
+        </div>
+        <div class="recommend_info">
+            <div class="price">
+                <div class="year">
+                    <span>¥</span>
+                    <span class="num">免费</span>
+                </div>
+                <div class="day">无次数限制</div>
+            </div>
+            <button class="btn btn-defult pay_btn" data-type="profession">无需开通</button>
+        </div>
+    </div>
+</div>
+<script>
+    $('.layui-layer-page').width(760).css({   //设置最外层弹窗大小
+        'left':(document.body.clientWidth-740)/2+'px'
+    })
+</script>

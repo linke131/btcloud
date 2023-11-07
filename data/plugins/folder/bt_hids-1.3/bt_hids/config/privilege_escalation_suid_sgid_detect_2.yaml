@@ -1,0 +1,17 @@
+name: "privilege_escalation_suid_sgid_detect_2"
+vuln_id: 1016
+systemname: "普通用户权限提升行为检测"
+vulnname: "普通用户权限提升行为检测"
+level: "medium"
+tag: [ "当前机器权限已丢失,请及时检查是否存在漏洞"]
+ps: "当前机器权限已经被攻击者获取,请及时检查是否存在漏洞,并及时修复"
+type: "system"
+status: 0
+author: "wpl@bt.cn"
+detect_id: "611"
+msg: "当前机器被执行提权命令,执行的提权命令为:【bt_pe_cmd】\n"
+repair: "在root权限下执行【kill -9 bt_pid】中断提权进程"
+rule:
+    comm: 'bash|dash'
+    cred: '^\+?[1-9]\d*\|0'
+    pid_tree: '^(?!.*sudo).*'

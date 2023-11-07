@@ -1,0 +1,707 @@
+<style>
+  .w170{width:170px !important;vertical-align: middle;}
+  .format_size{font-style: inherit;vertical-align: middle;margin-right: 5px;}
+  .format_size + .input_imitate{vertical-align: middle;}
+  .input_imitate{display: inline-block;width: 14px;height: 14px;border: 1px solid #ccc;background-color: #fff;position: relative;border-radius: 2px;cursor: pointer;vertical-align: middle;}
+  .input_imitate.active{ background-color: #20a53a;border: 1px solid #20a53a;}
+  .input_imitate.active::after{content: '';position: absolute;display: block;left: 50%;top: 50%;margin-left: -2px;margin-top: -6px;width: 5px;height: 10px;border: solid #fff;border-width: 0 2px 2px 0;transform: rotate(45deg);}
+  .input_tips{display: inline-block; cursor: pointer;vertical-align: middle;height: 13px;line-height: 13px;margin-right: 5px;color: red;}
+  .bt_table .divtable{border: 1px solid #ddd;}
+  .bt_table table{border: none !important;}
+  .tab-main .tab-nav span{font-size: 12px;}
+  .tab-main .tab-con { padding: 15px 0 0; }
+  .mb10{ margin-bottom: 10px; }
+  .w340{width: 340px !important;vertical-align: middle;}
+</style>
+<div class="bt-w-main">
+  <div class="bt-w-menu bt-soft-menu">
+    <p class="bgw">监控列表</p>
+    <p>服务状态</p>
+    <p>操作日志</p>
+  </div>
+  <div class="bt-w-block pd15">
+    <div class="bt-w-con">
+      <div id="check_list" style="height: 370px;"></div>
+      <ul class="help-info-text c7">
+        <li>【创建、删除、修改、移动】是否监控文件或目录创建、删除、修改、移动行为</li>
+        <li>【杀毒】是否在修改文件或创建文件时自动查杀木马，详细的查杀日志请在【操作日志】或宝塔面板【安全】页面查看</li>
+        <li>【备份】是否在修改文件时备份当前文件（修改后的文件），备份的历史文件请通过宝塔面板【文件】菜单，使用在线编辑器打开后查看【历史版本】</li>
+        <li>【不备份的情况】1、空文件；2、大于3MB的文件；3、文件内容和上一次备份的相同；4、在排除列表的文件</li>
+        <li>【告警通知】如果您在【面板设置-通知设置】中正确配置【消息通道】邮箱或钉钉或企业微信，程序将自动将所有监控事件推送到消息通道中</li>
+        <li>【注意】如果您未开启【修改】选项，【杀毒】和【备份】功能无法生效</li>
+      </ul>
+    </div>
+    <div class="bt-w-con hide">
+      <div class="bt-form soft-man-con">
+        <p class="status service_status">
+          当前状态：
+          <span style="color: #20a53a;">运行中</span>
+          <span style="color: #20a53a; margin-left: 3px;" class="glyphicon"></span>
+        </p>
+        <div class="sfm-opt">
+          <button class="btn btn-default btn-sm start_service" data-type="start_service" data-load="启动文件监控服务">启动</button>
+          <button class="btn btn-default btn-sm stop_service" data-type="stop_service" data-load="停止文件监控服务">停止</button>
+          <button class="btn btn-default btn-sm restart_service" data-type="restart_service" data-load="重启文件监控服务">重启</button>
+        </div>
+      </div>
+    </div>
+    <div class="bt-w-con hide">
+        <div id="logs_list"></div>
+        <div id="logs_page" class="page"></div>
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function FileHashCheck(){
+    this.check_table = null;
+    this.init()
+  }
+  FileHashCheck.prototype = {
+    async init(){
+      let _this = this;
+      //菜单栏事件
+      $('.bt-w-menu p').on('click',function () {
+        let index = $(this).index(),bt_w_block = $('.bt-w-block');
+        $(this).addClass('bgw').siblings().removeClass('bgw')
+        bt_w_block.find('.bt-w-con').eq(index).removeClass('hide').siblings().addClass('hide')
+        switch(index){
+          case 0:
+            _this.reander_check_list()
+            break;
+          case 1:
+            _this.reander_check_service()
+            break;
+          case 2:
+            _this.reander_logs();
+            break;
+        }
+      })
+
+      $('.sfm-opt button').on('click',async function(){
+        let type = $(this).data('type'),
+        load = $(this).data('load'),
+        rdata = await _this.http(type,{loading:load});
+        _this.reander_check_service();
+        bt.msg(rdata)
+      })
+
+      $('.layui-layer-page').css({'width':'1100px',left:(window.innerWidth - 1100) / 2})
+      this.reander_check_list()
+    },
+
+    async reander_logs(p){
+        if(p == undefined) p = 1;
+        let _this = this;
+        let rdata = await this.http('get_logs',{p:p,callback:'FileHashCheck.prototype.reander_logs'},{loading:'获取日志列表'})
+        $('#logs_list').empty()
+
+        console.log(rdata)
+
+
+        this.check_table = bt_tools.table({
+            el: '#logs_list',
+            data:rdata.data,
+            height:480,
+            default: "操作日志列表为空",
+            column:[{
+                fid: 'addtime',
+                title: '操作时间',
+                type: 'text',
+                width:170
+            },{
+                fid: 'log',
+                title: '日志内容',
+                type: 'text'
+            }]
+        });
+
+        $("#logs_page").html(rdata.page);
+
+
+    },
+
+    /**
+     * @description 渲染监控目录列表
+     * @returns
+     */
+    async reander_check_list(){
+      let _this = this;
+      let rdata = await this.http('get_check_list',{loading:'获取监控列表'})
+      $('#check_list').empty()
+      this.check_table = bt_tools.table({
+        el: '#check_list',
+        data:rdata,
+        height:340,
+        default: "文件监控列表为空",
+        tootls:[{
+          type: 'group',
+          positon: ['left', 'top'],
+          list: [{
+            title: '创建监控目录',
+            active: true,
+            event:(ev)=>{
+              this.create_check_path()
+            }
+          }]
+        }],
+        column:[{
+          fid: 'path',
+          title: '监控目录',
+          type: 'link',
+          width:170,
+          class:'size_ellipsis w170',
+          template(row){
+            return `<span title="${row.path}">${row.path}</span>`;
+          },
+        },{
+          fid: 'allow_create',
+          title: '创建',
+          type: 'text',
+          width:60,
+          template(row){
+            return `<span><span class="input_tips" title="${row.total.create}">${row.total.create}</span><i class="input_imitate ${row.allow_create?'active':''}"></i></span>`
+          },
+          event:(row)=>{
+            this.set_check_state('allow_create',row)
+          }
+        },{
+          fid: 'allow_delete',
+          title: '删除',
+          type: 'text',
+          width:60,
+          template(row){
+            return `<span><span class="input_tips" title="${row.total.delete}">${row.total.delete}</span><i class="input_imitate ${row.allow_delete?'active':''}"></i></span>`
+          },
+          event:(row)=>{
+            this.set_check_state('allow_delete',row)
+          }
+        },{
+          fid: 'allow_modify',
+          title: '修改',
+          type: 'text',
+          width:60,
+          template(row){
+            return `<span><span class="input_tips" title="${row.total.modify}">${row.total.modify}</span><i class="input_imitate ${row.allow_modify?'active':''}"></i></span>`
+          },
+          event:(row)=>{
+            this.set_check_state('allow_modify',row)
+          }
+        },{
+          fid: 'allow_move',
+          title: '移动',
+          type: 'text',
+          width:60,
+          template(row){
+            return `<span><span class="input_tips" title="${row.total.move}">${row.total.move}</span><i class="input_imitate ${row.allow_move?'active':''}"></i></span>`
+          },
+          event:(row)=>{
+            this.set_check_state('allow_move',row)
+          }
+        },{
+          fid: 'auto_anti_virus',
+          title: '杀毒',
+          type: 'text',
+          width:60,
+          template(row){
+            return `<span><span class="input_tips" title="${row.total.anti_virus}">${row.total.anti_virus}</span><i class="input_imitate ${row.auto_anti_virus?'active':''}"></i></span>`
+          },
+          event:(row)=>{
+            this.set_check_state('auto_anti_virus',row)
+          }
+        },{
+          fid: 'auto_backup',
+          title: '备份',
+          type: 'text',
+          width:60,
+          template(row){
+            return `<span><span class="input_tips" title="${row.total.backup}">${row.total.backup}</span><i class="input_imitate ${row.auto_backup?'active':''}"></i></span>`
+          },
+          event:(row)=>{
+            this.set_check_state('auto_backup',row)
+          }
+        },
+
+        // {
+        //   fid: 'auto_recovery',
+        //   title: '恢复',
+        //   type: 'text',
+        //   width:70,
+        //   template(row){
+        //     // return `<span class="${row.auto_recovery?'bt_success':'bt_danger'} cursor">${row.auto_recovery?'已开启':'已关闭'}</span>`
+        //     return `<span><i class="input_imitate ${row.auto_recovery?'active':''}"></i></span>`
+        //   },
+        //   event:(row, index, ev)=>{
+        //     this.set_check_state('auto_recovery',row)
+        //   }
+        // },
+        {
+          fid: 'ps',
+          title: '备注',
+          type: 'input',
+          blur:(row, index, ev, key, that)=>{
+            if (row.ps === ev.target.value) return false;
+            this.set_check_ps(row,ev.target.value)
+          },
+          keyup(row, index, ev) {
+            if (ev.keyCode === 13) {
+              $(this).blur();
+            }
+          }
+        },{
+            fid: 'open',
+            title: '状态',
+            width: 65,
+            config: {
+              icon: true,
+              list: [
+                [true, '运行中', 'bt_success', 'glyphicon-play'],
+                [false, '已停止', 'bt_danger', 'glyphicon-pause']
+              ]
+            },
+            type: 'status',
+            event:(row, index, ev, key, that)=>{
+              bt.confirm({
+                title:`${!row.open?'启动':'停止'}监控目录`,
+                msg:`是否${!row.open?'启动':'停止'}监控目录，继续操作？`
+              },()=>{
+                this.set_check_state('open',row)
+              })
+            }
+        },{
+          title: '操作',
+          type: 'group',
+          width: 150,
+          align: 'right',
+          group: [{
+              title: '排除',
+              event:(row, index, ev, key, that)=>{
+                this.exclude_check_layer(row)
+              }
+            },
+            // {
+            //   title: '备份',
+            //   event:(row, index, ev, key, that)=>{
+            //     this.resync_check_data(row)
+            //   }
+            // },
+            {
+              title: '日志',
+              event:(row, index, ev, key, that)=>{
+                this.check_logs_layer(row)
+              }
+            },{
+              title: '删除',
+              event:(row, index, ev, key, that)=>{
+                this.remove_check_path(row)
+              }
+            }]
+        }]
+      });
+    },
+
+
+    /**
+     * @description 渲染监控服务
+     * @returns
+    */
+    async reander_check_service(){
+      let rdata = await this.http('get_service_status',{loading:'获取服务状态'})
+      $('.service_status span:eq(0)').html(rdata?'运行中':'已停止').css('color',rdata?'#20a53a':'red')
+      $('.service_status span:eq(1)').addClass(rdata?'glyphicon-play':'glyphicon-pause').css('color',rdata?'#20a53a':'red')
+      $('.start_service,.stop_service').removeClass('hide')
+      $(rdata?'.start_service':'.stop_service').addClass('hide')
+    },
+    /**
+     * @description 排除验证弹窗
+     * @returns
+    */
+    exclude_check_layer(info){
+      let _this = this;
+      bt_tools.open({
+        title:'排除方式',
+        area:['420px','450px'],
+        btn:false,
+        content:`<div class="tab-main pd15">
+          <div class="tab-nav">
+            <span class="on">排除文件类型</span>
+            <span class="">排除文件夹</span>
+          </div>
+          <div class="tab-con">
+            <div class="tab-con-block">
+              <div class="mb10">
+                <div class="inlineBlock">
+                  <input type="text" name="exclude_ext" class="bt-input-text mr10" style="width: 325px;" placeholder="请输入需要排除文件类型，例如：zip、iso、rar"/>
+                </div>
+                <button type="button" title="添加排除文件类型" data-type="add_exclude_ext" class="btn btn-success btn-sm mr5 exclude_ext_btn"><span>添加</span></button>
+              </div>
+              <div id="check_exclude_type"></div>
+            </div>
+            <div class="tab-con-block hide">
+              <div class="mb10">
+                <div class="inlineBlock">
+                  <input type="text" name="exclude_name" class="bt-input-text mr10" style="width: 325px;" placeholder="请输入需要排除文件夹"/>
+                </div>
+                <button type="button" title="添加排除文件夹" data-type="add_exclude_name"  class="btn btn-success btn-sm mr5 exclude_name_btn"><span>添加</span></button>
+              </div>
+              <div id="check_exclude_file_name"></div>
+            </div>
+          </div>
+        </div>`,
+        success:()=>{
+          $('.tab-main .tab-nav span').on('click',function(){
+            let index = $(this).index();
+            $(this).addClass('on').siblings().removeClass('on')
+            $(this).parent().next().find('.tab-con-block:eq('+ index +')').removeClass('hide').siblings().addClass('hide')
+            switch(index){
+              case 0:
+                _this.reander_check_exclude_type(info.index)
+                break;
+              case 1:
+                _this.reander_check_exclude_file_name(info.index)
+                break;
+            }
+          })
+
+          $('[name="exclude_ext"],[name="exclude_name"]').on('keyup',function(ev){
+            if(ev.keyCode == 13 && $(this).val() != ''){
+              $(this).parent().next().click();
+            }
+          })
+
+          $('.exclude_ext_btn,.exclude_name_btn').on('click',async function(ev){
+            let input = $(this).prev().find('input'),value = input.val(),type = $(this).data('type'),config = {}
+            if(value === ''){
+              switch(type){
+                case 'add_exclude_ext':
+                  layer.msg('添加排除文件类型不能为空',{icon:0});
+                break;
+                case 'add_exclude_name':
+                  layer.msg('添加排除文件名称不能为空',{icon:0});
+                break;
+              }
+              return false
+            }
+            config = (type === 'add_exclude_ext'?{ext:value,index:info.index}:{fname:value,index:info.index})
+            let rdata = await _this.http(type,config,{loading:type === 'add_exclude_ext'?'添加排除文件类型':'添加排除文件名称'})
+            type === 'add_exclude_ext'?await _this.reander_check_exclude_type(info.index):await _this.reander_check_exclude_file_name(info.index);
+            input.val('')
+            bt.msg(rdata)
+          })
+          this.reander_check_exclude_type(info.index)
+        }
+      })
+    },
+
+    /**
+     * @description 渲染监控排除文件类型
+     * @param {string} data 排除文件类型
+     * @returns
+    */
+    async reander_check_exclude_type(index){
+      $('#check_exclude_type').empty()
+      let rdata = await this.http('get_exclude_ext',{index:index},{loading:'获取排除的文件类型'})
+      return bt_tools.table({
+        el:'#check_exclude_type',
+        data:rdata,
+        default: "排除文件类型列表为空",
+        height:'275px',
+        column:[{
+          title: '排除文件类型',
+          type: 'text',
+          template:(row, index, ev)=>{
+            return `<span>${row}</span>`
+          }
+        },{
+          title: '操作',
+          type: 'group',
+          width: 70,
+          align: 'right',
+          group: [{
+            title: '删除',
+            event: async (row, indexs, ev, key, that)=>{
+              let rdata = await this.http('del_exclude_ext',{index:index,ext:row},{loading:'删除排除文件类型'});
+              this.reander_check_exclude_type(index)
+              bt.msg(rdata)
+            }
+          }]
+        }]
+      });
+    },
+
+    /**
+     * @description 渲染监控排除文件名称
+     * @param {string} index 排除文件名称
+     * @returns
+    */
+    async reander_check_exclude_file_name(index){
+      $('#check_exclude_file_name').empty()
+      let rdata = await this.http('get_exclude_name',{index:index},{loading:'获取排除的文件类型'})
+      return bt_tools.table({
+        el:'#check_exclude_file_name',
+        data:rdata,
+        default: "排除文件名称列表为空",
+        height:'275px',
+        column:[{
+          title: '排除文件名称',
+          type: 'text',
+          template:(row, index, ev)=>{
+            return `<span>${row}</span>`
+          }
+        },{
+          title: '操作',
+          type: 'group',
+          width: 70,
+          align: 'right',
+          group: [{
+            title: '删除',
+            event: async (row, indexs, ev, key, that)=>{
+              let rdata = await this.http('del_exclude_name',{index:index,fname:row},{loading:'删除排除文件名称'});
+              this.reander_check_exclude_file_name(index)
+              bt.msg(rdata)
+            }
+          }]
+        }]
+      });
+    },
+
+    /**
+     * @description 设置监控状态
+     * @param {string} state 设置状态
+     * @param {object} info 文件状态
+     * @returns
+    */
+    async set_check_state(state,info){
+      let load = '',status = info[state]?'关闭':'开启';
+      switch(state){
+        case 'open':
+          load = '';
+          break;
+        case 'allow_create':
+          load = '创建';
+          break;
+        case 'allow_delete':
+          load = '删除';
+          break;
+        case 'allow_move':
+          load = '移动';
+          break;
+        case 'allow_modify':
+          load = '修改';
+          break;
+        case 'auto_recovery':
+          load = '';
+          break;
+        break;
+      }
+      let rdata = await this.http('set_check_status',{index:info.index,key:state},{loading:state === 'auto_recovery'?'设置文件自动恢复':`设置文件${load}监控`})
+      await this.reander_check_list()
+      bt.msg(rdata)
+    },
+
+    /**
+     * @description 创建监控目录
+     * @returns
+    */
+    create_check_path(){
+      return bt_tools.open({
+        title: "创建监控目录",
+        area: '520px',
+        btn: ['创建', '取消'],
+        content:{
+          class: 'pd30',
+          form: [{
+            label: '监控目录',
+            group: {
+              type: 'text',
+              width: '300px',
+              name: 'path',
+              value: bt.get_cookie('sites_path') ||  '/www/wwwroot',
+              icon: {
+                type: 'glyphicon-folder-open',
+                event(ev) {},
+                placeholder: '请选择项目目录',
+                callback(path) {
+                  let ps = $('[name="ps"]'),valList = path.split('/')
+                  ps.val(valList[valList.length - 1] + '目录')
+                }
+              }
+            }
+          },{
+            label: '备注',
+            group: {
+              type: 'text',
+              width: '300px',
+              name: 'ps',
+              value:''
+            }
+          }]
+        },
+        yes:async (fdata,indexs,layers) =>{
+          if(fdata.path === ''){
+            layer.msg('监控目录不能为空！',{icon:0});
+            return false
+          }
+          let rdata = await this.http('create_check_path',{index:bt.get_random(12),path:fdata.path,ps:fdata.ps},{loading:'创建监控目录'})
+          layer.close(indexs)
+          await this.reander_check_list()
+          bt.msg(rdata)
+        }
+      })
+    },
+
+    /**
+     * @description 设置监控备注
+     * @param {object} info 文件信息
+     * @returns
+    */
+    async set_check_ps(info,val){
+      let rdata = await this.http('set_check_ps',{index:info.index,ps:val},{loading:'设置备注'})
+      bt.msg(rdata);
+    },
+
+    /**
+     * @description 监控日志弹窗
+     * @param {object} info 文件信息
+     * @returns
+    */
+    check_logs_layer(info){
+      bt_tools.open({
+        title:`监控目录日志-[ ${info.path} ]`,
+        area:['600px','500px'],
+        btn:false,
+        content:'<div id="check_table_logs" class="pd15"></div>',
+        success:()=>{
+          this.reander_check_logs(info);
+        }
+      })
+    },
+
+    /**
+     * @description 渲染监控日志
+      @param {object} info 文件信息
+     * @returns
+    */
+    async reander_check_logs(info){
+      let rdata = await this.http('get_check_logs',{index:info.index},{loading:'获取监控日志'});
+      bt_tools.table({
+        el:'#check_table_logs',
+        data:rdata,
+        default: "监控日志为空",
+        height:'405px',
+        column:[{
+          title: '操作时间',
+          type: 'text',
+          width:140,
+          template(row){
+            return `<span>${bt.format_data(row[0])}</span>`;
+          }
+        },{
+          title: '文件',
+          type: 'text',
+          width:320,
+          class:'size_ellipsis w340',
+          template(row){
+            return `<span title="${row[2]}">${row[2]}</span>`;
+          }
+        },{
+          title: '类型',
+          type: 'text',
+          align:'center',
+          template(row){
+            let tips = '';
+            switch(row[1]){
+              case 'modify':
+                tips = '修改';
+                break;
+              case 'create':
+                tips = '创建';
+                break;
+              case 'delete':
+                tips = '删除';
+                break;
+              case 'move':
+                tips = '移动';
+                break;
+            }
+            return `<span>${tips}</span>`
+          }
+        }]
+      })
+    },
+
+    /**
+     * @description 同步监控数据
+     * @param {object} info 文件信息
+     * @returns
+    */
+    resync_check_data(info){
+      bt.confirm({title:'备份当前数据',msg:`备份当前数据状态[${info.path}]，是否继续操作？`},async ()=>{
+        let rdata = await this.http('resync_data',{index:info.index},{loading:'备份数据'})
+        await this.reander_check_list()
+        bt.msg(rdata)
+      });
+    },
+
+
+    /**
+     * @description 删除监控目录
+     * @param {object} info 文件信息
+     * @returns
+    */
+    remove_check_path(info){
+      let laod = '删除监控目录';
+      bt.confirm({title:laod,msg:`删除监控目录[${info.path}]，是否继续操作？`},async ()=>{
+        let rdata = await this.http('remove_check_path',{index:info.index},{loading:laod})
+        await this.reander_check_list()
+        bt.msg(rdata)
+      })
+    },
+
+    /**
+     * @description 请求方法
+     * @param {string} request 请求名称
+     * @param {object} param  属性
+     * @param {object} config 请求配置
+     * @returns Promise
+     */
+    http(request,param,config){
+      console.log(arguments)
+      let force = 'plugin/a'
+      let requestName = force.split('/')[1];
+      if(arguments.length < 3) config = param,param = {};
+      param = $.extend(param,{name:'file_hash_check',s:request})
+      console.log(param,'----')
+      if ($.type(config) !== "object") config = {}
+      if ($.type(config.loading) === "boolean") config.loading = false
+      if ($.type(config.verify) === "string") config.verify = true
+      if ($.type(config.tips) === "boolean") config.tips = false
+      if ($.type(config.callback) === "boolean") config.callback = false
+      return new Promise((resolve, reject) => {
+        if (config.loading) config.loading = bt.load(`正在${config.loading}，请稍候...`)
+        try {
+          // bt_tools.send(`/file_hash_check/${request}`,param,()=>{
+          //   if (config.loading) config.loading.close()
+          //   if (!config.verify) {
+          //     resolve(res)
+          //     return false
+          //   }
+          //   if (!config.tips) bt.msg(res)
+          //   if (!config.callback) res.status ? resolve(res) : reject(res)
+          // })
+          bt.send(requestName, force, param || {}, (res) => {
+            if (config.loading) config.loading.close()
+            if (!config.verify) {
+              resolve(res)
+              return false
+            }
+            if (!config.tips) bt.msg(res)
+            if (!config.callback) res.status ? resolve(res) : reject(res)
+          })
+        } catch (error) {
+          reject(error)
+        }
+      })
+    }
+  }
+  new FileHashCheck()
+</script>

@@ -1,0 +1,1027 @@
+<style>
+    .cert_main .bt-w-con,
+    .cert_main .menu-con {
+        height: 100%;
+    }
+
+    .cert_main .tab-con,
+    .cert_main .menu-con {
+        display: none;
+    }
+
+    .cert_main .tab-con.block,
+    .cert_main .menu-con.block {
+        display: block;
+    }
+
+    .cert_main .tab-con {
+        position: static;
+    }
+
+    .cert_main .bt-form .bt-input-text {
+        width: 250px;
+    }
+
+    .cert_main .cert_search .bt-input-text {
+        width: 140px;
+    }
+
+    .cert_main .cert_search select.bt-input-text {
+        width: 100px;
+    }
+
+    .cert_main .bt-form .newdomain {
+        width: 340px;
+        height: 100px;
+        line-height: 22px;
+    }
+
+    .cert_main .bt-form .placeholder {
+        display: block;
+        top: 15px;
+        left: 15px;
+    }
+
+    .cert_main .tootls_group {
+        line-height: normal;
+    }
+
+    .cert_main .divtable {
+        max-height: 341px;
+        overflow: auto;
+        margin-top: 20px;
+    }
+
+    .cert_main .divtable .error {
+        color: red;
+    }
+
+    .cert_main .bt-w-con .line .info-r {
+        margin-left: 100px;
+    }
+
+    .cert_main .tab-con {
+        padding: 0;
+    }
+
+    .cert_main .ssl-con-key {
+        width: 48%;
+    }
+
+    .cert_main .alert .rows {
+        margin-top: 8px;
+        font-size: 0;
+    }
+
+    .cert_main .alert .rows.first {
+        margin-top: 0;
+    }
+
+    .cert_main .alert .rows .cols {
+        display: inline-block;
+        width: 320px;
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .cert_main .alert .rows .cols.first {
+        margin-right: 20px;
+    }
+
+    .cert_main .tab-con {
+        padding-top: 20px;
+    }
+
+    .cert_main .help-info-text-info {
+        position: absolute;
+        bottom: 15px;
+        margin-top: 15px;
+        color: #777;
+    }
+
+    .cert_main .help-info-text-info li {
+        list-style: inside disc;
+        line-height: 24px;
+    }
+
+    .cert_main .btswitch+.btswitch-btn {
+        width: 2.4em;
+        height: 1.4em;
+        margin-bottom: 0;
+    }
+
+    .cert_add_box .help-info-text-info {
+        position: relative;
+        margin-top: 0;
+        padding: 5px 15px;
+    }
+
+    .cert_main .tips {
+        margin-bottom: 15px;
+        padding: 15px 20px;
+        border: 1px solid #eee;
+    }
+
+    .cert_main .tips .title {
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+        height: auto;
+        line-height: 28px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .cert_main .tips p {
+        line-height: 24px;
+        color: #777;
+    }
+</style>
+<div class="bt-w-main cert_main">
+    <div class="bt-w-menu">
+        <p>双向认证</p>
+        <p>SSL证书</p>
+        <p>证书配置</p>
+        <p>使用步骤</p>
+    </div>
+    <div class="bt-w-con pd15">
+        <div class="menu-con">
+            <div class="tab-nav">
+                <span>网站列表</span>
+                <span>客户端证书列表</span>
+                <span>服务器证书</span>
+            </div>
+            <div class="tab-con">
+                <div class="tootls_group">
+                    <div class="bt_search">
+                        <input type="text" class="search_input site_search_input" placeholder="请输入网站名称">
+                        <span class="glyphicon glyphicon-search site_search_btn" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="divtable mt10">
+                    <table width="100%" cellpadding="0" cellspacing="0" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>网站名称</th>
+                                <th>双向认证</th>
+                                <th>添加日期</th>
+                            </tr>
+                        </thead>
+                        <tbody id="site_table"></tbody>
+                    </table>
+                </div>
+                <ul class="help-info-text-info c7">
+                    <li>双向认证仅支持【HTTPS访问】，如需全站设置，还需通过网站设置开启【强制HTTPS】.</li>
+                    <li>给网站开启【双向认证】，开启后用户需要将【客户端证书】导入到浏览器后才能访问该网站（目前支持Nginx/Apache）</li>
+                </ul>
+            </div>
+            <div class="tab-con">
+                <div class="tootls_group">
+                    <div class="pull-left">
+                        <button id="cert_add_btn" class="btn btn-success btn-sm">生成证书</button>
+                    </div>
+                    <div class="pull-right">
+                        <div class="bt_search">
+                            <input type="text" class="search_input" placeholder="请输入用户名">
+                            <span class="glyphicon glyphicon-search cert_search_btn" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="pull-right mr20">
+                        <span class="line-item mr5">状态</span>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm">
+                                <span>全部</span>
+                                <input type="checkbox" class="hide" value="0">
+                            </button>
+                            <button type="button" class="btn btn-default btn-sm btn-success">
+                                <span>正常</span>
+                                <input type="checkbox" class="hide" value="1">
+                            </button>
+                            <button type="button" class="btn btn-default btn-sm">
+                                <span>已撤销</span>
+                                <input type="checkbox" class="hide" value="-1">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="divtable mt10">
+                    <table width="100%" cellpadding="0" cellspacing="0" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>使用者</th>
+                                <th>公司名称</th>
+                                <th>到期时间</th>
+                                <th width="60">状态</th>
+                                <th width="150" style="text-align: right;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cert_table"></tbody>
+                    </table>
+                </div>
+                <ul class="help-info-text-info c7">
+                    <li>客户端证书默认有效期1年，可手动续签</li>
+                    <li>客户端证书：用于配置双向认证（即给使用者颁发证书，使用者需将证书导入后才能访问该网站）</li>
+                </ul>
+            </div>
+            <div class="tab-con">
+                <div class="myKeyCon">
+                    <div class="ssl-con-key pull-left ca_show">注销列表(crl)<br>
+                        <textarea id="ca_key" class="bt-input-text"></textarea>
+                    </div>
+                    <div class="ssl-con-key pull-right ca_show">证书(cert)<br>
+                        <textarea id="ca_cert" class="bt-input-text"></textarea>
+                    </div>
+                    <div class="ssl-btn pull-left mtb15" style="width: 100%;">
+                        <button id="update_ca_cert" class="btn btn-success btn-sm">更新证书</button>
+                    </div>
+                </div>
+                <ul class="help-info-text-info c7">
+                    <li>撤销列表（crl）:用于管理撤销用户证书</li>
+                    <li>服务器证书：用于配置双向认证的证书，目前仅支持nginx/apache</li>
+                </ul>
+            </div>
+        </div>
+        <div class="menu-con">
+            <div class="alert alert-success show_ssl">
+                <div class="rows first">
+                    <div class="cols first">
+                        <b>已配置成功：</b>
+                        <span>请在证书到期之前更换新的证书</span>
+                    </div>
+                    <div class="cols">
+                        <b>公司名称：</b><span class="alert_company"></span>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="cols first">
+                        <b>域名列表：</b><span class="alert_domain"></span>
+                    </div>
+                    <div class="cols">
+                        <b>到期时间：</b><span class="alert_time"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="myKeyCon">
+                <div class="ssl-con-key pull-left show_ssl">
+                    <span>密钥(KEY)<br></span>
+                    <textarea id="domain_key" class="bt-input-text"></textarea>
+                </div>
+                <div class="ssl-con-key pull-right show_ssl">
+                    <span>证书(PEM格式)<br></span>
+                    <textarea id="domain_cert" class="bt-input-text"></textarea>
+                </div>
+                <div class="ssl-btn pull-left ptb15" style="width: 100%;">
+                    <button id="apply_domain_config" class="btn btn-success btn-sm mr10">申请证书</button>
+                    <button id="download_domain_cert" class="btn btn-success btn-sm show_ssl">下载pfx证书</button>
+                </div>
+            </div>
+            <ul class="help-info-text-info c7">
+                <li>SSL证书：仅用于无法联网的系统使用，需要外部使用请申请【商用证书】，否则会造成网站不信任</li>
+            </ul>
+        </div>
+        <div class="menu-con">
+            <div class="bt-form" style="padding: 10px 0;">
+                <div class="line">
+                    <span class="tname">公司名称</span>
+                    <div class="info-r">
+                        <input type="text" class="bt-input-text" name="config_client" placeholder="请输入公司名称"
+                            style="width: 340px;" value="" />
+                    </div>
+                </div>
+                <div class="line">
+                    <span class="tname">域名列表</span>
+                    <div class="info-r">
+                        <textarea class="bt-input-text newdomain" name="config_domain"></textarea>
+                        <div class="placeholder c9">请输入域名列表<br>多个域名可以用英文状态下的逗号隔开</div>
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="info-r" style="margin-left: 100px;">
+                        <button id="save_config" class="btn btn-success btn-sm mr10">保存配置</button>
+                    </div>
+                </div>
+            </div>
+            <ul class="help-info-text-info c7">
+                <li>公司名称(必填)：证书使用者，填写之后不建议修改，否则【已申请】证书将全部失效</li>
+                <li>域名列表(必填)：SSL可使用的域名列表，可泛域名，多个域名可以逗号隔开</li>
+            </ul>
+        </div>
+        <div class="menu-con">
+            <div class="tips">
+                <p class="title">使用步骤</p>
+                <p>1、填写【证书配置】</p>
+                <p>2、选择一个网站，开启双向认证</p>
+                <p>3、给需要访问网站的人员颁发证书</p>
+                <p>4、使用者拿到证书后，需要将证书导入到浏览器中</p>
+                <p>5、完成访问网站</p>
+            </div>
+            <div class="separated"></div>
+            <div class="tips">
+                <p class="title">场景1：某公司内部网站 admin.com,只想开放给“研发部-张某”访问时</p>
+                <p>1、通过【网站列表】选择网站 admin.com, 开启【双向认证】</p>
+                <p>2、通过【客户端证书列表】 -> 【生成证书】-> 填入“研发部-张某”后提交</p>
+                <p>3、通过【客户端证书列表】，找到使用者为“研发部-张某”的证书，下载证书</p>
+                <p>4、将下载的证书发送给“研发部-张某”</p>
+                <p>5、“研发部-张某”拿到证书后，根据使用说明将证书导入到浏览器</p>
+                <p>6、关闭浏览器，重新打开访问网站 admin.com，此时除了“研发部-张某”这台电脑，其他人均无法访问该网站</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+    var ssl_verify = {
+        plugin_name: 'ssl_verify',
+        cert_list: [],
+        cert_search_data: {
+            status: 1
+        },
+        site_list: [],
+        site_search_data: {},
+        init: function () {
+            this.event();
+            $('.bt-w-menu p').eq(0).click();
+        },
+        /**
+         * dom事件
+         */
+        event: function () {
+            var _this = this;
+            // 设置宽度
+            var window_width = window.innerWidth;
+            $('.layui-layer').css({
+                'width': '850px',
+                left: (window_width - 850) / 2
+            });
+            // tab切换
+            $('.bt-w-menu p').click(function () {
+                if ($(this).hasClass('bgw')) return;
+
+                $(this).addClass('bgw').siblings().removeClass('bgw');
+                var index = $(this).index();
+                $('.menu-con').hide();
+                if (index == 0) {
+                    _this.get_config(function () {
+                        $('.tab-nav span').eq(0).click();
+                        $('.menu-con').eq(index).show();
+                    });
+                } else {
+                    switch (index) {
+                        case 1:
+                            _this.render_ssl_cert();
+                            break;
+                        case 2:
+                            _this.render_config();
+                            break;
+                    }
+                    $('.menu-con').eq(index).show();
+                }
+            });
+            $('.tab-nav span').click(function () {
+                if ($(this).hasClass('on')) return;
+
+                $(this).addClass('on').siblings().removeClass('on');
+                var index = $(this).index();
+                $(this).parent().siblings('.tab-con').hide();
+                $(this).parent().siblings('.tab-con').eq(index).show();
+
+                switch (index) {
+                    case 0:
+                        _this.render_site_table();
+                        break;
+                    case 1:
+                        _this.render_cert_table();
+                        break;
+                    case 2:
+                        _this.render_ca_cert();
+                        break;
+                }
+            });
+            // 证书续签
+            $('#cert_table').on('click', '.cert_reset', function () {
+                var index = $(this).attr('data-index');
+                var data = _this.cert_list[index];
+                _this.create_cert({ client: data.client }, function (res) {
+                    if (res.status) {
+                        layer.msg(res.msg, { time: 700, icon: 1 }, function () {
+                            _this.render_cert_table();
+                        });
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                    }
+                });
+            });
+            // 证书下载
+            $('#cert_table').on('click', '.cert_download', function () {
+                var index = $(this).attr('data-index');
+                var data = _this.cert_list[index];
+                _this.download_cert({ id: data.id }, function (res) {
+                    if (res.status) {
+                        window.open('/download?filename=' + encodeURIComponent(res.msg));
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                    }
+                });
+            });
+            // 证书撤销
+            $('#cert_table').on('click', '.cert_revoke', function () {
+                var index = $(this).attr('data-index');
+                var data = _this.cert_list[index];
+                layer.confirm(
+                    '是否撤销当前用户【' + data.client + '】的证书,是否继续？',
+                    {
+                        btn: ['确认', '取消'],
+                        icon: 3,
+                        closeBtn: 2,
+                        title: '撤销证书'
+                    },
+                    function () {
+                        _this.revoke_cert(
+                            {
+                                id: data.id
+                            },
+                            function (res) {
+                                if (res.status) {
+                                    layer.msg(res.msg, { time: 700, icon: 1 }, function () {
+                                        _this.render_cert_table();
+                                    });
+                                } else {
+                                    layer.msg(res.msg, { icon: 2 });
+                                }
+                            }
+                        );
+                    }
+                );
+            });
+            // 搜索事件
+            $('.search_input').keyup(function (e) {
+                if (event.keyCode == 13) {
+                    $(this).siblings('span').click();
+                }
+            });
+            // 客户端证书列表搜索
+            $('.btn-group button').click(function () {
+                var _class = 'btn-success';
+                if ($(this).hasClass(_class)) return;
+                $(this).addClass(_class).siblings().removeClass(_class);
+                var status = $(this).find('input').val();
+                _this.cert_search_data.status = status;
+                _this.render_cert_table();
+            });
+            $('.cert_search_btn').click(function (e) {
+                var search = $(this).siblings('input').val();
+                _this.cert_search_data.search = search;
+                _this.render_cert_table();
+            });
+            // 网站列表搜索
+            $('.site_search_btn').click(function (e) {
+                var search = $(this).siblings('input').val();
+                _this.site_search_data.search = search;
+                _this.render_site_table();
+            });
+            // 生成证书
+            $('#cert_add_btn').click(function () {
+                layer.open({
+                    type: 1,
+                    area: "400px",
+                    title: '生成证书',
+                    closeBtn: 2,
+                    shift: 5,
+                    shadeClose: false,
+                    btn: ['提交', '取消'],
+                    content: '\
+                        <div class="cert_add_box">\
+                            <div class="bt-form" style="padding: 15px 25px;">\
+                                <div class="line">\
+                                    <span class="tname" style="width: 100px;">使用者</span>\
+                                    <div class="info-r">\
+                                        <input type="text" name="cert_client" class="bt-input-text mr5" style="width: 240px" value="" placeholder="请输入使用者（如“研发部-张三”）" />\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    ',
+                    yes: function (index, layers) {
+                        var client = $('[name=cert_client]').val();
+                        if (client == '') {
+                            layer.msg('用户名不能为空', { icon: 2 });
+                            return false;
+                        }
+                        _this.create_cert({ client: client }, function (res) {
+                            if (res.status) {
+                                layer.close(index);
+                                layer.msg(res.msg, { time: 700, icon: 1 }, function () {
+                                    _this.render_cert_table();
+                                });
+                            } else {
+                                layer.msg(res.msg, { icon: 2 });
+                            }
+                        });
+                    }
+                });
+            });
+            // 文本域描述点击
+            $('.placeholder').click(function (e) {
+                $(this).hide();
+                $(this).siblings('textarea').focus();
+            });
+            // 文本域选中
+            $('[name=config_domain]').focus(function () {
+                $(".placeholder").hide();
+            }).blur(function () {
+                if ($(this).val().length == 0) $('.placeholder').show();
+            });
+            // 保存配置
+            $('#save_config').click(function (e) {
+                var data = {};
+                var client = $('[name=config_client]').val();
+                var domain = $('[name=config_domain]').val();
+                if (client == '') {
+                    layer.msg('公司名称不能为空', { icon: 2 });
+                    return false;
+                }
+                if (domain == '') {
+                    layer.msg('域名列表不能为空', { icon: 2 });
+                    return false;
+                }
+                data.company = client;
+                data.domain = domain;
+                _this.save_config(data, function (res) {
+                    if (res.status) {
+                        layer.msg(res.msg, { time: 700, icon: 1 }, function () {
+                            _this.render_config();
+                        });
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                    }
+                });
+            });
+            // 申请域名证书
+            $('#apply_domain_config').click(function (e) {
+                _this.get_config(function () {
+                    _this.apply_domain_cert(function (res) {
+                        if (res.status) {
+                            layer.msg(res.msg, { time: 700, icon: 1 }, function () {
+                                _this.render_ssl_cert();
+                            });
+                        } else {
+                            layer.msg(res.msg, { icon: 2 });
+                        }
+                    });
+                });
+            });
+            // 下载域名证书
+            $('#download_domain_cert').click(function (e) {
+                _this.download_domain_cert(function (res) {
+                    if (res.status) {
+                        window.open('/download?filename=' + encodeURIComponent(res.msg));
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                    }
+                });
+            });
+            // 下载ca证书
+            $('#download_ca_cert').click(function (e) {
+                _this.download_ca_cert(function (res) {
+                    if (res.status) {
+                        window.open('/download?filename=' + encodeURIComponent(res.msg));
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                    }
+                });
+            });
+            // 双向认证
+            $('#site_table').on('click', '.btswitch-btn', function () {
+                var index = $(this).attr('data-index');
+                var site = _this.site_list[index];
+                var checkbox = $(this).siblings('input');
+                var checked = checkbox.prop('checked');
+                var data = {
+                    siteName: site.name,
+                    status: checked ? 0 : 1
+                };
+                _this.set_ssl_verify(data, function (res) {
+                    checkbox.prop('checked', !checked);
+                    layer.msg(res.msg, { time: 700, icon: 1 }, function () {
+                        _this.render_site_table();
+                    });
+                });
+            });
+            // 更新证书
+            $('#update_ca_cert').click(function (e) {
+                _this.get_bundle_crl(function (res) {
+                    if (res.status) {
+                        layer.msg(res.msg, { time: 700, icon: 1 }, function () {
+                            _this.render_ca_cert();
+                        });
+                    } else {
+                        layer.msg(res.msg, { icon: 2 });
+                    }
+                });
+            });
+        },
+        /**
+         * 生成证书状态
+         * @param {*} status 状态值
+         */
+        get_cert_status: function (status) {
+            if (status == 1) {
+                return '<span>正常</span>';
+            }
+            if (status == -1) {
+                return '<span class="error">已撤销</span>'
+            }
+            return '<span>未知</span>';
+        },
+        /**
+         * 获取证书到期的时间戳
+         * @param {*} day 证书可用天数
+         * @param {*} lastModify 生成证书的时间戳
+         */
+        get_last_time: function (day, lastModify) {
+            day = day || 0;
+            day = day * 24 * 60 * 60;
+            lastModify = lastModify || 0;
+            return day + lastModify;
+        },
+        /**
+         * 获取证书的剩余天数
+         * @param {*} lastTime 到期时间戳
+         */
+        get_remaining_day: function (lastTime) {
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            var todayTime = today.getTime() / 1000;
+            var day = (lastTime - todayTime) / 60 / 60 / 24;
+            return Math.floor(day);
+        },
+        /**
+         * 渲染证书列表
+         * @param {*} callback 访问成功后回调
+         */
+        render_cert_table: function (callback) {
+            var _this = this;
+            var data = this.cert_search_data;
+            this.get_cert_list(data, function (res) {
+                var _html = '';
+                if (res.length > 0) {
+                    for (var i = 0; i < res.length; i++) {
+                        var item = res[i];
+                        var lastTime = _this.get_last_time(item.day, item.last_modify);
+                        var day = _this.get_remaining_day(lastTime);
+                        var revoke_btn = item.status == 1 ? '<a href="javascript:;" class="btlink cert_download" data-index="' + i + '">下载</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;" class="btlink cert_revoke" data-index="' + i + '">撤销</a>' : '-';
+                        var reset_btn = '<a href="javascript:;" class="btlink cert_reset" data-index="' + i + '">续签</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+                        if (day < 30 && item.status == 1) {
+                            revoke_btn = reset_btn + revoke_btn;
+                        }
+                        _html += '\
+                            <tr>\
+                                <td>\
+                                    ' + item.client + '\
+                                </td>\
+                                <td>\
+                                    ' + item.company + '\
+                                </td>\
+                                <td>\
+                                    ' + (item.status == 1 ? bt.format_data(lastTime, 'yyyy-MM-dd') + '(剩余' + day + '天)' : '-') + '\
+                                </td>\
+                                <td>\
+                                    ' + _this.get_cert_status(item.status) + '\
+                                </td>\
+                                <td style="text-align:right;">\
+                                    ' + revoke_btn + '\
+                                </td>\
+                            </tr>\
+                        ';
+                    }
+                } else {
+                    _html = '<tr><td colspan="12" style="text-align:center;">证书列表为空</td></tr>';
+                }
+                $('#cert_table').html(_html);
+                _this.cert_list = res;
+                if (callback) callback(res);
+            })
+        },
+        /**
+         * 获取证书列表
+         * @param {*} data 接口数据
+         * @param {*} callback 访问成功后回调
+         */
+        get_cert_list: function (data, callback) {
+            this.request({
+                tips: '正在获取证书列表，请稍后...',
+                method: 'get_ssl_list',
+                data: {
+                    status: data.status,
+                    search: data.search
+                },
+                check: true,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            })
+        },
+        /**
+         * 生成证书
+         * @param {*} data 接口数据
+         * @param {*} callback 访问成功后回调
+         */
+        create_cert: function (data, callback) {
+            this.request({
+                tips: '正在生成证书，请稍后...',
+                method: 'get_user_cert',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * 下载证书
+         * @param {*} data 接口数据
+         * @param {*} callback 访问成功后回调
+         */
+        download_cert: function (data, callback) {
+            this.request({
+                tips: '正在下载证书，请稍后...',
+                method: 'down_client_pfx',
+                data: {
+                    id: data.id
+                },
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * 撤销证书
+         * @param {*} data 接口数据
+         * @param {*} callback 访问成功后回调
+         */
+        revoke_cert: function (data, callback) {
+            this.request({
+                tips: '正在撤销证书，请稍后...',
+                method: 'revoke_client_cert',
+                data: {
+                    id: data.id
+                },
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * 渲染网站SSL证书
+         */
+        render_ssl_cert: function () {
+            var _this = this;
+            this.get_config(function (res) {
+                var data = res;
+                if (data.key && data.cert) {
+                    $('.show_ssl').show();
+                    $('#domain_key').val(data.key);
+                    $('#domain_cert').val(data.cert);
+                    $('#apply_domain_config').html('更新证书').parent().addClass('ptb15');
+                } else {
+                    $('.show_ssl').hide();
+                    $('#apply_domain_config').html('申请证书').parent().removeClass('ptb15');
+                }
+                _this.render_info(data.info);
+            });
+        },
+        /**
+         * 渲染服务器证书
+         */
+        render_ca_cert: function () {
+            var _this = this;
+            this.get_config(function (res) {
+                var data = res;
+                if (data.crl && data.ca_cert) {
+                    $('.ca_show').show();
+                    $('#ca_key').val(data.crl);
+                    $('#ca_cert').val(data.ca_cert);
+                    $('#update_ca_cert').html('更新证书').parent().addClass('mtb15');
+                } else {
+                    $('.ca_show').hide();
+                    $('#update_ca_cert').html('申请证书').parent().removeClass('mtb15');
+                }
+            });
+        },
+        /**
+         * 渲染顶部信息
+         * @param {*} info 顶部信息数据
+         */
+        render_info: function (info) {
+            info = info || {};
+            $('.alert_company').html(info.issuer || '-');
+            $('.alert_domain').html(info.dns ? info.dns.join(', ') : '-');
+            $('.alert_time').html(info.notAfter || '-');
+        },
+        /**
+         * 渲染证书配置
+         */
+        render_config: function () {
+            var _this = this;
+            this.get_config(function (res) {
+                var data = res;
+                $('[name=config_client]').val(data.company);
+                $('[name=config_domain]').val(data.domain);
+                if (data.domain.length > 0) $(".placeholder").hide();
+            });
+        },
+        /**
+         * 获取公共配置
+         * @param {*} callback 访问成功后回调
+         */
+        get_config: function (callback) {
+            this.request({
+                tips: '正在获取公共配置，请稍后...',
+                method: 'get_config',
+                success: function (res) {
+                    if (res && res.length > 0) {
+                        var data = res[0];
+                        callback(data);
+                    } else {
+                        layer.msg('请先完善配置', { time: 700, icon: 2 }, function () {
+                            $('.bt-w-menu p').eq(2).click();
+                        });
+                    }
+                }
+            });
+        },
+        /**
+         * 保存配置
+         * @param {*} data 接口数据
+         * @param {*} callback 访问成功后回调
+         */
+        save_config: function (data, callback) {
+            this.request({
+                tips: '正在保存配置，请稍后...',
+                method: 'set_config',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * 申请域名证书
+         * @param {Function} callback 访问成功后回调
+         */
+        apply_domain_cert: function (callback) {
+            this.request({
+                tips: '正在申请域名证书，请稍后...',
+                method: 'get_domain_cert',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * 下载域名证书
+         * @param {Function} callback 访问成功后回调
+         */
+        download_domain_cert: function (callback) {
+            this.request({
+                tips: '正在下载域名证书，请稍后...',
+                method: 'down_domain_pfx',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * 渲染网站列表
+         * @param {*} callback 访问成功后回调
+         */
+        render_site_table: function (callback) {
+            var _this = this;
+            var data = this.site_search_data;
+            this.get_site_list(data, function (res) {
+                var _html = '';
+                if (res.length > 0) {
+                    for (var i = 0; i < res.length; i++) {
+                        var item = res[i];
+                        var checked = item.ssl_verify ? 'checked="checked"' : '';
+                        var addtimes = item.addtime ? item.addtime.split(' ') : [''];
+                        _html += '\
+                            <tr>\
+                                <td>\
+                                    ' + item.name + '\
+                                </td>\
+                                <td>\
+                                    <div class="index-item">\
+                                        <input type="checkbox" class="btswitch btswitch-ios" ' + checked + ' />\
+                                        <label class="btswitch-btn" data-index="' + i + '"></label>\
+                                    </div>\
+                                </td>\
+                                <td>\
+                                    ' + addtimes[0] + '\
+                                </td>\
+                            </tr>\
+                        ';
+                    }
+                } else {
+                    _html = '<tr><td colspan="12" style="text-align:center;">网站列表为空</td></tr>';
+                }
+                $('#site_table').html(_html);
+                _this.site_list = res;
+                if (callback) callback(res);
+            });
+        },
+        /**
+         * 获取网站列表
+         * @param {*} data 接口数据
+         * @param {*} callback 访问成功后回调
+         */
+        get_site_list: function (data, callback) {
+            this.request({
+                tips: '正在获取网站列表，请稍后...',
+                method: 'get_site_list',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * 双向认证
+         * @param {*} data 接口数据
+         * @param {*} callback 访问成功后回调
+         */
+        set_ssl_verify: function (data, callback) {
+            this.request({
+                tips: '正在双向认证，请稍后...',
+                method: 'set_ssl_verify',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * 更新ca证书
+         * @param {Function} callback 访问成功后回调
+         */
+        get_bundle_crl: function (callback) {
+            this.request({
+                tips: '正在更新证书，请稍后...',
+                method: 'get_bundle_crl',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * 请求
+         */
+        request: function (obj) {
+            var loadT = '';
+            if (obj.load == undefined) obj.load = 0;
+            if (obj.url == undefined) {
+                if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this
+                    .plugin_name
+                if (!obj.plugin_name || !obj.method) {
+                    layer.msg('插件类名称，或插件方法名称缺失!', {
+                        icon: 2
+                    });
+                    return false;
+                }
+            }
+            if (obj.load === 0 || obj.tips != '') {
+                loadT = layer.msg(obj.tips, {
+                    icon: 16,
+                    time: 0,
+                    shade: 0.3
+                });
+            } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+                loadT = layer.load();
+            }
+            $.ajax({
+                type: 'POST',
+                url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+                data: obj.data || {},
+                timeout: obj.timeout || 99999999,
+                complete: function (res) {
+                    if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+                },
+                success: function (rdata) {
+                    if (obj.check) {
+                        obj.success(rdata);
+                        return false
+                    }
+                    if (rdata.status === false) {
+                        layer.msg(rdata.msg, { icon: 2 });
+                        return false;
+                    }
+                    obj.success(rdata);
+                }
+            });
+        }
+    };
+    ssl_verify.init();
+</script>

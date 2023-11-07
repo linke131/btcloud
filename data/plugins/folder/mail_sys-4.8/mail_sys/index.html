@@ -1,0 +1,4853 @@
+<style type="text/css">
+	.tasklist {
+		display: flex;
+		height: 750px;
+		padding: 0;
+	}
+
+	.tasklist .tab-con {
+		flex: 1;
+		padding: 15px;
+	}
+
+	.tab-con .SetupPostfix {
+		overflow: hidden;
+	}
+
+	.tab-con .clearfixPostfix>p {
+		float: left;
+		margin-top: 35px;
+		margin-left: 25px;
+	}
+
+	.tab-con .clearfixPostfix>p button {
+		margin-right: 15px;
+		padding-left: 18px;
+		padding-right: 18px;
+	}
+
+	.tab-con .SetupPostfix .clearfixPostfix {
+		overflow: hidden;
+		margin-bottom: 25px;
+	}
+
+	.tab-con .SetupPostfix .SetAggregateOne p {
+		margin-top: 15px;
+	}
+
+	.tab-con .SetupPostfix .SetAggregateOne p span {
+		margin-right: 15px;
+		display: inline-block;
+		width: 51px;
+		text-align: right;
+	}
+
+	.tab-con .SetupPostfix .SetAggregateOne p input {
+		height: 30px;
+		width: 240px;
+		padding-left: 10px;
+		font-size: 13px;
+	}
+
+	.tab-con .SetupPostfix .SetAggregateOne {
+		width: 325px;
+		float: left;
+	}
+
+	.tab-con .info-r .bt-input-text {
+		width: 193px;
+	}
+
+	.tasklist .tab-nav {
+		width: 125px;
+		height: 100%;
+		background-color: #F0F0F1;
+		border-bottom: 0px;
+	}
+
+	.tasklist .tab-nav span {
+		display: block;
+		width: 125px;
+		padding-right: 0;
+		height: 40px;
+		line-height: 40px;
+		padding-left: 20px;
+		position: relative;
+		cursor: pointer;
+		border: none;
+		background: #F0F0F1;
+	}
+
+	.select_conter>input {
+		border: none !important;
+		width: 350px !important;
+		padding: 0 35px 0 10px !important;
+	}
+
+	.send_mail_conter input {
+		width: 95%;
+		border-radius: 0;
+		box-shadow: 1px 1px 2px #ececec inset;
+		outline: 0;
+		padding: 0 10px;
+		font-size: 14px;
+		vertical-align: top;
+		height: 34px;
+	}
+
+	.domain_table {
+		height: 520px;
+	}
+
+	.tasklist .tab-nav span.on {
+		background-color: #fff;
+	}
+
+	.send_mail_conter .line {
+		margin-bottom: 10px;
+	}
+
+	.send_mail_conter .line>span {
+		width: 60px;
+		height: 30px;
+		line-height: 30px;
+		margin-right: 10px;
+		text-align: right;
+		display: inline-block;
+	}
+
+	.send_mail_conter .line .conter {
+		width: 90%;
+		height: 30px;
+		line-height: 30px;
+		display: inline-block;
+
+	}
+
+	.send_mail_conter .select_conter {
+		margin-left: 0;
+		border: 1px solid #ccc;
+
+	}
+
+	.send_mail_conter .sender_list {
+		margin-left: -3px;
+		padding: 0 10px;
+	}
+
+	.send_mail_conter .line>span {
+		height: 34px;
+		line-height: 34px;
+	}
+
+	.send_mail_conter .line input {
+		height: 34px;
+		line-height: 34px;
+	}
+
+	.editor_conter {
+		position: relative;
+		height: 430px;
+	}
+
+	.editor_conter .sname {
+		position: absolute;
+		top: 0px;
+	}
+
+	.cke_editor_editor1 {
+		width: 95%;
+	}
+
+	.editor_conter .conter {
+		position: absolute;
+		left: 73px;
+		height: 100% !important;
+	}
+
+	/* .right {
+		width: auto;
+		height: auto;
+		position: initial;
+	} */
+
+	.radio_glign_ground {
+		display: inline-block;
+		height: 25px;
+		line-height: 25px;
+		vertical-align: top;
+		margin-right: 15px;
+		font-weight: 400;
+		font-size: 14px;
+	}
+
+	.radio_glign {
+		height: 15px;
+		width: 15px;
+		position: relative;
+		top: 2px;
+		margin-right: 5px !important;
+	}
+
+	.bt-form-login .line .tname {
+		width: 110px;
+	}
+
+	#domain_list .btswitch+.btswitch-btn,
+	#mailboxs_list .btswitch+.btswitch-btn {
+		width: 2.4em;
+		height: 1.4em;
+		margin-bottom: 0
+	}
+
+	#Editor .w-e-toolbar,
+	#Editor .w-e-text-container {
+		width: 95%
+	}
+
+	.service_tip {
+		display: inline-block;
+		width: 100%;
+		height: 35px;
+		line-height: 35px;
+		background: #F0F0F1;
+		padding-right: 15px;
+		text-align: right;
+	}
+
+	.mail_title {
+		width: 100%;
+		background: #ecf5ff;
+		border-bottom: 1px solid #ececec;
+		padding: 20px 45px;
+	}
+
+	.mail_title ul li {
+		height: 20px;
+		line-height: 20px;
+		margin-bottom: 5px;
+		color: #888;
+	}
+
+	.mail_title ul h4 {
+		color: #333;
+		font-size: 16px;
+		font-weight: 600;
+		padding-bottom: 7px;
+		border-bottom: 1px solid #999;
+	}
+
+	.mail_conter {
+		line-height: 25px;
+		font-size: 13px;
+		padding: 35px 45px;
+	}
+
+	.cke_editor_editor1 .cke_top {
+		padding: 2px;
+		height: 28px !important;
+	}
+
+	.mail_html {
+		display: inline-block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		vertical-align: bottom;
+	}
+
+	.mail_html span {
+		color: #bbb;
+	}
+
+	input[readonly] {
+		background-color: #efefef;
+	}
+
+	.selects_conter {
+		position: relative;
+		z-index: 999
+	}
+
+	.selects_conter .select_text {
+		display: inline-block;
+		height: 36px;
+		line-height: 36px;
+		padding: 0 15px;
+		position: relative;
+		border: 1px solid #ececec;
+		background: #f3f3f3;
+		color: #666;
+	}
+
+	.select_conter {
+		display: inline-block;
+		font-size: 14px;
+		border: 1px solid #ececec;
+		color: #444;
+		position: relative;
+		cursor: pointer;
+		height: 36px;
+		line-height: 36px;
+		margin-left: -5px;
+		vertical-align: bottom;
+	}
+
+	.select_conter .domain_input {
+		display: inline-block;
+		padding-left: 15px;
+		height: 34px;
+		line-height: 34px;
+		vertical-align: top;
+	}
+
+	.inbox_input:focus {
+		outline: none;
+	}
+
+	.select_conter .select_down {
+		display: inline-block;
+		width: 0;
+		height: 0;
+		border-width: 6px;
+		border-style: solid;
+		border-color: #777 transparent transparent transparent;
+		position: absolute;
+		top: 14px;
+		right: 12px;
+		transition: all 500ms;
+	}
+
+	.select_conter .domain_list {
+		display: none;
+		background: #fff;
+		position: absolute;
+		top: 34px;
+		left: -1px;
+		border: 1px solid #ececec;
+		overflow-y: auto;
+		max-height: 280px;
+		width: 203px;
+		z-index: 999;
+		box-shadow: 2px 5px 8px #ccc;
+	}
+
+	.select_conter .domain_list.active {
+		display: block;
+	}
+
+	.select_conter .domain_list li {
+		text-align: left;
+		padding: 0 10px;
+	}
+
+	.select_conter .domain_list li:hover {
+		background: #20a53a;
+		color: #fff;
+	}
+
+	.select_conter .domain_list li.active {
+		background: #20a53a;
+		color: #fff;
+	}
+
+	.bt_tips {
+		font-size: 16px;
+		color: #444;
+		font-weight: 600;
+		margin-bottom: 10px;
+	}
+
+	.bt_vice_tips {
+		font-size: 14px;
+		color: #666;
+		margin-bottom: 10px;
+	}
+
+	.bt-body .bt_conter {
+		margin-bottom: 30px;
+	}
+
+	.bt-body .bt_center {
+		text-align: center;
+		margin-bottom: 15px;
+	}
+
+	.mail_table {
+		height: 550px;
+		overflow: auto;
+		position: relative;
+	}
+
+	.bt_select {
+		display: inline-block;
+		width: auto;
+		outline: none;
+		border-radius: 0;
+		height: 30px;
+		line-height: 30px;
+		padding: 0 10px;
+		font-size: 13px;
+	}
+
+	.user_info .help-info-text b {
+		color: #666;
+	}
+
+	.logs_code_style {
+		margin: 0px;
+		background-color: #333;
+		color: #fff;
+		padding: 0 5px;
+		width: 100%;
+		height: 720px;
+		line-height: 20px;
+	}
+
+	.user_forward input,
+	.user_forward select {
+		width: 300px;
+	}
+
+	.tabs-nav {
+		border-bottom: #cacad9 1px solid;
+	}
+
+	.tabs-nav .on {
+		background: #fff;
+		border-bottom: #fff 1px solid;
+		color: #444;
+	}
+
+	.tabs-nav span {
+		background-color: #ddd;
+		background: -moz-linear-gradient(top, #f6f6f6, #ddd);
+		background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f6f6f6), to(#ddd));
+		background: -ms-linear-gradient(top, #f6f6f6, #ddd);
+		height: 32px;
+		line-height: 32px;
+		padding: 0 12px;
+		border: #cacad9 1px solid;
+		color: #444;
+		display: inline-block;
+		margin: 0 3px -1px 0;
+		cursor: pointer;
+	}
+
+	.mail_backup .plan {
+		margin-bottom: 0;
+	}
+
+	.mail_backup .plan .typename {
+		width: 80px;
+	}
+	.mail_backup_set .plan_hms span input{
+		width: 50px;
+		padding-left: 5px;
+	}
+	.mail_backup_set .plan_hms{
+		padding-left: 0;
+	}
+	.bt-mail-index .divtable .table>thead>tr>th,
+    .bt-mail-index .divtable .table>tbody>tr>td{
+        border-right: 1px solid #ddd;
+    }
+    .green{
+        color:green;
+    }
+    .red{
+        color: red;
+    }
+    .bt-mail-btn{
+        background-color: #f6f8f8;
+        border-top: 1px solid #edf1f2;
+        float: left;
+        padding: 9px 18px 10px;
+        pointer-events: auto;
+        text-align: right;
+        width: 100%;
+        user-select: none;
+        -webkit-user-select: none;
+        position: absolute;
+        bottom: 0;
+    }
+    .bt-mail-btn .layui-layer-btn1,.bt-mail-btn .layui-layer-btn1 {
+        border-color: #cbcbcb;
+        background-color: #cbcbcb;
+        color: #fff;
+    }
+    .bt-mail-btn .layui-layer-btn1:hover {
+        background-color: #c9302c;
+    }
+    .bt-mail-btn a {
+        background-color: #20a53a;
+        border-radius: 3px;
+        color: #fff;
+        cursor: pointer;
+        float: right;
+        font-size: 12px;
+        font-weight: 700;
+        height: 30px;
+        line-height: 28px;
+        margin-left: 8px;
+        padding: 0 12px;
+        text-decoration: none;
+    }
+    .bt-mail-btn a:hover {
+        background-color: #10952a;
+        border-color: #398439;
+        text-decoration: none;
+    }
+    .tab-con .divtable .table>thead>tr>th:last-child{
+        text-align: right;
+    }
+    .tab-block-mail{
+        width: 100%;
+    }
+    #checkPostEnv .divtable {
+        overflow: visible;
+    }
+</style>
+<div class="tasklist">
+	<div class="tab-nav">
+		<span class="on">域名列表</span>
+		<span>邮件秘抄</span>
+		<span>邮件中继</span>
+		<span>邮件转发</span>
+		<span>邮件备份</span>
+		<span>收件箱</span>
+		<span>垃圾箱</span>
+		<span>已发送</span>
+		<span>发送邮件</span>
+		<span>服务状态</span>
+		<span>日志</span>
+	</div>
+	<div class="tab-con">
+		<!-- 域名列表 -->
+		<div class="task_block">
+			<button class="btn btn-sm btn-success mb15" style="margin-right:10px;" onclick="mail.edit_domain_view(true)">添加域名</button>
+			<!-- <div class="ssl-item" style="display: flex;width: 150px;float: right;">
+				<span style="display: inline-table;margin-top: 2px; margin-right: 5px;">添加证书</span>
+				<input type="checkbox" id="certificateSSL" class="btswitch btswitch-ios">
+				<label for="certificateSSL" class="btswitch-btn" onclick="mail.open_certificate_view()"></label>
+			</div> -->
+			<button class="btn btn-sm btn-default mb15" style="float:right" id="flush_domain_record">刷新域名记录</button>
+			<div class="domain_table divtable">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>邮箱域名</th>
+							<th>MX记录</th>
+							<th>A记录</th>
+							<th>SPF记录</th>
+							<th>DKIM记录</th>
+							<th>DMARC记录</th>
+							<th>CatchAll</th>
+							<th width="160px">SSL</th>
+							<th width="120px" style="text-align: right;">操作</th>
+						</tr>
+					</thead>
+					<tbody id="domain_list"></tbody>
+				</table>
+			</div>
+			<div class="page" id="domain_page"></div>
+			<ul class="help-info-text c7 mlr20">
+				<li>
+					<font style="color:red">添加域名后，需要添加MX记录（用于邮箱服务）和TXT记录（用于邮箱反垃圾服务）才能正常使用邮箱服务。</font>
+				</li>
+				<li>
+					<font style="color:red">提示： 部分云厂商(如：阿里云，腾讯云)默认关闭25端口，需联系厂商开通25端口后才能正常使用邮局服务</font>
+				</li>
+				<li>该自建邮局版本为基础版本，仅提供基础功能，更多功能请耐心等候开发进度。</li>
+			</ul>
+		</div>
+		<!-- 邮件秘抄 -->
+		<div class="task_block" style="display:none;">
+			<div class="t-mana">
+				<button class="btn btn-sm btn-success add_bcc" style="margin-bottom: 10px;">添加秘抄</button>
+				<div class="tabs-nav">
+					<span class="on">接收</span>
+					<span>发送</span>
+				</div>
+				<div class="text_con">
+					<div class="text_block">
+						<div class="forward_table divtable ptb15">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th style="width: 30%;">被抄送者</th>
+										<th style="width: 30%;">抄送到</th>
+										<th style="text-align: right;">操作</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+							<div class="tbTbody" style="max-height: 400px;overflow: auto;">
+								<table class="table table-hover">
+									<thead></thead>
+									<tbody id="recipient_list"></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="text_block" style="display: none;">
+						<div class="forward_table divtable ptb15">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th style="width: 30%;">被抄送者</th>
+										<th style="width: 30%;">抄送到</th>
+										<th style="text-align: right;">操作</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+							<div class="tbTbody" style="max-height: 400px;overflow: auto;">
+								<table class="table table-hover">
+									<thead></thead>
+									<tbody id="sender_list"></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 邮件中继 -->
+		<div class="task_block" style="display:none;">
+			<div class="line" style="border-bottom: 1px solid #ccc;margin-bottom: 10px;padding-left: 19px;">
+				<span class="tname checkType" style="color:#20a53a;font-size: 14px;">SMTP中继</span>
+				<div style="display: inline-block;height: 32px;line-height: 32px;">
+					<input type="checkbox" name="checksmtp" id="checksmtp" class="btswitch btswitch-ios">
+					<label for="checksmtp" class="btswitch-btn" style="margin-top:5px;"></label>
+				</div>
+				<a href="https://www.bt.cn/bbs/thread-49167-1-1.html" target="blank"
+					style="color:#20a53a;font-size: 13px;display: inline-block;margin-left: 23px;height: 32px;line-height: 32px;overflow: hidden;text-decoration: none;">[使用帮助]</a>
+			</div>
+			<div class="smtp" style="display:none;">
+				<div class="line">
+					<span class="tname">用户名</span>
+					<div class="info-r">
+						<input type="text" name="smtp_username" class="bt-input-text mr5" placeholder="SMTP Username">
+					</div>
+				</div>
+				<div class="line">
+					<span class="tname">密码</span>
+					<div class="info-r">
+						<input type="text" name="passwd" class="bt-input-text mr5" placeholder="SMTP Passwd">
+					</div>
+				</div>
+				<div class="line">
+					<span class="tname">端口</span>
+					<div class="info-r">
+						<input type="text" name="port" class="bt-input-text mr5" placeholder="SMTP Port">
+					</div>
+				</div>
+				<div class="line">
+					<span class="tname">主机</span>
+					<div class="info-r">
+						<input type="text" name="smtphost" class="bt-input-text mr5" placeholder="SMTP Host">
+					</div>
+				</div>
+				<div style="margin: 17px 0 10px 101px;"><button
+						class="btn btn-success btn-sm mb15 smtp_save">保存</button></div>
+			</div>
+		</div>
+		<!-- 邮件转发 -->
+		<div class="task_block" style="display:none;">
+			<div class="t-mana">
+				<div>
+					<button class="btn btn-success btn-sm ml5 add_forward">添加转发</button>
+				</div>
+				<div class="text_con">
+					<div class="text_block" style="display: block;">
+						<div class="divtable ptb15">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>被转发者</th>
+										<th>转发到</th>
+										<th>域名</th>
+										<th>添加时间</th>
+										<th>修改时间</th>
+										<th>状态</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody class="mail_forward_list">
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 邮件备份 -->
+		<div class="task_block" style="display:none;">
+			<div class="mail_backup">
+				<div class="line" style="padding-left: 19px;">
+					<span class="tname checkType" style="color:#20a53a;font-size: 14px;">备份计划</span>
+					<div style="display: inline-block;height: 32px;line-height: 32px;">
+						<input type="checkbox" name="backup_task" id="backup_task" class="btswitch btswitch-ios">
+						<label for="backup_task" class="btswitch-btn" style="margin-top:5px;"></label>
+					</div>
+				</div>
+				<div class="mail_backup_set"
+					style="border-top: 1px solid #ccc;padding-top: 10px;display: none;margin-bottom: 20px;">
+					<div class="clearfix plan">
+						<span class="typename c4 pull-left f14 text-right mr20">执行周期</span>
+						<div class="dropdown plancycle pull-left mr20">
+							<button class="btn btn-default dropdown-toggle" type="button" id="cycle"
+								data-toggle="dropdown" style="width:94px">
+								<b val="week">每星期</b>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="cycle">
+								<li>
+									<a role="menuitem" tabindex="-1" href="javascript:;" value="day">每天</a>
+								</li>
+								<li>
+									<a role="menuitem" tabindex="-1" href="javascript:;" value="week">每星期</a>
+								</li>
+							</ul>
+						</div>
+						<div id="ptime" class="pull-left">
+							<div class="dropdown planweek pull-left mr20">
+								<button class="btn btn-default dropdown-toggle" type="button" id="excode"
+									data-toggle="dropdown">
+									<b val="1">周一</b> <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="excode">
+									<li><a role="menuitem" tabindex="-1" href="javascript:;" value="1">周一</a></li>
+									<li><a role="menuitem" tabindex="-1" href="javascript:;" value="2">周二</a></li>
+									<li><a role="menuitem" tabindex="-1" href="javascript:;" value="3">周三</a></li>
+									<li><a role="menuitem" tabindex="-1" href="javascript:;" value="4">周四</a></li>
+									<li><a role="menuitem" tabindex="-1" href="javascript:;" value="5">周五</a></li>
+									<li><a role="menuitem" tabindex="-1" href="javascript:;" value="6">周六</a></li>
+									<li><a role="menuitem" tabindex="-1" href="javascript:;" value="0">周日</a></li>
+								</ul>
+							</div>
+							<div class="plan_hms pull-left mr20 bt-input-text">
+								<span><input type="number" name="hour" maxlength="2" max="23" min="0" value="1"></span>
+								<span class="name">小时</span>
+							</div>
+							<div class="plan_hms pull-left mr20 bt-input-text">
+								<span><input type="number" name="minute" maxlength="2" max="59" min="0" value="30"></span>
+								<span class="name">分钟</span>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix plan">
+						<span class="typename controls c4 pull-left f14 text-right mr20">备份到</span>
+						<div id="backup_plan" style="line-height:34px">
+							<!-- <div class="info-r" style="display: inline-block;float: left;margin-right: 25px;"><input
+									id="inputPath" class="bt-input-text mr5" type="text" name="path" value="/www/wwwroot/"
+									placeholder="备份目录" style="width:208px;height:33px;"><span
+									class="glyphicon glyphicon-folder-open cursor"
+									onclick="ChangePath(&quot;inputPath&quot;)"></span></div>
+							<div class="textname pull-left mr20" style="display:inline-block">备份到</div> -->
+							<div class="dropdown planBackupTo pull-left mr20" style="display:inline-block"> <button
+									class="btn btn-default dropdown-toggle" type="button" name="backupTo" data-toggle="dropdown"
+									style="width:auto;"> <b val="localhost">服务器磁盘</b> <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="excode"></ul>
+							</div>
+							<div class="textname pull-left mr20">保留最新</div>
+							<div class="plan_hms pull-left mr20 bt-input-text">
+								<span><input type="number" name="save" maxlength="4" max="100" min="1" value="3"></span>
+								<span class="name">份</span>
+							</div>
+							<p class="clearfix plan"> </p>
+						</div>
+					</div>
+					<div><button class="btn btn-success btn-sm mb15 backup_save" style="margin-left: 120px;">保存任务</button>
+					</div>
+				</div>
+			</div>
+			<div class="line" style="border-top: 1px solid #ccc;padding-top: 13px;padding-left: 19px;">
+				<span class="tname checkType" style="color:#20a53a;font-size: 14px;">邮件导入</span>
+				<button class="btn btn-sm btn-default" style="margin-top: 2px;" onclick="mail.upload_files()">从本地上传</button>
+				<div class="divtable mtb15" style="max-height:303px; overflow:auto;padding-left: 100px;margin-right: 30px;">
+					<table id="mail_backup_list" class="table table-hover">
+						<thead>
+							<tr>
+								<th>文件名</th>
+								<th>导入时间</th>
+								<th style="text-align:right;">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>cnarea20191031.sql</td>
+								<td>2020/05/22 14:54:50</td>
+								<td style="text-align:right"><a class="btlink" herf="javascrpit:;" onclick="bt.database.input_sql('/www/backup/database/cnarea20191031.sql','web')">恢复</a>
+									| <a class="btlink" onclick="database.remove_input_file('/www/backup/database/cnarea20191031.sql','web')">删除</a>
+								</td>
+							</tr>
+							<tr>
+								<td>db_web_20200417_163412.sql.gz</td>
+								<td>2020/04/17 16:34:20</td>
+								<td style="text-align:right"><a class="btlink" herf="javascrpit:;" onclick="bt.database.input_sql('/www/backup/database/db_web_20200417_163412.sql.gz','web')">恢复</a>
+									| <a class="btlink" onclick="database.remove_input_file('/www/backup/database/db_web_20200417_163412.sql.gz','web')">删除</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<ul class="help-info-text c7 mlr20 backup-path">
+				<li>
+					<font style="color:red">1. 备份计划是调用的计划任务，如果想立即执行请到计划任务列表执行名称为：[勿删]堡塔邮局-数据备份任务的计划任务；</font>
+				</li>
+				<li>
+					<font style="color:red">2. 本地的备份会存储在<span></span>/path目录下，可以直接用来进行恢复操作；</font>
+				</li>
+				<li><font style="color:red">3. 云端的备份需要先下载下来，然后点击从本地上传按钮上传到服务器<span></span>/path目录下才能用来进行恢复操作。</font></li>
+			</ul>
+		</div>
+		<!-- 收件箱 -->
+		<div class="task_block divtable" style="height: 630px;display:none;">
+			<div class="selects_conter" style="margin-bottom: 10px;">
+				<span class="select_text">邮件归属</span>
+				<div class="select_conter">
+					<span style="display: none;" class="domain_hide_value"></span>
+					<input type="text" placeholder="请选择" autocomplete="off" class="inbox_input domain_input"
+						name="inbox_input" style="border: none;">
+					<ul class="domain_list" id="domain_select_list"></ul>
+					<span class="select_down"></span>
+				</div>
+				<div style="display: inline-block;margin-left: 30px;">
+					邮件保留时间：
+					<input type="text" placeholder="3" class="bt-input-text mr5 mail_day" style="width: 65px;"
+						onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">天
+					<button class="btn btn-success btn-sm set_save_day" style="margin-left: 10px;">保存</button>
+				</div>
+			</div>
+
+			<div class="mail_table">
+				<table class="table table-hover" id="mailListTable">
+					<thead>
+						<tr>
+							<th width="15%">发件人</th>
+							<th>主题</th>
+							<th width="145">时间</th>
+							<th width="170" style="text-align: right;">操作</th>
+						</tr>
+					</thead>
+					<tbody id="mails_list"></tbody>
+				</table>
+			</div>
+		</div>
+		<!-- 垃圾箱 -->
+		<div class="task_block divtable" style="height: 630px;display:none;">
+			<div class="selects_conter" style="margin-bottom: 10px;">
+				<span class="select_text">邮件归属</span>
+				<div class="select_conter">
+					<span style="display: none;" class="domain_hide_value"></span>
+					<input type="text" placeholder="请选择" autocomplete="off" class="inbox_input domain_input"
+						name="inbox_input" style="border: none;">
+					<ul class="domain_list" id="domain_select_list"></ul>
+					<span class="select_down"></span>
+				</div>
+				<div style="display: inline-block;margin-left: 30px;">
+					邮件保留时间：
+					<input type="text" placeholder="3" class="bt-input-text mr5 mail_day" style="width: 65px;"
+						onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">天
+					<button class="btn btn-success btn-sm set_save_day" style="margin-left: 10px;">保存</button>
+				</div>
+				 <button class="btn btn-success btn-sm pull-right go_to_rspamd" style="margin-top: 3px;">Rspamd管理页面</button>
+			</div>
+			<div class="mail_table">
+				<table class="table table-hover" id="junkListTable">
+					<thead>
+						<tr>
+							<th width="15%">发件人</th>
+							<th>主题</th>
+							<th width="145">时间</th>
+							<th width="170" style="text-align: right;">操作</th>
+						</tr>
+					</thead>
+					<tbody id="junks_list"></tbody>
+				</table>
+			</div>
+		</div>
+		<!-- 已发送 -->
+		<div class="task_block divtable" style="height: 630px;display:none;">
+			<div class="selects_conter" style="margin-bottom: 10px;">
+				<span class="select_text">邮件归属</span>
+				<div class="select_conter">
+					<span style="display: none;" class="domain_hide_value"></span>
+					<input type="text" placeholder="请选择" autocomplete="off" class="inbox_input domain_input"
+						name="inboxs_input" style="border: none;">
+					<ul class="domain_list" id="domain_select_lists"></ul>
+					<span class="select_down"></span>
+				</div>
+				<div style="display: inline-block;margin-left: 30px;">
+					邮件保留时间：
+					<input type="text" placeholder="3" class="bt-input-text mr5 mail_day" style="width: 65px;"
+						onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">天
+					<button class="btn btn-success btn-sm set_save_day" style="margin-left: 10px;">保存</button>
+				</div>
+			</div>
+			<div class="mail_table">
+				<table class="table table-hover" id="mailListTables">
+					<thead>
+						<tr>
+							<th width="15%">收件人</th>
+							<th>主题</th>
+							<th width="250">时间</th>
+							<th width="120">操作</th>
+						</tr>
+					</thead>
+					<tbody id="mails_lists"></tbody>
+				</table>
+			</div>
+		</div>
+		<!-- 发送邮件 -->
+		<div class="task_block send_mail_conter" style="display:none;">
+			<div class="line">
+				<span class="sname">发件人</span>
+				<div class="select_conter">
+					<span style="display: none;" class="domain_hide_value"></span>
+					<input type="text" placeholder="请输入或选择用户邮箱" autocomplete="off" class="inbox_input domain_input" name="send_input" style="border: none;vertical-align: top;height: 34px;" />
+					<ul class="domain_list" id="domain_select_lists"></ul>
+					<span class="select_down"></span>
+				</div>
+			</div>
+			<div class="line">
+				<span class="sname">收件人</span>
+				<div class="conter">
+					<input type="text" name="mail_to" class="bt-input-text" placeholder="多个收件人请使用英文逗号分隔" />
+					</div>
+			</div>
+			<div class="line">
+				<span class="sname">主题</span>
+				<div class="conter">
+					<input type="text" name="subject" class="bt-input-text" />
+				</div>
+			</div>
+			<div class="line editor_conter">
+				<span class="sname">正文</span>
+				<div class="conter">
+					<textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+				</div>
+			</div>
+			<div class="line">
+				<span class="sname">&nbsp;</span>
+				<div class="conter">
+					<button class="btn btn-sm btn-success " style="margin-right:10px"
+						onclick="mail.sublimt_send_mail_request()">发送邮件</button>
+					<button class="btn btn-sm btn-default" onclick="mail.clear_send_mail()">清空内容</button>
+				</div>
+			</div>
+			<ul class="help-info-text c7 mlr20">
+				<li>
+					<font style="color:red">提示：此功能只建议测试发件功能用，真正使用请使用客户端软件(比如foxmail)或者api接口</font>
+				</li>
+			</ul>
+		</div>
+		<!-- 服务状态 -->
+		<div class="task_block divtable" style="display:none;">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>服务名称</th>
+						<th>服务状态</th>
+						<th width="190" style="text-align: center">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Dovecot</td>
+						<td><span class="dovecot">获取中...</span></td>
+						<td style="text-align: right">
+							<a href="javascript:" class="btlink dovecot_start"
+								onclick="mail.service_admin('dovecot', 'start')">启动</a>
+							<a href="javascript:" class="btlink dovecot_stop"
+								onclick="mail.service_admin('dovecot', 'stop')">停止</a>&nbsp;|&nbsp;
+							<a href="javascript:" class="btlink"
+								onclick="mail.service_admin('dovecot', 'restart')">重启</a>&nbsp;|&nbsp;
+							<a href="javascript:" class="btlink"
+								onclick="mail.service_admin('dovecot', 'repair')">修复</a>&nbsp;|&nbsp;
+							<a href="javascript:;" class="btlink"
+								onclick="mail.open_editCode_view({service:'dovecot',title:'dovecot_配置文件'})">配置文件</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Opendkim</td>
+						<td><span class="opendkim">获取中...</span></td>
+						<td style="text-align: right">
+							<a href="javascript:" class="btlink opendkim_start"
+								onclick="mail.service_admin('opendkim', 'start')">启动</a>
+							<a href="javascript:" class="btlink opendkim_stop"
+								onclick="mail.service_admin('opendkim', 'stop')">停止</a>&nbsp;|&nbsp;
+							<a href="javascript:" class="btlink"
+								onclick="mail.service_admin('opendkim', 'restart')">重启</a>&nbsp;|&nbsp;
+							<a href="javascript:" class="btlink"
+								onclick="mail.service_admin('opendkim', 'repair')">修复</a>&nbsp;|&nbsp;
+							<a href="javascript:;" class="btlink"
+								onclick="mail.open_editCode_view({service:'opendkim',title:'opendkim_配置文件'})">配置文件</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Rspamd</td>
+						<td><span class="rspamd">获取中...</span></td>
+						<td style="text-align: right">
+							<a href="javascript:" class="btlink rspamd_start"
+								onclick="mail.service_admin('rspamd', 'start')">启动</a>
+							<a href="javascript:" class="btlink rspamd_stop"
+								onclick="mail.service_admin('rspamd', 'stop')">停止</a>&nbsp;|&nbsp;
+							<a href="javascript:" class="btlink"
+								onclick="mail.service_admin('rspamd', 'restart')">重启</a>&nbsp;|&nbsp;
+							<a href="javascript:" class="btlink"
+								onclick="mail.service_admin('rspamd', 'repair')">修复</a>&nbsp;|&nbsp;
+							<a href="javascript:;" class="btlink"
+								onclick="mail.open_editCode_view({service:'rspamd',title:'rspamd_配置文件'})">配置文件</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Postfix</td>
+						<td><span class="postfix">获取中...</span></td>
+						<td style="text-align: right">
+							<a href="javascript:" class="btlink postfix_start"
+								onclick="mail.service_admin('postfix', 'start')">启动</a>
+							<a href="javascript:" class="btlink postfix_stop"
+								onclick="mail.service_admin('postfix', 'stop')">停止</a>&nbsp;|&nbsp;
+							<a href="javascript:" class="btlink"
+								onclick="mail.service_admin('postfix', 'restart')">重启</a>&nbsp;|&nbsp;
+							<a href="javascript:" class="btlink"
+								onclick="mail.service_admin('postfix', 'repair')">修复</a>&nbsp;|&nbsp;
+							<a href="javascript:;" class="btlink"
+								onclick="mail.open_editCode_view({service:'postfix',title:'postfix_配置文件'})">配置文件</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- 日志 -->
+		<div class="task_block" style="display:none;">
+			<textarea id="mail_logs_val" class="logs_code_style"></textarea>
+		</div>
+	</div>
+</div>
+<script src="/static/js/bt_upload.js?version=7.4.2"></script>
+<script type="text/javascript">
+	var mail = {
+		plugin_name: 'mail_sys',
+		_editor: '',
+		_domain_name: '',
+		active_username:'',
+		mail_list: '',
+		domain_list: '',
+		mailboxs_list: '',
+		mail_user_list: [],
+		_server_hostname: '',
+		forward_list: {
+			recipient: [],
+			sender: []
+		},
+		all_mail_data: [],
+		mail_index: 0,
+		is_mail: 0, //邮局状态
+		is_mail_backup: false,
+		is_update: true,
+		smtp_status: false,
+		save_day:0,
+		post_env_list:['HostName','Postfix-Version','Postfix-install','Sqlite-support','Dovecot-install','Redis-install','Redis-Passwd','Rspamd-install','SElinux'],
+		post_env_text:['主机名','Postfix版本','Postfix安装','Sqlite支持','Dovecot安装','Redis安装','Redis密码','Rspamd','SElinux'],
+		// 初始化
+		init: function () {
+			var _this = this;
+
+			this.event();
+
+			$('.layui-layer-page').hide();
+
+			setTimeout(function () {
+				var win = $(window),
+					layer = $('.layui-layer-page');
+				layer.show();
+			    layer.css({
+						'width':'1080px',
+						'top':((win.height()-layer.height())/2)+'px',
+						'left':((win.width()-1000)/2)+'px',
+						'zIndex':'999'
+			    });
+				$('.layui-layer-shade').css('zIndex', '998');
+			}, 200);
+
+			this.get_save_day(function (res) {
+				_this.save_day = res;
+			});
+
+			_this.check_mail_sys({
+				tips: '正在检查邮局服务是否正常,请稍后....',
+				hostname: ''
+			}, function (res) {
+				if (res.status == false && res.msg == '之前没有安装过邮局系统，请放心安装!') {
+					layer.confirm('当前未设置邮局服务，是否现在设置?', {
+						icon: 0,
+						title: '邮局初始化',
+						btn: ['设置', '取消'], //按钮
+						cancel: function () {
+							layer.closeAll();
+						}
+					}, function (index) {
+					    _this.check_post_env('setup_mail_sys')
+					}, function () {
+						layer.closeAll();
+					});
+					// layer.open({
+					// 	type: 1,
+					// 	title: '邮局初始化',
+					// 	area: ['590px', '330px'],
+					// 	closeBtn: 2,
+					// 	btn: ['安装', '取消'],
+					// 	content:"<div class='bt-form pd20'>\
+					// 		<div class='line'>\
+					// 			<ul class='help-info-text c7 mlr20'>\
+					// 				<li><span style='color:red'>提示： 部分云厂商(如：阿里云，腾讯云)默认关闭25端口，需联系厂商开通25端口后才能正常使用邮局服务</span></li>\
+					// 			</ul>\
+					// 		</div>\
+					// 	</div>",
+					// 	yes:function(index,layers){
+					// 		var hostname = $('[name="hostname"]').val();
+					// 		if(hostname == ''){
+					// 			layer.msg('邮局服务器域名不能为空！',{icon:2});
+					// 			return false;
+					// 		}
+
+					// 	},
+					// 	btn2:function(){
+					// 		layer.closeAll();
+					// 	},
+					// 	cancel:function(){
+					// 		layer.closeAll();
+					// 	}
+					// })
+				} else {
+					// _this.create_domain_list();
+					$('.tasklist .tab-nav span:first').click(); // 初始化
+					_this.loadScript('/static/ckeditor/ckeditor.js', function () {
+						CKEDITOR.replace('editor1', {
+							customConfig: '/static/ckeditor/config.js?v1.0'
+						})
+					});
+				}
+			});
+		},
+		event: function () {
+			var _this = this;
+			
+			$('.tasklist .tab-nav span').click(function () {
+				var index = $(this).index();
+				$(this).addClass('on').siblings().removeClass('on');
+				$('.tab-con .task_block').eq(index).show().siblings().hide();
+				switch (index) {
+					case 0:
+						_this.create_domain_list();
+						_this.get_mailSSL_status(function (res) {
+							$('#certificateSSL').prop("checked", res);
+						});
+						break;
+					case 1:
+						_this.get_bcc_list();
+						break;
+					case 2:
+						_this.get_smtp();
+						break;
+					case 3:
+						_this.mail_forward();
+						break;
+					case 5:
+						_this.create_mail_list();
+						_this.is_mail = 0;
+						break;
+					case 6:
+						_this.junk_mail_list();
+						_this.is_mail = 1;
+						break;
+					case 7:
+						_this.create_sent_mail_list();
+						_this.is_mail = 2;
+						break;
+					case 8:
+						_this.get_domains_html();
+						_this.is_mail = 3;
+						break;
+					case 9:
+					    _this.create_server_status_table()
+						break;
+					case 10:
+						_this.get_logs_list(function (res) {
+							$('#mail_logs_val').val(res.log);
+							$('#mail_logs_val').scrollTop($('#mail_logs_val').prop("scrollHeight"),
+								200);
+						});
+						break;
+					case 4:
+						_this.get_backup_task_status(function (res) {
+							$('.mail_backup #backup_task').prop('checked', res.status);
+							if (res.status){
+								$('.mail_backup_set').show();
+								_this.is_mail_backup = true;
+								var oss = '服务器磁盘';
+								switch (res.msg.backupTo) {
+									case 'localhost':
+										oss = '服务器磁盘'
+										break;
+									case 'alioss':
+										oss = '阿里云oss'
+										break;
+									case 'qiniu':
+										oss = '七牛云存储'
+										break;
+									case 'ftp':
+										oss = 'FTP'
+										break;
+									case 'txcos':
+										oss = '腾讯云COS'
+										break;
+									case 'aws_s3':
+										oss = 'AWS S3对象存储'
+										break;
+									default:
+										break;
+								}
+								$('.mail_backup_set #cycle').find("b").text(res.msg.type == 'week' ? '每星期' : '每天').attr("val", res.msg.type);
+								$(".mail_backup_set .plan_hms [name='hour']").val(res.msg.where_hour);
+								$(".mail_backup_set .plan_hms [name='minute']").val(res.msg.where_minute);
+								$(".mail_backup_set .plan_hms [name='save']").val(res.msg.save);
+								$(".mail_backup_set .plan_hms [name='backupTo']").val(oss);
+								if (res.msg.type == 'day') $('.planweek').hide();
+							}else{
+								$('.mail_backup_set').hide();
+							}
+							_this.get_backup_list();
+							_this.get_cloud_storage_list(function (rdata) {
+								var _ul = '<li><a role="menuitem" tabindex="-1" href="javascript:;" value="localhost">服务器磁盘</a></li><li><a role="menuitem" tabindex="-1" href="javascript:;" value="ftp">FTP</a></li>';
+								for (var i = 0; i < rdata.length; i++) {
+									_ul += '<li><a role="menuitem" tabindex="-1" href="javascript:;" value="'+rdata[i].value+'">'+rdata[i].name+'</a></li>'
+								}
+								$('#backup_plan ul').html(_ul);
+							});
+							bt.fixed_table('mail_backup_list');
+							$('.backup-path span').text(getCookie('backup_path'));
+						});
+						break;
+				}
+			});
+
+			$('.t-mana .tabs-nav span').click(function () {
+				var index = $(this).index();
+				$(this).addClass("on").siblings().removeClass("on");
+				$('.text_con .text_block').eq(index).show().siblings().hide();
+				switch (index) {
+					case 0:
+						_this.recipient_view();
+						break;
+					case 1:
+						_this.sender_view();
+						break;
+				}
+			});
+
+			$('#domain_list').on('click', '.open-switch-actives', function () {
+				var checked = $(this).prop('checked');
+				var index = $(this).attr('data-index');
+				var _form = _this.domain_list[index];
+				_this.update_domain({
+					active: checked ? 1 : 0,
+					domain: _form.domain,
+					company_name: _form.company_name,
+					admin_name: _form.admin_name,
+					admin_phone: _form.admin_phone
+				}, function (res) {
+					layer.msg(res.msg, {
+						icon: 1
+					});
+				});
+			});
+
+			$('#checksmtp').change(function () {
+				var type = $(this).prop('checked');
+				if (!type) {
+					_this.cancel_smtp_relay();
+				}
+				$('.smtp').css('display', type ? 'block' : 'none');
+			});
+			
+			$('.smtp .smtp_save').click(function () {
+				var setting = {};
+				setting['username'] = $(".smtp input[name='smtp_username']").val();
+				setting['passwd'] = $(".smtp input[name='passwd']").val();
+				setting['port'] = $(".smtp input[name='port']").val();
+				setting['smtphost'] = $(".smtp input[name='smtphost']").val();
+				_this.set_smtp_relay(setting, function (res) {
+					layer.msg(res.msg, {
+						icon: res.status ? 1 : 2
+					});
+				});
+			});
+
+			$('#domain_list').on('click', '.del_domain', function () {
+				var domain = $(this).attr('data-domain');
+				layer.confirm('是否删除【' + domain + '】域名', {
+					icon: 0,
+					closeBtn: 2,
+					title: '删除域名'
+				}, function (index) {
+					_this.del_domain({
+						domain: domain
+					}, function (res) {
+						_this.create_domain_list({
+							page: 1,
+							size: 10
+						}, function () {
+							layer.msg(res.msg, {
+								icon: 1
+							});
+						});
+					});
+				});
+			});
+
+			$('.t-mana').on('click', '.add_bcc', function () {
+				layer.open({
+					type: 1,
+					title: '添加邮件秘抄',
+					area: '550px',
+					closeBtn: 2,
+                    shift: 0,
+                    btn: ['确认', '取消'],
+					content: '<div class="user_forward">\
+							<div class="bt-form pd20">\
+								<div class="line">\
+									<span class="tname">类型</span>\
+									<div class="info-r c4">\
+										<select name="forward_type" class="bt-input-text">\
+											<option value="sender">发送邮件秘抄</option>\
+											<option value="recipient">接收邮件秘抄</option>\
+										</select>\
+									</div>\
+								</div>\
+								<div class="line">\
+									<span class="tname">被秘抄者</span>\
+									<div class="info-r c4">\
+										<input class="bt-input-text mr5" type="text" name="forward_user" value="" placeholder="请输入被秘抄用户邮箱">\
+									</div>\
+								</div>\
+								<div class="line">\
+									<span class="tname">秘抄到</span>\
+									<div class="info-r c4">\
+										<input class="bt-input-text mr5" type="text" name="forward_mail" value="" placeholder="被秘抄者发送或者接收邮件会复制一份到此邮箱">\
+									</div>\
+								</div>\
+								<div class="line">\
+									<span class="tname">域名</span>\
+									<div class="info-r c4">\
+										<input class="bt-input-text mr5" type="text" name="forward_domain" placeholder="输入需要秘抄的域名">\
+									</div>\
+								</div>\
+							</div>\
+						</div>',
+					yes:function(index,layers){
+						var type =  $("select[name='forward_type']").val(),
+							user = $("input[name='forward_user']").val(),
+							forward_user = $('input[name=forward_mail]').val(),
+							site = $('input[name=forward_domain]').val();
+						_this.set_mail_bcc({type:type,user:user,forward_user:forward_user,domain:site},function(res){
+							_this.get_bcc_list();
+							if(res.status) layer.msg(res.msg,{icon:res.status?1:2})
+							layer.close(index);
+						})
+					}
+				})
+			});
+
+			$('#domain_list').on('click', '.edit_ground_domain', function () {
+				var domain = $(this).attr('data-domain');
+				var index = $(this).attr('data-index');
+				var hostname = $(this).attr('data-hostname');
+				if (_this.domain_list[index].mx_status == 0 && _this.domain_list[index].mx_status == 0) {
+					layer.msg('当前域名未设置或暂未生效或记录多于一条', {
+						icon: 0
+					})
+					return false;
+				}
+				layer.open({
+					type: 1,
+					title: '[' + domain + ']_用户管理',
+					area: ['900px', '720px'],
+					closeBtn: 2,
+					content: '<div class="pd15 user_info">\
+								<button class="btn btn-sm btn-success mb15" style="margin-right:10px;" onclick="mail.edit_mailboxs_view(true)">添加用户</button>\
+								<div class="member_table divtable">\
+									<table class="table table-hover">\
+										<thead><tr><th>邮箱</th><th>姓名</th><th>邮箱容量</th><th>类型</th><th>状态</th><th style="text-align: right;">操作</th></tr></thead>\
+										<tbody id="mailboxs_list"></tbody>\
+									</table>\
+									<div class="page" id="mailboxs_page"></div>\
+								</div>\
+								<ul class="help-info-text c7 mlr20">\
+									<li>注意事项:当前邮件服务器支持IMAP/POP3/SMTP/HTTP协议&nbsp;<a href="javascript:;" class="btlink open_btlink_down">下载HTTP-API文档</a>&nbsp;</li>\
+									<li>POP服务【服务地址：<b>&nbsp;' + hostname + '&nbsp;</b>、端口：<b>&nbsp;110&nbsp;</b>】</li>\
+									<li>IMAP服务【服务地址：<b>&nbsp;' + hostname + '&nbsp;</b>、端口：<b>&nbsp;143&nbsp;</b>】</li>\
+									<li>SMTP服务【服务地址：<b>&nbsp;' + hostname + '&nbsp;</b>、端口：<b>&nbsp;25&nbsp;</b>】</li>\
+								</ul>\
+							</div>',
+					success: function () {
+						$('.open_btlink_down').click(function () {
+							window.open('/download?filename=' + encodeURIComponent(
+								'/www/server/panel/plugin/mail_sys/static/api.zip'
+							));
+						});
+
+						_this.create_mailboxs_list({
+							domain: domain
+						});
+						$('#mailboxs_list').on('click', '.open-switch-active', function () {
+							var checked = $(this).prop('checked');
+							var index = $(this).attr('data-index');
+							var _form = _this.mailboxs_list[index];
+							var quota = _form.quota / 1024 / 1024;
+							var unit = ' MB';
+							if(quota > 1024) {
+								quota = quota / 1024;
+								unit = ' GB'
+							}
+							_this.updatae_mailboxs({
+								quota: quota + unit,
+								username: _form.username,
+								password: _form.password,
+								quote: _form.quote,
+								full_name: _form.full_name,
+								active: checked ? 1 : 0,
+								is_admin: _form.is_admin
+							}, function (res) {
+								layer.msg(res.msg, {
+									icon: 1
+								});
+							});
+						});
+						$('#mailboxs_list').on('click', '.edit_mailboxs', function () {
+							var _index = $(this).attr('data-index');
+							var _form = _this.mailboxs_list[_index];
+							_this.edit_mailboxs_view(false, _form);
+						});
+						$('#mailboxs_list').on('click', '.del_mailboxs', function () {
+							var username = $(this).attr('data-username');
+							layer.confirm('是否删除【' + username + '】成员', {
+								icon: 0,
+								closeBtn: 2,
+								title: '删除成员'
+							}, function (index) {
+								_this.del_mailboxs({
+									username: username
+								}, function (res) {
+									_this.create_mailboxs_list({
+										domain: domain
+									}, function () {
+										layer.msg(res.msg, {
+											icon: 1
+										});
+									});
+								});
+							});
+						});
+					}
+				});
+			});
+
+			$('.task_block').on('click', '.page a', function (e) {
+				var type = $(this).parent().parent().attr('data-type'),
+				_p = $(this).attr('href');
+				switch (type) {
+				    case 'get_mails_inbox_page':
+						_this.create_mail_list({
+							p: _p,
+							size: 10
+						});
+					break;
+					case 'get_mails_page':
+						_this.create_sent_mail_list({
+							p: _p
+						});
+					break;
+					case 'junk_mails_page':
+						_this.junk_mail_list({
+							p: _p
+						});
+					break;
+				}
+				e.stopPropagation();
+				e.preventDefault();
+			});
+			
+			$('.task_block').on('click','.go_to_rspamd',function(){
+			    _this.check_rspamd_route(function(res){
+			        if(res.status){
+			            window.open("/rspamd") 
+			        }else{
+			            layer.msg('请修复好面板后再点击此按钮',{icon:2})
+			        }
+			    })
+			})
+
+			$('.task_block').on('click', '.add_forward', function () {
+				_this.set_forward();
+			});
+			
+			$('.mail_forward_list').on('click', '.edit_forward', function () {
+				var thistr = $(this).parents('tr'),
+					user = thistr.children(":first").text(),
+					goto = thistr.children(":eq(1)").text(),
+					active = $(this).parent().prev().find('.btswitch-ios').prop('checked') ? 'checked' :
+					'';
+				_this.edit_forward(user, active, goto);
+			});
+			
+			$('.mail_forward_list').on('click', '.del_forward', function () {
+				var user = {};
+				user['user'] = $(this).parents('tr').children(":first").text();
+				_this.delete_forward(user);
+			});
+			
+			$('.user_info').on('focus', 'input[name="domain"]', function () {
+				var domain = $('input[name="user"]').val().split("@"),
+					inside = $('input[name="domain"]').val();
+				if (inside == '') $('input[name="domain"]').val(domain[1]);
+			});
+
+			$('.mail_forward_list').on('click', '.info-r input', function () {
+				var _data = {},
+					_chose = $(this).parents('tr').find('td');
+				_data['user'] = _chose.eq(0).text();
+				_data['forward_user'] = _chose.eq(1).text();
+				_data['active'] = $(this).is(':checked') ? 1 : 0;
+				_this.edit_mail_forward(_data, function (res) {
+					_this.mail_forward();
+					layer.msg(res.msg, {
+						icon: res.status ? 1 : 2
+					});
+				});
+			});
+			
+			$('.select_conter input').on('focus', function (e) {
+				var _that = $(this),
+					mail_list = $(this).next(),
+					_list = mail_list.find('li'),
+					mail_default = $(this).prev(),
+					html = '';
+				_list.siblings().removeClass('active');
+				for (var i = 0; i < _this.mail_user_list.length; i++) {
+					var item = _this.mail_user_list[i];
+					html += '<li ' + (_that.val() == item.username ? 'class=\"active\"' : '') + '>' + item
+						.username + '</li>'
+				}
+				$('.domain_list').html(html);
+				mail_list.width($(this)[0].clientWidth);
+				$(document).unbind('click').on('click', function (ev) {
+					if (ev.target.className.indexOf('inbox_input') == -1 && ev.target.className.indexOf('select_down') == -1) {
+						if (_this.is_mail != 2) {
+							if (_that.val() == '' || _that.val() != mail_default.text()) {
+								_that.val(mail_default.text())
+							}
+						}
+						mail_list.hide();
+					}else{
+						if (ev.target.className == 'select_down') {
+							if (mail_list.css('display') == 'block') {
+								mail_list.hide()
+							}else{
+								mail_list.show()
+							}
+						}else{
+							mail_list.show()
+						}
+					}
+					ev.stopPropagation();
+				});
+				return false;
+			});
+			
+			$('.select_conter .select_down').on('click',function () {
+				$('.select_conter input').focus()
+			})
+			
+			$('.select_conter input').on('input', function (e) {
+				var _that = $(this),
+					mail_list = $(this).next(),
+					html = '';
+				for (var i = 0; i < _this.mail_user_list.length; i++) {
+					var item = _this.mail_user_list[i];
+					if (_that.val() != '') {
+						if (item.username.indexOf(_that.val()) > -1) {
+							html += '<li ' + (_that.val() == item.username ? 'class=\"active\"' : '') +
+								'>' + item.username + '</li>'
+						} else {
+							html += ''
+						}
+					} else {
+						html += '<li>' + item.username + '</li>'
+					}
+				}
+				$('.domain_list').html(html);
+			});
+			
+			$('.select_conter').on('click', 'li', function (e) {
+				var item_val = $(this).text(),
+					input = $(this).parent().prev();
+				$(this).addClass('active').siblings().removeClass('active').parent().hide();
+				$(this).parent().siblings(".domain_hide_value").html(item_val);
+				$(this).parent().siblings(".domain_input").text(item_val);
+				input.val(item_val);
+				switch (_this.is_mail) {
+					case 0:
+						//input.val(item_val);
+						_this.create_mail_list({
+							username: item_val
+						});
+						break;
+					case 1:
+						_this.junk_mail_list({
+							username: item_val
+						});
+						break;
+					case 2:
+						//input.val(item_val);
+						_this.create_sent_mail_list({
+							username: item_val
+						});
+						break;
+					// case 3:
+					// 	input.val(item_val);
+					// 	break;
+				}
+				e.preventDefault();
+				e.stopPropagation();
+			});
+			
+			$('.selects_conter').on('click', '.set_save_day', function (e) {
+				var days = $(this).prev().val();
+				if (days == '') {
+					layer.msg('保存天数不能为空！', {
+						icon: 2
+					});
+					return false;
+				}
+				_this.set_save_day(days, function (res) {
+					layer.msg(res.msg, {
+						icon: res.status ? 1 : 2
+					});
+					_this.get_save_day(function(rdata){
+					    _this.save_day = rdata
+					})
+				});
+				e.preventDefault();
+				e.stopPropagation();
+			});
+			
+			$('.mail_backup').on('click', '#backup_task', function (e) {
+				$(".mail_backup_set").toggle();
+				if (!$(this).prop('checked') && _this.is_mail_backup) {
+					layer.confirm('确定关闭当前备份计划?', {
+						icon: 0,
+						title: '关闭备份',
+						closeBtn: 2,
+						btn: ['确定', '取消'],
+						yes: function (index) {
+							_this.close_backup_task(function (res) {
+								layer.close(index)
+								layer.msg(res.msg, {
+									icon: res.status ? 1 : 2
+								});
+								_this.is_mail_backup = false;
+							});
+						},
+						btn2: function (layers, index) {
+							$('#backup_task').prop('checked',true);
+							$('.mail_backup_set').show();
+						},
+						cancel: function (index) {
+							layer.close(index)
+							$('#backup_task').prop('checked',true);
+							$('.mail_backup_set').show();
+						},
+					});
+				}
+			});
+			
+			$('#mail_backup_list tbody').on('click', '.opt_backup', function (e) {
+				var opt = $(this).text()=='恢复'?'restore':'delete',
+				_path = $(this).parent().attr('data-path');
+				condent = opt=='restore'?'确定恢复当前邮件备份?':'确定删除当前邮件备份?',
+				_title = opt=='restore'?'恢复备份?':'删除备份?';
+				layer.confirm(condent, {
+					icon: 0,
+					title: _title,
+					closeBtn: 2,
+					btn: ['确定', '取消'],
+					yes: function (index) {
+						if (opt=='restore') {
+							_this.restore_backup_list(_path, function (res) {
+								layer.msg(res.msg, {
+									icon: res.status ? 1 : 2
+								});
+							});
+						} else {
+							_this.delete_backup_list(_path, function (res) {
+								layer.msg(res.msg, {
+									icon: res.status ? 1 : 2
+								});
+							});
+							_this.get_backup_list();
+						}
+					},
+				});
+			});
+			
+			$('.mail_backup_set').on('click', '.backup_save', function (e) {
+				var data = {};
+				data.type = $('.mail_backup_set #cycle').find("b").attr('val');
+				data.hour = $('.mail_backup_set .plan_hms [name="hour"]').val();
+				data.minute = $('.mail_backup_set .plan_hms [name="minute"]').val();
+				data.backupTo = $('.mail_backup_set [name="backupTo"]').find("b").attr('val');
+				data.save = $('.mail_backup_set .plan_hms [name="save"]').val();
+				if (data.type == 'week') data.week = $('.mail_backup_set #excode').find("b").attr('val');
+				_this.open_backup_task(data, function (res) {
+					layer.msg(res.msg, {
+						icon: res.status ? 1 : 2
+					});
+				});
+				e.preventDefault();
+				e.stopPropagation();
+			});
+			
+			$('.dropdown').on('click', 'ul li a', function () {
+				var txt = $(this).text();
+				var type = $(this).attr("value");
+				if (type == 'week') {
+					$("#ptime .planweek").show();
+				} else if (type == 'day') {
+					$("#ptime .planweek").hide();
+				}
+				$(this).parents(".dropdown").find("button b").text(txt).attr("val", type);
+			});
+		},
+		//生成服务列表
+		create_server_status_table:function(){
+		    var _this = this;
+	    	_this.get_service_status(function (res) {
+				for (var item in res) {
+					$('.' + item).html(res[item] ?
+						'<span style="color:#20a53a;">运行中</span><span style="color:#20a53a" class="glyphicon glyphicon-play"></span>'+((item == 'opendkim'&& res['change_rspamd'])?'&nbsp&nbsp&nbsp&nbsp<a href="javascript:;" class="btlink change_rspamd">切换Rspamd</a>':'')+'':
+						'<span style="color:red;">已停止</span><span style="color:red" class="glyphicon glyphicon-pause"></span>'
+					);
+					switch (item) {
+						case 'postfix':
+							$(!res[item] ? '.postfix_start' : '.postfix_stop').show();
+							$(res[item] ? '.postfix_start' : '.postfix_stop').hide();
+							break;
+						case 'dovecot':
+							$(!res[item] ? '.dovecot_start' : '.dovecot_stop').show();
+							$(res[item] ? '.dovecot_start' : '.dovecot_stop').hide();
+							break;
+						case 'opendkim':
+						     if(!res['change_rspamd']) $('.opendkim').parents('tr')['addClass']('hide').siblings()['removeClass']('hide')
+							$(!res[item] ? '.opendkim_start' : '.opendkim_stop')
+								.show();
+							$(res[item] ? '.opendkim_start' : '.opendkim_stop').hide();
+							$('.change_rspamd').click(function(){
+    						    _this.check_post_env('change_to_rspamd')
+    						})
+							break;
+						case 'rspamd':
+    					    if(res['change_rspamd']) $('.rspamd').parents('tr')['addClass']('hide').siblings()['removeClass']('hide')
+    						$(res[item] ? '.rspamd_start' : '.rspamd_stop').hide().siblings().show();
+    					    break;
+					}
+				}
+			});
+		},
+
+		service_admin: function (service, type) {
+			var msg = lan.bt[type];
+			var typeName = '',
+			repair_tips = '';
+			switch (type) {
+				case 'stop':
+					typeName = '停止';
+					break;
+				case 'restart':
+					typeName = '重启';
+					break;
+				case 'reload':
+					typeName = '重载';
+					break;
+				case 'repair':
+					typeName = '修复';
+					if (service=='postfix') {
+						repair_tips = '配置文件将被恢复为默认，以下配置将会失效：SSL，反垃圾，邮件秘抄，邮件中继，邮件转发，确认继续？';
+					} else if (service=='dovecot') {
+						repair_tips = '配置文件将被恢复为默认，以下配置将会失效：SSL，确认继续？';
+					} else {
+						repair_tips = '您真的要修复opendkim服务吗？';
+					}
+					break;
+			}
+			bt.confirm({
+				msg: repair_tips == ''?lan.get('service_confirm', [msg, service]) : repair_tips,
+				title: typeName + service + '服务'
+			}, function () {
+				mail.send({
+					tips: '正在' + typeName + service + '服务,请稍后...',
+					method: type=='repair'?'repair_service_conf':'service_admin',
+					data: {
+						service: service,
+						type: type
+					},
+					success: function (ress) {
+						mail.get_service_status(function (res) {
+							for (var item in res) {
+								$('.' + item).html(res[item] ?
+									'<span style="color:#20a53a;">运行中</span><span style="color:#20a53a" class="glyphicon glyphicon-play"></span>' :
+									'<span style="color:red;">已停止</span><span style="color:red" class="glyphicon glyphicon-pause"></span>'
+								);
+								switch (item) {
+									case 'postfix':
+										$(!res[item] ? '.postfix_start' :
+											'.postfix_stop').show();
+										$(res[item] ? '.postfix_start' :
+											'.postfix_stop').hide();
+										break;
+									case 'dovecot':
+										$(!res[item] ? '.dovecot_start' :
+											'.dovecot_stop').show();
+										$(res[item] ? '.dovecot_start' :
+											'.dovecot_stop').hide();
+										break;
+									case 'opendkim':
+										$(!res[item] ? '.opendkim_start' :
+											'.opendkim_stop').show();
+										$(res[item] ? '.opendkim_start' :
+											'.opendkim_stop').hide();
+										break;
+								}
+							}
+							layer.msg(ress.msg, {
+								icon: 1
+							});
+						});
+					}
+				});
+			})
+		},
+
+		//上传备份邮件
+		upload_files: function () {
+			var _this = this;
+			_this.get_backup_path(function(path){
+			    bt_upload_file.open(path, '.gz,.tar,.tar.gz,.zip', '请上传tar.gz压缩包', function () {
+    				_this.get_backup_list();
+    			});
+			})
+		},
+		//备份邮件操作
+		get_backup_list: function () {
+			var _this = this,
+			mail_list = '';
+			_this.get_backup_file_list({path:getCookie('backup_path')+'/path/'},function (rdata) {
+				for (var i = 0; i < rdata.length; i++) {
+					var mtime = rdata[i].mtime;
+					mtime = _this.format_data(parseInt(mtime)*1000),
+					_path = getCookie('backup_path')+'/path/'+rdata[i].name;
+					mail_list += '<tr>\
+						<td>'+rdata[i].name+'</td>\
+						<td>'+mtime+'</td>\
+						<td style="text-align:right" data-path="' + _path + '">\
+							<a class="btlink opt_backup" herf="javascrpit:;">恢复</a>\
+							| <a class="btlink opt_backup">删除</a>\
+						</td>\
+					</tr>'
+				}
+				$('#mail_backup_list tbody').html(mail_list);
+			});
+		},
+
+	    //检查邮局环境
+		check_post_env:function (name) {
+		    var _this = this;
+		    var layerE =  layer.open({
+	            type: 1,
+				closeBtn:2,
+				title:'检查邮局环境',
+				area: ['600px','575px'], //宽高
+				content:'\
+				<div class="pd20 mlr20 bt-mail-index" accept-charset="utf-8">\
+				    <div id="checkPostEnv"></div>\
+				    <ul class="help-info-text c7 mlr20">\
+                        <li>如果邮局环境异常，请先排除故障。 请在所有异常修复完成后执行下一步操作</li>\
+                    </ul>\
+				</div>\
+				<div class="bt-mail-btn">\
+				    <a class="layui-layer-btn0" data-index="0">提交</a>\
+				    <a class="layui-layer-btn2" data-index="2">刷新列表</a>\
+				    <a class="layui-layer-btn1" data-index="1">取消</a>\
+				</div>',
+				success:function(index){
+				    _this.create_post_env_table()
+				    $('.bt-mail-btn').unbind().on('click','a',function(){
+				        var _index = $(this).attr('data-index')
+				        switch (_index){
+				            case '0':
+				                if($('#checkPostEnv').find('.set_mail_key').length >0){
+				                    layer.msg('请修复好所有的异常再提交')
+				                }else{
+                				    switch (name){
+                        		        case 'setup_mail_sys':
+                        		            _this.setup_mail_sys({tips:'正在初始化邮局...'},function(res){
+                                                layer.close(layerE)
+                                                layer.msg(res.msg,{icon:res.status?1:2});
+                                                _this.create_domain_list();
+                        					});
+                        		            break;
+                        		        case 'change_to_rspamd':
+                        		            _this.change_to_rspamd(function(res){
+                        		                layer.close(layerE)
+                                                layer.msg(res.msg,{icon:res.status?1:2});
+                                                _this.create_server_status_table()
+                        		            })
+                        		            break;
+                        		    }
+				                }
+    				            break;
+				            case '1':
+				                name == 'change_to_rspamd'?layer.close(layerE):layer.closeAll();
+				                break;
+				            case '2':
+				               _this.create_post_env_table();
+				        }
+				    })
+				},
+				cancel:function(){
+				     name == 'change_to_rspamd'?layer.close(layerE):layer.closeAll()
+				}
+	        })
+		},
+		//创建邮局环境列表
+		create_post_env_table:function (callback){
+		    var _this = this;
+		    _this.check_mail_env(function(res){
+		        $('#checkPostEnv').empty()
+				$.each(_this.post_env_list,function(index,item){
+				    var list = [];
+				    var noOperList = ['Redis-install', 'Redis-Passwd', 'SElinux'];
+				    $.each(_this.post_env_list, function (index, item) {
+				        var data = res[item];
+                        list.push({
+    						env: item,
+                            title: _this.post_env_text[index],
+                            details: data.msg,
+                            status: data.status
+                        });
+                    });
+                    $('#checkPostEnv').empty();
+                     bt_tools.table({
+                        el: '#checkPostEnv',
+                        autoHeight: true,
+                        data: list,
+                        default: 'No Data',
+                        column: [
+                            {
+                                fid: 'title',
+                                title: '环境',
+                                width: 140
+                            },
+                            {
+                                fid: 'details',
+                                title: '详情',
+                                type: 'text',
+                                width: 260,
+                                template: function (row) {
+                                    var _html = '';
+                                    var	_cont = '';
+                                    var	_class = '';
+                                    var	msg = row.details;
+                                    var	status = row.status;
+                                    var	result = noOperList.includes(row.env);
+    
+                                    _class = status ? 'green' : 'set_mail_key red';
+                                    if (msg && result) {
+                                        _cont = status ? '就绪' : msg;
+                                    } else {
+                                        _cont = status ? '就绪' : (msg != '' ? msg : '异常');
+                                    }
+                                    _html = '<span class="size_ellipsis ' + _class + '" style="width: 240px;" title="' + _cont + '">' + _cont + '</span>';
+                                    return _html;
+                                }
+                            },
+                            {
+                                title: '操作',
+                                type: 'group',
+                                group: [
+                                    {
+                                        title: '修复',
+                                        template: function (row) {
+                                            var _html = '<span>无操作</span>';
+                                            var	msg = row.details;
+                                            var	status = row.status;
+                                            var result = noOperList.includes(row.env);
+                                            if (!result && !!msg && !status) {
+                                                _html = '修复';
+                                            }
+                                            return _html;
+                                        },
+                                        event: function (row, index, ev, key, that) {
+                                            var flag = $(ev.currentTarget).hasClass('btlink');
+                                            if (!flag) return;
+                                            var key = row.env;
+                                            if (key == 'HostName') {
+                                                _this.repair_host_name();
+                                            } else {
+                                                layer.confirm('是否修复邮局环境?', {
+                                                    title: '修复邮局环境',
+                                                    btn: [lan.public.submit, lan.public.cancel],
+                                                    closeBtn: 2
+                                                }, function () {
+                                                    _this.repair_mail_env(key);
+                                                });
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    });
+                    $('#checkPostEnv .divtable').removeClass('mtb10');
+                    callback && callback();
+				//     if(res[item].msg && ['Redis-install','Redis-Passwd','SElinux'].includes(item)){
+				//         $('#checkPostEnv').append($('<tr>\
+				// 			<td>'+_this.post_env_text[index] +'</td><td title="'+res[item].msg.toString()+'" class="'+(res[item].status?'green':'set_mail_key red')+'">'+(res[item].status?"就绪":(res[item].msg.toString().length>30?res[item].msg.toString().substring(0,30)+'...':res[item].msg.toString()))+'</td><td>无操作</td></tr>'))
+				//     }else{
+				//         $('#checkPostEnv').append($(`<tr>\
+				// 			<td>`+_this.post_env_text[index] +`</td><td title="`+res[item].msg+`" class="${(res[item].status?"green":"red")}">${(res[item].status?"就绪":(res[item].msg !=''?(res[item].msg.toString().length>30?res[item].msg.toString().substring(0,30)+'...':res[item].msg.toString()):"异常"))}</td><td>${(res[item].status?"无操作":"<a href='javascript:;' class='btlink set_mail_key' data-keys= "+ item+" >修复</a>")}</td></tr>`))
+				//     }
+
+				})
+		    })
+		  //  $('#checkPostEnv').unbind().on('click','a',function(){
+		  //      var key = $(this).attr('data-keys');
+		  //      var confirmA = layer.confirm('是否修复邮局环境?', {
+		  //          title: '修复邮局环境',
+		  //          icon: 3,
+		  //          closeBtn:2,
+		  //          btn: [lan.public.submit, lan.public.cancel],
+		  //      },function(index, layero){
+				//     _this.repair_mail_env(key);
+    //             });
+		  //  })
+		  //  if(callback) callback()
+		},
+		//修复邮局环境
+		repair_mail_env: function (key) {
+		    var _this = this,_key;
+		    switch(key) {
+		        case 'Postfix-Version':
+		        case 'Postfix-install':
+		        case 'Sqlite-support':
+                    _key = 'repair_postfix';
+                    break;
+		        case 'Rspamd-install':
+		            _key = 'install_rspamd';
+		            break;
+		        case 'Dovecot-install':
+	                _key = 'repair_dovecot';
+	                break;
+		    }
+		    
+		    this.send({
+				tips: '正在修复' + key + ',请稍候...',
+				method: _key,
+				success: function (res) {
+					layer.msg(res.msg, { icon: res.status?1:2 });
+					_this.create_post_env_table()
+				}
+			})
+		},
+        // 修复hostname
+        repair_host_name: function () {
+            var _this = this;
+            layer.open({
+                type: 1,
+                shift: 5,
+                closeBtn: 2,
+                shadeClose: false,
+                title: '修复【主机名】',
+                area: "400px",
+                content: '\
+				<div class="bt-form pd20 pb70">\
+					<div class="line">\
+						<span class="tname">域名</span>\
+						<div class="info-r" style="margin-left: 102px;">\
+							<input class="bt-input-text" type="text" name="hostname" style="width: 190px" />\
+						</div>\
+					</div>\
+					<ul class="help-info-text c7">\
+						<li>请输入你的完整域名，如：mail.bt.cn</li>\
+					</ul>\
+					<div class="bt-form-submit-btn">\
+						<button type="button" class="btn btn-danger btn-sm close_btn">' + lan.public.close + '</button>\
+						<button type="button" class="btn btn-success btn-sm submit_btn">' + lan.public.ok + '</button>\
+					</div>\
+				</div>',
+                success: function ($layer, index) {
+                    $layer.find('.bt-form-submit-btn .close_btn').click(function () {
+                        layer.close(index);
+                    });
+                    $layer.find('.bt-form-submit-btn .submit_btn').click(function () {
+                        var hostname = $('input[name="hostname"]').val().trim();
+                        if (hostname === '') {
+                            layer.msg('请输入你的完整域名', { icon: 2, closeBtn: true });
+                            return
+                        }
+                        _this.change_hostname({
+                            hostname: hostname
+                        }, function (res) {
+                            layer.close(index);
+                            _this.create_post_env_table();
+                            bt.msg(res);
+                        });
+                    });
+                }
+            });
+        },
+        // 生成初始化日志
+        render_mail_sys_logs: function (showFirst) {
+            var _this = this;
+            this.get_init_log(1, function (res) {
+                layer.open({
+                    type: 1,
+                    closeBtn: 2,
+                    shadeClose: false,
+                    title: '初始化日志',
+                    area: ['700px','490px'],
+                    content: '\
+					<div class="bt-form" style="height: 100%; overflow: hidden;">\
+						<pre class="logs_pre">当前没有日志</pre>\
+					</div>',
+                    cancel: function() {
+                        // 未更新成功就不给关闭日志
+                        return _this.is_mail_sys_success;
+                    },
+                    success: function($layer, index) {
+                        var _layer_this = this;
+                        this.render_logs(res);
+                        // 判断是否只获取一次
+                        if (!showFirst) {
+                            _this.set_mail_sys_logs(function (res) {
+                                _layer_this.render_logs(res);
+                            });
+                            this.setSuccessTimer(index);
+                        }
+                    },
+                    // 把日志放到pre
+                    render_logs: function (res) {
+                        var $logs = $('.logs_pre');
+                        var msg = res.msg ? res.msg : '当前没有日志';
+                        $logs.html(msg);
+                        if ($logs[0]) {
+                            $logs[0].scrollTop = $logs[0].scrollHeight;
+                        }
+                    },
+                    // 判断是否安装成功
+                    setSuccessTimer: function (index) {
+                        var timer = setInterval(function () {
+                            if (_this.is_mail_sys_success) {
+                                layer.close(index);
+                                _this.render_init_result();
+                                clearInterval(timer);
+                            }
+                        }, 1000);
+                    }
+                });
+            });
+        },
+        // 设置每秒刷新日志
+        set_mail_sys_logs: function (callback) {
+            var _this = this;
+            // 是否更新成功
+            this.is_mail_sys_success = false;
+            this.logs_timer = setInterval(function () {
+                _this.get_init_log(2, function (res) {
+                    callback && callback(res);
+                });
+            }, 1000);
+        },
+        // 清空每秒刷新日志
+        clear_mail_sys_logs: function () {
+            if (this.logs_timer) {
+                // 是否更新成功
+                this.is_mail_sys_success = true;
+                clearInterval(this.logs_timer);
+            }
+        },
+        // 生成初始化结果
+        render_init_result: function (callback) {
+            var _this = this;
+            this.check_init_result(function (res) {
+                var flag = false;
+                for (var key in res.service_status) {
+                    if (key == 'postfix' || key == 'dovecot' || key == 'rspamd') {
+                        if (!res.service_status[key]) {
+                            flag = true;
+                            break;
+                        }
+                    }
+                }
+                if (res.missing_file.length > 0 || flag) {
+                    var success_icon = '<span class="glyphicon glyphicon-ok" style="margin-right: 7px; color: #20a53a;"></span>';
+                    var error_icon = '<span class="glyphicon glyphicon-remove" style="margin-right: 7px; color: red;"></span>';
+                    layer.open({
+                        type: 1,
+                        closeBtn: 2,
+                        area: '500px',
+                        title: '初始化状态',
+                        content: '\
+						<div class="bt-form pd15" style="padding-top: 5px; padding-bottom: 55px;">\
+							<div id="init_file_table"></div>\
+							<div id="init_status_table"></div>\
+							<div class="bt-form-submit-btn">\
+								<button type="button" class="btn btn-success btn-sm logs_btn">日志</button>\
+								<button type="button" class="btn btn-danger btn-sm close_btn">' + lan.public.close + '</button>\
+							</div>\
+						</div>',
+                        success: function ($layer, index) {
+                            this.render_file(res.missing_file);
+                            this.render_status(res.service_status);
+                            var top = ($(window).height() - $layer.height()) / 2;
+                            $layer.css({
+                                top: top + 'px'
+                            });
+                            $layer.find('.close_btn').click(function () {
+                                layer.close(index);
+                            });
+                            $layer.find('.logs_btn').click(function () {
+                                _this.render_mail_sys_logs(true);
+                            });
+                        },
+                        render_file: function (files) {
+                            var list = [];
+                            var _layer_this = this;
+                            $.each(files, function (index, item) {
+                                list.push({
+                                    file: item
+                                });
+                            });
+                            $('#init_file_table').empty();
+                            bt_tools.table({
+                                el: '#init_file_table',
+                                data: list,
+                                default: '数据为空',
+                                column: [
+                                    {
+                                        fid: 'file',
+                                        title: '缺失的文件',
+                                        type: 'text',
+                                        template: function (row) {
+                                            var filename = row.file.split('|')[0];
+                                            return '<span title="' + filename + '">' + filename + '</span>';
+                                        }
+                                    },
+                                    {
+                                        fid: 'status',
+                                        title: '状态',
+                                        width: 100,
+                                        template: function (row) {
+                                            return error_icon;
+                                        }
+                                    },
+                                    {
+                                        fid: 'operation',
+                                        title: '操作',
+                                        type: 'group',
+                                        width: 100,
+                                        group: [
+                                            {
+                                                title: '修复',
+                                                event: function (row, index, ev, key, that) {
+                                                    layer.confirm('Whether to repair the mail server environment?', {
+                                                        title: 'Repair the environment',
+                                                        btn: [lan.public.submit, lan.public.cancel],
+                                                        closeBtn: 2
+                                                    }, function () {
+                                                        _this.download_file({
+                                                            filename: row.file
+                                                        }, function (res) {
+                                                            if (res.status) {
+                                                                _this.check_init_result(function (res) {
+                                                                    _layer_this.render_file(res.missing_file);
+                                                                });
+                                                            }
+                                                            bt.msg(res);
+                                                        });
+                                                    });
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            });
+                        },
+                        render_status: function (data) {
+                            var list = [];
+                            for (var key in data) {
+                                if (key == 'postfix' || key == 'dovecot' || key == 'rspamd') {
+                                    list.push({
+                                        name: key,
+                                        status: data[key]
+                                    });
+                                }
+                            }
+                            $('#init_status_table').empty();
+                            bt_tools.table({
+                                el: '#init_status_table',
+                                data: list,
+                                default: 'No Data',
+                                column: [
+                                    {
+                                        fid: 'name',
+                                        title: '服务'
+                                    },
+                                    {
+                                        fid: 'status',
+                                        title: '状态',
+                                        type: 'text',
+                                        width: 100,
+                                        template: function (row) {
+                                            var status = row.status;
+                                            var icon = status ? success_icon : error_icon;
+                                            return icon;
+                                        }
+                                    },
+                                    {
+                                        fid: 'operation',
+                                        title: '操作',
+                                        type: 'text',
+                                        width: 100,
+                                        template: function (row) {
+                                            var status = row.status;
+                                            var color = status ? '#20a53a' : 'red';
+                                            var text = status ? '运行' : '停止';
+                                            return '<span style="color: ' + color + '">' + text + '</span>';
+                                        }
+                                    }
+                                ]
+                            });
+                        }
+                    });
+                } else {
+                    layer.msg('初始化成功', { icon: 1 });
+                }
+            });
+        },
+		// 时间戳转换
+		format_data: function (tm, format) {
+			if (format == undefined) format = "yyyy/MM/dd hh:mm:ss";
+			tm = tm.toString();
+			if (tm.length > 10) {
+				tm = tm.substring(0, 10);
+			}
+			var data = new Date(parseInt(tm) * 1000);
+			var o = {
+				"M+": data.getMonth() + 1, //month
+				"d+": data.getDate(), //day
+				"h+": data.getHours(), //hour
+				"m+": data.getMinutes(), //minute
+				"s+": data.getSeconds(), //second
+				"q+": Math.floor((data.getMonth() + 3) / 3), //quarter
+				"S": data.getMilliseconds() //millisecond
+			}
+			if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
+				(data.getFullYear() + "").substr(4 - RegExp.$1.length));
+			for (var k in o)
+				if (new RegExp("(" + k + ")").test(format))
+					format = format.replace(RegExp.$1,
+						RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+			return format;
+		},
+		mail_forward: function (obj, callback) {
+			var _this = this;
+			_this.get_list(function (res) {
+				var cont = '';
+				for (var i = 0; i < res.length; i++) {
+					cont += '<tr>\
+								<td><span style="display:inline-block;max-width: 139px;overflow: hidden;margin: 0;text-overflow: ellipsis;">' +
+						res[i].address +
+						'</span></td>\
+								<td><span style="display:inline-block;max-width: 139px;overflow: hidden;margin: 0;text-overflow: ellipsis;" title="' +
+						res[i]
+						.goto + '">' + res[i].goto + '</span></td>\
+								<td><span style="display:inline-block;max-width: 79px;overflow: hidden;margin: 0;text-overflow: ellipsis;">' +
+						res[i].domain + '</span></td>\
+								<td>' + res[i].created + '</td>\
+								<td>' + res[i].modified + '</td>\
+								<td><div class="info-r c4">\
+									<input type="checkbox" id="forward_active' + i + '" ' + (res[i].active == 1 ? 'checked' : '') + ' name="active" class="btswitch btswitch-ios">\
+									<label for="forward_active' + i + '" class="btswitch-btn" style="width: 2.0em;height: 1.2em;margin-bottom: 0;"></label>\
+								</div></td>\
+								<td width="80" style="color: #666;"><a class="btlink edit_forward">编辑</a> | <a class="btlink del_forward">删除</a></td>\
+							</tr>'
+				}
+				$(".mail_forward_list").html(cont);
+			});
+		},
+		//邮件转发
+		set_forward: function (obj, callback) {
+			var _this = this;
+			layer.open({
+				type: 1,
+				title: '设置邮件转发',
+				area: '450px',
+				closeBtn: 2,
+				btn: [lan.public.submit, lan.public.cancel],
+				content: "<div class='bt-form pd20 forwardset'>\
+						<div class='line'>\
+							<span class='tname'>状态</span>\
+							<div class='info-r c4'>\
+								<input type='checkbox' id='forward_active' name='active' class='btswitch btswitch-ios' checked>\
+								<label for='forward_active' class='btswitch-btn'></label>\
+							</div>\
+						</div>\
+						<div class='line'>\
+							<span class='tname'>被转发用户</span>\
+							<div class='info-r c4'>\
+								<input class='bt-input-text mr5' type='text' name='user' placeholder='输入需要转发的邮箱' style='width:250px;' />\
+							</div>\
+						</div>\
+						<div class='line'>\
+							<span class='tname'>域名</span>\
+							<div class='info-r c4'>\
+								<input class='bt-input-text mr5' type='text' name='domain' placeholder='转发用户的域名' style='width:250px;' />\
+							</div>\
+						</div>\
+						<div class='line'>\
+							<span class='tname'>接收用户</span>\
+							<div class='info-r c4'>\
+								<textarea class='bt-input-text mr5' type='text' name='forward_user' placeholder='需要接受转发邮件的用户。如果有多个，请用换行符分隔它们。' style='width:250px;height: 110px;'></textarea>\
+							</div>\
+						</div>\
+					</div>",
+				yes: function (index, layers) {
+					var _data = {};
+					_data['user'] = $('[name="user"]').val();
+					_data['forward_user'] = $('[name="forward_user"]').val();
+					_data['domain'] = $('[name="domain"]').val();
+					_data['active'] = $('#forward_active').prop('checked') ? 1 : 0;
+					_this.set_mail_forward(_data, function (res) {
+						_this.mail_forward();
+						layer.close(index);
+						layer.msg(res.msg, {
+							icon: res.status ? 1 : 2
+						});
+					});
+				}
+			});
+		},
+		//编辑转发邮件
+		edit_forward: function (user, active, goto) {
+			var _this = this;
+			layer.open({
+				type: 1,
+				title: '编辑邮件转发',
+				area: '450px',
+				closeBtn: 2,
+				btn: [lan.public.submit, lan.public.cancel],
+				content: "<div class='bt-form pd20 forwardset'>\
+						<div class='line'>\
+							<span class='tname'>状态</span>\
+							<div class='info-r c4'>\
+								<input type='checkbox' id='forward_active' name='active' class='btswitch btswitch-ios' " + active + ">\
+								<label for='forward_active' class='btswitch-btn'></label>\
+							</div>\
+						</div>\
+						<div class='line'>\
+							<span class='tname'>被转发者</span>\
+							<div class='info-r c4'>\
+								<input class='bt-input-text mr5' type='text' name='user' value='" + user +
+					"' readonly style='width:250px;' />\
+							</div>\
+						</div>\
+						<div class='line'>\
+							<span class='tname'>转发到</span>\
+							<div class='info-r c4'>\
+								<textarea class='bt-input-text mr5' type='text' name='forward_user' placeholder='多个由换行符分隔' style='width:250px;height: 110px;'>" +
+					goto + "</textarea>\
+							</div>\
+						</div>\
+						<ul class='help-info-text c7'>\
+			            	<li>要转发的多个邮箱，用换行符分隔。</li>\
+			            </ul>\
+					</div>",
+				yes: function (index, layers) {
+					var _data = {};
+					_data['user'] = $('[name="user"]').val();
+					_data['forward_user'] = $('[name="forward_user"]').val();
+					_data['active'] = $('#forward_active').prop('checked') ? 1 : 0;
+					_this.edit_mail_forward(_data, function (res) {
+						_this.mail_forward();
+						layer.close(index);
+						layer.msg(res.msg, {
+							icon: res.status ? 1 : 2
+						});
+					});
+				}
+			});
+		},
+		//删除转发邮件
+		delete_forward: function (user) {
+			var _this = this;
+			layer.confirm('确认删除？', {
+				title: '删除邮件转发',
+				btn: [lan.public.submit, lan.public.cancel],
+				closeBtn: 2
+			}, function (index, layero) {
+				_this.delete_mail_forward(user, function (res) {
+					_this.mail_forward();
+					layer.msg(res.msg, {
+						icon: res.status ? 1 : 2
+					});
+				});
+			});
+		},
+
+		//获取smtp设置
+		get_smtp: function (obj, callback) {
+			var _this = this;
+			_this.get_smtp_status(function (res) {
+				var smtp_status = res.status;
+				$("#checksmtp").prop('checked', smtp_status);
+				$(".smtp").css('display', smtp_status ? 'block' : 'none');
+				if (smtp_status) {
+					$(".smtp input[name='smtp_username']").val(res.msg.user);
+					$(".smtp input[name='passwd']").val(res.msg.passwd);
+					$(".smtp input[name='port']").val(res.msg.port);
+					$(".smtp input[name='smtphost']").val(res.msg.host);
+				}
+			});
+		},
+
+		// 获取安装邮局服务
+		setup_mail_sys: function (obj, callback) {
+			this.send({
+				tips: obj.tips,
+				method: 'setup_mail_sys',
+				data: {
+					hostname: obj.hostname
+				},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 编辑邮箱用户视图
+		edit_mailboxs_view: function (type, obj) {
+			var _this = this;
+			if (obj == undefined) {
+				obj = {
+					is_admin: 0,
+					username: '',
+					password: '',
+					quota: 5368709120,
+					full_name: '',
+					department: '',
+					position: '',
+					phone: '',
+					sex: 0
+				}
+			}
+			var quota_size = (obj.quota / 1024 / 1024 / 1024) < 1 ? (obj.quota / 1024 / 1024) : (obj.quota / 1024 /
+				1024 / 1024);
+			var layerA = layer.open({
+				type: 1,
+				title: type ? '添加用户' : '编辑用户',
+				area: ['520px','450px'],
+				closeBtn: 2,
+				btn: [type ? '提交' : '保存', '取消'],
+				content: "<div id='tab_user' class='tab-body pd20'>\
+				    <div class='tab-nav mlr20' style='"+(type ?'':'display:none')+"'><span class='on'>添加用户</span><span class=''>批量添加</span></div>\
+        				<div class='tab-con'>\
+        				    <div class='tab-block on'>\
+            				    <div class='bt-form pd20'>\
+        						<div class='line'>\
+        							<span class='tname'>用户类型</span>\
+        							<div class='info-r c4'>\
+        								<select name='is_admin' class='bt-input-text'>\
+        									<option value='0' " + (obj.is_admin == 0 ? 'selected' : '') + ">普通用户</option>\
+        									<option value='1' " + (obj.is_admin == 1 ? 'selected' : '') + ">管理员</option>\
+        								</select>\
+        							</div>\
+        						</div>\
+        						<div class='line'>\
+        							<span class='tname'>姓名</span>\
+        							<div class='info-r c4'>\
+        								<input class='bt-input-text mr5' type='text' name='full_name' value='" + obj.full_name + "' placeholder='请输入用户姓名' style='width:250px;' />\
+        							</div>\
+        						</div>\
+        						<div class='line'>\
+        							<span class='tname'>邮箱地址</span>\
+        							<div class='info-r c4'>\
+        								<input class='bt-input-text mr5' type='text' name='username' " + (!type ? 'readonly' : '') +
+        					" placeholder='请输入邮箱地址' value='" + obj.username.split('@')[0] +
+        					"' placeholder='' style='width:180px' />@" + _this._domain_name + "\
+        							</div>\
+        						</div>\
+        						<div class='line'>\
+        							<span class='tname'>邮箱密码</span>\
+        							<div class='info-r c4'>\
+        								<input class='bt-input-text mr5' type='text' name='password' value='" + (obj.password || '') +
+        					"' placeholder='" + (!type ? "为空则不修改密码" : "请输入邮箱密码") + "' style='width:250px;' />\
+        							</div>\
+        						</div>\
+        						<div class='line'>\
+        							<span class='tname'>邮箱容量</span>\
+        							<div class='info-r c4'>\
+        								<input class='bt-input-text mr5' type='text' name='quota' value='" + quota_size + "' placeholder='请输入邮箱容量' style='width:101px;' />\
+        								<select name='quota_size' class='bt-input-text'>\
+        									<option value=' GB' " + (obj.quota / 1024 / 1024 / 1024 >= 1 ? 'selected' : '') + ">GB</option>\
+        									<option value=' MB' " + (obj.quota / 1024 / 1024 / 1024 < 1 ? 'selected' : '') + ">MB</option>\
+        								</select>\
+        							</div>\
+        						</div>\
+        					</div>\
+    					</div>\
+    				    <div class='tab-block'>\
+    				    	<div class='bt-form '>\
+        				        <div class='line'><textarea class='bt-input-text' style='width:430px;height:185px;line-height:22px;font-size:13px;' name='user_textarea'>名称|地址|密码|空间|单位\n名称|地址|密码|空间|单位</textarea>\
+        				        </div>\
+        				        <div class='line'>\
+        				            <ul class='help-info-text c7 none-list-style' style='margin-top:0;'>\
+        				                <li>格式: 名称|地址|密码|空间|单位</li>\
+        				                <li>例子: support|support@example.com.com|Password|5|GB</li>\
+        				            </ul>\
+        				        </div>\
+        				    </div>\
+    				    </div>\
+    				</div>\
+				</div>",
+				success: function(index, layers){
+				    $('.tab-nav span').on('click',function(e){
+				        var _index = $(this).index()
+				        $(this).addClass('on').siblings().removeClass('on')
+				        $('.tab-con .tab-block').eq(_index).addClass('on').siblings().removeClass('on')
+				    })
+				},
+				yes: function (index, layers) {
+					var array = [
+							['username', '邮箱地址不能为空!'],
+							['quota', '邮箱容量不能为空！'],
+							['full_name', '用户姓名不能为空！']
+						],
+						_index = $('#tab_user .tab-nav .on').index()
+						_form = {}, form_list = [],
+						tel_reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/,
+						paw_reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/
+				    if(_index == 0){
+    					for (var i = 0; i < array.length; i++) {
+    						if ($('[name="' + array[i][0] + '"]').val() == '') {
+    							layer.msg(array[i][1], {
+    								icon: 2
+    							});
+    							return false;
+    						} else if (array[i][0] == 'phone' && !tel_reg.test($('[name="' + array[i][0] +
+    								'"]').val())) {
+    							layer.msg('成员手机号码格式错误，请重试！', {
+    								icon: 2
+    							});
+    							return false;
+    						}
+    						_form[array[i][0]] = $('[name="' + array[i][0] + '"]').val();
+    					}
+    					_form['quota'] = _form['quota'] + $('[name="quota_size"]').val();
+    					_form['sex'] = $('[name="sex"]:checked').val();
+    					_form['is_admin'] = $('[name="is_admin"]').val();
+    					_form['password'] = $('[name="password"]').val();
+    					_form['username'] = $('[name="username"]').val() + '@' + _this._domain_name;
+				    }else{
+				        var user_textarea = $('[name="user_textarea"]').val(),_list = user_textarea.split('\n');
+				        $.each(_list,function(i,item){
+				            form_list.push(item)
+				        })
+				    }
+					if (type) {
+					    if(_index == 0){
+    						if (_form['password'].length < 8) {
+    							layer.msg('当前邮箱用户密码长度小于8位,请重新输入', {
+    								icon: 0
+    							});
+    							return false;
+    						} else if (!paw_reg.test(_form['password'])) {
+    							layer.msg('当前邮箱用户密码至少要包含大小写字母和数字，请重新输入', {
+    								icon: 0
+    							});
+    							return false;
+    						}
+    						_this.add_mailboxs(_form, function (res) {
+    							_this.create_mailboxs_list({
+    								domain: _this._domain_name
+    							}, function () {
+    								if (res.status) _this.is_update = true;
+    								layer.msg(res.msg, {
+    									icon: 1
+    								});
+    								layer.close(index);
+    							});
+    						});
+					    }else{
+					         var flag = false,name_list = [];
+						    $.each(form_list,function(index,item){
+                                var arr = item.split('|');name_list.push(arr[1])
+    				            if(arr.length<5){
+    				                layer.msg('第 '+ (index+1) +' 行的数据错误,请认真填写')
+    				                flag = true;
+    				                return false;
+    				            }
+    				           	if(arr[2].length <8){
+        							layer.msg('第 '+ (index+1) +' 行的密码小于8位数，请重新填写',{icon:0});
+        							flag = true;
+        							return false;
+        						}else if(!paw_reg.test(arr[2])){
+        							layer.msg('第 '+ (index+1) +' 行的密码必须至少包含大写字母和小写字母和数字，请重新填写',{icon:0});
+        							 flag = true;
+        							return false;
+        						}
+						    })
+						    if(flag) return false;
+					        _this.add_mailbox_multiple(form_list, function (res) {
+	                             if(res.status) _this.is_update = true;
+	                            layer.msg(res.msg,{icon:res.status?1:2});
+	                            layer.close(layerA);
+	                            _this.create_success_table(res,name_list)
+	                            _this.create_mailboxs_list({ domain: _this._domain_name});
+    						});
+						}
+					} else {
+						_form['active'] = obj.active;
+						_this.updatae_mailboxs(_form, function (res) {
+							_this.create_mailboxs_list({
+								domain: _this._domain_name
+							}, function () {
+								layer.msg(res.msg, {
+									icon: 1
+								});
+								layer.close(index);
+							});
+						});
+					}
+				}
+			});
+		},
+
+		//创建成功列表
+        create_success_table:function(res,name){
+            var _this = this;
+            layer.open({
+				type: 1,
+				title: '批量添加列表',
+				area: '450px',
+				closeBtn: 2,
+				content: "<div class='divtable pd20'>\
+				        <table class='table table-hover'>\
+							<thead><tr><th>Address</th><th>Details</th></tr></thead>\
+							<tbody id='success_table_body'></tbody>\
+						</table>\
+					</div>",
+				success: function (index, layers) {
+				    $.each(name,function(index,item){
+				        $('#success_table_body').append('<tr><td>'+item+'</td><td title="'+(res.error[item]?res.error[item]:'')+'" class="'+(res.success[item]?'green':'red')+'">'+(res.success[item]?'添加成功':(res.error[item].length>15?res.error[item].substring(0,15)+'...':res.error[item]))+'</td></tr>')
+				    })
+				}
+			});
+        },
+
+		// 设置解析邮箱-方法
+		set_analysis_mail: function (dkim_value, dmarc_value, domain, hostname) {
+			var _this = this;
+			layer.open({
+				type: 1,
+				title: '【' + domain + '】添加记录值',
+				area: '750px;',
+				closeBtn: 2,
+				content: "<div class='bt-body divtable pd20'>\
+					<div class='bt_tips'>第一步:添加MX记录</div>\
+					<div class='bt_conter'>\
+						<div class='bt_vice_tips'>登录域名服务商，添加记录类型为MX的记录，用于邮箱服务(解析MX记录之前要先解析A记录)</div>\
+						<div class='bt_vice_conter'>\
+							<table class='table table-hover'>\
+								<thead><tr><th>记录类型</th><th>主机记录</th><th>记录值</th><th>MX优先级</th></tr></thead>\
+								<tbody>\
+								  <tr><td>MX</td><td>@</td><td>" + hostname +
+					"</td><td>10</td></tr>\
+								</tbody>\
+							</table>\
+						</div>\
+					</div>\
+					<div class='bt_tips'>第二步:添加TXT记录</div>\
+					<div class='bt_conter'>\
+						<div class='bt_vice_tips'>添加记录类型为TXT的记录，用于邮箱反垃圾(请直接复制下列参数)</div>\
+						<div class='bt_vice_conter'>\
+							<table class='table table-hover'>\
+								<thead><tr><th>记录类型</th><th>主机记录</th><th>记录值</th></tr></thead>\
+								<tbody>\
+                                  <tr><td>TXT</td><td>@</td><td>v=spf1 a mx ~all&nbsp;<a href='javascript:;' class='btlink btn_copy' data-clipboard-text='v=spf1 a mx ~all'>( 复制 )</a>&nbsp;</td></tr>\
+                                  <tr><td>TXT</td><td>default._domainkey</td><td><span style='width:150px;word-break:break-all;'>" +
+					dkim_value +
+					"</span>&nbsp;<a href='javascript:;' class='btlink btn_copy' data-clipboard-text='" +
+					dkim_value + "'>( 复制 )</a>&nbsp;</td></tr>\
+                                  <tr><td>TXT</td><td>_dmarc</td><td>" + dmarc_value +
+					"&nbsp;<a href='javascript:;' class='btlink btn_copy' data-clipboard-text='" +
+					dmarc_value + "'>( 复制 )</a>&nbsp;</td></tr>\
+								</tbody>\
+							</table>\
+						</div>\
+					</div>\
+					<div class='bt_center'><button class='btn btn-success btn-sm btn_set_analysis'>已设置，验证域名解析</button></div>\
+				</div>",
+				success: function (layers, index) {
+					var copyBtn = new ClipboardJS('.btn_copy');
+					copyBtn.on("success", function (e) {
+						layer.msg('复制成功！', {
+							icon: 1
+						})
+						e.clearSelection();
+					});
+					copyBtn.on("error", function (e) {
+						layer.msg('复制失败，请手动复制文本！', {
+							icon: 2
+						})
+					});
+					$('.btn_set_analysis').click(function () {
+						_this.delete_mx_txt_cache({
+							domain: domain
+						}, function (res) {
+							_this.create_domain_list();
+							layer.close(index);
+						});
+					});
+				}
+			});
+		},
+
+		// 编辑添加邮箱用户视图-方法
+		edit_domain_view: function (type, obj) {
+			var _this = this;
+			if (obj == undefined) {
+				obj = {
+					domain: '',
+					company_name: '',
+					admin_name: '',
+					admin_phone: ''
+				}
+			}
+			layer.open({
+				type: 1,
+				title: type ? '添加邮箱域名' : '编辑邮箱域名',
+				area: '500px',
+				closeBtn: 2,
+				btn: [type ? '提交' : '保存', '取消'],
+				content: "<div class='bt-form pd20'>\
+					<div class='line'>\
+						<span class='tname'>邮箱域名</span>\
+						<div class='info-r c4'>\
+							<input class='bt-input-text mr5' type='text' name='domain'  " + (!type ? "readonly='readonly'" : "") +
+					"	 value='" + obj.domain + "' placeholder='请输入域名，例如btmail.cn' style='width:320px;' />\
+						</div>\
+					</div>\
+					<div class='line'>\
+						<span class='tname'>A记录</span>\
+						<div class='info-r c4'>\
+							<input class='bt-input-text mr5' type='text' name='a_record'  " + (!type ? "readonly='readonly'" : "") +
+					"	 value='" + obj.domain + "' placeholder='请输入A记录,例如:btmail.btmail.cn' style='width:320px;' />\
+						</div>\
+					</div>\
+					<div class='line'>\
+						<ul class='help-info-text c7 mlr20' style='margin-top: 0px'>\
+							<li style='color: red;'>当前邮箱域名仅支持一级域名</li>\
+							<li>A记录解析参数[主机记录：mail或其他字符]、[记录值：当前服务器IP]</li>\
+							<li>A记录需要解析当前域名A记录，A记录=主机记录值+当前域名</li>\
+						</ul>\
+					</div>\
+				</div>",
+				yes: function (index, layers) {
+					var array = [
+							['domain', '邮箱域名不能为空！', 'a_record', 'A记录值不能为空!']
+						],
+						_form = {},
+						tel_reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+					for (var i = 0; i < array.length; i++) {
+						if ($('[name="' + array[i][0] + '"]').val() == '') {
+							layer.msg(array[i][1], {
+								icon: 2
+							});
+							return false;
+						} else if (array[i][0] == 'admin_phone' && !tel_reg.test($('[name="' + array[i]
+								[0] + '"]').val())) {
+							layer.msg('管理手机号码格式错误，请重试！', {
+								icon: 2
+							});
+							return false;
+						}
+						_form[array[i][0]] = $('[name="' + array[i][0] + '"]').val();
+						_form[array[i][2]] = $('[name="' + array[i][2] + '"]').val();
+					}
+					if (type) {
+						_this.add_domain(_form, function (res) {
+							_this.create_domain_list({
+								page: 1,
+								size: 10
+							}, function (res) {
+								var rdata = res.msg.data,
+									hostname = rdata;
+								for (var i = 0; i < rdata.length; i++) {
+									if (rdata[i].domain == _form['domain']) hostname =
+										rdata[i]['domain']
+								}
+								layer.close(index);
+							});
+						});
+					} else {
+						_form['active'] = obj.active;
+						_this.update_domain(_form, function (res) {
+							_this.create_domain_list({
+								page: 1,
+								size: 10
+							}, function (res) {
+								layer.msg(res.msg, {
+									icon: 1
+								});
+								layer.close(index);
+							});
+						});
+					}
+				}
+			})
+		},
+
+
+		// 添加ssl证书
+		open_certificate_view: function (status,site,sslInfo,index) {
+			var _this = this;
+			var key = status?_this.domain_list[index].ssl_info.key:'',
+			csr = status?_this.domain_list[index].ssl_info.src:'';
+			var layerE = layer.open({
+				type: 1,
+				title: status=='true'?'编辑证书':'添加证书',
+			    area: ['650px','670px'],
+				closeBtn: 2,
+				content: "<div id='webedit-con' class='pd15'>\
+					    <div id='ssl_tabs' class='tab-nav tab-nav-ssl'><span class='"+(status?'':'on')+"'>Let's Encrypt</span><span class='"+(status?'on':'')+"'>其他证书</span></div>\
+					    	<div class='tab-con' style='margin:0;padding:10px 0px'>\
+					    	   <div class='tab-block tab-block-mail "+(status?'':'on')+"'>\
+					    	    <div class='line'>\
+					    	        <span class='tname'>验证方式</span>\
+					    	        <div class='info-r label-input-group ptb10'>\
+    					    	        <input type='radio' class='check_dns' id='check_dns' name='check_dns' checked><label class='mr20' for='check_dns' style='font-weight:normal'>DNS验证</label></div>\
+    					    	        <div class='line'>\
+        					    	        <span class='tname'>设置DNS密钥</span><div class='info-r checks_line '>\
+        					    	        <select class='bt-input-text mr5 dns_select' name='dns_select' style='width:auto'>\
+            					    	        <option value='dns'>手动解析</option>\
+            					    	        <option value='CloudFlareDns'>CloudFlare</option>\
+            					    	        <option value='CloudxnsDns'>CloudXns</option>\
+        					    	        </select>\
+    					    	        </div>\
+					    	        </div>\
+					    	        </div>\
+					    	        <div class='line mtb10'>\
+    					    	        <span class='tname text-center'>域名</span>\
+    					    	        <ul id='ymlist' class='domain-ul-list'></ul>\
+					    	        </div>\
+					    	        <div class='line '>\
+					    	            <div class='info-r '>\
+					    	                <button name='letsApply' class='btn btn-success btn-sm mr5 ml5 letsApply'>申请</button>\
+					    	            </div>\
+					    	        </div>\
+					    	        <ul class='help-info-text c7' ><li>在DNS验证中，我们提供了三个自动化的DNS API，并提供了手动模式  </li><li>证书可以通过DNSAPI自动更新，手动方式下，证书到期后需要重新申请</li><li>在使用[apanel DNS Cloud Resolution] API之前，需要确认申请SSL证书的域DNS为[Cloud Resolution]。</li><li>使用[dnspd /阿里云DNS] API之前，需要在弹出窗口中设置对应接口的API密钥 </li></ul>\
+        						</div>\
+    					        <div class='tab-block tab-block-mail "+(status?'on':'')+"'>\
+            					    <div style='margin: 10px 0px;padding: 10px;' class='alert alert-success'>\
+            					        <span style='display: inline-block;overflow: hidden;min-width: 60%;text-overflow: ellipsis;white-space: nowrap;max-width: 100%;'><b>品牌: </b>(STAGING) Let's Encrypt</span>\
+            					       <span class='domain_name_list' style='display:inline-block;max-width: 100%;min-width: 60%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap; '><b>域名: </b>"+(status?sslInfo.toString():'none')+"</span>\
+            					    </div>\
+        							<div>\
+        								<div>\
+        									<span style='padding-left: 5px;'>密钥(KEY)</span>\
+        									<span style='padding-left:250px'>证书(CRT/PEM)</span>\
+        								</div>\
+        							</div>\
+        							<div class='line'> \
+        								<div class='ml0'> \
+        									<textarea class='bt-input-text key' name='key' style='width:47%;height:220px;line-height:22px;margin-right:15px'>"+ key +"</textarea> \
+        									<textarea class='bt-input-text csr' name='csr' style='width:47%;height:220px;line-height:22px'>"+ csr +"</textarea> \
+        								</div>\
+        							</div>\
+        							<div class='line'><button name='btn_ssl_save' class='btn btn-success btn-sm mr5 ml5 btn_ssl_save'>保存</button><button name='btn_ssl_delete' class='btn btn-success btn-sm mr5 ml5 btn_ssl_delete'>删除</button></div>\
+        							<ul class='help-info-text c7' style='margin-top: 0px;'><li>粘贴您的KEY和CRT内容，然后点击保存</li><li>如果浏览器提示证书链不完整，请检查PEM证书是否拼接正确。</li><li>PEM格式证书=域名证书+根证书</li><li>当您没有指定SSL默认站点时，如果您使用HTTPS访问未启用SSL的站点，则将直接访问启用SSL的站点</li></ul>\
+    						</div>\
+    					</div>\
+					</div>",
+				success: function(layers){
+					$.post('/site?action=GetDnsApi',function(res){
+		                _this.dnsApi = res
+		            })
+					$('.tab-nav-ssl span').unbind().on('click',function(e){
+				        var _index = $(this).index()
+				        $(this).addClass('on').siblings().removeClass('on')
+				        $('.tab-con .tab-block').eq(_index).addClass('on').siblings().removeClass('on')
+				        if(_index == 0){
+				            $.post('/site?action=GetDnsApi',function(res){
+				                _this.dnsApi = res
+				            })
+				        }
+				    })
+				    if(sslInfo){
+				        if(sslInfo.length == 1){
+				            $('#ymlist').html('<li style="cursor: pointer;"><input class="checkbox-text" type="checkbox" value="'+sslInfo[0]+'">'+sslInfo[0]+'</li>')
+				        }else{
+				            $('#ymlist').append('<div style="line-height: 25px;"><label style="margin-bottom: 0;height: 25px;line-height: 25px;"><input class="checkbox-text" type="checkbox" style="margin: 0 5px 0 0;vertical-align: middle;"><span style="font-weight: 500;cursor: pointer;">Select All</span></label></div>')
+				            $.each(sslInfo,function(index,item){
+				                $('#ymlist').append('<li style="cursor: pointer;"><input class="checkbox-text" type="checkbox" value="'+item+'">'+item+'</li>')
+				            })
+				        }
+				    }else{
+				        $('#ymlist').html('<li style="cursor: pointer;">没有可以申请的域名</li>')
+				    }
+				    $('#ymlist').on('click','li,li input',function(e){
+				        var _that = $(this).is('input')?$(this):($(this).children('input'));
+				        var checked = _that.prop('checked');
+				        if(!checked){
+				            _that.prop('checked','checked');
+				        }else{
+				            _that.prop('checked',false);
+				        }
+				    })
+				    $('#ymlist').on('click','div label ,div label input',function(e){
+				        var _that = $(this).is('input')?$(this):($(this).children('input'));
+				        var checked = _that.prop('checked');
+				        if(checked){
+				            $('#ymlist').find('li input').prop('checked','checked');
+				        }else{
+				            $('#ymlist').find('li input').prop('checked',false);
+				        }
+				    })
+				    $('.dns_select').on('change',function(res){
+				        var value = $(this).val(),dnsApi = _this.dnsApi;
+				        switch(value){
+							case 'dns':
+							    $('.set_dns_config').remove()
+								break;
+							case 'CloudFlareDns':
+							case 'CloudxnsDns':
+							    var data = value == 'CloudFlareDns'? dnsApi[4].data:dnsApi[1].data
+							    if(data[0].value == "" || data[1].value == ""){
+							        $('.set_dns_config').remove()
+							        _this.create_cloudFlares(value == 'CloudFlareDns'? dnsApi[4]:dnsApi[1])
+							    }else{
+							        $('.checks_line').append('<button class="btn btn-default btn-sm mr5 set_dns_config">设置</button>')
+							    }
+								break;
+				        }
+				    })
+				    $('#webedit-con').on('click','.set_dns_config',function(e){
+				        var data = $('.dns_select').val() == 'CloudFlareDns'?_this.dnsApi[4]:_this.dnsApi[1]
+				        _this.create_cloudFlares(data)
+				    });
+				      $('#webedit-con').on('click','.letsApply',function(e){
+				        var domains = [];
+				        $('#ymlist').find('li input').each(function(){
+				            if($(this).prop('checked'))  domains.push($(this).val())
+				        })
+				        if(domains.length == 0) return layer.msg('请选择域名!',{icon:2});
+				        var auth_to = $('.dns_select').val()
+				        switch(auth_to){
+							case 'dns':
+								break;
+							case 'CloudFlareDns':
+							case 'CloudxnsDns':
+							    var data = auth_to == 'CloudFlareDns'? _this.dnsApi[1].data:_this.dnsApi[2].data
+							    $.each(data,function(index,item){
+							        if(item.value == '') {
+							            layer.msg('指定dns接口没有配置关键信息  ')
+							            return false
+							        }
+							        auth_to += '|'+item.value;
+							    })
+								break;
+				        }
+				        _this.apply_cert({domains:JSON.stringify(domains),auth_to:auth_to},function(res){
+				            if(res.status){
+				                _this.ssl_result(res, auth_to, site)
+				            }
+				        })
+   			        })
+   			        $('#webedit-con').on('click','.btn_ssl_save',function(e){
+   			            var keyValue = $('.key').val();
+						var csrValue = $('.csr').val();
+						if(keyValue == '' || csrValue == ''){
+							layer.msg('证书不能为空',{icon:2});
+						}else{
+							_this.set_mail_certificate_multiple({domain:site,csr:csrValue,key:keyValue,act:'add'},function(res){
+								_this.create_domain_list();
+								layer.close(layerE);
+								layer.msg(res.msg,{icon:res.status?1:2});
+							})
+						}
+   			        })
+   			        $('#webedit-con').on('click','.btn_ssl_delete',function(e){
+   			            var keyValue = $('.key').val();
+						var csrValue = $('.csr').val();
+						layer.confirm('是否删除部署的ssl证书?', {icon: 0,closeBtn: 2, title:'是否删除?',
+							yes: function(layero){
+								_this.set_mail_certificate_multiple({domain:site,csr:csrValue,key:keyValue,act:'delete'},function(res){
+								    $('.key').val("");$('.csr').val("")
+									_this.create_domain_list();
+									layer.close(layerE);
+									layer.msg(res.msg,{icon:res.status?1:2});
+								})
+							},
+							btn2:function(layero){
+								layer.close(layero);
+							},
+							cancel: function(layero){
+								layer.close(layero);
+							}
+						});
+   			        })
+				},
+				cancel:function(){
+				    _this.create_domain_list()
+				}
+			})
+		},
+		//ssl证书展示列表
+		ssl_result:function(res, auth_type, siteName){
+		    var _this = this;
+            if (res.status === false && typeof(res.msg) === 'string') {
+                bt.msg(res);
+                return;
+            }
+            if (res.status === true || res.status === 'pending' || res.save_path !== undefined) {
+                if (auth_type == 'dns' && res.status === 'pending') {
+                    var b_load = bt.open({
+                        type: 1,
+                        area: '700px',
+                        title: '手动解析TXT记录',
+                        closeBtn: 2,
+                        shift: 5,
+                        shadeClose: false,
+                        content: "<div class='divtable pd15 div_txt_jx'>\
+                                    <p class='mb15' >请按照以下列表进行TXT分析:</p>\
+                                    <table id='dns_txt_jx' class='table table-hover'></table>\
+                                    <div class='text-right mt10'>\
+                                        <button class='btn btn-success btn-sm btn_check_txt' >验证</button>\
+                                    </div>\
+                                    </div>"
+                    });
+
+                    //手动验证事件
+                    $('.btn_check_txt').click(function() {
+                        acme.auth_domain(res.index, function(res1) {
+                            layer.close(acme.loadT);
+                            if (res1.status === true) {
+                                b_load.close()
+                                _this.set_cert(siteName, res1)
+                            } else {
+                                _this.show_error(res1, auth_type);
+                            }
+                        })
+                    });
+
+                    //显示手动验证信息
+                    setTimeout(function() {
+                        var data = [];
+                        acme_txt = '_acme-challenge.'
+                        for (var j = 0; j < res.auths.length; j++) {
+                            data.push({
+                                name: acme_txt + res.auths[j].domain.replace('*.', ''),
+                                type: "TXT",
+                                txt: res.auths[j].auth_value,
+                                force: "是"
+                            });
+                            data.push({
+                                name: res.auths[j].domain.replace('*.', ''),
+                                type: "CAA",
+                                txt: '0 issue "letsencrypt.org"',
+                                force: "否"
+                            });
+                        }
+                        bt.render({
+                            table: '#dns_txt_jx',
+                            columns: [
+                                { field: 'name', width: '220px', title: '解决域名' },
+                                { field: 'txt', title: '记录值' },
+                                { field: 'type', title: '类型' },
+                                { field: 'force', title: '必须' }
+                            ],
+                            data: data
+                        })
+                        $('.div_txt_jx').append(bt.render_help([
+                            '解析域名需要一定时间来生效,完成所以上所有解析操作后,请等待1分钟后再点击验证按钮',
+                            '可通过CMD命令来手动验证域名解析是否生效:' + acme_txt + res.auths[0].domain.replace('*.', ''),
+                            '若您使用的是宝塔云解析插件,阿里云DNS,DnsPod作为DNS,可使用DNS接口自动解析'
+                        ]));
+                    });
+                    return;
+                }
+                _this.set_cert(siteName, res)
+                return;
+            }
+
+           _this.show_error(res, auth_type);
+		},
+		set_cert: function(siteName, res) {
+		    var _this = this;
+            var loadT = bt.load(lan.site.saving_txt);
+            var pdata = {
+                act: "add",
+                domain: siteName,
+                key: res.private_key,
+                csr: res.cert + res.root
+            }
+            _this.set_mail_certificate_multiple(pdata, function(rdata) {
+                loadT.close();
+                layer.msg(res.msg, { icon: 1 });
+                if(res.status){
+                    $('.key').val(res.private_key);
+				    $('.csr').val(res.cert);
+				    $('.tab-nav span').eq(1).addClass('on').siblings().removeClass('on')
+				    $('.tab-con .tab-block').eq(1).addClass('on').siblings().removeClass('on')
+				    $('.domain_name_list').html('<b>域名:</b>'+siteName)
+                }
+            })
+        },
+        //展示证书错误信息
+        show_error: function(res, auth_type) {
+            var _this = this;
+            var area_size = '500px';
+            var err_info = "";
+            if (res.msg[1].challenges === undefined) {
+                err_info += "<p><span>响应状态:</span>" + res.msg[1].status + "</p>"
+                err_info += "<p><span>错误类型:</span>" + res.msg[1].type + "</p>"
+                err_info += "<p><span>错误详情:</span>" + res.msg[1].detail + "</p>"
+            } else {
+                if (!res.msg[1].challenges[1]) {
+                    if (res.msg[1].challenges[0]) {
+                        res.msg[1].challenges[1] = res.msg[1].challenges[0]
+                    }
+                }
+                if (res.msg[1].status === 'invalid') {
+                    area_size = '600px';
+                    var trs = $("#dns_txt_jx tbody tr");
+                    var dns_value = "";
+
+                    for (var imd = 0; imd < trs.length; imd++) {
+                        if (trs[imd].outerText.indexOf(res.msg[1].identifier.value) == -1) continue;
+                        var s_tmp = trs[imd].outerText.split("\t")
+                        if (s_tmp.length > 1) {
+                            dns_value = s_tmp[1]
+                            break;
+                        }
+                    }
+
+                    err_info += "<p><span>Verify domain name:</span>" + res.msg[1].identifier.value + "</p>"
+                    if (auth_type === 'dns') {
+                        var check_url = "_acme-challenge." + res.msg[1].identifier.value
+                        err_info += "<p><span>验证记录:</span>" + check_url + "</p>"
+                        err_info += "<p><span>验证信息:</span>" + dns_value + "</p>"
+                        err_info += "<p><span>错误码:</span>" + _this.html_encode(res.msg[1].challenges[1].error.detail) + "</p>"
+                    } else {
+                        var check_url = "http://" + res.msg[1].identifier.value + '/.well-known/acme-challenge/' + res.msg[1].challenges[0].token
+                        err_info += "<p><span>验证域名:</span><a class='btlink' href='" + check_url + "' target='_blank'>Click to view</a></p>"
+                        err_info += "<p><span>验证信息:</span>" + res.msg[1].challenges[0].token + "</p>"
+                        err_info += "<p><span>错误码:</span>" + _this.html_encode(res.msg[1].challenges[0].error.detail) + "</p>"
+                    }
+                    err_info += "<p><span>验证结果:</span> <a style='color:red;'>验证失败</a></p>"
+                }
+            }
+
+            layer.msg('<div class="ssl-file-error"><a style="color: red;font-weight: 900;">' + res.msg[0] + '</a>' + err_info + '</div>', {
+                icon: 2,
+                time: 0,
+                shade: 0.3,
+                shadeClose: true,
+                area: area_size
+            });
+        },
+        //格式字符串
+        html_encode: function(html) {
+            var temp = document.createElement("div");
+            //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+            (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html);
+            //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+            var output = temp.innerHTML;
+            temp = null;
+            return output;
+        },
+		//创建CloudFlareDns窗口
+		create_cloudFlares:function(obj){
+		    var _this = this;
+		    var form  = '';
+		    $.each(obj.data,function(index,item){
+		        form += '<div class="line "><span class="tname">'+item.name+'</span><div class="info-r "><input name="'+item.key+'" class="bt-input-text mr5" type="text" style="width:330px" value="'+item.value+'"></div></div>'
+		    })
+		    if(obj.name == 'CloudFlareDns') form += '<div class="line"><span class="tname">API-Limit</span><div class="info-r c4"><div class="index-item" style="padding-top:7px"><input class="btswitch btswitch-ios" name="API_Limit" id="API_Limit" type="checkbox" '+(obj.API_Limit?'checked':'')+'><label class="btswitch-btn" for="API_Limit"></label></div></div></div>';
+		    if(obj.help&&obj.name == 'CloudFlareDns'){
+		        form += '<ul class="help-info-text c7"><li><a class="btlink" target="_blank" href="https://forum.aapanel.com/d/3375-3375-set-the-clouldflare-apt-token-for-dns-editing-permissions">'+obj.help+'</a></li></ul>';
+    	    }else{
+    	       form += '<ul class="help-info-text c7"><li>'+obj.help+'</li></ul>'
+    	    }
+    	    layer.open({
+    			type: 1,
+    			title: '设置【'+obj.title+'】接口',
+    			area: '530px',
+    			closeBtn: 2,
+    			btn: ['保存', '取消'],
+    			content: '<div id="form_dns" class="bt-form pd20 ">'+form+'</div>',
+    			yes: function (index, layers) {
+    			    var obj = {};
+    			    $("#form_dns").find("input").each(function(){
+    			        if($(this).attr('name')  == 'API_Limit'){
+    			            obj[$(this).attr('name')] = $(this).prop('checked')
+    			        }else{
+    			            obj[$(this).attr('name')] = $(this).val()
+    			        }
+                    });
+                    _this.SetDnsApi(obj,function(res){
+                        $.post('/site?action=GetDnsApi',function(rdata){
+			                _this.dnsApi = rdata
+			            })
+                        layer.close(index)
+                        layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                    })
+    			}
+    		});
+		},
+
+		// 提交发送邮箱请求-方法
+		sublimt_send_mail_request: function (type) {
+			var _this = this;
+			var mail_to = $('[name="mail_to"]').val();
+			mail_to = JSON.stringify(mail_to.split(','))
+			var subject = $('[name="subject"]').val();
+			var data = CKEDITOR.instances.editor1.getData();
+			if (mail_to == '') {
+				layer.msg('请输入收件人！', {
+					icon: 0
+				});
+				return false;
+			} else if (subject == '') {
+				layer.msg('请输入邮件主题！', {
+					icon: 0
+				});
+				return false;
+			} else if (data == '') {
+				layer.msg('请输入邮件内容！', {
+					icon: 0
+				});
+				return false;
+			}
+			this.send_mail_conter({
+				mail_from: $('[name="send_input"]').val(),
+				mail_to: mail_to,
+				subject: subject,
+				content: data,
+				subtype: 'html',
+				smtp_server: 'localhost'
+			}, function (res) {
+				layer.msg(res.msg, {
+					icon: 1
+				});
+				$('[name="subject"]').val('')
+				CKEDITOR.instances.editor1.setData('')
+			})
+		},
+		//清除发送邮件
+		clear_send_mail: function () {
+			layer.confirm('是否清理当前内容？', {
+				title: '清空内容',
+				icon: 0,
+				closeBtn: 2
+			}, function (indes, layers) {
+				$('.domain_input,[name="mail_to"],[name="subject"]').val('');
+				CKEDITOR.instances.editor1.setData('');
+				layer.close(indes);
+			})
+		},
+
+		// 创建邮件用户列表 -方法
+		create_mailboxs_list: function (obj, callback) {
+			var _this = this;
+			this.get_mailboxs_list(obj, function (res) {
+				var _tbody = '',
+					rdata = res.data;
+				_this.mailboxs_list = rdata
+				_this._domain_name = obj.domain;
+				if (rdata.length > 0) {
+					for (var i = 0; i < rdata.length; i++) {
+						var quota_size = (rdata[i].quota / 1024 / 1024 / 1024) < 1 ? (rdata[i].quota /
+							1024 / 1024) + 'MB' : (rdata[i].quota / 1024 / 1024 / 1024) + 'GB';
+						_tbody += '<tr><td>' + rdata[i].username + '</td><td>' + rdata[i].full_name +
+							'</td><td>' + quota_size + '</td><td>' + (!rdata[i].is_admin ? '普通用户' :
+								'管理员') +
+							'</td><td><div class="index-item"><input class="btswitch btswitch-ios open-switch-active" id="is_active_' +
+							i + '" type="checkbox" ' + (rdata[i].active == 1 ? "checked" : "") +
+							' data-index="' + i + '"><label class="btswitch-btn" for="is_active_' + i +
+							'"></label></div></td><td style="text-align: right;"><a href="javascript:;" class="btlink edit_mailboxs" data-index="' +
+							i +
+							'">编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;" class="btlink red del_mailboxs" data-username="' +
+							rdata[i].username + '">删除</a></td></tr>';
+					};
+				}
+				$('#mailboxs_list').html(_tbody);
+				$('#mailboxs_page').html(res.page);
+				$('#mailboxs_page a').click(function (e) {
+					_this.create_mailboxs_list({
+					    domain: _this._domain_name,
+						p: $(this).attr('href').split('p=')[1]
+					})
+					e.stopPropagation();
+					e.preventDefault();
+				})
+				if (callback) callback(res);
+			});
+		},
+
+		// 创建域名列表-方法
+		create_domain_list: function (obj, callback) {
+			if (obj == undefined) obj = {
+				page: 1,
+				size: 10
+			}
+			var _this = this;
+			this.get_domain_list(obj, function (res) {
+				var _tbody = '',
+					rdata = res.msg.data;
+				_this.domain_list = rdata
+				if (rdata.length > 0) {
+					for (var i = 0; i < rdata.length; i++) {
+						_tbody += '<tr>\
+                          <td>' + rdata[i].domain + '</td>\
+                          <td>' + (rdata[i].mx_status ?
+							'<div style="color:#20a53a;"><span class="glyphicon glyphicon-ok" style="margin-right: 7px;"></span>已设置</div>' :
+							'<div style="color:red;display: inline-block;"><span class="glyphicon glyphicon-remove" style="margin-right: 7px;"></span><a href="javascript:;" style="color:red" onclick="mail.set_analysis_mail(\'' +
+							rdata[i].dkim_value + '\',\'' + rdata[i].dmarc_value + '\',\'' + rdata[i]
+							.domain + '\',\'' + rdata[i].mx_record + '\')">未设置记录值</a></div>') + '</td>\
+                          <td>' + (rdata[i].a_status ?
+							'<div style="color:#20a53a;"><span class="glyphicon glyphicon-ok" style="margin-right: 7px;"></span>已设置</div>' :
+							'<div style="color:red;display: inline-block;"><span class="glyphicon glyphicon-remove" style="margin-right: 7px;"></span><a href="javascript:;" style="color:red" onclick="mail.set_analysis_mail(\'' +
+							rdata[i].dkim_value + '\',\'' + rdata[i].dmarc_value + '\',\'' + rdata[i]
+							.domain + '\',\'' + rdata[i].mx_record + '\')">未设置记录值</a></div>') + '</td>\
+                          <td>' + (rdata[i].spf_status ?
+							'<div style="color:#20a53a;"><span class="glyphicon glyphicon-ok" style="margin-right: 7px;"></span>已设置</span></div>' :
+							'<div style="color:red;display: inline-block;"><span class="glyphicon glyphicon-remove" style="margin-right: 7px;"></span><a href="javascript:;" style="color:red" onclick="mail.set_analysis_mail(\'' +
+							rdata[i].dkim_value + '\',\'' + rdata[i].dmarc_value + '\',\'' + rdata[i]
+							.domain + '\',\'' + rdata[i].mx_record + '\')">未设置记录值</a></div>') + '</td>\
+                          <td>' + (rdata[i].dkim_status ?
+							'<div style="color:#20a53a;"><span class="glyphicon glyphicon-ok" style="margin-right: 7px;"></span>已设置</span></div>' :
+							'<div style="color:red;display: inline-block;"><span class="glyphicon glyphicon-remove" style="margin-right: 7px;"></span><a href="javascript:;" style="color:red" onclick="mail.set_analysis_mail(\'' +
+							rdata[i].dkim_value + '\',\'' + rdata[i].dmarc_value + '\',\'' + rdata[i]
+							.domain + '\',\'' + rdata[i].mx_record + '\')">未设置记录值</a></div>') + '</td>\
+                          <td>' + (rdata[i].dmarc_status ?
+							'<div style="color:#20a53a;"><span class="glyphicon glyphicon-ok" style="margin-right: 7px;"></span>已设置</span></div>' :
+							'<div style="color:red;display: inline-block;"><span class="glyphicon glyphicon-remove" style="margin-right: 7px;"></span><a href="javascript:;" style="color:red" onclick="mail.set_analysis_mail(\'' +
+							rdata[i].dkim_value + '\',\'' + rdata[i].dmarc_value + '\',\'' + rdata[i]
+							.domain + '\',\'' + rdata[i].mx_record + '\')">未设置记录值</a></div>') + '</td>\
+						  <td><div><input type="checkbox" id="'+ rdata[i].domain +'" '+(rdata[i].catch_all ? 'checked':'')+' class="btswitch btswitch-ios catch_all"><label for="'+ rdata[i].domain +'" class="btswitch-btn"></label></div></td>\
+						     <td><a href="javascript:;" class="btlink add_certificate" data-index='+i+'>'+(rdata[i].ssl_status?('到期时间: '+rdata[i].ssl_info.notAfter):'添加证书')+'</a></td>\
+                          <td style="text-align: right;">' + (rdata[i].mx_status ? (
+							'<a href="javascript:;" class="btlink edit_ground_domain" data-hostname="' +
+							rdata[i].mx_record + '" data-domain="' + rdata[i].domain +
+							'" data-index="' + i + '">用户管理</a>') : (
+							'<a href="javascript:;" class="btlink" onclick="mail.set_analysis_mail(\'' +
+							rdata[i].dkim_value + '\',\'' + rdata[i].dmarc_value + '\',\'' + rdata[
+								i].domain + '\',\'' + rdata[i].mx_record + '\')">添加记录值</a>')) + '&nbsp;|&nbsp;\
+                              <a href="javascript:;" class="btlink red del_domain" data-domain="' + rdata[i].domain + '">删除</a>\
+                          </td>\
+                          </tr>';
+					};
+				}
+				$('#domain_list').html(_tbody);
+				$('#domain_page').html(res.msg.page);
+				$('#domain_page a').click(function (e) {
+					_this.create_domain_list({
+						page: $(this).attr('href').split('p=')[1],
+						size: 10
+					})
+					e.stopPropagation();
+					e.preventDefault();
+				})
+				$('#flush_domain_record').unbind().on('click',function(e){
+				    _this.flush_domain_record('all',function(res){
+				        layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+				    });
+				})
+				$('.add_certificate').unbind().on('click',function(){
+				    var index = $(this).attr('data-index')
+				    _this.open_certificate_view(rdata[index].ssl_status, rdata[index].domain, rdata[index].ssl_info.dns, index)
+				})
+				$('.catch_all').click(function (e) {
+				    e.preventDefault();
+					var _catch = $(this),
+					_status = $(this).prop('checked'),
+        			_html = _status ? '<div style="font-size: 12px;"><span>邮件转寄</span><input class="bt-input-text mr5 catchall" type="text" name="catchall" placeholder="捕获不存在的邮箱，转发到此邮箱" style="width:275px;margin-left: 10px;"></div>' : '确认关闭此功能?',
+        			loadT = layer.confirm(_html, {title:'CatchAll设置', closeBtn: 2, area: '500'},function(){
+        			    var _email = _status ? $(".catchall").val() : '',
+        			    loadS = bt.load();
+                        _this.enable_catchall({domain:_catch.attr('id'), email: _email},function(res){
+                            loadS.close();
+                            if(res.status) _catch.prop('checked', _status);
+            				layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+            				loadT.close();
+            			})
+                    });
+				});
+				if (callback) callback(res);
+			});
+		},
+
+		// 获取邮件秘抄列表
+		get_bcc_list: function () {
+			var _this = this;
+			this.get_bcc(function (res) {
+				_this.forward_list.recipient = res.recipient;
+				_this.forward_list.sender = res.sender;
+				_this.recipient_view();
+				_this.sender_view();
+			})
+		},
+		// 接受者邮箱列表
+		recipient_view: function () {
+			var _this = this,
+				tbody = '';
+			rdata = _this.forward_list.recipient;
+			for (var i = 0; i < rdata.length; i++) {
+				tbody += '<tr>\
+					<td style="width: 30%;">' + rdata[i].user + '</td>\
+					<td style="width: 30%;">' + rdata[i].forward_user + '</td>\
+					<td style="text-align: right;"><a class="btlink" style="color:red" onclick="mail.del_bcc_info(\'recipient\',' +
+					i + ')">删除</td>\
+				</tr>'
+			}
+			$('#recipient_list').html(tbody);
+		},
+		// 发件人邮箱列表
+		sender_view: function () {
+			var _this = this,
+				tbody = '';
+			rdata = _this.forward_list.sender;
+			for (var i = 0; i < rdata.length; i++) {
+				tbody += '<tr>\
+					<td style="width: 30%;">' + rdata[i].user + '</td>\
+					<td style="width: 30%;">' + rdata[i].forward_user + '</td>\
+					<td style="text-align: right;"><a class="btlink" style="color:red" onclick="mail.del_bcc_info(\'sender\',' + i + ')">删除</td>\
+				</tr>'
+			}
+			$('#sender_list').html(tbody);
+		},
+		// 删除秘抄信息
+		del_bcc_info: function (type, index) {
+			var _this = this,
+				_forwardU = '',
+				_user = '';
+			layer.confirm('是否删除邮件秘抄设置', {
+				icon: 0,
+				closeBtn: 2,
+				title: '删除秘抄'
+			}, function (e) {
+				if (type == 'recipient') {
+					_forwardU = _this.forward_list.recipient[index].forward_user;
+					_user = _this.forward_list.recipient[index].user;
+				} else {
+					_forwardU = _this.forward_list.sender[index].forward_user;
+					_user = _this.forward_list.sender[index].user;
+				}
+				_this.del_bcc({
+					type: type,
+					forward_user: _forwardU,
+					user: _user
+				}, function (res) {
+					if (res.status) layer.msg(res.msg, {
+						icon: res.status ? 1 : 2
+					})
+					_this.get_bcc_list()
+				})
+			})
+		},
+		// 获取发件箱列表 -方法
+		get_domains_html: function (callback) {
+			var _this = this;
+			_this.get_all_user(function (res) {
+				if (callback) callback(res);
+			});
+		},
+			//设置DNSAPi
+        SetDnsApi:function(obj,callback){
+            var _this = this;
+            $.post('/site?action=SetDnsApi',{pdata:JSON.stringify(obj)},function(res){
+                if(callback) callback(res);
+            })
+        },
+        apply_cert:function(obj,callback){
+            var _this = this; 
+            this.send({
+				tips:'正在申请证书，请稍候...',
+				method: 'apply_cert',
+				data: obj,
+				success: function(res){
+					if (callback) callback(res);
+				}
+			})
+        },
+
+		// 创建发件箱列表-方法
+		create_sent_mail_list: function (obj, callback) {
+			var _this = this,
+				val = $('.domain_input:eq(' + _this.is_mail + ')').val(),
+				username = '';
+			if (!obj) obj = {
+				p: 1
+			};
+			$(".selects_conter .mail_day").val(_this.save_day);
+			this.get_domains_html(function (ress) {
+				if (typeof obj.username == 'undefined') {
+				    if(_this.active_username != ''){
+				        obj.username = _this.active_username;
+				    }else{
+				        if (ress.length > 0) {
+    						obj.username = ress[0].username;
+    					} else {
+    						return false;
+    					}
+				    }
+				}
+				if (typeof obj.p == 'undefined') obj.p = 1
+				_this.get_sent_mails(obj, function (res) {
+				    _this.active_username = obj.username;
+					var rdata = res.data,
+						_tbody = '',
+						time = '',
+						subject = '';
+					_this.mail_list = res.data;
+					if (!(res.status == false && res.msg == '账号名不合法')) {
+						if (rdata.length > 0) {
+							for (var i = 0; i < rdata.length; i++) {
+								var _html = rdata[i].html.replace(/[^\u4e00-\u9fa5]/g, '');
+								_html = _html.substr(0, 100);
+								if (_html == '') _html = rdata[i].body;
+								_tbody +=
+									'<tr>\
+										<td><span style="display: block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:150px" title="' +
+									_this.htmlEscape(rdata[i].to) + '">' + _this.htmlEscape(rdata[
+										i].to) + '</span></td>\
+										<td><a href="javascript:;" class="btlink mail_html" style="width:320px;"  onclick="mail.check_mail_view(' +
+									i + ')">' + rdata[i].subject + '<span>&nbsp;-&nbsp;' + _html + '</span></a></td>\
+										<td>' + bt.format_data(rdata[i].time) + '</td>\
+										<td style=""><a href="javascript:;" class="btlink" onclick="mail.check_mail_view(' + i +
+									')">查看邮件</a> | <a href="javascript:;" class="btlink" onclick="mail.del_mail_view(' +
+									i + ')">删除</a></td>\
+									</tr>'
+							}
+						}
+					}
+					$('#mails_lists').html(_tbody);
+					$('#mailListTables').parent().next('.page').remove();
+					$('#mailListTables').parent().after(
+						'<div class="page" data-type="get_mails_page" style="margin-top:10px;">' + res
+						.page + '</div>');
+					_this.table_auto_width('.mail_html', 0.32);
+					_this.tableAutoWidth('#mailListTables', 13);
+					if (callback) callback(res);
+				});
+			});
+		},
+
+		// 创建邮箱列表-方法
+		create_mail_list: function (obj, callback) {
+			var _this = this,
+				val = $('.domain_input:eq(' + _this.is_mail + ')').val(),
+				username = '';
+			if (!obj) obj = { p: 1 };
+			$(".selects_conter .mail_day").val(_this.save_day);
+			this.get_domains_html(function (ress) {
+				if (typeof obj.username == 'undefined') {
+				    if(_this.active_username != ''){
+				        obj.username = _this.active_username;
+				    }else{
+				        if (ress.length > 0) {
+    						obj.username = ress[0].username;
+    					} else {
+    						return false;
+    					}
+				    }
+				}
+				if (typeof obj.p == 'undefined') obj.p = 1
+				_this.get_mail_list(obj, function (res) {
+				    _this.active_username = obj.username;
+					var rdata = res.data,
+						_tbody = '',
+						time = '',
+						subject = '';
+					_this.mail_list = res.data;
+					if (!(res.status == false && res.msg == '账号名不合法')) {
+						if (rdata.length > 0) {
+							for (var i = 0; i < rdata.length; i++) {
+								var _html = rdata[i].html.replace(/[^\u4e00-\u9fa5]/g, '');
+								_html = _html.substr(0, 100);
+								if (_html == '') _html = rdata[i].body;
+								_tbody +=
+									'<tr><td><span style="display: block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:150px" title="' +
+									_this.htmlEscape(rdata[i].from) + '">' + _this.htmlEscape(
+										rdata[i].from) +
+									'</span></td><td><a href="javascript:;" class="btlink mail_html" style="max-width:370px;" onclick="mail.check_mail_view(' +
+									i + ')">' + rdata[i].subject + '<span>&nbsp;-&nbsp;' + _html +
+									'</span></a></td><td>' + bt.format_data(rdata[i].time) +
+									'</td><td style="text-align: right"><a href="javascript:;" class="btlink" onclick="mail.check_mail_view(' +
+									i +
+									')">查看邮件</a> | <a href="javascript:;" class="btlink" onclick="mail.set_junk_mail(\'' + rdata[i].path + '\',\'' + _this.active_username + '\')">标记垃圾</a> | <a href="javascript:;" class="btlink" onclick="mail.del_mail_view(' +
+									i + ')">删除</a></td></tr>'
+							}
+						}
+					}
+					$('#mails_list').html(_tbody);
+					$('#mailListTable').parent().next('.page').remove();
+					$('#mailListTable').parent().after('<div class="page" data-type="get_mails_inbox_page" style="margin-top:10px;">' + res.page + '</div>');
+					//_this.table_auto_width('.mail_html', 0.32);
+					//_this.tableAutoWidth('#mailListTable', 13);
+					if (callback) callback(res);
+				});
+			});
+		},
+
+		// 垃圾邮箱列表-方法
+		junk_mail_list: function (obj, callback) {
+			var _this = this,
+				val = $('.domain_input:eq(' + _this.is_mail + ')').val(),
+				username = '';
+			if (!obj) obj = { p: 1 };
+		    $(".selects_conter .mail_day").val(_this.save_day);
+			this.get_domains_html(function (ress) {
+				if (typeof obj.username == 'undefined') {
+				    if(_this.active_username != ''){
+				        obj.username = _this.active_username;
+				    }else{
+				        if (ress.length > 0) {
+    						obj.username = ress[0].username;
+    					} else {
+    						return false;
+    					}
+				    }
+				}
+				if (typeof obj.p == 'undefined') obj.p = 1
+				_this.get_junk_mails(obj, function (res) {
+				    _this.active_username = obj.username;
+					var rdata = res.data,
+						_tbody = '',
+						time = '',
+						subject = '';
+					_this.mail_list = res.data;
+					if (!(res.status == false && res.msg == '账号名不合法')) {
+						if (rdata.length > 0) {
+							for (var i = 0; i < rdata.length; i++) {
+								var _html = rdata[i].html.replace(/[^\u4e00-\u9fa5]/g, '');
+								_html = _html.substr(0, 100);
+								if (_html == '') _html = rdata[i].body;
+								_tbody +=
+									'<tr><td><span style="display: block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:150px" title="' +
+									_this.htmlEscape(rdata[i].from) + '">' + _this.htmlEscape(rdata[i].from) +
+									'</span></td><td><a href="javascript:;" class="btlink mail_html" style="max-width:370px;" onclick="mail.check_mail_view(' +
+									i + ')">' + rdata[i].subject + '<span>&nbsp;-&nbsp;' + _html +
+									'</span></a></td><td>' + bt.format_data(rdata[i].time) +
+									'</td><td style="text-align: right"><a href="javascript:;" class="btlink" onclick="mail.check_mail_view(' + i +
+									')">查看邮件</a> | <a href="javascript:;" class="btlink" onclick="mail.move_out_junk(\'' + rdata[i].path + '\',\'' + _this.active_username + '\')">取消标记</a> | <a href="javascript:;" class="btlink" onclick="mail.del_mail_view(' + i + ')">删除</a></td></tr>'
+							}
+						}
+					}
+					$('#junks_list').html(_tbody);
+					$('#junkListTable').parent().next('.page').remove();
+					$('#junkListTable').parent().after('<div class="page" data-type="junk_mails_page" style="margin-top:10px;">' + res.page + '</div>');
+					//_this.table_auto_width('.mail_html', 0.32);
+					//_this.tableAutoWidth('#junkListTable', 13);
+					if (callback) callback(res);
+				});
+			});
+		},
+
+		// 查看邮件视图-方法
+		check_mail_view: function (index) {
+			var item = this.mail_list[index],
+				_this = this;
+			layer.open({
+				type: 1,
+				title: '查看邮件【' + item.subject + '】',
+				area: ['850px', '700px'],
+				maxmin: true,
+				// btn: [!_this.is_mail ? '回复邮件' : '继续发送', '取消'],
+				content: "<div class='bt-form'>\
+					<div class='mail_title'>\
+						<ul>\
+							<li style='margin-bottom:5px;'><h4>主题:" + item.subject + "</h4></li>\
+							<li>发件人: " + _this.htmlEscape(item.from) + "</li>\
+							<li>时间: " + bt.format_data(item.time) + "</li>\
+							<li>收件人: " + _this.htmlEscape(item.to) + "</li>\
+						</ul>\
+					</div>\
+					<div class='mail_conter pd15'></div>\
+				</div>",
+				success: function (layers, indexs) {
+					if (document.head.createShadowRoot || document.head.attachShadow) {
+						var shadow = document.querySelector('.mail_conter').attachShadow({
+							mode: 'open'
+						});
+						shadow.innerHTML = item.html == '' ? item.body : item.html;
+					} else {
+						$('.mail_conter').html((item.html == '' ? item.body : item.html));
+					}
+				},
+				yes: function (index, layers) {
+					$('.domain_input:eq(2)').val(!_this.is_mail ? item.to.replace(/(.*<|>)/g, '') :
+						item.from.replace(/(.*<|>)/g, ''));
+					$('[name="mail_to"]').val(_this.is_mail ? item.to.replace(/(.*<|>)/g, '') : item
+						.from.replace(/(.*<|>)/g, ''));
+					$('[name="subject"]').val(!_this.is_mail ? '回复邮件[ ' + item.subject + ']' : '');
+					$('.tab-nav span:eq(6)').click();
+					CKEDITOR.instances.editor1.setData('');
+					layer.close(index);
+				}
+			})
+		},
+
+		// 获取编辑代码视图-方法
+		open_editCode_view: function (obj, callback) {
+			var _this = this;
+			var loadT = layer.open({
+				type: 1,
+				shift: 5,
+				closeBtn: 2,
+				area: "800px",
+				title: lan.bt.edit_title + "[" + obj.title + "]",
+				content: '\
+				<form class="bt-form pd20 pb70">\
+					<div class="line">\
+						<p style="color:red;margin-bottom:15px">' + lan.bt.edit_ps + '\
+							<select class="bt-input-text" name="encoding" style="width: 74px;position: absolute;top: 20px;right: 19px;height: 22px;z-index: 9999;border-radius: 0;"></select>\
+						</p>\
+						<div id="textBody" class="bt-input-text ace_config_editor_scroll" style="height: 500px;line-height:18px;"></div>\
+					</div>\
+					<div class="bt-form-submit-btn" style="position:absolute; bottom:0; width:100%">\
+						<button type="button" class="btn btn-danger btn-sm btn-editor-close">' + lan.public.close + '</button>\
+						<button id="OnlineEditFileBtn" type="button" class="btn btn-success btn-sm">' + lan.public.save + '</button>\
+					</div>\
+				</form>',
+				success: function (layers, index) {
+					var _aceEditor = bt.aceEditor({
+						el: 'textBody',
+						content: '',
+						saveCallback: function () {
+							$('#OnlineEditFileBtn').click()
+						}
+					})
+					_this.get_config({
+						service: obj.service
+					}, function (res) {
+						var u = ["utf-8", "GBK", "GB2312", "BIG5"],
+							n = "",
+							m = "";
+						for (var p = 0; p < u.length; p++) {
+							m = res.encoding == u[p] ? "selected" : "";
+							n += '<option value="' + u[p] + '" ' + m + ">" + u[p] + "</option>"
+						}
+						$('[name="encoding"]').html(n);
+						_aceEditor.ACE.setValue(res.data, 1)
+					});
+					$('.btn-editor-close').click(function () {
+						layer.close(index);
+					});
+					$('#OnlineEditFileBtn').click(function () {
+						var encoding = $('[name="encoding"]').val();
+						_this.save_config({
+							service: obj.service,
+							data: _aceEditor.ACE.getValue()
+						}, function (res) {
+							layer.msg(res.msg, {
+								icon: 1
+							});
+						})
+					});
+				}
+			});
+		},
+		
+		// 设置备份计划参数
+		get_backup_task_set: function (setting) {
+			var _this = this;
+			$('.mail_backup_set #cycle').find("b").text(setting.type == 'week' ? '每星期' : '每天').attr("val", setting
+				.type);
+			$(".mail_backup_set .plan_hms [name='hour']").val(setting.where_hour);
+			$(".mail_backup_set .plan_hms [name='minute']").val(setting.where_minute);
+		},
+
+		// 垃圾邮件恢复_方法
+		move_out_junk: function (path,username) {
+			var _this = this;
+			this.send({
+				tips: '正在恢复垃圾邮件，请稍候...',
+				method: 'move_out_junk',
+				data: {
+					path: path,
+					username: username
+				},
+				success: function (res) {
+					_this.junk_mail_list();
+					layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+				}
+			});
+		},
+		// 标记为垃圾邮件_方法
+		set_junk_mail: function (path,username) {
+			var _this = this;
+			layer.confirm('确认将该邮件标记为垃圾邮件？', {icon: 0,closeBtn: 2,title: '标记垃圾邮件'}, function (index) {
+				_this.send({
+					tips: '正在标记为垃圾邮件，请稍候...',
+					method: 'move_to_junk',
+					data: {
+						path: path,
+						username: username
+					},
+					success: function (res) {
+						_this.create_mail_list({p: 1});
+						layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+					}
+				});
+			});
+		},
+		//刷新域名记录
+        flush_domain_record: function(obj,callback){
+            var _this = this;
+            this.send({
+				tips: obj == 'all'?'正在刷新所有域名记录，刷新时间视域名数量而定，请稍后...':'Refresh domain record, please wait...',
+				method: 'flush_domain_record',
+				data: {
+					domain: obj
+				},
+				success: function (res) {
+				    if(res.status) _this.create_domain_list();
+					if (callback) callback(res);
+				}
+			});
+        },
+		// 删除邮件_方法
+		del_mail_view: function (index) {
+			var item = this.mail_list[index],
+				path = item.path,
+				_this = this;
+			this.send({
+				tips: '正在删除邮件，请稍候...',
+				method: 'delete_mail',
+				data: {
+					path: path
+				},
+				success: function (res) {
+					if (!_this.is_mail) {
+						_this.create_mail_list({
+							p: 1
+						}, function () {
+							layer.msg(res.msg, {
+								icon: 1
+							});
+						});
+					} else {
+						_this.create_sent_mail_list({
+							p: 1
+						}, function () {
+							layer.msg(res.msg, {
+								icon: 1
+							});
+						});
+					}
+
+				}
+			});
+		},
+		//获取备份设置参数
+		get_backup_task_status: function (callback) {
+			this.send({
+				tips: '正在获取备份设置参数，请稍候...',
+				method: 'get_backup_task_status',
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		  //检查rspamd
+        check_rspamd_route:function(callback){
+            this.send({
+				tips:'正在检查邮箱连接，请稍候...',
+				method: 'check_rspamd_route',
+				success: function(res){
+					if (callback) callback(res);
+				}
+			})
+            
+        },
+		//保存备份设置
+		open_backup_task: function (obj,callback) {
+			this.send({
+				tips: '正在保存备份设置参数，请稍候...',
+				data: obj,
+				method: 'open_backup_task',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		//获取备份邮件列表
+		get_backup_file_list: function (obj,callback) {
+			this.send({
+				tips: '正在获取备份列表，请稍候...',
+				method: 'get_backup_file_list',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		//获取已安装云存储插件列表
+		get_cloud_storage_list: function (callback) {
+			this.send({
+				tips: '正在获取已安装云存储插件列表，请稍候...',
+				method: 'get_cloud_storage_list',
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		//关闭备份计划
+		close_backup_task: function (callback) {
+			this.send({
+				tips: '正在关闭备份设置，请稍候...',
+				method: 'close_backup_task',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		//恢复上传备份邮件
+		restore_backup_list: function (obj, callback) {
+			this.send({
+				tips: '正在恢复备份邮件，请稍候...',
+				method: 'restore',
+				data: {file_path:obj},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		//删除上传备份邮件
+		delete_backup_list: function (obj, callback) {
+			this.send({
+				tips: '正在删除备份邮件，请稍候...',
+				url: '/files?action=DeleteFile',
+				data: {path:obj},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		// 删除邮件_方法
+		del_mail_view: function(index) {
+			var item = this.mail_list[index],path = item.path,_this = this;
+			this.send({
+				tips: 'Deleting email, please wait...',
+				method: 'delete_mail',
+				data: {path:path},
+				success: function (res) {
+					if(_this.is_mail){
+						_this.create_mail_list({p:1},function(){
+							layer.msg(res.msg,{icon:1});
+						});
+					}else{
+						_this.create_sent_mail_list({p:1},function(){
+							layer.msg(res.msg,{icon:1});
+						});
+					}
+
+				}
+			});
+		},
+
+		//删除max记录和txt记录-请求
+		delete_mx_txt_cache: function (obj, callback) {
+			this.send({
+				tips: '正在清除MAX记录和TXT记录缓存，请稍候...',
+				method: 'delete_mx_txt_cache',
+				data: {
+					domain: obj.domain
+				},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取邮箱服务是否正常_请求
+		check_mail_sys: function (obj, callback) {
+			this.send({
+				tips: obj.tips,
+				method: 'check_mail_sys',
+				data: {
+					hostname: obj.hostname
+				},
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		
+			// 检查邮箱环境
+		check_mail_env:function(callback){
+			this.send({
+				tips: '正在检查邮局环境，请稍候...',
+				method: 'check_mail_env',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		//切换到rspamd
+		change_to_rspamd:function(callback){
+		    this.send({
+		        tips: '正在切换rspamd，请稍候...',
+		        method: 'change_to_rspamd',
+		        success:function(res){
+		            if(callback) callback(res)
+		        }
+		    })
+		},
+
+		//catchall开关
+        enable_catchall:function(obj,callback){
+			this.send({
+				tips: '设置catchall, 请稍候...',
+				method: 'enable_catchall',
+				data:{domain:obj.domain,email:obj.email},
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取邮件列表_请求
+		get_mail_list: function (obj, callback) {
+			var _this = this,
+				_form = {};
+			this.send({
+				tips: '正在获取邮箱列表，请稍候...',
+				method: 'get_mails',
+				data: obj,
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取垃圾邮件列表_请求
+		get_junk_mails: function (obj, callback) {
+			var _this = this;
+			this.send({
+				tips: '正在获取垃圾邮箱列表，请稍候...',
+				method: 'get_junk_mails',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取发件箱列表_请求
+		get_sent_mails: function (obj, callback) {
+			this.send({
+				tips: '正在获取发件箱列表，请稍候...',
+				method: 'get_sent_mails',
+				data: obj,
+				check: true,
+				success: function (res) {
+					if (callback) callback(res)
+				}
+			});
+		},
+
+		// 获取服务配置文件_请求
+		get_config: function (obj, callback) {
+			this.send({
+				tips: '正在获取服务配置文件，请稍候...',
+				method: 'get_config',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res)
+				}
+			})
+		},
+
+		// 保存服务配置文件_请求
+		save_config: function (obj, callback) {
+			this.send({
+				tips: '正在保存服务配置文件，请稍候...',
+				method: 'save_config',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取smtp设置
+		get_smtp_status: function (callback) {
+			this.send({
+				tips: '获取smtp中继配置状态，请稍候...',
+				check: true,
+				method: 'get_smtp_status',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		// 获取备份路径
+		get_backup_path: function(callback){
+		      this.send({
+				tips: '获取备份路径，请稍候...',
+				check: true,
+				method: 'get_backup_path',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 保存smtp设置
+		set_smtp_relay: function (obj, callback) {
+			this.send({
+				tips: '保存smtp中继配置，请稍候...',
+				method: 'set_smtp_relay',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 取消smtp设置
+		cancel_smtp_relay: function (callback) {
+			this.send({
+				tips: '取消smtp中继配置，请稍候...',
+				method: 'cancel_smtp_relay',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 设置密抄邮箱
+		set_mail_bcc: function (obj, callback) {
+			this.send({
+				tips: '正在添加邮件秘抄设置，请稍候...',
+				method: 'set_mail_bcc',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取密抄邮箱列表
+		get_bcc: function (callback) {
+			this.send({
+				tips: '正在获取邮件秘抄列表，请稍候...',
+				method: 'get_bcc',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 删除密抄邮箱信息
+		del_bcc: function (obj, callback) {
+			this.send({
+				tips: '正在删除邮件秘抄设置，请稍候...',
+				method: 'del_bcc',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取邮箱用户列表_请求
+		get_mailboxs_list: function (obj, callback) {
+			this.send({
+				tips: '正在获取用户列表,请稍后...',
+				method: 'get_mailboxs',
+				data: {
+					domain: obj.domain || '',
+					p: obj.p || 1,
+					size: obj.size || 10
+				},
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			});
+		},
+
+		// 获取所有邮箱用户列表
+		get_all_user: function (callback) {
+			var _this = this;
+			if (!_this.is_update) {
+				if (callback) callback(_this.mail_user_list);
+				return false;
+			}
+			this.send({
+				tips: '正在获取用户列表,请稍后...',
+				method: 'get_all_user',
+				check: true,
+				success: function (res) {
+					if (res.length == 0) {
+						layer.msg('邮件归属列表为空，请添加用户', {icon: 2});
+						return false;
+					}
+					_this.mail_user_list = res, one_mail = _this.mail_user_list[0].username;
+					var html = '',
+						_input = $('.select_conter input');
+					for (var i = 0; i < _this.mail_user_list.length; i++) {
+						var item = _this.mail_user_list[i];
+						html += '<li>' + item.username + '</li>'
+					}
+					_input.next().html(html);
+					_input.prev().html(one_mail);
+					_input.val(one_mail);
+					_input.eq(2).val('');
+					if (callback) callback(res);
+					_this.is_update = false;
+				}
+			});
+		},
+
+		// 提交ssl证书
+		set_ssl_certificate: function (obj, callback) {
+			this.send({
+				tips: '正在开启ssl服务，请稍候...',
+				method: 'set_ssl',
+				data: {
+					key: obj.keyValue,
+					csr: obj.csrValue,
+					act: obj.act
+				},
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 添加邮箱用户_请求
+		add_mailboxs: function (obj, callback) {
+			this.send({
+				tips: '正在添加邮箱用户,请稍候...',
+				method: 'add_mailbox',
+				data: {
+					quota: obj.quota,
+					username: obj.username,
+					password: obj.password,
+					quote: obj.quote,
+					full_name: obj.full_name,
+					department: obj.department,
+					position: obj.position,
+					phone: obj.phone,
+					sex: obj.sex,
+					is_admin: obj.is_admin
+				},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+        
+        //批量添加邮箱
+		add_mailbox_multiple:function(obj,callback){
+		    this.send({
+		       tips: 'User information is being added in batches,please wait...',
+		       method: 'add_mailbox_multiple',
+		       data: {
+		           content:JSON.stringify(obj)
+		       },
+		       success:function(res){
+		           if (callback) callback(res);
+		       }
+		    }) 
+		},
+
+		// 删除邮箱用户列表_请求
+		del_mailboxs: function (obj, callback) {
+			this.send({
+				tips: '正在删除邮箱用户中，请稍候...',
+				method: 'delete_mailbox',
+				data: {
+					username: obj.username
+				},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 编辑邮箱用户_请求
+		updatae_mailboxs: function (obj, callback) {
+			this.send({
+				tips: '正在编辑邮箱用户中,请稍候...',
+				method: 'update_mailbox',
+				data: {
+					quota: obj.quota,
+					username: obj.username,
+					password: obj.password,
+					quote: obj.quote,
+					full_name: obj.full_name,
+					department: obj.department,
+					position: obj.position,
+					phone: obj.phone,
+					sex: obj.sex,
+					active: obj.active,
+					is_admin: obj.is_admin
+				},
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			});
+		},
+
+		// 添加域名_请求
+		add_domain: function (obj, callback) {
+			this.send({
+				tips: '正在添加域名，请稍候...',
+				method: 'add_domain',
+				data: {
+					domain: obj.domain,
+					a_record: obj.a_record,
+					company_name: obj.company_name,
+					admin_name: obj.admin_name,
+					admin_phone: obj.admin_phone
+				},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			});
+		},
+
+		// 删除域名_请求
+		del_domain: function (obj, callback) {
+			this.send({
+				tips: '正在删除域名，请稍候...',
+				method: 'delete_domain',
+				data: {
+					domain: obj.domain
+				},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			});
+		},
+
+		// 修改域名信息_请求
+		update_domain: function (obj, callback) {
+			this.send({
+				tips: '正在修改域名数据，请稍候...',
+				method: 'update_domain',
+				data: {
+					active: obj.active,
+					domain: obj.domain,
+					company_name: obj.company_name,
+					admin_name: obj.admin_name,
+					admin_phone: obj.admin_phone
+				},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取域名列表_请求
+		get_domain_list: function (obj, callback) {
+			this.send({
+				tips: '正在获取域名列表,请稍候....',
+				method: 'get_domains',
+				data: {
+					p: obj.page,
+					size: obj.size
+				},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		// 获取域名列表的证书状态
+		get_certificate_status: function (site, callback) {
+			this.send({
+				tips: '正在获取ssl证书状态...',
+				method: 'get_multiple_certificate',
+				data: { domain: site },
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		// 设置域名列表的证书状态
+		set_mail_certificate_multiple: function (obj, callback) {
+			this.send({
+				tips: '正在设置ssl证书状态...',
+				method: 'set_mail_certificate_multiple',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		// 获取邮局证书状态
+		get_mailSSL_status: function (callback) {
+			this.send({
+				tips: '获取ssl状态...',
+				method: 'get_ssl_status',
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 设置邮件保留天数
+		set_save_day: function (obj, callback) {
+			this.send({
+				tips: '正在设置邮件保留天数...',
+				method: 'set_save_day',
+				data: {
+					save_day: obj
+				},
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取邮件保留天数
+		get_save_day: function (callback) {
+			this.send({
+				tips: '正在获取邮件保留天数...',
+				method: 'get_save_day',
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取反垃圾邮件状态
+		get_anti_spam_status: function (callback) {
+			this.send({
+				tips: '正在获取反垃圾邮件服务状态...',
+				method: 'get_anti_spam_status',
+				check: true,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 发送邮件_请求
+		send_mail_conter: function (obj, callback) {
+			this.send({
+				tips: '正在发送邮件中，请稍候...',
+				method: 'send_mail',
+				data: {
+					smtp_server: obj.smtp_server || 'localhost',
+					mail_from: obj.mail_from,
+					password: obj.password,
+					mail_to: obj.mail_to,
+					subject: obj.subject,
+					content: obj.content,
+					subtype: obj.subtype || 'plain'
+				},
+				success: function (res) {
+					if (callback) callback(res)
+				}
+			});
+		},
+
+		// 登录邮箱界面_请求
+		login_mail_stuats: function (obj, callback) {
+			this.send({
+				tips: '正在效验邮箱账号，请稍候...',
+				method: 'login',
+				data: {
+					username: obj.username,
+					password: obj.password,
+					smtp_server: obj.smtp_server,
+					protocol: obj.protocol,
+					imap_server: obj.imap_server,
+					pop_server: obj.pop_server
+				},
+				success: function (res) {
+					if (callback) callback(res);
+					bt.set_cookie('mail_login', JSON.stringify(res.data));
+				}
+			});
+		},
+
+		// 获取服务状态_请求
+		get_service_status: function (callback) {
+			this.send({
+				tips: '正在获取邮局服务状态，请稍候...',
+				method: 'get_service_status',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取邮件转发列表
+		get_list: function (callback) {
+			this.send({
+				tips: '正在获取邮件转发列表，请稍候...',
+				method: 'get_mail_forward',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 添加转发邮件
+		set_mail_forward: function (obj, callback) {
+			this.send({
+				tips: '正在添加邮件转发设置，请稍候...',
+				method: 'set_mail_forward',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 编辑转发邮件
+		edit_mail_forward: function (obj, callback) {
+			this.send({
+				tips: '正在编辑邮件转发设置，请稍候...',
+				method: 'edit_mail_forward',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 删除转发邮件
+		delete_mail_forward: function (obj, callback) {
+			this.send({
+				tips: '正在删除邮件转发设置，请稍候...',
+				method: 'delete_mail_forward',
+				data: obj,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+
+		// 获取日志列表_请求
+		get_logs_list: function (callback) {
+			this.send({
+				tips: '正在获取日志列表，请稍候...',
+				method: 'get_mail_log',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			})
+		},
+		
+		// 一键修复主机名
+		change_hostname: function(data, callback){
+			this.send({
+				tips: '正在获取修复主机名, 请稍候...',
+				method: 'change_hostname',
+				data: data,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			});
+		},
+		// 获取初始化日志
+		get_init_log: function (load, callback) {
+			this.send({
+				load: load,
+				tips: load == 2 ? '' : '正在获取初始化日志, 请稍候...',
+				method: 'get_init_log',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			});
+		},
+        // 获取初始化结果
+		check_init_result: function(callback) {
+			this.send({
+				tips: '正在获取初始化结果, 请稍候...',
+				method: 'check_init_result',
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			});
+		},
+		// 下载文件
+		download_file: function (data, callback) {
+			this.send({
+				tips: '正在下载文件, 请稍候...',
+				method: 'download_file',
+				data: data,
+				success: function (res) {
+					if (callback) callback(res);
+				}
+			});
+		},
+		// HTML转义方法-方法
+		htmlEscape: function (text) {
+			return text.replace(/[<>"&]/g, function (match, pos, originalText) {
+				switch (match) {
+					case "<":
+						return "&lt;";
+					case ">":
+						return "&gt;";
+					case "&":
+						return "&amp;";
+					case "\"":
+						return "&quot;";
+				}
+			});
+		},
+
+		// 表格动态滚动条（元素选择器）—方法
+		tableAutoWidth: function (el, length) {
+			var _table = $(el);
+			if (_table.parent().prev('table').length == 0) {
+				var th_list = _table.find('thead tr th'),
+					_arry = [],
+					_th_list = '';
+				th_list.each(function (item, index) {
+					var clientWidth = parseInt($(this)[0].clientWidth);
+					_th_list += '<th width="' + clientWidth + '">' + $(this).html() + '</th>';
+				});
+				_table.parent().before('<table class="table table-hover"><thead><tr>' + _th_list + ($(el).find(
+						'tr').length > length + 1 ? '<th width="12" style="padding:0;"></th>' : '') +
+					'</tr></thead></table>');
+				_table.css('marginTop', '-35px');
+			}
+			// _table.appendTo('<div style="width: 100%;height:15px;position: absolute;bottom: 10px;background: -webkit-linear-gradient(top,rgba(255, 255, 255, 0),rgba(241, 241, 241, 0.8));"></div>')
+		},
+
+		// 表格自动适应宽度（选择器，百分比）-方法
+		table_auto_width: function (el, ratio) {
+			var width = $('.layui-layer-page').width();
+			$('#mails_list ' + el).width(parseInt(width * parseFloat(ratio)));
+		},
+
+		// 动态加载脚本(路径，回调)—方法
+		loadScript: function (src, callback) {
+			var script = document.createElement('script'),
+				head = document.getElementsByTagName('head')[0];
+			script.type = 'text/javascript';
+			script.charset = 'UTF-8';
+			script.src = src;
+			if (script.addEventListener) {
+				script.addEventListener('load', function () {
+					callback();
+				}, false);
+			} else if (script.attachEvent) {
+				script.attachEvent('onreadystatechange', function () {
+					var target = window.event.srcElement;
+					if (target.readyState == 'loaded') {
+						callback();
+					}
+				});
+			}
+			head.appendChild(script);
+		},
+
+		// 请求封装模块
+		send: function (obj) {
+			var loadT = '';
+			if (obj.load == undefined) obj.load = 0;
+			if (obj.url == undefined) {
+				if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this
+					.plugin_name
+				if (!obj.plugin_name || !obj.method) {
+					layer.msg('插件类名称，或插件方法名称缺失!', {
+						icon: 2
+					});
+					return false;
+				}
+			}
+			if (obj.load === 0 || obj.tips != '') {
+				loadT = layer.msg(obj.tips, {
+					icon: 16,
+					time: 0,
+					shade: 0.3
+				});
+			} else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+				loadT = layer.load();
+			}
+			$.ajax({
+				type: 'POST',
+				url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' +
+					obj.method),
+				data: obj.data || {},
+				timeout: obj.timeout || 99999999,
+				complete: function (res) {
+					if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+				},
+				success: function (rdata) {
+					if (obj.check) {
+						obj.success(rdata);
+						return false
+					}
+					if (rdata.status === false) {
+						layer.msg(rdata.msg, {
+							icon: 2
+						});
+						return false;
+					}
+					obj.success(rdata);
+				},
+				error: function (ex) {
+					if (!obj.error) {
+						obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+							icon: 2
+						}) : '';
+						return;
+					}
+					return obj.error(ex);
+				}
+			});
+		}
+	}
+	mail.init();
+</script>

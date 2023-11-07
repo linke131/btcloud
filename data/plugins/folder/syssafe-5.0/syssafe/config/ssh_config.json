@@ -1,0 +1,58 @@
+{
+    "Port": {
+        "name": "SSH端口",
+        "value": 22,
+        "default": 22,
+        "very": 0,
+        "ps": "建议使用10001-65535之间的端口，注意：修改完后，别忘了在防火墙、安全组放行新端口"
+    },
+    "PermitRootLogin":{
+        "name": "允许root登录",
+        "value": "yes",
+        "default": "yes",
+        "very": "no",
+        "ps": "是否允许root用户登录，建议关闭root登录"
+    },
+    "PermitEmptyPasswords":{
+        "name": "允许空密码登录",
+        "value": "no",
+        "default": "no",
+        "very": "yes",
+        "ps": "是否允许空密码登录，建议关闭空密码登录"
+    },
+    "PasswordAuthentication":{
+        "name": "允许密码登录",
+        "value": "yes",
+        "default": "yes",
+        "very": "no",
+        "ps": "是否允许密码登录，建议关闭密码登录"
+    },
+    "ClientAliveInterval":{
+        "name": "心跳间隔",
+        "value": 300,
+        "default": 300,
+        "very": 300,
+        "ps": "心跳间隔，建议设置为300秒"
+    },
+    "ClientAliveCountMax":{
+        "name": "心跳最大次数",
+        "value": 0,
+        "default": 0,
+        "very": 0,
+        "ps": "心跳最大次数，建议设置为0次"
+    },
+    "LogLevel":{
+        "name": "日志级别",
+        "value": "ERROR",
+        "default": "ERROR",
+        "very": "INFO",
+        "ps": "日志级别，从低到高可选：QUIET,FATAL,ERROR,INFO,VERBOSE,DEBUG，建议设置为INFO"
+    },
+    "Protocol":{
+        "name": "协议版本",
+        "value": 2,
+        "default": 2,
+        "very": 2,
+        "ps": "协议版本，建议设置为2"
+    }
+}

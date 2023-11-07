@@ -1,0 +1,11 @@
+{
+  "title": "堡塔限制访问型证书",
+  "tip": "lib",
+  "name": "ssl_verify",
+  "type": "计划任务",
+  "ps": "提供双向认证证书，可用于限制指定人员访问（重要业务推荐使用），提供较高安全的访问环境，也可用于自签SSL。",
+  "versions": "1.1",
+  "author": "宝塔",
+  "home": "http://www.bt.cn/bbs/thread-1061-1-1.html",
+  "date": "2021-10-10"
+}

@@ -1,0 +1,989 @@
+<style>
+	.soft-man-con .title{
+			height:30px;
+			line-height:30px;
+	}
+	.SetAggregateOne {
+			height: 60px;
+	}
+	.gitservice {
+			margin-bottom: 13px;
+			margin-right: 0;
+			text-align: right;
+			width: 120px;
+	}
+	.gitlab{
+			margin-bottom:30px;
+			padding-top:15px;
+	}
+	.gitlabUrl{
+			display:inline-block;
+			width:206px;
+	}
+
+	.modules-table table tbody {
+			display:block;
+			height:300px;
+			overflow-y:scroll;
+	}
+
+	.modules-table table thead, .modules-table tbody tr {
+			display:table;
+			width:100%;
+			table-layout:fixed;
+	}
+
+	.modules-table tbody tr td {
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+	}
+
+	</style>
+	<div class="bt-w-main">
+			<div class="bt-w-menu">
+					<p class="bgw" >项目列表</p>
+					<p>Node版本</p>
+					<p>模块管理</p>
+					<p>日志管理</p>
+			</div>
+			<div id="webEdit-con" class="bt-w-con pd15">
+			</div>
+	</div>
+	<script type="text/javascript">
+			$('.layui-layer-page').css({ 'width': '1000px' });
+			$(".bt-w-menu p").click(function(){
+					var i = $(this).index();
+					$(this).addClass("bgw").siblings().removeClass("bgw");
+					switch(i){
+							case 0:
+									GetNodeList();
+									break;
+							case 1:
+									GetNodeVersions();
+									break;
+							case 2:
+									GetModList();
+									break;
+							case 3:
+									GetLogList();
+									break;
+					}
+			});
+			
+			var add = null;
+			function AddSite(codename,port){
+					var array;
+					var str="";
+					var domainlist='';
+					var domain = array = $("#mainDomain").val().split("\n");
+					var Webport=[];
+					var checkDomain = domain[0].split('.');
+					if(checkDomain.length < 1){
+							layer.msg('域名格式不正确，请重新输入!',{icon:2});
+							return;
+					}
+					for(var i=1; i<domain.length; i++){
+							domainlist += '"'+domain[i]+'",';
+					}
+					Webport = domain[0].split(":")[1];//主域名端口
+					if(Webport==undefined){
+							Webport="80";
+					}
+					domainlist = domainlist.substring(0,domainlist.length-1);//子域名json
+					mainDomain = domain[0].split(':')[0];
+					domain ='{"domain":"'+domain[0]+'","domainlist":['+domainlist+'],"count":'+domain.length+'}';//拼接joson
+					var php_version = $("select[name='version']").val();
+					var loadT = layer.msg('正在创建站点 <img src="/static/img/ing.gif">',{icon:16,time:0,shade: [0.3, "#000"]})
+					var data = $("#addweb").serialize()+"&port="+Webport+"&webname="+domain+'&ftp=false&sql=false&address=localhost&codeing=utf8&version='+php_version;
+					$.post('/site?action=AddSite', data, function(ret) {
+							layer.close(loadT)
+							if(!ret.siteStatus){
+									layer.msg(ret.msg,{icon:5});
+									return;
+							}
+							layer.close(add)
+							toUrl = encodeURIComponent('http://127.0.0.1:' + port);
+							toDomain = encodeURIComponent('127.0.0.1');
+							var subfilter = JSON.stringify([{"sub1":"","sub2":""}])
+							var data = 'sitename='+mainDomain+'&type=1&proxysite='+toUrl+'&proxyname='+mainDomain+'&todomain=' + toDomain + '&proxydir=\/&cache=0&cachetime=1&advanced=0&nocheck=pm2&subfilter='+subfilter;
+							var loadT = layer.msg('<div class="depSpeed">正在设置反向代理 <img src="/static/img/ing.gif"></div>',{icon:16,time:0,shade: [0.3, "#000"]});
+							$.post('/site?action=CreateProxy',data,function(rdata){
+									layer.close(loadT);
+									if(rdata.status) rdata.msg = '映射成功,请到网站管理页面查看映射站点!';
+									layer.msg(rdata.msg,{icon:rdata.status?1:2,time:5000});
+									$.post('/plugin?action=a&s=set_proxy_end&name=pm2',{pname:codename,siteName: mainDomain},function(proxy_result){
+
+									})
+							});
+					});
+					
+			}
+	
+			function onekeyCodeSite(codename,port,path){
+					if(port == 'OFF'){
+							layer.msg('未监控任何端口的情况下不能映射到网站列表!',{icon: 2});
+							return;
+					}
+					$.post('/site?action=GetPHPVersion',function(rdata){
+							var php_version = "";
+							
+							if(path == 'OFF'){
+									path = '/www/wwwroot';
+							}else{
+									path += '/'
+									path = path.replace('//','/')
+							}
+							for(var i=rdata.length-1;i>=0;i--){
+									php_version += "<option value='"+rdata[i].version+"'>"+rdata[i].name+"</option>";
+								 }
+							
+							var con='<form class="bt-form pd20 pb70" id="addweb">\
+											<div class="line"><span class="tname">域名</span>\
+													<div class="info-r c4"><textarea id="mainDomain" class="bt-input-text" name="webname_text" style="width:398px;height:100px;line-height:22px"></textarea>\
+															<div class="placeholder c9" style="top:10px;left:10px">每行填写一个域名，默认为80端口<br>泛解析添加方法 *.domain.com<br>如另加端口格式为 www.domain.com:88</div>\
+													</div>\
+											</div>\
+											<div class="line" style="display:none;"><span class="tname">备注</span>\
+													<div class="info-r c4"><input id="Wbeizhu" class="bt-input-text" name="ps" placeholder="网站备注" style="width:398px" type="text" value="Node.js项目['+codename+']的映射"> </div>\
+											</div>\
+											<div class="line"><span class="tname">根目录</span>\
+													<div class="info-r c4"><input id="inputPath" class="bt-input-text mr5" name="path" value="'+path+'" placeholder="网站根目录" style="width:398px" type="text"><span class="glyphicon glyphicon-folder-open cursor" onclick="ChangePath(\'inputPath\')"></span> </div>\
+											</div>\
+											<div class="line" style="display:none;"><span class="tname">数据库</span>\
+													<div class="info-r c4">\
+															<input id="datauser" class="bt-input-text" name="datauser" placeholder="用户名/数据库名" style="width:190px;margin-right:13px" type="text">\
+															<input id="datapassword" class="bt-input-text" name="datapassword" placeholder="密码" style="width:190px" type="text">\
+													</div>\
+											</div>\
+											<div class="line" style="display:none;"><span class="tname">PHP版本</span>\
+													<select class="bt-input-text mr5" name="version" id="c_k3" style="width:100px">\
+															'+php_version+'\
+													</select>\
+													<span class="c9">请选择源码程序支持的php版本</span>\
+											</div>\
+											<div class="bt-form-submit-btn">\
+													<button type="button" class="btn btn-danger btn-sm onekeycodeclose">取消</button>\
+													<button type="button" class="btn btn-success btn-sm" onclick="AddSite(\''+codename+'\','+port+')">提交</button>\
+											</div>\
+									</from>';
+							add = layer.open({
+									type: 1,
+									title: "创建项目映射["+ codename + ']',
+									area: '560px',
+									closeBtn: 2,
+									shadeClose: false,
+									content:con
+							});
+							var placeholder = "<div class='placeholder c9' style='top:10px;left:10px'>每行填写一个域名，默认为80端口<br>泛解析添加方法 *.domain.com<br>如另加端口格式为 www.domain.com:88</div>";
+							$(".onekeycodeclose").click(function(){
+									layer.close(add);
+							});
+							$('#mainDomain').after(placeholder);
+							$(".placeholder").click(function(){
+									$(this).hide();
+									$('#mainDomain').focus();
+							})
+							$('#mainDomain').focus(function() {
+									$(".placeholder").hide();
+							});
+							
+							$('#mainDomain').blur(function() {
+									if($(this).val().length==0){
+											$(".placeholder").show();
+									}  
+							});
+							//FTP账号数据绑定域名
+							$('#mainDomain').on('input', function() {
+									var mpath = $("#inputPath").val();
+									if(mpath.substr(mpath.length - 1,1) == '/') return;
+									var defaultPath = '/www/wwwroot';
+									var array;
+									var res,ress;
+									var str = $(this).val();
+									var len = str.replace(/[^\x00-\xff]/g, "**").length;
+									array = str.split("\n");
+									ress =array[0].split(":")[0];
+									res = ress.replace(new RegExp(/([-.])/g), '_');
+									if(res.length > 15) res = res.substr(0,15);
+									if($("#inputPath").val().substr(0,defaultPath.length) == defaultPath) $("#inputPath").val(defaultPath+'/'+ress);
+							});
+					});
+			}
+			
+			
+			//停止
+			function NodeStop(pname,appid){
+					var loadT = layer.msg('正在停止项目['+pname+']...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=Stop&name=pm2',{pname:pname,appid:appid},function(rdata){
+							layer.close(loadT);
+							layer.msg(rdata.msg,{icon:rdata.status?1:2});
+							if(rdata.status) GetNodeList();
+					});
+			}
+			
+			//启动
+			function NodeStart(pname,appid){
+					var loadT = layer.msg('正在启动项目['+pname+']...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=Start&name=pm2',{pname:pname,appid:appid},function(rdata){
+							layer.close(loadT);
+							layer.msg(rdata.msg,{icon:rdata.status?1:2});
+							if(rdata.status) setTimeout(function(){GetNodeList();},3000)
+					});
+			}
+			
+			//重启
+			function NodeRestart(pname,appid){
+					var loadT = layer.msg('正在重启项目['+pname+']...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=Restart&name=pm2',{pname:pname,appid:appid},function(rdata){
+							layer.close(loadT);
+							layer.msg(rdata.msg,{icon:rdata.status?1:2});
+							if(rdata.status) setTimeout(function(){GetNodeList();},3000)
+					});
+			}
+			
+			
+			//添加
+			function AddNode(){
+					var data = {path:$("input[name='path']").val(),pname:$("input[name='pname']").val(),run:$("input[name='run']").val()}
+					if(!data.path || !data.pname || !data.run){
+							layer.msg('表单不完整，请检查!',{icon:2});
+							return;
+					}
+					var loadT = layer.msg('正在添加项目...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=Add&name=pm2',data,function(rdata){
+							layer.close(loadT);
+							layer.msg(rdata.msg,{icon:rdata.status?1:2});
+							if(rdata.status) GetNodeList();
+					});
+			}
+			
+			//删除
+			function DelNode(pname,appid){
+					SafeMessage('删除项目['+pname+']','删除['+pname+']项目后,该项目将无法被访问,继续吗?',function(){
+							var loadT = layer.msg('正在停止并删除项目...',{icon:16,time:0,shade: [0.3, '#000']});
+							$.post('/plugin?action=a&s=Delete&name=pm2',{pname:pname,appid:appid},function(rdata){
+									layer.close(loadT);
+									layer.msg(rdata.msg,{icon:rdata.status?1:2});
+									if(rdata.status) GetNodeList();
+							});
+					});
+			}
+			
+			
+			//取模块列表
+			function GetModList(){
+					var con = '<div class="soft-man-con">\
+									<div class="divtable">\
+											<input class="bt-input-text mr5" name="mname" type="text" value="" style="width:240px" placeholder="模块名称" />\
+											<button class="btn btn-default btn-sm va0" onclick="InstallMod();">安装</button>\
+											<table class="table table-hover" style="margin-top: 10px; max-height: 380px; overflow: auto;">\
+													<thead>\
+															<tr>\
+																	<th>名称</th>\
+																	<th>版本</th>\
+																	<th style="text-align: right;">操作</th>\
+															</tr>\
+													</thead>\
+													<tbody id="modlist"></tbody>\
+											</table>\
+											<ul class="help-info-text c7 mtb15">\
+													<li>此处安装的模块均为安装到全局.</li>\
+													<li>仅安装到当前正在使用的nodejs版本.</li>\
+											</ul>\
+									</div>\
+							</div>';
+					$("#webEdit-con").html(con);
+					var loadT = layer.msg('正在获取模块列表...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.get('/plugin?action=a&s=GetMod&name=pm2',function(data){
+							layer.close(loadT);
+							var tbody = '';
+							for(var i=0;i<data.length;i++){
+									tbody += '<tr>\
+															<td>'+data[i].name+'</td>\
+															<td>'+data[i].version+'</td>\
+															<td style="text-align: right;">\
+																	<a href="#" class="btlink" onclick="UninstallMod(\''+data[i].name+'\')">卸载</a>\
+															</td>\
+													</tr>';
+							}
+							
+							$("#modlist").html(tbody);
+					});
+			}
+			
+			//安装模块
+			function InstallMod(){
+					var mname = $("input[name='mname']").val();
+					if(!mname){
+							layer.msg('模块名称不能为空!',{icon:2});
+							return;
+					}
+					var data = {mname:mname}
+					var loadT = layer.msg('正在安装模块['+mname+']...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=InstallMod&name=pm2',data,function(rdata){
+							layer.close(loadT);
+							layer.msg(rdata.msg,{icon:rdata.status?1:2});
+							if(rdata.status) GetModList();
+					});
+			}
+			
+			
+			//卸载模块
+			function UninstallMod(mname){
+					SafeMessage('卸载模块['+mname+']','卸载['+mname+']模块后,可能影响现有项目,继续吗?',function(){
+							var data = "mname="+mname;
+							var loadT = layer.msg('正在卸载模块['+mname+']...',{icon:16,time:0,shade: [0.3, '#000']});
+							$.post('/plugin?action=a&s=UninstallMod&name=pm2',data,function(rdata){
+									layer.close(loadT);
+									layer.msg(rdata.msg,{icon:rdata.status?1:2});
+									if(rdata.status) GetModList();
+							});
+					});
+			}
+			
+			//取版本号列表
+			function GetNodeVersions(){
+					var loadT = layer.msg('正在获取版本列表...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.get('/plugin?action=a&s=Versions&name=pm2',function(versions){
+							layer.close(loadT);
+							
+							var opt = '';
+							for(var i=0;i<versions.list.length;i++){
+									if(versions.list[i] == versions.version){
+											opt += '<option value="'+versions.list[i]+'" selected="selected">'+versions.list[i]+'</option>';
+									}else{
+											opt += '<option value="'+versions.list[i]+'">'+versions.list[i]+'</option>';
+									}
+							}
+							var warning_version = '当前版本为<font style="color:red;">['+versions.version+']</font><span style="color:red;">：'+ versions.msg+'</span></li>'
+							var success_version = '当前版本为<font>['+versions.version+']</font>'
+							var con = '<div class="soft-man-con">\
+															<div class="divtable">\
+																	<span>当前版本</span><select style="margin-left: 5px;width:100px;" class="bt-input-text" name="versions">'+opt+'</select>\
+																	<button style="margin-bottom: 3px;margin-left: 5px;" class="btn btn-success btn-sm" onclick="SetNodeVersion()">切换版本</button>\
+																	<ul class="help-info-text c7 mtb15">\
+																			<li>'+(versions.status?success_version:warning_version)+'</li>\
+																			<li>版本切换是全局的,切换版本后可能影响您正在运行的项目</li>\
+																	</ul>\
+															</div>\
+													</div>';
+							$("#webEdit-con").html(con);
+					});
+			}
+			
+			//切换版本
+			function SetNodeVersion(){
+					var version = $("select[name='versions']").val();
+					var loadT = layer.msg('正在切换到['+version+']，这可能需要几分钟时间...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=SetNodeVersion&name=pm2','version='+version,function(rdata){
+							layer.close(loadT);
+							layer.msg(rdata.msg,{icon:rdata.status?1:2});
+							if(rdata.status) GetNodeVersions();
+					});
+			}
+			//显示项目日志
+			function show_object_logs(pname,log_type){
+					var log_msgs = {error: '错误',out:'运行'};
+					body = '<div class="setchmod bt-form  pb70">\
+											<pre class="object-log" style=\'overflow: auto; border: 0px none; line-height:23px;padding: 15px; margin: 0px; white-space: pre-wrap; height: 405px;    margin-bottom: -21px; background-color: rgb(51,51,51);color:#f1f1f1;border-radius:0px;font-family: "微软雅黑"\'></pre>\
+											<div class="bt-form-submit-btn" style="margin-top: 0px;">\
+													<button type="button" class="btn btn-danger btn-sm btn-title" style="margin-right:15px;" onclick="clean_object_logs(\''+pname+'\',\''+log_type+'\')">清空</button>\
+													<button type="button" class="btn btn-success btn-sm btn-title" onclick="get_object_logs(\''+pname+'\',\''+log_type+'\')">刷新</button>\
+											</div>\
+									</div>'
+					layer.open({
+							type: 1,
+							area: '820px',
+							title: '查看项目['+pname+']'+log_msgs[log_type]+'日志',
+							closeBtn: 2,
+							shift: 0,
+							shadeClose: false,
+							content: body,
+							success:function(lay,index){
+									get_object_logs(pname,log_type);
+							}
+					});
+			}
+
+			//显示项目模块列表
+			function show_object_modules(pname,path){
+					body = '<div class="divtable modules-table" style="margin: 15px;">\
+											<input class="bt-input-text mr5" name="mod_name" type="text" value="" style="width:240px" placeholder="模块名称">\
+											<button class="btn btn-default btn-sm va0" onclick="install_module(\''+pname+'\',\''+path+'\');">安装</button>\
+											<span style="text-align:right;margin-left: 425px;"><button class="btn btn-default btn-sm va0" onclick="install_package_all(\''+pname+'\',\''+path+'\');">一键安装依赖</button></span>\
+											<table class="table table-hover" style="margin-top: 10px; max-height: 380px; overflow: auto;">\
+													<thead>\
+															<tr>\
+																	<th style="width:200px;">名称</th>\
+																	<th style="width:80px;">版本</th>\
+																	<th style="width:100px;">许可</th>\
+																	<th style="width:340px;">简介</th>\
+																	<th style="width:60px;text-align: right;">操作</th>\
+															</tr>\
+													</thead>\
+													<tbody id="modules-list"></tbody>\
+											</table>\
+											<ul class="help-info-text c7 mtb15">\
+													<li>【安装位置】此处安装的模块均为安装到指定项目，请在项目根目录下的node_modules目录查看.</li>\
+													<li>【卸载】在package.json中声明的模块无法在此处被卸载.</li>\
+													<li>【一键安装依赖】将尝试检查安装package.json配置文件中要求的所有依赖包，请确保项目根目录中package.json配置文件存在!</li>\
+											</ul>\
+									</div>'
+					layer.open({
+							type: 1,
+							area: ['850px','550px'],
+							title: '管理项目['+pname+']模块',
+							closeBtn: 2,
+							shift: 0,
+							shadeClose: false,
+							content: body,
+							success:function(lay,index){
+									get_modules(pname,path);
+							}
+					});
+			}
+
+			//获取项目模块
+			function get_modules(pname,path){
+					var loadT = layer.msg('正在获取项目模块...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=get_modules&name=pm2',{pname: pname,path:path},function(rdata){
+							layer.close(loadT);
+							var tbody = '';
+							for(var i=0;i<rdata.length;i++){
+									tbody += '<tr>'
+											+ '<td style="width:200px;">'+rdata[i].name+'</td>'
+											+ '<td style="width:80px;">'+rdata[i].version+'</td>'
+											+ '<td style="width:100px;">'+rdata[i].license+'</td>'
+											+ '<td style="width:340px;">'+rdata[i].description+'<a class="btlink" target="_blank" rel="noreferrer noopener" href="'+rdata[i].homepage+'"> >>Help</a></td>'
+											+ '<td style="width:60px;text-align: right;" onclick="uninstall_module(\''+pname+'\',\''+path+'\',\''+rdata[i].name+'\')"><a class="btlink">卸载</a></td>'
+											+ '</tr>'
+							}
+
+							$("#modules-list").html(tbody);
+					});
+			}
+
+			//卸载指定项目模块
+			function uninstall_module(pname,path,mod_name){
+					SafeMessage('卸载模块['+mod_name+']','卸载['+mod_name+']模块后,可能影响项目正常运行,继续吗?',function(){
+							var loadT = layer.msg('正在卸载模块['+mod_name+']...',{icon:16,time:0,shade: [0.3, '#000']});
+							$.post('/plugin?action=a&s=uninstall_module&name=pm2',{mod_name: mod_name,path:path,pname:pname},function(rdata){
+									layer.close(loadT);
+									if(rdata.status) get_modules(pname,path);
+									setTimeout(function(){
+											layer.msg(rdata.msg,{icon:rdata.status?1:2,time:5000});
+									},500);
+							});
+					});
+			}
+
+			//安装指定项目模块
+			function install_module(pname,path){
+					var mod_name = $("input[name='mod_name']").val();
+					if(!mod_name){
+							layer.msg('模块名称不能为空!',{icon:2});
+							return;
+					}
+					var loadT = layer.msg('正在安装模块['+mod_name+']...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=install_module&name=pm2',{mod_name: mod_name,path:path,pname:pname},function(rdata){
+							layer.close(loadT);
+							if(rdata.status) get_modules(pname,path);
+							setTimeout(function(){
+									layer.msg(rdata.msg,{icon:rdata.status?1:2,time:5000});
+							},500);
+					});
+			}
+
+			//安装指定项目所有依赖
+			function install_package_all(pname,path){
+					SafeMessage('一键安装依赖','将尝试根据package.json配置文件重新安装该项目需要的所有依赖包,继续吗?',function(){
+							var loadT = layer.msg('正在安装依赖...',{icon:16,time:0,shade: [0.3, '#000']});
+							$.post('/plugin?action=a&s=install_package_all&name=pm2',{path:path,pname:pname},function(rdata){
+									layer.close(loadT);
+									if(rdata.status) get_modules(pname,path);
+									setTimeout(function(){
+											layer.msg(rdata.msg,{icon:rdata.status?1:2,time:5000});
+									},500);
+							});
+					})
+			}
+
+			//清除指定项目日志
+			function clean_object_logs(pname,log_type){
+					var log_msgs = {error: '错误',out:'运行'};
+					bt.show_confirm('正在清空日志...','真的要清空项目['+pname+']的'+log_msgs[log_type]+'日志吗？',function(){
+							var loadT = layer.msg('正在清空项目'+log_msgs[log_type]+'日志...',{icon:16,time:0,shade: [0.3, '#000']});
+							$.post('/plugin?action=a&s=clean_object_logs&name=pm2',{pname: pname,log_type:log_type},function(rdata){
+									layer.close(loadT);
+									layer.msg(rdata.msg,{icon:rdata.status?1:2});
+							});
+					})
+			}
+
+			//获取项目日志
+			function get_object_logs(pname,log_type){
+					var loadT = layer.msg('正在获取项目日志...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=get_object_logs&name=pm2',{pname: pname,log_type:log_type},function(rdata){
+							layer.close(loadT);
+							$(".object-log").text(rdata);
+							setTimeout(function () {
+									var div = document.getElementsByClassName('object-log')[0]
+									div.scrollTop = div.scrollHeight;
+							}, 200);
+					});
+			}
+
+
+			
+			//取日志
+			function GetLogList(){
+					var loadT = layer.msg('正在获取pm2日志...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.get('/plugin?action=a&s=GetLogs&name=pm2',function(logs){
+							layer.close(loadT);
+							var con = '<div class="soft-man-con">\
+													<p class="conf_p"> <span style="width:85px;" class="f14 c6 mr20">项目日志目录 </span><a href="javascript:openPath(\'/root/.pm2/logs\');" class="f14 c6 mr20 btlink">/root/.pm2/logs</a></p>\
+													<p class="f14 c6 mtb10" style="border-top:#ddd 1px solid; padding:10px 0;margin-bottom: -5px;">PM2日志</p>\
+													<textarea class="bt-input-text" readonly="" style="color: #fff; width: 100%; height: 455px; line-height: 18px; background-color:#333;" id="error_log">'+logs+'</textarea>\
+													<p></p>\
+											</div>'
+							$("#webEdit-con").html(con);
+							if($("#error_log")[0].scrollHeight) $("#error_log").scrollTop($("#error_log")[0].scrollHeight);
+					});
+			}
+			
+			//添加项目
+			function show_create(){
+					body = '<form class="bt-form pd20 pb70 " id="fromServerPath" accept-charset="utf-8">\
+											<div class="line">\
+													<span class="tname">启动文件</span>\
+													<div class="info-r c4">\
+															<input class="bt-input-text" id="select-execfile" type="text" name="exec_file" placeholder="请输入或选择启动文件或直接输入npm" value="" style="width:310px">\
+															<span class="glyphicon glyphicon-folder-open cursor" onclick="bt.select_path(\'select-execfile\',\'all\')"></span>\
+													</div>\
+											</div>\
+											<div class="line">\
+													<span class="tname">运行目录</span>\
+													<div class="info-r c4">\
+															<input class="bt-input-text" id="select-path" type="text" name="exec_path" placeholder="请输入或选择运行目录" value="" style="width:310px">\
+															<span class="glyphicon glyphicon-folder-open cursor" onclick="bt.select_path(\'select-path\')"></span>\
+													</div>\
+											</div>\
+											<div class="line">\
+													<span class="tname">项目名称</span>\
+													<div class="info-r c4">\
+															<input class="bt-input-text" type="text" name="pname" placeholder="请输入项目名称" value="" style="width:310px">\
+													</div>\
+											</div>\
+											<div class="line">\
+													<span class="tname">负载实例数量</span>\
+													<div class="info-r c4">\
+															<input class="bt-input-text" type="number" name="cluster" value="1" style="width:120px">\
+															<span>* 实例数量>1时，将开启集群模式</span>\
+													</div>\
+											</div>\
+											<div class="line">\
+													<span class="tname">内存上限</span>\
+													<div class="info-r c4">\
+															<input class="bt-input-text" type="number" name="max_memory" value="1024" style="width:120px">\
+															<span> * 单位(MB)，超过上限将自动重启项目</span>\
+													</div>\
+											</div>\
+											<div class="line">\
+													<span class="tname">运行用户</span>\
+													<div class="info-r c4">\
+															<select name="exec_user" class="bt-input-text" style="width:120px">\
+																	<option value="www">www</option>\
+																	<option value="root">root</option>\
+															</select>\
+															<span>   * 无特殊需求请选择www用户</span>\
+													</div>\
+											</div>\
+											<div class="bt-form-submit-btn">\
+													<button type="button" class="btn btn-danger btn-sm btn-title colseView-show-create">取消</button>\
+													<button type="button" class="btn btn-success btn-sm btn-title setViewData-show-create">提交</button>\
+											</div>\
+											<ul class="help-info-text c7">\
+													<li>【启动文件】用于启动nodejs项目的启动文件，通常是一个js文件</li>\
+													<li>【启动文件】若此处填写的是npm，则代表使用npm run start启动项目</li>\
+													<li>【运行目录】运行项目时默认的运行目录，通常为启动文件所在目录</li>\
+													<li>【负载实例数】集群模式，有些项目可能不支持，实例数量>1时为开启集群模式</li>\
+													<li>【负载均衡】开启集群模式后将根据实例数自动负载均衡</li>\
+											</ul>\
+									</form>'
+					layer.open({
+							type: 1,
+							area: '500px',
+							title: '添加项目',
+							closeBtn: 2,
+							shift: 0,
+							shadeClose: false,
+							content: body,
+							success: function(lay,index){
+									//关闭事件
+									$(".colseView-show-create").click(function(){
+											layer.close(index);
+									});
+
+									//自动填充
+									$("#select-execfile").change(function(){
+											var exec_file = $(this).val();
+											var file_path = get_file_path(exec_file);
+											if($("#select-path").val() == ''){
+													$("#select-path").val(file_path);
+													$("input[name='pname']").val(file_path.split('/').slice(-1)[0]);
+											}
+									});
+									$("#select-path,input[name='pname']").bind('focus',function(){
+											var exec_file = $("#select-execfile").val();
+											var file_path = get_file_path(exec_file);
+											if($("#select-path").val() == ''){
+													$("#select-path").val(file_path);
+											}
+											if($("input[name='pname']").val() == ''){
+													$("input[name='pname']").val(file_path.split('/').slice(-1)[0]);
+											}
+									});
+
+									$("#select-path").change(function(){
+											var file_path = $("#select-path").val();
+											if($("input[name='pname']").val() == ''){
+													$("input[name='pname']").val(file_path.split('/').slice(-1)[0]);
+											}
+									});
+
+									//提交表单
+									$(".setViewData-show-create").click(function(){
+											var data = {
+													path:$("input[name='exec_path']").val(),
+													pname:$("input[name='pname']").val(),
+													run:$("input[name='exec_file']").val(),
+													exec_user:$("select[name='exec_user']").val(),
+													cluster:$("input[name='cluster']").val(),
+													max_memory:$("input[name='max_memory']").val()
+											}
+											console.log(data)
+											if(!data.path || !data.pname || !data.run){
+													layer.msg('表单不完整，请检查!',{icon:2});
+													return;
+											}
+											var loadT = layer.msg('正在添加项目...',{icon:16,time:0,shade: [0.3, '#000']});
+											$.post('/plugin?action=a&s=Add&name=pm2',data,function(rdata){
+													layer.close(loadT);
+													layer.msg(rdata.msg,{icon:rdata.status?1:2});
+													if(rdata.status) {
+															layer.close(index);
+															GetNodeList();
+													}
+											});
+									})
+							}
+					});
+			}
+
+
+			//添加项目
+			function show_edit_object(pname,appid){
+					var loadT = layer.msg('正在获取项目信息...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=get_object_find&name=pm2',{pname:pname},function(find){
+							layer.close(loadT);
+							if(find['status'] === false){
+									layer.msg(find.msg,{icon:2});
+									return;
+							}
+
+							body = '<form class="bt-form pd20 pb70 " id="fromServerPath" accept-charset="utf-8">\
+													<div class="line">\
+															<span class="tname">启动文件</span>\
+															<div class="info-r c4">\
+																	<input class="bt-input-text" id="select-execfile" type="text" name="exec_file" placeholder="请输入或选择启动文件" value="'+find.run+'" style="width:310px">\
+																	<span class="glyphicon glyphicon-folder-open cursor" onclick="bt.select_path(\'select-execfile\',\'all\')"></span>\
+															</div>\
+													</div>\
+													<div class="line">\
+															<span class="tname">运行目录</span>\
+															<div class="info-r c4">\
+																	<input class="bt-input-text" id="select-path" type="text" name="exec_path" placeholder="请输入或选择运行目录" value="'+find.path+'" style="width:310px">\
+																	<span class="glyphicon glyphicon-folder-open cursor" onclick="bt.select_path(\'select-path\')"></span>\
+															</div>\
+													</div>\
+													<div class="line">\
+															<span class="tname">项目名称</span>\
+															<div class="info-r c4">\
+																	<input class="bt-input-text" type="text" name="pname" placeholder="请输入项目名称" value="'+find.pname+'"  style="width:310px;background-color: gainsboro;" readonly="readonly">\
+															</div>\
+													</div>\
+													<div class="line">\
+															<span class="tname">负载实例数量</span>\
+															<div class="info-r c4">\
+																	<input class="bt-input-text" type="number" name="cluster" value="'+find.cluster+'" style="width:120px">\
+																	<span>* 实例数量>1时，将开启集群模式</span>\
+															</div>\
+													</div>\
+													<div class="line">\
+															<span class="tname">内存上限</span>\
+															<div class="info-r c4">\
+																	<input class="bt-input-text" type="number" name="max_memory" value="'+find.max_memory+'" style="width:120px">\
+																	<span> * 单位(MB)，超过上限将自动重启项目</span>\
+															</div>\
+													</div>\
+													<div class="line">\
+															<span class="tname">运行用户</span>\
+															<div class="info-r c4">\
+																	<select name="exec_user" class="bt-input-text" style="width:120px">\
+																			<option value="www" '+(find.exec_user == 'www'?'selected':'')+'>www</option>\
+																			<option value="root" '+(find.exec_user == 'root'?'selected':'')+'>root</option>\
+																	</select>\
+																	<span>   * 无特殊需求请选择www用户</span>\
+															</div>\
+													</div>\
+													<div class="bt-form-submit-btn">\
+															<button type="button" class="btn btn-danger btn-sm btn-title colseView-show-create">取消</button>\
+															<button type="button" class="btn btn-success btn-sm btn-title setViewData-show-create">保存</button>\
+													</div>\
+													<ul class="help-info-text c7">\
+															<li>【启动文件】用于启动nodejs项目的启动文件，通常是一个js文件</li>\
+															<li>【运行目录】运行项目时默认的运行目录，通常为启动文件所在目录</li>\
+															<li>【负载实例数】集群模式，有些项目可能不支持，实例数量>1时为开启集群模式</li>\
+															<li>【负载均衡】开启集群模式后将根据实例数自动负载均衡</li>\
+													</ul>\
+											</form>'
+							layer.open({
+									type: 1,
+									area: '500px',
+									title: '编辑项目['+pname+']',
+									closeBtn: 2,
+									shift: 0,
+									shadeClose: false,
+									content: body,
+									success: function(lay,index){
+											//关闭事件
+											$(".colseView-show-create").click(function(){
+													layer.close(index);
+											});
+
+											//自动填充
+											$("#select-execfile").change(function(){
+													var exec_file = $(this).val();
+													var file_path = get_file_path(exec_file);
+													$("#select-path").val(file_path);
+											});
+											$("#select-path,input[name='pname']").bind('focus',function(){
+													var exec_file = $("#select-execfile").val();
+													var file_path = get_file_path(exec_file);
+													if($("#select-path").val() == ''){
+															$("#select-path").val(file_path);
+													}
+											});
+
+											//提交表单
+											$(".setViewData-show-create").click(function(){
+													var data = {
+															path:$("input[name='exec_path']").val(),
+															pname:$("input[name='pname']").val(),
+															run:$("input[name='exec_file']").val(),
+															exec_user:$("select[name='exec_user']").val(),
+															cluster:$("input[name='cluster']").val(),
+															max_memory:$("input[name='max_memory']").val(),
+															appid: appid
+													}
+													console.log(data)
+													if(!data.path || !data.pname || !data.run){
+															layer.msg('表单不完整，请检查!',{icon:2});
+															return;
+													}
+													var loadT = layer.msg('正在保存修改...',{icon:16,time:0,shade: [0.3, '#000']});
+													$.post('/plugin?action=a&s=Edit&name=pm2',data,function(rdata){
+															layer.close(loadT);
+															layer.msg(rdata.msg,{icon:rdata.status?1:2});
+															if(rdata.status) {
+																	layer.close(index);
+																	GetNodeList();
+															}
+													});
+											})
+									}
+							});
+					});
+			}
+
+
+			//获取文件路径
+			function get_file_path($filename){
+					file_arr = $filename.split('/');
+					path_arr = file_arr.slice(0,file_arr.length-1);
+					return path_arr.join('/');
+			}
+
+
+			//获取项目信息
+			function get_object_info(pname){
+					var loadT = layer.msg('正在获取项目信息...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.post('/plugin?action=a&s=get_show_info&name=pm2',{pname:pname},function(rdata){
+							layer.close(loadT);
+
+							var tbody = '';
+							$.each(rdata,function(k,v){
+									tbody += '<tr>\
+															<th>'+k+'</th>\
+															<td>'+v+'</td>\
+													</tr>'
+							})
+
+							var con = '<div class="divtable" style="margin: 15px;">\
+															<table class="table table-hover table-bordered" style="margin-top: 10px; max-height: 380px; overflow: auto;">\
+																	<tbody id="pminfo">'+tbody+'</tbody>\
+															</table>\
+													</div>';
+							layer.open({
+									type: 1,
+									area: ['600px','600px'],
+									title: '项目信息['+pname+']',
+									closeBtn: 2,
+									shift: 0,
+									shadeClose: false,
+									content: con,
+							});
+					});
+			}
+
+
+			//取列表
+			function GetNodeList(){
+					// 提前请求
+					var loadT = layer.msg('正在获取版本列表...',{icon:16,time:0,shade: [0.3, '#000']});
+					 $.get('/plugin?action=a&s=GetVersion&name=pm2',function(versions){
+							layer.close(loadT);
+							if(!versions.status) layer.msg(versions.msg,{icon:7,area: '420px'})
+					});
+					var con = '<div class="soft-man-con">\
+							<button class="btn btn-success btn-sm va0" onclick="show_create();">添加项目</button>\
+							<div class="divtable mt5" style="max-height: 480px;overflow:auto;">\
+									<table class="table table-hover">\
+											<thead>\
+													<tr>\
+															<th>名称</th>\
+															<th>PID</th>\
+															<th>用户</th>\
+															<th>端口</th>\
+															<th>状态</th>\
+															<th>重启</th>\
+															<th>时间</th>\
+															<th>CPU</th>\
+															<th>内存</th>\
+															<th>日志</th>\
+															<th>模块</th>\
+															<th>目录</th>\
+															<th style="text-align: right;" width="180">操作</th>\
+													</tr>\
+											</thead>\
+											<tbody id="pmlist"></tbody>\
+									</table>\
+							</div>\
+					</div>';
+					$("#webEdit-con").html(con);
+					$(".layui-layer-page").css('width','1200px');
+					var loadT = layer.msg('正在获取项目列表...',{icon:16,time:0,shade: [0.3, '#000']});
+					$.get('/plugin?action=a&s=List&name=pm2',function(data){
+							layer.close(loadT);
+							var tbody = '';
+							for(var i=0;i<data.length;i++){
+									data[i].set_port = data[i].port;
+									if(data[i].status != 'online'){
+											var opt = '<a href="javascript:NodeStart(\''+data[i].name+'\','+data[i].id+')" class="btlink">启动</a> | ';
+									}else{
+											data[i].set_port = '<a class="btlink" onclick="set_object_port(\''+data[i].name+'\',\''+data[i].port+'\')">'+(data[i].port=='OFF'?'设置':data[i].port)+'</a>';
+											var opt = '<a href="javascript:NodeStop(\''+data[i].name+'\','+data[i].id+')" class="btlink">停止</a> | <a href="javascript:NodeRestart(\''+data[i].name+'\','+data[i].id+')" class="btlink">重启</a> | <a href="javascript:onekeyCodeSite(\''+data[i].name+'\',\''+data[i].port+'\',\''+data[i].path+'\')" class="btlink">映射</a> | ';
+									}
+									data[i].path = data[i].path.replace('//','');
+									
+									var status = '<span style="color:rgb(92, 184, 92)" class="glyphicon glyphicon-play"></span>';
+									if(data[i].status != 'online'){
+											status = '<span style="color:rgb(255, 0, 0);" class="glyphicon glyphicon-pause"></span>';
+									}
+
+									
+									tbody += '<tr>\
+															<td><a class="btlink" onclick="get_object_info(\''+data[i].name+'\')">'+data[i].name + data[i].c_ps+'</a></td>\
+															<td>'+data[i].pid+'</td>\
+															<td><span title="运行用户">'+data[i].user+'</span></td>\
+															<td>'+(data[i].status != 'online'?'<span style="color:red;">停用</span>':data[i].set_port)+'</td>\
+															<td>'+status+'</td>\
+															<td><span title="自动重启次数">'+data[i].restart+'次</span></td>\
+															<td><span title="本次运行时间">'+data[i].uptime+'</span></td>\
+															<td>'+data[i].cpu+'%</td>\
+															<td>'+data[i].mem+'</td>\
+															<td><a class="btlink" onclick="show_object_logs(\''+data[i].name+'\',\'error\')">错误</a>/<a class="btlink" onclick="show_object_logs(\''+data[i].name+'\',\'out\')">运行</a></td>\
+															<td><a class="btlink" onclick="show_object_modules(\''+data[i].name+'\',\''+data[i].path+'\')">管理</a></td>\
+															<td><span onclick="openPath(&quot;'+data[i].path+'&quot;)" class="btlink cursor mr20" title="'+data[i].path+'">打开</span></td>\
+															<td style="text-align: right;">\
+																	'+opt+'<a class="btlink" onclick="show_edit_object(\''+data[i].name+'\','+data[i].id+')">编辑</a> | <a href="javascript:DelNode(\''+data[i].name+'\','+data[i].id+')" class="btlink">删除</a>\
+															</td>\
+													</tr>';
+							}
+							
+							$("#pmlist").html(tbody);
+							
+					});
+			}
+
+
+			function set_object_port(pname,port){
+					var con = '<form class="bt-form pd20 pb70 " accept-charset="utf-8">\
+													<div class="line">\
+															<span class="tname">监听端口</span>\
+															<div class="info-r c4">\
+																	<input class="bt-input-text" type="number" name="p_port" max="65535" min="1" placeholder="请输入当前项目的监听端口" value="'+(port=='OFF'?'':port)+'" style="width:120px">\
+																	<span>当前项目正在监听的端口</span>\
+															</div>\
+													</div>\
+													<div class="bt-form-submit-btn">\
+															<button type="button" class="btn btn-danger btn-sm btn-title port-show-close">取消</button>\
+															<button type="button" class="btn btn-success btn-sm btn-title port-show-create">保存</button>\
+													</div>\
+													<ul class="help-info-text c7">\
+															<li>若程序无法正确显示项目端口时，可在此处配置正确的监听端口</li>\
+															<li>只有正确的监听端口项目才能被正确映射</li>\
+															<li>若项目检测正确或项目未监听任何端口，请忽略此处配置</li>\
+													</ul>\
+											</form>';
+					layer.open({
+							type: 1,
+							area: '500px',
+							title: '设置项目['+pname+']监听端口',
+							closeBtn: 2,
+							shift: 0,
+							shadeClose: false,
+							content: con,
+							success:function(layers,index){
+									$(".port-show-create").click(function(){
+											s_port = Number($("input[name='p_port']").val());
+											if(s_port < 1 || s_port > 65535){
+													layer.msg('端口范围不正确[1-65535]',{icon:2});
+													return;
+											}
+
+											var loadT = layer.msg('正在配置项目端口...',{icon:16,time:0,shade: [0.3, '#000']});
+											$.post('/plugin?action=a&s=set_object_port&name=pm2',{pname:pname,port:s_port},function(rdata){
+													layer.close(loadT);
+													if(rdata.status === true){
+															layer.close(index);
+															setTimeout(function(){
+																	GetNodeList();
+															},3000);
+													}
+													layer.msg(rdata.msg,{icon:rdata.status?1:2});
+											});
+									});
+
+									$(".port-show-close").click(function(){
+											layer.close(index);
+									});
+							}
+					});
+
+
+			}
+			GetNodeList();
+			
+	</script>

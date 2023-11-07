@@ -1,0 +1,1170 @@
+<!-- 插件样式 -->
+<style>
+	.bbr.pd {
+		padding: 14px 20px 0px 20px !important;
+	}
+
+	.bbr .panel-tip {
+		/* 邓 */
+		width: 545px;
+		/* width: 640px; */
+		height: 42px;
+		line-height: 27px;
+		background-color: #FDF6EC;
+		padding: 6px 0px 0px 14px;
+		margin: 0px 0px 20px 0px;
+		border-radius: 2px;
+	}
+
+	.bbr .vertical-line {
+		margin: 0px 24px;
+		/* padding-left: 15px; */
+		border-left: 2px solid rgb(227, 229, 235);
+		vertical-align: middle;
+		height: 19px;
+		width: 2px;
+	}
+
+	.bbr .panel-content {
+		border-radius: 2px;
+		border: 1px solid #DCDFE6;
+		/* width: 640px; */
+		width: 545; /*邓*/
+		height: 252px;
+		margin: 23px 0px 0px 0px;
+		/* padding: 0px 0 0px 27px; */
+	}
+
+	.bbr .btn.btn-default.btn-sm:hover {
+		background-color: #F1F9F3 !important;
+		border-color: #BCE4C4 !important;
+		color: #20A53A !important
+	}
+
+	.bbr .btn.btn-default.btn-sm.start-test:hover {
+		border: 1px solid #20A53A !important;
+		color: #20A53A !important
+	}
+
+	.bbr .btn.btn-default.btn-sm.start-test {
+		background-color: #FFFFFF;
+		color: #20A53A !important;
+		border: 1px solid #20A53A !important;
+
+	}
+
+	.bbr .btn.btn-default.btn-sm.start-test:active {
+		border: 1px solid #20A53A !important;
+		color: #20A53A !important;
+		box-shadow: none !important;
+	}
+
+	.bbr .btn.btn-default.btn-sm.stop-test {
+		background-color: #cbcbcb;
+		color: #FFFFFF !important;
+		display: none;
+	}
+
+	.bbr .btn.btn-default.btn-sm.stop-test:active {
+		border: 1px solid #C9302C !important;
+		color: #ffffff !important;
+		background-color: #C9302C !important;
+
+	}
+
+	.bbr .btn.btn-default.btn-sm.stop-test:hover {
+		border: 1px solid #C9302C !important;
+		color: #ffffff !important;
+		background-color: #C9302C !important;
+	}
+
+	button[name="bbr_resetForm"]:hover {
+		background-color: #F1F9F3 !important;
+		border-color: #BCE4C4 !important;
+		color: #20A53A !important
+	}
+
+	button[name="bbr_resetForm"] {
+		width: 74px;
+		height: 30px;
+		margin-left: 16px;
+		background: #FFFFFF !important;
+		color: #20a53a !important;
+		border-radius: 2px
+	}
+
+	.bbr .btswitch+.btswitch-btn {
+		outline: 0;
+		display: block;
+		width: 36px;
+		height: 22px;
+		position: relative;
+		cursor: pointer;
+	}
+
+	.bbr .btswitch-ios+.btswitch-btn:active {
+		background: #cdcdcd;
+		border-radius: .9em;
+		padding: 2px;
+		-webkit-transition: all .4s ease;
+		background-color: #20A53A;
+		transition: all .4s ease;
+		border: 1px solid #e8eae9;
+	}
+
+	.bbr .btn.btn-default.btn-sm {
+		width: 74px;
+		height: 30px;
+		border-color: #DCDFD6;
+		background-color: #FFFFFF;
+		color: #666666;
+	}
+
+	.bbr .btn.btn-default.btn-sm:active {
+		background-color: #F1F9F3 !important;
+		border-color: #1D9534 !important;
+		color: #1D9534 !important
+	}
+
+	button[name="bbr_resetForm"]:active {
+		box-shadow: none;
+		background-color: #F1F9F3 !important;
+		border-color: #1D9534 !important;
+		color: #1D9534 !important
+	}
+
+	button[name="bbr_resetForm"]:visited {
+		box-shadow: none;
+		background-color: #F1F9F3 !important;
+		border-color: #1D9534 !important;
+		color: #1D9534 !important
+	}
+
+	button[name="bbr_resetForm"]:focus {
+		border-color: #F1F9F3;
+	}
+
+	button[name="bbr_submitForm"]:active {
+		border-color: '#10952a' !important;
+
+	}
+
+
+
+
+	.bbr .content-middle-div {
+		height: 40px;
+		margin-top: 22px;
+	}
+
+	.bbr .circle {
+		width: 24px;
+		height: 24px;
+		background-color: #cdcdcd;
+		border-radius: 50%;
+		border: 2px solid#EEEEEE;
+		display: flex;
+		float: left;
+		justify-content: center;
+		align-items: center;
+		color: #FFFFFF;
+		margin-right: 13px;
+		z-index: 999;
+	}
+
+	.bbr span {
+		vertical-align: middle;
+	}
+
+	.bbr .sn-home--important-note {
+		border: 1px solid #F0AD4E;
+		border-radius: 8px;
+		background-color: rgb(240, 173, 78);
+		color: rgb(250, 228, 196);
+		/* cursor: help; */
+		display: inline-block;
+		font-family: arial;
+		font-size: 10px;
+		font-style: normal;
+		height: 14px;
+		line-height: 13px;
+		margin: 0 6px 0 0;
+		text-align: center;
+		width: 14px;
+	}
+
+	.bbr .circle-line {
+		position: absolute;
+		margin: 18px 0px 0px -18px;
+		/* padding-left: 20px; */
+		border-bottom: 2px solid #cdcdcd;
+		width: 220px;
+
+	}
+
+	.bbr .brd2 {
+		border-radius: 2px;
+
+	}
+
+	.bbr .bbrEcharts {
+		display: flex;
+		height: 130px;
+		margin-top: 15px;
+	}
+
+	.bbr .firstEcharts {
+		flex: 1;
+	}
+
+	.bbr .secondEcharts {
+		flex: 1;
+	}
+
+	.bbr .thirdEcharts {
+		flex: 1;
+	}
+
+	.bbr .bbr-bottom {
+		margin-top: 10px;
+		height: 40px;
+		color: #666666;
+	}
+
+	.bbr .pingDiv {
+		width: 150px;
+		display: inline-block;
+	}
+
+	.bbr .uploadDiv {
+		width: 150px;
+		display: inline-block;
+		/*  */
+		margin-left: 212px;
+		/* margin-left: 80px; */
+
+	}
+
+	.bbr .downloadDiv {
+		width: 150px;
+		display: inline-block;
+		margin-left: 70px;
+
+	}
+
+	.bbr .content_subDiv {
+		width: 180px;
+		margin-right: 50px;
+		display: inline-block;
+	}
+
+	.bbr .btn.btn-default.btn-sm.network {
+		/* padding: 12px 10px; */
+	}
+
+	/* .bbr .bt-ico-ask:first-child {
+		border: 1px solid #fb7d00;
+		border-radius: 8px;
+		color: #fb7d00;
+		cursor: help;
+		display: inline-block;
+		font-family: arial;
+		font-size: 11px;
+		font-style: normal;
+		height: 16px;
+		line-height: 16px;
+		margin-left: 317px;
+		text-align: center;
+		position: absolute;
+		width: 16px;
+	} */
+    img.loading_deng {
+		margin-left:5px ;
+        width: 14px;
+        height: 14px;
+    }
+	.hide_show{
+		display: none;
+	}
+</style>
+<!-- 插件内容 -->
+<div class="bbr pd">
+
+	<div class="panel-tip">
+		<i class="sn-home--important-note">i</i>
+		<span style="color: #f3bc6e;">BBR是Google开源的TCP拥塞控制算法，优化VPS带宽利用，增加吞吐量、提高VPS网络速度。</span>
+
+	</div>
+
+	<div>
+		<div class="inlineBlock" style="height: 30px;">
+			<span>开启BBR加速</span>
+			<div class="ssh-item" style="float:inherit;display:inline-block;vertical-align: middle;margin-left: 20px;">
+				<input type="checkbox" class="btswitch btswitch-ios" id="is-bbr-accelerated" style="border-radius: 2px;">
+				<label class=" btswitch-btn isFirewall" for="is-bbr-accelerated"></label>
+			</div>
+		</div>
+		<div class="vertical-line inlineBlock">
+		</div>
+		<div id="networkDiv" style="display: inline-block;width: 100px;">
+			<button type="button" class="btn btn-default  btn-sm network" onclick="networkDisposition()"
+				style="border-radius: 2px;box-shadow: none;width: 98px;height: 30px;">优化网络配置</button>
+		</div>
+		<a class="bt-ico-ask" target="_blank" lay-on="tips" style="width: 15px;height: 15px;">?</a>
+
+	</div>
+
+	<div class="panel-content">
+
+
+		<!-- <div class="content-middle">
+			<div class="content-middle-div" style="margin-top: 0px;">
+				<div class="circle">1</div>
+				<div class="circle-line inlineBlock"></div>
+
+				<div class="circle" style="margin-left: 200px;">2</div>
+				<div class="circle-line inlineBlock"></div>
+
+				<div class="circle" style="margin-left: 200px;">3</div>
+			</div>
+		</div> -->
+
+		<div class="content_Div">
+			<!-- <div class="content_subDiv">
+				<span class="CircleFontColor" style="color: #666666;font-size: 14px;">Ping</span>
+				<div class="CircleFontColor" style="margin-top: 4px;; color: #999999;width: 120px;">等待测试开始
+				</div>
+			</div>
+
+			<div class="content_subDiv" style="width: 150px;margin-right: 90px;">
+				<span style="color: #666666;font-size: 14px;" class="CircleFontColor">上传</span>
+				<div style="margin: 4px;;width: 120px;color: #999999;width: 120px;" class="CircleFontColor">等待测试开始
+				</div>
+			</div>
+
+			<div class="content_subDiv" style="width: 130px;margin-right: 0px;">
+				<span style="color: #666666;font-size: 14px;width: 120px;" class="CircleFontColor">下载</span>
+				<div style="margin: 4px;color: #999999;width: 120px;" class="CircleFontColor">等待测试开始
+				</div>
+			</div> -->
+
+
+			<div class="bbrEcharts" id="bbrEcharts">
+				<!-- <div id="pingCharts" class="firstEcharts"></div> -->
+				<div id="uploadCharts" class="secondEcharts"></div>
+				<!-- <a class="bt-ico-ask" target="_blank" lay-on="tips">?</a> -->
+
+				<!-- <div id="downloadCharts" class="thirdEcharts"></div> -->
+				<!-- <a class="bt-ico-ask" target="_blank" lay-on="tips">?</a> -->
+
+			</div>
+
+			<div class="bbr-bottom">
+				<!-- <div class="pingDiv">
+					<div style="margin-left: 10px;margin-bottom: 4px;"><span>等待ping测试开始</span></div>
+					<div>
+						<svg style="display: none;" width="6.000000" height="9.000000" viewBox="0 0 6 9" fill="none"
+							xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<desc>
+								Created with Pixso.
+							</desc>
+							<defs />
+							<path id="path"
+								d="M3.54541 1.90002L3.54541 9L2.45459 9L2.45459 1.95001L0.763672 3.5L0 2.75L3 0L6 2.75L5.23633 3.45001L3.54541 1.90002Z"
+								fill-rule="nonzero" fill="#68C693" />
+						</svg>
+						<span></span>
+					</div>
+				</div> -->
+
+				<div class="uploadDiv">
+					<div style="margin-left: 10px;margin-bottom: 4px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;等待测试开始</span><img src="../../static/img/loading.gif" alt="" class="loading_deng hide_show"></div>
+					<div><svg style="display: none;" width="6.000000" height="9.000000" viewBox="0 0 6 9" fill="none"
+							xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<desc>
+								Created with Pixso.
+							</desc>
+							<defs />
+							<path id="path"
+								d="M3.54541 1.90002L3.54541 9L2.45459 9L2.45459 1.95001L0.763672 3.5L0 2.75L3 0L6 2.75L5.23633 3.45001L3.54541 1.90002Z"
+								fill-rule="nonzero" fill="#68C693" />
+						</svg>
+						<span></span>
+					</div>
+				</div>
+
+				<!-- <div class="downloadDiv">
+					<div style="margin-left: 10px;margin-bottom: 4px;"><span>等待下载测试开始</span></div>
+					<div>
+						<svg style="display: none;" width="6.000000" height="9.000000" viewBox="0 0 6 9" fill="none"
+							xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<desc>
+								Created with Pixso.
+							</desc>
+							<defs />
+							<path id="path"
+								d="M3.54541 1.90002L3.54541 9L2.45459 9L2.45459 1.95001L0.763672 3.5L0 2.75L3 0L6 2.75L5.23633 3.45001L3.54541 1.90002Z"
+								fill-rule="nonzero" fill="#68C693" />
+						</svg>
+						<span></span>
+					</div>
+				</div> -->
+				<div style="position: absolute;margin-left: 208px;margin-top: 19px;" id="testBtn">
+					<button type="button" class="btn btn-default  btn-sm start-test" id="start-test" style="width: 84px;margin-left: 20px;border-radius: 2px;border: 0px;
+				" onclick="startTest()">开始测试</button>
+					<button type="button" class="btn btn-default  btn-sm stop-test" id="stop-test"
+						style="margin-left: 20px;border-radius: 2px;border: 0px;width: 84px;" onclick="stopTest()">取消测试</button>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<script src="/static/js/echarts.min.js?version={{g['btwaf_version']}}"></script>
+<script type="text/javascript">
+	var bbr = {
+		plugin_name: 'bbr',
+		area: [1000, 630],	//插件宽高调整
+		data: {	//此处放全局数据存储
+			stopFlag: false//为true时,停止递归调用获取网络状态接口,为false可以正常调用
+		},
+		/**
+		* @description 初始化项目
+		*/
+		init: function () {
+			var that = this;
+
+			/* 插件，第一步设置布局宽度大小 */
+			$('.layui-layer-page').css({
+				width: '585px',
+				height: '450px',
+				left: (($(window).width() - 680) / 2) + 'px',
+				top: (($(window).height() - 450) / 2) + 'px'
+			}).find('.bbr.bt-w-main').css({
+				height: (450 - 42) + 'px'
+			})
+			//给单选框添加切换事件
+			$('#is-bbr-accelerated').click(that.toggleBbrAccelerated)
+			//调用接口获取当前是否开启bbr加速状态
+			that.getBbrConfig()
+			that.initBbrEcharts()
+			//请求一次get_test_status,获取排队文字信息
+			// var circle = document.querySelectorAll(".bbr .circle")
+			// var CircleFontColor = document.querySelectorAll(".bbr .CircleFontColor")
+			// var circleLine = document.querySelectorAll(".bbr .circle-line")
+
+			bt_tools.send({
+				url: '/plugin?action=a&name=bt_bbr&s=get_test_status'
+			}, function (ress) { })
+		},
+		/**
+		* @description 渲染首页
+		*/
+		//获取当前是否开启bbr加速状态
+		getBbrConfig: function () {
+			var that = this;
+			bt_tools.send({
+				url: '/plugin?action=a&name=bt_bbr&s=get_bbr_config'
+			}, function (ress) {
+				//设置单选框的值
+				$('#is-bbr-accelerated').val(ress)
+				$('#is-bbr-accelerated').attr("checked", ress)
+			}, '获取当前状态中')
+
+		},
+
+
+		//切换BBR加速状态事件
+		toggleBbrAccelerated: function () {
+			var that = this
+			//获取当前bbr加速状态
+			var val = JSON.parse($(that).val())
+			//点击关闭加速
+			if (val) {
+				bt_tools.send({
+					url: '/plugin?action=a&name=bt_bbr&s=stop_BBR'
+				}, function (ress) {
+					bt_tools.msg(ress);
+				}, '关闭加速中')
+			} else if (!val) {
+				//点击开启加速
+				bt_tools.send({
+					url: '/plugin?action=a&name=bt_bbr&s=start_test_BBR'
+				}, function (ress) {
+					bt_tools.msg(ress);
+				}, '开启加速中')
+			}
+			//修改加速状态
+			$(that).val(!val)
+		},
+		//初始化div中文字
+		initDivSpan: function () {
+			var pingDiv = document.querySelectorAll(".pingDiv div span")
+			var uploadDiv = document.querySelectorAll(".uploadDiv div span")
+			var downloadDiv = document.querySelectorAll(".downloadDiv div span")
+			// $('.bbr .pingDiv span')[0].style.color = '#666666'
+			$('.bbr .uploadDiv span')[0].style.color = '#666666'
+			// $('.bbr .downloadDiv span')[0].style.color = '#666666'
+			// $('.bbr .pingDiv span')[1].style.color = '#666666'
+			$('.bbr .uploadDiv span')[1].style.color = '#666666'
+			// $('.bbr .downloadDiv span')[1].style.color = '#666666'
+			uploadDiv[0].innerHTML = '等待上传测试开始'
+			// downloadDiv[0].innerHTML = '等待下载测试开始'
+
+			// pingDiv[0].innerHTML = '等待ping测试开始'
+		},
+
+		//修改echarts数据并渲染
+		resetEcharts: function (res) {
+			var that = this
+			// var pingCharts = echarts.init(document.getElementById('pingCharts'))
+			var uploadCharts = echarts.init(document.getElementById('uploadCharts'))
+			// var downloadCharts = echarts.init(document.getElementById('downloadCharts'))
+			var pingOption = Object.assign({}, option)
+			var uploadOption = Object.assign({}, option)
+			var downloadOption = Object.assign({}, option)
+			var upload_max;
+			var download_max
+			if (res.ping_size) {
+				pingOption.series[0].center = ["30%", "70%"]
+				pingOption.title.x = '42px'
+				pingOption.title.text = 'ping'
+				pingOption.series[0].data[0].name = 'ms'
+				pingOption.series[0].axisLine.lineStyle.color[0] = [res.ping_size / 1000, "#68c693"]
+				pingOption.series[0].data[0].value = res.ping_size
+				// pingCharts.setOption(pingOption);
+			}
+			if (res.upload_size && (res.upload_size = res.upload_size / 1024 / 1024)) {
+				uploadOption.title.x = 'center'
+				uploadOption.series[0].center = ["50%", "70%"]
+				uploadOption.series[0].data[0].name = 'Mbps'
+				uploadOption.title.text = '服务器发送测试'
+				upload_max = res.upload_size < 10 ? 10 : res.upload_size < 20 ? 20 : res.upload_size < 50 ? 50 : res.upload_size < 100 ? 100 : res.upload_size < 300 ? 300 : res.upload_size < 500 ? 500 : res.upload_size < 1000 ? 1000 : 500
+				uploadOption.series[0].max = upload_max
+				uploadOption.series[0].axisLine.lineStyle.color[0] = [res.upload_size / upload_max, "#68c693"]
+				uploadOption.series[0].axisLine.lineStyle.color[1] = [upload_max, "#eeeeee"]
+				uploadOption.series[0].data[0].value = res.upload_size.toFixed(2)
+				uploadCharts.setOption(uploadOption);
+			}
+
+			if (res.download_size && (res.download_size = res.download_size / 1024 / 1024)) {
+				downloadOption.title.x = '97'
+				downloadOption.series[0].center = ["57%", "70%"]
+				downloadOption.series[0].data[0].name = 'Mbps' //邓
+				downloadOption.title.text = '下载'
+				download_max = res.download_size < 10 ? 10 : res.download_size < 20 ? 20 : res.download_size < 50 ? 50 : res.download_size < 100 ? 100 : res.download_size < 300 ? 300 : res.download_size < 500 ? 500 : res.download_size < 1000 ? 1000 : 500
+				downloadOption.series[0].max = download_max
+
+				downloadOption.series[0].axisLine.lineStyle.color[0] = [res.download_size / download_max, "#68c693"]
+				downloadOption.series[0].axisLine.lineStyle.color[1] = [download_max, "#eeeeee"]
+				downloadOption.series[0].data[0].value = res.download_size.toFixed(2)
+				// downloadCharts.setOption(downloadOption);
+			}
+
+
+			var pingDiv = document.querySelectorAll(".pingDiv div span")
+			var uploadDiv = document.querySelectorAll(".uploadDiv div span")
+			var downloadDiv = document.querySelectorAll(".downloadDiv div span")
+
+			if (res.list) {
+				uploadDiv[0].innerHTML = '未加速：' + (res.list[1] / 1024 / 1024).toFixed(2) + ' Mbps'
+				// downloadDiv[0].innerHTML = '未加速：' + (res.list[2][1] / 1024 / 1024).toFixed(2) + ' Mbps'
+				// pingDiv[0].innerHTML = '未加速：' + res.list[0][1] + 'ms'
+				// pingDiv[1].innerHTML = '已加速：' + res.list[0][0] + 'ms'
+				uploadDiv[1].innerHTML = '已加速：' + (res.list[0] / 1024 / 1024).toFixed(2) + ' Mbps'
+				// downloadDiv[1].innerHTML = '已加速：' + (res.list[2][0] / 1024 / 1024).toFixed(2) + ' Mbps'
+				var bbr_is_bbr_accelerated = $('#is-bbr-accelerated').is(':checked')
+				if ((bbr_is_bbr_accelerated) == true) {
+					// $('.bbr .pingDiv span')[0].style.color = '#cbcbcb'
+					$('.bbr .uploadDiv span')[0].style.color = '#cbcbcb'
+					// $('.bbr .downloadDiv span')[0].style.color = '#cbcbcb'
+					// $('.bbr .pingDiv span')[1].style.color = '#666666'
+					$('.bbr .uploadDiv span')[1].style.color = '#666666'
+					// $('.bbr .downloadDiv span')[1].style.color = '#666666'
+				} else {
+					// $('.bbr .pingDiv span')[0].style.color = '#666666'
+					$('.bbr .uploadDiv span')[0].style.color = '#666666'
+					// $('.bbr .downloadDiv span')[0].style.color = '#666666'
+					// $('.bbr .pingDiv span')[1].style.color = '#cbcbcb'
+					// $('.bbr .pingDiv span')[1].style.color = '#cbcbcb'
+					$('.bbr .uploadDiv span')[1].style.color = '#cbcbcb'
+					// $('.bbr .downloadDiv span')[1].style.color = '#cbcbcb'
+				}
+			}
+
+		},
+
+		//加载echarts
+		initBbrEcharts: function () {
+			// debugger
+			// var pingCharts = echarts.init(document.getElementById('pingCharts'))
+			var uploadCharts = echarts.init(document.getElementById('uploadCharts'))
+			// var downloadCharts = echarts.init(document.getElementById('downloadCharts'))
+
+			var max = 500;
+			// 蓝色背景
+			var num = 1 / max;
+			var colorSet = [
+				[num, "#68c693"],
+				[max, "#eeeeee"]
+			];
+			var centerArr = ["50%", "70%"];
+			option = {
+				backgroundColor: '#fff',
+				title: {
+					text: 'Ping',
+					x: 'center',
+					y: '0px',
+					textStyle: {
+						color: '#666666',
+						fontSize: 14,
+						fontFamily: 'Arial',
+						fontWeight: 'normal',
+					}
+				},
+				series: [
+					{
+						max: 50, //最大值
+						name: "紫色外圈", //刻度背景
+						type: "gauge",
+						z: 2,
+						radius: "80%",
+						splitNumber: 6,
+						startAngle: 220,
+						endAngle: -40,
+						center: centerArr, //整体的位置设置
+						axisLine: {
+							// 坐标轴线
+							lineStyle: {
+								// 属性lineStyle控制线条样式
+								color: colorSet,
+								width: 9,
+								opacity: 1 //刻度背景宽度
+							}
+						},
+						splitLine: {
+							show: false
+						},
+						data: [{
+							show: false,
+							value: "80"
+						}],
+						axisLabel: {
+							show: false, distance: -50,
+							formatter: function () {
+								return 50
+							}
+						},
+						pointer: {
+							show: false
+						},
+						axisTick: {
+							show: false
+						},
+						detail: {
+						},
+						title: {
+							//标题
+							show: true,
+							offsetCenter: [0, 15], // x, y，单位px
+							textStyle: {
+								color: '#333333',
+								fontSize: 12, //表盘上的标题文字大小
+								fontWeight: 400,
+								lineHeight: 20,
+							},
+						},
+						detail: {
+							fontSize: 16,
+							offsetCenter: [0, -4],
+							valueAnimation: true,
+							color: '#666666',
+						},
+						data: [
+							{
+								value: 0,
+								name: 'ms',
+							},
+						],
+					},
+				]
+			};
+			var initPingOption = Object.assign({}, option)
+			var initUploadOption = Object.assign({}, option)
+			var initDownloadOption = Object.assign({}, option)
+
+			initPingOption.series[0].center = ["30%", "70%"]
+			initPingOption.title.x = '42px'
+			// pingCharts.setOption(initPingOption);
+
+			initUploadOption.title.x = 'center'
+			initUploadOption.series[0].center = ["50%", "70%"]
+			initUploadOption.series[0].data[0].name = 'Mbps'
+			initUploadOption.title.text = '服务器发送测试'
+			initUploadOption.title.textStyle.fontFamily = 'Arial'
+			uploadCharts.setOption(initUploadOption);
+
+			initDownloadOption.title.x = '97'
+			initDownloadOption.series[0].center = ["57%", "70%"]
+			initDownloadOption.series[0].data[0].name = 'Mbps'
+			initDownloadOption.title.text = '下载'
+			initDownloadOption.title.textStyle.fontFamily = 'Arial'
+			// downloadCharts.setOption(initDownloadOption);
+
+			window.addEventListener("resize", function () {
+				// pingCharts.resize();
+				uploadCharts.resize();
+				// downloadCharts.resize();
+			})
+
+
+			window.addEventListener('unload', function () {
+				bt_tools.send({ url: '/plugin?action=a&name=bt_bbr&s=stop_test', }, function (ress) {
+				})
+			});
+
+
+
+			$(document).ready(function () {
+				$('.bbr').parent().siblings().children()[1].addEventListener("click", function () {
+					bt_tools.send({ url: '/plugin?action=a&name=bt_bbr&s=stop_test', }, function (ress) {
+					})
+				})
+
+				$($('.bbr .bt-ico-ask')[0]).hover(function () {
+					layer.tips('提升网络的稳定性和安全性。', this, {
+						tips:
+							3
+					});
+				}, function () {
+					layer.close(layer.index); //此时你只需要把获得的index，轻轻地赋予layer.close即可
+				})
+
+
+				$($('.bbr .bt-ico-ask')[1]).hover(function () {
+					layer.tips('服务器的下载速度', this, {
+						tips: 1
+					});
+				}, function () {
+					layer.close(layer.index); //此时你只需要把获得的index，轻轻地赋予layer.close即可
+				})
+
+
+			})
+
+		},
+
+
+		//获取测试数据,该接口请求时间很长,如果请求成功就是测试完成
+		run_speedtest: function () {
+			var completeFlag = false
+			bt_tools.send({
+				url: '/plugin?action=a&name=bt_bbr&s=run_speedtest'
+			}, function (res) {
+				//如果开始测试接口返回false则调用频繁,不进行操作
+				if (res && (!res.status)) {//如果status返回false直接停止进行以下操作
+					bbr.data.stopFlag = true
+					bt_tools.msg(res);
+					bbr.initBbrEcharts()
+					document.querySelector('#start-test').innerHTML = "服务器测试"
+					document.querySelector('#start-test').style.display = "inline-block"
+					document.querySelector('#stop-test').style.display = "none"
+				}
+				if (res && (!res.status)) return
+
+				completeFlag = true
+				//开始测试接口调用完成,开始调用get_network获取测试数据接口
+				if (completeFlag && !bbr.data.stopFlag)//如果停止递归调用接口为true则不请求该接口
+					bbr.data.stopFlag = true
+				bt_tools.send({
+					url: '/plugin?action=a&name=bt_bbr&s=get_network'
+				}, function (ress) {
+					//修改按钮边距以及替换按钮 显示图标
+					$('#testBtn').css({ 'margin-top': '14px' })
+					document.querySelector('#start-test').innerHTML = "重新测试"
+					document.querySelector('#start-test').style.display = "inline-block"
+					document.querySelector('#stop-test').style.display = "none"
+					$('svg').show()
+					//清除按钮禁用与事件监听
+					$($('.bbr #is-bbr-accelerated')[0]).prop("disabled", false)
+					$('.bbr .ssh-item')[0].removeEventListener('click', bbr.bbrMsg)
+
+					$($('.bbr .network')[0]).prop("disabled", false)
+					$('.bbr #networkDiv')[0].removeEventListener('click', bbr.bbrMsg)
+					$('.loading_deng').hide()
+					//重构echarts
+					bbr.resetEcharts(ress)
+				},)
+
+			}, { verify: false })
+
+			//如果停止标记为false则
+			//递归调用get_test_status获取测试状态接口
+			if (bbr.data.stopFlag) return;
+
+			bbr.get_test_status()
+		},
+
+		//下载测试数据,等待run_speedtest接口执行成功才能调这个接口
+		get_test_status: function (circle, CircleFontColor, circleLine) {
+
+			if (bbr.data.stopFlag) return;
+
+			bt_tools.send({
+				url: '/plugin?action=a&name=bt_bbr&s=get_test_status'
+			}, function (ress) {
+				//哪个标识返回了true就设置哪个模块的字为绿色
+				// if (ress.ping_flag) {
+				// 	$('.bbr .pingDiv span')[0].innerHTML = ress.ping
+				// 	$('.bbr .pingDiv span')[0].style.color = '#20A53A'
+				// }
+				if (ress.upload_flag) {
+					$('.bbr .uploadDiv span')[0].innerHTML = ress.upload
+					$('.bbr .uploadDiv span')[0].style.color = '#20A53A'
+					$('.loading_deng').show()
+				}
+				// if (ress.download_flag) {
+				// 	$('.bbr .downloadDiv span')[0].innerHTML = ress.download
+				// 	$('.bbr .downloadDiv span')[0].style.color = '#20A53A'
+				// }
+				bbr.resetEcharts(ress)
+				setTimeout(function () {
+					if (!ress.status && !bbr.data.stopFlag) bbr.get_test_status()
+				}, 1000)
+			},)
+		},
+		//打开网络配置页面并赋值
+		setNetworkDisposition: function (networkDisposition) {
+			var networkDisposition = {}
+			bt_tools.send({ url: '/plugin?action=a&name=bt_bbr&s=get_network_conf', }, function (ress) {
+				networkDisposition = JSON.parse(JSON.stringify(ress))
+				if (!networkDisposition) return;
+
+				var networkDispositionInput = $("input:disabled")
+				networkDispositionInput[0].value = networkDisposition["fs.file-max"]
+				networkDispositionInput[1].value = networkDisposition["fs.inotify.max_user_instances"]
+				networkDispositionInput[2].value = networkDisposition["net.ipv4.tcp_tw_reuse"]
+				networkDispositionInput[3].value = networkDisposition["net.ipv4.ip_local_port_range"]
+				networkDispositionInput[4].value = networkDisposition["net.ipv4.tcp_rmem"]
+				networkDispositionInput[5].value = networkDisposition["net.ipv4.tcp_wmem"]
+				networkDispositionInput[6].value = networkDisposition["net.core.somaxconn"]
+				networkDispositionInput[7].value = networkDisposition["net.core.rmem_max"]
+				networkDispositionInput[8].value = networkDisposition["net.core.wmem_default"]
+				networkDispositionInput[9].value = networkDisposition["net.ipv4.tcp_max_tw_buckets"]
+				networkDispositionInput[10].value = networkDisposition["net.ipv4.tcp_max_syn_backlog"]
+				networkDispositionInput[11].value = networkDisposition["net.ipv4.tcp_slow_start_after_idle"]
+			}, '获取网络配置中')
+		},
+		//等待测试结束的公共方法
+		bbrMsg: function () {
+			bt_tools.msg('请等待测试结束')
+
+		}
+	}
+
+	bbr.init()
+
+	//开始测试按钮事件
+	function startTest() {
+		// debugger
+		$('svg').hide()
+		var pingDiv = document.querySelectorAll(".pingDiv div span")
+		var uploadDiv = document.querySelectorAll(".uploadDiv div span")
+		var downloadDiv = document.querySelectorAll(".downloadDiv div span")
+		//清空盒子中的字
+		// pingDiv[1].innerHTML = ''
+		uploadDiv[1].innerHTML = ''
+		// downloadDiv[1].innerHTML = ''
+		//将停止递归调用接口标识设为false
+		bbr.data.stopFlag = false
+		bbr.initDivSpan()
+
+		//隐藏开始测试按钮,显示取消测试按钮
+		var bbr_start_btn = document.querySelector('#start-test')
+		var bbr_stop_btn = document.querySelector('#stop-test')
+		bbr_start_btn.style.innerHTML = "重新测试"
+		bbr_start_btn.style.display = "none"
+		bbr_stop_btn.style.display = "inline-block"
+		//重载echarts
+		bbr.initBbrEcharts()
+		//开始测试之后禁用开关和网络配置按钮,并添加禁止点击的提示监听
+		$($('.bbr #is-bbr-accelerated')[0]).prop("disabled", true)
+		$('.bbr .ssh-item')[0].addEventListener('click', bbr.bbrMsg)
+		$($('.bbr .network')[0]).prop("disabled", true)
+		$('.bbr #networkDiv')[0].addEventListener('click', bbr.bbrMsg)
+
+		//调用开始测试接口
+		bbr.run_speedtest()
+	}
+
+	//取消测试按钮事件
+	function stopTest() {
+
+		bt.simple_confirm({ title: "停止测试", msg: '停止测试后，将停止当前测速，是否继续操作？' }, function () {
+			bbr.data.stopFlag = true//将禁止请求的flag设置为true
+
+			bt_tools.send({ url: '/plugin?action=a&name=bt_bbr&s=stop_test', }, function (ress) {
+				bt_tools.msg(ress)
+				//取消按钮禁用，移除点击事件
+				$($('.bbr #is-bbr-accelerated')[0]).prop("disabled", false)
+				$('.bbr .ssh-item')[0].removeEventListener('click', bbr.bbrMsg)
+				$($('.bbr .network')[0]).prop("disabled", false)
+				$('.bbr #networkDiv')[0].removeEventListener('click', bbr.bbrMsg)
+
+				//修改按钮边距，文字，显示隐藏按钮和图标
+				$('#testBtn').css({ 'margin-top': '19px' })
+				document.querySelector('#start-test').innerHTML = "服务器测试"
+				document.querySelector('#start-test').style.display = "inline-block"
+				document.querySelector('#stop-test').style.display = "none"
+				var pingDiv = document.querySelectorAll(".pingDiv div span")
+				var uploadDiv = document.querySelectorAll(".uploadDiv div span")
+				var downloadDiv = document.querySelectorAll(".downloadDiv div span")
+				//隐藏图标,设置所有文字颜色为黑色
+				$('svg').hide()
+				// $('.bbr .pingDiv span')[0].style.color = '#666666'
+				$('.bbr .uploadDiv span')[0].style.color = '#666666'
+				// $('.bbr .downloadDiv span')[0].style.color = '#666666'
+				// $('.bbr .pingDiv span')[1].style.color = '#666666'
+				$('.bbr .uploadDiv span')[1].style.color = '#666666'
+				// $('.bbr .downloadDiv span')[1].style.color = '#666666'
+				//文字区替换文字
+				// pingDiv[1].innerHTML = ''
+				uploadDiv[1].innerHTML = ''
+				// downloadDiv[1].innerHTML = ''
+				//初始化文字区文字与重构echarts
+				bbr.initDivSpan()
+				bbr.initBbrEcharts()
+			}, '取消测试中')
+		},)
+	}
+
+
+	//打开网络配置窗口
+	function networkDisposition() {
+		bt_tools.open({
+			title: '网络配置',
+			area: [680, 640],
+			btn: false,
+			content: {
+				class: 'pd20 brd2',
+				form: [{
+					label: 'fs.file-max',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						type: 'text',
+						name: "fs.file-max",
+						value: '',
+						disabled: true,
+						unit: "系统中允许打开的文件句柄的最大数量"
+					}
+				},
+				{
+					label: 'fs.inotify.max_user_instances',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "fs.inotify.max_user_instances",
+						type: 'text',
+						value: '',
+						disabled: true,
+						unit: "每个用户可创建的inotify实例的最大数量"
+					}
+				},
+				{
+					label: 'net.ipv4.tcp_tw_reuse',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.ipv4.tcp_tw_reuse",
+						type: 'text',
+						value: '',
+						disabled: true,
+						unit: " 是否允许将TIME-WAIT套接字重新用于新的TCP连接"
+						,
+
+
+					}
+				},
+				{
+					label: 'net.ipv4.ip_local_port_range',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.ipv4.ip_local_port_range",
+						type: 'text',
+						value: '',
+						disabled: true,
+						unit: " 系统中可用的本地端口范围"
+						,
+
+					}
+				},
+				{
+					label: 'net.ipv4.tcp_rmem',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.ipv4.tcp_rmem",
+						type: 'text',
+						value: '',
+						disabled: true
+						,
+						unit: " TCP接收缓冲区的最小、默认、最大值"
+
+					}
+				},
+				{
+					label: 'net.ipv4.tcp_wmem',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.ipv4.tcp_wmem",
+						type: 'text',
+						value: '',
+						disabled: true,
+						unit: " TCP发送缓冲区的最小、默认、最大值"
+					}
+				},
+				{
+					label: 'net.core.somaxconn',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.core.somaxconn",
+						type: 'text',
+						value: '',
+						disabled: true
+						,
+						unit: " 监听套接字的最大连接数",
+
+					}
+				},
+				{
+					label: 'net.core.rmem_max',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.core.rmem_max",
+						type: 'text',
+						value: '',
+						disabled: true
+						,
+						unit: " 发送缓冲区的最大值",
+
+					}
+				},
+				{
+					label: 'net.core.wmem_default',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.core.wmem_default",
+						type: 'text',
+						value: '',
+						disabled: true,
+						unit: " 发送缓冲区的默认值",
+					}
+				},
+				{
+					label: 'net.ipv4.tcp_max_tw_buckets',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.ipv4.tcp_max_tw_buckets",
+						type: 'text',
+						value: '',
+						disabled: true,
+						unit: " 系统中允许的最大TIME-WAIT套接字数量",
+					}
+				},
+				{
+					label: 'net.ipv4.tcp_max_syn_backlog',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.ipv4.tcp_max_syn_backlog",
+						type: 'text',
+						value: '',
+						disabled: true,
+						unit: " SYN队列的最大长度",
+					}
+				},
+				{
+					label: 'net.ipv4.tcp_slow_start_after_idle',
+					formLabelWidth: "210px",
+					group: {
+						width: '200px',
+						name: "net.ipv4.tcp_slow_start_after_idle",
+						type: 'text',
+						value: '',
+						disabled: true,
+						unit: " 网络设备接收队列的最大长度",
+					}
+				}, {
+					label: '',
+					style: "margin-top:10px",
+					group: [
+						{
+							style: "width:74px;height:30px;	margin-left: 110px ; border - radius: 2px;box-shadow: none; border-color:''",
+							type: 'button',
+							size: '',
+							name: 'bbr_submitForm',
+							title: '一键优化',
+							event: function (formData, element, that) {
+								bt_tools.send({ url: '/plugin?action=a&name=bt_bbr&s=optimize_network' }, function (ress) {
+									bbr.setNetworkDisposition()
+
+									bt_tools.msg(ress)
+								}, '一键优化中')
+							}
+						}, {
+							style: "box-shadow: none;",
+							type: 'button',
+							size: '',
+							name: 'bbr_resetForm',
+							title: '恢复默认',
+							event: function (formData, element, that) {
+								bt_tools.send({ url: '/plugin?action=a&name=bt_bbr&s=restore_network_configuration' }, function (ress) {
+									bbr.setNetworkDisposition()
+									bt_tools.msg(ress)
+								}, '恢复默认中')
+							}
+						},]
+				}, {
+					group: {
+						type: 'help',
+						list: [
+							'点击一键优化按钮即可最大程度提升网络性能'
+						]
+					}
+				}
+				]
+			},
+			success: function () {
+				//给input设置样式
+				$(document).ready(function () {
+					$('input:disabled').each(function () {
+						this.style.color = '#666666';
+						this.style.borderColor = '#DCDFE6';
+						this.style.backgroundColor = '#F6F6f6';
+					})
+
+				})
+
+				bbr.setNetworkDisposition()
+			},
+			yes: function (formD, indexs) {
+				//formD会获取配置中name的集合数据
+				//indexs可用于完成操作后关闭弹窗layer.close(indexs)
+			}
+		})
+	}
+
+
+
+
+</script>

@@ -1,0 +1,165 @@
+<style>
+	 #webEdit-con .bt-w-con{
+		  display: none;
+	 }
+	 .radio_group{
+		  height: 30px;
+		  line-height: 30px;
+		  margin-right: 10px;
+	 }
+	 .radio_group span{
+		  margin-left: 5px;
+		  font-size: 14px;
+		  color: #666;
+		  font-weight: 400;
+	 }
+	 .radio_group input{
+		  width: 14px;
+		  height: 14px;
+	 }
+</style>
+<div>
+	 <div id="webEdit-con" class="pd15">
+		  <div>
+				<div class="mb5"><button class="btn btn-success btn-sm" onclick="static_cdn.test()">节点测速</button></div>
+				<div style="position: fixed;margin-top: -30px;margin-left: 225px;">
+					<em style="margin-left: -44px;margin-top: 6px;position: fixed;font-style: inherit;" title="静态加速开关">开启状态</em>
+                    <div class="ssh-item">
+                        <input class="btswitch btswitch-ios" id="cdn_status" type="checkbox">
+                        <label class="btswitch-btn" for="cdn_status" onclick="static_cdn.set_state()"></label>
+                    </div>
+                </div>
+				<div class="divtable mt10" id="config_table">
+					 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+						  <thead><tr><th>节点名称</th><th>速度</th><th>操作</th></tr></thead>
+						  <tbody id="hosts-table"></tbody>
+					 </table>
+				</div>
+				<ul class="help-info-text c7"  style="color: red;">
+					 <li>堡塔面板静态加速用于面板静态文件</li>
+					 <li>登录面板时将会自动选择最佳加速节点</li>
+				</ul>
+		  </div>
+	</div>
+</div>
+<script type="text/javascript">
+    var static_cdn = {
+        plugin_name:'static_cdn',
+		my_hosts:{},
+		hosts:[],
+        init:function(){
+			$('.layui-layer-page').width("300px");
+			static_cdn.get_hosts();
+		},
+		
+		get_hosts:function(){
+			static_cdn.send({method:'get_hosts',data:{},tips:'正在处理，请稍候...',success:function(rdata){
+				if(rdata.status === false){
+					$("#hosts-table").html('');
+					$("#cdn_status").prop('checked',false);
+					if(rdata.msg.indexOf('不支持') != -1){
+						layer.closeAll();
+						bt.msg(rdata);
+					}
+					return;
+				}
+				$("#cdn_status").prop('checked',true);
+				var hosts_tbody = '';
+				static_cdn.hosts = rdata;
+				for(var i=0;i<rdata.length;i++){
+					hosts_tbody += '<tr><td>'+rdata[i].name+'</td><td data="'+rdata[i].url+'">测试中</td><td>'+(rdata[i].state?'<a style="color:orangered;">加速中</a>':'<a class="btlink" onclick="static_cdn.set_url(\''+ rdata[i].url +'\')">应用</a>')+'</td></tr>'
+				}
+				$("#hosts-table").html(hosts_tbody);
+				static_cdn.test();
+			}});
+		},
+		set_url:function(cdn_url){
+			static_cdn.send({method:'set_url',data:{cdn_url:cdn_url},tips:'正在处理，请稍候...',success:function(rdata){
+				bt.msg(rdata);
+				static_cdn.get_hosts();
+			}});
+		},
+
+		set_state:function(){
+			static_cdn.send({method:'set_state',data:{},tips:'正在处理，请稍候...',success:function(rdata){
+				bt.msg(rdata);
+				static_cdn.get_hosts();
+			}});
+		},
+
+		request:function(url){
+			var s_time = Date.now();
+			var to_url = window.location.protocol + '//' + url + '/test.txt?time=' + s_time
+			http_request = new XMLHttpRequest();
+			http_request.open('GET', to_url, true);
+			http_request.setRequestHeader("Content-type","text/plain");
+			http_request.send();
+			http_request.onreadystatechange = function (e) {
+				if (e.srcElement.readyState == 4 && e.srcElement.status == 200) {
+					if(e.srcElement.responseText === 'true'){
+						var e_time = Date.now();
+						static_cdn.my_hosts[url] = e_time - s_time
+						$("td[data='"+url+"']").text(static_cdn.my_hosts[url] +'ms');
+					}
+				}
+			}
+		},
+		test:function(){
+			layer.msg('测试节点速度中...',{icon:16,time:1000});
+			for(var i=0;i<static_cdn.hosts.length;i++){
+				static_cdn.request(static_cdn.hosts[i].url);
+			}
+		},
+
+        // 请求
+        send: function (obj) {
+            var loadT = '';
+            if (obj.load == undefined) obj.load = 0;
+            if (obj.url == undefined) {
+                if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this
+                    .plugin_name
+                if (!obj.plugin_name || !obj.method) {
+                    layer.msg('插件类名称，或插件方法名称缺失!', {
+                        icon: 2
+                    });
+                    return false;
+                }
+            }
+            if (obj.load === 0 || obj.tips != '') {
+                loadT = layer.msg(obj.tips, {
+                    icon: 16,
+                    time: 0,
+                    shade: 0.3
+                });
+            } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+                loadT = layer.load();
+            }
+            $.ajax({
+                type: 'POST',
+                url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+                data: obj.data || {},
+                timeout: obj.timeout || 99999999,
+                complete: function (res) {
+                    if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+                },
+                success: function (rdata) {
+                    if (obj.check) {
+                        obj.success(rdata);
+                        return false
+                    }
+                    obj.success(rdata);
+                },
+                error: function (ex) {
+                    if (!obj.error) {
+                        obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+                            icon: 2
+                        }) : '';
+                        return;
+                    }
+                    return obj.error(ex);
+                }
+            });
+        }
+    }
+    static_cdn.init();
+</script>

@@ -1,0 +1,30 @@
+#!/www/server/panel/pyenv/bin/python
+#coding: utf-8
+#-------------------------------------------------------------------
+# 宝塔Linux面板
+#-------------------------------------------------------------------
+# Copyright (c) 2015-2099 宝塔软件(http://bt.cn) All rights reserved.
+#-------------------------------------------------------------------
+# Author: hwliang<hwl@bt.cn>
+#-------------------------------------------------------------------
+
+import os,sys
+os.chdir('/www/server/panel')
+sys.path.insert(0,'class/')
+import public
+
+plugin_name = 'file_hash_check'
+def_name = 'start'
+
+try:
+    import PluginLoader
+    args = public.dict_obj()
+    args.plugin_get_object = 1
+    start = PluginLoader.plugin_run(plugin_name,def_name,args)
+except:
+    from pluginAuth import Plugin
+    p = Plugin(plugin_name)
+    if not p.isdef(def_name):
+        raise public.PanelError('指定方法不存在!')
+    start = p.get_fun(def_name)
+start()

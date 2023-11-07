@@ -1,0 +1,22 @@
+name: "reverse_shell_detect_basic"
+vuln_id: 1001
+systemname: "反弹shell检测"
+vulnname: "反弹shell检测"
+level: "high"
+tag: [ "当前机器权限已丢失,请及时检查是否存在漏洞"]
+ps: "当前机器权限已经被攻击者获取,请及时检查是否存在漏洞,并及时修复"
+type: "system"
+status: 0
+author: "lkq@bt.cn"
+detect_id: "42"
+msg: "当前机器被反弹shell 攻击IP为:【bt_ip】"
+repair: "在root权限下执行【kill -9 bt_pid】中断反弹shell进程"
+rule:
+    exe: "/bin/bash"
+    comm: "^bash$"
+    argv: "^-bash$"
+    dip: "^(?!.*127.0.0.1)[^-]*$"
+    dport: "^[^-]*$"
+    pid_tree: "^-3$"
+    sip: "^[^-]*$"
+    sport: "^[^-]*$"

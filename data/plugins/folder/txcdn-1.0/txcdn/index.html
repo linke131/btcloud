@@ -1,0 +1,1649 @@
+<style>
+    /*样式写这里*/
+    
+    .demo-table table tbody tr td span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 580px;
+        display: block;
+    }
+    
+    .conter_box {
+        display: none;
+    }
+    
+    .conter_box.active {
+        display: block;
+    }
+    
+    .config_file .CodeMirror {
+        height: 400px;
+    }
+    
+    .config_user_file .CodeMirror {
+        height: 360px;
+    }
+    
+    .layui-card {
+        margin-bottom: 15px;
+        border-radius: 2px;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+        border: 1px solid rgba(236, 236, 236, 100);
+    }
+    
+    .layui-card-header {
+        position: relative;
+        height: 42px;
+        line-height: 42px;
+        padding: 0 15px;
+        border-bottom: 1px solid rgba(236, 236, 236, 100);
+        border-radius: 2px 2px 0 0;
+        font-size: 14px;
+        color: #555555;
+        font-weight: bold;
+    }
+    
+    .layui-card-body {
+        position: relative;
+        padding: 15px 20px;
+        line-height: 24px;
+    }
+    
+    .layui-card-panelContent {
+        margin: 8px 0;
+        display: flex;
+        flex-direction: row;
+    }
+    .layui-card-panelConten span{
+        display: flex;
+        font-size: 12px;
+        text-align: left;
+        font-family: SourceHanSansSC-regular;
+        margin-right: 15px;
+    }
+    .layui-card-panelContent .layui-card-body-title{
+        width: 85px;
+    }
+    
+    .layui-card-body-title {
+        color: rgba(136, 136, 136, 100);
+    }
+    
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 0 15px;
+        width: 103px;
+        font-weight: 400;
+        line-height: 28px;
+        text-align: right;
+    }
+    
+    .layui-input-block {
+        margin-left: 110px;
+        min-height: 36px;
+    }
+    
+    .layui-form-item {
+        margin: 10px 0;
+    }
+    
+    /* .domainFormConfig-item { */
+        /* display: flex;
+        justify-content: space-evenly; */
+    /* } */
+    .domainFormConfig-item>div{
+        display: inline-block;
+        margin-right: 30px;
+    }
+    .domainFormConfig-item>div:last-child{
+        margin-right: 0;
+    }
+    
+    .layui-form-radio {
+        line-height: 28px;
+        margin: 6px 10px 0 0;
+        padding-right: 10px;
+        cursor: pointer;
+        font-size: 0;
+    }
+    
+    .layui-layer-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .layui-layer-content textarea {
+        padding: 10px;
+    }
+    
+    .doMainAnnotation {
+        margin: 8px 0;
+        color:#777 ;
+    }
+    
+    .doMainSaveConfig-item {
+        margin: 10px 0 0 0;
+    }
+    
+    .btCache-nav-main {
+        margin-bottom: 15px;
+    }
+    
+    .btCache-nav-main>.btCache-menu {
+        height: 100%;
+        width: 100%;
+        border-bottom: 1px solid rgba(202, 202, 217, 100);
+        display: flex;
+        justify-content: end;
+    }
+    
+    .btCache-nav-main>.btCache-menu>p {
+        cursor: pointer;
+        width: 85px;
+        height: 35px;
+        line-height: 35px;
+        /* padding-left: 20px; */
+        position: relative;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: center;
+        border: 1px solid rgba(202, 202, 217, 100);
+        background-color: #f0f0f1;
+        border-right: 0px;
+        bottom: -1px;
+    }
+    .btCache-nav-main>.btCache-menu>p:last-child{
+        border-right: 1px solid rgba(202, 202, 217, 100);
+    }
+    .btCache-nav-main>.btCache-menu>p.bgw{
+        border-bottom:1px solid #fff;
+    }
+    .bgw {
+        background-color: white !important;
+    }
+    
+    .layui-laydate-content td.laydate-selected {
+        background-color: #009688!important;
+        color: #fff!important;
+    }
+    
+    .processing {
+        background-image: url(static/layer/skin/default/loading-2.gif);
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: relative;
+        top: 2px;
+        left: 5px;
+    }
+    
+    .dateTimeBtn {
+        width: 75px;
+    }
+    
+    .selOptionItem {
+        height: 28px;
+        line-height: 28px;
+        color: #333;
+        padding: 30px;
+    }
+    #bucket_files_view .ico{
+        height: 20px;
+        margin-right: 5px;
+        width: 23px;
+        background-size: 80% 80%;
+    }
+    .inlineBlock{
+        vertical-align: middle;
+    }
+    .nsName.btns a {
+        width: 290px;
+        font-size: 14px;
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        background: #20a53a;
+        color: #fff;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+    .form-checkbox-label{
+        height: 30px;
+        line-height: 30px;
+        cursor: pointer;
+
+    }
+    .form-checkbox-label input,
+    .form-checkbox-label span{
+        vertical-align: middle;
+        font-weight: 600;
+    }
+    .form-checkbox-label input{
+        margin: 0;
+        margin-right: 5px;
+    }
+    .form-checkbox-label{
+        margin-right: 15px;
+    }
+    .search-day {
+        height: 32px;
+        margin-left: 1px;
+    }
+    .search-day span {
+        float: left;
+        height: 32px;
+        line-height: 30px;
+        border: #ddd 1px solid;
+        padding: 0 20px;
+        margin-left: -1px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .search-day span.cur {
+        border: 1px solid transparent;
+        background-color: #20a53a;
+        color: #fff;
+    }
+
+    .search-day span.cur input, .search-day span.cur em {
+        color: #666;
+    }
+
+    .search-day span:last-child {
+        padding: 0;
+    }
+
+    .search-day span input {
+        border: 0 none;
+        height: 30px;
+        padding: 0 10px;
+        width: 200px;
+        background-image:
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHBAMAAADOnLEXAAAAA3NCSVQICAjb4U/gAAAAElBMVEX////v7++oqKiSkpJgYGAzMzNVUvUKAAAABnRSTlMA//////96eeD+AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAFnRFWHRDcmVhdGlvbiBUaW1lADA3LzEzLzE442/mwwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAApSURBVAiZYxBiAAJFBhEDBgZmRwbmYAYGUwMQBrGAXBAHyAVxgFwgBwBYpgOoNMjLNgAAAABJRU5ErkJggg==");
+        background-repeat: no-repeat;
+        background-position: 180px center;
+    }
+
+    .search-day span input:active {
+        border: 0 none;
+    }
+
+    .search-day span.cur input{
+        color: #fff;
+        background-color: #20a53a;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHBAMAAADOnLEXAAAAA3NCSVQICAjb4U/gAAAAElBMVEX////f8+Pg8+Sx2LghpTsgpTp3yIRgAAAACXBIWXMAAA6cAAAOnAEHlFPdAAAAFnRFWHRDcmVhdGlvbiBUaW1lADA3LzEzLzE442/mwwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAxSURBVAiZY1B2DQ0NNWJQMA0NDWZkCGYODTUwZQBiIIshNJjZwBRIhRoAhYFUMFARAPlECn96zZKZAAAAAElFTkSuQmCC");
+    }
+    .bt-input-password{
+		border: 1px solid #ccc;
+		height: 30px;
+		line-height: 30px;
+		padding-left: 5px;
+		border-radius: 2px;
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	.bt_table table td span.fixed{
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+</style>
+<div class="bt-table">
+    <div class="bt-w-main">
+        <!--菜单部分-->
+        <div class="bt-w-menu">
+            <p class="bgw">域名列表</p>
+            <p>刷新缓存</p>
+        </div>
+        <!--内容部分-->
+        <div class="bt-w-con pd15">
+            <div class="plugin_body">
+                <div class="conter_box active domainView"></div>
+                <div class="conter_box active cacheView"></div>
+                <!-- <div class="conter_box active reportView"></div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+var bt_tools={table:function(e){function t(e){this.config=e,this.$load()}var a=this;return t.prototype={style_list:[],event_list:{},checkbox_list:[],batch_active:{},event_rows_model:{},data:[],page:"",column:[],batch_thread:[],random:bt.get_random(5),init:!1,checked:!1,$load:function(){var e=this;this.config.init&&this.config.init(this),$(this.config.el).addClass("bt_table"),this.config.minWidth&&this.style_list.push({className:this.config.el+" table",css:"min-width:"+this.config.minWidth}),this.config.tootls?this.$reader_tootls(this.config.tootls):0===$(e.config.el+".divtable").length&&$(e.config.el).append('<div class="divtable mtb10" style="height:'+(this.config.height||"auto")+'"></div>'),this.$reader_content(),void 0!==e.config.url?this.$refresh_table_list(e.config.load||!1):void 0!==this.config.data?this.$reader_content(this.config.data):alert("缺少data或url参数"),e.config.fixed_thead&&a.$fixed_table_thead($(e.config.el).find(".divtable")),this.config.methods&&$.extend(this,this.config.methods)},$refresh_table_list:function(e,t){var a=this;this.$http(function(e){t&&t(e),a.$reader_content(e.data,void 0!==e.total?parseInt(e.total):e.page)},e)},$reader_content:function(e,t){var a=this,s="",i="",n=0,c=this.config.column,l={},o=$(a.config.el+" .checkbox_"+a.random);e=e||[],this.data=e,o.length&&(o.removeClass("active selected"),a.checkbox_list=[],a.$set_batch_view());do{var r=e[n],d=0;e.length>0&&(i+="<tr>");for(var h=0;h<c.length;h++){var p=c[h];if($.isEmptyObject(p))d++;else{if(0===n&&!this.init){this.init||this.style_list.push(this.$dynamic_merge_style(p,h-d));var u="sort_"+this.random,f="checkbox_"+this.random,b=p.sortValue||"desc";s+="<th><span "+(p.sort?'class="not-select '+u+(p.sortValue?" sort-active":"")+' cursor-pointer"':"")+' data-index="'+h+'" '+(p.sort?'data-sort="'+b+'"':"")+">"+("checkbox"==p.type?'<label><i class="cust—checkbox cursor-pointer '+f+'" data-checkbox="all"></i><input type="checkbox" class="cust—checkbox-input"></label>':"<span>"+p.title+"</span>")+(p.sort?'<span class="glyphicon glyphicon-triangle-'+("desc"==b?"bottom":"top")+' ml5"></span>':"")+"</span></th>",0===n&&(!l[u]&&p.sort&&(l[u]={event:this.config.sortEvent,eventType:"click",type:"sort"}),l[f]||(l[f]={event:p.checked,eventType:"click",type:"checkbox"}))}if(void 0!==r){var v="",_="event_"+p.fid+"_"+this.random;p.template?v=a.$custom_template_render(p,r,h):(v=this.$reader_column_type(p,r),l=$.extend(l,v[1]),v=v[0]),p.fixed&&(p.class+=" fixed"),i+="<td><span "+(p.fixed?'style="width:'+parseInt(p.width)+'px;"':"")+(p.class?'class="'+p.class+'"':"")+" "+(p.tips?'title="'+($(v).text()||v)+'"':"")+">"+v+"</span></td>",0===n&&!l[_]&&p.event&&(l[_]={event:p.event,eventType:"click",type:"rows"})}}}e.length>0&&(i+="</tr>"),0==e.length&&(i+='<tr><td colspan="'+c.length+'" style="text-align:center;">'+(this.config.default||"数据为空")+"</td></tr>"),n++}while(n<e.length);this.init||this.$style_bind(this.style_list),this.$event_bind(l),this.init?($(this.config.el+" .divtable tbody").html(i),this.config.page&&$(this.config.el+" .page").replaceWith(this.$reader_page(this.config.page,t))):$(this.config.el+" .divtable").append('<table class="table table-hover"><thead>'+s+"</thead><tbody>"+i+"</tbody></table></div></div>"),this.init=!0,this.config.success&&this.config.success(this)},$custom_template_render:function(e,t,a){var s="event_"+e.fid+"_"+this.random,i=e.template(t,a),n=$(i);return n.length>0?template=n.addClass(s)[0].outerHTML:"text"===e.type?template='<span class="'+s+'">'+i+"</span>":template='<a href="javascript:;" class="btlink '+s+'">'+i+"</a>",template},$modify_row_data:function(e){this.event_rows_model.rows=$.extend(this.event_rows_model.rows,e);var t=this.event_rows_model,a=null;a=void 0!==t.model.template?$(this.$custom_template_render(t.model,t.rows,t.index)):$(this.$reader_column_type(t.model,t.rows)[0]),"group"==t.model.type?$(t.el).parent().empty().append(a):t.el.replaceWith(a),t.el=a},$batch_success_table:function(e){var t=this,a=$(e.html).length;bt.open({type:1,title:e.title,area:e.area||["350px","350px"],shadeClose:!1,closeBtn:2,content:e.content||'<div class="batch_title"><span class><span class="batch_icon"></span><span class="batch_text">'+e.title+'操作完成！</span></span></div><div class="'+(a>4?"fiexd_thead":"")+' batch_tabel divtable" style="margin: 15px 30px 15px 30px;overflow: auto;height: 200px;"><table class="table table-hover"><thead><tr><th>'+e.th+'</th><th style="text-align:right;width:120px;">操作结果</th></tr></thead><tbody>'+e.html+"</tbody></table></div>",success:function(){a>4&&t.$fixed_table_thead(".fiexd_thead")}})},$delete_table_row:function(e){this.data.splice(e,1),this.$reader_content(this.data)},$set_batch_view:function(){if(void 0!==this.config.batch){var e=$(this.config.el+" .set_batch_option");if(void 0!==this.config.batch.config)this.checkbox_list.length>0?e.removeClass("bt-disabled btn-default").addClass("btn-success").text("批量"+this.batch_active.title+"(已选中"+this.checkbox_list.length+")"):e.addClass("bt-disabled btn-default").removeClass("btn-success").text("批量"+this.batch_active.title);else{var t=$(this.config.el+" .bt_table_select_group .bt_select_value");this.checkbox_list.length>0?(e.removeClass("bt-disabled btn-default").addClass("btn-success").prev().removeClass("bt-disabled"),t.find("em").html("(已选中"+this.checkbox_list.length+")")):(e.addClass("bt-disabled btn-default").removeClass("btn-success").prev().addClass("bt-disabled"),t.children().eq(0).html("请选择批量操作<em></em>"),t.next().find("li").removeClass("active"),this.batch_active={})}}},$reader_column_type:function(e,t){var a=t[e.fid],s={},i="click_"+e.fid+"_"+this.random,n=[],c=this;switch(e.type){case"text":n=[a,s];break;case"checkbox":n=['<label><i class="cust—checkbox cursor-pointer checkbox_'+this.random+'"></i><input type="checkbox" class="cust—checkbox-input"></label>',s];break;case"password":i="ico_"+c.random+"_";var l='<span class="bt-table-password mr10"><i>**********</i></span>';e.eye_open&&(l+='<span class="glyphicon cursor pw-ico glyphicon-eye-open mr10 '+i+'eye_open" title="显示密码"></span>',s[i+"eye_open"]||(s[i+"eye_open"]={type:"eye_open_password"})),e.copy&&(l+='<span class="ico-copy cursor btcopy mr10 '+i+'copy" title="复制密码"></span>',s[i+"copy"]||(s[i+"copy"]={type:"copy_password"})),n=[l,s];break;case"link":!s[i]&&e.event&&(s[i]={event:e.event,type:"rows"}),n=['<a class="btlink '+i+'" href="'+(e.href?a:"javascript:;")+'" '+(e.href?'target="'+(e.target||"_blank")+'"':"")+' title="'+a+'">'+a+"</a>",s];break;case"input":blurName="blur_"+e.fid+"_"+this.random,keyupName="keyup_"+e.fid+"_"+this.random,!s[blurName]&&e.blur&&(s[blurName]={event:e.blur,eventType:"blur",type:"rows"}),!s[keyupName]&&e.keyup&&(s[keyupName]={event:e.keyup,eventType:"keyup",type:"rows"}),n=['<input type="text" title="点击编辑内容，按回车或失去焦点自动保存"  class="table-input '+blurName+" "+keyupName+'" data-value="'+a+'" value="'+a+'" />',s];break;case"status":var o="";$.each(e.config.list,function(e,t){t[0]===a&&(o=t)}),!s[i]&&e.event&&(s[i]={event:e.event,type:"rows"}),n=['<a class="btlink '+i+" "+(o[2].indexOf("#")>-1?"":o[2])+'" style="'+(o[2].indexOf("#")>-1?"color:"+o[2]+";":"")+'" href="javascript:;"><span>'+o[1]+"</span>"+(e.config.icon?'<span class="glyphicon '+o[3]+'"></span>':"")+"</a>",s];break;case"switch":o="";var r=bt.get_random(5);e.status.on==a&&(o="checked"),!s[i]&&e.event&&(s[i]={event:e.event,type:"rows"}),n=['<div class="switch_group"><input class="btswitch btswitch-ios '+i+'" id="'+r+'" type="checkbox" '+o+'><label class="btswitch-btn" for="'+r+'" data-index="0" bt-event-click="set_site_server_status"></label></div>',s];break;case"group":var d="";$.each(e.group,function(a,n){i=(e.fid?e.fid:"group")+"_"+a+"_"+c.random;var l=!1;if(n.template){var o=n.template(t,c),r=$(o);r.length>0?d+=r.addClass(i)[0].outerHTML:d+='<a href="javascript:;" class="btlink '+i+'" title="'+(n.title||"")+'">'+o+"</a>"}else{if(void 0!==n.hide&&(l="boolean"==typeof n.hide?n.hide:n.hide(t),"boolean"!=typeof l))return!1;d+='<a href="javascript:;" class="btlink '+i+'" '+(l?'style="display:none;"':"")+' title="'+(n.tips||n.title)+'">'+n.title+"</a>"}l||(d+=e.group.length==a+1?"":"&nbsp;&nbsp;|&nbsp;&nbsp;"),!s[i]&&n.event&&(s[i]={event:n.event,type:"rows"})}),n=[d,s];break;default:n=[a,s]}return n},$batch_success_table:function(e){a.$batch_success_table(e)},$reader_tootls:function(e){function t(e,t){var a=bt.load("正在执行批量"+e.title+"，请稍候..."),i={},n=s.$get_data_batch_list(e.paramId,t);e.beforeRequest?i[e.paramName]=e.beforeRequest(t):i[e.paramName]=n.join(","),bt_tools.send({url:e.url||s.config.batch.url,data:$.extend(e.param||{},i)},function(i){if(a.close(),!1===i.status&&void 0===i.success)return bt_tools.msg(i),!1;if(void 0===e.tips||e.tips){var n="";$.each(i.error,function(e,t){n+='<tr><td><span class="text-overflow" title="'+e+'">'+e+'</span/></td><td><div style="float:right;" class="size_ellipsis"><span style="color:red">'+t+"</span></div></td></tr>"}),$.each(i.success,function(e,t){n+='<tr><td><span class="text-overflow" title="'+t+'">'+t+'</span></td><td><div style="float:right;" class="size_ellipsis"><span style="color:#20a53a">操作成功</span></div></td></tr>'}),s.$batch_success_table({title:"批量"+e.title,th:e.theadName,html:n}),e.refresh&&s.$refresh_table_list(!0)}else if(!e.success){n="";$.each(t,function(t,a){n+='<tr><td><span class="text-overflow" title="'+a.name+'">'+a.name+'</span></td><td><div style="float:right;"><span style="color:'+(i.status?"#20a53a":"red")+'">'+((void 0!==e.theadValue?e.theadValue[i.status?0:1]:null)||i.msg)+"</span></div></td></tr>"}),s.$batch_success_table({title:"批量"+e.title+"完成",th:e.theadName,html:n}),e.refresh&&s.$refresh_table_list(!0)}e.success&&e.success(i,t,s)})}function a(e,a,i){var n={loadT:0,config:{},check_list:a,bacth_status:!0,start_batch:function(t,a){void 0===t&&(t={}),"function"==typeof t&&(a=t,t={}),e.load&&(this.loadT=layer.msg("正在执行批量"+e.title+'，<span class="batch_progress">进度:0/'+this.check_list.length+"</span>,请稍候...",{icon:16,skin:"batch_tips",shade:.3,time:0,area:"400px"})),this.config={param:t,url:e.url},this.bacth(a)},bacth:function(t,n){var c=this,l={};if("function"!=typeof t&&void 0!==t||(n=t,t=0),t<this.check_list.length){if(l="function"==typeof e.param?e.param(a[t]):e.param,this.config.param=$.extend(this.config.param,l),void 0!==e.paramId&&(c.config.param[e.paramName||e.paramId]=c.check_list[t][e.paramId]),void 0!==e.beforeBacth&&(this.config.param=$.extend(this.config.param,e.beforeBacth(c.check_list[t]))),this.config.param.bacth&&t==this.check_list.length-1&&delete this.config.param.bacth,!c.bacth_status)return!1;e.load&&$("#layui-layer"+c.loadT).find(".layui-layer-content").html('<i class="layui-layer-ico layui-layer-ico16"></i>正在执行批量'+e.title+'，<span class="batch_progress">进度:'+t+"/"+c.check_list.length+"</span>，请稍候..."+(e.clear?'<a href="javascript:;" class="btlink clear_batch" style="margin-left:20px;">取消</a>':"")),bt_tools.send({url:this.config.url,data:this.config.param,bacth:!0},function(e){$.extend(c.check_list[t],{request:{status:"boolean"==typeof e.status&&e.status,msg:e.msg||"请求网络错误"}}),t++,c.bacth(t,n)})}else{if(i&&i(),n&&n(this.check_list),e.automatic){for(var o="",r=0;r<this.check_list.length;r++){var d=this.check_list[r];o+="<tr><td>"+(void 0!==d[e.paramThead]?d[e.paramThead]:d.name)+'</td><td><div style="float:right;"><span style="color:'+(d.request.status?"#20a53a":"red")+'">'+d.request.msg+"</span></div></td></tr>"}s.$batch_success_table({title:"批量"+e.title,th:e.theadName,html:o}),e.refresh&&s.$refresh_table_list(!0),s.$clear_table_checkbox()}layer.close(this.loadT)}},clear_bacth:function(){this.bacth_status=!1,layer.close(this.loadT)}};e.callback?e.callback(n):!e.confirm||e.recursion?e.confirmVerify?bt.show_confirm("批量操作"+e.title+"已选中","批量"+e.title+"，该操作可能会存在风险，是否继续？",function(s){layer.close(s),e.recursion?n.start_batch():t(e,a)}):bt.confirm({title:"批量"+e.title,msg:"批量"+e.title+"，该操作可能会存在风险，是否继续？"},function(s){layer.close(s),e.recursion?n.start_batch():t(e,a)}):t(e,a)}for(var s=this,i={},n=0;n<e.length;n++){var c="",l=e[n];switch(l.type){case"group":$.each(l.list,function(e,t){var a=l.type+"_"+s.random+"_"+e;"division"==t.type?c+='<span class="mlr5"></span>':t.group?(c+='<div class="btn-group" style="vertical-align: top;">                                        <button type="button" class="btn btn-default '+a+' btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span style="margin-right:2px;">分类管理</span><span class="caret" style="position: relative;top: -1px;"></span></button>                                        <ul class="dropdown-menu"></ul>                                    </div>',l.list&&$.each(l.list,function(e,t){'<li><a href="javascript:;" NaN'+t[l.key]+"</a></li>"}),t.init&&setTimeout(function(){t.init(a)},400)):c+='<button type="button" title="'+(t.tips||t.title)+'" class="btn '+(t.active?"btn-success":"btn-default")+" "+a+' btn-sm mr5">'+(t.icon?'<span class="glyphicon glyphicon-'+t.icon+' mr5"></span>':"")+"<span>"+t.title+"</span></button>",i[a]||(i[a]={event:t.event,type:"button"})});break;case"search":this.config.search=l;var o="search_input_"+this.random,r="search_focus_"+this.random,d="search_btn_"+this.random;c='<div class="bt_search"><input type="text" class="search_input '+o+'" style="'+(l.width?"width:"+l.width:"")+'" placeholder="'+(l.placeholder||"")+'"/><span class="glyphicon glyphicon-search '+d+'" aria-hidden="true"></span></div>',i[o]||(i[o]={eventType:"keyup",type:"search_input"}),i[r]||(i[r]={type:"search_focus",eventType:"focus"}),i[d]||(i[d]={type:"search_btn"});break;case"batch":this.config.batch=l;var h=[],p="",u=l.config;void 0!==l.config?(s.batch_active=u,$(s.config.el).on("click",".set_batch_option",function(e){for(var i=[],n=0;n<s.checkbox_list.length;n++)i.push(s.data[s.checkbox_list[n]]);if($(this).hasClass("bt-disabled"))return layer.tips(s.config.batch.disabledTips||"请选择需要批量操作的数据",$(this),{tips:[1,"red"],time:2e3}),!1;switch(typeof u.confirm){case"function":u.confirm(u,function(e,t){u.param=$.extend(u.param,e),a(u,i,t)});break;case"undefined":a(u,i);break;case"object":var c=u.confirm;bt.open({title:c.title||"批量操作",area:c.area||"350px",btn:c.btn||["确认","取消"],content:c.content,success:function(e,t){c.success(e,t,u)},yes:function(e,a){c.yes(e,a,function(e,a){u.param=$.extend(u.param,e),t(u,i)})}})}})):($.each(l.selectList,function(e,t){t.group?($.each(t.group,function(e,a){h.push($.extend({},t,a)),p+='<li class="item">'+a.title+"</li>"}),delete t.group):(h.push(t),p+='<li class="item">'+t.title+"</li>")}),$(s.config.el).on("click",".bt_table_select_group .bt_select_value",function(e){var t=$(this).parent(),a=t.find(".bt_selects"),i=t.offset(),n=s.$get_win_area();return t.hasClass("bt-disabled")?(layer.tips(s.config.batch.disabledSelectValue,t,{tips:[1,"red"],time:2e3}),!1):(t.hasClass("active")?t.removeClass("active"):t.addClass("active"),a.height()>n[1]-i.top?a.addClass("top"):a.removeClass("top"),$(document).one("click",function(){return $(s.config.el).find(".bt_table_select_group").removeClass("active"),!1}),!1)}),$(s.config.el).on("click",".bt_table_select_group .item",function(e){var t=$(this).text(),a=$(this).index();$(this).addClass("active").siblings().removeClass("active"),$(s.config.el+" .bt_select_tips").html("批量"+t+"<em>(已选中"+s.checkbox_list.length+")</em>"),s.batch_active=h[a],s.checked||$(".bt_table_select_group").removeClass("active")}),$(s.config.el).on("click",".set_batch_option",function(e){var i=[],n=s.batch_active;if($(this).hasClass("bt-disabled"))return layer.tips(s.config.batch.disabledSelectValue,$(this),{tips:[1,"red"],time:2e3}),!1;for(var c=0;c<s.checkbox_list.length;c++)i.push(s.data[s.checkbox_list[c]]);if("{}"===JSON.stringify(n)){var l=$(s.config.el+" .bt_table_select_group");return layer.tips("请选择需要批量操作的类型",l,{tips:[1,"red"],time:2e3}),l.css("border","1px solid red"),setTimeout(function(){l.removeAttr("style")},2e3),!1}switch(typeof n.confirm){case"function":n.confirm(n,function(e,t){n.param=$.extend(n.param,e),a(n,i,t)});break;case"undefined":a(n,i);break;case"object":var o=n.confirm;bt.open({title:o.title||"批量操作",area:o.area||"350px",btn:o.btn||["确认","取消"],content:o.content,success:function(e,t){o.success(e,t,n)},yes:function(e,a){o.yes(e,a,function(e,a){n.param=$.extend(n.param,e),t(n,i)})}})}})),c='<div class="bt_batch"><label><i class="cust—checkbox cursor-pointer checkbox_'+this.random+'" data-checkbox="all"></i><input type="checkbox" lass="cust—checkbox-input" /></label>'+(void 0!==l.config?'<button class="btn btn-default btn-sm set_batch_option bt-disabled">批量'+l.config.title+"</button>":'<div class="bt_table_select_group bt-disabled not-select"><span class="bt_select_value"><span class="bt_select_tips">请选择批量操作<em></em></span><span class="glyphicon glyphicon-triangle-bottom ml5"></span></span><ul class="bt_selects ">'+p+'</ul></div><button class="btn btn-default btn-sm set_batch_option bt-disabled" >'+l.buttonValue+"</button>")+"</div>";break;case"page":this.config.page=l;var f=bt.get_cookie(this.config.cookiePrefix+"_"+this.config.page.numberParam);this.config.cookiePrefix&&f&&(this.config.page.number=f),c=this.$reader_page(this.config.page,'<div><span class="Pcurrent">1</span><span class="Pcount">共0条数据</span></div>')}if(c){var b=$(s.config.el+" .tootls_"+l.positon[1]);if(b.length){var v=b.find(".pull-"+l.positon[0]);v.append(c)}else{var _='<div class="tootls_group tootls_'+l.positon[1]+'"><div class="pull-left">'+("left"==l.positon[0]?c:"")+'</div><div class="pull-right">'+("right"==l.positon[0]?c:"")+"</div></div>";"top"===l.positon[1]?($(s.config.el).append(_),0===$(s.config.el+" .divtable").length&&$(s.config.el).append('<div class="divtable mtb10" style="max-height:'+parseInt(s.config.height)+'px"></div>')):(0===$(s.config.el+" .divtable").length&&$(s.config.el).append('<div class="divtable mtb10" style="max-height:'+parseInt(s.config.height)+'px"></div>'),$(s.config.el).append(_))}}}this.init||this.$event_bind(i)},$clear_table_checkbox:function(){$(this.config.el).find(".bt_table .cust—checkbox").removeClass("selected active")},$get_data_batch_list:function(e,t){var a=[];return $.each(t||this.data,function(t,s){a.push(s[e])}),a},$reader_page:function(e,t){"number"==typeof t&&(t=this.$custom_page(t));var a=this,s=$(t),i="",n={};if(s.find("a").addClass("page_link_"+this.random),i+=s.html(),e.numberStatus){var c="page_select_"+this.random,l=bt.get_cookie("page_number");i+='<select class="page_select_number '+c+'">',$.each(e.numberList,function(t,a){i+='<option value="'+a+'" '+((l||e.number)==a?"selected":"")+">"+a+"条/页</option>"}),i+="</select>",n[c]={eventType:"change",type:"page_select"}}if(e.jump){var o="page_jump_input_"+this.random,r="page_jump_btn_"+this.random;i+='<div class="page_jump_group"><span class="page_jump_title">跳转到</span><input type="number" class="page_jump_input '+o+'" value="'+e.page+'" /><span class="page_jump_title">页</span><button type="button" class="page_jump_btn '+r+'">确认</button></div>',n[o]={eventType:"keyup",type:"page_jump_input"},n[r]={type:"page_jump_btn"}}return n["page_link_"+this.random]={type:"cut_page_number"},a.config.page.total=0==s.length?0:"number"==typeof t?t:parseInt(s.find(".Pcount").html().match(/([0-9]*)/g)[1]),a.$event_bind(n),'<div class="page">'+i+"</div>"},$custom_page:function(e,t){void 0===t&&(t=5);var a='<div clas="page">',s=this.config.page,i=Math.ceil(e/s.number);s.page>1&&i>1&&(a+='<a class="Pstart" href="p=1">首页</a><a class="Pstart" href="p='+(s.page-1)+'">上一页</a>');for(var n=1;n<=i;n++)n==s.page?a+='<span class="Pcurrent">'+n+"</span>":a+='<a class="Pnum" href="p='+n+'">'+n+"</a>";return i>1&&s.page<i&&(a+='<a class="Pstart" href="p='+(s.page+1)+'">下一页</a><a class="Pstart" href="p='+i+'">尾页</a>'),a+='<span class="Pcount">共'+e+"条</span></div>",a},$dynamic_merge_style:function(e,t){var a="";return $.each(e,function(e,t){switch(e){case"align":a+="text-align:"+t+";";break;case"width":a+="width:"+("string"==typeof t?t:t+"px")+";";break;case"style":a+=t;break;case"minWidth":a+="min-width:"+("string"==typeof t?t:t+"px")+";";break;case"maxWidth":a+="max-width:"+("string"==typeof t?t:t+"px")+";"}}),{index:t,css:a}},$event_bind:function(e){var t=this;$.each(e,function(e,a){if(t.event_list[e]&&t.event_list[e].eventType===a.eventType)return!0;t.event_list[e]=a,$(t.config.el).on(a.eventType||"click","."+e,function(s){var i=$(this).parents("tr").index(),n=$(this).data(),c=[];switch(a.type){case"rows":t.event_rows_model={el:$(this),model:t.config.column[$(this).parents("td").index()],rows:t.data[i],index:i},c=[t.event_rows_model.rows,t.event_rows_model.index,s,e,t];break;case"sort":var l=t.config.column[n.index];$(this).hasClass("sort-active")&&$(".sort_"+t.random+" .sort-active").data({sort:"desc"}),$(".sort_"+t.random).removeClass("sort-active").find(".glyphicon").removeClass("glyphicon-triangle-top").addClass("glyphicon-triangle-bottom"),$(this).addClass("sort-active"),"asc"==n.sort?($(this).data({sort:"desc"}),$(this).find(".glyphicon").removeClass("glyphicon-triangle-top").addClass("glyphicon-triangle-bottom")):($(this).data({sort:"asc"}),$(this).find(".glyphicon").removeClass("glyphicon-triangle-bottom").addClass("glyphicon-triangle-top")),t.config.sort=t.config.sortParam({name:l.fid,sort:n.sort}),t.$refresh_table_list(!0);break;case"checkbox":var o=$(t.config.el+' [data-checkbox="all"]'),r=$(t.config.el+" tbody .checkbox_"+t.random);null==n.checkbox?$(this).hasClass("active")?($(this).removeClass("active"),t.checkbox_list.splice(t.checkbox_list.indexOf(i),1),t.checkbox_list.length>0?o.addClass("selected").removeClass("active"):o.removeClass("selected active")):($(this).addClass("active"),t.checkbox_list.push(i),t.data.length===t.checkbox_list.length?o.addClass("active").removeClass("selected"):t.checkbox_list.length>0&&o.addClass("selected")):t.checkbox_list.length===t.data.length?(t.checkbox_list=[],r.removeClass("active selected").next().prop("checked","checked"),o.removeClass("active")):(r.each(function(e,a){$(this).hasClass("active")||($(this).addClass("active").next().prop("checked","checked"),t.checkbox_list.push(e))}),o.removeClass("selected").addClass("active")),t.$set_batch_view();break;case"button":c.push(s,t);break;case"search_focus":var d=$(t.config.el+" .bt_search_tips");$(t.config.el+" .bt_search_tips").length>0&&d.remove();break;case"search_input":if(13==s.keyCode)return $(t.config.el+" .search_btn_"+t.random).click(),!1;break;case"search_btn":var h=$(t.config.el+" .search_input"),p=$(t.config.el+" .search_input").val();p=p.replace(/\s+/g,""),h.val(p),t.config.search.value=p,h.append('<div class="bt_search_tips"><span>'+p+'</span><i class="bt_search_close"></i></div>'),t.$refresh_table_list(!0);break;case"page_select":var u=parseInt($(this).val());return bt.set_cookie("page_number",u),t.config.page.number=u,t.config.page.page=1,t.$refresh_table_list(!0),!1;case"page_jump_input":return 13==s.keyCode&&($(t.config.el+" .page_jump_btn_"+t.random).click(),$(this).focus()),!1;case"page_jump_btn":var f=parseInt($(t.config.el+" .page_jump_input_"+t.random).val()),b=Math.ceil(t.config.page.total/t.config.page.number);f>b&&(f=t.config.page.page),t.config.page.page=f,t.$refresh_table_list(!0);break;case"cut_page_number":var v=parseInt($(this).attr("href").match(/([0-9]*)$/)[0]);return t.config.page.page=v,t.$refresh_table_list(!0),!1;case"eye_open_password":return $(this).hasClass("glyphicon-eye-open")?($(this).addClass("glyphicon-eye-close").removeClass("glyphicon-eye-open"),$(this).prev().text(t.data[i].password)):($(this).addClass("glyphicon-eye-open").removeClass("glyphicon-eye-close"),$(this).prev().html("<i>**********</i>")),!1;case"copy_password":return bt.pub.copy_pass(t.data[i].password),!1}a.event&&a.event.apply(this,c)})})},$style_bind:function(e,t){var a="",s=this;$.each(e,function(e,t){""!=t.css&&(t.className?a+=t.className+"{"+t.css+"}":a+=s.config.el+" thead th:nth-child("+(t.index+1)+"),"+s.config.el+" tbody tr td:nth-child"+(t.span?" span":"")+"("+(t.index+1)+"){"+t.css+"}")}),0==$("#bt_table_"+s.random).length&&$(s.config.el).append('<style type="text/css" id="bt_table_'+s.random+'">'+a+"</style>")},$get_win_area:function(){return[window.innerWidth,window.innerHeight]},$http:function(e,t){var a={},s=this.config,i=s.page,n=s.search,c=s.sort||{};i&&(a[i.numberParam]=i.number,a[i.pageParam]=i.page,this.config.cookiePrefix&&bt.set_cookie(this.config.cookiePrefix+"_"+i.numberParam,i.number)),n&&(a[n.searchParam]=n.value),this.config.beforeRequest&&(s.param=this.config.beforeRequest(s.param)),bt_tools.send({url:s.url,data:$.extend(s.param,a,c)},function(t){if(void 0!==s.dataFilter){var a=s.dataFilter(t);void 0!==a.tootls&&(a.tootls=parseInt(a.tootls)),e&&e(a)}else e&&e({data:t.data,page:t.page})},"boolean"==typeof t?"获取列表":t)}},new t(e)},form:function(e){function t(e){this.config=e,this.data=e.data||{},this.$load()}var a=this;return t.prototype={element:null,style_list:[],event_list:{},event_type:["click","event","focus","keyup","blur","change"],hide_list:[],form_element:{},form_config:{},random:bt.get_random(5),$load:function(){var e=this;e.el&&this.$reader_content(function(){e.$event_bind()})},$reader_content:function(e){var t=this,s="",i="";return $.each(t.config.form,function(e,a){s+=t.$reader_content_row(e,a)}),t.element=$('<form class="bt-form" data-form="'+t.random+'" onsubmit="return false">'+s+"</form>"),i=$('<div class="'+a.$verify(t.config.class)+'"></div>'),i.append(t.element),e&&e(),i[0].outerHTML},$reader_content_row:function(e,t){var s=this,i=t.help,n=this.config.formLabelWidth||t.formLabelWidth;return'<div class="line'+a.$verify(t.class)+a.$verify(t.hide,"hide",!0)+'"'+a.$verify(t.id,"id")+">"+(t.label?'<span class="tname" '+(n?'style="width:'+n+'"':"")+">"+t.label+"</span>":"")+'<div class="'+(t.label?"info-r":"")+a.$verify(t.line_class)+'"'+a.$verify(s.$reader_style($.extend(t.style,n?{"margin-left":n}:{})),"style")+">"+s.$reader_form_element(t.group,e)+(i?'<div class="c9 mt5 '+a.$verify(i.class,"class")+'" '+a.$verify(s.$reader_style(i.style),"style")+">"+i.list.join("</br>")+"</div>":"")+"</div></div>"},$reader_form_element:function(e,t){var a=this,s="";return Array.isArray(e)||(e=[e]),$.each(e,function(e,i){i.find_index=t,s+=a.$reader_form_find(i),a.form_config[i.name]=i}),s},$reader_form_find:function(e){var t=this,s="",i=t.$reader_style(e.style)+a.$verify(e.width,"width","style"),n=t.$verify_group(e,["name","value","placeholder","disabled","readonly","autofocus","autocomplete","min","max"]),c=t.$create_event_config(e),l="",o=e.find_index;switch(s+=e.label?'<span class="mr5">'+e.label+"</span>":"",void 0!==e.name&&(t.event_list[e.name]=c),s+='<div class="'+(e.dispaly||"inlineBlock")+'">',e.type){case"text":case"checkbox":case"password":case"radio":case"number":var r="event_"+e.name+"_"+t.random;switch(e.type){case"checkbox":s+='<label class="cursor-pointer form-checkbox-label"><i class="form-checkbox cursor-pointer mr5 '+r+'_label"></i><input type="checkbox" class="form—checkbox-input mr10 '+r+'" name="'+e.name+'" /><span class="vertical_middle">'+e.title+"</span></label>",t.event_list[r+"_label"]={click:{type:"checkbox_icon",config:e}},t.event_list[r]={input:{type:"checkbox",config:e}};break;case"radio":for(var d=0;d<e.list.length;d++){var h=e.list[d];s+='<label class="cursor-pointer form-checkbox-label"><input type="radio" class="form—checkbox-input mr10 '+r+'" name="'+e.name+'" value="'+h.value+'" '+(e.value==h.value?"checked":"")+'/><span class="vertical_middle">'+h.title+"</span></label>"}break;default:s+='<input type="'+e.type+'"'+n+" "+(e.icon?'id="'+r+'"':"")+' class="bt-input-text mr10 '+(e.label?"vertical_middle":"")+a.$verify(e.class,"class")+'"'+a.$verify(i,"style")+' value="'+(t.data[e.name]||e.value||"")+'"/>'}e.icon&&(s+='<span class="glyphicon '+e.icon.type+" "+e.name+'_icon cursor" '+a.$verify(t.$reader_style(e.icon.style),"style")+"></span>",void 0!==e.icon.event&&(t.event_list[e.name+"_icon"]={click:{type:"select_path",config:e,event:e.icon.event}}));break;case"textarea":if(s+='<textarea class="bt-input-text"'+a.$verify(i,"style")+n+" >"+(t.data[e.name]||e.value||"")+"</textarea>",$.each(["blur","focus","input"],function(a,s){if(e.tips){var i=null;switch(s){case"blur":i=function(e,t,a){""===$(this).val()&&$(this).next().show(),layer.close(t.tips.loadT),$(e.target).data("layer","")};break;case"focus":i=function(e,t){$(this).next().hide(),t.tips.loadT=layer.tips(p,$(this),{tips:[1,"#20a53a"],time:0,area:$(this).width()})}}}t.event_list[e.name][s]?t.event_list[e.name][s].added=i:t.event_list[e.name][s]={type:e.type,cust:!1,event:e[s],added:i}}),e.tips){var p="";p=void 0===e.tips.list?e.tips.text:e.tips.list.join("</br>"),s+='<div class="placeholder c9 '+e.name+'_tips" '+a.$verify(t.$reader_style(e.tips.style),"style")+">"+p+"</div>",t.event_list[e.name+"_tips"]={click:{type:"textarea_tips",config:e}}}break;case"switch":var u="",f=bt.get_random(5),b="click_"+e.fid+"_"+f;e.status.on==e.checked&&(u="checked"),s='<div class="switch_group" style="height: 32px;padding: 5px 0;"><input class="btswitch btswitch-ios" name="'+e.name+'" id="'+f+'" type="checkbox" '+u+'><label class="btswitch-btn '+(null!=e.class?e.class:"")+'" for="'+f+'" data-index="0" bt-event-click="set_site_server_status"></label></div>',t.event_list[b]={click:{type:b,event:e.event}};break;case"submit":r="event_submit_"+t.random;s+="<button type='button' class='btn btn-success btn-sm "+r+"'>"+e.title+"</button>",t.event_list[r]={click:{type:r,event:e.event}};break;case"select":s+=t.$reader_select(e,i,n,o),t.event_list.custom_select={click:{type:"custom_select",children:".bt_select_value"}},t.event_list.custom_select_item={click:{type:"custom_select_item",children:"li.item"}};break;case"link":l="event_"+bt.get_random(6),s+='<a href="'+(e.href||"javascript:;")+'" class="btlink offsetY7'+a.$verify(e.class,"class")+" "+l+'" '+a.$verify(t.$reader_style(e.style),"style")+">"+e.title+"</a>",t.event_list[l]={click:{type:"link_event",event:e.event}};break;case"help":var v="";$.each(e.list,function(e,t){v+="<li>"+t+"</li>"}),s+='<ul class="help-info-text c7'+a.$verify(e.class)+'"'+a.$verify(t.$reader_style(e.style),"style")+">"+v+"</ul>"}return s+="</div>",s},$create_event_config:function(e){var t={};return void 0===e.name?{}:($.each(this.event_type,function(a,s){e[s]&&(t["event"===s?"click":s]={type:e.type,event:e[s],cust:["select","checkbox","radio"].indexOf(e.type)>-1,config:e})}),t)},$reader_style:function(e){var t="";return"string"==typeof e?e:void 0===e?"":($.each(e,function(e,a){t+=e+":"+a+";"}),t)},$local_refresh:function(e,t){this.element.find("[data-name="+e+"]").replaceWith(this.$reader_form_find(t))},$reader_select:function(e,t,s,i){var n=this,c="",l="",o={};if(!Array.isArray(e.list)){var r=e.list;bt_tools.send({url:r.url,data:r.param||{}},function(t){!1!==t.status?(e.list=e.list.dataFilter?e.list.dataFilter(t):t,n.$replace_render_content(i)):bt.msg(t)})}return $.each(e.list,function(t,s){try{$.isEmptyObject(o)&&s.value===e.value&&(o=s)}catch(e){}c+='<li class="item'+a.$verify(s.value===o.value?"active":"")+" "+(s.disabled?"disabled":"")+'">'+s.title+"</li>",l+='<option value="'+s.value+'"'+(s.disabled?"disabled":"")+" "+a.$verify(s.value===o.value?'selected="selected"':"")+">"+s.title+"</option>"}),$.isEmptyObject(o)&&Array.isArray(e.list)&&(o=e.list[0]),'<div class="bt_select_updown mr10 '+(e.disabled?"bt-disabled":"")+" "+a.$verify(e.hide,"hide",!0)+a.$verify(e.class)+'" '+a.$verify(t,"style")+' data-name="'+e.name+'"><span class="bt_select_value"><span class="bt_select_content">'+(o.title||"获取数据中...")+'</span><span class="glyphicon glyphicon-triangle-bottom ml5"></span></span><ul class="bt_select_list">'+(c||"")+"</ul><select"+s+'autocomplete="off" class="hide"  '+(e.disabled?"disabled":"")+">"+(l||"")+"</select></div>"},$replace_render_content:function(e){var t=this,a=this.config.form[e];$("[data-form="+t.random+"]").find(".line:eq("+e+")").replaceWith(t.$reader_content_row(e,a))},
+$event_bind:function(e,t){var a=this,s={};a.element=$("object"==typeof e?a.element:"[data-form="+a.random+"]"),void 0===e&&(s=a.event_list),$.each(s,function(e,t){if($.isEmptyObject(t))return!0;$.each(t,function(t,s){var i="";i="boolean"==typeof s.cust?"["+(s.cust?"data-":"")+"name="+e+"]":"."+e,function(e,s){if(!1===e.onEvent){switch(e.type){case"input_checked":$(i).on("event"!=t?t:"click",function(t){e.event.apply(this,[t,a])})}return!0}a.element.on("event"!=t?t:"click",e.children?e.children:i,function(t){var i=a.$get_form_element(!0),n=a.$get_form_value(),c=a.form_config[s];switch(e.type){case"textarea_tips":$(this).hide().prev().focus();break;case"custom_select":if($(this).parent().hasClass("bt-disabled"))return!1;var l=$(this).next();return l.hasClass("show")?l.removeClass("show"):($(".bt_select_list").removeClass("show"),l.addClass("show")),$(document).click(function(){return a.element.find(".bt_select_list").removeClass("show"),$(this).unbind("click"),!1}),!1;case"custom_select_item":if(c=a.form_config[$(this).parents(".bt_select_updown").attr("data-name")],item_config=c.list[$(this).index()],$(this).hasClass("disabled"))return $(this).parent().removeClass("show"),item_config.tips&&layer.msg(item_config.tips,{icon:2}),!0;$(this).hasClass("active")||$(this).hasClass("disabled")||($(this).parent().prev().find(".bt_select_content").text($(this).text()),$(this).addClass("active").siblings().removeClass("active"),$(this).parent().next().val(item_config.value.toString()),$(this).parent().removeClass("show"),$(this).parent().next().trigger("change"));break;case"submit_form":break;case"select_path":bt.select_path("event_"+$(this).prev().attr("name")+"_"+a.random);break;case"checkbox":var o=$(this).is(":checked");o?$(this).prev().addClass("active"):$(this).prev().removeClass("active")}e.event&&e.event.apply(this,[n,i,a,c,t]),e.added&&e.added.apply(this,[t,c,i])})}(s,e)})}),t&&t()},$get_form_value:function(){return this.element.serializeObject()},$set_find_value:function(e,t){var a={},s=this;"string"!=typeof e?a=e:a[e]=t,$.each(a,function(e,t){s.form_element[e].val(t)})},$get_form_element:function(e){var t={},a=this;return e||$.isEmptyObject(a.form_element)?(this.element.find(":input").each(function(e){t[$(this).attr("name")]=$(this)}),a.form_element=t,t):a.form_element},$verify_group:function(e,t){var a="";return $.each(t,function(t,s){if(void 0===e[s])return!0;["disabled","readonly"].indexOf(s)>-1?a+=" "+(e[s]?s+'="'+s+'"':""):a+=" "+s+'="'+e[s]+'"'}),a},$verify_bind_event:function(e,t,a){var s={};return $.each(a,function(a,i){var n=t[i];n&&("object"==typeof s[e]?(Array.isArray(s[e])||(s[e]=[s[e]]),s[e].push({event:n,eventType:i})):s[e]={event:n,eventType:i})}),s},$verify:function(e,t,a){return e?!0===a?e?" "+t:"":"style"===a?t?t+":"+e+";":e:t?" "+t+'="'+e+'"':" "+e:""},$verify_form:function(){for(var e={},t=this.config.form,a=this.$get_form_value(),s=this.$get_form_element(!0),i=0;i<t.length;i++){var n=t[i];Array.isArray(n.group)||(n.group=[n.group]);for(var c=0;c<n.group.length;c++){var l=n.group[c],o=l.name;if("help"!==l.type)if(void 0!==l.verify){var r=l.verify(a[o],s[o],l,!0);if(!1===r&&!1!==a[o])return!1;e[o]=r}else e[o]=a[o]}}return e},$submit:function(e,t,a){var s=this.$verify_form();return"function"==typeof e&&(a=t,t=e,e={}),!!s&&(s=$.extend(s,e),void 0===this.config.url?(bt_tools.msg("请求提交地址不能为空！",!1),!1):void bt_tools.send({url:this.config.url,data:s},function(e){t?t(e,s):bt_tools.msg(e)},a||"提交中"))}},new t(e)},tab:function(e){function t(e){this.config=e,this.theme=this.config.theme||{},this.$load()}var a=this;return t.prototype={type:1,theme_list:[{content:"tab-body",nav:"tab-nav",body:"tab-con",active:"on"},{content:"bt-w-body",nav:"bt-w-menu",body:"bt-w-con"}],random:bt.get_random(5),$init:function(){var e=this,t=(this.config.active,e.config.list);this.$event_bind(),t[e.active].success&&t[e.active].success(),t[e.active].init=!0},$load:function(){},$reader_content:function(){var e=this,t=e.config.list,s="",i="",n=e.theme,c=e.config;return void 0===e.active&&(e.active=0),$.isEmptyObject(c.theme)||(n=this.theme_list[e.active],$.each(c.theme,function(e,t){n[e]&&(n[e]+=" "+t)}),e.theme=n),c.type&&$.isEmptyObject(c.theme)&&(this.theme=this.theme_list[e.active]),$.each(t,function(t,a){var c=e.active===t,l=n.active||"active";s+='<span class="'+(c?l:"")+'">'+a.title+"</span>",i+='<div class="tab-block '+(c?l:"")+'">'+(c?a.content:"")+"</div>"}),e.element=$('<div id="tab_'+e.random+'" class="'+n.content+a.$verify(e.config.class)+'"><div class="'+n.nav+'" >'+s+'</div><div class="'+n.body+'">'+i+"</div></div>"),e.element[0].outerHTML},$event_bind:function(){var e=this,t=e.theme,a=t.active||"active";e.el||(e.element=$("#tab_"+e.random)),e.element.on("click","."+t.nav.replace(/\s+/g,".")+" span",function(){var s=$(this).index(),i=e.config.list[s];$(this).addClass(a).siblings().removeClass(a),$("."+t.body+">div:eq("+s+")").addClass(a).siblings().removeClass(a),e.active=s,i.init||($("."+t.body+">div:eq("+s+")").html(i.content),i.success&&i.success(),i.init=!0)})}},new t(e)},load:function(e){var t=bt.get_random(5),a=$('<div class="layui-layer layui-layer-dialog layui-layer-msg layer-anim" id="'+t+'" type="dialog" style="z-index: 99891031;display:none"><div class="layui-layer-content layui-layer-padding"><i class="layui-layer-ico layui-layer-ico16"></i>正在'+e+'，请稍候...</div><span class="layui-layer-setwin"></span></div><div class="layui-layer-shade" id="layer-mask-'+t+'" times="17" style="z-index:99891000; background-color:#000; opacity:0.3; filter:alpha(opacity=30);"></div>'),s="";$("body").append(a);var i=$(window);$(".layer-loading-mask"),a=$("#"+t);return setTimeout(function(){a.css({top:(i.height()-a.height())/2,left:(i.width()-a.width())/2,display:"block"})},100),!0===e&&(s=layer.load()),{close:function(){"number"==typeof s?layer.close(s):$("body").find("#"+t+",#layer-mask-"+t).remove()}}},open:function(e){var t={},a=null,s=null;if(t=$.extend({type:1,area:"640px",closeBtn:2,btn:["确认","取消"]},e),"object"==typeof t.content){var i=t.content;s=bt_tools.form(i),t.success=function(e,a){s.$event_bind(),void 0!==t.success&&void 0!==i.success&&i.success(e,a)},t.yes=function(t,a){var i=s.$verify_form();if(!i)return!1;if(void 0!==e.yes){var n=e.yes.apply(s,[i,t,a]);if(!n)return!1}},t.content=s.$reader_content()}return a=layer.open(t),{close:function(){layer.close(a)},form:s}},msg:function(e,t){var a=null,s="",i={};return"object"==typeof e&&"boolean"==typeof e.status&&(s=e.msg,i={icon:e.status?1:2},e.status||(i=$.extend(i,{time:t?3e3:0,closeBtn:2,shade:.3}))),"string"==typeof e&&(s=e,i={icon:void 0!==t?t:1}),a=layer.msg(s,i),{close:function(){layer.close(a)}}},send:function(e,t,a,s,i,n){function c(e){try{o="function"==d[e][1]?d[e][0]:null,r="function"==d[e+1][1]?d[e+1][0]:null}catch(e){}}var l={},o=null,r=null,d=[],h="";switch($.each(arguments,function(e,t){d.push([t,typeof t])}),h=d[0],h[1]){case"string":$.each(d,function(e,t){var a=t[0],s=t[1];if(e>1&&("boolean"==s||"string"==s||"object"==s)){var i=h[0].split("/");return l.url="/"+i[0]+"?action="+i[1],"object"==s?(l.load=a.load,l.verify=a.verify,a.plugin&&(l.url="/plugin?action=a&name="+i[0]+"&s="+i[1])):"string"==s&&(l.load=a),!1}l.url=h[0]}),"object"===d[1][1]?(l.data=d[1][0],c(2)):c(1);break;case"object":l.url=h[0].url,l.data=h[0].data||{},$.each(d,function(e,t){var a=t[0],s=t[1];if(e>1&&("boolean"==s||"string"==s||"object"==s))return"object"==s?(l.load=a.load,l.verify=a.verify):"string"==s&&(l.load=a),!0}),"object"===d[1][1]?(l.data=d[1][0],c(2)):c(1)}l.load&&(l.load=this.load(l.load)),$.ajax({type:l.type||"POST",url:l.url,data:l.data||{},dataType:l.dataType||"JSON",complete:function(){l.load&&l.load.close()},success:function(e){return"boolean"!=typeof l.verify||l.verify?"string"==typeof e?(layer.msg(e,{icon:2,time:0,closeBtn:2}),!1):l.batch?(o&&o(e),!1):!1===e.status?(layer.close(),bt_tools.msg(e),!1):(l.tips&&bt_tools.msg(e),void(o&&o(e))):(o&&o(e),!1)},error:function(e){r&&r(e),layer.closeAll("dialog"),layer.closeAll("loading"),layer.msg("服务响应状态码："+(0==e.status?"--":e.status)+"</br>错误信息："+e.statusText+"</br>接口信息："+l.url+"</br>接口参数："+JSON.stringify(l.data),{icon:2,time:0,closeBtn:2})}})},$clear_verify_tips:function(e){e.removeClass("bt-border-error bt-border-sucess"),layer.close("tips")},$verify_tips:function(e,t,a){void 0===a&&(a=!0),e.removeClass("bt-border-error bt-border-sucess").addClass(a?"bt-border-error":"bt-border-sucess"),e.focus(),layer.tips('<span class="inlineBlock">'+t+"</span>",e,{tips:[1,a?"red":"#20a53a"],time:3e3,area:e.width()})},$verify:function(e,t,a){return e?!0===a?e?" "+t:"":"style"===a?t?t+":"+e+";":e:t?" "+t+'="'+e+'"':" "+e:""},$batch_success_table:function(e){var t=this,a=$(e.html).length;bt.open({type:1,title:e.title,area:e.area||["350px","350px"],shadeClose:!1,closeBtn:2,content:e.content||'<div class="batch_title"><span class><span class="batch_icon"></span><span class="batch_text">'+e.title+'操作完成！</span></span></div><div class="'+(a>4?"fiexd_thead":"")+' batch_tabel divtable" style="margin: 15px 30px 15px 30px;overflow: auto;height: 200px;"><table class="table table-hover"><thead><tr><th>'+e.th+'</th><th style="text-align:right;width:120px;">操作结果</th></tr></thead><tbody>'+e.html+"</tbody></table></div>",success:function(){a>4&&t.$fixed_table_thead(".fiexd_thead")}})},$fixed_table_thead:function(e){$(e).scroll(function(){var e=this.scrollTop;$(this).find("thead").css({transform:"translateY("+e+"px)",position:"relative","z-index":"99"})})},$piugin_view_set:function(e,t){var a=$("string"==typeof e?"#layui-layer"+e:e).hide(),s=$(window);setTimeout(function(){var e=t.width||a.width(),i=t.height||a.height();a.css($.extend(t,{left:(s.width()-e)/2,top:(s.height()-i)/2})).addClass("custom_layer")},50),setTimeout(function(){a.show()},500)}};$.fn.serializeObject=function(){var e=Object.prototype.hasOwnProperty;return this.serializeArray().reduce(function(t,a){return e.call(t,a.name)||(t[a.name]=a.value),t},{})};
+</script>
+<script type="text/javascript">
+var element = $('.bt-table').parents('.layui-layer-page'),_id = parseInt(element.attr('times')),init = null,title = element.find('.layui-layer-title').text(),cdn =null,
+	add_config = {
+		title:'腾讯云CDN-关联腾讯云API密钥',
+		area:'500px',
+		skin:'custom_layer',
+		btn:['保存','取消'],
+		content:{
+			url:'/plugin?action=a&name=txcdn&s=set_config',
+			class:'pd20',
+			form:[{
+				label:'APPID',
+				group:{
+					type:'text',
+					name:'appid',
+					width:'320px',
+					placeholder:'腾讯云密钥APPID,不可为空',
+					verify:function(value,element,model,is_monitor){
+						var tips = '';
+						if(value == ''){
+							tips = model.placeholder;
+						}
+						if(tips != ''){
+							bt_tools.$verify_tips(element,tips);
+							return false;
+						}
+						return value.replace(/ /g,'');
+					}
+				}
+			},{
+				label:'secretId',
+				group:{
+					type:'text',
+					name:'secretId',
+					width:'320px',
+					placeholder:'腾讯云密钥secretId,不可为空',
+					verify:function(value,element,model,is_monitor){
+						var tips = '';
+						if(value == ''){
+							tips = model.placeholder;
+						}
+						if(tips != ''){
+							bt_tools.$verify_tips(element,tips);
+							return false;
+						}
+						return value.replace(/ /g,'');
+					}
+				}
+			},{
+				label:'secretKey',
+				group:{
+					type:'password',
+					name:'secretKey',
+					width:'320px',
+					placeholder:'腾讯云密钥secretKey,不可为空',
+					verify:function(value,element,model,is_monitor){
+						var tips = '';
+						if(value == ''){
+							tips = model.placeholder;
+						}
+						if(tips != ''){
+							bt_tools.$verify_tips(element,tips);
+							return false;
+						}
+						return value.replace(/ /g,'');
+					}
+				}
+			},{
+				label:' ',
+				group:{
+					type:'help',
+					style:'margin-top:0',
+					list:['获取腾讯云API密钥信息，<a href="https://console.cloud.tencent.com/cam/capi" target="_blank" class="btlink">点击查看</a>']
+				}
+			}]
+		},
+		yes:function(form,indexs,layero){
+			var that = this;
+			this.$submit(form,function(res){
+				if(res.status === false){
+					bt_tools.msg(res);
+					return false;
+				}
+				bt_tools.msg(res);
+				layer.close(indexs);
+				if(init){
+					element.show();
+                    cdn.init();
+				}else{
+					bt.soft.set_lib_config('txcdn',title);
+				}
+			});
+		},
+		end:function(){
+			if(!init) layer.close(_id);
+		}
+	} 
+	bt_tools.$piugin_view_set(element,{width:1000,height:602});
+	bt_tools.send('txcdn/get_config',function(res){
+		var config = res;
+		if($.isEmptyObject(config)){
+			init = false;
+			bt_tools.open(add_config);
+			layer.close(_id);
+		}else{
+            init = true;
+            cdn = {
+                init: function() {
+                    var _this = this;
+                    $(".bt-w-menu p").click(function() {
+                        var index = $(this).index();
+                        $(this).addClass('bgw').siblings().removeClass('bgw');
+                        $('.conter_box').eq(index).show().siblings().hide();
+                        switch (index) {
+                            case 0:
+                                _this.createDomainListView();
+                                break;
+                            case 1:
+                                _this.createCacheView();
+                                break;
+                            case 2:
+                                _this.createReportData();
+                                break;
+                        }
+                    });
+                    _this.createDomainListView();
+                    $('.select_list').on('click', '.select li', function() {
+                        $(this).addClass('active').siblings().removeClass('active');
+                        $('.select_list .select_item').html($(this).html());
+                        $('.select_list .select').hide();
+                    });
+
+                    $('.select_list .select_item').click(function(e) {
+                        e.stopPropagation();
+                        if ($('.select_list .select').attr('style').indexOf('block') > -1) {
+                            $('.select_list .select').hide();
+                        } else {
+                            $('.select_list .select').show();
+                        }
+                        $(document).click(function(e) {
+                            e.stopPropagation();
+                            $('.select_list .select').hide();
+                        });
+                    });
+                },
+                createDomainListView: function() {
+                    $('.domainView').html('');
+                    var txcdn = bt_tools.table({
+                        el: ".domainView",
+                        fid: "txcdn",
+                        load: true,
+                        url: "/plugin?action=a&name=txcdn&s=get_domains",
+                        default: "CDN列表为空", //数据为空时的默认提示
+                        height: "520px",
+                        dataFilter: function(res) {
+                            return {
+                                data: res.Domains,
+                                total: res.TotalNumber
+                            };
+                        },
+                        column: [{
+                            fid: "Domain",
+                            title: "域名",
+                            fixed:true,
+                            width: 170,
+                            tips:true,
+                            type:'link',
+                            event:function(row, index, ev, key, that){
+                                that.cdnManagementLayer(row)
+                            }
+                        }, {
+                            fid: "Cname",
+                            title: "CNAME",
+                            width: 170,
+                            fixed:true,
+                            tips:true,
+                            template: function(row){
+                                if(row.Cname == ''){
+                                    return '<span>无需配置</span>'
+                                }else if (row.resolver) {
+                                    return '<span>'+ row.Cname +'</span>';
+                                }else{
+                                    return '<span class="bt_danger cursor"><span>未设置CNAME解析</span><i class="glyphicon glyphicon-exclamation-sign ml5"></i></span>';
+                                }
+                            },
+                            event:function(row, index, ev, key, that){
+                                if(!row.resolver && row.Cname != ''){
+                                    bt_tools.open({
+                                        type:1,
+                                        title:false,
+                                        area: ['400px', '340px'],
+                                        btn:false,
+                                        content:'<div class="succeed_tip" style="font-family: 微软雅黑;padding:25px 15px">' +
+                                                '<div class="tip_img" style="text-align:center;color:#6d6d6d;font-weight: 600;">' +
+                                                    '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAGC0lEQVRoQ91aXWwUVRT+zmx3tvLjk4lCOlMx0J22JEYxKRgTNRgQ8PcBAsZEH+AF1CpE4cUI8QVQUFR4gQd9EIg8+BOgQiRiYkQSkWhod7cQtbMNYOKT/Nid7d5j7nSGTqf7c2e6hbCTtDu795xzz3fvnXPPPd8Q6nT9djemplL6UmLuEqCZBJ4B0EwQZrhdMC4BfJFBlzT5SXS6UHCO3v83rtXDBZqIkWxr8yxCaSEzLQKwPKatQ0R8nJE4YQ0M/RnTBmIB6TX1jibmtUy0rkLHgwDyAAaZWN6DmFoAyD/D+xynSsy7h4n2dNpOX1RAkYCcm9Fs6kmxVgASwDS/MwJ6BfFxCO1Ye75wTMWJjJFaDE0s1pgWMdAZ0LmqAbudorZn7qUhW8WWO1CqgjkjKWfgbQD3+DpMOJgo8Ydtg8XTqnbKyfW3JLtKCXqdGCsD7ZeJ+d10vrhHxbYSkJyZ2svg1TcAAGc1xvZ03jmo0omqTM7QVwrCWwQ8MDrbtC9tF9bUslETSNbUzwB4MABiy7VhZ/tDF3G9lvE47b/MxJSpTboE805A/1fLduZVs1cVSNbUOahMTBvS+cLOOA5G1ckZqfVMvCOoZ9lORX8rNmRN/WsAz/iGStCe6LSHTkR1aCLyvWbzwgTEdwEb31i282w5m2WB9Jn6Rg3Y6itUG4mJOKqqG1wZAtjUYTvbwrrjgGTM5EsE+tQXTACdc2LEdVUnVeTOm3pHCegdfU755Xa7+NmYZR/8IveJpqSQodQPsSss2zmk0tlky2RNXWYOX3j9XB4ual3BfWbMjPSb+lYBbJTCDGxpt53Nk+1gFPsZU9/sRzMN2NZmO5tGw7R3J9OOBCBnYxoDZ68NO49MVoiN4nxQ1gvNP3r7zNUS0OWnMzdmJGckP/FzJ2KsqvdmF9f5sJ7cNJlwQP4uc7N0vviKey//XWhJzR7W+Ly7pAgH2wecVaodZ43k96Rp76UHCkdVdYJyudbUUhbiTStffFxVP9OqH/DTmSZBc2YPFi64QPrN1KsC/JG8Fxov6Pir+LOKUQkCRI95spEDw5gHmPmkKpi+e5PzNUGnZL8a6LU2u/CxCyRr6EdBWMLA+XbbaVMBIWXc0WQ+EpBXBhOKQiCiZVFmNWPq/QTMAaPHyjtLKXsXpmOK/u/IOlNL0IJAww4BqAkmjs64ZyWYyF537qR+Q18lCPvdZcV4viPvfKU6I75cFMeiyFbzo8/Qn9MIX7rLi/EC5Yzk+0y0Qf4wkVRExUEVmSiD6KcuxLyDMoa+nwgySg1atiOPobGvao7WG4T7bJu6PE63MOMABSLPKct2Ho6NwlMs57DX5KcX8mvN50jFj6yp/wRgAZhPUtbQcyDISHXIsp0VKgZqyZQBE1SpCwhvRuTgLAejn7KmG7GmM/EH7QPF9bWcVG2vAKZuIKQfmdbkTmJ6A8CVBgLSMEtrNM24vR/2hgm/DbMhBqMLMz2pWvKMm2/Va2OUJVci/tbzYwV5dMBV+UOcEBzHsTg64bAfCL0oFJxpI2m8qbsbiyxGp21nrupeEUzc/JFRLVaEwWigp9vswmHVvnOmfs4rfrsbuQsk15pczUx73UxS8HzVonRdD1bA55btvKgCRBa9hUbu4Y+I16QHivtGZqS1eRZY/DGyvKIfdQVoV5z0X/bnziq4G0zd1qDzuwqQ4FEXpN0nCaLGKj7IUWiYcpAE0xAFOgkkXDK9mTRCrWcjRDNUL5m6EWyEYtvtG74VdEIYVJheIOZ1YUquLK0QptomcpavNdIq7UFaoVKlpxrRM4ZyuxX0QphOAFCRgotEvdXrrK04C0EawVWJRb35nYUpOEk33AIytCLl5vtZk9V1d98QFSdph5tFT1ei2sKzqgREKnmUnOQVx7wwwMS7VIvelZaULEoTU3f4hQEGbwpTbJVsKAPx95lyr3DI4rcG+qHEfEQ155I5VoJomQA/6hajR6/JfYUjOBK3/Us14WmVBJHQsEQwL5G0hEo0GifD6NGIejSBHknYxLIR5aWaWh1IekK7Q3+KwfNUXjwj0Bnxn3PY+gdXatlWaf8fWohkN4pSxKQAAAAASUVORK5CYII=" style="width:50px;height:50px" />' +
+                                                    '<div class="succeed_title" style="margin-top: 20px;font-size: 16px;">域名[' + row.Domain + ' ],CNAME记录未设置</div>' +
+                                                '</div>'+
+                                                '<div class="tip_conter" style="text-align: center;margin-top: 17px;font-weight: 100;line-height: 20px;font-size: 16px;">' +
+                                                '<div class="nstitle" style="margin-bottom: 10px;">请手动添加以下CNAME记录：</div>' +
+                                                '<div class="nsName" style="line-height: 25px;margin: 0px 40px;padding: 5px 12px;text-align: left;border: 1px solid #efefef;border-radius: 3px;background: #fcfcfc;">'+ row.Cname +'&nbsp;&nbsp;<span class="ico-copy cursor mr5" data-clipboard-text="'+ row.Cname +'"></span></div>' +
+                                                '<div class="nsName btns" style="margin:15px 0 10px 0;"><a href="javascript:;">点击检查是否成功</a></div>'+
+                                                '<div class="nsName"><a href="https://cloud.tencent.com/document/product/228/3121" target="_blank" class="btlink" style="font-size:13px;text-align:left;margin-bottom: 10px;"><span class="glyphicon glyphicon-link"></span><span>如何添加CNAME解析</span></a></div>' +
+                                            '</div>'+
+                                        '</div>',
+                                        success:function(){
+                                            var clipboard = new ClipboardJS('.ico-copy');
+                                            clipboard.on('success', function(e) {
+                                                layer.msg('复制成功',{icon:1});
+                                                e.clearSelection();
+                                            });
+                                            clipboard.on('error', function(e) {
+                                                layer.msg('复制失败，请手动选中文本复制',{icon:2});
+                                            });
+                                            $('.nsName.btns a').click(function(){
+                                                that.getFindDomain({domain:row.Domain},function(res){
+                                                    var info = res.Domains[0];
+                                                    if(info.resolver){
+                                                        that.$refresh_table_list(true);
+                                                    }else{
+                                                        layer.msg('CNAME记录未设置');
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        }, {
+                            fid: "Area",
+                            title: "加速地区",
+                            width: 70,
+                            template: function(row) {
+                                return '<span>中国境内</span>';
+                            }
+                        }, {
+                            fid: "Status",
+                            title: "状态",
+                            width: 70,
+                            event: function(row, index, ev, key, that) {
+                                var _status = row.Status == 'online' ? '停止' : '启用';
+                                bt.confirm({
+                                    title: _status + 'CDN域名',
+                                    msg: '是否' + _status + '该CDN域名，确认操作吗？'
+                                }, function(index) {
+                                    var txStartCdnUrl = '/plugin?action=a&name=txcdn&s=start_domain';
+                                    var txStopCdnUrl = '/plugin?action=a&name=txcdn&s=stop_domain';
+                                    bt_tools.send({
+                                        url: row.Status == 'online' ? txStopCdnUrl : txStartCdnUrl,
+                                        data: {
+                                            domain: row.Domain
+                                        },
+                                        verify: false
+                                    }, function(res) {
+                                        layer.close(index);
+                                        that.request_handle(res, function() {
+                                            bt_tools.msg(res);
+                                        });
+                                    }, _status + 'CDN域名');
+                                });
+                            },
+                            template: function(row) {
+                                switch (row.Status) {
+                                    case 'online':
+                                        return '<a href="javascript:;" class="bt_success cursor-pointer"><span>加速中</span><i class="glyphicon glyphicon-play" style="top:2px"></i></a>';
+                                        break;
+                                    case 'offline':
+                                        return '<a href="javascript:;" class="bt_danger cursor-pointer"><span>已停止</span><i class="glyphicon glyphicon-pause" style="top:2px"></i></a>';
+                                        break;
+                                    case 'processing':
+                                        return '<a href="javascript:;" class="cursor-pointer" style="color: #999999;"><span>执行中</span><i class="processing"></i></a>';
+                                        break;
+                                }
+                            }
+                        }, {
+                            title: "操作",
+                            type: "group",
+                            align: 'right',
+                            width: 120,
+                            group: [{
+                                title: "管理",
+                                event: function(row, index, ev, key, that) {
+                                    that.cdnManagementLayer(row)
+                                },
+                            }, {
+                                title: "带宽",
+                                event: function(row, index, ev, key, that) {
+                                    if(row.Status == 'processing'){
+                                        layer.msg('域名正在执行操作，请等候操作完成后重试当前操作!',{icon:0,area:'420px'});
+                                        return false;
+                                    }else if(row.Status == 'offline'){
+                                        layer.msg('域名已停止，请手动启用服务后重试当前操作!',{icon:0,area:'420px'});
+                                        return false;
+                                    }
+                                    var _that = that,bandWidthData = row,bandWidthStatusSwitch = 'on',arry = [{title: 'Tbps',value: 1000000000000},{title: 'Gbps',value: 1000000000,selectd: 'selectd'},{title: 'Mbps',value: 1000000},{title: 'Kbps',value: 1000}],active = '';
+                                    for(var i =0 ;i<arry.length;i++){
+                                        var items = arry[i];
+                                        if(row.BandwidthAlert.BpsThreshold > items.value){
+                                            active = items.value;
+                                            break;
+                                        }else{
+                                            continue;
+                                        }
+                                    }
+                                    var addbandWidthForm = bt_tools.form({
+                                        url: "/plugin?action=a&name=txcdn&s=set_band_width",
+                                        class: "pd20 bandWidthContent",
+                                        form: [{
+                                            label: "状态",
+                                            group: [{
+                                                name: 'status',
+                                                fid: 'enabled',
+                                                type: 'switch',
+                                                class: 'bandWidthSwitch',
+                                                status: {off: 0, on: 1},
+                                                checked: bandWidthData.BandwidthAlert.Switch == 'off' ? 0 : 1,
+                                                style:'line-height": "18px"padding:8px 10px;resize:vertical;',
+                                            }]
+                                        }, {
+                                            label: "访问阈值",
+                                            group: [{
+                                                name: "limit",
+                                                type: "number",
+                                                title: '访问阈值',
+                                                width:'100px',
+                                                value: bandWidthData.BandwidthAlert.BpsThreshold / items.value
+                                            }, {
+                                                type: "select",
+                                                list:arry,
+                                                value:active,
+                                                name: "bps"
+                                            }]
+                                        }, {
+                                            label: "超出阈值",
+                                            group: [{
+                                                name: "opera",
+                                                type: "radio",
+                                                list:[{title:'访问回源',value:'RESOLVE_DNS_TO_ORIGIN'},{title:'访问返回404',value:'RETURN_404'}],
+                                                value:bandWidthData.BandwidthAlert.CounterMeasure
+                                            }]
+                                        }]
+                                    });
+                                    var bandwidth_layer = bt_tools.open({
+                                        title: '域名 - [ ' + row.Domain + ' ] - 带宽封顶',
+                                        area: '400px',
+                                        skin: 'custom_layer',
+                                        btn: ['保存', '取消'],
+                                        content: addbandWidthForm.$reader_content(),
+                                        success: function(){
+                                            addbandWidthForm.$event_bind();
+                                        },
+                                        yes:function(indexs){
+                                            var form = addbandWidthForm.$get_form_value();
+                                            form['limit'] = form['bps'] *  form['limit'];
+                                            form['domain'] = row.Domain;
+                                            delete form['bps'];
+                                            addbandWidthForm.$submit(form,function(res, parem){
+                                                layer.close(indexs);
+                                                that.request_handle(res,function(){
+                                                    bt_tools.msg(res);
+                                                });
+                                            }, '设置封顶带宽');
+                                        },
+                                        end: function() {
+                                            layer.closeAll('tips');
+                                        }
+                                    });
+                                },
+                            }, {
+                                title: "删除",
+                                tips: "删除当前CDN加速",
+                                event: function(row, index, ev, key, that){
+                                    if(row.Status == 'online'){
+                                        layer.msg('域名已开启CDN加速，请手动停用后重试当前操作!',{icon:0,area:'410px'});
+                                        return false;
+                                    }else if(row.Status == 'processing'){
+                                        layer.msg('域名正在执行操作，请等候操作完成后重试当前操作!',{icon:0,area:'420px'});
+                                        return false;
+                                    }
+                                    bt.confirm({
+                                        title: '删除CDN',
+                                        msg: '是否删除当前CDN加速，删除后域名将恢复默认访问地址，是否继续？'
+                                    }, function(index) {
+                                        bt_tools.send({
+                                            url: '/plugin?action=a&name=txcdn&s=del_domain',
+                                            data: {domain: row.Domain},
+                                            verify: false
+                                        }, function(res) {
+                                            layer.close(index);
+                                            that.request_handle(res, function() {
+                                                bt_tools.msg(res);
+                                            });
+                                        }, '删除CDN加速');
+                                    });
+                                }
+                            }]
+                        }],
+                        tootls: [{
+                            type: "group",
+                            positon: ["left", "top"],
+                            list: [{
+                                title: "添加CDN域名",
+                                active: true,
+                                event: function(row, index, ev, key, that) {
+                                    var add_analysis_layer = bt_tools.open({
+                                        title: '添加CDN域名',
+                                        area: '400px',
+                                        skin: 'custom_layer',
+                                        btn: ['提交','取消'],
+                                        content: {
+                                            url: "/plugin?action=a&name=txcdn&s=add_domain",
+                                            class: "pd20",
+                                            form: [{
+                                                label: "加速域名",
+                                                group: {
+                                                    type: "text",
+                                                    width:'230px',
+                                                    name: "domain",
+                                                    placeholder:'请输入需要加速的域名',
+                                                    verify: function(value, element, model,is_monitor){
+                                                        if (value == "") {
+                                                            bt_tools.$verify_tips(element, "加速域名不能为空！");
+                                                            return false;
+                                                        }
+                                                        if(!bt.check_domain(value)){
+                                                            bt_tools.$verify_tips(element, "加速域名格式错误！");
+                                                            return false;
+                                                        }
+                                                        return value;
+                                                    },
+                                                    blur: function(formData, elmentList, form, model) {
+                                                        model.verify(
+                                                            formData[model.name],
+                                                            elmentList[model.name],
+                                                            model
+                                                        );
+                                                    },
+                                                    input: function(formData, elmentList, form, model) {
+                                                        clearTimeout(model.setTiming || null);
+                                                        model.setTiming = setTimeout(function() {
+                                                            var value = formData[model.name],
+                                                                element = elmentList[model.name],
+                                                                verify = model.verify(value, element, model, false);
+                                                            if (typeof verify == "undefined")
+                                                                bt_tools.$verify_tips(
+                                                                    element,
+                                                                    model.tips.text,
+                                                                    false
+                                                                );
+                                                        }, 1000);
+                                                    }
+                                                }
+                                            },{
+                                                label:'',
+                                                group:{
+                                                    type:'help',
+                                                    style:'margin-top:0;margin-left:10px;',
+                                                    list:['当前CDN加速需要付费使用，具体的付费说明见<a href="https://cloud.tencent.com/document/product/228/2949" target="_blank" class="btlink">付费说明</a>']
+                                                }
+                                            }]
+                                        },
+                                        yes: function(form){
+                                            var that = this;
+                                            this.$submit({domain:form.domain,serviceType:'web'},function(res, parem) {
+                                                txcdn.$refresh_table_list(true);
+                                                if (res.status == false) {
+                                                    index.request_handle(res, function() {
+                                                        bt_tools.msg(res);
+                                                    });
+                                                } else {
+                                                    html = '<tr>\
+                                                        <td><span >' + parem.domain + '</td>\
+                                                        <td><div style="float:right;width:180px;text-align:right"><span style="color:' + (typeof res.error == "undefined" ? '#20a53a' : 'red') + '">' + (typeof res.error != "undefined" ? res.error : '添加成功') + '</span></div></td>\
+                                                    </tr>';
+                                                    bt_tools.$batch_success_table({
+                                                        title: '添加CDN域名',
+                                                        area: '400px',
+                                                        th: 'CDN域名',
+                                                        html: html
+                                                    });
+                                                    add_analysis_layer.close();
+                                                }
+                                            }, '添加CDN域名');
+                                        },
+                                        end: function() {
+                                            layer.closeAll('tips');
+                                        }
+                                    });
+                                    $('[name="domain"]').focus();
+                                }
+                            },{
+                                title:'设置关联密钥',
+                                event:function(ev){
+                                    add_config.content.data = config;
+                                    add_config.end = function(){}
+                                    bt_tools.open(add_config);
+                                }
+                            }]
+                        },{ // 搜索内容
+                            type:'search',
+                            positon:['right','top'],
+                            placeholder:'请输入CDN域名',
+                            searchParam:'search', //搜索请求字段，默认为 search
+                            width:'300px',
+                            value:'',// 当前内容,默认为空
+                        }, { //分页显示
+                            type: 'page',
+                            positon: ['right', 'bottom'], // 默认在右下角
+                            pageParam: 'offset', //分页请求字段,默认为 : p
+                            page: 1, //当前分页 默认：1
+                            numberParam: 'length', //分页数量请求字段默认为 : limit
+                            number: 10,
+                            render: true //是否渲染，默认后端渲染
+                        }],
+                        methods: {
+                            getFindDomain:function(data,callback){
+                                bt_tools.send({
+                                    url:'/plugin?action=a&name=txcdn&s=get_domain_byname',
+                                    data:{domain:data.domain}
+                                },function(res){
+                                    if(callback) callback(res);
+                                },'获取域名['+ data.domain +']配置');
+                            },
+                            cdnManagementLayer: function(row) {
+                                var serviceStatus = true,that = this;
+                                var cdnManagementLayer = bt_tools.open({
+                                    title: '加速域名 - [ ' + row.Domain + ' ]',
+                                    area: ['655px','602px'],
+                                    skin: 'analysis_domainCdn_layer',
+                                    btn: false,
+                                    content: '<div class="bt-w-main">' +
+                                        '<div class = "bt-w-menu" > ' +
+                                        ' <p class = "bgw" > 基础配置 </p>' +
+                                        ' <p> 回源配置 </p>' +
+                                        ' <p> HTTPS配置 </p>' +
+                                        ' </div>' +
+                                        ' <div id = "webEdit-con" class = "bt-w-con pd20" ></div>' +
+                                        '</div>',
+                                    success: function() {
+                                        $('.analysis_domainCdn_layer').css({
+                                            left: ((window.innerWidth - 655) / 2) + 'px',
+                                            top: ((window.innerHeight - 580) / 2) + 'px'
+                                        }).addClass('custom_layer');
+                                        $(".bt-w-menu p").click(function() {
+                                            var i = $(this).index();
+                                            $(this).addClass("bgw").siblings().removeClass("bgw");
+                                            switch (i) {
+                                                case 0:
+                                                    doMainInfoConfigFn()
+                                                    break;
+                                                case 1:
+                                                    var set_origin_info = bt_tools.form({
+                                                        url: "/plugin?action=a&name=txcdn&s=set_origin_config",
+                                                        form:[{
+                                                            label:"回源协议",
+                                                            group:{
+                                                                name: "originPullProtocol",
+                                                                type: "radio",
+                                                                value:row.Origin.OriginPullProtocol,
+                                                                list:[{title:'HTTP协议',value:'http'},{title:'HTTPS协议',value:'https'}]
+                                                            }
+                                                        },{
+                                                            label:'源站地址',
+                                                            group:{
+                                                                name:"origins",
+                                                                type:'textarea',
+                                                                value:row.Origin.Origins.join('\n'),
+                                                                style:'width:350px;max-width:380px;height:100px;min-height:100px;max-height:200px;padding:7px;line-height:15px'
+                                                            },
+                                                            help:{
+                                                                list:[
+                                                                    '支持填充多个IP源站（一行一个）或一个域名源站','支持增加配置端口（0~65535）和权重（1~100）：源站:端口:权重（端口可缺省：源站::权重）',
+                                                                    '若选择HTTPS回源，端口仅可配置为443或不配置端口','最多可填充 511 个字符'
+                                                                ],style:'margin-left: 100px;line-height: 19px;width: 350px;'
+                                                            }
+                                                        },{
+                                                            label:'回源HOST',
+                                                            group:{
+                                                                name:'domain',
+                                                                type:'text',
+                                                                value:row.Origin.ServerName,
+                                                                width:'350px'
+                                                            },
+                                                            help:{
+                                                                list:[
+                                                                    '回源HOST是回源时在源站访问的站点域名。<a href="https://cloud.tencent.com/document/product/228/41334" target="_blink" class="btlink">什么是回源HOST？</a>',
+                                                                    '请保证您配置的回源HOST域名能够支持访问，否则会导致回源失败的情况，影响你的业务。'
+                                                                ],style:'margin-left: 100px;line-height: 19px;width: 350px;'}
+                                                        },{
+                                                            label:' ',
+                                                            group:{
+                                                                title:'保存配置',
+                                                                type:"submit",
+                                                                event:function(){
+                                                                    if(row.Status == 'offline'){
+                                                                        layer.msg('当前加速域名已停用，请手动启用后重试当前操作！',{icon:0});
+                                                                        return false;
+                                                                    }else if(row.Status == 'processing'){
+                                                                        layer.msg('当前加速域名正在执行任务中，请稍后！',{icon:0});
+                                                                        return false;
+                                                                    }
+                                                                    var param = arguments,form = param[0];
+                                                                    form['origins'] = JSON.stringify(form['origins'].split('\n'));
+                                                                    bt_tools.send({
+                                                                        url:param[2]['config'].url,
+                                                                        data:form
+                                                                    },function(res){
+                                                                        bt_tools.msg(res);
+                                                                        if(!res.status) return false
+
+                                                                    },'保存CDN回源配置');
+                                                                }
+                                                            }
+                                                        }]
+                                                    });
+                                                    $("#webEdit-con").html(set_origin_info.$reader_content());
+                                                    set_origin_info.$event_bind();
+                                                    break;
+                                                case 2:
+                                                    doMainHttpConfigFn();
+                                                    break;
+                                                case 3:
+                                                    break;
+                                            }
+                                        });
+                                    }
+                                });
+                                //执行一次click事件
+                                doMainInfoConfigFn()
+                                function doMainInfoConfigFn() {
+                                    var cnameDom = '';
+                                    if (row.Cname == '') {
+                                        cnameDom = '<span  class="layui-card-body-content">无需配置</span>'
+                                    }else if(row.resolver){
+                                        cnameDom = '<span class="layui-card-body-content">' + row.Cname + '</span>';
+                                    }else{
+                                        cnameDom = '<span class="layui-card-body-content cursor" style="color: #FF3333;"><span>'+ row.Cname +'</span><i class="glyphicon glyphicon-exclamation-sign ml5" style="top:2px;margin-right:5px;"></i></span>';
+                                    }
+                                    var ServiceType = null,basisDomainInfo = '<div class="layui-card">' +
+                                        '<div class="layui-card-header"><span>基础信息</span><a href="https://console.cloud.tencent.com/cdn/domains/'+ row.ResourceId +'" target="_blank" class="btlink pull-right f12" style="font-weight:500;">更多</a></div>' +
+                                        '<div class="layui-card-body">' +
+                                        '<div class="layui-card-panelContent"><span class="layui-card-body-title">加速域名</span><span class="layui-card-body-content">' + row.Domain + '</span></div>' +
+                                        '<div class="layui-card-panelContent"><span class="layui-card-body-title">加速区域</span><span class="layui-card-body-content">' + getArea() + '</span></div>' +
+                                        '<div class="layui-card-panelContent"><span class="layui-card-body-title">CNAME</span>' + cnameDom + '</div>' +
+                                        '<div class="layui-card-panelContent"><span class="layui-card-body-title">创建时间</span><span class="layui-card-body-content">' + row.CreateTime + '</span></div>' +
+                                        '<div class="layui-card-panelContent"><span class="layui-card-body-title">业务类型</span><span class="layui-card-body-content">' + getServiceType() + '</div>' +
+                                        '<div class="layui-card-panelContent"><span class="layui-card-body-title">HTTPS配置</span><span class="layui-card-body-content">' + (row.Https.CertInfo != null?'<span style="color:#20a53a;">已配置</span> (证书过期时间：' + row.Https.CertInfo.ExpireTime + ')':'未配置证书') + '</div>' +
+                                        '</div>' +
+                                        '</div>';
+                                    var basisDomainConfig = '<div class="layui-card">'+
+                                        '<div class="layui-card-header"><span>主源站配置</span><a href="javascript:;" class="btlink pull-right f12 set_origin_config" style="font-weight:500;">设置</a></div>' +
+                                        '<div class="layui-card-body">' +
+                                            '<div class="layui-card-panelContent"><span class="layui-card-body-title">源站类型</span><span class="layui-card-body-content">' + getOriginType() + '</span></div>' +
+                                            '<div class="layui-card-panelContent"><span class="layui-card-body-title">回源协议</span><span class="layui-card-body-content"><span>' +  row.Origin.OriginPullProtocol.toUpperCase() + '</span></div>' +
+                                            '<div class="layui-card-panelContent"><span class="layui-card-body-title">源站地址</span><span class="layui-card-body-content"><span class="fixed cursor" style="width:200px">' + row.Origin.Origins[0] + '</span></div>' +
+                                            '<div class="layui-card-panelContent"><span class="layui-card-body-title">回源HOST</span><span  class="layui-card-body-content"><span class="fixed cursor" style="width:200px">' + row.Origin.ServerName + '</span></div>' +
+                                        '</div>' +
+                                        '</div>';
+                                    $("#webEdit-con").html(basisDomainInfo + basisDomainConfig);
+                                    $('.set_origin_config').click(function(){
+                                        $(this).parents('.bt-w-main').find('.bt-w-menu p:eq(1)').click();
+                                    });
+                                };
+                                function getServiceType(){
+                                    switch(row.ServiceType){
+                                        case 'web':
+                                            return '静态加速';
+                                        break;
+                                        case 'download':
+                                            return '下载加速';
+                                        break;
+                                        case 'media':
+                                            return '流媒体点播加速';
+                                        break;
+                                    }
+                                }
+                                function getArea(){
+                                    switch(row.Area){
+                                        case 'mainland':
+                                            return '中国大陆';
+                                        break;
+                                        case 'overseas':
+                                            return '中国境外';
+                                        break;
+                                        case 'global':
+                                            return '全球';
+                                        break;
+                                    }
+                                }
+                                function getOriginType(){
+                                    switch(row.Origin.OriginType){
+                                        case 'ip':
+                                            return '自有源站';
+                                        break;
+                                        case 'cos':
+                                            return 'COS源';
+                                        break;
+                                    }
+                                }
+                                function doMainHttpConfigFn(is_add){
+                                    var domainSourceConfig = '',https = row.Https.CertInfo;
+                                    if(https != null && is_add !== true){
+                                        domainSourceConfig = '<div class="layui-card">'+
+                                            '<div class="layui-card-header"><span>HTTPS配置</span><a href="javascript:;" class="btlink cut_https pull-right f12" style="font-weight:500;">点击更换证书</a></div>'+
+                                            '<div class="layui-card-body">'+
+                                            '<div class="layui-card-panelContent"><span class="layui-card-body-title">证书类型</span><span class="layui-card-body-content">'+ (https.CertId == null?'自有证书':'腾讯云托管证书') +'</span></div>'+
+                                            '<div class="layui-card-panelContent"><span class="layui-card-body-title">证书有效期</span><span class="layui-card-body-content">'+ https.ExpireTime +'</span></div>'+
+                                            '<div class="layui-card-panelContent"><span class="layui-card-body-title">回源协议</span><span class="layui-card-body-content">'+ row.Origin.OriginPullProtocol.toUpperCase() +'</span></div>'+
+                                            '<div class="layui-card-panelContent"><span class="layui-card-body-title">证书状态</span><span class="layui-card-body-content">'+ (row.Https.SslStatus === 'deployed'?'<span style="color:#20a53a;">配置成功</span>':row.Https.SslStatus == 'expire'?'<span style="color:red;">已过期</span>':'') +'</span></div>'+
+                                            '</div>'+
+                                        '</div>';
+                                    }else{
+                                        domainSourceConfig = '<div class="layui-layer-content">' +
+                                        '<div class="line"><span class="tname" style="width: 69px;">证书来源</span><div class="info-r"><div class="inlineBlock"><label class="cursor-pointer form-checkbox-label"><input type="radio" class="form—checkbox-input mr10 event_OriginPullProtocol_sWiLB" name="OriginPullProtocol" value="file" checked=""><span class="vertical_middle">手动填写证书信息</span></label><label class="cursor-pointer form-checkbox-label"><input type="radio" class="form—checkbox-input mr10 event_OriginPullProtocol_sWiLB" name="OriginPullProtocol" value="panel"><span class="vertical_middle">从面板站点同步证书</span></label></div></div></div>'+
+                                        '<div class="domainFormConfig-item">' +
+                                            '<div><label style="font-weight:normal;margin: 10px 0 12px 0;">证书密钥(KEY)：</label>' +
+                                            '<div><textarea id="cdnkeyCotent" class="layui-textarea" style="width: 235px;height:260px;border: 1px solid #ccc;"></textarea></div></div>' +
+                                            '<div><label style="font-weight:normal;margin: 10px 0 12px 0;">证书(PEM格式)：</label>' +
+                                            '<div><textarea id="cndCsrContent" class="layui-textarea" style="width: 235px;height:260px;border: 1px solid #ccc;"></textarea></div></div>' +
+                                        '</div>' +
+                                        '<div class="doMainSaveConfig-item"><div><button class="btn btn-success btn-sm mr5" id="commitSSLConfig" lay-filter="formDemo">保存证书</button>'+ (https != null?'<button class="btn btn-default btn-sm clear_cut_https">取消更换</button>':'') +'</div></div>' +
+                                        '<div class="layui-form-item"><div><p class="doMainAnnotation">· 粘贴您的*.key以及*.pem内容，然后保存即可[帮助]。</p><p class="doMainAnnotation">· 如果浏览器提示证书链不完整,请检查是否正确拼接PEM证书</p><p class="doMainAnnotation">· PEM格式证书 = 域名证书.crt + 根证书(root_bundle).crt</p></div>' +
+                                    '</div>';
+                                    }
+                                    $("#webEdit-con").html(domainSourceConfig);
+                                    $('#commitSSLConfig').click(function() {
+                                        var key = $('#cdnkeyCotent').val(),csr = $('#cndCsrContent').val();
+                                        if(key == '' || csr == ''){
+                                            layer.msg('证书信息不能为空！',{icon:0});
+                                            return false;
+                                        }
+                                        set_slle_config({domain: row.Domain,key: key,csr: csr});
+                                    });
+                                    $('[name="OriginPullProtocol"]').change(function(){
+                                        var value = $(this).attr('value');
+                                        if(value == 'panel'){
+                                            set_slle_config({domain: row.Domain});
+                                        }
+                                    });
+                                    $('.cut_https').click(function(){
+                                        doMainHttpConfigFn(true);
+                                    });
+                                    $('.clear_cut_https').click(function(){
+                                        doMainHttpConfigFn();
+                                    });
+                                    function set_slle_config (data){
+                                        bt_tools.send({
+                                            url: '/plugin?action=a&name=txcdn&s=set_ssl_config',
+                                            data: data,
+                                            verify:false
+                                        }, function(res) {
+                                            if(!res.status){
+                                                $('.form-checkbox-label:eq(0)').click();
+                                            }else{
+                                                $('.bt-w-menu .bgw').click();
+                                            }
+                                            if (typeof res.success != "undefined") res = (res.success.length > 0 ? {msg: '操作成功',status: true}:{msg: res.error[row.name],status: false});
+                                            that.request_handle(res, function() {
+                                                bt_tools.msg(res);
+                                            });
+                                        },{load:'设置证书信息',verify:false});
+                                    }
+                                };
+
+                                function commitOriginConfigFn() {
+                                    var OriginPullProtocol = $('input[name=OriginPullProtocol]')[0].checked ? $('input[name=OriginPullProtocol]')[0].value : $('input[name=OriginPullProtocol]')[1].value;
+                                    var origins = $('#originIpList').val().split("\n");
+                                    bt_tools.send({
+                                        url: '/plugin?action=a&name=txcdn&s=set_origin_config',
+                                        data: {
+                                            domain: $('#sourceConfigInput').val() == '' ? row.Domain : $('#sourceConfigInput').val(),
+                                            origins: JSON.stringify(origins),
+                                            originType: 'ip',
+                                            OriginPullProtocol: OriginPullProtocol
+                                        }
+                                    }, function(res) {
+                                        if (res.msg) {
+                                            request_handle(res, function() {
+                                                bt_tools.msg(res);
+                                            });
+                                        } else {
+                                            layer.msg('保存成功', {
+                                                icon: 1
+                                            });
+                                        }
+                                    }, '执行');
+                                }
+
+                                function commitPurgeFn() {
+                                    var OriginPurgeType = $('input[name=OriginPurgeType]')[0].checked ? $('input[name=OriginPurgeType]')[0].value : $('input[name=OriginPurgeType]')[1].value;
+                                    var origins = $('#purgeUrlContent').val().split("\n");
+                                    var postParams = {};
+                                    if (OriginPurgeType == 'paths') {
+                                        postParams = {
+                                            paths: JSON.stringify(origins)
+                                        }
+                                    } else {
+                                        postParams = {
+                                            urls: JSON.stringify(origins)
+                                        }
+                                    }
+                                    bt_tools.send({
+                                        url: OriginPurgeType == 'paths' ? '/plugin?action=a&name=txcdn&s=purge_path' : '/plugin?action=a&name=txcdn&s=purge_url',
+                                        data: postParams
+                                    }, function(res) {
+                                        if (res.status == false) {
+                                            layer.msg('执行失败', {
+                                                icon: 2
+                                            });
+                                        } else {
+                                            layer.close(index);
+                                            if (typeof res.success != "undefined") res = (res.success.length > 0 ? {
+                                                msg: '操作成功',
+                                                status: true
+                                            } : {
+                                                msg: res.error[row.name],
+                                                status: false
+                                            });
+                                            that.request_handle(res, function() {
+                                                bt_tools.msg(res);
+                                            });
+                                        }
+                                    }, '执行');
+                                }
+
+                            },
+                            request_handle: function(res, callback) {
+                                var that = this;
+                                if (!res.status) {
+                                    if (typeof res.msg.message != "undefined") {
+                                        bt_tools.msg({
+                                            status: false,
+                                            msg: res.msg.message
+                                        });
+                                    } else {
+                                        bt_tools.msg(res);
+                                    }
+                                    return false;
+                                } else {
+                                    that.$refresh_table_list(true, function() {
+                                        if (typeof callback === "function") {
+                                            callback(res);
+                                        } else if (typeof callback === "number") {
+                                            layer.close(callback);
+                                        } else {
+                                            bt_tools.msg(res);
+                                        }
+                                    });
+                                }
+                            }
+                        },
+                        help:['提示内容']
+                    });
+                },
+                createCacheView: function(callback) {
+                    var viewDom = '<div class="btCache-nav-main">'+
+                        '<div class="btCache-menu" > ' +
+                        ' <p class ="bgw" > URL刷新 </p>' +
+                        ' <p> 目录刷新 </p>' +
+                        ' <p> 操作记录 </p>' +
+                        ' </div>' +
+                        '</div>' +
+                        '<div class="layui-layer-content cacheContainer">' +
+                            '<div class="layui-input-block" style="margin: 0 12px;min-height:25px">URL地址</div>' +
+                            '<div class="layui-input-block" style="margin: 0 10px;"><textarea id="purgeUrlContent" placeholder="http://example.com/text/text/jpg" class="layui-textarea" style="width: 715px;height:220px;border: 1px solid #ccc;"></textarea></div>'+
+                            '<div class="layui-input-block" style="color: #888;margin: 5px 10px;min-height:20px">输入需要刷新的URL (需要http://或https://)， 一行一个，例如: http://www.test.com/test.html</div>'+
+                            '<div class="layui-input-block" style="color: #888;margin: 5px 10px;min-height:20px">暂不支持提交包含通配符的URL刷新任务</div>'+
+                            '<div class="layui-input-block" style="color: #888;margin: 5px 10px;min-height:20px">今日剩余URL刷新量&nbsp;<span class="url_number"></span>&nbsp;个（境内）</div>'+
+                            '<div class="layui-input-block" style="color: #888;margin: 5px 10px;"><button class="btn btn-success btn-sm saveConfigBtn mr5" id="commitPurgeBtn" lay-filter="formDemo">执行刷新</button><button class="btn btn-default btn-sm saveConfigBtn" id="clear_textarea" lay-filter="formDemo">清空</button></div>'+
+                        '</div>',_this = this;
+                    $('.cacheView').html(viewDom);
+                    this.getPurgeCount(function(config){
+                        _this.PurgeCount = config;
+                        $('.url_number').text(_this.PurgeCount.url.Available);
+                    });
+                    $('#commitPurgeBtn').click(function() {
+                        var value = $('#purgeUrlContent').val(),data = {urls:[]};
+                        data.urls = JSON.stringify(value.split('\r'));
+                        if(value == ''){
+                            layer.msg('URL地址不能为空',{icon:0});
+                            return false;
+                        }
+                        bt_tools.send({
+                            url: '/plugin?action=a&name=txcdn&s=purge_url',
+                            data:data
+                        }, function(res) {
+                            _this.PurgeCount.url.Available --;
+                            $('.url_number').text(_this.PurgeCount.url.Available);
+                            bt_tools.msg(res);
+                        },'刷新URL地址缓存');
+                    });
+                    $('#clear_textarea').click(function(){
+                        $('#purgeUrlContent').val('');
+                    });
+                    $('.btCache-menu p').click(function(){
+                        var i = $(this).index();
+                        $(this).addClass("bgw").siblings().removeClass("bgw");
+                        delete _this.purge_table;
+                        switch (i) {
+                            case 0:
+                                _this.createCacheView();
+                                break;
+                            case 1:
+                                _this.createDirectoryView()
+                                break;
+                            case 2:
+                                _this.getPurgeListFn()
+                                break;
+                        }
+                    });
+                },
+                getPurgeCount:function(callback){
+                    bt_tools.send('txcdn/get_purge_count',function(res){
+                        if(callback) callback({url:res.UrlPurge[0],path:res.PathPurge[0]});
+                    },{plugin:true,load:'获取刷新数量'});
+                },
+                createDirectoryView: function() {
+                    var domainPurgeListDom = '',_this = this;
+                    $(".cacheContainer").html(domainPurgeListDom);
+                    var viewDom = '<div class="layui-input-block" style="margin: 0 12px;min-height: 25px;">输入文件的路径规则</div>' +
+                        '<div class="layui-input-block" style="margin: 0 10px;"><textarea id="purgePathContent" placeholder="http://example.com/text/*" class="layui-textarea" style="width: 715px;height:220px;border: 1px solid #ccc;"></textarea></div>' +
+                        '<div class="layui-input-block" style="color: #888;margin: 5px 10px;min-height:20px;">每行一个路径规则，每个路径规则以 http:// 或 https:// 开头，每次输入不超过 10 个</div>' +
+                        '<div class="layui-input-block" style="color: #888;margin: 5px 10px;min-height:20px;">规则刷新后，新的请求将回源站获取资源，会对源站造成一定的压力，请谨慎使用</div>' +
+                        '<div class="layui-input-block" style="color: #888;margin: 5px 10px;min-height:20px">今日剩余目录刷新量&nbsp;<span class="url_number"></span>&nbsp;个（境内）</div>'+
+                        '<div class="layui-input-block" style="color: #888;margin: 5px 10px;"><button class="btn btn-success btn-sm saveConfigBtn mr5" id="commitPurgeBtn" lay-filter="formDemo">执行刷新</button><button class="btn btn-default btn-sm saveConfigBtn" id="clear_textarea" lay-filter="formDemo">清空</button></div>';
+                        $('.cacheContainer').html(viewDom);
+                        $('.url_number').text(this.PurgeCount.path.Available);
+                        $('#commitPurgeBtn').click(function() {
+                            var value = $('#purgePathContent').val(),data = {paths:[]};
+                            data.paths = JSON.stringify(value.split('\r'));
+                            if(value == ''){
+                                layer.msg('目录地址不能为空',{icon:0});
+                                return false;
+                            }
+                            bt_tools.send({
+                                url: '/plugin?action=a&name=txcdn&s=purge_path',
+                                data:data
+                            }, function(res) {
+                                _this.PurgeCount.path.Available --;
+                                $('.url_number').text(_this.PurgeCount.path.Available);
+                                bt_tools.msg(res);
+                            },'刷新目录地址缓存');
+                        });
+                        $('#clear_textarea').click(function(){
+                            $('#purgeUrlContent').val('');
+                        });
+                },
+                getPurgeListFn: function(){
+                    var _this = this,domainPurgeListDom = '<div style="position:absolute;left: 0;top: 0;z-index: 999;"><div class="search-day"><span class="cur" >今日</span><span>昨日</span><span>近7天</span><span class="last-span"><input id="set_purge_time" type="text" value="" lay-key="100001"></span></div></div>\
+                    <div id="purgelist"></div>',start_time = 0,end_time = 0;
+                    $(".cacheContainer").html(domainPurgeListDom);
+                    $('.search-day span').click(function(){
+                        var index = $(this).index();
+                        if($(this).hasClass('last-span')) return false;
+                        $(this).addClass('cur').siblings().removeClass('cur');
+                        $('#set_purge_time').removeAttr('style');
+                        var time = new Date(),day_time = time.getTime(),zero_time = new Date(time.toDateString()).getTime();
+                        switch(index){
+                            case 0:
+                                start_time = zero_time;
+                                end_time = day_time;
+                            break;
+                            case 1:
+                                start_time =(zero_time - 86400000);
+                                end_time = zero_time;
+                            break;
+                            case 2:
+                                start_time =(zero_time - (86400000 * 7));
+                                end_time = day_time
+                            break;
+                        }
+                        var data = {start_time:bt.format_data(start_time,'yyyy-MM-dd hh:mm:ss'),end_time:bt.format_data(end_time,'yyyy-MM-dd hh:mm:ss')};
+                        if(typeof _this.purge_table == 'undefined'){
+                            _this.readerPurgeList(data)
+                        }else{
+                            _this.purge_table.config.param = data;
+                            _this.purge_table.$refresh_table_list();
+                        }
+                    });
+                    $('#set_purge_time').val(bt.format_data(new Date(new Date().toDateString()).getTime(),'yyyy-MM-dd') +' - '+bt.format_data(new Date().getTime(),'yyyy-MM-dd'));
+                    laydate.render({
+                        elem: '#set_purge_time',
+                        range: true,
+                        done: function(value, date, endDate){
+                            var arry = value.split(' - ');
+                            _this.purge_table.config.param = {start_time:bt.format_data(new Date(arry[0]).getTime() - 28800000,'yyyy-MM-dd hh:mm:ss'),end_time:bt.format_data(new Date(arry[1]).getTime() - 28800000,'yyyy-MM-dd hh:mm:ss')}
+                            _this.purge_table.$refresh_table_list();
+                            $('#set_purge_time').attr('style','border:1px solid #20a53a;');
+                            $('.search-day span').removeClass('cur');
+                        }
+                    });
+                    $('.search-day span:eq(0)').click();
+                    return false;
+                },
+                readerPurgeList:function(data,callback){
+                    this.purge_table = bt_tools.table({
+                        el:'#purgelist',
+                        fid:'purge_list',
+                        load:true,
+                        url:'/plugin?action=a&name=txcdn&s=get_purge_list',
+                        default:"", //数据为空时的默认提示
+                        param:data,
+                        height:'410px',
+                        fixed_thead:true,
+                        dataFilter:function(res){ // 请求响应值格式化过滤
+                            return {data:res.PurgeLogs,total:res.TotalCount};
+                        },
+                        column:[
+                            {fid:'Url',title:'刷新记录',type:'link',href:true},
+                            {fid:'CreateTime',title:'刷新时间',width:200},
+                            {fid:'Status',title:'状态',type:'text',width:80,template:function(row){
+                                switch(row.Status){
+                                    case 'process':
+                                        return '节点刷新中'
+                                    break;
+                                    case 'done':
+                                        return '已完成'
+                                    default:
+                                        return '<span class="bt_danger">失败</span>'
+                                    break;
+                                }
+                            }},
+                            {title:'操作',type:'group',width:90,align:'right',group:[{
+                            	title:'重新刷新',
+                            	tips:'重新刷新当前记录',
+                            	event:function(row,index,ev,key,that){
+                                    console.log(arguments)
+                                    if(row.Status == "process"){
+                                        layer.msg('节点正在刷新中，请稍后重试');
+                                        return false;
+                                    }
+                                    var param = {};
+                                    param[row.PurgeType+'s'] = JSON.stringify([row.Url]);
+                                    bt_tools.send('txcdn/purge_'+row.PurgeType,param,function(res){
+                                        bt_tools.msg(res);
+                                        that.$refresh_table_list(true);
+                                    },{plugin:true,load:'刷新'+(row.PurgeType == 'url'?'URL':'目录')});
+                            	}
+                            }]}
+                        ],
+                        tootls:[{ // 搜索内容
+                            type:'search',
+                            positon:['right','top'],
+                            placeholder:'请输入解析的域名',
+                            searchParam:'search', //搜索请求字段，默认为 search
+                            width:'250px',
+                            value:'',// 当前内容,默认为空
+                        }]
+                    });
+                },
+                getPurgeDateFn: function() {
+                    bt_tools.send({
+                        url: '/plugin?action=a&name=txcdn&s=get_purge_list',
+                        data: {
+                            start_time: start_time + '00:00:00',
+                            end_time: end_time + '23:59:59'
+                        }
+                    }, function(res) {
+                        layer.close(layer.load(1));
+                        var purgeTableDom = '';
+                        if (res.PurgeLogs != undefined) {
+                            if (res.PurgeLogs.length == 0) {
+                                purgeTableDom = `<tr style="height:34px;">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>`
+                            } else {
+                                for (let index = 0; index < res.PurgeLogs.length; index++) {
+                                    purgeTableDom += `<tr style="height:34px;">
+                                            <td>${PurgeLogs[index].Url}</td>
+                                            <td>${PurgeLogs[index].Status}</td>
+                                            <td>${PurgeLogs[index].PurgeType}</td>
+                                            <td>${PurgeLogs[index].FlushType}</td>
+                                            <td>${PurgeLogs[index].CreateTime}</td>
+                                        </tr>`
+                                }
+                            }
+                        }
+                        if (res.msg) {
+                            request_handle(res, function() {
+                                bt_tools.msg(res);
+                            });
+                        }
+                        var domainPurgeListDom = `${purgeTableDom}`
+                        $("#purgeDataListTbody").html(domainPurgeListDom);
+                    });
+                },
+                createReportData: function() {
+                    var _this = this;
+                    $(".reportView").html('');
+                    var statisticalReportsDom = bt_tools.table({
+                        el: ".reportView",
+                        fid: "txcdn",
+                        load: true,
+                        url: "/plugin?action=a&name=txcdn&s=get_report_data",
+                        data: {
+                            start_time: start_time + '00:00:00',
+                            end_time: end_time + '23:59:59',
+                            area: 'mainland'
+                        },
+                        default: "CDN列表为空", //数据为空时的默认提示
+                        height: "520px",
+                        dataFilter: function(res) {
+                            return {
+                                data: res.Domains,
+                                total: res.TotalNumber
+                            };
+                        },
+                        column: [{
+                            fid: "Domain",
+                            title: "用户所在区域",
+                            width: 170
+                        }, {
+                            fid: "Cname",
+                            title: "流量",
+                            width: 170,
+                            template: function(row) {
+                                if (row.Cname == '') {
+                                    return '<span>已配置</span>';
+                                } else {
+                                    return '<span class="bt_danger"><i class="glyphicon glyphicon-exclamation-sign ml5" style="top:2px;margin-right:5px;"></i>' + row.Cname + '</span>';
+                                }
+                            }
+                        }, {
+                            fid: "Area",
+                            title: "流量占比",
+                            width: 70,
+                            template: function(row) {
+                                return '<span>中国境内</span>';
+                            }
+                        }],
+                        tootls: [{
+                            type: "group",
+                            positon: ["left", "top"],
+                            list: [{
+                                title: "今日",
+                                class: 'dateTimeBtn',
+                                event: function(row, index, ev, key, that) {
+                                    bt_tools.send({
+                                        url: '/plugin?action=a&name=txcdn&s=get_report_data',
+                                        data: {
+                                            start_time: timechange(new Date() + 1 * 24 * 60 * 60 * 1000) + '00:00:00',
+                                            end_time: timechange(new Date() + 1 * 24 * 60 * 60 * 1000) + '23:59:59',
+                                            area: 'mainland'
+                                        },
+                                        verify: false
+                                    }, function(res) {
+                                        layer.close();
+                                        request_handle(res, function() {
+                                            bt_tools.msg(res);
+                                        });
+                                    }, 'CDN域名');
+                                }
+                            }, {
+                                title: "昨日",
+                                class: 'dateTimeBtn',
+                                event: function(ev) {
+                                    bt_tools.send({
+                                        url: '/plugin?action=a&name=txcdn&s=get_report_data',
+                                        data: {
+                                            start_time: timechange(new Date() - 1 * 24 * 60 * 60 * 1000) + '00:00:00',
+                                            end_time: timechange(new Date() - 1 * 24 * 60 * 60 * 1000) + '23:59:59',
+                                            area: 'mainland'
+                                        },
+                                        verify: false
+                                    }, function(res) {
+                                        layer.close();
+                                        request_handle(res, function() {
+                                            bt_tools.msg(res);
+                                        });
+                                    }, 'CDN域名');
+                                }
+                            }, {
+                                title: "近7天",
+                                class: 'dateTimeBtn',
+                                event: function(ev) {
+                                    bt_tools.send({
+                                        url: '/plugin?action=a&name=txcdn&s=get_report_data',
+                                        data: {
+                                            start_time: timechange(new Date() - 7 * 24 * 60 * 60 * 1000) + '00:00:00',
+                                            end_time: timechange(new Date() + 1 * 24 * 60 * 60 * 1000) + '23:59:59',
+                                            area: 'mainland'
+                                        },
+                                        verify: false
+                                    }, function(res) {
+                                        layer.close();
+                                        request_handle(res, function() {
+                                            bt_tools.msg(res);
+                                        });
+                                    }, 'CDN域名');
+                                }
+                            }, {
+                                title: "近30天",
+                                class: 'dateTimeBtn',
+                                event: function(ev) {
+                                    bt_tools.send({
+                                        url: '/plugin?action=a&name=txcdn&s=get_report_data',
+                                        data: {
+                                            start_time: timechange(new Date() - 30 * 24 * 60 * 60 * 1000) + '00:00:00',
+                                            end_time: timechange(new Date() + 1 * 24 * 60 * 60 * 1000) + '23:59:59',
+                                            area: 'mainland'
+                                        },
+                                        verify: false
+                                    }, function(res) {
+                                        layer.close();
+                                        request_handle(res, function() {
+                                            bt_tools.msg(res);
+                                        });
+                                    }, 'CDN域名');
+                                }
+                            }]
+                        }]
+                    });
+
+                    var datapicker = '<input type="text" class="bt-input-text mr10" style="height:34px;width: 184px;padding: 0 19px;" id="purgeDate" placeholder="选择时间范围">';
+                    // var navDom = `
+                    // 		<div style="margin-bottom: 10px; display: flex;">
+                    // 			<input type="text" class="bt-input-text mr10" style="height:34px;width: 170px;padding: 0 10px;" id="purgeDate" placeholder="选择时间范围">
+                    // 			<div class="bt_select_updown mr10" style="width:220px;height:35px;text-align:justify;line-height:18px;padding:3px 10px;resize:vertical;" data-name="bps">
+                    // 				<span class="allItemSelectValue bt_select_value">
+                    // 					<span class="bt_select_content">全部域名</span><span class="glyphicon glyphicon-triangle-bottom ml5"></span>
+                    // 				</span>
+                    // 				<ul class="allItemSelectList bt_select_list"></ul>
+                    // 				<select name="allItemSelectList" class="hide">
+                    // 				</select>
+                    // 			</div>
+                    // 		</div>
+                    // 		`;
+                    $(".reportView > .tootls_group > .pull-left").append(datapicker);
+                    $('.allItemSelectValue').click(function() {
+                        if ($(this).next().hasClass('show')) {
+                            $(this).next().removeClass('show');
+                        } else {
+                            $(this).next().addClass('show');
+                        }
+                    })
+                    laydate.render({
+                        elem: '#purgeDate',
+                        range: true,
+                        done: function(value, date, endDate) {
+                            start_time = value.slice(0, 10) + ' 00:00:00';
+                            end_time = value.slice(13, 23) + ' 23:59:59';
+                            _this.getReportData();
+                            //value得到日期生成的值，如：2017-08-18
+                            //date得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                            //endDate得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上
+                        }
+                    });
+                },
+                getReportData: function() {
+                    // layer.close(layer.load(1));
+                    // layer.load(2, {
+                    //     time: 10 * 1000
+                    // });
+                    bt_tools.send({
+                        url: '/plugin?action=a&name=txcdn&s=get_report_data',
+                        data: {
+                            start_time: start_time,
+                            end_time: end_time,
+                            area: 'mainland'
+                        }
+                    }, function(res) {
+                        layer.close();
+                        request_handle(res, function() {
+                            bt_tools.msg(res);
+                        });
+                    });
+                }
+            }
+
+            function timechange(value) { //13位时间戳
+                var date = new Date(value);
+                const Y = date.getFullYear() + '-';
+                const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                const D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+                // const h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+                // const m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+                // const s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+                return (Y + M + D);
+                // return (Y + M + D + h + m + s);
+            }
+
+            function refreshHistory() {
+                bt_tools.send({
+                    url: '/plugin?action=a&name=txcdn&s=get_report_data',
+                    data: {
+                        start_time: end_time + '00:00:00',
+                        end_time: end_time + '23:59:59',
+                        area: 'mainland'
+                    },
+                    verify: false
+                }, function(res) {
+                    // layer.close(index);
+                    request_handle(res, function() {
+                        bt_tools.msg(res);
+                    });
+                }, 'CDN域名');
+            }
+
+            function request_handle(res, callback) {
+                var that = this;
+                if (!res.status) {
+                    if (typeof res.msg.message != "undefined") {
+                        bt_tools.msg({
+                            status: false,
+                            msg: res.msg.message
+                        });
+                    } else {
+                        bt_tools.msg(res);
+                    }
+                    return false;
+                } else {
+                    that.$refresh_table_list(true, function() {
+                        if (typeof callback === "function") {
+                            callback(res);
+                        } else if (typeof callback === "number") {
+                            layer.close(callback);
+                        } else {
+                            bt_tools.msg(res);
+                        }
+                    });
+                }
+            }
+
+            cdn.init();
+        }
+    },{load:'获取腾讯云关联信息',plugin:true});
+</script>

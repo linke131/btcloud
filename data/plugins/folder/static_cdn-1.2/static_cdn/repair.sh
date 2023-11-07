@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/static_cdn/install.sh install

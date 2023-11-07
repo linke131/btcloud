@@ -1,0 +1,13 @@
+{
+	"title": "堡塔APP",
+	"name": "btapp",
+	"ps": "使用手机随时随地轻松管理您的服务器!",
+	"versions": "1.1",
+	"checks": "/www/server/panel/plugin/btapp",
+	"author": "官方",
+	"home": "http://www.bt.cn",
+	"beta": false,
+	"force_message": "",
+	"not_substituted":[],
+	"replace_files":[]
+}

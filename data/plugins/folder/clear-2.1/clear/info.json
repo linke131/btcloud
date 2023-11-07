@@ -1,0 +1,16 @@
+{
+	"title":"日志清理工具",
+	"tip":"lib",
+	"name":"clear",
+	"type":"系统工具",
+	"ps":"一键清理指定日志和系统垃圾",
+	"versions":"2.1",
+	"shell":"install.sh",
+	"checks":"/www/server/panel/plugin/clear/clear_main.py",
+	"author":"宝塔",
+	"home":"http://www.bt.cn/bbs",
+	"date":"2022-1-17",
+	"default":false,
+	"display":0,
+	"api":true
+}

@@ -1,0 +1,90 @@
+{
+    "mobile": [
+        {
+            "column": "android",
+            "pattern": "Android"
+        },
+        {
+            "column": "iphone",
+            "pattern": "(iPhone|iPod|iPad)"
+        }
+    ],
+    "pc": [
+        {
+            "column": "firefox",
+            "pattern": "Firefox"
+        },
+        {
+            "column": "msie",
+            "pattern": "MSIE"
+        },
+        {
+            "column": "qh360",
+            "pattern": "360SE"
+        },
+        {
+            "column": "theworld",
+            "pattern": "The World"
+        },
+        {
+            "column": "tt",
+            "pattern": "TencentTraveler"
+        },
+        {
+            "column": "maxthon",
+            "pattern": "Maxthon"
+        },
+        {
+            "column": "opera",
+            "pattern": "Opera"
+        },
+        {
+            "column": "qq",
+            "pattern": "QQBrowser"
+        },
+        {
+            "column": "uc",
+            "pattern": "(UCWEB|UBrowser)"
+        },
+        {
+            "column": "safari",
+            "pattern": "Safari"
+        },
+        {
+            "column": "chrome",
+            "pattern": "Chrome"
+        },
+        {
+            "column": "metasr",
+            "pattern": "MetaSr"
+        },
+        {
+            "column": "pc2345",
+            "pattern": "2345Explorer"
+        },
+        {
+            "column": "edeg",
+            "pattern": "Edg[e]*"
+        }
+    ],
+    "os": [
+        {
+            "column": "windows",
+            "pattern": "Windows"
+        },
+        {
+            "column": "linux",
+            "pattern": "Linux"
+        },
+        {
+            "column": "mac",
+            "pattern": "Macintosh"
+        }
+    ],
+    "other": [
+        {
+            "column": "weixin",
+            "pattern": "MicroMessenger"
+        }
+    ]
+}

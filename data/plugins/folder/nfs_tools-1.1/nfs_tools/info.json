@@ -1,0 +1,12 @@
+{
+  "title": "NFS文件共享管理器",
+  "name": "nfs_tools",
+  "ps": "基于NFS的文件共享，包含创建共享和挂载远程NFS",
+  "versions": "1.1",
+  "checks": "/www/server/panel/plugin/nfs_tools",
+  "author": "宝塔",
+  "home": "http://www.bt.cn/bbs",
+  "beta": false,
+  "force_message": "",
+  "not_substituted":["config|d"]
+}

@@ -1,0 +1,1226 @@
+<style>
+  .security-notice__view::-webkit-scrollbar {
+    width: 6px;
+    background-color: #eee;
+  }
+   
+  .security-notice__view::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+  }
+   
+  .security-notice__view {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #eee;
+  }
+  .security-notice__view{
+      height: 600px;
+  }
+  
+  .security-notice__view .bt_table .btswitch+.btswitch-btn{
+      width: 2.8rem;
+      height: 1.75rem;
+  }
+  #sn-site__log--table .divtable .table thead th,
+  .security-notice__view .divtable .table thead th{
+      font-size: 14px;
+      padding: 10px;
+  }
+  
+  #sn-site__log--table .table>tbody>tr>td,
+  .security-notice__view .table>tbody>tr>td{
+      font-size: 12px;
+      padding: 10px;
+  }
+  
+  #sn-site__log--table .bt_table > .divtable,
+  .security-notice__view .bt_table > .divtable{
+      border: 0.5px solid #efefef;
+  }
+  .sn-menu__header{
+      height: 600px;
+      width: 120px;
+      background: #f8f8f8;
+      float: left;
+  }
+  .sn-menu__header li{
+      height: 50px;
+      line-height: 50px;
+      cursor: pointer;
+      padding-left: 15px;
+  }
+  .sn-menu__header li.active{
+      background: #F1F9F3;
+      position: relative;
+  }
+  .sn-menu__header li.active::after{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      border-left: 2px solid #20a53a;
+  }
+  .sn-menu__header li p{
+      color: #666;
+      display: inline-block
+  }
+  .sn-menu__header li.active p{
+      color: #20a53a;
+      font-weight: bold;
+  }
+  .sn-menu__header i {
+      background-image: url(/bt_hids/static/img/nav-icon-default.svg);
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      vertical-align: sub;
+      margin-right: 3px;
+  }
+  .sn-menu__header li:nth-child(2) i{background-position: 0 -20px;}
+  .sn-menu__header li:nth-child(3) i{background-position: 0 -105px;}
+  .sn-menu__header li:nth-child(4) i{background-image: url(/bt_hids/static/img/real-time-default.svg)}
+  
+  .sn-menu__header li.active i{
+      background-image: url(/bt_hids/static/img/nav-icon-green.svg);
+  }
+  
+  
+  .sn-menu__header li.active:nth-child(2) i{background-position: 0 -20px;}
+  .sn-menu__header li.active:nth-child(3) i{background-position: 0 -105px;}
+  
+  .sn-menu__header li.active:nth-child(4) i{background-image: url(/bt_hids/static/img/real-time-green.svg)}
+  
+  .sn-body__content{
+      padding: 20px;
+      margin-left: 120px;
+      height:100%;
+      position: relative;
+  }
+  .sn-panel{
+      display: none;
+  }
+  .sn-panel.is-active{
+      display: block;
+  }
+  #sn-site__log--table .mtb10{margin:0}
+  
+  #sn-site__log--table .mtb10,#sn-table--alarmList .mtb10{margin-bottom:10px}
+  .mt20 {
+      margin-top: 20px;
+  }
+  .divpre {
+      overflow: auto;
+      padding: 9.5px;
+      max-height: 75pt;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #f6f6f6;
+      color: #333;
+      word-wrap: break-word;
+      font-size: 13px;
+      line-height: 1.42857143;
+      word-break: break-all;
+  }
+  .security-notice__view .sn-input--style{
+      height: 30px;
+      border: 1px solid #e8e8e8;
+      padding-left: 10px;
+      border-radius: 2px;
+  }
+  .security-notice__view .sn-footer,.sn-site__config .sn-footer{
+      position: absolute;
+      bottom: 15px;
+  }
+  .sn-test--line .sn-test--title{
+      font-size: 14px;
+      margin-bottom: 10px;
+  }
+  /* 首页 */
+  .sn-home--switch{
+      position: relative;
+      font-size: 14px;
+      height: 42px;
+      line-height: 42px;
+      margin-bottom: 10px;
+  }
+  /* .sn-home-risk--list{
+      height: 340px;
+      overflow: auto;
+      border: 1px solid #EFEFEF;
+      border-radius: 4px;
+  } */
+  .sn-home-risk--item .sn-home-risk--type span {
+      padding: 5px 10px;
+      display: inline-block;
+      border-radius: 2px;
+      height: 25px;
+      line-height: 15px;
+      margin-top: 8px;
+  }
+  
+  /* 首页未开启 */
+  .default-font__style{
+      color:#999
+  }
+  
+  .sn-home--overview {
+      border-radius: 4px;
+      border: 1px solid #EFEFEF;
+      padding: 15px;
+      margin-bottom: 25px;
+      height: 140px;
+  }
+  .sn-home--overview-title {
+      font-size: 14px;
+      color: #666;
+  }
+  .sn-home--overview-item {
+      display: inline-block;
+      padding-top: 20px;
+      width: 130px;
+      text-align: center;
+      position: relative;
+  }
+  .sn-home--overview-item--title {
+      font-size: 16px;
+  }
+  .sn-home--overview-item--num {
+      font-size: 26px;
+      font-weight: bold;
+      margin-top: 10px;
+  }
+  
+  .sn-home--overview-item--upNum {
+      font-size: 14px;
+      font-weight: normal;
+      color: #F50606;
+  }
+  .sn-home--overview-item--upNum::before{
+      content:'↑';
+      color: #F50606;
+  }
+  
+  .sn-home--overview-item:nth-child(1) .sn-home--overview-item--num,.level_serious{
+      color: #F50606;
+  }
+  .sn-home--overview-item:nth-child(2) .sn-home--overview-item--num,.level_high{
+      color: #FF5A5A;
+  }
+  .sn-home--overview-item:nth-child(3) .sn-home--overview-item--num,.level_medium{
+      color: #FF9900;
+  }
+  .sn-home--overview-item:nth-child(4) .sn-home--overview-item--num,.level_low{
+      color: #DDC400;
+  } 
+  .sn-home--overview-item.line-border::after{
+      content: '';
+      border-right: 1px solid #DCDCDC;
+      position: absolute;
+      right: 0;
+      top: 30px;
+      height: 48px;
+  }
+  .sn-home--overview.sn-home--overview-red{
+      background: linear-gradient(to bottom,rgba(255, 229, 224, 0.60),rgba(254, 234, 230, 0.12));
+  }
+  .sn-home--overview.sn-home--overview-yellow{
+      background: linear-gradient(to bottom,rgba(255, 237, 211, 0.60),rgba(254, 249, 246, 0.77));
+  }
+  .sn-home--overview.sn-home--overview-green{
+      background: linear-gradient(to bottom,rgba(233, 253, 238, 0.60),rgba(252, 254, 253, 1.00));
+  }
+  
+  .sn-home-risk--item {
+      display: flex;
+      justify-content: space-between;
+      height: 42px;
+      line-height: 42px;
+      color:#999;
+      padding: 0 10px;
+      border-bottom: 1px solid #EFEFEF;
+  }
+  .sn-home-risk--item.risk-active,
+  .sn-home-risk--item :hover{
+      background-color: #f5f5f5;
+  }
+  .sn-home-risk--type {
+      width: 115px;
+  }
+  .sn-home-risk--site,
+  .sn-home-risk--name {
+      width: 160px;
+  }
+  .sn-home-risk--item.risk--item-high .sn-home-risk--type span{
+      background: #FEF5F3;
+      color:#EA2C2C
+  }
+  .sn-home-risk--item.risk--item-mod .sn-home-risk--type span{
+      background: #FEF6EF;
+      color:#FF9900
+  }
+  .sn-home-risk--item.risk--item-low .sn-home-risk--type span{
+      background: #F7FEF9;
+      color:#20A53A
+  }
+  .sn-home--important-note  {
+      border: 1px solid #20a53a;
+      border-radius: 8px;
+      cursor: help;
+      display: inline-block;
+      font-family: arial;
+      font-size: 11px;
+      font-style: normal;
+      height: 16px;
+      line-height: 16px;
+      margin-right: 5px;
+      text-align: center;
+      width: 16px;
+  }
+  .sn-home-risk--item.risk--item-mod .sn-home-risk--type i{
+      border: 1px solid #FF9900;
+  }
+  .sn-home-risk--item.risk--item-high .sn-home-risk--type i{
+      border: 1px solid #EA2C2C;
+  }
+  .sn-home-risk--numtips {
+      color: #C1C1C1;
+      margin-top: 10px;
+  }
+  .sn-home--open-condition {
+      display: inline-block;
+      color: #E6A23C;
+      background: #FDF6EC;
+      width: 608px;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 10px;
+      border-radius: 2px;
+      position: absolute;
+      top: 4px;
+      left: 120px;
+  }
+  .sn-home--open-condition i{border-color:#E6A23C}
+  .sn-home--open-condition span{
+      text-decoration: underline;
+      cursor: pointer;
+      color: #EA2C2C;
+  }
+  
+  .sn-home-risk--dialog{
+      position: fixed;
+      padding: 10px 10px 5px 10px;
+      box-shadow: 0 0 5px 2px #ececec;
+      background-color: #fff;
+      color:#999;
+      width: 260px;
+      display: none;
+  }
+  .sn-home-dialog--title {
+      margin-bottom: 10px;
+  }
+  .sn-home-risk--dialog span{
+      color:#666
+  }
+  .sn-home-dialog--content {
+      padding-left: 5px;
+      line-height: 22px;
+  }
+  .sn-dialog-content::-webkit-scrollbar {
+    width: 6px;
+    background-color: #eee;
+  }
+   
+  .sn-dialog-content::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+  }
+   
+  .sn-dialog-content {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #eee;
+  }
+  .sn-dialog-content{
+      max-height: 100px;
+      overflow: auto;
+      word-break: break-all;
+  }
+  
+  .sn-risk--no-data {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #666;
+      height: 250px;
+  }
+  .sn-risk--no-data img{
+      width: 160px;
+      height: 160px;
+  }
+  /* 首页 end */  
+  /* 告警设置 */
+  .sn-test--list,
+  .sn-alarm--list{
+      display:none;
+      position: absolute;
+      background: #fff;
+      z-index: 10;
+      transition: all 500ms;
+      top: 30px;
+      left: 60px;
+      box-shadow: 0 1px 5px rgb(0 0 0 / 50%);
+      border-radius: 1px;
+      width: 140px;
+  }
+  .sn-test--list{
+      max-height: 140px;
+      overflow: auto;
+  }
+  .sn-test--list li,
+  .sn-alarm--list li {
+      height: 28px;
+      line-height: 24px;
+      padding: 2px 10px;
+      white-space: nowrap;
+  }
+  .sn-test--list li:hover,
+  .sn-alarm--list li:hover {
+      background-color: #f2f2f2;
+  }
+  .sn-test--list li.active,
+  .sn-alarm--list li.active {
+      color: #fff;
+      background-color: #20a53a;
+  }
+  .sn-test--selectBox,
+  .sn-alarm--selectBox{
+      display: inline-block;
+      cursor: pointer;
+  }
+  .sn-test--selectIcon,
+  .sn-alram--selectIcon{
+      color: #999;
+      position: absolute;
+      top: 8px;
+      left: 175px;
+  }
+  .bt-form-new.inline {
+    align-items: center;
+    flex: 1;
+    justify-content: flex-start;
+  }
+  .form-item .form-label{
+    padding-right: 8px;
+  }
+  .bt-form-new.inline .form-item{
+    margin-left: 0 !important;
+    margin-right: 14px;
+  }
+  .sn-alarm--mode {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 25px;
+  }
+  .sn-alarm--mode .bterror {
+    color: #f50606;
+  }
+  /* 告警设置 end */ 
+  .sn-home-risk--top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+    margin-bottom: 16px;
+  }
+  .sn-home-risk--top .sn-home-risk--title {
+    font-size: 14px;
+    color: #666;
+  }
+  .lib-box .table tr td:nth-child(2){
+    width: 140px;
+    vertical-align: text-top;
+  }
+  .lib-box .table tr td:last-child {
+    width: 320px;
+    vertical-align: text-top;
+  }
+  .mlr10 {
+    margin: 0 10px;
+  }
+  .sub-groud {
+    margin-bottom: 15px;
+  }
+  .add-white-rules {
+    position: relative;
+    top: -10px
+  }
+  code {
+    padding: 1px 5px;
+    font-size: 90%;
+    color: #2196F3;
+    background-color: #EEE;
+    border-radius: 4px;
+    margin: 2px;
+  }
+  .sn-alarm--list{
+    display:none;
+    position: absolute;
+    background: #fff;
+    z-index: 10;
+    transition: all 500ms;
+    top: 30px;
+    left: 56px;
+    box-shadow: 0 1px 5px rgb(0 0 0 / 50%);
+    border-radius: 1px;
+    width: 140px;
+}
+.sn-alarm--list li {
+    height: 28px;
+    line-height: 24px;
+    padding: 2px 10px;
+    white-space: nowrap;
+}
+.sn-alarm--list li.disabled {
+	background: #ededed;
+  cursor: not-allowed;
+}
+.sn-alarm--list li.disabled:hover {
+  background: #ededed;
+  color: #666;
+}
+.sn-alarm--list li:hover {
+  color: #fff;
+  background-color: #20a53a;
+}
+.sn-alarm--list li.active {
+    color: #fff;
+    background-color: #20a53a;
+}
+.sn-alarm--setting{
+    font-size: 12px;
+    color: #666;
+    position: relative;
+    margin-bottom: 16px;
+}
+.sn-alarm--selectBox{
+    display: inline-block;
+    cursor: pointer;
+}
+.sn-alarm--setting .sn-alarm--channel{
+    border:1px solid #EFEFEF;
+    border-radius: 2px;
+    color: #999999;
+    width: 140px;
+    display: inline-block;
+    padding:5px 5px 5px 10px;
+    margin-left:4px
+}
+.sn-alram--selectIcon{
+    color: #999;
+    position: absolute;
+    top: 8px;
+    left: 175px;
+}
+.table tr td span p {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+  </style>
+  <div class="security-notice__view">
+      <div class="sn-menu__header">
+          <ul>
+              <li class="active"><i></i><p>首页</p></li>
+              <li><i></i><p>白名单</p></li>
+              <li><i></i><p>告警设置</p></li>
+              <li><i></i><p>实时日志</p></li>
+          </ul>
+      </div>
+      <div class="sn-body__content">
+          <div class="sn-panel is-active">
+              <!-- 入侵检测开关 -->
+              <div class="sn-home--switch">
+                  <span>入侵检测开关</span>
+                  <div style="display: inline-block;vertical-align: middle;margin-left:5px;">
+                      <input type="checkbox" class="btswitch btswitch-ios" id="serviceStatus">
+                      <label class="btswitch-btn serviceStatus" for="serviceStatus"></label>
+                  </div>
+              </div>
+              <div class="sn-home--overview">
+                  <div class="sn-home--overview-title">告警概览</div>
+                  <div class="sn-home--overview-content">
+                      <div class="sn-home--overview-item">
+                          <div class="sn-home--overview-item--title">紧急</div>
+                          <div class="sn-home--overview-item--num">
+                              <span class="sn-home--overview-total">0</span>
+                              <span class="sn-home--overview-item--upNum hide"></span>
+                          </div>
+                      </div>
+                      <div class="sn-home--overview-item">
+                          <div class="sn-home--overview-item--title">高危</div>
+                          <div class="sn-home--overview-item--num">
+                              <span class="sn-home--overview-total">0</span>
+                              <span class="sn-home--overview-item--upNum hide"></span>
+                          </div>
+                      </div>
+                      <div class="sn-home--overview-item">
+                          <div class="sn-home--overview-item--title">中危</div>
+                          <div class="sn-home--overview-item--num">
+                              <span class="sn-home--overview-total">0</span>
+                              <span class="sn-home--overview-item--upNum hide"></span>
+                          </div>
+                      </div>
+                      <div class="sn-home--overview-item line-border">
+                        <div class="sn-home--overview-item--title">低危</div>
+                        <div class="sn-home--overview-item--num">
+                            <span class="sn-home--overview-total">0</span>
+                            <span class="sn-home--overview-item--upNum hide"></span>
+                        </div>
+                      </div>
+                      <div class="sn-home--overview-item">
+                          <div class="sn-home--overview-item--title">累计处理</div>
+                          <div class="sn-home--overview-item--num">0</div>
+                      </div>
+                      <div class="sn-home--overview-item">
+                          <div class="sn-home--overview-item--title">白名单规则</div>
+                          <div class="sn-home--overview-item--num">0</div>
+                      </div>
+                  </div>
+              </div> 
+              <!-- 告警内容 -->
+              <div class="sn-home-risk">
+                <div class="sn-home-risk--top">
+                  <div class="sn-home-risk--title">告警内容</div>
+                  <div class="sn-home-risk--search"></div>
+                </div>
+                <div class="sn-home-risk--list"></div>
+              </div>
+          </div>
+          <div class="sn-panel">
+            <div id="sn-table--rulesList"></div>
+          </div>
+          <div class="sn-panel">
+            <div class="sn-alarm--setting">
+              <span>告警方式</span>
+              <div class="sn-alarm--selectBox">
+                  <!-- 发送通道 -->
+                  <span class="sn-alarm--channel">请选择接收方式</span>
+                  <i class="sn-alram--selectIcon glyphicon glyphicon-menu-down"></i>
+                  <!-- 发送方式选项 -->
+                  <ul class="sn-alarm--list"></ul>
+              </div>
+            </div>
+              <!-- <div class="sn-alarm--mode">
+                <span class="mr10">告警方式：</span>
+                <div class="bt-form-new inline"></div>
+              </div> -->
+              <!-- 告警列表 -->
+              <div id="sn-table--alarmList"></div>
+          </div>
+          <div class="sn-panel">
+              <button type="button" class="btn btn-success btn-sm refreshLog" onclick="securityNotice.getRealTimeLog()">刷新日志</button>
+              <div class="snRealTimeLog bt-logs mt10"><textarea class="bt-input-text" style="line-height: 22px;width:840px"></textarea></div>
+          </div>
+      </div>
+  </div>
+  
+  <script>
+  var securityNotice = {
+      plugin_name:'bt_hids',
+      url: '/plugin?action=a&name=bt_hids&s=',
+      level: {
+        serious: '紧急',
+        high: '高危',
+        medium: '中危',
+        low: '低危',
+      },
+      level_value: ['serious', 'high', 'medium', 'low'],
+      level_list: [{title: '紧急', value: 'serious'}, {title: '高危', value: 'high'}, {title: '中危', value: 'medium'}, {title: '低危', value: 'low'}],
+      field_list:{
+        ssh: '外联SSH登录信息',
+        socket_argv: '外联进程命令行',
+        run_path: '执行目录',
+        stdin: '进程输入',
+        stdout: '进程输出',
+        sport: '监听端口',
+        dip: '攻击IP',
+        pid: '进程PID',
+        exe: '进程二进制文件',
+        argv: '进程命令行',
+        username: '进程所属用户名',
+        type: '告警类型',
+        id: '告警ID',
+        vulnname: '告警名称',
+        data_type: '规则类型',
+        pid_tree: '进程树',
+        level: '风险级别',
+        time: '发生时间',
+        repair: '处理建议',
+        msg: '告警信息',
+      },
+      // 全局变量、状态
+      data:{
+          menuActive:0,   //菜单选中项、内容区域
+      },
+      // 事件
+      event: function(){
+          var _this = this;
+          // 菜单切换
+          $('.sn-menu__header li').on('click',function(){
+              var index = $(this).index();
+              _this.data.menuActive = index;
+              $('.sn-body__content').removeAttr('style')
+              $(this).addClass('active').siblings().removeClass('active')
+              $('.sn-panel').eq(index).addClass('is-active').siblings().removeClass('is-active')
+              switch(index){
+                case 0: //首页
+                  //获取服务状态
+                  bt_tools.send({url: _this.url + 'get_status'},function (res) {
+                    $('#serviceStatus').prop('checked',res.status)
+                  })
+                  bt_tools.form({
+                    el: '.sn-home-risk--search',
+                    form: [
+                      {
+                        group: {
+                          type: 'multipleSelect',
+                          width: '380px',
+                          name: 'level',
+                          style: 'margin-right: 0px;',
+                          list: _this.level_list,
+                          value: _this.level_value,
+                          placeholder: '请选择风险等级',
+                          change: function (formData, element, that) {
+                            _this.getHomeData(that.data.level);
+                          }
+                        }
+                      }
+                    ]
+                  })
+                  _this.getHomeData(_this.level_value);
+                  break;
+                case 1: //白名单
+                  _this.getWhiteList();
+                  break;
+                case 2: //告警设置
+                  _this.getAlarmSetting();
+                  _this.getAlarmList();
+                  break;
+                case 3:
+                  _this.getRealTimeLog();
+                  break;
+              }
+          })
+          // 监控开关
+          $('#serviceStatus').on('change',function(){
+              var _status = $(this).prop('checked');
+              bt.simple_confirm({title: _status ? '开启入侵检测' : '关闭入侵检测',msg: (_status ? '开启后，可以' : '关闭后，无法') + '检测黑客入侵服务器的行为，是否继续操作？'},function(){
+                bt_tools.send({url: _this.url +'set_process'},function (res) {
+                  bt_tools.msg(res)
+                }, _status ? '开启入侵检测' : '关闭入侵检测')
+              },function(){
+                $('#serviceStatus').prop('checked',!_status)
+              })
+          })
+
+          //下拉列表
+          $('.sn-alarm--selectBox').on('click',function(e){
+              var _ul = $(this).find('.sn-alarm--list');
+              if(_ul.hasClass('show')){
+                  _ul.removeClass('show');
+              }else{
+                  _ul.addClass('show');
+              }
+              $(document).one('click',function(ev){
+                  _ul.removeClass('show');
+              })
+              e.stopPropagation();
+          })
+          // 选择发送方式
+          $('.sn-alarm--list').on('click','li',function(e){
+            if($(this).hasClass('disabled')) {
+              layer.msg('该通道未配置, 请配置后在选择！')
+              return e.stopPropagation();
+            }
+            var name = $(this).attr('name'),that = this;
+            bt_tools.send({url:_this.url + 'set_send',data: {type: name }},function (res) {
+              if(res.status){
+                $('.sn-alarm--list li').removeClass('active')
+                $(that).addClass('active')
+                $('.sn-alarm--channel').text($(that).text())
+                $('.sn-alarm--list').hide();
+              }
+              if(res.msg) layer.msg(res.msg,{icon:res.status?1:2});
+              setTimeout(function () {
+                _this.getAlarmSetting();
+              }, 1000);
+            },'设置通知方式')
+          })
+          // 设置告警通知
+          $('.sn-alarm--mode .bt-form-new').on('change', 'input[type="checkbox"]', function () {
+            var $this = $(this);
+            var name = $this.attr('name');
+            var checked = $this.is(':checked');
+            bt_tools.send({url:_this.url + 'set_send',data: {type: checked ? name : 'error'}},function (res) {
+              if(res.status){
+                if (checked) {
+                  $('.sn-alarm--mode .bt-form-new input[type="checkbox"]').prop('checked', false);
+                  $this.prop('checked', true);
+                }
+              }
+              if(res.msg) layer.msg(res.msg,{icon:res.status?1:2});
+              setTimeout(function () {
+                _this.getAlarmSetting();
+              }, 1000);
+            })
+          });
+      },
+      /**
+      * 获取首页高危数据
+      */
+      getHomeData:function(level_val, p){
+        var that = this;
+        if (!p) p = 1;
+        $('.sn-home-risk--list').empty()
+        var homeTable = bt_tools.table({
+          el: '.sn-home-risk--list',
+          url: that.url + 'get_result',
+          load: true,
+          height: '240',
+          param: {
+            type: JSON.stringify(level_val),
+            p: p
+          },
+          dataFilter: function (res) {
+            // 告警概览数据
+            var bgClassName = 'sn-home--overview-green'
+            $('.sn-home--overview-item--num').eq(0).find('.sn-home--overview-total').text(res.count.serious);  //紧急
+            $('.sn-home--overview-item--num').eq(1).find('.sn-home--overview-total').text(res.count.high_risk);    //高危
+            $('.sn-home--overview-item--num').eq(2).find('.sn-home--overview-total').text(res.count.medium_risk);     //中危
+            $('.sn-home--overview-item--num').eq(3).find('.sn-home--overview-total').text(res.count.low_risk);     //低危
+            $('.sn-home--overview-item--num').eq(4).text(res.repair_count);   //累计处理数
+            $('.sn-home--overview-item--num').eq(5).text(res.white_count);   //白名单规则数
+
+            // 渐变判断
+            if(res.count.serious > 0 || res.count.high_risk > 0) bgClassName = 'sn-home--overview-red'   //有紧急高危数据
+            if(res.count.medium_risk > 0 && res.count.serious == 0 && res.count.high_risk == 0) bgClassName = 'sn-home--overview-yellow'  //有中危没有紧急高危
+            $('.sn-home--overview').removeClass('sn-home--overview-yellow sn-home--overview-red sn-home--overview-green').addClass(bgClassName)
+
+            $('.sn-home-risk--list .tootls_bottom .pull-right').html($(res.page).addClass('page'))
+            $('.sn-home-risk--list').on('click','.page a',function () {
+              var page = $(this).attr('href').split('p=')[1]
+              that.getHomeData(level_val, page)
+              return false
+            })
+            return { data: res.risk };
+          },
+          column: [
+            {
+              type: 'checkbox',
+              width: 20
+            },
+            {
+              fid: 'id',
+              title: '告警ID',
+              fixed: true,
+              width: 70,
+            },
+            {
+              fid: 'vulnname',
+              title: '告警名称',
+              fixed: true,
+              width: 200,
+            },
+            {
+              fid: 'type',
+              title: '告警类型',
+              width: 150,
+            },
+            {
+              fid: 'level',
+              title: '风险级别',
+              width: 90,
+              template: function (row,index) {
+                return '<span class="level_'+ row.level +'">'+ that.level[row.level] +'</span>'
+              }
+            },
+            {
+              fid: 'time',
+              title: '发生时间',
+              width: 150,
+            },
+            {
+              title: '操作',
+              type: 'group',
+              align: 'right',
+              width: 150,
+              group: [
+                {
+                  title: '详情',
+                  event: function (row, index) {
+                    that.getDeatil(row);
+                  }
+                },
+                {
+                  title: '加白',
+                  event: function (row, index, ev, key, _that) {
+                    that.addWhite(row);
+                  }
+                },
+                {
+                  title: '处理',
+                  event: function (row, index, ev, key, _that) {
+                    bt.simple_confirm({title: '告警ID【'+ row.id +'】',msg: '请确定该告警已人工处理或为误报，是否继续操作？'},function () {
+                      bt_tools.send(that.url + 'remove', { id_list: row.id }, function (rdata) {
+                        bt_tools.msg(rdata);
+                        if (rdata.status) {
+                          _that.$refresh_table_list();
+                        }
+                      })
+                    })
+                  }
+                }
+              ]
+            }
+          ],
+          tootls: [
+            { // 批量操作
+              type: 'batch',
+              positon: ['left', 'bottom'],
+              placeholder: '请选择批量操作',
+              buttonValue: '批量操作',
+              disabledSelectValue: '请选择需要批量操作的计划任务!',
+              selectList: [{
+                title: '处理',
+                callback: function (_that) { // 手动执行,data参数包含所有选中的站点
+                  var ids = [];
+                  for (var i = 0; i < _that.check_list.length; i++) {
+                    ids.push(_that.check_list[i].id)
+                  }
+                  bt.simple_confirm({title:"批量处理告警", msg:"批量处理选中的告警，请确定选中的告警已人工处理或为误报，是否继续操作？"}, function (){
+                    bt_tools.send(that.url + 'remove', { id_list: JSON.stringify(ids) }, function (rdata) {
+                      var html = '';
+                      for(var i=0;i<rdata.length;i++){
+                        var item = rdata[i];
+                        html += '<tr><td>'+ item.id +'</td><td><div style="float:right;"><span style="color:'+ (item.status?'#20a53a':'red') +'">'+ item.msg +'</span></div></td></tr>';
+                      }
+                      homeTable.$batch_success_table({title:'批量同步数据库',th:'告警ID',html:html});
+                      homeTable.$refresh_table_list(true);
+                    })
+                  })
+                }
+              }]
+            }
+          ]
+        })
+      },
+      /**
+       * 获取详情
+       */
+      getDeatil: function (row) {
+        var that = this, table_arr = {},table_html = '',div_html = '',t_num = 0
+        $.each(row,function (key,item) {
+          if(key == 'other') {
+            var item = JSON.parse(item)
+            for (var i = 0; i < item.length; i++) {
+              div_html += '<div class="mt20">\
+                      <b style="margin-left:10px">'+ that.field_list[item[i].key] +'</b>\
+                  </div>\
+                  <div class="lib-con mt10">\
+                      <div class="divpre">'+ item[i].value+ '</div>\
+                  </div>'
+            }
+          }else{
+            table_arr[key] = item
+          }
+        })
+        var table_sort = ['id','vulnname','type','level','data_type','time','msg','repair']
+        for (var i = 0; i < table_sort.length; i++) {
+          var key = table_sort[i],item = table_arr[key]
+          if(i % 2 == 0 || key === 'msg' || key === 'repair') table_html += '<tr>'
+          if(key == 'level') item = '<span class="level_'+ item +'">'+ that.level[item] +'</span>'
+          table_html += '<th>'+ that.field_list[key] +'</th><td '+ (key === 'msg' || key === 'repair' ? 'colspan="3"' : '') +'>'+ item +'</td>'
+          if(i % 2 !== 0 || key === 'msg' || key === 'repair') table_html += '</tr>'    
+        }
+        layer.open({
+          type: 1,
+          title: "【"+ row.vulnname + "】详情",
+          area: ['640px', '640px'],
+          closeBtn: 2,
+          shadeClose: false,
+          content: '\
+              <div class="pd15 lib-box">\
+                  <table class="table" style="border:#ddd 1px solid;">\
+                      <tbody>'+ table_html +'</tbody>\
+                  </table>'+
+                  div_html
+              +'</div>'
+        })
+      },
+      /**
+       * 字段加白
+       */
+      addWhite: function (row) {
+        var that = this,key_val = {},key_html = '',ohter = JSON.parse(row.other),sub_groud = ''
+        function options(keys) {
+          key_html = ''
+          $.each(ohter,function (key,item) {
+            key_val[item.key] = item.value
+            key_html += '<option value="'+ item.key +'" '+ (item.key === keys ? 'selected' : '') +'>'+ that.field_list[item.key] +'</option>'
+          })
+          return key_html
+        }
+        for (var i = 0; i < ohter.length; i++) {
+          var item = ohter[i]
+          key_val[item.key] = item.value
+          sub_groud += '<div class="sub-groud">\
+                            <select class="bt-input-text mr10 rules_key">'+ options(item.key) +'</select>\
+                            <input class="bt-input-text mlr10 rules_value" placeholder="请输入匹配内容" type="text" style="width:242px" value="'+ item.value +'">\
+                            <a href="javascript:;" class="proxy_del_sub" style="color:red;">删除</a>\
+                          </div>'          
+        }
+        bt.open({
+          type: 1,
+          title: '添加白名单',
+          btn: ['提交', '取消'],
+          area: '590px',
+          content: '<div class="bt-form pd20" style="max-height: 550px;">\
+                      <div class="line">\
+                        <span class="tname">加白描述</span>\
+                        <div class="info-r">\
+                            <input name="ps" class="bt-input-text mr5" type="text" style="width: 390px;" placeholder="请输入加白描述">\
+                        </div>\
+                      </div>\
+                      <div class="line">\
+                        <span class="tname">告警名称</span>\
+                        <div class="info-r">\
+                          <input name="vulnname" class="bt-input-text mr5 disable" disabled type="text" style="width: 390px;" value="'+row.vulnname+'">\
+                        </div>\
+                      </div>\
+                      <div class="line add_white_rules">\
+                        <span class="tname">加白规则</span>\
+                        <div class="info-r">'+sub_groud+'</div>\
+                      </div>\
+                      <div class="line" style="display:block">\
+                        <div class="info-r  ml0"><button class="btn btn-success btn-sm btn-title add-white-rules" type="button">\
+                          <span class="glyphicon cursor glyphicon-plus  mr5"></span>新增规则</button>\
+                          <span class="unit" style="position: relative;top: -10px;margin-left: 8px;">规则之间是“且”的关系</span>\
+                        </div>\
+                      </div>\
+                    </div>',
+          success:function (layero,index) {
+            $('.add-white-rules').click(function () {
+              var length = $(".replace_conter .sub-groud").length;
+              var html = '<div class="sub-groud">\
+                            <select class="bt-input-text mr10 rules_key">'+ options(ohter[0].key) +'</select>\
+                            <input class="bt-input-text mlr10 rules_value" placeholder="请输入匹配内容" type="text" style="width:242px" value="'+ key_val[ohter[0].key] +'">\
+                            <a href="javascript:;" class="proxy_del_sub" style="color:red;">删除</a>\
+                          </div>'
+              $('.add_white_rules .info-r').append(html)
+              $(layero).find('.layui-layer-content').scrollTop($(layero).find('.bt-form')[0].scrollHeight)
+            })
+            $(layero).on('click','.proxy_del_sub',function () {
+              if($('.sub-groud').length == 1){
+                layer.msg('至少保留一条规则')
+                return false;
+              }
+              $(this).parent().remove()
+            })
+            $(layero).on('change','.rules_key',function () {
+              var val = $(this).val()
+              $(this).next().val(key_val[val])
+            })
+            $('[name=white_name]').on('input',function () {
+              var val = $(this).val()
+              $('[name=ps]').val(val)
+            })
+          },
+          yes: function (index, layero) {
+            var data = {
+                vulnname: row.vulnname,
+                ps: $('input[name="ps"]').val(),
+                rules: [],
+                time: ''
+              }
+            $('.sub-groud').each(function () {
+              var rep1 = $(this).find('select').val(),
+                rep2 = $(this).find('input').val()
+              if (rep1 && rep2) {
+                data.rules.push({
+                  key: rep1,
+                  value: rep2
+                })
+              }
+            })
+            if(data.ps == ''){
+              layer.msg('请输入加白描述')
+              return false;
+            }
+            if (data.rules.length == 0) {
+              layer.msg('请输入加白规则')
+              return false
+            }
+            data.rules = JSON.stringify(data.rules)
+            bt_tools.send({url: that.url + 'set_white',data: data},function (rdata) {
+              bt_tools.msg(rdata);
+              if (rdata.status) {
+                layer.close(index);
+              }
+            },'添加白名单')
+          }
+        })
+      },
+      /** 
+      * 获取白名单列表
+      */
+      getWhiteList:function(){
+        var that = this;
+        bt_tools.table({
+          el:'#sn-table--rulesList',
+          url: that.url +'get_white',
+          load: true,
+          height: '480',
+          dataFilter:function (res) {
+            return {data: res.white, page: res.page}
+          },
+          column: [
+            // {
+            //   fid: 'white_name',
+            //   title: '名称',
+            //   width: 120,
+            // },
+            {
+              fid: 'ps',
+              title: '描述',
+              width: 120,
+              fixed:true
+            },
+            {
+              fid: 'vulnname',
+              title: '匹配告警名',
+              width: 120,
+            },
+            {
+              fid: 'rules',
+              title: '加白规则',
+              template: function (row,index) {
+                var html = '', rules = JSON.parse(row.rules)
+                for (var i = 0; i < rules.length; i++) {
+                  html += '<p>'+ (that.field_list[rules[i].key] || rules[i].key) +' <code>等于</code> '+ rules[i].value +'</p>'                  
+                }
+                return '<span>'+ html +'</span>';
+              }
+            },
+            {
+              fid: 'time',
+              title: '加白时间',
+              width: 140,
+            },
+            {
+              title: '操作',
+              type: 'group',
+              width: 60,
+              align: 'right',
+              group: [{
+                title: '删除',
+                event: function (row,index) {
+                  bt_tools.send({url:that.url + 'set_white',data:row},function(res){
+                    bt_tools.msg(res);
+                    if(res.status) that.getWhiteList();
+                  },'删除白名单')
+                }
+              }]
+            }
+          ],
+          tootls: [
+            { //分页显示
+              type: 'page',
+              numberParam: false,
+              numberStatus: false, //　是否支持分页数量选择,默认禁用
+              jump: false, //是否支持跳转分页,默认禁用
+            },
+          ]
+        })
+      },
+      /**
+          * 获取告警设置
+      */
+      getAlarmSetting:function(){
+        var that = this;
+        var sendChannel = [{name:'企业微信',value:'weixin'},{name:'钉钉',value:'dingding'},{name:'飞书',value:'feishu'},{name:'不绑定',value:'error'}]
+        // 获取告警列表
+        bt_tools.send({
+          url: '/config?action=get_msg_configs',
+        }, function (alarms) {
+          $.post(that.url + 'get_send',function(rdata){
+              var html = '',alarmType = -1,accountConfigStatus = false
+              for(var i=0; i<sendChannel.length; i++){
+                  if(rdata.msg == sendChannel[i].value) alarmType = i
+                  if (sendChannel[i].value === 'wx_account') {
+                    if (!$.isEmptyObject(item.data) && item.data.res.is_subscribe && item.data.res.is_bound) {
+                      accountConfigStatus = true;
+                    }
+                  }
+                  var is_config = sendChannel[i].value !== 'error' && (!alarms[sendChannel[i].value]['setup'] || $.isEmptyObject(alarms[sendChannel[i].value]['data'])) ? true : false
+                  html += '<li class="sn-alarm--item '+(sendChannel[i].value == rdata.msg && !is_config ? ' active':'') + (is_config ? ' disabled' : '') +'" name="'+sendChannel[i].value+'">'+sendChannel[i].name+ (is_config ? ' [<a target="_blank" class="bterror installNotice" data-type="' + sendChannel[i].value + '">未配置</a>]' : '') +'</li>'
+              }
+              $('.sn-alarm--list').html(html)
+              $('.sn-alarm--channel').html(alarmType != -1 ? $('.sn-alarm--list .sn-alarm--item.active').hasClass('disabled') ? '请选择发送方式' : sendChannel[alarmType].name :'请选择发送方式')
+              $('.sn-alarm--selectBox').find('.installNotice').unbind('click').click(function (ev) {
+                var el = $(ev.currentTarget), type = $(el).data('type');
+                openAlertModuleInstallView(type,'.security-notice__view .sn-menu__header ul .active');
+              });
+          })
+        })
+      },
+      /**
+          * 获取告警列表
+      */
+      getAlarmList:function(){
+        var that = this
+        bt_tools.table({
+            el:'#sn-table--alarmList',
+            default:'暂无告警信息',
+            height: 460,
+            url: that.url+'get_log',
+            dataFilter: function(res){
+              return {data: res.log, page: res.page}
+            },
+            column:[
+              {
+                fid: 'log',
+                title: '告警通知',
+              },
+            ],
+            tootls: [
+              { //分页显示
+                type: 'page',
+                numberParam: false,
+                numberStatus: false, //　是否支持分页数量选择,默认禁用
+                jump: false, //是否支持跳转分页,默认禁用
+              }
+            ]
+        })
+          
+      },
+      /**
+          * 获取实时日志
+      */
+      getRealTimeLog:function(){
+          bt_tools.send({url:this.url +'get_hids_log'},function(log){
+              var logBox = $('.snRealTimeLog textarea')
+              var _logs_info = $('<div></div>').text(log.msg);
+              logBox.html(_logs_info.html()).attr('readonly', true).scrollTop(100000000000);
+          },'请求日志')
+      },
+      init:function(){
+          var that = this;
+          this.event()     //事件绑定
+          $(".sn-menu__header li").eq(0).click() //获取首页
+          $('.layui-layer-page').width(1000).css({   //设置最外层弹窗大小
+              'left':(document.body.clientWidth-1000)/2+'px'
+          })
+      }
+  }
+  
+  securityNotice.init()  //初始化
+  </script>

@@ -1,0 +1,15 @@
+{
+  "title": "堡塔PHP安全防护",
+  "name": "php_filter",
+  "ps": "PHP内核级防御模块，可针对项目进行底层过滤，支持$_SERVER/$_POST/$_GET/函数/目录过滤，<span style='color:red;'>注意：不支持32位系统和arm平台和PHP5.2</span>",
+  "versions": "2.0",
+  "checks": "/www/server/panel/plugin/php_filter",
+  "author": "宝塔",
+  "home": "https://www.bt.cn",
+  "beta": false,
+	"force_message": "",
+	"not_substituted":["config.json|f","config|d","total|d"],
+	"replace_files":[],
+  "not_os_bit": 32,
+  "not_cpu_type":["arm","mips"]
+}

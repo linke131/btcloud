@@ -1,0 +1,1472 @@
+[
+    {
+        "name": "默认规则",
+        "ps": "通用规则，适用于所有项目类型",
+        "filter_dir": [],
+        "filter_disable_funs": [],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [],
+            "white": []
+        }
+    },
+    {
+        "name": "ThinkPHP3.2",
+        "ps": "针对基于ThinkPHP3.2项目的专属安全规则",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [],
+            "white": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/thinkphp/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/application/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/cache/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/runtime/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/vendor/"
+                ]
+            ]
+        }
+    },
+    {
+        "name": "ThinkPHP5.0",
+        "ps": "针对基于ThinkPHP5.0.x项目的专属安全规则",
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_dir": [],
+        "filter_funs": [],
+        "server": {
+            "white": [],
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/template/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/runtime/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/application/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/vendor/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "think"
+                ]
+            ]
+        },
+        "input": {
+            "white": [],
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    "filter[]",
+                    0,
+                    "call_user_func"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    "_method",
+                    0,
+                    "__construct"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    "function",
+                    0,
+                    "call_user_func_array"
+                ]
+            ]
+        }
+    },
+    {
+        "name": "ThinkPHP6.0",
+        "ps": "针对基于ThinkPHP6.0.x项目的专属安全规则",
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_dir": [],
+        "filter_funs": [],
+        "server": {
+            "white": [],
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/template/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/runtime/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/application/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/vendor/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "think"
+                ]
+            ]
+        },
+        "input": {
+            "white": [],
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    "filter[]",
+                    0,
+                    "call_user_func"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    "_method",
+                    0,
+                    "__construct"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    "function",
+                    0,
+                    "call_user_func_array"
+                ]
+            ]
+        }
+    },
+    {
+        "name": "微擎",
+        "ps": "针对微擎项目的专属安全规则，使用后可能导致部分插件无法正常使用",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/framework/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/attachment/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/web/resource/components/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/web/resource/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/web/themes/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/data/patch/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/data/tpl/"
+                ]
+            ],
+            "white": []
+        }
+    },
+    {
+        "name": "Discuz",
+        "ps": "针对Discuz的专属安全规则，仅支持Discuz3.2 - 3.4",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/data/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/config/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/source/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/template/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/static/"
+                ]
+            ],
+            "white": []
+        }
+    },
+    {
+        "name": "织梦CMS",
+        "ps": "针对织梦CMS的专属安全规则，仅支持官方5.7SP2版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [
+                [
+                    9,
+                    0,
+                    "/plus/mytag_js.php",
+                    "aid",
+                    0,
+                    "9013"
+                ]
+            ],
+            "white": []
+        },
+        "server": {
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/data/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/a/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/images/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/include/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/templets/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/uploads/"
+                ]
+            ],
+            "white": []
+        }
+    },
+    {
+        "name": "帝国CMS",
+        "ps": "针对帝国CMS的专属安全规则，仅支持官方7.2以上的版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/d/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/html/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/images/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/s/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/skin/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/testdata/"
+                ]
+            ],
+            "white": []
+        }
+    },
+    {
+        "name": "WordPress",
+        "ps": "针对WordPress的专属安全规则，仅支持官方4.8以上的版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/wp-content/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/wp-includes/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/wp-config.php"
+                ]
+            ],
+            "white": []
+        }
+    },
+    {
+        "name": "Metinfo(米拓)",
+        "ps": "针对Metinfo的专属安全规则，仅支持官方7.0以上的版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/upload/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/templates/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/include/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/public/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/cache/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/config/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/app/static/"
+                ]
+            ],
+            "white": []
+        }
+    },
+    {
+        "name": "ShopXO",
+        "ps": "针对ShopXO商城的专属安全规则，仅支持官方1.5.0以上的版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "server": {
+            "white": [],
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/static/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/download/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/application/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/vendor/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "think"
+                ]
+            ]
+        },
+        "input": {
+            "white": [],
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    "filter[]",
+                    0,
+                    "call_user_func"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    "_method",
+                    0,
+                    "__construct"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    "function",
+                    0,
+                    "call_user_func_array"
+                ]
+            ]
+        }
+    },
+    {
+        "name": "ThinkCMF",
+        "ps": "针对ThinkCMF的专属安全规则，仅支持官方5.0/5.1版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "server": {
+            "white": [],
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/template/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/runtime/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/application/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/vendor/"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "think"
+                ]
+            ]
+        },
+        "input": {
+            "white": [],
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    "filter[]",
+                    0,
+                    "call_user_func"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    "_method",
+                    0,
+                    "__construct"
+                ],
+                [
+                    "*",
+                    0,
+                    "",
+                    "function",
+                    0,
+                    "call_user_func_array"
+                ]
+            ]
+        }
+    },
+    {
+        "name": "Laravel",
+        "ps": "针对laravel项目的专属安全规则，仅支持官方5.0以上的版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [],
+            "white": []
+        }
+    },
+    {
+        "name": "Joomla",
+        "ps": "针对Joomla的专属安全规则，仅支持官方7.x/8.x版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [],
+            "white": []
+        }
+    },
+    {
+        "name": "ecshop",
+        "ps": "针对ecshop的专属安全规则，仅支持官方3.x/4.x版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [],
+            "white": []
+        }
+    },
+    {
+        "name": "JTBC",
+        "ps": "针对JTBC的专属安全规则，仅支持官方3.x版本",
+        "filter_dir": [],
+        "filter_disable_funs": [
+            "apache_setenv",
+            "imap_open",
+            "pcntl_setpriority",
+            "pcntl_getpriority",
+            "pcntl_sigtimedwait",
+            "pcntl_sigwaitinfo",
+            "pcntl_sigprocmask",
+            "pcntl_strerror",
+            "pcntl_get_last_error",
+            "pcntl_signal_dispatch",
+            "pcntl_signal",
+            "pcntl_wstopsig",
+            "pcntl_wtermsig",
+            "pcntl_wexitstatus",
+            "pcntl_wifcontinued",
+            "pcntl_wifsignaled",
+            "pcntl_wifstopped",
+            "pcntl_wifexited",
+            "pcntl_wait",
+            "pcntl_waitpid",
+            "pcntl_fork",
+            "pcntl_alarm",
+            "popepassthru",
+            "symlink",
+            "readlink",
+            "syslog",
+            "openlog",
+            "dl",
+            "ini_restore",
+            "ini_alter",
+            "pcntl_exec",
+            "chown",
+            "proc_open",
+            "popen",
+            "shell_exec",
+            "chgrp",
+            "chroot",
+            "putenv",
+            "passthru",
+            "exec",
+            "system"
+        ],
+        "filter_funs": [],
+        "input": {
+            "black": [],
+            "white": []
+        },
+        "server": {
+            "black": [
+                [
+                    "*",
+                    0,
+                    "",
+                    9,
+                    1,
+                    "/common/"
+                ]
+            ],
+            "white": []
+        }
+    }
+]

@@ -1,0 +1,10 @@
+{
+	"title": "【测试版】节点同步工具",
+	"name": "node_admin",
+	"ps": "提供同步网站配置，SSL证书，网站文件，Rewrite等功能，<span style='color:red;'>注意：测试期间免费使用，2020-11-26开始商用</span>",
+	"versions": "1.3",
+	"checks": "/www/server/panel/plugin/node_admin",
+	"author": "官方",
+	"home": "http://www.bt.cn",
+	"not_substituted":["data.db|f"]
+}

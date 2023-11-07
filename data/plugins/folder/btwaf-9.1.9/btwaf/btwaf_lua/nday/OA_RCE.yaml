@@ -1,0 +1,12 @@
+models:
+  - FANWEIOA:
+    info: "泛微OA代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/weaver/bsh.servlet.BshServlet"
+    keys:
+      bsh.script: ""
+      bsh.servlet.captureOutErr: ""
+      bsh.servlet.output: ""

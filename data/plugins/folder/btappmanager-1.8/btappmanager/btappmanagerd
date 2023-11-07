@@ -1,0 +1,32 @@
+#!/www/server/panel/pyenv/bin/python3
+# coding: utf-8
+"""
+
+author: linxiao
+date: 2020/8/21 16:46
+"""
+
+import os, sys
+
+from btappmanager_main import AppManager, App
+
+if __name__ == '__main__':
+    manager = AppManager()
+    if len(sys.argv) > 1:
+        operate = sys.argv[1]
+        if operate == "run_server":
+            manager.run_server()
+        elif operate == "install":
+            manager.install()
+        elif operate == "shutdown":
+            manager.shutdown()
+        elif operate == "uninstall":
+            manager.uninstall()
+        elif operate == "start":
+            pid = os.fork()
+            if not pid:
+            # if True:
+                app_id = sys.argv[2]
+                app = manager.find_app(app_id)
+                if app:
+                    result = app.start()

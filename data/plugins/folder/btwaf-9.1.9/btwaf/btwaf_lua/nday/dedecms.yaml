@@ -1,0 +1,73 @@
+models:
+  - dede_tpl:
+    info: "dede后台代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: ""
+    status: true
+    url: "/dede/tpl.php"
+    keys:
+      filename: "$_BT_REGEXP.php$"
+      action: "savetagfile"
+      content: "$_BT_PHPCODE"
+      token: "$_BT_LEN32"
+      
+  - dede_tpl2:
+    info: "dede后台代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/makehtml_homepage.php"
+    keys:
+      dopost: "make"
+      templet: ""
+      position: "$_BT_REGEXP.php$"
+      saveset: ""
+
+  - dede_tpl3:
+    info: "dede后台代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: ""
+    status: true
+    url: "/article_template_rand.php"
+    keys:
+      dopost: "save"
+      templates: "$_BT_PHPCODE"
+
+  - dede_tpl4:
+    info: "dede后台代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: ""
+    status: true
+    url: "/article_string_mix.php"
+    keys:
+      dopost: "save"
+      allsource: "$_BT_PHPCODE"
+      
+  - dede_ad_add:
+    info: "dede后台代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/dede/ad_add.php"
+    keys:
+      dopost: "save"
+      token: "$_BT_LEN32"
+      normbody[htmlcode]: "$_BT_PHPCODE"
+      normbody[style]: ""
+      
+  - dede_581_RCE:
+    info: "dede V5.8.1前台代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: ""
+    status: true
+    url: "/plus/"
+    keys:
+      bt_header_referer: "$_BT_PHPCODE"
+      
+    

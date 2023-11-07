@@ -1,0 +1,2711 @@
+<style>
+    /*样式写这里*/
+    .overflow_hide {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .site_speed-table-logs table tbody tr td span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 580px;
+        display: block;
+    }
+    
+    .bt-table .btswitch+.btswitch-btn {
+        width: 2.4em;
+        height: 1.4em;
+        margin-bottom: 0;
+    }
+    
+    .waf_totall_data .item_center {
+        margin: 0 auto;
+        padding: 15px 0;
+        min-width: 200px;
+    }
+    
+    .filter_totall_data {
+        margin: 0;
+        text-align: center;
+        display: inline-block;
+        width: 100%;
+        color: #666;
+    }
+    
+    .filter_totall_data .item_center {
+        margin: 0 auto;
+        padding: 24px 0;
+        min-width: 200px;
+    }
+    
+    .filter_totall_data .item_title {
+        display: block;
+        margin-bottom: 3px;
+        text-align: center;
+        font-size: 17px;
+    }
+    
+    .filter_totall_data .icon i {
+        color: #5cb85c;
+        font-size: 60px;
+    }
+    
+    .filter_totall_data .icon {
+        display: inline-block;
+    }
+    
+    .filter_totall_data .tips {
+        display: inline-block;
+        margin-left: 10px;
+    }
+    
+    .filter_totall_data .item_data {
+        display: block;
+        text-align: center;
+        font-weight: 500;
+        font-size: 21px;
+        color: #20a53a;
+    }
+    
+    .filter_totall_data .item_data i {
+        font-style: initial;
+    }
+    
+    .iconlanjie,
+    .iconanquan {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        background-size: 50px;
+        background-repeat: no-repeat;
+    }
+    
+    .bt-w-main {
+        height: 100%;
+    }
+    
+    .iconlanjie {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAAA3CAYAAACo29JGAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAN6ADAAQAAAABAAAANwAAAABqTe5tAAALsElEQVRoBd1aa3BV1RXe+5x780DQUR4iKOZFQGDETkmdkkAuQbB1pv2hJZPc0EKLrUgthfoqtkigrVpoKy1ULHUcKJJgGPpPO0MlD5LQB+hQAUUISQrKYygPh0eT3HvO7rfOyTrn5Obe5HAD3JnuSe7ae+21H99ea7/WPkL8Hwc5EGxzaubo+yIn/yCkmCKU0pSUmhBKk0LqVlogLZFWEnkKPKlJpAX4CvKguoS8QLnutJWv7PLgaovbypt+n2wfkwZHwPZGP9silChPtnF/5bQl7RVNv/Un21MKo3ftoVJVavuiJzfdeGDUN3NtdlXR09feS9jFtRaC+Ug09ibMb75bVu6HKW6ACZpSStNUyiAqTWXC5EwllAFLRJ4JnmaaSFv5SBuGZmpW2s43NA3Fo7cLU7yJwbuD29Cktqw13PQKp/3QawJHwHKqizaCPs6Vo4IDQZlWciRc/x/mXQ+ava1osjDVe2hrGNeHObgcc/DnnO6PXhO4rK2FG6CxhW6l8qNAUAu1lDaedXnXL5a7LTTJNLp2KSFGcK2a0Fa2VjRVcrov6nvOZVcXrvMCgxl+ImVGyY0CRp0+VlZ/MKAHQjDt0wzCFOYK9OUXnO6L+tIcNPYbAFvKFUkpjmak68UfP9Z4ink3kmbXFI5TUVGL7WUUt4M5u6Yt3Pwcp+PRfsFlVxWuht0/6xaWrYGMYHHLY/Wfurz4sbx3v5re8shfOil3XHXhqE5TQPuixFp4lGwUQfF8W2nzJ/FL9+Tm1oTyzEhXHUz0bjdHvtpe0fwjN90z1ie4rKrClzBay5wiUrRrAa24tbTpuMOLE8mvCo2PqK4/oSMFWI8P60pfaQhzObQ/wSsOCzgzKJD2wKHS+tMoM6y/RSl/a1FORCgAVGO4HmhwHTS4mNNemhAc7HqVMhU6ZAfMsePpWrD4cHl9O/PiUVpRsVUcjAUST9biSfmuVOr+bo2cw/zaMjR/4nPvT9kYiVcme0fJvaqjsw71Zzv5mrahrazx+wCKatwQF1z21sLlGJ1VLAahT3VdhFrK9hxjHtNQXSjw71NdTwJTCLwOnJ/ew/aGfTB+gLZ+jWPY56i/EhLxFzQptrWH9yQ8+eRWT7/HUEYdrCqXWwGwN1rLm77nBdgLXE5V0Y/RuZe5EPb5U5rQi1srdh91eXaM5pRx4fOdGK7psXlWWspDaGA/8svQER1aOdYebs6jPJg8dS5kycX50YU25VhF0/txsixWfk3J6Ei0sxaWku/KyE3zw7MWVMpKk3g9Rg6m+IwXGM2JNBksiQeMCpsXLy1NDEyotED6w5gPcwGwmuRhNG1EKeBU8i87Zv1+gLYW4x/mbAclzWKOx6NHSms/y0jXsE2Iw26+mr+5+q+b6dxLPAdcTlXhEsyxNSwI9Z7VAzqdPDyFOdemSplh5gDAXnR/k5NW8gR1gNKYryeZzxSDEuU4Nubn28J71kG5zzAPN4MsjieitBVJkQmA8hDLQJNz6UBPAC1wmGNP4UD3KguAnpMBfSY26I88vHjR8czEZjsPy/K3AXIX8XDFsUyD8/uitwhhmd8Qof7pyGFEnHgfkbbwrjOBgDYDwgccMdxU6CpmgcPkdq8UUpwPBsVDraW7XWGnVM8IRj/InMzbM45THBpvYZ5f2jUYWzRC2rgJl/2W8crRKSk9M3MGWt/PfPTti7ZZepZQXegLjpbucYRYuD961dCtDirlmlt/ZWLzh1w6gj4lFw4/uuscrsbruTQuwbZZYp9xTMgQ4gIL3Gw6/OzwpMFRX3Hjd3CQV6DbLCUw2UHXcb1KUZg4Z+KAwOGe6IDDrLfBIeIwlcm8m49whVgxIHCY7w4O8ttYWvIyYaEp0xz6MTBwQjgWCIXZcw4nBQcxnFIpA2fZClaCZG2GHBtcFvukDQQRh6kJ09rdWeimU+xLybYJbA4OrC6sJThwOOjke0xhGIhpwgnFPU8w58hZmrqAk0bSmiPvGvecnMDdQNw5pznaZLGbTHE4TLZFchk6ZbFaBiiBuxgQ23UqciMOIEg9sFka0b9JoV3hatIy0ldHosYfA0bkKvOCIu0VIyhep/Thr9dddo6StKAkCY98ogoOTwqwbhsc+TS4woGulq1lDbgd0A3BDXQ0Qor+ndDtUrB8nQ4wK5e2A+uvAHe+d5C6DakDOHBsaAs3fuhUECdCW5qrd97nlHtCAfKUrpZQmzX0sM4HYVKPIF0IsAvRrw+yqqb27e3yzjne57zXEzzHDMgs4wzoQFhXcfE5b1VAN3klfgn/zNcSVUiueSePTyi4fHmYqV0tuS8w1bdvHTZ4xPzy2cPx8PUSdxoafZLjsdS7WtLTmKUlRBxweE1LqebgajgPYM2DgqO+9eHDO69Y/hCV8TsGgoViKsdjKXw97mqJSWqtllhasKDYSxRGJqXgoLmn0zPTaw89ur2LO69kZ5a74EnbTDnTQy3N2TAgrnR7K/BoDq65lC4obRVN2z39taJYA1d19xlTUDXF5nOanr9E9z4O7fPxy7Naplpz3NNuClfjImhhtpWU0oCvxuN27CksDfeEAkvsnnOeWwHMIrVm6elvzraifLga1zALe97Ko2W7P+Z0LMUePpR5zk3cmnPMlWoR+e056ZfehjH1K+tHjjzZyjS3QHYQyWODbpwSHOWsmrF12I+VeI3lgGOXrSUl9rk8NTkiuupy/zx7BPMSUTRoveBQ/pXLl/qVT1RPPH776a6fYI37kp0nL8qAnLu9dLu7GnoK0SMlvcJiFXGemTHnfmiBw4g8gZlqeYWpDCqdZHRcrp9YExrpqaNXFHPhFDM7RORBjg+U5mwrLsCV5adcD7aHJxK9LOXVTJtgvb56npexKC5tq2heb4GjESkIjP4mNPEWV4hRuO9qJFJP72oOr3fk78zCZvI4xwdCv1wzJ1MZ0S3YkqyVHFegjXDJ18Srkx4lo1Gzx7MyNvxnW8PNa0neWTwI4LzyWfNg3Zu4ImhmXJepGvJ2hO5mnpdqmnSWbcg+hLeGad78ZOKnjZOrqV0qC40dHBkcvSRePTlbp4+FK7cWZuZYFzT2Qlt5869YHgPTM2DEen2xgGZataCcEWsalmxV4T+wBxVYteBRIiMjs6j7FtCzYh8pvOLOQp07u0WvBoJ6QTyXvv0IaTagXWfQMcdehCn+zNuMozlmwjQVvXMBkHXXsvkqR0XM3eNqpmezHFGSVVJ3n5SVGN/Z0fFOTk3RGK+cn/jYmqkPYLbT6mgFmNfieMDGV4ey7NdVFxg0tioWGFXSS3N21fYvzGwdXn6eYh7AnNA1NSP2ERIndXybYn6X5egYgT3pkpPuL4JzIDQ2mMXQzmbMs/mcZkqDZkbNBqwHWczDCL+MN78XnLQn0ktznjwB+/0B8DuvP+jAPVFTNNDm6pW7967AIpiFM//QOLCJW33/9wAmGkYGRvU6+dNjoxlVmGMuMAzCmkTAqH99ao4BxPmi4RQ9Snrf7mj+5VYVLlRSLMVWMpbL+qKWpuUJ9ObtIUNvWUm3AW+5+3ZMu6uj02joUa+UawHM+XzEK89xX+BIOPbLBqxkZ/AOPLMl3HyIK7sRNLtq5p1K/LceGnPeAjEf19tW1XeLfZqltyipH5U6qxFG8U4cF+qyq6bd75W7nnFs0MOV6iBTdIDB2F73A4z64RscCaPSF2nJpTgFmCIaN2rzqqd/weZcv1863xoRYxdacb5dwRx7oy3ctMhvK77N0lsh3s+Xwc3kOcTKC7omFxhKnqcnMHopwuqJf02z0vjyFQMBJv3ZfHJEWf4a8On2b+XjLknUupngAI/4ZLdduQnAvgOAWKf8haTAUdX05YP3AwF/zSUnBUBv0emJP8HwW4vuVzBW7uKOE3vu+MYYfCwjvhKbd13TONDj3DvvtUmvOX4ev/UnrTlugL6EwI4NBw4ekOjSC0cGzobwySCNT1UAHl/J4gtaeklCPi6R6CS+lOU0USlI1nDKWV9CkLzYSzeWRFcd7kMi+j+KI+FLoM4b9AAAAABJRU5ErkJggg==');
+    }
+    
+    .iconanquan {
+        background-image: url('data:image/png;base64,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');
+    }
+    
+    .pt30 {
+        padding-top: 30px;
+    }
+    
+    .rule_content_list {
+        overflow: auto;
+        width: 280px;
+        max-height: 200px;
+        border: 1px solid #ececec;
+        padding: 5px;
+        border-radius: 2px;
+    }
+    
+    .rule_content_list li {
+        line-height: 30px;
+    }
+    
+    .rule_content_list>li:last-child {
+        border-bottom: none;
+    }
+    
+    .rule_content_list .rule_checkbox_group {
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        font-size: 0px;
+        cursor: pointer;
+        padding-left: 10px;
+    }
+    
+    .bt_checkbox_groups.active {
+        border: none;
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        background: #20a53a;
+        color: #fff;
+    }
+    
+    .rule_content_list .bt_checkbox_groups {
+        position: relative;
+        top: 7px;
+    }
+    
+    .rule_checkbox_find_list {
+        background: #fff;
+        cursor: pointer;
+    }
+    
+    .rule_checkbox_find_list li {
+        position: relative;
+    }
+    
+    .rule_content_list .rule_checkbox_group:hover {
+        background-color: #efefef;
+        cursor: pointer;
+    }
+    
+    .rule_checkbox_find_list .rule_checkbox_group {
+        background: transparent;
+        padding-left: 45px;
+        margin-left: 10px;
+    }
+    
+    .rule_content_list .rule_checkbox_group .glyphicon {
+        width: 25px;
+        display: inline-block;
+        height: 30px;
+        line-height: 28px;
+        text-align: center;
+        color: #bbb;
+    }
+    
+    .rule_checkbox_list span,
+    .rule_content_list .rule_checkbox_title {
+        font-size: 12px;
+        color: #666;
+        vertical-align: middle;
+        display: inline-block;
+    }
+    
+    .rule_content_list .rule_checkbox_title {
+        margin-left: 10px;
+    }
+    
+    .rule_content_list .rule_checkbox_title i {
+        font-style: normal;
+        color: #bbb;
+    }
+    
+    .bt_checkbox_groups {
+        display: inline-block;
+        height: 16px;
+        width: 16px;
+        border-radius: 1px;
+        cursor: pointer;
+        border: 1px solid #c2c2c2;
+        position: relative;
+        text-align: center;
+        line-height: 20px;
+        margin: 0;
+        vertical-align: top;
+    }
+    
+    .bt_checkbox_groups.active:after {
+        content: "\e013";
+        font-size: 12px;
+        transform: scale(.85);
+        position: absolute;
+        left: 2px;
+        top: 2px;
+    }
+    
+    .guide_body {
+        padding: 10px 0 25px 0;
+    }
+    
+    .guide_path {
+        display: flex;
+        padding: 30px 20px 30px 20px;
+    }
+    
+    .guide_path span {
+        display: inline-block;
+        flex: 1;
+        text-align: center;
+        position: relative;
+        z-index: 99999;
+    }
+    
+    .guide_path span i:nth-child(1) {
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        border-radius: 50%;
+        background: #d0d0d0;
+        color: #777;
+        text-align: center;
+        line-height: 31px;
+        font-size: 16px;
+        font-style: inherit;
+    }
+    
+    .guide_path span i:nth-child(2) {
+        display: block;
+        font-style: inherit;
+        font-size: 12px;
+        margin-top: 10px;
+        color: #666;
+    }
+    
+    .guide_path span.active i:nth-child(1) {
+        background: #20a53a;
+        color: #fff;
+    }
+    
+    .guide_path span.active i:nth-child(2) {
+        color: #20a53a;
+    }
+    
+    .guide_path_progress {
+        margin: 0 150px;
+        height: 3px;
+        display: inline-block;
+        position: absolute;
+        top: 54px;
+    }
+    
+    .guide_path_progress span:nth-child(1) {
+        width: 0;
+        display: inline-block;
+        background: #20a53a;
+        height: 3px;
+        z-index: 980;
+        position: absolute;
+        left: 0;
+    }
+    
+    .guide_path_progress span:nth-child(2) {
+        width: 300px;
+        display: inline-block;
+        background: #cccccc;
+        height: 3px;
+        position: absolute;
+        z-index: 900;
+        left: 0;
+    }
+    
+    .guide_content {
+        display: inline-block;
+        padding: 0 80px 20px 80px;
+        width: 100%;
+    }
+    
+    .guide_content_title {
+        margin-bottom: 15px;
+        font-size: 13px;
+    }
+    
+    .guide_content_text {
+        border: 1px solid #eee;
+        max-height: 280px;
+        overflow-y: auto;
+    }
+    
+    .guide_content_text span {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        display: block;
+        padding-left: 40px;
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .guide_content_text span.search_null {
+        text-align: center;
+        padding: 0;
+    }
+    
+    .guide_content_text span.search_null:after {
+        border: none;
+    }
+    
+    .guide_content_text span i em {
+        color: #999;
+        font-style: normal;
+        text-overflow: ellipsis;
+        margin-left: 20px;
+    }
+    
+    .guide_content_text span i {
+        display: inline-block;
+        font-style: inherit;
+        margin-right: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
+        width: 100%;
+    }
+    
+    .guide_content_text span i:nth-child(2) {
+        color: #999;
+        font-size: 12px;
+    }
+    
+    .guide_content_text span:hover {
+        background: #e0e0e0;
+    }
+    
+    .guide_content_text span.active {
+        background: #f3f3f3;
+        color: #666;
+    }
+    
+    .guide_content_text span.active:after {
+        content: '';
+        display: inline-block;
+        border: 1px solid #20a53a;
+        border-radius: 50%;
+        height: 16px;
+        width: 16px;
+        position: absolute;
+        left: 15px;
+        top: 11px;
+        background: #20a53a;
+        z-index: 900;
+    }
+    
+    .guide_content_text span.tips {
+        background: #e0e0e0;
+    }
+    
+    .guide_content_text span.active:before {
+        content: '';
+        display: inline-block;
+        border-bottom: 1.5px solid #ffffff;
+        border-right: 1.5px solid #ffffff;
+        width: 6px;
+        height: 10px;
+        transform: rotate(45deg);
+        position: absolute;
+        left: 20px;
+        top: 13px;
+        z-index: 999;
+    }
+    
+    .guide_content_text span:after {
+        content: '';
+        display: inline-block;
+        border: 1px solid #bdbdbd;
+        border-radius: 50%;
+        height: 16px;
+        width: 16px;
+        position: absolute;
+        left: 15px;
+        top: 11px;
+    }
+    
+    .glyphicon-btn {
+        position: absolute;
+        right: 42px;
+        height: 35px;
+        line-height: 35px;
+    }
+    
+    .glyphicon-btn span {
+        width: 40px;
+        text-align: center;
+        height: 35px;
+        line-height: 35px;
+        vertical-align: top;
+        color: red;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    
+    .glyphicon-btn span.not {
+        background: #efefef;
+        box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+        transition: all 500ms;
+        cursor: none;
+    }
+    
+    .rule_search_group {
+        display: inline-block;
+        padding-bottom: 10px;
+        position: relative;
+    }
+    
+    .rule_search_input {
+        height: 35px;
+        line-height: 35px;
+        padding-left: 15px;
+        border: 1px solid #ccc;
+        outline: none;
+        border-right: none;
+        width: 395px;
+        vertical-align: middle;
+        font-size: 13.5px;
+    }
+    
+    .rule_search_input:focus {
+        border: 1px solid #20a53a;
+    }
+    
+    .rule_button_group {
+        display: inline-block;
+    }
+    
+    .rule_search_group button {
+        height: 35px;
+        line-height: 36px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0 12px;
+        background: #20a53a;
+        color: #fff;
+        border: 1px solid #20a53a;
+        font-size: 16px;
+    }
+    
+    .layer_icon_success {
+        height: 50px;
+        width: 50px;
+        display: inline-block;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAFe0lEQVRoQ91aXYhUZRh+3jO72NYqdVWKOWfUCiqI8mKdMyZCpClRIbjmnGmtVJLdLWILWjEhaguFvCjbrVAjdc6sjQQZ4ZYU/cCccSG9kQItnTMSunbRRWtp7Mx545vd0fk7e35mjj97YG7me9/nfZ/z/b3f9xxCg57b9y695ebA6AoQtbGJWZB4JphmAZg5EeIciM/CpHMk4SyYh//NTz90vuPwP41IgeoBCSYXh6Rc/hGTeSkBq7xgMXBAIjpsNgW+y7b/lPGCIXw8EZkTb7s3QE2dDO7yGriWH4H685wbOBMb/tUtrisic/dE5phN3ElAFwOtboM5sSfgAgP9Uo4GTq9NnXHi46pHgnGlkyTaAuY7nILXZUc0wia/lY3pA05wHPVIKKHsZMZ6J4CNtiHCrkxU32CHa0tE1pSjAB6yA/K5/Zih6gsmizEpEVlT2OcEXcEbqm6Zr2WDHFcOgvCEq0h+GzO+NGL6k7VXvBr/ypryGoCtfuflEb/XUPVtlb5VPSLHI2tB/KnHIFfHjelZI5baUxqsjEhhn2jG8FVbYr3SJhqRxtBWus+UEZE1RQwnMaxuhGeboeq9xUQvExkvOwLDfu3Ybt6MKFUYPB/AMis/UQHkOd9WLGcuEwlpkQ8aXTu5SX7C9jyINxrR9BeyFl4GUBLADGsy1J9RU92ivUBkXjI8Pz9Gv3kI3DAXAjSpBT2nVup/ClA5oRwD40G7AIFmvutUe/r3ApFQQnmRGe/bOfnUfglAj6HqHxbx3WzERHgpE9V3FIjIWvgQQMt9StQSlkDfkoRNp9ekfi4ahRLKcWbc7zwXHjLU9Aq6Z3dk+n838d/OHRtlyQlDTaulaHJc2Q/CarcRpl2iGSQnwmvAlHDrXJc94RMjqq8rxQhpynYGejzhEkcplFDeZcYrngA8OBFjIBPTy06WobjSx4TNHuAKLkTYTnJcSYCwxiuIGz8CtmRUva+8JyLdDN7hBqfKljEohtb3YFpSF5ATZ6anjVjqszIS+yKPssRDAAJOIKxXDf6BZE05AeBuN0AEdJjMeSLSnPiZbC46EzuSKrWdN7j4zryZEyTuc4JhY3NSEBEr1nSHYL8EmvkpsQEJ+/nxttk5BMTQfNjSP28uNDqODFe2y1r4c4BWOoxrZzbqiggRrc5EU6JsKHuCcWUzEcrG/vgs5CVGNP1jFYlE+B0wbbLLzkV7gYi7oUUcNaLpwcogIS28ioFtAIXG2/gxQ01/U0XCn/POSU+TXcyRjKrvqyKzf9EDyJt9DOwyVP1gDRILAR4C4VYXb9velMRk9778PmeoetVJcnYy3PJHe/pireiypnw9WWlun7GFhVh+69kQiWhDJpra5SSBYDz8PBHtdmLr1qawIY6P7ULd7+0h2mhEUx/bOQfjynEiN8WgHeKVdgK3k5ADWgIXLjh3q7Zk5u5sLN1vhRHSwlsY9GY9MSbzvZhvbS2U8UFNSXqVBa4E4JcNNf2exdz4C8BtfhARskRW1dsnDlaR9cy8s95AzHg1G9O3l+LI8fBHIHqhXmwr/+I8He+R5OIQjeVONyhY2QWam9Oel/jc3DRXCES+XD4w4/VsTH87qCl7CXjGS4JOfMRtS9nlg3Dy4TroDQDi58tjeR0kok2JCzpBZMpcmRYmvpDYCJZ7gi/jxCUoM7oqJbma+si1lNrsOFlJcdZCz/UhuVXyspTgpr70VnwV14UEN4nkVszTVtWdWJavpRRXU2qrHHOOiBTIiCOqhK1XTc0iGoGJ3kqJzbLmslslStunxCccpYRu+I9qKntPCERmjpYz83LvsgQPEdGQ1MRDxfsyN6PE1WR3AlyQJ1rMxwm0wMmHZww+Ou2i9NWJdalRJ/h2Nv8DYGwtg0gmftkAAAAASUVORK5CYII=");
+        background-size: 50px;
+    }
+    
+    .config_success div {
+        padding-top: 15px;
+        font-size: 15px;
+        color: #777;
+    }
+    
+    .cache_box_item {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    
+    .cache_box_item:nth-child(1) {
+        padding-top: 0;
+        /* border-bottom: 1px dashed #ececec; */
+        padding-bottom: 10px;
+    }
+    
+    .cache_box_item.white_page {
+        padding: 0;
+        border-bottom: none;
+    }
+    
+    .cache_box_item .cache_title {
+        display: block;
+        margin-bottom: 10px;
+        height: 30px;
+        padding-left: 20px;
+        line-height: 30px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .cache_box_item .cache_line_title {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        padding-right: 10px;
+        vertical-align: middle;
+        width: 110px;
+        text-align: right;
+    }
+    
+    .cache_line_block {
+        margin-bottom: 15px;
+    }
+    
+    .cache_line_block input[type=text] {
+        width: 70%;
+        vertical-align: middle;
+    }
+    
+    .cache_line_block input[type=checkbox] {
+        vertical-align: middle;
+        margin-top: 0;
+        height: 15px;
+        width: 15px;
+    }
+    /*.site_login_cache {*/
+    /*    padding: 20px 0 0;*/
+    /*}*/
+    
+    .rule_block_box {
+        display: inline-block;
+        position: relative;
+    }
+    
+    .rule_block_box .rule_select_title {
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        cursor: pointer;
+        min-width: 150px;
+    }
+    
+    .rule_block_box .rule_select_title span {
+        padding-right: 4px;
+    }
+    
+    .rule_block_box .rule_select_title i {
+        color: #666;
+        transform: scale(.9);
+        position: absolute;
+        right: 7px;
+        top: 9px;
+        transition: all 500ms;
+    }
+    
+    .rule_drop_down {
+        display: none;
+        padding: 5px 0;
+        border: 1px solid #ececec;
+        position: absolute;
+        z-index: 999;
+        background: #fff;
+        left: 0;
+        right: 0;
+        box-shadow: 0px 0px 3px 1px #8c8c8ccc;
+    }
+    
+    .rule_drop_down li {
+        padding: 7px 10px;
+    }
+    
+    .rule_drop_down li.active {
+        background: #efefef;
+    }
+    
+    .rule_drop_down li:hover {
+        background: #efefef;
+        cursor: pointer;
+    }
+    
+    .overflow_inherit .layui-layer-content {
+        overflow: inherit;
+    }
+    
+    .overflow_inherit .help-info-text {
+        margin: -10px 0 20px 55px;
+    }
+    
+    .cache_inline_block {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .cache_inline_block label {
+        margin: 0;
+    }
+    
+    .cache_line_block input {
+        vertical-align: middle;
+    }
+    
+    .cache_inline_block .divtable {
+        width: 350px;
+    }
+    
+    .guide_content_text span.hide {
+        display: none;
+    }
+    
+    .guide_content_text span.show {
+        display: block;
+    }
+    
+    .search-input {
+        display: inline-block;
+        width: 215px;
+        font-size: 0;
+    }
+    
+    .search-input input {
+        border: 1px solid #20a53a;
+        display: inline-block;
+        height: 30px;
+        box-sizing: border-box;
+        width: 180px;
+        padding-left: 8px;
+        box-sizing: border-box;
+        outline: none;
+        border-right: none;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        font-size: 12px;
+    }
+    
+    .search-input button {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        background: #20a53a;
+        vertical-align: top;
+        color: #fff;
+        border: none;
+        width: 35px;
+        text-align: center;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        cursor: pointer;
+        outline: none;
+        font-size: 16px;
+    }
+    
+    .search-input button span {
+        position: relative;
+        top: 2px;
+    }
+    
+    .verison_templat {
+        font-size: 14px;
+        height: 32px;
+        line-height: 32px;
+        display: inline-block;
+        font-weight: 600;
+    }
+</style>
+<div class="bt-content" id="site_speed" style="height: 640px;">
+    <div class="bt-w-main">
+        <div class="bt-w-menu">
+            <p class="bgw" onclick="site_speed.get_sites()"> 网站加速</p>
+            <p onclick="site_speed.get_rule_list()">专属规则</p>
+            <p onclick="site_speed.get_all_rule()">全局配置</p>
+            <p onclick="site_speed.get_logs()">操作日志</p>
+        </div>
+        <!--内容部分-->
+        <div class="bt-w-con pd15">
+            <div class="plugin_body"></div>
+        </div>
+    </div>
+
+</div>
+
+<!--JS脚本部分，不要将JS脚本写在其它地方-->
+<script type="text/javascript">
+    /**
+     * 插件交互对象
+     * 您的所有JS代码可以写在里面
+     * 若不习惯JS的面向对象编程，可删除此对象，使用传统函数化的方式编写
+     * */
+    var site_speed = {
+        plugin_name: 'site_speed',
+        server_names: [],
+        init: function() {
+            var that = this;
+            setTimeout(function() {
+                $('.layui-layer-page').css({
+                    'width': '1000px',
+                    'top': (($(window).height() - 690) / 2) + 'px',
+                    'left': (($(window).width() - 900) / 2) + 'px'
+                });
+                that.get_sites();
+                //that.event.set_cache_guide();
+            }, 10);
+            //定义窗口尺寸
+            this.event = this.event();
+
+            //左测菜单切换效果
+            $(".bt-w-menu p").click(function() {
+                $(this).addClass('bgw').siblings().removeClass('bgw')
+            });
+            Array.prototype.indexOf = function(val) {
+                for (var i = 0; i < this.length; i++) {
+                    if (this[i] == val) return i;
+                }
+                return -1;
+            };
+            Array.prototype.remove = function(val) {
+                var index = this.indexOf(val);
+                if (index > -1) {
+                    this.splice(index, 1);
+                }
+            };
+        },
+        // 表格事件
+        event: function() {
+            var that = this; // 当前对象this指向
+            // 统一返回参数 el，当前jquery对象，data:当前row行数据,ev:事件触发的Event 对象
+            return {
+                // 设置PHP过滤模块，没安装的安装，没启动的启动
+                set_site_speed_module: function(el, data, ev) {
+                    site_speed.set_php_status(data.v, 1, 1);
+                },
+                // 设置站点过滤服务状态
+                set_site_server_status: function(el, data, ev) {
+                    var checked = $(this).prev().prop('checked'),
+                        _that = $(this);
+                    // bt.confirm({title:'设置站点过滤服务状态',msg:'是否'+ (data.open?'关闭':'开启') +'【'+ data.site_name +'】的过滤服务状态,是否继续？',cancel:function(){
+                    //     _that.prev().prop('checked',checked);
+                    // }},function(){
+                    site_speed.set_site_status(data.site_name);
+                    // },function(){
+                    //   _that.prev().prop('checked',checked);
+                    // });
+                },
+                // 设置服务器过滤规则
+                set_site_filter_rule: function(el, data, ev) {
+                    site_speed.show_filter_liet(data);
+                },
+                set_cache_guide: function(el, data, ev) {
+                    site_speed.config = {
+                        site: data.site_name,
+                        type: 1,
+                        speed: 1,
+                        data: {},
+                        layerT: null,
+                        // 效验进度
+                        verify_progress: function(callback) {
+                            if (callback) callback()
+                        },
+                        // 设置进度信息
+                        set_speed_info: function(param) {
+                            var that = this;
+                            if (param.title) {
+                                $('.guide_content_title').html(param.title).show();
+                            } else {
+                                $('.guide_content_title').hide();
+                            }
+                            if (param.content) {
+                                if (typeof param.content != "string") {
+                                    var _html = '',
+                                        is_active = 0,
+                                        _param = param.content;
+                                    for (var i = 0; i < _param.length; i++) {
+                                        var item = _param[i];
+                                        if (item.active) is_active++;
+                                        _html += '<span ' + (item.active ? 'class="active"' : '') + ' data-type="' + (i + 1) + '" title="' + (item.ps ? item.ps : '') + '" ' + (param.typeName == 'rule_list' ? ('data-rule="' + item.name + '"') : '') + '><i>' + item.name + '<em>' + (item.ps ? item.ps : '') + '</em></i></span>';
+                                    }
+                                    $('.guide_content_text').html(_html);
+                                    if (param.typeName == 'rule_list') {
+                                        _html = '<div class="rule_search_group"><input type="teaxt" class="rule_search_input" placeholder="搜索专属规则"/>' +
+                                            '<div class="rule_button_group">' +
+                                            '<div class="glyphicon-btn">' +
+                                            '<span class="glyphicon glyphicon-remove" aria-hidden="true" title="清理搜索内容" style="display:none;"></span>' +
+                                            '</div>' +
+                                            '<button type="button" class="rule_search_btn"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></div></div>'
+                                        $('.guide_content_text').before(_html);
+                                        $('.rule_search_input').keyup(function(e) {
+                                            var _val = $(this).val().toLocaleLowerCase();
+                                            $('.guide_content_text .search_null').remove();
+                                            for (var i = 0; i < _param.length; i++) {
+                                                var item = _param[i],
+                                                    _ps = item.ps.toLocaleLowerCase(),
+                                                    _name = item.name.toLocaleLowerCase();
+                                                if ((_ps.indexOf(_val) > -1 || _name.indexOf(_val) > -1) && _val != '') {
+                                                    $('.guide_content_text>span:eq(' + i + ')').addClass('show').removeClass('hide');
+                                                } else {
+                                                    $('.guide_content_text>span:eq(' + i + ')').addClass('hide').removeClass('show');
+                                                }
+                                            }
+                                            if (_val == '') {
+                                                $('.guide_content_text>span').addClass('show').removeClass('hide');
+                                                $('.glyphicon-btn span').hide();
+                                            } else {
+                                                $('.glyphicon-btn span').show();
+                                            }
+                                            if ($('.guide_content_text>span.show').length == 0) {
+                                                $('.guide_content_text').append('<span class="search_null">搜索匹配内容为空</span>');
+                                            }
+                                        });
+                                        $('.glyphicon-btn span').click(function() {
+                                            $(this).hide();
+                                            $('.guide_content_text>span').addClass('show').removeClass('hide');
+                                            $('.rule_search_input').val('');
+                                            $('.glyphicon-btn span').hide();
+                                        });
+                                    }
+                                    if (!is_active) $('.guide_content_text span:eq(0)').addClass('active');
+                                } else {
+                                    $('.guide_content_text').html(param.content);
+                                }
+                            }
+                            if (param.help) {
+                                var _html = '';
+                                if (!Array.isArray(param.help)) param.help = [param.help];
+                                for (var i = 0; i < param.help.length; i++) {
+                                    var item = param.help[i],
+                                        is_string = (typeof item === 'string');
+                                    _html += '<li ' + (!is_string ? (item.class ? 'class="' + item.class + '"' : '') : '') + '>' + (!is_string ? item.val : item) + '</li>';
+                                }
+                                $('.guide_content .help-info-text').html(_html).show();
+                            } else {
+                                $('.guide_content .help-info-text').hide();
+                            }
+                            $('.guide_content_text').attr('data-name', param.typeName ? param.typeName : '');
+                            $('.set_cookie_speed .layui-layer-btn1').text(that.speed == 1 ? '取消' : '上一步');
+                            $('.set_cookie_speed .layui-layer-btn0').text((that.type == 1 && that.speed == 2) || (that.type == 2 && that.speed == 5) ? '完成规则配置' : '下一步');
+                            $('.guide_path_progress span').eq(0).width(((that.speed - 1) != 0 ? (that.speed - 1) * (that.type == 1 ? 300 : 110) : '0') + 'px');
+                            $('.guide_path span').each(function(index, el) {
+                                if (that.speed >= (index + 1)) {
+                                    $(this).addClass('active');
+                                } else {
+                                    $(this).removeClass('active');
+                                }
+                            });
+                            if (param.success) param.success();
+                            $.extend(that, {
+                                verify_progress: (param.verify ? param.verify : function(callback) {
+                                    if (callback) callback()
+                                })
+                            });
+                        },
+                        // 设置进度操作
+                        set_speed_progress_option: function(type, data) {
+                            var that = this;
+                            switch (type) {
+                                // 选择规则类型
+                                case 'select_rule_type':
+                                    var arry = [{
+                                        'name': '专属规则',
+                                        'active': (data[0] == 1 ? true : false)
+                                    }, {
+                                        'name': '自定义规则',
+                                        'active': (data[0] == 2 ? true : false)
+                                    }];
+                                    $('.guide_content_text').removeAttr('style');
+                                    site_speed.config.set_speed_info({
+                                        title: '选择缓存规则类型：',
+                                        content: arry,
+                                        typeName: 'rule_type',
+                                        help: ['专属规则：针对指定项目类型制作的规则（例如：WordPress、Discuz），方便用户快速设置。', '自定义规则：用户根据自己项目自定义规则。']
+                                    });
+                                    break;
+                                    // 设置专属规则
+                                case 'exclusive_rule':
+                                    request_plugin(site_speed.plugin_name, 'get_rule_list', {}, function(rdata) {
+                                        var rule_list = rdata.rule_list,
+                                            _html = '';
+                                        site_speed.config.set_speed_info({
+                                            title: '选择专属规则：',
+                                            content: rule_list,
+                                            typeName: 'rule_list',
+                                            help: '根据项目类型，指定对应专属缓存规则。',
+                                            success: function() {
+                                                var layers = $('#layui-layer' + site_speed.config.layerT);
+                                                layers.css({
+                                                    'top': (($(window).height() - layers.height()) / 2) + 'px'
+                                                });
+                                            }
+                                        });
+                                    });
+                                    break;
+
+                                    // 保存专属规则
+                                case 'save_exclusive_rule':
+                                    console.log(site_speed)
+                                    site_speed.config.data.rule = $('.guide_content_text span.active').attr('data-rule');
+                                    request_plugin(site_speed.plugin_name, 'set_site_rule', {
+                                        'siteName': site_speed.config.site,
+                                        'ruleName': site_speed.config.data.rule
+                                    }, function(res) {
+                                        if (res.status) {
+                                            layer.close(that.layerT)
+                                            site_speed.get_sites(function() {
+                                                layer.msg(res.msg, {
+                                                    icon: res.status ? 1 : 2
+                                                });
+                                            });
+                                        }
+                                    });
+                                    break;
+
+                                    // 设置缓存目录
+                                case 'cache_dir':
+                                    $('.guide_content_text').css('border', 'none');
+                                    site_speed.config.set_speed_info({
+                                        title: '选择站点缓存目录：',
+                                        content: '<input type="text" name="cache_dir" class="bt-input-text mr5" style="width:430px" placeholder="设置需要缓存的目录，默认为根目录，可自定义输入"  value="' + (that.data.white ? that.data.white.not_uri[0] : '/') + '">',
+                                        typeName: 'cache_dir',
+                                        help: '设置需要缓存的目录，默认为根目录(全站缓存)，可自定义设置只缓存指定URI，此处支持正则表达式',
+                                        verify: function(next) {
+                                            if (that.data.white) delete that.data.white;
+                                            var dir = $('input[name=cache_dir]').val();
+                                            if (dir == '') {
+                                                layer.msg('缓存目录不能为空', {
+                                                    icon: 2
+                                                });
+                                                return false;
+                                            }
+                                            that.data.white = {
+                                                not_uri: [dir]
+                                            };
+                                            next();
+                                        }
+                                    });
+                                    break;
+
+                                    // 白名单页面
+                                case 'white_page':
+                                    $('.guide_content_text').css('border', 'none');
+                                    var html = '',
+                                        uri = that.data.white.uri;
+                                    if (uri) {
+                                        for (var i = 0; i < uri.length; i++) {
+                                            html += '<div class="cache_line_block"><input type="text" class="bt-input-text mr5" value="' + uri[i] + '" placeholder="URI地址" style="width: 88%;" />' + (((uri.length - 1) == i) ? '<button class="btn btn-success btn-sm add_white_page">添加</button>' : '') + '</div>'
+                                        }
+                                    } else {
+                                        html = '<div class="cache_line_block"><input type="text" class="bt-input-text mr5" placeholder="URI地址" style="width: 88%;" /><button class="btn btn-success btn-sm add_white_page">添加</button></div>'
+                                    }
+                                    site_speed.config.set_speed_info({
+                                        title: '设置不缓存URI关键词：',
+                                        content: '<div class="cache_box_item white_page">' + html + '</div>',
+                                        typeName: 'set_wicth',
+                                        help: '包含不缓存规则关键词的URI地址不会被缓存，此处支持正则表达式。',
+                                        success: function() {
+                                            $('.guide_content_text').on('click', '.add_white_page', function() {
+                                                $(this).parent().parent().append('<div class="cache_line_block"><input type="text" class="bt-input-text mr5" placeholder="URI地址" style="width: 88%;" /><button class="btn btn-success btn-sm add_white_page" >添加</button></div>')
+                                                $(this).remove();
+                                            });
+                                        },
+                                        verify: function(next) {
+                                            if (that.data.white.uri) delete that.data.white.uri;
+                                            var arry = [];
+                                            $('.white_page input').each(function(el, index) {
+                                                if ($(this).val() != '') arry.push($(this).val());
+                                            });
+                                            if (arry.length != 0) that.data.white.uri = arry;
+                                            next();
+                                        }
+                                    });
+                                    break;
+
+                                    // 登录特征
+                                case 'login_features':
+                                    $('.guide_content_text').css('border', 'none');
+                                    var _cookie = that.data.cookie,
+                                        _login_success = that.data.login_success,
+                                        _login_out = that.data.login_out;
+                                    site_speed.config.set_speed_info({
+                                        content: '<form class="site_login_cache">' +
+                                            '<div class="cache_box_item">' +
+                                            '<div class="cache_title">设置登录特征</div>' +
+                                            '<div class="cache_centent">' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">特征类型:</div><div class="btn-group cut_cache_features" role="group"><button type="button" class="btn btn-sm btn-success" data-type="0">Cookie特征</button><button type="button" class="btn btn-sm btn-default" data-type="1">请求特征</button></div></div>' +
+                                            '<div class="features_type_item">' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">cookie匹配:</div><input type="text" class="bt-input-text mr5" name="cookie" value="' + (typeof _cookie == "undefined" ? '' : _cookie) + '" placeholder="cookie中包含指定内容,支持正则表达式" /></div>' +
+                                            '</div>' +
+                                            '<div class="features_type_item" style="display: none;">' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">请求类型:</div><select class="bt-input-text mr5" name="method"><option value="POST">POST</option><option value="GET">GET</option></select></div>' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">请求接口:</div><input type="text" class="bt-input-text mr5"  name="uri" placeholder="点击登录时请求的URI地址" /></div>' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">请求响应内容:</div><input type="text" class="bt-input-text mr5"  name="success" placeholder="若登录成功，响应内容中包含的值" /></div>' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">SESSION_ID:</div><input type="text" class="bt-input-text mr5" name="sessionid_key" placeholder="项目在cookie中用于识别会话的sessionid" /></div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="cache_box_item" style="display: none;">' +
+                                            '<div class="cache_title">设置退出登录特征</div>' +
+                                            '<div class="cache_centent">' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">请求类型:</div><select class="bt-input-text mr5" name="method"><option value="GET">GET</option><option value="POST">POST</option></select></div>' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">请求接口:</div><input type="text" class="bt-input-text mr5" name="uri" placeholder="退出登录时请求的URI地址" /></div>' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">请求响应内容:</div><input type="text" class="bt-input-text mr5" name="success" placeholder="若登录成功，响应内容中包含的值，无特殊需求此处一般为空" /></div>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '</form>',
+                                        typeName: 'cache_dir',
+                                        help: '登录后有Cookie特征的，请优先使用Cookie特征，会大量提升效率',
+                                        success: function(layers, index) {
+                                            $('.cut_cache_features button').click(function() {
+                                                var type = parseInt($(this).attr('data-type'));
+                                                $('.features_type_item:eq(' + type + ')').show();
+                                                $('.features_type_item:eq(' + (type == 1 ? 0 : 1) + ')').hide();
+                                                if (!type) {
+                                                    $('.cache_box_item:eq(0)').show();
+                                                    $('.cache_box_item:eq(1)').hide();
+                                                    $('.features_type_item:eq(0)').show();
+                                                    $('.features_type_item:eq(1)').hide();
+                                                } else {
+                                                    $('.cache_box_item:eq(0)').show();
+                                                    $('.cache_box_item:eq(1)').show();
+                                                    $('.features_type_item:eq(0)').hide();
+                                                    $('.features_type_item:eq(1)').show();
+                                                }
+                                                $(this).addClass('btn-success').removeClass('btn-default').siblings().removeClass('btn-success').addClass('btn-default')
+                                                var layers = $('#layui-layer' + site_speed.config.layerT);
+                                                layers.css({
+                                                    'top': (($(window).height() - layers.height()) / 2) + 'px'
+                                                });
+                                            });
+                                            if (typeof _login_success != "undefined" || typeof _login_out != "undefined") {
+                                                $('.cut_cache_features button:eq(1)').click();
+                                                if (_login_success) {
+                                                    $('.cache_box_item select:eq(0)').val(_login_success.method);
+                                                    $('.features_type_item input').each(function(index, el) {
+                                                        if (_login_success[$(this).attr('name')]) $(this).val(_login_success[$(this).attr('name')]);
+                                                    });
+                                                }
+                                                if (_login_out) {
+                                                    $('.cache_box_item select:eq(1)').val(_login_out.method);
+                                                    $('.cache_box_item:eq(1) .cache_centent input').each(function(index, el) {
+                                                        if (_login_out[$(this).attr('name')]) $(this).val(_login_out[$(this).attr('name')]);
+                                                    });
+                                                }
+                                            }
+                                        },
+                                        verify: function(next) {
+                                            var type = parseInt($('.cut_cache_features button.btn-success').attr('data-type'));
+                                            delete that.data.cookie;
+                                            delete that.data.login_success;
+                                            delete that.data.login_out;
+                                            var form = $('.site_login_cache').serializeObject();
+                                            for (var key in form) {
+                                                if (form[key] != '') {
+                                                    if (!type) {
+                                                        if (key == 'cookie') {
+                                                            that.data['white'][key] = [form[key]];
+                                                            break;
+                                                        }
+                                                    } else {
+                                                        if (key == 'sessionid_key') {
+                                                            if (!that.data.login_success) that.data.login_success = {};
+                                                            that.data.login_success[key] = form[key];
+                                                            continue;
+                                                        }
+                                                        if (Array.isArray(form[key])) {
+                                                            if (form[key][0] != '') {
+                                                                if (!that.data.login_success) that.data.login_success = {};
+                                                                that.data.login_success[key] = form[key][0];
+                                                            }
+                                                            if (form[key][1] != '') {
+                                                                if (!that.data.login_out) that.data.login_out = {};
+                                                                that.data.login_out[key] = form[key][1];
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            next();
+                                        }
+                                    });
+                                    break;
+
+                                    // 设置空cookie和缓存周期
+                                case 'custom_exclusive':
+                                    site_speed.config.set_speed_info({
+                                        title: '设置空Cookie和缓存周期：',
+                                        content: '<div class="cache_box_item white_page">' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">缓存周期：</div><input type="number"  class="bt-input-text mr5" name="expire"   placeholder="加速缓存周期，默认为30秒，不可为空" value="30" />秒</div>' +
+                                            '<div class="cache_line_block"><div class="cache_line_title">空Cookie：</div><input type="checkbox" checked="checked" class="mr5" name="empty_cookie" /></div>' +
+                                            '</div>',
+                                        typeName: 'set_wicth',
+                                        help: ['【缓存周期】时间越短，站点内容更新频率越高，效果越差，建议30秒以上', '【空Cookie】允许缓存空Cookie请求，建议勾选'],
+                                        verify: function(next) {
+                                            $('.cache_line_block input').each(function() {
+                                                var name = $(this).attr('name'),
+                                                    val = parseInt($(this).val());
+                                                if (name == 'empty_cookie') {
+                                                    that.data[name] = $(this).prop('checked');
+                                                } else {
+                                                    that.data[name] = isNaN(val) ? 30 : val;
+                                                }
+                                            });
+                                            next();
+                                        }
+                                    });
+                                    break;
+                                    // 保存自定义规则
+                                case 'save_site_guide':
+                                    request_plugin(site_speed.plugin_name, 'create_rule', {
+                                        siteName: site_speed.config.site,
+                                        rules: JSON.stringify(that.data)
+                                    }, function(res) {
+                                        if (res.status) {
+                                            layer.close(site_speed.config.layerT)
+                                            site_speed.get_sites(function() {
+                                                layer.msg(res.msg, {
+                                                    icon: res.status ? 1 : 2
+                                                });
+                                            });
+                                        }
+                                    });
+                                    break;
+                            }
+                        }
+                    }
+                    var progress_conf = {
+                        'select_rule_type': [1, 1],
+                        'exclusive_rule': [1, 2],
+                        'save_exclusive_rule': [1, 3],
+                        'cache_dir': [2, 2],
+                        'white_page': [2, 3],
+                        'login_features': [2, 4],
+                        'custom_exclusive': [2, 5],
+                        'save_site_guide': [2, 6]
+                    };
+                    site_speed.config.layerT = layer.open({
+                        type: 1,
+                        area: '600px',
+                        title: '【' + data.domains[0] + '】缓存规则配置向导',
+                        shift: 5,
+                        closeBtn: 2,
+                        shadeClose: false,
+                        skin: 'set_cookie_speed',
+                        btn: ['下一步', '取消'],
+                        content: '<div class="guide_body">' +
+                            '<div class="guide_path" data-type="2"><span class="active"><i>1</i><i>选择规则类型</i></span><span><i>2</i><i>设置专属规则</i></span></div>' +
+                            '<div class="guide_path_progress" data-progress="1"><span></span><span></span></div>' +
+                            '<div class="guide_content" id="guide_content">' +
+                            '<div class="guide_content_title">选择缓存规则类型：</div>' +
+                            '<div class="guide_content_text" data-name="rule_type"><span class="active" data-type="1">专属规则</span><span data-type="2">自定义规则</span></div>' +
+                            '<ul class="help-info-text c7">' +
+                            '<li>专属规则：针对指定项目类型制作的规则（例如：WordPress、Discuz），方便用户快速设置。</li>' +
+                            '<li>自定义规则：用户根据自己项目自定义的规则。</li>' +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>',
+                        success: function(layers, index) {
+                            $('.guide_body').on('click', '.guide_content_text span', function() {
+                                var type = parseInt($(this).attr('data-type')),
+                                    name = $(this).parent().attr('data-name');
+                                if ($(this).hasClass('search_null')) return false;
+                                switch (name) {
+                                    case 'rule_type':
+                                        if (type == 1) {
+                                            $('.guide_path').html('<span class="active"><i>1</i><i>选择规则类型</i></span><span><i>2</i><i>设置专属规则</i></span>');
+                                            $('.guide_path_progress').css({
+                                                'margin': '0 150px'
+                                            });
+                                            $('.guide_path_progress span').eq(1).width('300px');
+                                            progress_conf['select_rule_type'][0] = site_speed.config.type = 1;
+                                        } else {
+                                            $('.guide_path').html('<span class="active"><i>1</i><i>选择规则类型</i></span><span><i>2</i><i>设置缓存目录</i></span><span><i>3</i><i>设置不缓存地址</i></span><span><i>4</i><i>设置登录特征</i></span><span><i>5</i><i>完成设置</i></span>');
+                                            $('.guide_path_progress').css({
+                                                'margin': '0 80px'
+                                            });
+                                            $('.guide_path_progress span').eq(1).width('430px');
+                                            progress_conf['select_rule_type'][0] = site_speed.config.type = 2;
+                                        }
+                                        $('.guide_path_progress span').eq(0).width('0');
+                                        break;
+                                    case 'rule_list':
+                                        site_speed.config.data.rule = $('.guide_content_text span.active').attr('data-rule');
+                                        break;
+                                }
+                                $(this).addClass('active').siblings().removeClass('active');
+                            });
+                        },
+                        yes: function(index, layers) {
+                            site_speed.config.verify_progress(function() {
+                                site_speed.config.speed++;
+                                for (var key in progress_conf) {
+                                    if (progress_conf[key][0] == site_speed.config.type && progress_conf[key][1] == site_speed.config.speed) {
+                                        site_speed.config.set_speed_progress_option(key, progress_conf[key]);
+                                    }
+                                }
+                            });
+                            $(layers).css({
+                                'top': (($(window).height() - $(layers).height()) / 2) + 'px'
+                            });
+                        },
+                        btn2: function(index, layers) {
+                            site_speed.config.speed--;
+                            for (var key in progress_conf) {
+                                if (progress_conf[key][0] == site_speed.config.type && progress_conf[key][1] == site_speed.config.speed) site_speed.config.set_speed_progress_option(key, progress_conf[key]);
+                            }
+                            if (!site_speed.config.speed) {
+                                layer.close(index);
+                                return false;
+                            }
+                            $(layers).css({
+                                'top': (($(window).height() - $(layers).height()) / 2) + 'px'
+                            });
+                            $('.rule_search_group').remove();
+                            return false;
+                        },
+                        end: function() {
+
+                        }
+                    });
+                },
+                // 获取站点过滤日志
+                get_site_filter_logs: function(el, data, ev) {
+                    site_speed.get_site_logs(data.site_name, null);
+                },
+                // 数据库选择事件-ok
+                checkboxMysql: function(el, data, ev) {
+                    var _type = $(this).attr('bt-event-type'),
+                        _checkbox = '.bt_checkbox_groups';
+                    switch (_type) {
+                        case 'active_all': //选中全部
+                            var thatActive = $(this).find(_checkbox),
+                                thatList = $(this).next();
+                            if (thatActive.hasClass('active')) {
+                                thatActive.removeClass('active').prev().prop('checked', false);
+                                thatList.find(_checkbox).removeClass('active').prev().prop('checked', false);
+                            } else {
+                                thatActive.addClass('active').prev().prop('checked', true);
+                                thatList.find(_checkbox).addClass('active').prev().prop('checked', true);
+                            }
+                            break;
+                        case 'active': //激活选中和取消
+                            var thatActive = $(this).find(_checkbox),
+                                thatList = $(this).next();
+                            if (thatActive.hasClass('active')) {
+                                thatActive.removeClass('active').prev().prop('checked', false);
+                                $('.mysql_content_list>.mysql_checkbox_group input').prop('checked', false).next().removeClass('active');
+                                if (thatList.length == 1) {
+                                    thatList.find(_checkbox).removeClass('active').prev().prop('checked', false);
+                                } else {
+                                    var nodeLength = $(this).parent().siblings().length + 1,
+                                        nodeList = $(this).parent().parent();
+                                    if (nodeList.find('.bt_checkbox_groups.active').length != nodeLength) {
+                                        nodeList.prev().find(_checkbox).removeClass('active').prev().prop('checked', false);
+                                    }
+                                }
+                            } else {
+                                thatActive.addClass('active').prev().prop('checked', true);
+                                if (thatList.length == 1) {
+                                    thatList.find(_checkbox).addClass('active').prev().prop('checked', true);
+                                } else {
+                                    var nodeLength = $(this).parent().siblings().length + 1,
+                                        nodeList = $(this).parent().parent();
+                                    if (nodeList.find('.bt_checkbox_groups.active').length == nodeLength) {
+                                        nodeList.prev().find(_checkbox).addClass('active').prev().prop('checked', true);
+                                    }
+                                }
+                            }
+                            break;
+                        case 'fold': //折叠数据库列表
+                            if ($(this).hasClass('glyphicon-menu-down')) {
+                                $(this).removeClass('glyphicon-menu-down').addClass('glyphicon-menu-right').parent().next().hide();
+                            } else {
+                                $(this).removeClass('glyphicon-menu-rigth').addClass('glyphicon-menu-down').parent().next().show();
+                            }
+                            break;
+                    }
+                    $('.rule_content_list').removeAttr('style');
+                    ev.stopPropagation();
+                },
+            }
+        },
+
+        get_all_rule: function() {
+            var html = '',
+                that = this;
+            request_plugin(site_speed.plugin_name, 'get_settings', {}, function(rdata) {
+                var list = '';
+                if (rdata.ip_for.length == 0) list += '<tr><td colspan="2">列表为空</td></tr>'
+                for (var i = 0; i < rdata.ip_for.length; i++) {
+                    list += '<tr><td>' + rdata.ip_for[i] + '</td><td style="text-align: right"><a href="javascript:;" class="btlink del_ip_for" data-index="' + i + '">删除</td></tr>';
+                }
+                var html = '<div class="cache_box_item white_page" style="padding-top: 25px;padding: 25px 0;">' +
+                    '<div class="cache_line_block"><div class="cache_line_title">服务总开关</div><div class="cache_inline_block"><input class="btswitch btswitch-ios" id="cache_open" type="checkbox" ' + (rdata.open ? 'checked="checked"' : '') + ' /><label class="btswitch-btn" for="cache_open"></label></div></div>' +
+                    '<div class="cache_line_block"><div class="cache_line_title">缓存大小</div><input type="number"  class="bt-input-text mr5" name="cache_size"  placeholder="缓存大小，不可为空" value="' + rdata.cache.size + '" />MB<button type="button" class="btn btn-sm btn-success save_all_size" style="margin-left: 5px;">保存</button></div>' +
+                    '<div class="cache_line_block"><div class="cache_line_title" style="vertical-align: top;">代理识别键</div><div class="cache_inline_block"><input type="text" class="bt-input-text mr5" value="" placeholder="代理识别键" style="width: 298px;vertical-align: top;"><button type="button" class="btn btn-sm btn-success add_ip_for" style="margin-bottom: 10px">添加</button><div class="divtable"><table class="table table-hover mb0"><thead><tr><th>内容</th><th style="text-align: right">操作</th></tr></thead><tbody>' + list + '</tbody></table></div></div></div>' +
+                    '<ul class="help-info-text c7" style="margin-left:48px"><li>【服务总开关】关闭后所有站点加速被关闭</li><li>【缓存大小】站点内容越多，需要的缓存越大，小型建议设置64M以上，大型站点建议512M以上</li><li>【代理识别键】用于识别客户端IP地址，若您使用了CDN且无法正确识别客户IP，可能需要添加对应的CDN头</li></ul></div>';
+                $('.plugin_body').html(html);
+
+                function get_ip_for() {
+                    var arry = []
+                    $('.cache_inline_block table tr').each(function() {
+                        var val = $(this).find('td:eq(0)').text();
+                        if (val != '') arry.push(val);
+                    });
+                    return JSON.stringify(arry);
+                }
+                $('#cache_open').click(function() {
+                    var open = $(this).prop('checked') ? 1 : 0;
+                    that.set_all_rule({
+                        'open': open
+                    }, function(rdata) {
+                        layer.msg(rdata.msg, {
+                            icon: rdata.status ? 1 : 2
+                        });
+                    });
+                });
+                $('.save_all_size').click(function() {
+                    var cache_size = $(this).prev().val(),
+                        cache = rdata.cache;
+                    cache.size = cache_size;
+                    that.set_all_rule({
+                        'cache': JSON.stringify(cache)
+                    }, function(rdata) {
+                        layer.msg(rdata.msg, {
+                            icon: rdata.status ? 1 : 2
+                        });
+                    });
+                })
+                $('.add_ip_for').click(function() {
+                    var val = $(this).prev().val();
+                    if (val == '') {
+                        layer.msg('代理识别键为空', {
+                            icon: 0
+                        });
+                        return false;
+                    }
+                    $('.cache_inline_block table tbody').append('<tr><td>' + val + '</td></tr>')
+                    that.set_all_rule({
+                        'ip_for': get_ip_for()
+                    }, function(rdata) {
+                        layer.msg(rdata.msg, {
+                            icon: rdata.status ? 1 : 2
+                        });
+                        site_speed.get_all_rule();
+
+                    });
+                });
+                $('.del_ip_for').click(function() {
+                    $(this).parent().parent().remove();
+                    that.set_all_rule({
+                        'ip_for': get_ip_for()
+                    }, function(rdata) {
+                        layer.msg(rdata.msg, {
+                            icon: rdata.status ? 1 : 2
+                        });
+                    });
+                });
+            });
+        },
+        // 设置全局规则
+        set_all_rule: function(config, callback) {
+            request_plugin(site_speed.plugin_name, 'set_settings', config, function(rdata) {
+                if (callback) callback(rdata)
+            });
+        },
+        //获取专属规则列表
+        get_rule_list: function(force) {
+            request_plugin(site_speed.plugin_name, 'get_rule_list', {
+                force: force
+            }, function(rdata) {
+                var index_body = '',
+                    my_body = '';
+                site_speed.rule = rdata;
+                site_speed.each(rdata.rule_list, function(index, item) {
+                    index_body += '<tr>\
+                        <td><span class="size_ellipsis" style="display:block;width:145px">' + item.name + '</span></td>\
+                        <td><span class="size_ellipsis"  style="display:block;width:520px">' + item.ps + '</span></td>\
+                        <td style="text-align: right;"><a class="btlink" onclick="site_speed.show_rule_site(\'' + item.name + '\')">指派</a></td></tr>';
+                });
+                my_body += '<div style="overflow:hidden"><button class="btn btn-sm btn-success" onclick="site_speed.get_rule_list(1);">更新规则列表</button><div class="pull-right" style="margin-bottom:10px">' +
+                    '<div class="search-input"><input type="text" class="search_port_val" placeholder="搜索专属规则"><button type="submit" class="search_port_btn"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></div></div></div><div class="site_speed_table bt-table"><div class="divtable" style="height: 420px;">' +
+                    '<table class="table table-hover">' +
+                    '<thead>' +
+                    '<tr><th width="160px">规则名称</th><th>描述</th><th width="110px" style="text-align: right;">操作</th></tr>' +
+                    '</thead>' +
+                    '<tbody>' + index_body + '</tbody>' +
+                    '</table>' +
+                    '</div></div>';
+
+                my_body += '<ul class="help-info-text c7">';
+                my_body += '<li>通过【指派】按钮，可批量为您的站点指派专属规则</li>';
+                my_body += '<li>请根据实际项目类型指派专属规则</li>';
+                my_body += '<li>若指派专属规则后网站访问异常，请指派回默认规则</li>';
+                my_body += '</ul>';
+                $('.plugin_body').html(my_body);
+                $('.search-input .search_port_val').keyup(function() {
+                    var _val = $(this).val().toLocaleLowerCase(),
+                        _rule_list = rdata.rule_list;
+                    $('.site_speed_table tbody .search_null').remove();
+                    for (var i = 0; i < _rule_list.length; i++) {
+                        var item = _rule_list[i],
+                            _ps = item.ps.toLocaleLowerCase(),
+                            _name = item.name.toLocaleLowerCase();
+                        console.log((_ps.indexOf(_val) > -1, _name.indexOf(_val) > -1), _val);
+                        if ((_ps.indexOf(_val) > -1 || _name.indexOf(_val) > -1) && _val != '') {
+                            $('.site_speed_table tbody tr:eq(' + i + ')').removeClass('hide');
+                        } else {
+                            $('.site_speed_table tbody tr:eq(' + i + ')').addClass('hide').removeClass('show');
+                        }
+                    }
+                    if (_val == '') {
+                        $('.site_speed_table tbody tr').removeClass('hide show');
+                    }
+                    if ($('.site_speed_table tbody tr.hide').length == _rule_list.length) {
+                        $('.site_speed_table tbody').append('<tr class="search_null" ><td colspan="3" style="text-align:center;">搜索匹配内容为空</tr>');
+                    }
+                    if (_rule_list.length - $('.site_speed_table tbody tr.hide').length > 13) {
+                        $('.site_speed_table .tbody_shadow_bottom').show();
+                    } else {
+                        $('.site_speed_table .tbody_shadow_bottom').hide();
+                    }
+                });
+                site_speed.site_list = rdata.site_list;
+                if (jQuery.prototype.fixedThead) {
+                    $('.site_speed_table .divtable').fixedThead({
+                        resize: false
+                    });
+                } else {
+                    $('.site_speed_table .divtable').css({
+                        'overflow': 'auto'
+                    });
+                }
+            });
+        },
+        // 显示站点专属规则指派列表
+        show_rule_site: function(ruleName) {
+            var that = this;
+            var loadT = layer.msg('正在加载数据，请稍后...', {
+                icon: 16,
+                time: 0,
+                shade: 0.3
+            });
+            var rule_site_list = '';
+            that.each(site_speed.site_list, function(index, item) {
+                rule_site_list += '<li>' +
+                    '<div class="rule_checkbox_group" bt-event-click="checkboxMysql" bt-event-type="active">' +
+                    '<span class="glyphicon glyphicon-menu-right" style="display:none" aria-hidden="true" bt-event-click="checkboxMysql" bt-event-type="fold"></span>' +
+                    '<input name="' + item + '" type="checkbox" data-type="library" style="display: none;">' +
+                    '<div class="bt_checkbox_groups"><span></span><span></span></div>' +
+                    '<span class="rule_checkbox_title">' + item + '</span>' +
+                    '</div>' +
+                    '</li>'
+                if(index === (site_speed.site_list.length - 1)) {
+                    setTimeout(function () {
+                        layer.close(loadT)
+                         openAssign()
+                    },50)
+                }
+            });
+            
+            function openAssign() {
+                layer.open({
+                    type: 1,
+                    area: '500px',
+                    title: '专属规则指派',
+                    shift: 5,
+                    closeBtn: 2,
+                    shadeClose: false,
+                    btn: ['确认', '取消'],
+                    content: '<div class="bt-form pd20" id="rule_site_from">\
+                    		<div class="line"><span class="tname">选择站点</span>\
+                    			<div class="info-r">\
+                    				<div class="rule_content_list">\
+                    					<div class="rule_checkbox_group" bt-event-click="checkboxMysql" bt-event-type="active_all"><input name="*" type="checkbox" style="display: none;">\
+                    						<div class="bt_checkbox_groups"></div>\
+                    						<span class="rule_checkbox_title">全部选中</span></div>\
+                    					<ul class="rule_checkbox_list"></ul>\
+                    				</div>\
+                    			</div>\
+                    		</div>\
+                    		<ul style="margin-left:30px" class="help-info-text c7">\
+                                <li>设置规则到对应的站点，支持多个站点同时设置</li>\
+                            </ul>\
+                		</div>',
+                    success: function(layers, index) {
+                        $('.rule_checkbox_list').html(rule_site_list);
+                        that.event_bind('#rule_site_from'); 
+                    },
+                    yes: function(index, layers) {
+                        var siteNameList = [];
+                        $('#rule_site_from .rule_checkbox_list input').each(function(index, el) {
+                            if ($(this).prop('checked')) {
+                                siteNameList.push($(this).attr('name'))
+                            }
+                        });
+                        that.set_rule_site({
+                            siteName: siteNameList.join(),
+                            ruleName: ruleName
+                        }, function() {
+                            layer.close(index);
+                        });
+                    }
+                })
+            }
+        },
+        // 设置站点专属规则
+        show_site_rult_list: function(siteName, ruleName) {
+            var that = this;
+            request_plugin(site_speed.plugin_name, 'get_rule_list', {}, function(rdata) {
+                var index_body = '',
+                    my_body = '';
+                site_speed.rule = rdata;
+                site_speed.each(rdata.rule_list, function(index, item) {
+                    index_body += '<tr>\
+                        <td>' + item.name + '</td>\
+                        <td><span>' + item.ps + '</span></td>\
+                        <td style="text-align: right;">' + (ruleName == item.name ? '已配置' : ('<a class="btlink set_rule_site_link" href="javascript:;"  data-rule="' + item.name + '">指派</a>')) + '</td></tr>';
+                });
+                my_body += '<div class="site_speed_table bt-table" style="padding:20px;"><div style="overflow:hidden"><div class="pull-right" style="margin-bottom:10px">' +
+                    '<div class="search-input"><input type="text" class="search_port_val" placeholder="搜索专属规则"><button type="submit" class="search_port_btn"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></div></div></div><div class="divtable" style="height:450px">' +
+                    '<table class="table table-hover">' +
+                    '<thead>' +
+                    '<tr><th width="110px">规则名称</th><th>描述</th><th width="80px" style="text-align: right;">操作</th></tr>' +
+                    '</thead>' +
+                    '<tbody>' + index_body + '</tbody>' +
+                    '</table>' +
+                    '</div></div>';
+                layer.open({
+                    type: 1,
+                    area: '700px',
+                    title: '【' + siteName + '】专属规则指派',
+                    shift: 5,
+                    closeBtn: 2,
+                    shadeClose: false,
+                    skin: 'site_rult_list',
+                    content: my_body,
+                    success: function(layers, index) {
+                        $('.search-input .search_port_val').keyup(function() {
+                            var _val = $(this).val().toLocaleLowerCase(),
+                                _rule_list = rdata.rule_list;
+                            $('.site_speed_table tbody .search_null').remove();
+                            for (var i = 0; i < _rule_list.length; i++) {
+                                var item = _rule_list[i],
+                                    _ps = item.ps.toLocaleLowerCase(),
+                                    _name = item.name.toLocaleLowerCase();
+                                console.log((_ps.indexOf(_val) > -1, _name.indexOf(_val) > -1), _val);
+                                if ((_ps.indexOf(_val) > -1 || _name.indexOf(_val) > -1) && _val != '') {
+                                    $('.site_speed_table tbody tr:eq(' + i + ')').removeClass('hide');
+                                } else {
+                                    $('.site_speed_table tbody tr:eq(' + i + ')').addClass('hide').removeClass('show');
+                                }
+                            }
+                            if (_val == '') {
+                                $('.site_speed_table tbody tr').removeClass('hide show');
+                            }
+                            if ($('.site_speed_table tbody tr.hide').length == _rule_list.length) {
+                                $('.site_speed_table tbody').append('<tr class="search_null" ><td colspan="3" style="text-align:center;">搜索匹配内容为空</tr>');
+                            }
+                            if (_rule_list.length - $('.site_speed_table tbody tr.hide').length > 13) {
+                                $('.site_speed_table .tbody_shadow_bottom').show();
+                            } else {
+                                $('.site_speed_table .tbody_shadow_bottom').hide();
+                            }
+                        });
+                        if (jQuery.prototype.fixedThead) {
+                            $('.site_rult_list .divtable').fixedThead({
+                                resize: false
+                            });
+                        } else {
+                            $('.site_rult_list .divtable').css({
+                                'overflow': 'auto'
+                            });
+                        }
+                        $('.set_rule_site_link').click(function() {
+                            that.set_rule_site({
+                                siteName: siteName,
+                                ruleName: $(this).attr('data-rule')
+                            }, function() {
+                                site_speed.get_sites()
+                                layer.close(index);
+                            });
+                        });
+                    }
+                });
+            });
+        },
+        /**
+         * 指派专属规则
+         * @param obj {siteName:网站名称,ruleName:规则名称} 参数
+         * @param callback  回调
+         * @return void
+         */
+        set_rule_site: function(obj, callback) {
+            request_plugin(site_speed.plugin_name, 'set_site_rule', {
+                siteName: obj.siteName,
+                ruleName: obj.ruleName
+            }, function(rdata) {
+                if (callback) callback(rdata);
+                bt.msg(rdata);
+            });
+        },
+
+        //显示过滤规则窗口
+        show_filter_liet: function(data) {
+            var that = this,
+                my_body = '<div class="bt-content" id="site_speed" style="height: 640px;">\
+                        <div class="bt-w-main">\
+                            <div class="bt-w-menu">\
+                                <p class="bgw" >基本设置</p>\
+                                <p>缓存目录</p>\
+                                <p>登录特征</p>\
+                                <p>不缓存地址</p>\
+                                <p>缓存规则</p>\
+                                <p>不缓存规则</p>\
+                            </div>\
+                            <div class="bt-w-con pd15">\
+                                <div class="filter_body"></div>\
+                            </div>\
+                        </div>\
+                    </div>';
+            layer.open({
+                type: 1,
+                area: "800px",
+                title: '[' + data.site_name + '] 站点加速-高级设置',
+                shift: 5,
+                closeBtn: 2,
+                shadeClose: false,
+                content: my_body,
+                success: function() {
+                    //左测菜单切换效果
+                    $(".bt-w-menu p").click(function() {
+                        $(this).addClass('bgw').siblings().removeClass('bgw');
+                        $('.filter_body').empty();
+                        switch ($(this).index()) {
+                            case 0:
+                                that.get_site_find({
+                                    siteName: data.site_name
+                                }, function(rdata) {
+                                    var html = '<div class="cache_box_item white_page" style="padding-top: 25px;padding: 25px 0;">' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">缓存开关</div><div class="cache_inline_block"><input class="btswitch btswitch-ios" id="cache_open" type="checkbox" ' + (rdata.open ? 'checked="checked"' : '') + ' /><label class="btswitch-btn" for="cache_open"></label></div></div>' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">缓存周期</div><input type="number"  class="bt-input-text mr5" name="expire"   placeholder="加速缓存周期，默认为30秒，不可为空" value="' + rdata.expire + '" />秒<button type="button" class="btn btn-sm btn-success save_expire" style="margin-left: 20px;">保存</button></div>' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">空Cookie</div><input type="checkbox" class="mr5" name="empty_cookie" ' + (rdata.empty_cookie ? 'checked="checked"' : '') + '/></div>' +
+                                        '<ul class="help-info-text c7" style="margin-left:48px"><li>【缓存周期】周期越长，缓存效果越好，但内容时效性越差，建议设置30秒左右</li><li>【空Cookie】允许缓存空Cookie请求，建议开启，若开启后网站异常，则将它关闭</li></ul>' +
+                                        '</div>';
+                                    $('.filter_body').html(html);
+                                    $('#cache_open').click(function() {
+                                        var confValue = $(this).prop('checked');
+                                        that.set_site_config({
+                                            siteName: data.site_name,
+                                            confKey: 'open',
+                                            confValue: confValue
+                                        }, function(rdata) {
+                                            layer.msg(rdata.msg, {
+                                                icon: rdata.status ? 1 : 2
+                                            });
+                                        });
+                                    });
+                                    $('.save_expire').click(function() {
+                                        var confValue = $(this).prev().val();
+                                        that.set_site_config({
+                                            siteName: data.site_name,
+                                            confKey: 'expire',
+                                            confValue: confValue
+                                        }, function(rdata) {
+                                            layer.msg(rdata.msg, {
+                                                icon: rdata.status ? 1 : 2
+                                            });
+                                        });
+                                    });
+                                    $('[name="empty_cookie"]').click(function() {
+                                        var confValue = $(this).prop('checked');
+                                        that.set_site_config({
+                                            siteName: data.site_name,
+                                            confKey: 'empty_cookie',
+                                            confValue: confValue
+                                        }, function(rdata) {
+                                            layer.msg(rdata.msg, {
+                                                icon: rdata.status ? 1 : 2
+                                            });
+                                        });
+                                    });
+                                });
+                                break;
+                            case 1:
+                                that.get_site_find({
+                                    siteName: data.site_name
+                                }, function(rdata) {
+                                    var white = rdata.white,
+                                        ruleValue = white.not_uri[0] || '';
+                                    $('.filter_body').html('<div class="line " ><span class="tname pr10" style="width:150px;padding-right:10px;">选择站点缓存目录：</span><div class="info-r "><input name="ps" class="bt-input-text mr5" placeholder="设置需要缓存的目录，默认为根目录，可自定义输入" type="text" style="width:330px" value="' + ruleValue + '"><button class="btn btn-success btn-sm save_dir_configure">保存</button></div></div><ul class="help-info-text c7"><li>设置需要缓存的目录，默认为根目录(全站缓存)，可自定义设置只缓存指定URI，此处支持正则表达式</li></ul>');
+                                    $('.save_dir_configure').click(function() {
+                                        var val = $(this).prev().val();
+                                        if (val == '') {
+                                            layer.msg('缓存目录不能为空', {
+                                                icon: res.status ? 1 : 2
+                                            });
+                                            return false;
+                                        }
+                                        if (ruleValue != '') {
+                                            request_plugin(site_speed.plugin_name, 'remove_site_rule', {
+                                                siteName: data.site_name,
+                                                ruleRoot: 'white',
+                                                ruleKey: 'not_uri',
+                                                ruleValue: ruleValue
+                                            }, function(res) {
+                                                if (res.status) {
+                                                    request_plugin(site_speed.plugin_name, 'create_rule', {
+                                                        siteName: data.site_name,
+                                                        rules: JSON.stringify({
+                                                            white: {
+                                                                not_uri: [val]
+                                                            }
+                                                        }),
+                                                    }, function(rdata) {
+                                                        layer.msg(rdata.msg, {
+                                                            icon: rdata.status ? 1 : 2
+                                                        });
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            request_plugin(site_speed.plugin_name, 'create_rule', {
+                                                siteName: data.site_name,
+                                                rules: JSON.stringify({
+                                                    white: {
+                                                        not_uri: [val]
+                                                    }
+                                                }),
+                                            }, function(rdata) {
+                                                layer.msg(rdata.msg, {
+                                                    icon: rdata.status ? 1 : 2
+                                                });
+                                            });
+                                        }
+                                    });
+                                });
+                                break;
+                            case 2:
+                                that.get_site_find({
+                                    siteName: data.site_name
+                                }, function(rdata) {
+                                    var _cookie = rdata.white.cookie,
+                                        _login_success = rdata.login_success,
+                                        _login_out = rdata.login_out,
+                                        _cookie_tbody = '';
+                                    if (_cookie.length > 0) {
+                                        for (var i = 0; i < _cookie.length; i++) {
+                                            _cookie_tbody += '<tr><td>' + _cookie[i] + '</td><td style="text-align: right;"><a href="javascript:;" class="btlink del_rule" data-rule="white">删除</a></td></tr>';
+                                        }
+                                    } else {
+                                        _cookie_tbody += '<tr><td colspan="2" align="center">数据为空</td></tr>'
+                                    }
+                                    $('.filter_body').html('<form class="site_login_cache" onsubmit="return false">' +
+                                        '<div class="cache_box_item">' +
+                                        '<div class="cache_title">设置登录特征</div>' +
+                                        '<div class="cache_centent">' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">特征类型:</div><div class="btn-group cut_cache_features" role="group"><button type="button" class="btn btn-sm btn-success" data-type="0">Cookie特征</button><button type="button" class="btn btn-sm btn-default" data-type="1">请求特征</button></div></div>' +
+                                        '<div class="features_type_item">' +
+                                        '<div class="cache_line_block"><div class="cache_line_title" style="vertical-align:top;">cookie匹配:</div><div class="cache_inline_block"><input type="text" class="bt-input-text mr5" value="" placeholder="cookie特征" style="width: 298px;" /><button class="btn btn-success btn-sm add_white_page">添加</button><div class="divtable" style="margin-top:10px;"><table class="table table-hover mb0"><thead><tr><th>cookie特征</th><th style="text-align: right">操作</th></tr></thead><tbody>' + _cookie_tbody + '</tbody></table></div></div></div>' +
+                                        '</div>' +
+                                        '<div class="features_type_item" style="display: none;">' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">请求类型:</div><select class="bt-input-text mr5" name="method"><option value="POST">POST</option><option value="GET">GET</option></select></div>' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">请求接口:</div><input type="text" class="bt-input-text mr5"  name="uri" placeholder="点击登录时请求的URI地址" /></div>' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">请求响应内容:</div><input type="text" class="bt-input-text mr5"  name="success" placeholder="若登录成功，响应内容中包含的值" /></div>' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">SESSION_ID:</div><input type="text" class="bt-input-text mr5" name="sessionid_key" placeholder="项目在cookie中用于识别会话的sessionid" /></div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="cache_box_item" style="display: none;">' +
+                                        '<div class="cache_title">设置退出登录特征</div>' +
+                                        '<div class="cache_centent">' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">请求类型:</div><select class="bt-input-text mr5" name="method"><option value="GET">GET</option><option value="POST">POST</option></select></div>' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">请求接口:</div><input type="text" class="bt-input-text mr5" name="uri" placeholder="退出登录时请求的URI地址" /></div>' +
+                                        '<div class="cache_line_block"><div class="cache_line_title">请求响应内容:</div><input type="text" class="bt-input-text mr5" name="success" placeholder="若登录成功，响应内容中包含的值，无特殊需求此处一般为空" /></div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<button class="btn btn-success btn-sm save_logins_configure" style="margin-left:110px;display:none;">保存配置</button>' +
+                                        '<ul class="help-info-text c7" style="padding-left:25px"><li>登录后有Cookie特征的，请优先使用Cookie特征，会大量提升效率</li></ul>' +
+                                        '</form>');
+
+                                    if (_login_success.sessionid_key != '') {
+                                        $('.cut_cache_features button:eq(1)').click();
+                                        if (_login_success) {
+                                            $('.cache_box_item select:eq(0)').val(_login_success.method);
+                                            $('.features_type_item input').each(function(index, el) {
+                                                if (_login_success[$(this).attr('name')]) $(this).val(_login_success[$(this).attr('name')]);
+                                            });
+                                        }
+                                        if (_login_out) {
+                                            $('.cache_box_item select:eq(1)').val(_login_out.method);
+                                            $('.cache_box_item:eq(1) .cache_centent input').each(function(index, el) {
+                                                if (_login_out[$(this).attr('name')]) $(this).val(_login_out[$(this).attr('name')]);
+                                            });
+                                        }
+                                    } else {
+                                        $('[name=cookie]').val(_cookie);
+                                    }
+                                    $('.cut_cache_features button').click(function() {
+                                        var type = parseInt($(this).attr('data-type'));
+                                        $('.features_type_item:eq(' + type + ')').show();
+                                        $('.features_type_item:eq(' + (type == 1 ? 0 : 1) + ')').hide();
+                                        if (!type) {
+                                            $('.save_logins_configure').hide();
+                                            $('.cache_box_item:eq(0)').show();
+                                            $('.cache_box_item:eq(1)').hide();
+                                            $('.features_type_item:eq(0)').show();
+                                            $('.features_type_item:eq(1)').hide();
+
+                                        } else {
+                                            $('.save_logins_configure').show();
+                                            $('.cache_box_item:eq(0)').show();
+                                            $('.cache_box_item:eq(1)').show();
+                                            $('.features_type_item:eq(0)').hide();
+                                            $('.features_type_item:eq(1)').show();
+                                        }
+                                        $(this).addClass('btn-success').removeClass('btn-default').siblings().removeClass('btn-success').addClass('btn-default');
+                                    });
+                                    $('[name="cookie"]').blur(function() {
+                                        $(this).attr('value', $(this).val());
+                                    });
+                                    $('.add_white_page').click(function() {
+                                        var val = $(this).prev().val();
+                                        if (val == '') {
+                                            layer.msg('Cookie为空', {
+                                                icon: 0
+                                            });
+                                            return false;
+                                        }
+                                        that.add_site_rule({
+                                            siteName: data.site_name,
+                                            ruleRoot: 'white',
+                                            ruleKey: 'cookie',
+                                            ruleValue: val
+                                        }, function(rdata) {
+                                            layer.msg(rdata.msg, {
+                                                icon: rdata.status ? 1 : 2
+                                            });
+                                            setTimeout(function() {
+                                                $('#site_speed p:eq(2)').click();
+                                            }, 1000)
+                                        });
+                                    });
+                                    $('.del_rule').click(function() {
+                                        var ruleKey = $(this).attr('data-rule'),
+                                            ruleValue = $(this).parent().prev().text();
+                                        if (ruleKey == 'ip') {
+                                            ruleValue = JSON.stringify(ruleValue.split('-'));
+                                        }
+                                        that.remove_site_rule({
+                                            siteName: data.site_name,
+                                            ruleRoot: 'white',
+                                            ruleKey: 'cookie',
+                                            ruleValue: ruleValue
+                                        }, function(rdata) {
+                                            layer.msg(rdata.msg, {
+                                                icon: rdata.status ? 1 : 2
+                                            });
+                                            setTimeout(function() {
+                                                $('#site_speed p:eq(2)').click();
+
+                                            }, 1000)
+                                        });
+                                    });
+                                    $('.save_logins_configure').click(function() {
+                                        var form = $('.site_login_cache').serializeObject(),
+                                            type = parseInt($('.cut_cache_features .btn-success').attr('data-type')),
+                                            config = {};
+                                        for (var key in form) {
+                                            if (form[key] != '') {
+                                                if (!type) {
+                                                    if (key == 'cookie') {
+                                                        if (!config.login_success) config.white = {};
+                                                        config['white']['cookie'] = [form[key]];
+                                                        break;
+                                                    }
+                                                } else {
+                                                    if (key == 'sessionid_key') {
+                                                        if (!config.login_success) config.login_success = {};
+                                                        config.login_success[key] = form[key];
+                                                        continue;
+                                                    }
+                                                    if (Array.isArray(form[key])) {
+                                                        if (form[key][0] != '') {
+                                                            if (!config.login_success) config.login_success = {};
+                                                            config.login_success[key] = form[key][0];
+                                                        }
+                                                        if (form[key][1] != '') {
+                                                            if (!config.login_out) config.login_out = {};
+                                                            config.login_out[key] = form[key][1];
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        request_plugin(site_speed.plugin_name, 'create_rule', {
+                                            siteName: data.site_name,
+                                            rules: JSON.stringify(config),
+                                        }, function(rdata) {
+                                            layer.msg(rdata.msg, {
+                                                icon: rdata.status ? 1 : 2
+                                            });
+                                        });
+                                    });
+                                });
+                                break;
+                            case 3:
+                                that.get_site_find({
+                                    siteName: data.site_name
+                                }, function(rdata) {
+                                    var html = '',
+                                        uri = rdata.white.uri,
+                                        _tbody = '';
+                                    for (var i = 0; i < uri.length; i++) {
+                                        _tbody += '<tr><td>' + uri[i] + '</td><td style="text-align: right;"><a href="javascript:;" class="btlink del_rule" data-rule="white">删除</a></td></tr>';
+                                    }
+                                    html += '<input type="text" class="bt-input-text mr5" value="" placeholder="不缓存URI地址" style="width: 220px;" /><button class="btn btn-success btn-sm add_white_page">添加</button>' +
+                                        '<div class="divtable" style="margin-top:10px">' +
+                                        '<table class="table table-hover">' +
+                                        '<thead>' +
+                                        '<tr><th>不缓存URI地址</th><th style="text-align: right;">操作</th></tr>' +
+                                        '</thead>' +
+                                        '<tbody>' + _tbody + '</tbody>' +
+                                        '</table>' +
+                                        '</div>' +
+                                        '<ul class="help-info-text c7"><li>包含不缓存规则关键词的URI地址不会被缓存，此处支持正则表达式。</li></ul>';
+                                    $('.filter_body').html(html);
+
+                                    $('.add_white_page').click(function() {
+                                        var val = $(this).prev().val();
+                                        if (val == '') {
+                                            layer.msg('不缓存URI地址为空', {
+                                                icon: 0
+                                            });
+                                            return false;
+                                        }
+                                        that.add_site_rule({
+                                            siteName: data.site_name,
+                                            ruleRoot: 'white',
+                                            ruleKey: 'uri',
+                                            ruleValue: val
+                                        }, function(rdata) {
+                                            layer.msg(rdata.msg, {
+                                                icon: rdata.status ? 1 : 2
+                                            });
+                                            setTimeout(function() {
+                                                $('#site_speed p:eq(3)').click();
+
+                                            }, 1000)
+                                        });
+                                    });
+                                    $('.del_rule').click(function() {
+                                        var ruleKey = $(this).attr('data-rule'),
+                                            ruleValue = $(this).parent().prev().text();
+                                        if (ruleKey == 'ip') {
+                                            ruleValue = JSON.stringify(ruleValue.split('-'));
+                                        }
+                                        that.remove_site_rule({
+                                            siteName: data.site_name,
+                                            ruleRoot: 'white',
+                                            ruleKey: 'uri',
+                                            ruleValue: ruleValue
+                                        }, function(rdata) {
+                                            layer.msg(rdata.msg, {
+                                                icon: rdata.status ? 1 : 2
+                                            });
+                                            setTimeout(function() {
+                                                $('#site_speed p:eq(3)').click();
+
+                                            }, 1000)
+                                        });
+                                    });
+                                });
+
+                                break;
+                            case 4:
+                                that.show_rule_list({
+                                    siteName: data.site_name,
+                                    ruleRoot: 'force',
+                                    tips: ['此处缓存规则具备最高优先权，符合规则的页面将被强制缓存', '交互型站点不建议添加缓存规则']
+                                });
+                                break;
+                            case 5:
+                                that.show_rule_list({
+                                    siteName: data.site_name,
+                                    ruleRoot: 'white',
+                                    tips: ['符合条件的页面将不被缓存，建议将网站后台、登录页面、验证码等添加不缓存规则', '建议使用正则表达式，以精确匹配目标页面']
+                                });
+                                break;
+                        }
+                    });
+                    $(".bt-w-menu p:eq(0)").click();
+                },
+                end: function() {
+                    site_speed.get_sites()
+                }
+            });
+        },
+        // 基础设置
+        show_cache_basics: function(data) {
+
+        },
+        // 显示缓存规则列表
+        show_rule_list: function(config) {
+            var that = this,
+                updown = {
+                    'host': {
+                        title: '域名',
+                        tips: ['例如：www.bt.cn', '此处不支持正则表达式']
+                    },
+                    'ip': {
+                        title: 'IP地址',
+                        tips: ['例如：192.168.1.1-192.168.1.2']
+                    },
+                    'args': {
+                        title: '请求参数',
+                        tips: ['例如：username=admin 或 username 或 admin', '支持正则表达式，只支持GET参数']
+                    },
+                    'ext': {
+                        title: '后缀名',
+                        tips: ['例如：匹配jpg、png等文件', '此处不支持正则表达式']
+                    },
+                    'type': {
+                        title: '响应类型',
+                        tips: ['例如：text/javascript 或 text 或 javascript', '支持正则表达式，直接匹配响应头中的Content-Type']
+                    },
+
+                    'method': {
+                        title: '请求方式',
+                        tips: ['例如：GET 或 POST', '支持GET/POST/DELETE/PUT/OPTION']
+                    },
+                    'uri': {
+                        title: 'URI地址',
+                        tips: ['例如：/admin 或 /admin.php\\?m=login', '支持正则表达式，直接匹配request_uri']
+                    },
+                    'cookie': {
+                        title: 'Cookie',
+                        tips: ['例如：SESSIONID', '支持正则表达式，直接匹配请求头中的Cookie字段']
+                    }
+                },
+                list = '';
+
+            // 'not_uri': {title:'缓存的URI地址',tips: ['例如：/bbs/','支持正则表达式，指定URI以外的其它页面都不缓存']}
+            that.get_site_find({
+                siteName: config.siteName
+            }, function(rdata) {
+                var data = rdata[config.ruleRoot];
+                for (var key in data) {
+                    if (key == 'not_uri') continue;
+                    for (var i = 0; i < data[key].length; i++) {
+                        var item = data[key][i];
+
+                        list += '<tr><td>' + updown[key].title + '</td><td>' + item + '</td><td style="text-align: right;"><a href="javascript:;" class="btlink del_rule" data-rule="' + key + '">删除</a></td></tr>';
+                    }
+                }
+                $('#' + config.ruleRoot + '_tbody_list').html(list);
+                $('#site_rule_table').fixedThead({
+                    resize: false
+                });
+                $('.del_rule').click(function() {
+                    var ruleKey = $(this).attr('data-rule'),
+                        ruleValue = $(this).parent().prev().text();
+                    if (ruleKey == 'ip') {
+                        ruleValue = JSON.stringify(ruleValue.split('-'));
+                    }
+                    that.remove_site_rule({
+                        siteName: config.siteName,
+                        ruleRoot: config.ruleRoot,
+                        ruleKey: ruleKey,
+                        ruleValue: ruleValue
+                    }, function(rdata) {
+                        that.show_rule_list({
+                            ruleRoot: config.ruleRoot,
+                            siteName: config.siteName,
+                            tips: config.tips,
+                            callback: function() {
+                                layer.msg(rdata.msg, {
+                                    icon: rdata.status ? 1 : 2
+                                });
+                            }
+                        });
+                    });
+                });
+                if (config.callback) config.callback()
+            });
+            var _html = '<button class="btn btn-success btn-sm va0 mb15 add_rule">添加' + (config.ruleRoot == 'force' ? '缓存' : '不缓存') + '规则</button>' +
+                '<div class="divtable" id="site_rule_table" class="" style="overflow: hidden;height: 420px">' +
+                '<table class="table table-hover">' +
+                '<thead>' +
+                '<tr><th width="120px">规则类型</th><th>规则内容</th><th style="text-align: right;">操作</th></tr>' +
+                '</thead>' +
+                '<tbody id = "' + config.ruleRoot + '_tbody_list"></tbody>' +
+                '</table>' +
+                '</div>' +
+                '<ul class="help-info-text c7"></ul>';
+            $('.filter_body').html(_html);
+            if (config.tips) {
+                var info = '';
+                for (var i = 0; i < config.tips.length; i++) {
+                    info += '<li>' + config.tips[i] + '</li>';
+                }
+                $('.help-info-text').html(info);
+            }
+            $('.add_rule').click(function() {
+                layer.open({
+                    type: 1,
+                    title: "添加" + (config.ruleRoot == 'force' ? '缓存' : '不缓存') + "规则",
+                    area: '450px',
+                    closeBtn: 2,
+                    content: '<div class="bt-form bt-form" style="padding:15px 25px">' +
+                        '<div class="line">' +
+                        '<span class="tname" style="width:100px">规则类型</span>' +
+                        '<div class="info-r"><div class="rule_block_box"><span class="rule_select_title" data-show="0"><span></span><i class="glyphicon glyphicon-triangle-bottom"></i></span><ul class="rule_drop_down"></ul></div></div>' +
+                        '</div>' +
+                        '<div class="line">' +
+                        '<span class="tname" style="width:100px">规则内容</span>' +
+                        '<div class="info-r"><input name="ruleValue" class="bt-input-text mr5" type="text" style="width: 260px" value="" placeholder=""></div>' +
+                        '</div>' +
+                        '</div><ul class="help-info-text c7"></ul> ',
+                    btn: ['提交', '取消'],
+                    skin: 'overflow_inherit',
+                    shadeClose: false,
+                    success: function() {
+                        var html = '',
+                            i = 0;
+                        for (var key in updown) {
+                            if (config.ruleRoot == 'force') {
+                                if (key == 'cookie' || key == 'method') continue;
+                            }
+                            html += '<li  data-rule="' + key + '" ' + (i == 0 ? 'class="active"' : '') + '>' + updown[key].title + '</li>';
+                            if (i == 0) {
+                                var text = '';
+                                for (var i = 0; i < updown[key].tips.length; i++) {
+                                    var item = updown[key].tips[i]
+                                    text += '<li>' + item + '</li>';
+                                }
+                                $('.rule_select_title span').text(updown[key].title);
+                                $('.overflow_inherit .help-info-text').html(text);
+                            }
+                            i++;
+                        }
+                        $('.rule_drop_down').html(html);
+                        $('.rule_block_box .rule_select_title').click(function(ev) {
+                            ev.stopPropagation();
+                            ev.preventDefault();
+                            var show = parseInt($(this).attr('data-show'));
+                            $(this).attr('data-show', !show ? 1 : 0);
+                            !show ? $('.rule_drop_down').show() : $('.rule_drop_down').hide();
+                            $(document).click(function(e) {
+                                $('.rule_drop_down').hide().prev().attr('data-show', 0)
+                                ev.stopPropagation();
+                                ev.preventDefault();
+                            })
+                        });
+                        $('.rule_drop_down li').click(function() {
+                            $(this).addClass('active').siblings().removeClass('active');
+                            $(this).parent().hide().prev().attr('data-show', 0);
+                            $('.rule_select_title span').text($(this).text());
+                            var text = '';
+                            for (var i = 0; i < updown[$(this).attr('data-rule')].tips.length; i++) {
+                                var item = updown[$(this).attr('data-rule')].tips[i];
+                                text += '<li>' + item + '</li>';
+                            }
+                            $('.overflow_inherit .help-info-text').html(text);
+                        });
+                    },
+                    yes: function(indexs, layars) {
+                        var ruleValue = $('[name="ruleValue"]').val(),
+                            ruleKey = $('.rule_drop_down li.active').attr('data-rule');
+                        if (ruleValue == '') {
+                            layer.msg('规则内容不能为空', {
+                                icon: 0
+                            });
+                            return false;
+                        }
+                        if (ruleKey == 'ip') {
+                            ruleValue = JSON.stringify(ruleValue.split('-'))
+                        }
+                        that.add_site_rule({
+                            siteName: config.siteName,
+                            ruleRoot: config.ruleRoot,
+                            ruleKey: ruleKey,
+                            ruleValue: ruleValue
+                        }, function(rdata) {
+                            if (rdata.status) {
+                                layer.close(indexs);
+                                that.show_rule_list({
+                                    ruleRoot: config.ruleRoot,
+                                    siteName: config.siteName,
+                                    tips: config.tips,
+                                    callback: function() {
+                                        layer.msg(rdata.msg, {
+                                            icon: rdata.status ? 1 : 2
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        },
+        // 清理缓存
+        clean_all_cache: function(callback) {
+            request_plugin(site_speed.plugin_name, 'clean_cache', {}, function(rdata) {
+                if (callback) callback(rdata)
+            });
+        },
+        // 设置站点基础配置
+        set_site_config: function(config, callback) {
+            request_plugin(site_speed.plugin_name, 'set_site_config', config, function(rdata) {
+                if (callback) callback(rdata)
+            });
+        },
+        // 获取站点信息
+        get_site_find: function(config, callback) {
+            request_plugin(site_speed.plugin_name, 'get_site_find', config, function(rdata) {
+                if (callback) callback(rdata)
+            });
+        },
+        // 添加站点规则
+        add_site_rule: function(config, callback) {
+            request_plugin(site_speed.plugin_name, 'add_site_rule', config, function(rdata) {
+                if (rdata.status)
+                    if (callback) callback(rdata)
+                bt.msg(rdata)
+            });
+        },
+        // 删除站点规则
+        remove_site_rule: function(config, callback) {
+            request_plugin(site_speed.plugin_name, 'remove_site_rule', config, function(rdata) {
+                if (rdata.status)
+                    if (callback) callback(rdata)
+                bt.msg(rdata)
+            });
+        },
+        // 缓存规则
+        show_cache_rule: function(data) {
+            $('.add_cache_rule').click(function() {
+                var config = {
+                    'host': {
+                        title: '域名',
+                        tips: ['例如：域名提示']
+                    },
+                    'ip': {
+                        title: 'IP地址',
+                        tips: ['例如：匹配*.jpg、*.png等文件']
+                    },
+                    'header': {
+                        title: '请求头',
+                        tips: ['例如：匹配*.jpg、*.png等文件']
+                    },
+                    'args': {
+                        title: '请求参数',
+                        tips: ['例如：匹配*.jpg、*.png等文件']
+                    },
+                    'ext': {
+                        title: '后缀名',
+                        tips: ['例如：匹配*.jpg、*.png等文件']
+                    },
+                    'type': {
+                        title: '文件类型',
+                        tips: ['例如：匹配*.jpg、*.png等文件']
+                    },
+                    'status': {
+                        title: '请求状态码',
+                        tips: ['例如：匹配*.jpg、*.png等文件']
+                    },
+                    'method': {
+                        title: '请求方式',
+                        tips: ['例如：匹配*.jpg、*.png等文件']
+                    },
+                    'uri': {
+                        title: 'uri地址',
+                        tips: ['例如：匹配*.jpg、*.png等文件']
+                    },
+                    'cookie': {
+                        title: 'cookie',
+                        tips: ['例如：匹配*.jpg、*.png等文件']
+                    }
+                }
+                layer.open({
+                    type: 1,
+                    title: "添加规则",
+                    area: '450px',
+                    closeBtn: 2,
+                    content: '<div class="bt-form bt-form" style="padding:15px 25px">' +
+                        '<div class="line">' +
+                        '<span class="tname" style="width:100px">规则类型</span>' +
+                        '<div class="info-r"><div class="rule_block_box"><span class="rule_select_title" data-show="0"><span></span><i class="glyphicon glyphicon-triangle-bottom"></i></span><ul class="rule_drop_down"></ul></div></div>' +
+                        '</div>' +
+                        '<div class="line">' +
+                        '<span class="tname" style="width:100px">规则内容</span>' +
+                        '<div class="info-r"><input name="manage_pwd" class="bt-input-text mr5" type="text" style="width: 260px" value="" placeholder="请输入规则内容，支持正则模糊匹配。"></div>' +
+                        '</div>' +
+                        '</div><ul class="help-info-text c7"></ul> ',
+                    btn: ['提交', '取消'],
+                    skin: 'overflow_inherit',
+                    shadeClose: false,
+                    success: function() {
+                        var html = '',
+                            i = 0;
+                        for (var key in config) {
+                            html += '<li  data-rule="' + key + '" ' + (i == 0 ? 'class="active"' : '') + '>' + config[key].title + '</li>';
+                            if (i == 0) {
+                                var text = '';
+                                for (var i = 0; i < config[key].tips.length; i++) {
+                                    var item = config[key].tips[0]
+                                    text += '<li>' + item + '</li>';
+                                }
+                                $('.rule_select_title span').text(config[key].title);
+                                $('.overflow_inherit .help-info-text').html(text);
+                            }
+                            i++;
+                        }
+                        $('.rule_drop_down').html(html);
+                        $('.rule_block_box .rule_select_title').click(function(ev) {
+                            ev.stopPropagation();
+                            ev.preventDefault();
+                            var show = parseInt($(this).attr('data-show'));
+                            $(this).attr('data-show', !show ? 1 : 0);
+                            !show ? $('.rule_drop_down').show() : $('.rule_drop_down').hide();
+                            $(document).click(function(e) {
+                                $('.rule_drop_down').hide().prev().attr('data-show', 0)
+                                ev.stopPropagation();
+                                ev.preventDefault();
+                            })
+                        });
+                        $('.rule_drop_down li').click(function() {
+                            $(this).addClass('active').siblings().removeClass('active');
+                            $(this).parent().hide().prev().attr('data-show', 0);
+                            $('.rule_select_title span').text($(this).text());
+                            var text = '';
+                            for (var i = 0; i < config[$(this).attr('data-rule')].tips.length; i++) {
+                                var item = config[$(this).attr('data-rule')].tips[0]
+                                text += '<li>' + item + '</li>';
+                            }
+                            $('.overflow_inherit .help-info-text').html(text);
+                        });
+                    }
+                });
+            });
+        },
+        // 规则白名单
+        show_white_list: function(data) {
+            var _html = '';
+            _html += '<button class="btn btn-success btn-sm va0 mb15 add_white_rule">添加不缓存规则</button>' +
+                '<div class="divtable">' +
+                '<table class="table table-hover">' +
+                '<thead>' +
+                '<tr><th>规则类型</th><th>规则内容</th><th></th><th style="text-align: right;">操作</th></tr>' +
+                '</thead>' +
+                '<tbody id="white_cache_rule"></tbody>' +
+                '</table>' +
+                '</div>' +
+                '<ul class="help-info-text c7"></ul>';
+            $('.filter_body').html(_html);
+        },
+        /**
+         * 获取站点日志
+         * @param siteName 站点名称
+         * @param day 指定日期
+         * @return void
+         */
+        get_site_logs: function(siteName, day) {
+            var my_body = '';
+            my_body += '<div class="site_speed-table site_speed-table-logs bt-table">' +
+                '<select class="bt-input-text filter-days" style="margin: 15px 15px 0px 15px;"></select>' +
+                '<div class="divtable" style="height:450px;margin: 15px;">' +
+                '<table class="table table-hover">' +
+                '<thead>' +
+                '<tr><th>时间</th><th>过滤类型</th><th>文件位置</th><th>用户IP</th><th>类型</th><th>域名</th><th>URI</th></tr>' +
+                '</thead>' +
+                '<tbody class="filter-logs"></tbody>' +
+                '</table>' +
+                '</div></div>';
+            site_speed.log_index = layer.open({
+                type: 1,
+                area: "900px",
+                title: '站点[' + siteName + ']防护日志',
+                shift: 5,
+                skin: 'phpFilterSiteLogs',
+                closeBtn: 2,
+                shadeClose: false,
+                content: my_body,
+                success: function() {
+                    site_speed.get_site_log_to(siteName, day);
+                    $(".filter-days").change(function() {
+                        site_speed.get_site_log_to(siteName, $(this).val());
+                    });
+                }
+            });
+        },
+
+        /**
+         * 从后台获取日志信息
+         * @param siteName 网站名称
+         * @param day 日志日期
+         * @return void
+         */
+        get_site_log_to: function(siteName, day) {
+            request_plugin(site_speed.plugin_name, 'get_site_logs', {
+                siteName: siteName,
+                day: day
+            }, function(rdata) {
+                if (rdata.days.length === 0) {
+                    layer.close(site_speed.log_index);
+                    layer.msg('暂无日志!');
+                    return;
+                }
+
+                if (!day) {
+                    for (var i = 0; i < rdata.days.length; i++) {
+                        day_body += '<option value="' + rdata.days[i] + '">' + rdata.days[i] + '</option>';
+                    }
+                    $(".filter-days").html(day_body);
+                }
+                var filter_types = {
+                    input_black: '输入过滤',
+                    server_black: "请求头过滤",
+                    filter_funs: "函数过滤"
+                }
+                var log_body = '';
+                var day_body = '';
+                for (var i = 0; i < rdata.logs.length; i++) {
+                    log_body += '<tr>\
+                                    <td><span style="width:120px;">' + rdata.logs[i][0] + '</span></td>\
+                                    <td><span style="width:70px;" title="' + filter_types[rdata.logs[i][1]] + '">' + filter_types[rdata.logs[i][1]] + '</span></td>\
+                                    <td><span style="width:180px;" title="' + rdata.logs[i][2] + '">' + rdata.logs[i][2] + '</span></td>\
+                                    <td><span style="width:90px;" title="' + rdata.logs[i][5] + '">' + rdata.logs[i][5] + '</span></td>\
+                                    <td><span style="width:50px;" title="' + rdata.logs[i][6] + '">' + rdata.logs[i][6] + '</span></td>\
+                                    <td><span style="width:90px;" title="' + rdata.logs[i][7] + '">' + rdata.logs[i][7] + '</span></td>\
+                                    <td><span style="width:130px;" title="' + rdata.logs[i][8] + '">' + rdata.logs[i][8] + '</span></td>\
+                                </tr>';
+                }
+
+                $(".filter-logs").html(log_body);
+                if (jQuery.prototype.fixedThead) {
+                    $(".phpFilterSiteLogs .divtable").fixedThead({
+                        resize: false
+                    });
+                } else {
+                    $('.phpFilterSiteLogs.divtable').css({
+                        'overflow': 'auto'
+                    });
+                }
+            });
+        },
+
+        /**
+         * 设置站点状态
+         * @param siteName 站点名称
+         * @return void
+         */
+        set_site_status: function(siteName) {
+            request_plugin(site_speed.plugin_name, 'set_site_status', {
+                siteName: siteName
+            }, function(rdata) {
+                layer.msg(rdata.msg, {
+                    icon: rdata.status ? 1 : 2,
+                    shade: false
+                });
+                if (rdata.status === true) {
+                    setTimeout(function() {
+                        //site_speed.get_sites();
+                    }, 1000)
+                }
+            });
+        },
+        //获取网站列表
+        get_sites: function(callback) {
+            var that = this;
+            request_plugin(site_speed.plugin_name, 'get_site_list', {}, function(rdata) {
+                if (rdata === false) {
+                    layer.closeAll();
+                    layer.msg('未购买【堡塔站点加速】插件，或已到期!', {
+                        iocn: 2
+                    });
+                    return;
+                }
+
+                if (rdata.status === false) {
+                    layer.closeAll();
+                    layer.msg(rdata.msg, {
+                        icon: 2
+                    });
+                    return;
+                }
+                if (callback) callback()
+                var index_body = '';
+                var my_body = '';
+                site_speed.data = rdata.data;
+                that.each(rdata.data, function(index, item) {
+                    var total_hit = (item.total[1] / item.total[0] * 100).toFixed(2);
+                    var today_hit = (item.total[3] / item.total[2] * 100).toFixed(2);
+                    var limit = '<span style="color:#20a53a;">无限制</span>'
+                    if (rdata['max'] > 0) {
+                        limit = ((item.total[3] >= rdata['max']) ? '<a class="btlink" style="color:red;" onclick="bt.soft.updata_ltd()">已用完<span style="color:#20a53a">[升级]</span></a>' : (rdata['max'] - item.total[3]))
+                    }
+                    index_body += '<tr>\
+                        <td><span class="overflow_hide" title="'+item.site_name+'" style="width:162px">' + item.site_name + '</span></td>\
+                        <td>' + item.expire + '秒</td>\
+                        <td>' + (item.empty_cookie ? '<span style="color:#20a53a;">开启</span>' : '关闭') + '</td>\
+                        <td>' + (isNaN(total_hit) ? "0.00" : total_hit) + '%</td>\
+                        <td>' + (isNaN(today_hit) ? "0.00" : today_hit) + '%</td>\
+                        <td>' + item.total[3] + '</td>\
+                        <td>' + limit + '</td>\
+                        <td><a href="javascript:;" onclick="site_speed.show_site_rult_list(\'' + item.site_name + '\',\'' + item.rule + '\')" class="btlink">' + item.rule + '</a></td>\
+                        <td><input class="btswitch btswitch-ios" id="enable_switch_' + index + '" type="checkbox" ' + (item.open ? 'checked' : '') + '><label class="btswitch-btn" for="enable_switch_' + index + '" data-index="' + index + '" bt-event-click="set_site_server_status"></label></td>\
+                        <td>\
+                            <a href="javascript:;" class="btlink" bt-event-click="set_cache_guide" data-index="' + index + '">配置向导</a>&nbsp;|&nbsp;\
+                            <a href="javascript:;" class="btlink" bt-event-click="set_site_filter_rule" data-index="' + index + '">高级</a>\
+                        </td></tr>';
+                });
+
+                my_body += '<div class="site_speed-table bt-table">' +
+                    '<div style="height: 32px;margin-bottom:15px;"><div class="verison_templat">' + rdata.version + '</div><button class="btn btn-default btn-sm va0 clear_all_cache " style="float:right">清理缓存</button></div>' +
+                    '<div class="divtable" style="height:340px;">' +
+                    '<table class="table table-hover">' +
+                    '<thead>' +
+                    '<tr><th width="110px">网站名</th><th>缓存周期</th><th>空Cookie</th><th>总命中率</th><th>今日命中率</th><th>今日命中</th><th>今日可用</th><th>专属规则</th><th>加速开关</th><th width="110px">操作</th></tr>' +
+                    '</thead>' +
+                    '<tbody>' + index_body + '</tbody>' +
+                    '</table>' +
+                    '</div></div>';
+
+                my_body += '<ul class="help-info-text c7">';
+                my_body += '<li>今日可用：今日可用的命中次数，用完后将暂停加速功能，需升级到专业版或企业版提升可用次数，或等待第二天重新计数</li>';
+                my_body += '<li>未设置缓存规则的情况下默认全站缓存，请在开启加速前先配置好缓存规则，否则可能影响网站访问</li>';
+                my_body += '<li>有专属规则的情况下，请直接设置专属规则，高级配置需要一定的技术基础才能完成</li>';
+                my_body += '<li>若您的站点不允许匿名访问，请不要开启站点加速</li>';
+                my_body += '<li>命中率越高，说明加速效果越好，若您的站点是交互型站点，则可能命中率较低</li>';
+                my_body += '<li style="color:red;">开启站点加速后，若发现站点异常，请关闭站点加速</li>';
+                my_body += '<li style="color:red;">开启站点加速后，您的网站页面内容更新频率取决于【缓存周期】时间</li>';
+                my_body += '</ul>';
+                $('.plugin_body').html(my_body);
+                if (jQuery.prototype.fixedThead) {
+                    $('.site_speed-table .divtable').fixedThead({
+                        resize: false
+                    });
+                } else {
+                    $('.site_speed-table .divtable').css({
+                        'overflow': 'auto'
+                    });
+                }
+                that.event_bind('.plugin_body');
+                $('.clear_all_cache').click(function() {
+                    layer.confirm('是否清除当前所有站点加速缓存，是否继续？', {
+                        title: '清理站点加速缓存',
+                        closeBtn: 2,
+                        icon: 0,
+                        btn: ['确认', '取消'] //可以无限个按钮
+                    }, function() {
+                        that.clean_all_cache(function(res) {
+                            layer.msg(res.msg, {
+                                icon: res.status ? 1 : 2
+                            });
+                        });
+                    });
+                });
+            });
+        },
+        /**
+         * 获取面板日志
+         * @param p 被获取的分页
+         */
+        get_logs: function(p) {
+            var that = this;
+            if (p == undefined) p = 1;
+            request_plugin(site_speed.plugin_name, 'get_logs', {
+                p: p,
+                callback: 'site_speed.get_logs'
+            }, function(rdata) {
+                var log_body = '';
+                that.each(rdata.data, function(index, item) {
+                    log_body += '<tr><td>' + item.addtime + '</td><td><span title="' + item.log + '">' + item.log + '</span></td></tr>'
+                })
+                var my_body = '<div class="site_speed-table-logs"><div class="divtable">' +
+                    '<table class="table table-hover">' +
+                    '<thead>' +
+                    '<tr><th width="150">时间</th><th>详情</th></tr>' +
+                    '</thead>' +
+                    '<tbody>' + log_body + '</tbody>' +
+                    '</table>' +
+                    '</div><div class="page" style="margin-top:15px">' + rdata.page + '</div</div>';
+
+                $('.plugin_body').html(my_body);
+            });
+        },
+        /**
+         * @description 遍历数组和对象
+         * @param {Array|Object} obj 遍历数组|对象
+         * @param {Function} fn 遍历对象或数组
+         * @return 当前对象
+         */
+        each: function(obj, fn) {
+            var key, that = this;
+            if (typeof fn !== 'function') return that;
+            obj = obj || [];
+            if (obj.constructor === Object) {
+                for (key in obj) {
+                    if (fn.call(obj[key], key, obj[key])) break;
+                }
+            } else {
+                for (key = 0; key < obj.length; key++) {
+                    if (fn.call(obj[key], key, obj[key])) break;
+                }
+            }
+            return that;
+        },
+
+        // 行内模拟事件绑定
+        event_bind: function(el) {
+            var that = this;
+            _html = $('#site_speed')[0].innerHTML, event_list = {};
+            if (el != undefined) _html = $(el)[0].innerHTML;
+            _reg = new RegExp(/bt-event-(click|change|focus)="(\w+)\|*([a-z0-9A-Z]*)"/g);
+            _html.replace(_reg, function($1, $2, $3, $4) {
+                if (!event_list[($2)]) {
+                    if ($4 != "") {
+                        $('[' + $1 + ']').unbind($2).on($2, $4, function(ev) {
+                            site_speed.data_index = $(this).attr('data-index');
+                            site_speed.pdata = that.data[site_speed.data_index];
+                            that.event[$3].apply(this, [$(this), site_speed.pdata, ev]);
+                        });
+                    } else {
+                        $('[' + $1 + ']').unbind($2).on($2, function(ev) {
+                            site_speed.data_index = $(this).attr('data-index');
+                            site_speed.pdata = that.data[site_speed.data_index];
+                            that.event[$3].apply(this, [$(this), site_speed.pdata, ev]);
+                        });
+                    }
+                    event_list[$3] = true;
+                }
+            });
+        }
+    }
+
+    /**
+     * 发送请求到插件
+     * 注意：除非你知道如何自己构造正确访问插件的ajax，否则建议您使用此方法与后端进行通信
+     * @param plugin_name    插件名称 如：site_speed
+     * @param function_name  要访问的方法名，如：get_logs
+     * @param args           传到插件方法中的参数 请传入数组，示例：{p:1,rows:10,callback:"site_speed.get_logs"}
+     * @param callback       请传入处理函数，响应内容将传入到第一个参数中
+     */
+    function request_plugin(plugin_name, function_name, args, callback, timeout) {
+        if (!timeout) timeout = 3600 * 1000;
+        var loadT = layer.msg('正在处理请求，请稍后...', {
+            icon: 16,
+            time: 0,
+            shade: 0.3
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/plugin?action=a&s=' + function_name + '&name=' + plugin_name,
+            data: args,
+            timeout: timeout,
+            complete: function() {
+                layer.close(loadT);
+            },
+            success: function(rdata) {
+                if (typeof rdata.status != 'undefined' && rdata.status === false) {
+                    layer.msg(rdata.msg, {
+                        icon: 2
+                    });
+                    return false;
+                }
+                if (!callback) {
+                    layer.msg(rdata.msg, {
+                        icon: rdata.status ? 1 : 2
+                    });
+                    return;
+                }
+                return callback(rdata);
+            },
+            error: function(ex) {
+                if (!callback) {
+                    layer.msg('请求过程发现错误!', {
+                        icon: 2
+                    });
+                    return;
+                }
+                return callback(ex);
+            }
+        });
+    }
+    $.fn.serializeObject = function() {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+    //第一次打开窗口时调用
+    site_speed.init();
+</script>

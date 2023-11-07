@@ -1,0 +1,15 @@
+{
+	"title":"堡塔应用管理器",
+	"tip":"lib",
+	"name":"btappmanager",
+	"type":"运行环境",
+	"ps":"应用持久化运行和管理。<a class='link' href='https://www.bt.cn/bbs/thread-54473-1-1.html' target='_blank'>教程和反馈>></a>",
+	"versions":"1.8",
+	"shell":"btappmanager.sh",
+	"checks":"/www/server/panel/plugin/btappmanager",
+	"author":"宝塔",
+	"home":"https://www.bt.cn/bbs/thread-54473-1-1.html",
+	"date":"2020-08-11",
+	"default":false,
+	"display":1
+}

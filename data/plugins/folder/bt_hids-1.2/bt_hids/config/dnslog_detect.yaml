@@ -1,0 +1,16 @@
+name: "dnslog_detect"
+vuln_id: 1011
+systemname: "dns带外攻击"
+vulnname: "dns带外攻击"
+level: "medium"
+tag: [ "当前机器存在可疑的dns查询"]
+ps: "当前机器权限已经被攻击者获取,请及时检查是否存在漏洞,并及时修复"
+type: "system"
+status: 0
+author: "lkq@bt.cn"
+detect_id: "601"
+msg: "当前机器被执行dns查询命令,执行命令为：【bt_cmd】"
+repair: "在root权限下执行【kill -9 bt_pid】中断带外攻击进程"
+rule:
+  query: "dnslog|burpcollaborator|ceye"
+  dport: "53"

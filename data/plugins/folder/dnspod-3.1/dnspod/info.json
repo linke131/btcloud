@@ -1,0 +1,14 @@
+{
+	"title":"腾讯云DNS解析",
+	"tip":"lib",
+	"name":"dnspod",
+	"type":"扩展",
+	"ps":"腾讯云DNS解析是国内最大的免费DNS解析产品提供商",
+	"versions":"3.1",
+	"checks":"/www/server/panel/plugin/dnspod",
+	"author":"宝塔",
+	"home":"http://www.bt.cn/bbs",
+	"date":"2020-01-27",
+	"default":false,
+	"display":0
+}

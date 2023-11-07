@@ -1,0 +1,1803 @@
+<style>
+	.bt-w-item {
+		display: none;
+		height: 100%;
+		width: 100%;
+	}
+
+	.bt-w-item.active {
+		display: inline-block;
+	}
+
+	.bt_table {
+		width: 100%;
+	}
+
+	.clear-overflow .layui-layer-content {
+		overflow: inherit !important;
+	}
+
+	.bt-input-text {
+		padding: 0 10px;
+	}
+
+	.guide_body {
+		padding: 10px 0;
+	}
+
+	.guide_path {
+		display: flex;
+		padding: 30px 20px 30px 20px;
+	}
+
+	.guide_path span {
+		display: inline-block;
+		flex: 1;
+		text-align: center;
+		position: relative;
+		z-index: 99999;
+	}
+
+	.guide_path span i:nth-child(1) {
+		display: block;
+		width: 30px;
+		height: 30px;
+		margin: 0 auto;
+		border-radius: 50%;
+		background: #d0d0d0;
+		color: #777;
+		text-align: center;
+		line-height: 31px;
+		font-size: 16px;
+		font-style: inherit;
+	}
+
+	.guide_path span i:nth-child(2) {
+		display: block;
+		font-style: inherit;
+		font-size: 12px;
+		margin-top: 10px;
+		color: #666;
+	}
+
+	.guide_path span.active i:nth-child(1) {
+		background: #20a53a;
+		color: #fff;
+	}
+
+	.guide_path span.active i:nth-child(2) {
+		color: #20a53a;
+	}
+
+	.guide_path_progress {
+		margin: 0 120px;
+		height: 3px;
+		display: inline-block;
+		position: absolute;
+		top: 54px;
+	}
+
+	.guide_path_progress span:nth-child(1) {
+		width: 0;
+		display: inline-block;
+		background: #20a53a;
+		height: 3px;
+		z-index: 980;
+		position: absolute;
+		left: 0;
+	}
+
+	.guide_path_progress span:nth-child(2) {
+		width: 380px;
+		display: inline-block;
+		background: #cccccc;
+		height: 3px;
+		position: absolute;
+		z-index: 900;
+		left: 0;
+	}
+
+	.guide_content {
+		display: inline-block;
+		padding: 0 50px 20px 50px;
+		width: 100%;
+	}
+	.guide_content_title {
+		margin-bottom: 15px;
+		font-size: 13px;
+	}
+
+	.guide_content_text {
+		border: 1px solid #eee;
+		max-height: 280px;
+		overflow-y: auto;
+	}
+
+	.guide_content_text span {
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+		display: block;
+		padding-left: 40px;
+		font-size: 13px;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.guide_content_text span.search_null {
+		text-align: center;
+		padding: 0;
+	}
+
+	.guide_content_text span.search_null:after {
+		border: none;
+	}
+
+	.guide_content_text span i em {
+		color: #999;
+		font-style: normal;
+		text-overflow: ellipsis;
+		margin-left: 20px;
+	}
+
+	.guide_content_text span i {
+		display: inline-block;
+		font-style: inherit;
+		margin-right: 15px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: pre;
+		width: 100%;
+	}
+
+	.guide_content_text span i:nth-child(2) {
+		color: #999;
+		font-size: 12px;
+	}
+
+
+
+	.guide_content_text span.active:after {
+		content: '';
+		display: inline-block;
+		border: 1px solid #20a53a;
+		border-radius: 50%;
+		height: 16px;
+		width: 16px;
+		position: absolute;
+		left: 15px;
+		top: 11px;
+		background: #20a53a;
+		z-index: 900;
+	}
+
+	.guide_content_text span.tips {
+		background: #e0e0e0;
+	}
+
+	.guide_content_text span.active:before {
+		content: '';
+		display: inline-block;
+		border-bottom: 1.5px solid #ffffff;
+		border-right: 1.5px solid #ffffff;
+		width: 6px;
+		height: 10px;
+		transform: rotate(45deg);
+		position: absolute;
+		left: 20px;
+		top: 13px;
+		z-index: 999;
+	}
+
+	.guide_content_text span:after {
+		content: '';
+		display: inline-block;
+		border: 1px solid #bdbdbd;
+		border-radius: 50%;
+		height: 16px;
+		width: 16px;
+		position: absolute;
+		left: 15px;
+		top: 11px;
+	}
+	.bt-disabled{
+		background-color: #fafafa;
+	}
+
+	.bt_form_separate{
+		/*padding: 8px;*/
+		text-align: center;
+		position: relative;
+		width: 100%;
+	}
+	.bt_form_separate span{
+		display: inline-block;
+		position: relative;
+		z-index: 9;
+		font-size: 12px;
+		cursor: pointer;
+	}
+	.disk_group_item{
+		margin-bottom: 5px;
+		font-size: 12px;
+		padding-left: 5px;
+	}
+	.disk_group_content{
+		margin-bottom: 20px;
+	}
+	.tab-body .tab-block{
+		width: 100%;
+
+	}
+	.tab-body .tab-con{
+		padding: 0;
+		padding-top: 15px;
+	}
+	.size_ellipsis.path_width{
+		width: 140px;
+		vertical-align: bottom;
+	}
+	.nfsServer,.rpcbindServer{
+		padding: 15px;
+		width: 30%;
+		display: inline-block;
+	}
+	.bt_table .divtable{
+		border: 1px solid #e6e6e6;
+	}
+	.bt_table .divtable table{
+		border: 0;
+	}
+	.bt_table .divtable thead{
+		position: relative;
+		z-index: 1;
+	}
+	.nfsServerTabel .divtable {
+		height: 330px !important;
+	}
+</style>
+<div class="bt-content">
+	<div class="bt-w-main">
+		<div class="bt-w-menu">
+			<p class="bgw">共享列表</p>
+			<p>挂载列表</p>
+			<p>服务状态</p>
+		</div>
+		<div class="bt-w-con">
+			<div class="bt-w-item active">
+				<div id="sharedTable" class="pd20"></div>
+				<ul class="help-info-text c7" style="margin-top:5px;color:red;margin-left: 25px">
+					<li>NFS服务端需放行以下端口客户端才能正常挂载：<a class="accept-ports" style="color:red;">111/2049/20048/32874-65535</a></li>
+					<li>注意：建议使用【系统防火墙】插件，针对客户端IP进行有限放行，以免出现安全风险</li>
+				</ul>
+			</div>
+			<div class="bt-w-item">
+				<div id="mountTable" class="pd20"></div>
+			</div>
+			<div class="bt-w-item">
+				<div id="nfsStatus" class="pd20"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	bt_tools.form = function (config) {
+		var _that = this;
+		function ReaderForm(config) {
+				this.config = config;
+				this.data = config.data || {};
+				this.$load();
+		}
+		ReaderForm.prototype = {
+				element: null,
+				style_list: [], // 样式列表
+				event_list: {}, // 事件列表,已绑定事件
+				event_type: ['click', 'event', 'focus', 'keyup', 'blur', 'change'],
+				hide_list: [],
+				form_element: {},
+				form_config: {},
+				random: bt.get_random(5),
+				$load: function () {
+						var that = this;
+						if (that.el) {
+								this.$reader_content(function () {
+										that.$event_bind();
+								});
+						}
+				},
+
+				/**
+				 * @description 渲染Form内容
+				 * @param {Function} callback 回调函数
+				 */
+				$reader_content: function (callback) {
+						var that = this,
+								html = '',
+								_content = '';
+						$.each(that.config.form, function (index, item) {
+							if(item.separate){
+								html += '<div class="bt_form_separate"><span class="btn btn-sm btn-default">'+ item.separate +'</span></div>'
+							}else{
+								html += that.$reader_content_row(index, item);
+							}
+						});
+						that.element = $('<form class="bt-form" data-form="' + that.random + '">' + html + '</form>');
+						_content = $('<div class="' + _that.$verify(that.config.class) + '"></div>');
+						_content.append(that.element);
+						if (callback) callback();
+						return _content[0].outerHTML;
+				},
+
+				/**
+				 * @description 渲染行内容
+				 * @param {object} data Form数据
+				 * @param {number} index 下标
+				 * @return {string} HTML结构
+				 */
+				$reader_content_row: function (index, data) {
+						var that = this,help = data.help,labelWidth =  data.formLabelWidth || this.config.formLabelWidth;
+						return '<div class="line' + _that.$verify(data.class) + _that.$verify(data.hide, 'hide', true) + '"' + _that.$verify(data.id, 'id') + '>' +
+								(data.label ? '<span class="tname" '+ (labelWidth?'style="width:'+ labelWidth +'"':'') +'>' + data.label + '</span>' : '') +
+								'<div class="' + (data.label ? 'info-r' : '') + _that.$verify(data.line_class) + '"' + _that.$verify(that.$reader_style($.extend(data.style,labelWidth?{'margin-left':labelWidth}:{})), 'style') + '>' +
+								that.$reader_form_element(data.group, index) +
+								(help ? ('<div class="c9 mt5 ' + _that.$verify(help.class, 'class') + '" ' + _that.$verify(that.$reader_style(help.style), 'style') + '>' + help.list.join('</br>') + '</div>') : '') +
+								'</div>' +
+							'</div>';
+				},
+
+				/**
+				 * @description 渲染form类型
+				 * @param {object} data 表单数据
+				 * @param {number} index 下标
+				 * @return {string} HTML结构
+				 */
+				$reader_form_element: function (data, index) {
+						var that = this,html = '';
+						if (!Array.isArray(data)) data = [data];
+						$.each(data, function (key, item) {
+								item.find_index = index;
+								html+= that.$reader_form_find(item);
+								that.form_config[item.name] = item;
+						});
+						return html;
+				},
+				/**
+				 * @descripttion 渲染单个表单元素
+				 * @param {Object} item 配置
+				 * @return: viod
+				 */
+				$reader_form_find:function(item){
+						var that = this,html = '',style = that.$reader_style(item.style) + _that.$verify(item.width, 'width', 'style'),
+						attribute = that.$verify_group(item, ['name', 'value', 'placeholder', 'disabled', 'readonly', 'autofocus', 'autocomplete', 'min', 'max']),
+						event_group = that.$create_event_config(item),
+						eventName = '',index = item.find_index;
+						html += item.label ? '<span class="mr5">' + item.label + '</span>' : '';
+						if (typeof item['name'] !== "undefined") that.event_list[item.name] = event_group;
+						html += '<div class="'+ (item.dispaly || 'inlineBlock') +'">';
+						switch (item.type) {
+								case 'text': // 文本选择
+								case 'checkbox': // 复选框
+								case 'password': // 密码
+								case 'radio': // 单选框
+								case 'number': // 数字
+										var _event = 'event_' + item.name + '_' + that.random;
+										switch(item.type){
+												case 'checkbox': // 复选框
+													html += '<label class="cursor-pointer form-checkbox-label"><i class="form-checkbox cursor-pointer mr5 '+ _event + '_label"></i><input type="checkbox" class="form—checkbox-input mr10 '+ _event +'" name="'+ item.name +'" /><span class="vertical_middle">'+ item.title +'</span></label>';
+													that.event_list[_event + '_label'] = {click:{type:'checkbox_icon',config:item}};
+													that.event_list[_event] = {input:{type:'checkbox',config:item}};
+												break;
+												default:
+													html += '<input type="' + item.type + '"' + attribute + ' ' + (item.icon ? 'id="' + _event + '"' : '') + ' class="bt-input-' + (item.type != 'select_path' ? item.type : 'text') + ' mr10 ' + (item.label ? 'vertical_middle' : '') + _that.$verify(item.class, 'class') + '"' + _that.$verify(style, 'style') + ' value="'+ (that.data[item.name] || item.value || '') +'"/>';
+												break;
+										}
+										if(item.btn && !item.disabled){
+											html += '<span class="btn ' + item.btn.type + ' ' + item.name + '_btn cursor" ' + _that.$verify(that.$reader_style(item.btn.style), 'style') + '>'+ item.btn.title +'</span>';
+											if(typeof item.btn.event !== 'undefined'){
+												that.event_list[item.name + '_btn'] = {
+													'click': {
+														config: item,
+														event:item.btn.event
+													}
+												};
+											}
+										}
+										if(item.icon){
+												html += '<span class="glyphicon ' + item.icon.type + ' ' + item.name + '_icon cursor '+ (item.disabled?'hide':'') +'" ' + _that.$verify(that.$reader_style(item.icon.style), 'style') + '></span>';
+												if(typeof item.icon.event !== 'undefined'){
+														that.event_list[item.name + '_icon'] = {
+																'click': {
+																		type: 'select_path',
+																		config: item,
+																		event:item.icon.event
+																}
+														};
+												}
+										}
+										html += item.unit?'<span>'+ item.unit +'</span>':'';
+								break;
+								case 'textarea':
+										html += '<textarea class="bt-input-text"' + _that.$verify(style, 'style') + attribute + ' >' + (item.value || '') + '</textarea>';
+										$.each(['blur', 'focus', 'input'], function (index, items) {
+												if (item.tips) {
+														var added = null;
+														switch (items) {
+																case 'blur':
+																		added = function (ev,item,element){
+																				if ($(this).val() === '') $(this).next().show();
+																				layer.close(item.tips.loadT);
+																				$(ev.target).data('layer','');
+																		}
+																		break;
+																case 'focus':
+																		added = function (ev, item) {
+																				$(this).next().hide();
+																				item.tips.loadT = layer.tips(tips, $(this), {
+																						tips: [1, '#20a53a'],
+																						time: 0,
+																						area: $(this).width()
+																				});
+																		}
+																		break;
+														}
+												}
+												that.event_list[item.name][items] ? (that.event_list[item.name][items]['added'] = added) : (that.event_list[item.name][items] = {
+														type: item.type,
+														cust: false,
+														event: item[items],
+														added: added
+												});
+										});
+										if (item.tips) {
+												var tips = '';
+												if (typeof item.tips.list === "undefined") {
+														tips = item.tips.text;
+												} else {
+														tips = item.tips.list.join('</br>');
+												}
+												html += '<div class="placeholder c9 ' + item.name + '_tips" ' + _that.$verify(that.$reader_style(item.tips.style), 'style') + '>' + tips + '</div>';
+												that.event_list[item.name + '_tips'] = {
+														'click': {
+																type: 'textarea_tips',
+																config: item
+														}
+												};
+										}
+										break;
+								case 'select':
+										html += that.$reader_select(item, style, attribute, index);
+										that.event_list['custom_select'] = {
+												'click': {
+														type: 'custom_select',
+														children: '.bt_select_value'
+												}
+										};
+										that.event_list['custom_select_item'] = {
+												'click': {
+														type: 'custom_select_item',
+														children: 'li.item'
+												}
+										};
+										break;
+								case 'link':
+										eventName = 'event_' + bt.get_random(6);
+										html += '<a href="' + (item.href || 'javascript:;') + '" class="btlink offsetY7' + _that.$verify(item.class, 'class') + ' ' + eventName + '" ' + _that.$verify(that.$reader_style(item.style), 'style') + '>' + item.title + '</a>';
+										that.event_list[eventName] = {
+												'click': {
+														type: 'link_event',
+														event: item.event
+												}
+										}
+										break;
+								case 'help':
+										var _html = '';
+										$.each(item.list, function (index, items) {
+												_html += '<li>' + items + '</li>';
+										})
+										html += '<ul class="help-info-text c7' + _that.$verify(item.class) + '"' + _that.$verify(that.$reader_style(item.style), 'style') + '>' + _html + '</ul>';
+										break;
+						}
+						html += '</div>'
+						return html;
+				},
+				/**
+				 * @description 创建事件配置
+				 * @param {object} item 行内配置
+				 * @return {object} 配置信息
+				 */
+				$create_event_config: function (item) {
+						var config = {};
+						if (typeof item['name'] === "undefined") return {};
+						$.each(this.event_type, function (key, items) {
+								if (item[items]) {
+										config[(items === 'event' ? 'click' : items)] = {
+												type: item.type,
+												event: item[items],
+												cust: (['select', 'checkbox', 'radio'].indexOf(item.type) > -1),
+												config: item
+										};
+								}
+						});
+						return config;
+				},
+				/**
+				 * @description 渲染样式
+				 * @param {object|string} data 样式配置
+				 * @return {string} 样式
+				 */
+				$reader_style: function (data) {
+						var style = '';
+						if (typeof data === 'string') return data;
+						if (typeof data === 'undefined') return '';
+						$.each(data, function (key, item) {
+								style += key + ':' + item + ';';
+						});
+						return style;
+				},
+				/**
+				 * @descripttion 局部刷新form表单元素
+				 * @param {String} name 需要刷新的元素
+				 * @param {String} name 元素新数据
+				 * @return: viod
+				 */
+				$local_refresh:function(name,config){
+					var formFind = this.element.find('[data-name='+name+']')
+						if(this.element.find('[data-name='+name+']').length === 0) formFind = this.element.find('[name='+ name +']')
+						formFind.parent().empty().append(this.$reader_form_find(config))
+				},
+        /**
+                   * @description 渲染下拉，内容方法
+                   */
+                  $reader_select: function (item, style, attribute, index) {
+                      var that = this,list = '',option = '',active = {};
+                      if (!Array.isArray(item.list)) {
+                          var config = item.list;
+                          bt_tools.send({
+                              url: config.url,
+                              data: config.param || config.data || {}
+                          }, function (res) {
+                              if (res.status !== false) {
+                                var list = item.list.dataFilter ? item.list.dataFilter(res,that) : res;
+                                if(item.list.success) item.list.success(res,that,that.config.form[index],list)
+                                item.list = list
+                                if(!item.list.length){
+                                  item.disabled = true
+                                  layer.msg(item.placeholder || '数据获取为空',{icon:2})
+                                }
+                                that.$replace_render_content(index);
+                              } else {
+                                bt.msg(res);
+                              }
+                          });
+                      }
+                      if(typeof that.data[item.name] === "undefined") active = item.list[0]
+                      $.each(item.list, function (key, items) {
+                        if(items.value === item.value || items.value === that.data[item.name]){
+                            active = items
+                            return false
+                        }
+                      })
+                      $.each(item.list, function (key, items) {
+                        list += '<li class="item' + _that.$verify(items.value === active.value ? 'active' : '') + ' ' + (items.disabled ? 'disabled' : '') + '" title="'+ items.title +'">' + items.title + '</li>';
+                        option += '<option value="' + items.value + '"' + (items.disabled ? 'disabled' : '') + ' ' + _that.$verify(items.value === active.value ? 'selected' : '') + '>' + items.title + '</option>';
+                      });
+                      var title = !Array.isArray(item.list)?'获取数据中':(active?active.title:item.placeholder)
+                      return '<div class="bt_select_updown mr10 ' + (item.disabled?'bt-disabled':'') + ' ' + + _that.$verify(item['class']) + '" ' + _that.$verify(style, 'style') + ' data-name="' + item.name + '">' +
+                        '<span class="bt_select_value"><span class="bt_select_content" title="'+ (title || item.placeholder) +'">' + (title || item.placeholder || '无数据') + '</span><span class="glyphicon glyphicon-triangle-bottom ml5"></span></span>' +
+                        '<ul class="bt_select_list">' + (list || '') + '</ul>' +
+                        '<select' + attribute + ' class="hide" ' + (item.disabled ? 'disabled' : '') + ' autocomplete="off">' + (option || '') + '</select>' +
+                      '</div>';
+                  },
+
+				/**
+				 * @description 替换渲染内容
+				 */
+				$replace_render_content: function (index) {
+					var that = this,config = this.config.form[index];
+					$('[data-form=' + that.random + ']').find('.line:eq(' + index + ')').replaceWith(that.$reader_content_row(index, config));
+				},
+
+				/**
+				 * @description 事件绑定功能
+				 * @param {Array} eventList 事件列表
+				 * @param {Function} callback 回调函数
+				 * @return void
+				 */
+				$event_bind: function (eventList, callback) {
+						var that = this,_event = {};
+						that.element = $(typeof eventList === 'object' ? that.element : ('[data-form=' + that.random + ']'));
+						if (typeof eventList === 'undefined') _event = that.event_list;
+						$.each(_event, function (key, item) {
+								if ($.isEmptyObject(item)) return true;
+								$.each(item, function (keys, items) {
+										var childNode = '';
+										if (typeof items.cust === "boolean") {
+												childNode = '[' + (items.cust ? 'data-' : '') + 'name=' + key + ']';
+										} else {
+												childNode = '.' + key;
+										}
+										(function (items, key) {
+												if (items.onEvent === false) {
+														switch (items.type) {
+																case 'input_checked':
+																		$(childNode).on(keys != 'event' ? keys : 'click', function (ev) {
+																				items.event.apply(this, [ev, that]);
+																		});
+																		break;
+														}
+														return true;
+												} else {
+														that.element.on(keys != 'event' ? keys : 'click', items.children ? items.children : childNode, function (ev) {
+																var form = that.$get_form_element(true), value = that.$get_form_value(), config = that.form_config[key];
+																switch (items.type) {
+																		case 'textarea_tips':
+																				$(this).hide().prev().focus();
+																				break;
+																		case 'custom_select':
+																				if ($(this).parent().hasClass('bt-disabled')) return false;
+																				var select_value = $(this).next();
+																				if (!select_value.hasClass('show')) {
+																						$('.bt_select_list').removeClass('show');
+																						select_value.addClass('show');
+																				} else {
+																						select_value.removeClass('show');
+																				}
+																				$(document).click(function () {
+																						that.element.find('.bt_select_list').removeClass('show');
+																						$(this).unbind('click');
+																						return false;
+																				});
+																				return false;
+																				break;
+																		case 'custom_select_item':
+																				config = that.form_config[$(this).parents('.bt_select_updown').attr('data-name')], item_config = config.list[$(this).index()]
+																				if ($(this).hasClass('disabled')) {
+																						$(this).parent().removeClass('show');
+																						if (item_config.tips) layer.msg(item_config.tips, {
+																								icon: 2
+																						});
+																						return true;
+																				}
+																				if (!$(this).hasClass('active') && !$(this).hasClass('disabled')) {
+																						$(this).parent().prev().find('.bt_select_content').text($(this).text());
+																						$(this).addClass('active').siblings().removeClass('active');
+																						$(this).parent().next().val(item_config.value.toString());
+																						$(this).parent().removeClass('show');
+																						$(this).parent().next().trigger("change");
+																				}
+																				break;
+																		case 'select_path':
+																				bt.select_path('event_' + $(this).prev().attr('name') + '_' + that.random,items.config.icon.select||"");
+																				break;
+																		case 'checkbox':
+																				var checked = $(this).is(':checked');
+																				if(checked){
+																						$(this).prev().addClass('active');
+																				}else{
+																						$(this).prev().removeClass('active');
+																				}
+																		break;
+																}
+																if (items.event) items.event.apply(this, [value,form, that, config, ev]); // 事件
+																if (items.added) items.added.apply(this, [ev,config,form]);
+														});
+												}
+										}(items, key));
+								});
+						});
+						if (callback) callback();
+				},
+
+				/**
+				 * @description 获取表单数据
+				 * @return {object} 表单数据
+				 */
+				$get_form_value:function(){
+						return this.element.serializeObject();
+				},
+
+				/**
+				 * @description 设置指定数据
+				 *
+				 */
+				$set_find_value: function (name, value) {
+						var config = {},that = this;
+						typeof name != 'string' ? config = name : config[name] = value;
+						$.each(config, function (key, item) {
+								that.form_element[key].val(item);
+						});
+				},
+
+				/**
+				 * @description 获取Form，jquery节点
+				 * @param {Boolean} afresh 是否强制刷新
+				 * @return {object}
+				 */
+				$get_form_element: function (afresh) {
+						var form = {},
+								that = this;
+						if (afresh || $.isEmptyObject(that.form_element)) {
+								this.element.find(':input').each(function (index) {
+										form[$(this).attr('name')] = $(this);
+								});
+								that.form_element = form;
+								return form;
+						} else {
+								return that.form_element;
+						}
+				},
+
+				/**
+				 * @description 验证值整个列表是否存在，存在则转换成属性字符串格式
+				 */
+				$verify_group: function (config, group) {
+						var that = this,
+								str = '';
+						$.each(group, function (index, item) {
+								if (typeof config[item] === "undefined") return true;
+								if (['disabled', 'readonly'].indexOf(item) > -1) {
+										str += ' ' + (config[item] ? (item + '="' + item + '"') : '');
+								} else {
+										str += ' ' + item + '="' + config[item] + '"';
+								}
+						});
+						return str;
+				},
+
+				/**
+				 * @description 验证绑定事件
+				 * @param {String} value
+				 */
+				$verify_bind_event: function (eventName, row, group) {
+						var event_list = {};
+						$.each(group, function (index, items) {
+								var event_fun = row[items];
+								if (event_fun) {
+										if (typeof event_list[eventName] === "object") {
+												if (!Array.isArray(event_list[eventName])) event_list[eventName] = [event_list[eventName]];
+												event_list[eventName].push({
+														event: event_fun,
+														eventType: items
+												});
+										} else {
+												event_list[eventName] = {
+														event: event_fun,
+														eventType: items
+												};
+										}
+								}
+						});
+						return event_list;
+				},
+
+				/**
+				 * @description 验证值是否存在
+				 * @param {String} value 内容/值
+				 * @param {String|Boolean} attr 属性
+				 * @param {String} type 属性
+				 */
+				$verify: function (value, attr, type) {
+						if (!value) return '';
+						if (type === true) return value ? ' ' + attr : '';
+						if (type === 'style') return attr ? attr + ':' + value + ';' : value;
+						return attr ? ' ' + attr + '="' + value + '"' : ' ' + value;
+				},
+				/**
+				 * @description 验证form表单
+				*/
+				$verify_form:function(){
+						var form_list = {},form = this.config.form,form_value = this.$get_form_value(),form_element = this.$get_form_element(true);
+						for(var key = 0; key< form.length; key++){
+								var item = form[key];
+								if(!Array.isArray(item.group)) item.group = [item.group];
+								if(item.separate) continue
+								for(var i=0;i<item.group.length;i++){
+										var items = item.group[i],name = items.name;
+										if(items.type === 'help') continue;
+										if(typeof items.verify != "undefined"){
+												var value = items.verify(form_value[name],form_element[name],items,true);
+												if(value === false && form_value[name] !== false) return false;
+												form_list[name] = value;
+										}else{
+											form_list[name] = (typeof form_value[name]  === "undefined" && items.disabled)?$('[name="'+ name +'"]').val():form_value[name];
+										}
+								}
+						}
+						return form_list;
+				},
+				/**
+				 * @description 提交内容，需要传入url
+				 * @param {Object|Function} param 附加参数或回调函数
+				 * @param {Function} callback 回调
+				*/
+				$submit: function (param,callback,tips) {
+						var form = this.$verify_form();
+						if(typeof param === "function") tips = callback,callback = param,param = {};
+						if(!form) return false;
+						form = $.extend(form,param);
+						if(typeof this.config.url == "undefined"){
+								bt_tools.msg('请求提交地址不能为空！',false);
+								return false;
+						}
+						bt_tools.send({
+								url:this.config.url,
+								data:form
+						},function(res){
+								if(callback){
+										callback(res,form);
+								}else{
+										bt_tools.msg(res);
+								}
+						},(tips || '提交中'));
+				}
+		}
+		return new ReaderForm(config);
+	}
+	bt_tools.open = function (config) {
+      var _config = {},layerT = null,form = null;
+      _config = $.extend({type: 1,area: '640px',closeBtn: 2,btn: ['确认', '取消']},config);
+      if(typeof _config.content == "object"){
+        var param = _config.content;
+        form = bt_tools.form(param);
+        _config.success = function(layero,indexs){
+          form.$event_bind();
+          if(typeof config.success != "undefined")  config.success(layero,indexs);
+        }
+        _config.yes = function(indexs,layero){
+          var form_val = form.$verify_form();
+          if(!form_val) return false;
+          if(typeof config.yes != "undefined"){
+            var yes = config.yes.apply(form,[form_val,indexs,layero]);
+            if(!yes) return false;
+          }
+        }
+        _config.content = form.$reader_content();
+      }
+      layerT = layer.open(_config);
+      return {
+        close: function () {
+            layer.close(layerT);
+        },
+        form:form
+      }
+    }
+	bt_tools.server = function(config){
+		function Server(){
+			this.config = config
+			if(typeof config.el == "undefined") return false
+			this.$load()
+		}
+		Server.prototype = {
+			$load:function (){
+				this.el = $(config.el)
+				$(this.el).html(this.$reader_content())
+				if(config.success) config.success(this.el)
+				this.$event_bind()
+			},
+			$reader_content:function (config){
+				if(typeof config != "undefined") this.config = config
+				var btnGroup = '',configs = this.config
+				for (var groupKey in configs.group) {
+					if (configs.group.hasOwnProperty(groupKey)) {
+						btnGroup += '<button class="btn btn-default btn-sm" data-type="'+ groupKey +'">'+ configs.group[groupKey]  +'</button>'
+					}
+				}
+				return '<p class="status">'+ (configs.name || '当前') +'状态：<span>'+ (configs.status?'开启':'关闭') +'</span>' +
+					'<span style="color: '+ (configs.status?'#20a53a':'red') +'; margin-left: 3px;" class="glyphicon glyphicon-'+ (configs.status?'play':'pause') +'"></span>' +
+				'</p><div class="sfm-opt">' + btnGroup +'</div>'
+			},
+			$event_bind:function (){
+				var that = this
+				$(config.el).on('click','button.btn',function(ev){
+					that.config.event.apply(this,[ev,$(this).data('type'),that.el,config])
+				})
+			}
+		}
+		new Server()
+	}
+	bt_tools.tab = function (config) {
+        var _that = this;
+        function ReaderTab(config) {
+            this.config = config;
+            this.theme = this.config.theme || {};
+            this.$load();
+        }
+        ReaderTab.prototype = {
+            type: 1,
+            theme_list: [{
+                    content: 'tab-body',
+                    nav: 'tab-nav',
+                    body: 'tab-con',
+                    active: 'on'
+                },
+                {
+                    content: 'bt-w-body',
+                    nav: 'bt-w-menu',
+                    body: 'bt-w-con'
+                }
+            ],
+            random: bt.get_random(5),
+            $init: function () {
+                var that = this,
+                    active = this.config.active,
+                    config = that.config.list,
+                    _theme = {};
+                this.$event_bind();
+                config[that.active]['init'] = true;
+            },
+            $load: function () {
+                var that = this;
+            },
+            $reader_content: function () {
+                var that = this,_list = that.config.list,_tab = '',_tab_con = '',_theme = that.theme,config = that.config;
+                if (typeof that.active === "undefined") that.active = 0;
+                if (!$.isEmptyObject(config.theme)) {
+                    _theme = this.theme_list[that.active];
+                    $.each(config.theme, function (key, item) {
+                        if (_theme[key]) _theme[key] += ' ' + item;
+                    });
+                    that.theme = _theme;
+                }
+                if (config.type && $.isEmptyObject(config.theme)) this.theme = this.theme_list[that.active];
+                $.each(_list, function (index, item) {
+                    var active = (that.active === index ? true : false),
+                        _active = _theme['active'] || 'active';
+                    _tab += '<span class="' + (active ? _active : '') + '">' + item.title + '</span>';
+                    _tab_con += '<div class="tab-block ' + (active ? _active : '') + '">' + (active ? item.content : '') + '</div>';
+                });
+                that.element = $('<div id="tab_' + that.random + '" class="' + _theme['content'] + _that.$verify(that.config.class) + '"><div class="' + _theme['nav'] + '" >' + _tab + '</div><div class="' + _theme['body'] + '">' + _tab_con + '</div></div>');
+                return that.element[0].outerHTML;
+            },
+            /**
+             * @description 事件绑定
+             */
+            $event_bind: function () {
+                var that = this,
+                    _theme = that.theme,
+                    active = _theme['active'] || 'active';
+                if (!that.el) that.element = $('#tab_' + that.random);
+                that.element.on('click', ('.' + _theme['nav'].replace(/\s+/g, '.') + ' span'), function () {
+                    var index = $(this).index(), config = that.config.list[index] ,tab_content = $('.' + _theme['body'] + '>div:eq(' + index + ')');
+                    that.active = index;
+                    $(this).addClass(active).siblings().removeClass(active);
+                    tab_content.addClass(active).siblings().removeClass(active);
+                    console.log(config.hasOwnProperty('init'))
+                    if(!config.hasOwnProperty('init')){
+                        tab_content.html(config.content)
+                        config.init = true
+                    }
+                    if (config.success && config.hasOwnProperty('init')){
+                        config.success();
+                    }
+                });
+            }
+        }
+        return new ReaderTab(config);
+    }
+
+	function NfsTools() {
+		var that = this
+		that.url = "/plugin?action=a&name=nfs_tools&s="
+		that.sharedTabel = null
+		that.mountTabel = null
+		that.event = function () {
+			$(".layui-layer-page").css("width", "1100px")
+			$(".bt-w-menu p").on("click", function () {
+				var index = $(this).index()
+				$(this).addClass("bgw").siblings().removeClass("bgw")
+				$(".bt-w-item:eq(" + index + ")").addClass("active").siblings().removeClass("active")
+				switch (index) {
+					case 0:
+						if(that.sharedTabel){
+							that.sharedTabel.$refresh_table_list(true)
+						}else{
+							that.sharedTabel = that.getSharedList()
+						}
+						break;
+					case 1:
+						if(that.mountTabel){
+							that.mountTabel.$refresh_table_list(true)
+						}else{
+							that.mountTabel = that.getMountList()
+						}
+						break;
+					case 2:
+						that.toObtainServiceStatus()
+						break;
+				}
+			}).eq(0).click()
+		}
+		that.event()
+	}
+
+	NfsTools.prototype = {
+
+		/**
+		 * @description 获取共享列表
+		 * @return tabel 表格构建方法
+		 */
+		getSharedList: function () {
+			var _that = this
+			return  bt_tools.table({
+				el: "#sharedTable",
+				url: this.url + "get_share_list",
+				default: "共享列表为空", //数据为空时的默认提示
+				dataFilter: function (res) {
+					$(".accept-ports").text(res.ports);
+
+					return {data: res.list}
+				},
+				column: [
+					// {type: "checkbox",class: "",width: 20},
+				{
+					fid: "share_name",
+					title: "名称",
+					template:function(row){
+						return '<span class="size_ellipsis" style="width:70px" title="'+ row.share_name +'">'+ row.share_name +'</span>'
+					},
+					event: function (row, index, ev) {
+						_that.editorSharedFind(false, row, function () {
+							that.$refresh_table_list(true)
+						})
+					}
+				}, {
+					fid: "path",
+					title: "共享目录",
+					type: "link",
+					class: "size_ellipsis path_width",
+					event: function (row, index, ev) {
+						openPath(row.path);
+					}
+				}, {
+					fid: "limit_address",
+					title: "允许访问IP",
+					template:function(row){
+						return '<span class="size_ellipsis" style="max-width:95px;vertical-align: bottom;">'+ row.limit_address +'</span>'
+					},
+				}, {
+					fid: "rw_mode",
+					title: "读写模式",
+					template: function (row, index) {
+						return '<span class="size_ellipsis" style="width:50px;vertical-align: bottom;">'+ (row.rw_mode === "rw" ? "读写" : "只读") +'</span>'
+					}
+				}, {
+					fid: "sync_mode",
+					title: "同步模式",
+					template: function (row, index) {
+						return '<span class="size_ellipsis" style="width:60px;vertical-align: bottom;">'+ (row.sync_mode === "sync" ? "实时同步" : "非实时同步") +'</span>'
+					}
+				}, {
+					fid: "user",
+					title: "指定访问用户",
+					template: function (row, index) {
+						return '<span class="size_ellipsis" style="width:80px;vertical-align: bottom;">'+ row.user +'</span>'
+					}
+				}, {
+					fid: "squash",
+					title: "权限限制",
+					type: "text",
+					template: function (row, index) {
+						var tips = ''
+						switch (row.squash) {
+							case "no_root_squash":
+								tips = "root用户不受限"
+							break;
+							case "root_squash":
+								tips = "root用户受限"
+							break;
+							case "all_squash":
+								tips = "所有用户受限"
+							break;
+						}
+						return '<span class="size_ellipsis" style="width:80px;vertical-align: bottom;">'+ tips +'</span>'
+					}
+				}, {
+					fid: "ps",
+					title: "备注",
+					template:function (row){
+						return '<span class="size_ellipsis" style="width:100px;vertical-align: bottom;" title="'+ row.ps+'">'+ row.ps +'</span>'
+					}
+				}, {
+					title: "操作",
+					type: "group",
+					width: 90,
+					align: "right",
+					group: [{
+						title: "编辑",
+						event: function (row, index, ev, key, that) {
+							_that.editorSharedFind(false, row, function () {
+								that.$refresh_table_list(true)
+							})
+						}
+					}, {
+						title: "删除",
+						event: function (row, index, ev, key, that) {
+							_that.removeShare(row, function () {
+								that.$refresh_table_list(true)
+							})
+						}
+					}]
+				}],
+				tootls: [{ // 按钮组
+					type: "group",
+					positon: ["left", "top"],
+					list: [{
+						title: "添加共享目录",
+						active: true,
+						event: function (ev, that) {
+							_that.editorSharedFind(true, {}, function () {
+								that.$refresh_table_list(true)
+							})
+						}
+					}]
+				}]
+			})
+		},
+
+		/**
+		 * @description 添加/编辑共享数据
+		 * @param {boolean|null} type 编辑状态，true:添加，false:编辑
+		 * @param {object|null} item 当前选中数据
+		 * @param {function} callback 回调函数
+		 */
+		editorSharedFind: function (type, item, callback) {
+			if (typeof type === "function") {
+				callback = type;
+				item = {};
+			}
+			var tips = type ? "添加" : "编辑", method = type ? "create_share" : "modify_share", that = this;
+			bt_tools.open({
+				title: tips + "共享目录" + (!type ? " -- [ " + item.share_name + " ]" : ""),
+				skin: "clear-overflow",
+				area: "550px",
+				btn: [type?'提交':'保存', "取消"],
+				content: {
+					class: "pd20",
+					formLabelWidth: "110px",
+					data: item || {},
+					form: [{
+						label: "共享名称",
+						group: {
+							type: "text",
+							name: "share_name",
+							placeholder: "共享名称",
+							width: "350px",
+							disabled:!type,
+							keyup:function(row,FomrElment,Form){
+								var ps_config = Form.config.form[7].group
+									ps_config.value = row.share_name
+								Form.$local_refresh('ps',ps_config)
+							}
+						}
+					}, {
+						label: "共享路径",
+						group: {
+							type: "text", name: "path", icon: {
+								type: "glyphicon-folder-open", event: function (ev) {
+								}
+							}, value: item.path || "/www/wwwroot", placeholder: "请选择需要共享的文件目录", width: "350px"
+						}
+					}, {
+						label: "允许访问的IP",
+						group: {
+							type: "text",
+							name: "limit_address",
+							placeholder: "允许访问的IP，例：192.168.1.2 或 192.168.1.0/24 或 *",
+							width: "350px"
+						}
+					}, {
+						label: "指定访问用户",
+						group: {
+							type: "select",
+							name: "user",
+							list: [
+								{title: "www", value: "www"},
+								{title: "root", value: "root"},
+								// {title: "mysql",value: "mysql"},
+								// {title: "redis", value: "redis"}
+							],
+							value: item.user,
+							width: "350px"
+						}
+					}, {
+						label: "读写模式",
+						group: {
+							type: "select",
+							name: "rw_mode",
+							list: [ {title: "读写", value: "rw"},{title: "只读", value: "ro"}],
+							value: item.rw_mode,
+							width: "350px"
+						}
+					}, {
+						label: "同步模式",
+						group: {
+							type: "select",
+							name: "sync_mode",
+							list: [{title: "实时同步 - 数据更安全", value: "sync"}, {title: "非实时同步 - 性能更好", value: "async"}],
+							value: item.sync_mode,
+							width: "350px"
+						}
+					}, {
+						label: "权限限制",
+						group: {
+							type: "select",
+							name: "squash",
+							list: [{title: "所有用户受限(推荐)", value: "all_squash"}, {
+								title: "root用户受限",
+								value: "root_squash"
+							}, {title: "root用户不受限", value: "no_root_squash"}],
+							value: item.squash,
+							width: "350px"
+						}
+					}, {
+						label: "备注",
+						group: {type: "text", name: "ps", width: "350px"}
+					},{
+						formLabelWidth:'15px',
+						group:{type:'help',style:{'margin-top': '5px','color':'red'},list:['NFS服务端需放行以下端口客户端才能正常挂载：' + $(".accept-ports").text(),'注意：建议使用【系统防火墙】，针对客户端IP进行有限放行，以免出现安全风险']}
+					}]
+				},
+				yes: function (form, indexs, layers) {
+					if (form.share_name === "") {
+						bt.msg({status: false, msg: "共享名称不能为空！"})
+						return false
+					}
+					bt_tools.send(that.url + method, form, function (res) {
+						bt_tools.msg(res)
+						if (res.status) {
+							layer.close(indexs)
+							if (callback) callback(res)
+						}
+					})
+				}
+			})
+		},
+
+		/**
+		 * @description 删除共享目录
+		 * @param {object} item 当前选中数据
+		 * @param {function} callback 回调函数
+		 */
+		removeShare: function (item, callback) {
+			var that = this
+			bt.confirm({
+				title: "删除共享目录-[" + item.share_name + "]",
+				msg: "是否删除共享目录，是否继续？"
+			}, function () {
+				bt_tools.send(that.url + "remove_share", {share_name: item.share_name}, function (res) {
+					bt_tools.msg(res)
+					if (res.status && callback) callback(res)
+				})
+			})
+		},
+
+		/**
+		 * @description 获取挂载列表
+		 * @return tabel 表格构建方法
+		 */
+		getMountList: function () {
+			var _that = this
+			return  bt_tools.table({
+				el: "#mountTable",
+				url: this.url + "get_mount_list",
+				default: "挂载列表为空", //数据为空时的默认提示
+				dataFilter: function (res) {
+					return {data: res}
+				},
+				column: [
+					// {type: "checkbox",class: "",width: 20},
+				{
+					fid: "mount_name",
+					title: "名称",
+					template:function (row){
+						return '<span class="size_ellipsis" style="width:60px;vertical-align: bottom;" title="'+ row.mount_name +'">'+ row.mount_name +'</span>'
+					}
+				}, {
+					fid: "server_address",
+					title: "NFS服务器",
+					template:function (row,index){
+						var info = row.server_address + ':' + row.nfs_path
+						return '<span class="size_ellipsis" style="width:220px;vertical-align: bottom;" title="'+ info +'">'+ info +'</span>'
+					}
+				},{
+					fid: "mount_path",
+					title: "挂载路径",
+					type: "link",
+					class:'size_ellipsis path_width',
+					event: function (row, index, ev) {
+						openPath(row.nfs_path);
+					}
+				}, {
+					fid: "mount_info",
+					width:160,
+					title: "挂载信息",
+					template:function (row){
+						var mount_info = row.mount_info,used_pre = parseFloat(mount_info.used_pre)
+						if(!row.mount_info) return '<span>未挂载</span>'
+						return '<div><div class="progress" style="margin-bottom: 0;height:16px;vertical-align: middle;width: 70%;display: inline-block">'+
+							'<div class="progress-bar progress-bar-'+ (used_pre >= 90?'danger':(used_pre >= 80?'warning':'success')) +'" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="line-height:16px;width: '+ mount_info.used_pre +'">'+ mount_info.used_pre + '</div>'+
+						'</div><div style="width: 30%;display: inline-block;padding-left: 10px;vertical-align: middle;"><span class="btlink ">查看</span></div></div>'
+					},
+					event:function (row, index, ev, key, that){
+						_that.viewMountInformation(row)
+					}
+				},{
+					fid:'iostat',
+					width: 90,
+					title:'读写速度',
+					template:function (row){
+						if(!row.mount_info) return '<span>未挂载</span>'
+						var iostat = row.iostat
+						return '<span>读：' + iostat.read_kbs +'kb/s</br>写：' +iostat.write_kbs + 'kb/s</span>'
+					}
+				}, {
+					fid: "ps",
+					title: "备注",
+					template:function (row){
+						return '<span class="size_ellipsis" style="width:90px;vertical-align: bottom;" title="'+ row.ps +'">'+ row.ps +'</span>'
+					}
+				}, {
+					title: "操作",
+					type: "group",
+					width: 150,
+					align: "right",
+					group: [{
+						template:function (row){
+							return row.mount_info?'卸载':'挂载'
+						},
+						event: function (row, index, ev, key, that) {
+							_that.mountManage(row)
+						}
+					},{
+						title: "编辑",
+						event: function (row, index, ev, key, that) {
+							_that.modifyMount(row)
+						}
+					}, {
+						title: "删除",
+						event: function (row, index, ev, key, that) {
+							_that.removeMount(row)
+						}
+					}]
+				}],
+				tootls: [{ // 按钮组
+					type: "group",
+					positon: ["left", "top"],
+					list: [{
+						title: "添加挂载目录",
+						active: true,
+						event: function (ev, that) {
+							_that.createMount()
+						}
+					}]
+				}]
+			})
+		},
+		/**
+		 * @description 查看挂载信息
+		 * @param {object} item 选中数据
+		 */
+		viewMountInformation:function (item){
+			var iostat = item.iostat,mount_info	= item.mount_info;
+			bt.open({
+				title:'挂载信息 - [ '+ mount_info.filesystem +' ]',
+				area:'550px',
+				btn:false,
+				content:'<div class="disk_group">' +
+						'<div class="disk_group_item">磁盘信息</div>'+
+						'<div class="disk_group_content divtable">' +
+							'<table class="table table-hover table-bordered">' +
+								'<thead></thead>'+
+								'<tbody>' +
+									'<tr><td><strong>磁盘大小</strong></td><td>'+  bt.format_size(mount_info.used_size)+'/'+ bt.format_size(mount_info.size) +'</td></tr>' +
+									'<tr><td><strong>挂载目录</strong></td><td>'+ mount_info.mount_path +'</td></tr>' +
+									'<tr><td><strong>NFS服务器</strong></td><td>'+ mount_info.filesystem +'</td></tr>' +
+								'</tbody>'+
+							'</table>'+
+						'</div>'+
+					'</div>'+
+					'<div class="disk_group">' +
+						'<div class="disk_group_item">磁盘IO信息</div>'+
+						'<div class="disk_group_content divtable">' +
+							'<table class="table table-hover table-bordered">' +
+								'<tbody>' +
+									'<tr><td><strong>总IOPS</strong></td><td>'+ iostat.ops +'/s</td><td><strong>队列长度</strong></td><td>'+ iostat.rpc_bklog +'</td></tr>'+
+									'<tr><td><strong>读IOPS</strong></td><td>'+ iostat.read_ops +'/s</td><td><strong>读速度/秒</strong></td><td>'+ iostat.read_kbs +'kb/s</td></tr>'+
+									'<tr><td><strong>读速度/次</strong></td><td>'+ iostat.read_kbop +'kb/次</td><td><strong>读重传次数</strong></td><td>'+ iostat.read_retrans +'</td></tr>'+
+									'<tr><td><strong>读取时间 </strong></td><td>'+ iostat.read_avg_rtt_ms +'ms</td><td><strong>读取总耗时</strong></td><td>'+ iostat.read_kbs +'ms</td></tr>'+
+									'<tr><td><strong>写IOPS</strong></td><td>'+ iostat.write_ops +'</td><td><strong>写速度/秒</strong></td><td>'+ iostat.write_kbs +'kb/s</td></tr>'+
+									'<tr><td><strong>写速度/次</strong></td><td>'+ iostat.write_kbop +'kb/次</td><td><strong>写重试次数</strong></td><td>'+ iostat.write_retrans +'</td></tr>'+
+									'<tr><td><strong>写入时间</strong></td><td>'+ iostat.write_avg_rtt_ms +'ms</td><td><strong>写入总耗时</strong></td><td>'+ iostat.write_avg_exe_ms +'ms</td></tr>'+
+								'</tbody>'+
+							'</table>'+
+						'</div>'+
+					'</div>',
+				success:function (){
+
+				}
+			})
+		},
+		/**
+		 * @description 挂载管理、卸载/挂载目录
+		 * @param {object} item 选中数据
+	 	*/
+		mountManage:function (item){
+			var method = item.mount_info?'to_umount':'to_mount',tips = !item.mount_info?'挂载':'卸载',that = this
+			bt.show_confirm(tips + '目录-['+ item.mount_path +']','是否'+tips+'目录，'+tips + (!item.mount_info?'服务请确保当前挂载路径未使用，是否继续？':'请确保挂载的目录相关服务已停用，是否继续？'),function (){
+				bt_tools.send({
+					url:that.url + method,
+					data:{mount_name:item.mount_name}
+				},function (res){
+					bt.msg(res)
+					that.mountTabel.$refresh_table_list(true)
+				},{load:'正在'+tips+'目录-['+ item.mount_path +'],请稍后...'})
+			})
+		},
+
+		/**
+		 * @description 添加挂载数据
+		*/
+		createMount: function () {
+			var that = this
+			bt_tools.open({
+				title: "添加挂载目录配置",
+				area: "600px",
+				btn: ['提交',"取消"],
+				content: {
+					class: "pd20",
+					formLabelWidth: "120px",
+					data: {},
+					form:[{
+						label:"NFS服务器IP",
+						group:{type:"text",name:"server_address",width:'250px',placeholder:'请输入NFS服务器IP，并点击获取共享目录',value: '', btn:{
+							type:'btn-sm btn-default ',
+							title:'点击获取共享目录',
+							event: function(row,FomrElment,Form) {
+								if(!bt.check_ip(row.server_address)){
+									bt.msg({status:false,msg:'NFS服务器IP地址错误!'})
+									return false
+								}
+								bt_tools.send({
+									url: that.url + 'show_ip_share_list',
+									data: {server_address: row.server_address}
+								}, function (res) {
+									var sharedList = []
+									for (var i = 0; i < res.length; i++) {
+										sharedList.push({title:res[i].path,value:res[i].path})
+									}
+									for (var j = 0; j < Form.config.form.length; j++) {
+										var items = Form.config.form[j].group;
+										if(items.name === 'nfs_path'){
+											items.list = sharedList
+											delete items.tips
+										}
+										delete items.disabled
+										if(items.name == "server_address") items.value = row.server_address;
+										Form.$local_refresh(items.name,items)
+									}
+								}, {load: '正在检测NFS服务器共享目录'})
+							}
+						}}
+					},{
+						label:"共享目录",
+						group:{type:"select",name:"nfs_path",list:[],tips:'<span style="color: #999;">请输入NFS服务器IP，获取共享列表</span>',width:'380px',disabled:true}
+					},{
+						label:"挂载名称",
+						group:{type:"text",name:"mount_name",placeholder:"请输入挂载名称",width:'380px',disabled:true,keyup:function(row,FomrElment,Form){
+							var ps_config = Form.config.form[6].group
+								ps_config.value = row.mount_name
+							Form.$local_refresh('ps',ps_config)
+						}}
+					},{
+						label:"挂载路径",
+						group: {
+							type: "text", name: "mount_path",disabled:true, icon: {
+								type: "glyphicon-folder-open", event: function (ev) {
+								}
+							}, value: "/www/wwwroot", placeholder: "请选择需要共享的文件目录", width: "380px"
+						}
+					},{
+						label:"NFS版本",
+						group:{type:"select",name:"vers",list:[{title:'NFS-3',value:3},{title:'NFS-4',value:4}],width:'380px',disabled:true}
+					},{
+						label:"协议",
+						group:{type:"select",name:"proto",list:[{title:'TCP',value:'tcp'},{title:'UDP',value:'udp'}],width:'380px',disabled:true}
+					},{
+						label:"备注",
+						group:{type:"text",name:"ps",width:'380px',placeholder:"请输入挂载目录备注",disabled:true}
+					},{
+						formLabelWidth:'70px',
+						group:{
+							type:'help',
+							style:{'margin-top':'0'},
+							list:['请先输入NFS服务器上的IP，并点击获取NFS服务器上的共享目录']
+						}
+					}]
+				},
+				yes:function (formData,indexs){
+					formData = $.extend(formData,{
+						rsize:1048576,
+						wsize:1048576,
+						hard:1,
+						retrans:5, // 重试次数
+						noresvport:1, // 短时断网自动重连
+						timeo:10, // 重试时间
+						auto_mount:1 // 是否开机自动挂载
+					})
+					bt_tools.send({
+						url:that.url + 'create_mount',
+						load:'正在设置挂载目录配置，请稍后...',
+						data:formData
+					},function (res){
+						bt.msg(res)
+						if(res.status){
+							that.mountTabel.$refresh_table_list(true)
+							layer.close(indexs)
+						}
+					})
+				}
+			})
+		},
+
+		/**
+		 * @description 编辑挂载数据
+		 * @param {object} item 当前选中挂载的数据
+		*/
+		modifyMount:function (item){
+			var that = this
+			bt_tools.open({
+				title: "编辑挂载目录配置",
+				area: "650px",
+				btn: ['提交',"取消"],
+				content: {
+					class: "pd20",
+					formLabelWidth: "140px",
+					data:item || {},
+					form:[{
+						label:"NFS服务器IP",
+						group:{type:"text",name:"server_address",width:'380px',placeholder:'请输入NFS服务器IP，并点击获取共享目录',disabled:true}
+					},{
+						label:"共享目录",
+						group:{type:"text",name:"nfs_path",width:'380px',disabled:true}
+					},{
+						label:"挂载名称",
+						group:{type:"text",name:"mount_name",placeholder:"请输入挂载名称",width:'380px',disabled:true}
+					},{
+						label:"挂载路径",
+						group: {type: "text", name: "mount_path",icon: {type: "glyphicon-folder-open", event: function (ev) {}}, placeholder: "请选择需要共享的文件目录", width: "380px"}
+					},{
+						label:"NFS版本",
+						group:{type:"select",name:"vers",list:[{title:'NFS-3',value:3},{title:'NFS-4',value:4}],width:'380px'}
+					},{
+						label:"协议",
+						group:{type:"select",name:"proto",list:[{title:'TCP',value:'tcp'},{title:'UDP',value:'udp'}],width:'380px'}
+					},{
+						label:"备注",
+						group:{type:"text",name:"ps",width:'380px',placeholder:"请输入挂载目录备注"}
+					},{
+						separate:'<span>点击启用高级设置</span>&nbsp;<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>'
+					},{
+						label:"读取块大小",
+						hide:true,
+						group:{type:'text',name:"rsize",width:'380px',unit:'字节'}
+					},{
+						label:"写入块大小",
+						hide:true,
+						group:{type:'text',name:"wsize",width:'380px',unit:'字节'}
+					},{
+						label:"请求重试次数",
+						hide:true,
+						group:{type:'text',name:"retrans",width:'380px',unit:'次'}
+					},{
+						label:"重试时间",
+						hide:true,
+						group:{type:'text',name:"timeo",width:'380px',unit:'秒'}
+					},{
+						label:"自动等待恢复",
+						hide:true,
+						group:{type:'select',name:"hard",width:'380px',list:[{title:'开启',value:1},{title:'关闭',value:0}]}
+					},{
+						label:"短时断网自动重连",
+						hide:true,
+						group:{type:'select',name:"noresvport",width:'380px',list:[{title:'开启',value:1},{title:'关闭',value:0}]}
+					},{
+						label:"是否开机自动挂载",
+						hide:true,
+						group:{type:'select',name:"auto_mount",width:'380px',list:[{title:'开启',value:1},{title:'关闭',value:0}]}
+					}]
+				},
+				yes:function (formData,indexs){
+					bt_tools.send({
+						url:that.url + 'modify_mount',
+						load:'正在设置挂载目录配置，请稍后...',
+						data:formData
+					},function (res){
+						bt.msg(res)
+						if(res.status){
+							that.mountTabel.$refresh_table_list(true)
+							layer.close(indexs)
+						}
+					})
+				},
+				success:function (layer,indesx){
+					$('.bt_form_separate').on('click',function (){
+						$(this).nextAll().removeClass('hide')
+						$(this).remove()
+						$(layer).css({'top':((window.innerHeight - 760) / 2) +'px'});
+
+					})
+				}
+			})
+		},
+
+		/**
+		 * @description 删除挂载目录
+		 * @param {object} item 当前选中数据
+		 * @param {function} callback 回调函数
+		 */
+		removeMount: function (item, callback) {
+			var that = this
+			bt.confirm({
+				title: "删除挂载目录 - ["+ item.mount_path +"]",
+				msg: "是否删除挂载目录，删除挂载目录后，挂载目录将会自动卸载，是否继续？"
+			}, function () {
+				bt_tools.send(that.url + "remove_mount", {mount_name: item.mount_name}, function (res) {
+					bt_tools.msg(res)
+					if(res.status) that.mountTabel.$refresh_table_list(true)
+				})
+			})
+		},
+
+		/**
+		 * @description 获取服务状态
+		 */
+		toObtainServiceStatus:function (callabck){
+			var that = this
+			bt_tools.send(this.url + "get_nfsstat", function (res) {
+				var tabList = [],nfsTitle = {
+					'nfsServerStatus':['服务状态'],
+					'nfs_v3_server':['NFS-3 服务器状态',{total:'总op',other:'其它',getattr:'获取文件属性次数',lookup:'打开文件',access:'查询权限次数',readlink:'读取连接次数',read:'读次数',create:'创建文件次数',mkdir:'创建文件夹次数',rmdir:'删除文件夹次数',readdirplus:'读取目录次数',fsstat:'取文件stat次数',fsinfo:'取文件系统信息次数',pathconf:'取目录配置次数'}],
+					'nfs_v3_client':['NFS-3 客户端状态',{total:'总op',other:'其它',getattr:'获取文件属性次数',lookup:'打开文件',access:'查询权限次数',readlink:'读取连接次数',read:'读次数',create:'创建文件次数',mkdir:'创建文件夹次数',rmdir:'删除文件夹次数',readdirplus:'读取目录次数',fsstat:'取文件stat次数',fsinfo:'取文件系统信息次数',pathconf:'取目录配置次数'}],
+					'nfs_v4_server':['NFS-4 服务端状态',{total:'总次数',other:'其它',compound:'综合'}],
+					'nfs_v4_servop':['NFS-4 服务器状态',{total:'总op',access:'查询权限次数 ',getattr:'获取文件属性次数',getfh:'获取次数',lookup:'打开文件',putfh:'获取文件句柄次数',putrootfh:'获取根句柄次数',readdir:'读取连接次数',exchange_id:'交换ID次数',create_ses:'创建',destroy_ses:'销毁',secinfononam:'次要',sequence:'排序次数',destroy_clid:'销毁clid',reclaim_comp:'回收'}],
+					'nfs_v4_client':['NFS-4 客户端状态',{total:"总op",other:"其它",fsinfo:"取文件系统信息次数",access:"查询权限次数 ",getattr:"获取文件属性次数",lookup:"打开文件",lookup_root:"查看根",pathconf:"取目录配置次数",statfs:"statfs",readdir:"读取连接次数",server_caps:"server_caps",exchange_id:"交换ID",create_session:"创建会话",destroy_session:"销毁会话",reclaim_comp:"收回",secinfo_no:"secinfo_no",destroy_clientid:"销毁客户端ID"}]
+				}
+				for (var keys in nfsTitle) {
+					if (nfsTitle.hasOwnProperty(keys)) {
+						var item = nfsTitle[keys]
+						if(keys === 'nfsServerStatus'){
+							tabList.push({
+								title:item[0],
+								name:keys,
+								content:that.readerNfsServerStatus(),
+								success:function(){
+									$('.tab-body .tab-con .tab-block.on').html(that.readerNfsServerStatus())
+								}
+							})
+						}else if(res[keys]){
+							tabList.push({
+								title:item[0],
+								name:keys,
+								content:that.renderTable(item[1],res[keys],keys),
+								success:function (){
+									var keys = $('.tab-body .tab-con .tab-block.on table').data('key');
+									bt_tools.send(that.url + "get_nfsstat", function (res) {
+										$('.tab-body .tab-con .tab-block.on').html(that.renderTable(nfsTitle[keys][1],res[keys],keys))
+									})
+								}
+							})
+						}
+					}
+				}
+				var nfsStatus = bt_tools.tab({
+					type: 0,
+					theme: {nav:'mt0'},
+					init:false,
+					list: tabList
+				});
+				$('#nfsStatus').html(nfsStatus.$reader_content())
+				nfsStatus.$init()
+			})
+		},
+		/**
+		 * @description  渲染表格
+		 * @param {object} config 配置文件，键值对
+		 * @param {object} data 数据
+		 */
+		renderTable:function (config,data,name){
+			var tbody = '',index = 0,endIndex = 0
+			for (var keys in config) {
+				if(config.hasOwnProperty(keys)){
+					if((index % 2) === 0){
+						tbody += '<tr>'
+						endIndex = index
+					}
+					tbody += '<td><b>'+ config[keys] +'</b></td><td>'+ (data[keys] || 0) +'</td>'
+					if((index % 2) === 0 && (endIndex + 1) === index) tbody += '</tr>'
+					index ++
+				}
+			}
+			return '<table class="table table-hover table-bordered" data-key="'+ name +'"><thead></thead><tbody>'+ tbody +'</tbody></table>'
+		},
+
+		/**
+		 * @description  渲染表格
+		 * @param {object} config 配置文件，键值对
+		 * @param {object} data 数据
+		*/
+		readerNfsServerStatus:function (){
+			var _that = this
+			bt_tools.send(this.url + "get_server_status", function (res) {
+				bt_tools.server({
+					el:'.nfsServer',
+					name:'nfs-serve服务',
+					status:res['nfs-server'],
+					group:{start:'启动',stop:'停止',restart:'重启',reload:'重载配置'},
+					success:function (that){
+						that.find('button:eq('+ (res['nfs-server']?0:1) +')').hide()
+					},
+					event:function (ev,type,that,config){
+						bt.confirm({
+							title:config.group[type] + config.name,
+							msg:'你确定要' + config.group[type] + config.name +'，是否继续？'
+						},function (){
+							bt_tools.send(_that.url + "server_admin", {server_name: 'nfs-server',status_args:type}, function (res) {
+								bt_tools.msg(res)
+								if(res.status) _that.readerNfsServerStatus()
+							})
+						})
+					}
+				})
+				bt_tools.server({
+					el:'.rpcbindServer',
+					name:'rpcbind服务',
+					status:res['rpcbind'],
+					group:{start:'启动',stop:'停止',restart:'重启',reload:'重载配置'},
+					success:function (that){
+						that.find('button:eq('+ (res['rpcbind']?0:1) +')').hide()
+					},
+					event:function (ev,type,that,config){
+						bt.confirm({
+							title:config.group[type] + config.name,
+							msg:'你确定要' + config.group[type] + config.name +'，是否继续？'
+						},function (){
+							bt_tools.send(_that.url + "server_admin", {server_name: 'rpcbind',status_args:type}, function (res) {
+								bt_tools.msg(res)
+								if(res.status) _that.readerNfsServerStatus()
+							})
+						})
+					}
+				})
+				$('.nfsServerTabel').empty()
+				bt_tools.table({
+					el:'.nfsServerTabel',
+					data:res.service_list,
+					height:'330px',
+					column: [{
+						fid:'program',
+						title:'进程池'
+					},{
+						fid:'service',
+						title:'服务名称'
+					},{
+						fid:'vers',
+						title:'版本'
+					},{
+						fid:'proto',
+						title:'协议'
+					},{
+						fid:'port',
+						title:'端口'
+					}],
+					success:function (){
+						bt_tools.$fixed_table_thead('.nfsServerTabel .divtable')
+					}
+				})
+			})
+			return '<div class="soft-man-con"><div class=""><div class="nfsServer"></div><div class="rpcbindServer"></div></div><div class="nfsServerTabel"></div></div>'
+		}
+	}
+	new NfsTools()
+</script>

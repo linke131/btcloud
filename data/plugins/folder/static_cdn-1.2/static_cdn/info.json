@@ -1,0 +1,12 @@
+{
+  "id": 3,
+  "title": "堡塔面板静态文件加速",
+  "tip": "lib",
+  "name": "static_cdn",
+  "type": "扩展",
+  "ps": "对面板静态文件进行CDN加速，加快面板加载速度，提长对小带宽和海外服务器的面板使用体验!",
+  "versions": "1.2",
+  "checks": "/www/server/panel/plugin/static_cdn",
+  "author": "宝塔",
+  "home": "http://www.bt.cn/bbs"
+}

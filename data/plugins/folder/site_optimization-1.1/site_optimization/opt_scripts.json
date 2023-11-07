@@ -1,0 +1,1 @@
+{"opt":[{"type":"微擎","tips":"优化后能提高负载服务器能力和站点并发","script": "w7_opt_v1.py"}],"check":[{"script":"w7_check_v1.py","tips":"检查站点是否为微擎","type":"微擎"}]}

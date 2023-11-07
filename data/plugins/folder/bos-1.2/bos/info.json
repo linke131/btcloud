@@ -1,0 +1,15 @@
+{
+	"title":"百度云存储",
+	"tip":"lib",
+	"name":"bos",
+	"type":"扩展",
+	"ps":"将网站或数据库打包备份到百度云对象存储,企业免费体验6个月500G/个人免费体验一个月100GB存储空间! <a class='btlink' href='https://login.bce.baidu.com/reg.html?tpl=bceplat&amp;from=portal' target='_blank'>点击申请</a>",
+	"versions":"1.2",
+	"shell":"bos.sh",
+	"checks":["/www/server/panel/plugin/bos"],
+	"author":"宝塔",
+	"home":"http://www.bt.cn/bbs",
+	"date":"2021-9-2",
+	"default":false,
+	"display":0
+}

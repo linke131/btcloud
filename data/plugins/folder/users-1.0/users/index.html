@@ -1,0 +1,227 @@
+<style>
+	 #webEdit-con .bt-w-con{
+		  display: none;
+	 }
+</style>
+<div class="bt-w-main">
+	 <div class="bt-w-menu">
+		  <p class="bgw">用户列表</p>
+	 </div>
+	 <div id="webEdit-con" class="pd15">
+		  <div class="bt-w-con" style="display: block;">
+				<div class="mb5"><button class="btn btn-success btn-sm add_users">添加用户</button></div><div class="pull-right" style="display:none"><input type="text" class="ser-text pull-left" placeholder="面板用户名" style="width:200px;margin-top:0;" /><button type="button" class="ser-sub pull-left" style="margin-top:0;"></button></div>
+				<div class="divtable mt10" style="height: 380px;overflow: auto;">
+					 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+						  <thead><tr><th width="150">用户名</th><th>类型</th><th style="text-align:right;">操作</th></tr></thead>
+						  <tbody id="panel_user_list"></tbody>
+					 </table>
+				</div>
+				<ul class="help-info-text c7">
+					 <li>当前多用户管理仅支持操作记录，不支持权限分配，请须知。</li>
+					 <li>面板日志、操作记录仅管理员可操作，子管理员仅支持查看，其他面板功能无限制。</li>
+					 <li>多用户管理仅管理员账号可操作，子管理员无法操作。</li>
+				</ul>
+		  </div>
+	 </div>
+</div>
+<script type="text/javascript">
+    var socks5 = {
+        plugin_name:'users',
+        init:function(){
+            this.create_user_table();
+            this.event();
+        },
+        event:function(){
+            var _this = this;
+            $('.add_users').click(function(){
+                _this.user_manage_view(true,{username:''});
+            });
+            $('#panel_user_list').on('click','.edit_user',function(){
+                var _id = $(this).attr('data-id'),_user = $(this).attr('data-username');
+                _this.user_manage_view(false,{username:_user,id:_id});
+            });
+            $('#panel_user_list').on('click','.del_user',function(){
+                var _id = $(this).attr('data-id'),_user = $(this).attr('data-username');
+                if(_id == 1) {
+                    layer.msg('管理员账号无法删除',{icon:0});
+                    return false;
+                }
+                layer.confirm('是否删除当前用户'+ _user +',是否继续？',{btn:['确认','取消'],icon:3,closeBtn: 2,title:'删除用户'},function(){
+                    _this.remove_user({id:_id},function(res){
+                        if(res.status){
+                            _this.create_user_table(function(){layer.msg(res.msg,{icon:1});});
+                        }else{
+                            layer.msg(res.msg,{icon:2});
+                        }
+                    });
+                });
+            });
+        },
+        create_user_table:function(callback){
+            this.get_users(function (res) {
+                if(callback) callback();
+                var _html = '',_list = '';
+                for(var i=0;i<res.length;i++){
+                    _html += '<tr><td>'+ res[i].username +'</td><td>'+ (res[i].id == 1?'管理员':'子管理员') +'</td><td style="text-align:right;"><a href="javascript:;" class="btlink edit_user" data-id="'+ res[i].id  +'" data-username="'+ res[i].username  +'">修改</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;" class="btlink del_user" data-username="'+ res[i].username  +'" data-id="'+ res[i].id +'">删除</a></td></tr>';
+                    _list += res[i].username +'、'
+                }
+                $('[name="user_group"]').val(_list);
+                $('#panel_user_list').html(_html);
+            });
+        },
+        user_manage_view:function(type,data){
+            var _this = this;
+            layer.open({
+                type: 1,
+                area:"400px",
+                title: type?'添加用户或密码':'编辑用户或密码',
+                closeBtn: 2,
+                shift: 5,
+                shadeClose: false,
+                btn:[(type?'提交':'保存'),'取消'],
+                content:'<div class="bt-form bt-form" style="padding:15px 25px">\
+						  <div class="line">\
+							  <span class="tname" style="width:100px">用户名</span>\
+							  <div class="info-r">\
+								  <input name="manage_user" class="bt-input-text mr5" type="text" style="width: 200px" value="'+ data.username +'" placeholder="请设置用户名" />\
+							  </div>\
+						  </div>\
+						  <div class="line">\
+							  <span class="tname" style="width:100px">密码</span>\
+							  <div class="info-r">\
+								  <input name="manage_pwd" class="bt-input-text mr5" type="text" style="width: 200px" value="" placeholder="'+ (type?"请设置用户名密码":"为空则不修改密码") +'">\
+							  </div>\
+						  </div>\
+					  </div>',
+                yes:function(index,layers){
+                    var user = $('[name=manage_user]').val(),paw = $('[name=manage_pwd]').val();
+                    if(user == ''){
+                        layer.msg('用户名不能为空',{icon:2});
+                        return false;
+                    }
+                    if(type){
+                        if(paw == ''){
+                            layer.msg('用户名密码不能为空',{icon:2});
+                            return false;
+                        }
+                        _this.create_user({username:user,password:paw},function(res){
+                            if(res.status){
+                                layer.close(index);
+                                _this.create_user_table(function(){layer.msg(res.msg,{icon:1});});
+                            }else{
+                                layer.msg(res.msg,{icon:2});
+                            }
+                        });
+                    }else{
+                        _this.modify_user({id:data.id,username:user,password:paw},function(res){
+                            if(res.status){
+                                layer.close(index);
+                                _this.create_user_table(function(){layer.msg(res.msg,{icon:1});});
+                            }else{
+                                layer.msg(res.msg,{icon:2});
+                            }
+                        });
+                    }
+                },
+            });
+        },
+        get_users:function(data,callback){
+            if(typeof data === "function") callback = data;
+            this.send({
+                tips:'正在获取面板用户列表，请稍后...',
+                method: 'get_users',
+					 check:true,
+                success:function(res){
+                    if(callback) callback(res)
+                }
+            });
+        },
+        create_user:function(data,callback){
+            if(typeof data === "function") callback = data;
+            this.send({
+                tips:'正在创建面板用户，请稍后...',
+                method: 'create_user',
+                data:{username:data.username,password:data.password},
+                success:function(res){
+                    if(callback) callback(res)
+                }
+            });
+        },
+        remove_user:function(data,callback){
+            if(typeof data === "function") callback = data;
+            this.send({
+                tips:'正在删除面板用户，请稍后...',
+                method: 'remove_user',
+                data:{id:data.id},
+                success:function(res){
+                    if(callback) callback(res)
+                }
+            });
+        },
+        modify_user:function(data,callback){
+            if(typeof data === "function") callback = data;
+            this.send({
+                tips:'正在修改面板用户信息，请稍后...',
+                method: 'modify_user',
+                data:{id:data.id,username:data.username,password:data.password},
+                success:function(res){
+                    if(callback) callback(res)
+                }
+            });
+        },
+        // 请求
+        send: function (obj) {
+            var loadT = '';
+            if (obj.load == undefined) obj.load = 0;
+            if (obj.url == undefined) {
+                if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this
+                    .plugin_name
+                if (!obj.plugin_name || !obj.method) {
+                    layer.msg('插件类名称，或插件方法名称缺失!', {
+                        icon: 2
+                    });
+                    return false;
+                }
+            }
+            if (obj.load === 0 || obj.tips != '') {
+                loadT = layer.msg(obj.tips, {
+                    icon: 16,
+                    time: 0,
+                    shade: 0.3
+                });
+            } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+                loadT = layer.load();
+            }
+            $.ajax({
+                type: 'POST',
+                url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+                data: obj.data || {},
+                timeout: obj.timeout || 99999999,
+                complete: function (res) {
+                    if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+                },
+                success: function (rdata) {
+                    if (obj.check) {
+                        obj.success(rdata);
+                        return false
+                    }
+                    if (rdata.status === false) {
+                        layer.msg(rdata.msg, { icon: 2 });
+                        return false;
+                    }
+                    obj.success(rdata);
+                },
+                error: function (ex) {
+                    if (!obj.error) {
+                        obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+                            icon: 2
+                        }) : '';
+                        return;
+                    }
+                    return obj.error(ex);
+                }
+            });
+        }
+    }
+    socks5.init();
+</script>

@@ -1,0 +1,12 @@
+{
+    "id": 3,
+    "title": "安全基线扫描",
+    "tip": "lib",
+    "name": "san_security",
+    "type": "扩展",
+    "ps": "安全基线扫描",
+    "versions": "2.3",
+    "checks": "/www/server/panel/plugin/san_security",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs"
+  }

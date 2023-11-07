@@ -1,0 +1,22 @@
+name: "ruby_shell_detect_basic_cmd"
+vuln_id: 1015
+systemname: "ruby反弹shell 执行命令"
+vulnname: "ruby反弹shell 执行命令"
+level: "high"
+tag: [ "当前机器权限已丢失,请及时检查是否存在漏洞"]
+ps: "当前机器权限已经被攻击者获取,请及时检查是否存在漏洞,并及时修复"
+type: "system"
+status: 0
+author: "wpl@bt.cn"
+detect_id: "59"
+msg: "当前机器被反弹shell 攻击IP为:【bt_ip】 执行的命令为:【bt_cmd】"
+repair: "在root权限下执行【kill -9 bt_pid】中断反弹shell进程"
+rule:
+    stdin: "/dev/pts/"
+    stdout: "pipe:"
+    dip: "^(?!.*127.0.0.1)[^-]*$"
+    sip: "^[^-]*$"
+    dport: "^[^-]*$"
+    sport: "^[^-]*$"
+    run_path: "^(?!.*(/usr/local/btmonitoragent|/www/server/panel)).*$"
+    ppid_argv: "ruby"

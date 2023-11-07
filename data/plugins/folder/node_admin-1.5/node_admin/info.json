@@ -1,0 +1,1 @@
+{"title": "\u8282\u70b9\u540c\u6b65\u5de5\u5177", "name": "node_admin", "ps": "\u63d0\u4f9b\u540c\u6b65\u7f51\u7ad9\u914d\u7f6e\uff0cSSL\u8bc1\u4e66\uff0c\u7f51\u7ad9\u6587\u4ef6\uff0cRewrite\u7b49\u529f\u80fd.", "versions": "1.5", "checks": "/www/server/panel/plugin/node_admin", "author": "\u5b98\u65b9", "home": "http://www.bt.cn", "not_substituted": ["data.db|f"]}

@@ -1,0 +1,12 @@
+models:
+  - YONYOU:
+    info: "用友NC代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/servlet/~ic/bsh.servlet.BshServlet"
+    keys:
+      bsh.script: ""
+      bsh.servlet.captureOutErr: ""
+      bsh.servlet.output: ""

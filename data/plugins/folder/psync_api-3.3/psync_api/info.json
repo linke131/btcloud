@@ -1,0 +1,16 @@
+{
+	"title":"宝塔一键迁移_API重制版",
+	"tip":"lib",
+	"name":"psync_api",
+	"type":"系统工具",
+	"ps":"快速迁移面板数据!",
+	"versions":"3.3",
+	"shell":"psync.sh",
+	"checks":"/www/server/panel/plugin/psync_api/psync_api_main.py",
+	"author":"宝塔",
+	"home":"http://www.bt.cn/bbs",
+	"date":"2019-06-10",
+	"default":false,
+	"display":0,
+	"api":true
+}

@@ -1,0 +1,19 @@
+models:
+  - WPMailPress:
+    info: "WorePress MailPress 代码执行漏洞"
+    cveid: ""
+    reference: ""
+    method: "POST"
+    status: true
+    url: "/wp-content/plugins/mailpress/mp-includes/action.php"
+    keys:
+      action: ""
+      id: ""
+      revision: ""
+      toemail: ""
+      toname: ""
+      fromemail: ""
+      fromname: ""
+      to_list: ""
+      Theme: ""
+      subject: "$_BT_PHPCODE"

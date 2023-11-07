@@ -1,0 +1,1309 @@
+<style>
+	#analysis_domain{
+		height: 600px;
+		overflow: auto;
+	}
+	.add_analysis_tr td{
+		border-top: 1px solid #e5e5e5 !important;
+		padding-bottom: 10px !important;
+	}
+	.add_analysis_tr{
+		background-color: #fbfbfb;
+	}
+	.add_analysis_tr input{
+		height: 30px;
+		line-height: 30px;
+		vertical-align: middle;
+		font-size: 12px;
+		line-height: normal;
+		display: inline-block;
+		padding: 0 10px;
+		border: 1px solid #ddd;
+		color: #444;
+		vertical-align: middle;
+		box-sizing: border-box;
+		width: 180px;
+		outline: none;
+		border-radius: 2px;
+	}
+	.add_analysis_tr input:hover{
+		border-color: #aaa;
+	}
+	.add_analysis_tr input:focus{
+		border-color: #20a53a;
+	}
+	.add_analysis_tr_tips{
+		background-color: #f5f5f5;
+	}
+	.add_analysis_tr_tips td{
+		padding: 8px;
+	}
+	.add_analysis_tr_tips .tr_tips{
+		position: relative;
+		padding:10px;
+	}
+	.add_analysis_tr_tips .tr_tips.input_0::after{left: 85px;}
+	.add_analysis_tr_tips .tr_tips.input_1::after{left: 200px;}
+	.add_analysis_tr_tips .tr_tips.input_2::after{left: 285px;}
+	.add_analysis_tr_tips .tr_tips.input_3::after{left: 425px;}
+	.add_analysis_tr_tips .tr_tips.input_4::after{left: 570px;}
+	.add_analysis_tr_tips .tr_tips.input_5::after{left: 660px;}
+	.add_analysis_tr_tips .tr_tips::after{
+		content: '';
+		display: inline-block;
+		height: 12px;
+		width: 12px;
+		border-width: 1px 0 0 1px;
+		border-color: #e5e5e5;
+		border-style: solid;
+		transform: rotate(45deg);
+		background: #f5f5f5;
+		position: absolute;
+		top: -14px;
+	}
+	.add_analysis_tr_tips .tr_tips_title{
+		margin-left: 5px;
+		line-height: 22px;
+	}
+	.add_analysis_tr_tips .tr_tips_list{
+		background-color: #fff;
+		margin-top: 8px;
+		position: relative;
+	}
+	.add_analysis_tr_tips .tr_tips_list li{
+		width: 100%;
+		height: 35px;
+		line-height: 35px;
+		margin-top: -1px;
+		border:1px solid #ececec;
+		cursor: pointer;
+		position: relative;
+	}
+	.add_analysis_tr_tips .tr_tips_list li.active,
+	.add_analysis_tr_tips .tr_tips_list li:hover{
+		border-color: #20a53a;
+		z-index: 999;
+	}
+	.add_analysis_tr_tips .tr_tips_list li.active::after{
+		content:'';
+		display: inline-block;
+		border-top: 10px solid #20a53a;
+   		border-right: 10px solid transparent;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.add_analysis_tr_tips .tr_tips_list .tr_list_title{
+		display: inline-block;
+		width: 100px;
+		color: #444444;
+		line-height: 33px;
+		padding-left:20px;
+		font-weight: 600;
+	}
+	.add_analysis_tr_tips .tr_tips_list .tr_list_content{
+		margin-right: 5px;
+		display: inline-block;
+		line-height: 33px;
+	}
+	.record_type_list span{
+		font-size:12px;
+		padding: 5px 10px;
+	}
+	#dnspod_list .dnc_dot{
+		width: 8px;
+		height: 8px;
+		background-color: #20a53a;
+		border-radius: 50%;
+		display: inline-block;
+	}
+	#dnspod_list .dnc_dot.red{
+		background-color: red;
+	}
+	.nsName.btns a{
+		width: 250px;
+		font-size: 14px;
+		display: inline-block;
+		height: 40px;
+		line-height: 40px;
+		background: #20a53a;
+		color: #fff;
+		border-radius: 4px;
+		text-decoration: none;
+	}
+	.nsName.btn a:hover{
+		background-color: #10952a;
+    	border-color: #398439;
+	}
+	.switch_group .btswitch+.btswitch-btn {
+		width: 2.4em;
+		height: 1.4em;
+		margin-bottom: 0;
+	}
+	.bt-input-password{
+		border: 1px solid #ccc;
+		height: 30px;
+		line-height: 30px;
+		padding-left: 5px;
+		border-radius: 2px;
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+</style>
+<div class="pd20" id="dnspod_list"></div>
+<script type="text/javascript">
+var bt_tools={table:function(e){function t(e){this.config=e,this.$load()}var a=this;return t.prototype={style_list:[],event_list:{},checkbox_list:[],batch_active:{},event_rows_model:{},data:[],page:"",column:[],batch_thread:[],random:bt.get_random(5),init:!1,checked:!1,$load:function(){var e=this;this.config.init&&this.config.init(this),$(this.config.el).addClass("bt_table"),this.config.minWidth&&this.style_list.push({className:this.config.el+" table",css:"min-width:"+this.config.minWidth}),this.config.tootls?this.$reader_tootls(this.config.tootls):0===$(e.config.el+".divtable").length&&$(e.config.el).append('<div class="divtable mtb10" style="heigth:'+(this.config.height||"auto")+'"></div>'),this.$reader_content(),void 0!==e.config.url?this.$refresh_table_list(e.config.load||!1):void 0!==this.config.data?this.$reader_content(this.config.data):alert("缺少data或url参数"),this.config.methods&&$.extend(this,this.config.methods)},$refresh_table_list:function(e,t){var a,s=this;e&&(a=bt_tools.load(this.config.tips||"获取列表数据")),this.$http(function(e){a&&a.close(),s.$reader_content(e.data,void 0!==e.total?parseInt(e.total):e.page),t&&t(e)})},$reader_content:function(e,t){var a=this,s="",i="",n=0,c=this.config.column,l={},o=$(a.config.el+" .checkbox_"+a.random);e=e||[],this.data=e,o.length&&(o.removeClass("active selected"),a.checkbox_list=[],a.$set_batch_view());do{var r=e[n],d=0;e.length>0&&(i+="<tr>");for(var h=0;h<c.length;h++){var p=c[h];if($.isEmptyObject(p))d++;else{if(0===n&&!this.init){this.init||this.style_list.push(this.$dynamic_merge_style(p,h-d));var u="sort_"+this.random,f="checkbox_"+this.random,b=p.sortValue||"desc";s+="<th><span "+(p.sort?'class="not-select '+u+(p.sortValue?" sort-active":"")+' cursor-pointer"':"")+' data-index="'+h+'" '+(p.sort?'data-sort="'+b+'"':"")+">"+("checkbox"==p.type?'<label><i class="cust—checkbox cursor-pointer '+f+'" data-checkbox="all"></i><input type="checkbox" class="cust—checkbox-input"></label>':"<span>"+p.title+"</span>")+(p.sort?'<span class="glyphicon glyphicon-triangle-'+("desc"==b?"bottom":"top")+' ml5"></span>':"")+"</span></th>",0===n&&(!l[u]&&p.sort&&(l[u]={event:this.config.sortEvent,eventType:"click",type:"sort"}),l[f]||(l[f]={event:p.checked,eventType:"click",type:"checkbox"}))}if(void 0!==r){var v="",_="event_"+p.fid+"_"+this.random;p.template?v=a.$custom_template_render(p,r,h):(v=this.$reader_column_type(p,r),l=$.extend(l,v[1]),v=v[0]),i+="<td><span "+(p.fixed?'class="fixed" style="width:'+parseInt(p.width)+'px"':"")+(p.class?'class="'+p.class+'"':"")+" "+(p.tips?'title="'+r[p.fid]+'"':"")+">"+v+"</span></td>",0===n&&!l[_]&&p.event&&(l[_]={event:p.event,eventType:"click",type:"rows"})}}}e.length>0&&(i+="</tr>"),0==e.length&&(i+='<tr><td colspan="'+c.length+'" style="text-align:center;">'+(this.config.default||"数据为空")+"</td></tr>"),n++}while(n<e.length);this.init||this.$style_bind(this.style_list),this.$event_bind(l),this.init?($(this.config.el+" .divtable tbody").html(i),this.config.page&&$(this.config.el+" .page").replaceWith(this.$reader_page(this.config.page,t))):$(this.config.el+" .divtable").append('<table class="table table-hover"><thead>'+s+"</thead><tbody>"+i+"</tbody></table></div></div>"),this.init=!0,this.config.success&&this.config.success(this)},$custom_template_render:function(e,t,a){var s="event_"+e.fid+"_"+this.random,i=e.template(t,a),n=$(i);return n.length>0?template=n.addClass(s)[0].outerHTML:"text"===e.type?template='<span class="'+s+'">'+i+"</span>":template='<a href="javascript:;" class="btlink '+s+'">'+i+"</a>",template},$modify_row_data:function(e){this.event_rows_model.rows=$.extend(this.event_rows_model.rows,e);var t=this.event_rows_model,a=null;a=void 0!==t.model.template?$(this.$custom_template_render(t.model,t.rows,t.index)):$(this.$reader_column_type(t.model,t.rows)[0]),"group"==t.model.type?$(t.el).parent().empty().append(a):t.el.replaceWith(a),t.el=a},$batch_success_table:function(e){var t=this,a=$(e.html).length;bt.open({type:1,title:e.title,area:e.area||["350px","350px"],shadeClose:!1,closeBtn:2,content:e.content||'<div class="batch_title"><span class><span class="batch_icon"></span><span class="batch_text">'+e.title+'操作完成！</span></span></div><div class="'+(a>4?"fiexd_thead":"")+' batch_tabel divtable" style="margin: 15px 30px 15px 30px;overflow: auto;height: 200px;"><table class="table table-hover"><thead><tr><th>'+e.th+'</th><th style="text-align:right;width:120px;">操作结果</th></tr></thead><tbody>'+e.html+"</tbody></table></div>",success:function(){a>4&&t.$fixed_table_thead(".fiexd_thead")}})},$delete_table_row:function(e){this.data.splice(e,1),this.$reader_content(this.data)},$set_batch_view:function(){if(void 0!==this.config.batch){var e=$(this.config.el+" .set_batch_option");if(void 0!==this.config.batch.config)this.checkbox_list.length>0?e.removeClass("bt-disabled btn-default").addClass("btn-success").text("批量"+this.batch_active.title+"(已选中"+this.checkbox_list.length+")"):e.addClass("bt-disabled btn-default").removeClass("btn-success").text("批量"+this.batch_active.title);else{var t=$(this.config.el+" .bt_table_select_group .bt_select_value");this.checkbox_list.length>0?(e.removeClass("bt-disabled btn-default").addClass("btn-success").prev().removeClass("bt-disabled"),t.find("em").html("(已选中"+this.checkbox_list.length+")")):(e.addClass("bt-disabled btn-default").removeClass("btn-success").prev().addClass("bt-disabled"),t.children().eq(0).html("请选择批量操作<em></em>"),t.next().find("li").removeClass("active"),this.batch_active={})}}},$reader_column_type:function(e,t){var a=t[e.fid],s={},i="click_"+e.fid+"_"+this.random,n=[],c=this;switch(e.type){case"text":n=[a,s];break;case"checkbox":n=['<label><i class="cust—checkbox cursor-pointer checkbox_'+this.random+'"></i><input type="checkbox" class="cust—checkbox-input"></label>',s];break;case"password":i="ico_"+c.random+"_";var l='<span class="bt-table-password mr10"><i>**********</i></span>';e.eye_open&&(l+='<span class="glyphicon cursor pw-ico glyphicon-eye-open mr10 '+i+'eye_open" title="显示密码"></span>',s[i+"eye_open"]||(s[i+"eye_open"]={type:"eye_open_password"})),e.copy&&(l+='<span class="ico-copy cursor btcopy mr10 '+i+'copy" title="复制密码"></span>',s[i+"copy"]||(s[i+"copy"]={type:"copy_password"})),n=[l,s];break;case"link":!s[i]&&e.event&&(s[i]={event:e.event,type:"rows"}),n=['<a class="btlink '+i+'" href="'+(e.href?a:"javascript:;")+'" '+(e.href?'target="'+(e.target||"_blank")+'"':"")+' title="'+a+'">'+a+"</a>",s];break;case"input":blurName="blur_"+e.fid+"_"+this.random,keyupName="keyup_"+e.fid+"_"+this.random,!s[blurName]&&e.blur&&(s[blurName]={event:e.blur,eventType:"blur",type:"rows"}),!s[keyupName]&&e.keyup&&(s[keyupName]={event:e.keyup,eventType:"keyup",type:"rows"}),n=['<input type="text" title="点击编辑内容，按回车或失去焦点自动保存"  class="table-input '+blurName+" "+keyupName+'" data-value="'+a+'" value="'+a+'" />',s];break;case"status":var o="";$.each(e.config.list,function(e,t){t[0]===a&&(o=t)}),!s[i]&&e.event&&(s[i]={event:e.event,type:"rows"}),n=['<a class="btlink '+i+" "+(o[2].indexOf("#")>-1?"":o[2])+'" style="'+(o[2].indexOf("#")>-1?"color:"+o[2]+";":"")+'" href="javascript:;"><span>'+o[1]+"</span>"+(e.config.icon?'<span class="glyphicon '+o[3]+'"></span>':"")+"</a>",s];break;case"switch":o="";var r=bt.get_random(5);e.status.on==a&&(o="checked"),!s[i]&&e.event&&(s[i]={event:e.event,type:"rows"}),n=['<div class="switch_group"><input class="btswitch btswitch-ios '+i+'" id="'+r+'" type="checkbox" '+o+'><label class="btswitch-btn" for="'+r+'" data-index="0" bt-event-click="set_site_server_status"></label></div>',s];break;case"group":var d="";$.each(e.group,function(a,n){i=(e.fid?e.fid:"group")+"_"+a+"_"+c.random;var l=!1;if(n.template){var o=n.template(t,c),r=$(o);r.length>0?d+=r.addClass(i)[0].outerHTML:d+='<a href="javascript:;" class="btlink '+i+'" title="'+(n.title||"")+'">'+o+"</a>"}else{if(void 0!==n.hide&&(l="boolean"==typeof n.hide?n.hide:n.hide(t),"boolean"!=typeof l))return!1;d+='<a href="javascript:;" class="btlink '+i+'" '+(l?'style="display:none;"':"")+' title="'+(n.tips||n.title)+'">'+n.title+"</a>"}l||(d+=e.group.length==a+1?"":"&nbsp;&nbsp;|&nbsp;&nbsp;"),!s[i]&&n.event&&(s[i]={event:n.event,type:"rows"})}),n=[d,s];break;default:n=[a,s]}return n},$batch_success_table:function(e){a.$batch_success_table(e)},$reader_tootls:function(e){function t(e,t){var a=bt.load("正在执行批量"+e.title+"，请稍候..."),i={},n=s.$get_data_batch_list(e.paramId,t);e.beforeRequest?i[e.paramName]=e.beforeRequest(t):i[e.paramName]=n.join(","),bt_tools.send({url:e.url||s.config.batch.url,data:$.extend(e.param||{},i)},function(i){if(a.close(),!1===i.status&&void 0===i.success)return bt_tools.msg(i),!1;if(void 0===e.tips||e.tips){var n="";$.each(i.error,function(e,t){n+='<tr><td><span class="text-overflow" title="'+e+'" style="width:50%;">'+e+'</span/></td><td><div style="float:right;" class="size_ellipsis"><span style="color:red">'+t+"</span></div></td></tr>"}),$.each(i.success,function(e,t){n+='<tr><td><span class="text-overflow" title="'+t+'" style="width:50%;">'+t+'</span></td><td><div style="float:right;" class="size_ellipsis"><span style="color:#20a53a">操作成功</span></div></td></tr>'}),s.$batch_success_table({title:"批量"+e.title,th:e.theadName,html:n}),e.refresh&&s.$refresh_table_list(!0)}else if(!e.success){n="";$.each(t,function(t,a){n+='<tr><td><span class="text-overflow" title="'+a.name+'" style="width:50%;">'+a.name+'</span></td><td><div style="float:right;"><span style="color:'+(i.status?"#20a53a":"red")+'">'+((void 0!==e.theadValue?e.theadValue[i.status?0:1]:null)||i.msg)+"</span></div></td></tr>"}),s.$batch_success_table({title:"批量"+e.title+"完成",th:e.theadName,html:n}),e.refresh&&s.$refresh_table_list(!0)}e.success&&e.success(i,t,s)})}function a(e,a,i){var n={loadT:0,config:{},check_list:a,bacth_status:!0,start_batch:function(t,a){void 0===t&&(t={}),"function"==typeof t&&(a=t,t={}),e.load&&(this.loadT=layer.msg("正在执行批量"+e.title+'，<span class="batch_progress">进度:0/'+this.check_list.length+"</span>,请稍候...",{icon:16,skin:"batch_tips",shade:.3,time:0,area:"400px"})),this.config={param:t,url:e.url},this.bacth(a)},bacth:function(t,n){var c=this,l={};if("function"!=typeof t&&void 0!==t||(n=t,t=0),t<this.check_list.length){if(l="function"==typeof e.param?e.param(a[t]):e.param,this.config.param=$.extend(this.config.param,l),void 0!==e.paramId&&(c.config.param[e.paramName||e.paramId]=c.check_list[t][e.paramId]),void 0!==e.beforeBacth&&(this.config.param=$.extend(this.config.param,e.beforeBacth(c.check_list[t]))),this.config.param.bacth&&t==this.check_list.length-1&&delete this.config.param.bacth,!c.bacth_status)return!1;e.load&&$("#layui-layer"+c.loadT).find(".layui-layer-content").html('<i class="layui-layer-ico layui-layer-ico16"></i>正在执行批量'+e.title+'，<span class="batch_progress">进度:'+t+"/"+c.check_list.length+"</span>，请稍候..."+(e.clear?'<a href="javascript:;" class="btlink clear_batch" style="margin-left:20px;">取消</a>':"")),bt_tools.send({url:this.config.url,data:this.config.param,bacth:!0,verify:!1},function(e){$.extend(c.check_list[t],{request:{status:"boolean"==typeof e.status&&e.status,msg:e.msg||"请求网络错误"}}),t++,c.bacth(t,n)})}else{if(i&&i(),n&&n(this.check_list),e.automatic){for(var o="",r=0;r<this.check_list.length;r++){var d=this.check_list[r];o+='<tr><td><span class="text-overflow" title="'+(void 0!==d[e.paramThead]?d[e.paramThead]:d.name)+'" style="width:150px;">'+(void 0!==d[e.paramThead]?d[e.paramThead]:d.name)+'</span></td><td><div style="float:right;"><span style="color:'+(d.request.status?"#20a53a":"red")+'">'+d.request.msg+"</span></div></td></tr>"}s.$batch_success_table({title:"批量"+e.title,th:e.theadName,html:o}),e.refresh&&s.$refresh_table_list(!0),s.$clear_table_checkbox()}layer.close(this.loadT)}},clear_bacth:function(){this.bacth_status=!1,layer.close(this.loadT)}};e.callback?e.callback(n):!e.confirm||e.recursion?e.confirmVerify?bt.show_confirm("批量操作"+e.title+"已选中","批量"+e.title+"，该操作可能会存在风险，是否继续？",function(s){layer.close(s),e.recursion?n.start_batch():t(e,a)}):bt.confirm({title:"批量"+e.title,msg:"批量"+e.title+"，该操作可能会存在风险，是否继续？"},function(s){layer.close(s),e.recursion?n.start_batch():t(e,a)}):t(e,a)}for(var s=this,i={},n=0;n<e.length;n++){var c="",l=e[n];switch(l.type){case"group":$.each(l.list,function(e,t){var a=l.type+"_"+s.random+"_"+e;"division"==t.type?c+='<span class="mlr5"></span>':t.group?(c+='<div class="btn-group" style="vertical-align: top;">                                        <button type="button" class="btn btn-default '+a+' btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span style="margin-right:2px;">分类管理</span><span class="caret" style="position: relative;top: -1px;"></span></button>                                        <ul class="dropdown-menu"></ul>                                    </div>',l.list&&$.each(l.list,function(e,t){'<li><a href="javascript:;" NaN'+t[l.key]+"</a></li>"}),t.init&&setTimeout(function(){t.init(a)},400)):c+='<button type="button" title="'+(t.tips||t.title)+'" class="btn '+(t.active?"btn-success":"btn-default")+" "+a+' btn-sm mr5">'+(t.icon?'<span class="glyphicon glyphicon-'+t.icon+' mr5"></span>':"")+"<span>"+t.title+"</span></button>",i[a]||(i[a]={event:t.event,type:"button"})});break;case"search":this.config.search=l;var o="search_input_"+this.random,r="search_focus_"+this.random,d="search_btn_"+this.random;c='<div class="bt_search"><input type="text" class="search_input '+o+'" style="'+(l.width?"width:"+l.width:"")+'" placeholder="'+(l.placeholder||"")+'"/><span class="glyphicon glyphicon-search '+d+'" aria-hidden="true"></span></div>',i[o]||(i[o]={eventType:"keyup",type:"search_input"}),i[r]||(i[r]={type:"search_focus",eventType:"focus"}),i[d]||(i[d]={type:"search_btn"});break;case"batch":this.config.batch=l;var h=[],p="",u=l.config;void 0!==l.config?(s.batch_active=u,$(s.config.el).on("click",".set_batch_option",function(e){for(var i=[],n=0;n<s.checkbox_list.length;n++)i.push(s.data[s.checkbox_list[n]]);if($(this).hasClass("bt-disabled"))return layer.tips(s.config.batch.disabledTips||"请选择需要批量操作的数据",$(this),{tips:[1,"red"],time:2e3}),!1;switch(typeof u.confirm){case"function":u.confirm(u,function(e,t){u.param=$.extend(u.param,e),a(u,i,t)});break;case"undefined":a(u,i);break;case"object":var c=u.confirm;bt.open({title:c.title||"批量操作",area:c.area||"350px",btn:c.btn||["确认","取消"],content:c.content,success:function(e,t){c.success(e,t,u)},yes:function(e,a){c.yes(e,a,function(e,a){u.param=$.extend(u.param,e),t(u,i)})}})}})):($.each(l.selectList,function(e,t){t.group?($.each(t.group,function(e,a){h.push($.extend({},t,a)),p+='<li class="item">'+a.title+"</li>"}),delete t.group):(h.push(t),p+='<li class="item">'+t.title+"</li>")}),$(s.config.el).on("click",".bt_table_select_group .bt_select_value",function(e){var t=$(this).parent(),a=t.find(".bt_selects"),i=t.offset(),n=s.$get_win_area();return t.hasClass("bt-disabled")?(layer.tips(s.config.batch.disabledSelectValue,t,{tips:[1,"red"],time:2e3}),!1):(t.hasClass("active")?t.removeClass("active"):t.addClass("active"),a.height()>n[1]-i.top||"top"==s.config.batch.show?a.addClass("top"):a.removeClass("top"),$(document).one("click",function(){return $(s.config.el).find(".bt_table_select_group").removeClass("active"),!1}),!1)}),$(s.config.el).on("click",".bt_table_select_group .item",function(e){var t=$(this).text(),a=$(this).index();$(this).addClass("active").siblings().removeClass("active"),$(s.config.el+" .bt_select_tips").html("批量"+t+"<em>(已选中"+s.checkbox_list.length+")</em>"),s.batch_active=h[a],s.checked||$(".bt_table_select_group").removeClass("active")}),$(s.config.el).on("click",".set_batch_option",function(e){var i=[],n=s.batch_active;if($(this).hasClass("bt-disabled"))return layer.tips(s.config.batch.disabledSelectValue,$(this),{tips:[1,"red"],time:2e3}),!1;for(var c=0;c<s.checkbox_list.length;c++)i.push(s.data[s.checkbox_list[c]]);if("{}"===JSON.stringify(n)){var l=$(s.config.el+" .bt_table_select_group");return layer.tips("请选择需要批量操作的类型",l,{tips:[1,"red"],time:2e3}),l.css("border","1px solid red"),setTimeout(function(){l.removeAttr("style")},2e3),!1}switch(typeof n.confirm){case"function":n.confirm(n,function(e,t){n.param=$.extend(n.param,e),a(n,i,t)});break;case"undefined":a(n,i);break;case"object":var o=n.confirm;bt.open({title:o.title||"批量操作",area:o.area||"350px",btn:o.btn||["确认","取消"],content:o.content,success:function(e,t){o.success(e,t,n)},yes:function(e,a){o.yes(e,a,function(e,a){n.param=$.extend(n.param,e),t(n,i)})}})}})),c='<div class="bt_batch"><label><i class="cust—checkbox cursor-pointer checkbox_'+this.random+'" data-checkbox="all"></i><input type="checkbox" lass="cust—checkbox-input" /></label>'+(void 0!==l.config?'<button class="btn btn-default btn-sm set_batch_option bt-disabled">批量'+l.config.title+"</button>":'<div class="bt_table_select_group bt-disabled not-select"><span class="bt_select_value"><span class="bt_select_tips">请选择批量操作<em></em></span><span class="glyphicon glyphicon-triangle-bottom ml5"></span></span><ul class="bt_selects ">'+p+'</ul></div><button class="btn btn-default btn-sm set_batch_option bt-disabled" >'+l.buttonValue+"</button>")+"</div>";break;case"page":this.config.page=l;var f=bt.get_cookie(this.config.cookiePrefix+"_"+this.config.page.numberParam);this.config.cookiePrefix&&f&&(this.config.page.number=f),c=this.$reader_page(this.config.page,'<div><span class="Pcurrent">1</span><span class="Pcount">共0条数据</span></div>')}if(c){var b=$(s.config.el+" .tootls_"+l.positon[1]);if(b.length){var v=b.find(".pull-"+l.positon[0]);v.append(c)}else{var _='<div class="tootls_group tootls_'+l.positon[1]+'"><div class="pull-left">'+("left"==l.positon[0]?c:"")+'</div><div class="pull-right">'+("right"==l.positon[0]?c:"")+"</div></div>";"top"===l.positon[1]?($(s.config.el).append(_),0===$(s.config.el+" .divtable").length&&$(s.config.el).append('<div class="divtable mtb10" style="max-height:'+s.config.height+'px"></div>')):(0===$(s.config.el+" .divtable").length&&$(s.config.el).append('<div class="divtable mtb10" style="max-height:'+s.config.height+'px"></div>'),$(s.config.el).append(_))}}}this.init||this.$event_bind(i)},$clear_table_checkbox:function(){$(this.config.el).find(".bt_table .cust—checkbox").removeClass("selected active")},$get_data_batch_list:function(e,t){var a=[];return $.each(t||this.data,function(t,s){a.push(s[e])}),a},$reader_page:function(e,t){"number"==typeof t&&(t=this.$custom_page(t));var a=this,s=$(t),i="",n={};if(s.find("a").addClass("page_link_"+this.random),i+=s.html(),e.numberStatus){var c="page_select_"+this.random,l=bt.get_cookie("page_number");i+='<select class="page_select_number '+c+'">',$.each(e.numberList,function(t,a){i+='<option value="'+a+'" '+((l||e.number)==a?"selected":"")+">"+a+"条/页</option>"}),i+="</select>",n[c]={eventType:"change",type:"page_select"}}if(e.jump){var o="page_jump_input_"+this.random,r="page_jump_btn_"+this.random;i+='<div class="page_jump_group"><span class="page_jump_title">跳转到</span><input type="number" class="page_jump_input '+o+'" value="'+e.page+'" /><span class="page_jump_title">页</span><button type="button" class="page_jump_btn '+r+'">确认</button></div>',n[o]={eventType:"keyup",type:"page_jump_input"},n[r]={type:"page_jump_btn"}}return n["page_link_"+this.random]={type:"cut_page_number"},a.config.page.total=0==s.length?0:"number"==typeof t?t:parseInt(s.find(".Pcount").html().match(/([0-9]*)/g)[1]),a.$event_bind(n),'<div class="page">'+i+"</div>"},$custom_page:function(e,t){void 0===t&&(t=5);var a='<div clas="page">',s=this.config.page,i=Math.ceil(e/s.number);s.page>1&&i>1&&(a+='<a class="Pstart" href="p=1">首页</a><a class="Pstart" href="p='+(s.page-1)+'">上一页</a>');for(var n=1;n<=i;n++)n==s.page?a+='<span class="Pcurrent">'+n+"</span>":a+='<a class="Pnum" href="p='+n+'">'+n+"</a>";return i>1&&s.page<i&&(a+='<a class="Pstart" href="p='+(s.page+1)+'">下一页</a><a class="Pstart" href="p='+i+'">尾页</a>'),a+='<span class="Pcount">共'+e+"条</span></div>",a},$dynamic_merge_style:function(e,t){var a="";return $.each(e,function(e,t){switch(e){case"align":a+="text-align:"+t+";";break;case"width":a+="width:"+("string"==typeof t?t:t+"px")+";";break;case"style":a+=t;break;case"minWidth":a+="min-width:"+("string"==typeof t?t:t+"px")+";";break;case"maxWidth":a+="max-width:"+("string"==typeof t?t:t+"px")+";"}}),{index:t,css:a}},$event_bind:function(e){var t=this;$.each(e,function(e,a){if(t.event_list[e]&&t.event_list[e].eventType===a.eventType)return!0;t.event_list[e]=a,$(t.config.el).on(a.eventType||"click","."+e,function(s){var i=$(this).parents("tr").index(),n=$(this).data(),c=[];switch(a.type){case"rows":t.event_rows_model={el:$(this),model:t.config.column[$(this).parents("td").index()],rows:t.data[i],index:i},c=[t.event_rows_model.rows,t.event_rows_model.index,s,e,t];break;case"sort":var l=t.config.column[n.index];$(this).hasClass("sort-active")&&$(".sort_"+t.random+" .sort-active").data({sort:"desc"}),$(".sort_"+t.random).removeClass("sort-active").find(".glyphicon").removeClass("glyphicon-triangle-top").addClass("glyphicon-triangle-bottom"),$(this).addClass("sort-active"),"asc"==n.sort?($(this).data({sort:"desc"}),$(this).find(".glyphicon").removeClass("glyphicon-triangle-top").addClass("glyphicon-triangle-bottom")):($(this).data({sort:"asc"}),$(this).find(".glyphicon").removeClass("glyphicon-triangle-bottom").addClass("glyphicon-triangle-top")),t.config.sort=t.config.sortParam({name:l.fid,sort:n.sort}),t.$refresh_table_list(!0);break;case"checkbox":var o=$(t.config.el+' [data-checkbox="all"]'),r=$(t.config.el+" tbody .checkbox_"+t.random);null==n.checkbox?$(this).hasClass("active")?($(this).removeClass("active"),t.checkbox_list.splice(t.checkbox_list.indexOf(i),1),t.checkbox_list.length>0?o.addClass("selected").removeClass("active"):o.removeClass("selected active")):($(this).addClass("active"),t.checkbox_list.push(i),t.data.length===t.checkbox_list.length?o.addClass("active").removeClass("selected"):t.checkbox_list.length>0&&o.addClass("selected")):t.checkbox_list.length===t.data.length?(t.checkbox_list=[],r.removeClass("active selected").next().prop("checked","checked"),o.removeClass("active")):(r.each(function(e,a){$(this).hasClass("active")||($(this).addClass("active").next().prop("checked","checked"),t.checkbox_list.push(e))}),o.removeClass("selected").addClass("active")),t.$set_batch_view();break;case"button":c.push(s,t);break;case"search_focus":var d=$(t.config.el+" .bt_search_tips");$(t.config.el+" .bt_search_tips").length>0&&d.remove();break;case"search_input":if(13==s.keyCode)return $(t.config.el+" .search_btn_"+t.random).click(),!1;break;case"search_btn":var h=$(t.config.el+" .search_input"),p=$(t.config.el+" .search_input").val();p=p.replace(/\s+/g,""),h.val(p),t.config.search.value=p,h.append('<div class="bt_search_tips"><span>'+p+'</span><i class="bt_search_close"></i></div>'),t.$refresh_table_list(!0);break;case"page_select":var u=parseInt($(this).val());return bt.set_cookie("page_number",u),t.config.page.number=u,t.config.page.page=1,t.$refresh_table_list(!0),!1;case"page_jump_input":return 13==s.keyCode&&($(t.config.el+" .page_jump_btn_"+t.random).click(),$(this).focus()),!1;case"page_jump_btn":var f=parseInt($(t.config.el+" .page_jump_input_"+t.random).val()),b=Math.ceil(t.config.page.total/t.config.page.number);f>b&&(f=t.config.page.page),t.config.page.page=f,t.$refresh_table_list(!0);break;case"cut_page_number":var v=parseInt($(this).attr("href").match(/([0-9]*)$/)[0]);return t.config.page.page=v,t.$refresh_table_list(!0),!1;case"eye_open_password":return $(this).hasClass("glyphicon-eye-open")?($(this).addClass("glyphicon-eye-close").removeClass("glyphicon-eye-open"),$(this).prev().text(t.data[i].password)):($(this).addClass("glyphicon-eye-open").removeClass("glyphicon-eye-close"),$(this).prev().html("<i>**********</i>")),!1;case"copy_password":return bt.pub.copy_pass(t.data[i].password),!1}a.event&&a.event.apply(this,c)})})},$style_bind:function(e,t){var a="",s=this;$.each(e,function(e,t){""!=t.css&&(t.className?a+=t.className+"{"+t.css+"}":a+=s.config.el+" thead th:nth-child("+(t.index+1)+"),"+s.config.el+" tbody tr td:nth-child"+(t.span?" span":"")+"("+(t.index+1)+"){"+t.css+"}")}),0==$("#bt_table_"+s.random).length&&$(s.config.el).append('<style type="text/css" id="bt_table_'+s.random+'">'+a+"</style>")},$get_win_area:function(){return[window.innerWidth,window.innerHeight]},$http:function(e){var t={},a=this.config,s=a.page,i=a.search,n=a.sort||{};s&&(t[s.numberParam]=s.number,t[s.pageParam]=s.page,this.config.cookiePrefix&&bt.set_cookie(this.config.cookiePrefix+"_"+s.numberParam,s.number)),i&&(t[i.searchParam]=i.value),this.config.beforeRequest&&(a.param=this.config.beforeRequest(a.param)),bt_tools.send({url:a.url,data:$.extend(a.param,t,n)},function(t){if(void 0!==a.dataFilter){var s=a.dataFilter(t);void 0!==s.tootls&&(s.tootls=parseInt(s.tootls)),e&&e(s)}else e&&e({data:t.data,page:t.page})})}},new t(e)},form:function(e){function t(e){this.config=e,this.data=e.data||{},this.$load()}var a=this;return t.prototype={element:null,style_list:[],event_list:{},event_type:["click","event","focus","keyup","blur","change"],hide_list:[],form_element:{},form_config:{},random:bt.get_random(5),$load:function(){var e=this;e.el&&this.$reader_content(function(){e.$event_bind()})},$reader_content:function(e){var t=this,s="",i="";return $.each(t.config.form,function(e,a){s+=t.$reader_content_row(e,a)}),t.element=$('<form class="bt-form" data-form="'+t.random+'">'+s+"</form>"),i=$('<div class="'+a.$verify(t.config.class)+'"></div>'),i.append(t.element),e&&e(),i[0].outerHTML},$reader_content_row:function(e,t){var s=this,i=t.help,n=this.config.formLabelWidth||t.formLabelWidth;return'<div class="line'+a.$verify(t.class)+a.$verify(t.hide,"hide",!0)+'"'+a.$verify(t.id,"id")+">"+(t.label?'<span class="tname" '+(n?'style="width:'+n+'"':"")+">"+t.label+"</span>":"")+'<div class="'+(t.label?"info-r":"")+a.$verify(t.line_class)+'"'+a.$verify(s.$reader_style($.extend(t.style,n?{"margin-left":n}:{})),"style")+">"+s.$reader_form_element(t.group,e)+(i?'<div class="c9 mt5 '+a.$verify(i.class,"class")+'" '+a.$verify(s.$reader_style(i.style),"style")+">"+i.list.join("</br>")+"</div>":"")+"</div></div>"},$reader_form_element:function(e,t){var a=this,s="";return Array.isArray(e)||(e=[e]),$.each(e,function(e,i){i.find_index=t,s+=a.$reader_form_find(i),a.form_config[i.name]=i}),s},$reader_form_find:function(e){var t=this,s="",i=t.$reader_style(e.style)+a.$verify(e.width,"width","style"),n=t.$verify_group(e,["name","value","placeholder","disabled","readonly","autofocus","autocomplete","min","max"]),c=t.$create_event_config(e),l="",o=e.find_index;switch(s+=e.label?'<span class="mr5">'+e.label+"</span>":"",void 0!==e.name&&(t.event_list[e.name]=c),s+='<div class="'+(e.dispaly||"inlineBlock")+'">',e.type){case"text":case"checkbox":case"password":case"radio":case"number":var r="event_"+e.name+"_"+t.random;switch(e.type){case"checkbox":s+='<label class="cursor-pointer form-checkbox-label"><i class="form-checkbox cursor-pointer mr5 '+r+'_label"></i><input type="checkbox" class="form—checkbox-input mr10 '+r+'" name="'+e.name+'" /><span class="vertical_middle">'+e.title+"</span></label>",t.event_list[r+"_label"]={click:{type:"checkbox_icon",config:e}},t.event_list[r]={input:{type:"checkbox",config:e}};break;default:s+='<input type="'+e.type+'"'+n+" "+(e.icon?'id="'+r+'"':"")+' class="bt-input-text mr10 '+(e.label?"vertical_middle":"")+'" '+a.$verify(e.class,"class")+a.$verify(i,"style")+' value="'+(t.data[e.name]||e.value||"")+'"/>'}e.icon&&(s+='<span class="glyphicon '+e.icon.type+" "+e.name+'_icon cursor" '+a.$verify(t.$reader_style(e.icon.style),"style")+"></span>",void 0!==e.icon.event&&(t.event_list[e.name+"_icon"]={click:{type:"select_path",config:e,event:e.icon.event}}));break;case"textarea":if(s+='<textarea class="bt-input-text"'+a.$verify(i,"style")+n+" >"+(t.data[e.name]||"")+"</textarea>",$.each(["blur","focus","input"],function(a,s){if(e.tips){var i=null;switch(s){case"blur":i=function(e,t,a){""===$(this).val()&&$(this).next().show(),layer.close(t.tips.loadT),$(e.target).data("layer","")};break;case"focus":i=function(e,t){$(this).next().hide(),t.tips.loadT=layer.tips(d,$(this),{tips:[1,"#20a53a"],time:0,area:$(this).width()})}}}t.event_list[e.name][s]?t.event_list[e.name][s].added=i:t.event_list[e.name][s]={type:e.type,cust:!1,event:e[s],added:i}}),e.tips){var d="";d=void 0===e.tips.list?e.tips.text:e.tips.list.join("</br>"),s+='<div class="placeholder c9 '+e.name+'_tips" '+a.$verify(t.$reader_style(e.tips.style),"style")+">"+d+"</div>",t.event_list[e.name+"_tips"]={click:{type:"textarea_tips",config:e}}}break;case"select":s+=t.$reader_select(e,i,n,o),t.event_list.custom_select={click:{type:"custom_select",children:".bt_select_value"}},t.event_list.custom_select_item={click:{type:"custom_select_item",children:"li.item"}};break;case"link":l="event_"+bt.get_random(6),s+='<a href="'+(e.href||"javascript:;")+'" class="btlink offsetY7'+a.$verify(e.class,"class")+" "+l+'" '+a.$verify(t.$reader_style(e.style),"style")+">"+e.title+"</a>",t.event_list[l]={click:{type:"link_event",event:e.event}};break;case"help":var h="";$.each(e.list,function(e,t){h+="<li>"+t+"</li>"}),s+='<ul class="help-info-text c7'+a.$verify(e.class)+'"'+a.$verify(t.$reader_style(e.style),"style")+">"+h+"</ul>"}return s+="</div>",s},$create_event_config:function(e){var t={};return void 0===e.name?{}:($.each(this.event_type,function(a,s){e[s]&&(t["event"===s?"click":s]={type:e.type,event:e[s],cust:["select","checkbox","radio"].indexOf(e.type)>-1,config:e})}),t)},$reader_style:function(e){var t="";return"string"==typeof e?e:void 0===e?"":($.each(e,function(e,a){t+=e+":"+a+";"}),t)},$local_refresh:function(e,t){this.element.find("[data-name="+e+"]").replaceWith(this.$reader_form_find(t))},$reader_select:function(e,t,s,i){var n=this,c="",l="",o={};if(!Array.isArray(e.list)){var r=e.list;bt_tools.send({url:r.url,data:r.param||{}},function(t){!1!==t.status?(e.list=e.list.dataFilter?e.list.dataFilter(t):t,n.$replace_render_content(i)):bt.msg(t)})}return $.each(e.list,function(t,s){try{o=s.value===e.value?s:e.list[0]}catch(e){}c+='<li class="item'+a.$verify(s.value===o.value?"active":"")+" "+(s.disabled?"disabled":"")+'">'+s.title+"</li>",l+='<option value="'+s.value+'"'+(s.disabled?"disabled":"")+" "+a.$verify(s.value===o.value?"selectd":"")+">"+s.title+"</option>"}),!o.title&&Array.isArray(e.list)&&(o=e.list[0]),'<div class="bt_select_updown mr10 '+(e.disabled?"bt-disabled":"")+" "+a.$verify(e.hide,"hide",!0)+a.$verify(e.class)+'" '+a.$verify(t,"style")+' data-name="'+e.name+'"><span class="bt_select_value"><span class="bt_select_content">'+(o.title||"获取数据中...")+'</span><span class="glyphicon glyphicon-triangle-bottom ml5"></span></span><ul class="bt_select_list">'+(c||"")+"</ul><select"+s+' class="hide" '+(e.disabled?"disabled":"")+">"+(l||"")+"</select></div>"},$replace_render_content:function(e){var t=this,a=this.config.form[e];$("[data-form="+t.random+"]").find(".line:eq("+e+")").replaceWith(t.$reader_content_row(e,a))},$event_bind:function(e,t){var a=this,s={};a.element=$("object"==typeof e?a.element:"[data-form="+a.random+"]"),void 0===e&&(s=a.event_list),$.each(s,function(e,t){if($.isEmptyObject(t))return!0;$.each(t,function(t,s){var i="";i="boolean"==typeof s.cust?"["+(s.cust?"data-":"")+"name="+e+"]":"."+e,function(e,s){if(!1===e.onEvent){switch(e.type){case"input_checked":$(i).on("event"!=t?t:"click",function(t){e.event.apply(this,[t,a])})}return!0}a.element.on("event"!=t?t:"click",e.children?e.children:i,function(t){var i=a.$get_form_element(!0),n=a.$get_form_value(),c=a.form_config[s];switch(e.type){case"textarea_tips":$(this).hide().prev().focus();break;case"custom_select":if($(this).parent().hasClass("bt-disabled"))return!1;var l=$(this).next();return l.hasClass("show")?l.removeClass("show"):($(".bt_select_list").removeClass("show"),l.addClass("show")),$(document).click(function(){
+return a.element.find(".bt_select_list").removeClass("show"),$(this).unbind("click"),!1}),!1;case"custom_select_item":if(c=a.form_config[$(this).parents(".bt_select_updown").attr("data-name")],item_config=c.list[$(this).index()],$(this).hasClass("disabled"))return $(this).parent().removeClass("show"),item_config.tips&&layer.msg(item_config.tips,{icon:2}),!0;$(this).hasClass("active")||$(this).hasClass("disabled")||($(this).parent().prev().find(".bt_select_content").text($(this).text()),$(this).addClass("active").siblings().removeClass("active"),$(this).parent().next().val(item_config.value.toString()),$(this).parent().removeClass("show"),$(this).parent().next().trigger("change"));break;case"select_path":bt.select_path("event_"+$(this).prev().attr("name")+"_"+a.random);break;case"checkbox":var o=$(this).is(":checked");o?$(this).prev().addClass("active"):$(this).prev().removeClass("active")}e.event&&e.event.apply(this,[n,i,a,c,t]),e.added&&e.added.apply(this,[t,c,i])})}(s,e)})}),t&&t()},$get_form_value:function(){return this.element.serializeObject()},$set_find_value:function(e,t){var a={},s=this;"string"!=typeof e?a=e:a[e]=t,$.each(a,function(e,t){s.form_element[e].val(t)})},$get_form_element:function(e){var t={},a=this;return e||$.isEmptyObject(a.form_element)?(this.element.find(":input").each(function(e){t[$(this).attr("name")]=$(this)}),a.form_element=t,t):a.form_element},$verify_group:function(e,t){var a="";return $.each(t,function(t,s){if(void 0===e[s])return!0;["disabled","readonly"].indexOf(s)>-1?a+=" "+(e[s]?s+'="'+s+'"':""):a+=" "+s+'="'+e[s]+'"'}),a},$verify_bind_event:function(e,t,a){var s={};return $.each(a,function(a,i){var n=t[i];n&&("object"==typeof s[e]?(Array.isArray(s[e])||(s[e]=[s[e]]),s[e].push({event:n,eventType:i})):s[e]={event:n,eventType:i})}),s},$verify:function(e,t,a){return e?!0===a?e?" "+t:"":"style"===a?t?t+":"+e+";":e:t?" "+t+'="'+e+'"':" "+e:""},$verify_form:function(){for(var e={},t=this.config.form,a=this.$get_form_value(),s=this.$get_form_element(!0),i=0;i<t.length;i++){var n=t[i];Array.isArray(n.group)||(n.group=[n.group]);for(var c=0;c<n.group.length;c++){var l=n.group[c],o=l.name;if("help"!==l.type)if(void 0!==l.verify){var r=l.verify(a[o],s[o],l,!0);if(!1===r&&!1!==a[o])return!1;e[o]=r}else e[o]=a[o]}}return e},$submit:function(e,t,a){var s=this.$verify_form();return"function"==typeof e&&(a=t,t=e,e={}),!!s&&(s=$.extend(s,e),void 0===this.config.url?(bt_tools.msg("请求提交地址不能为空！",!1),!1):void bt_tools.send({url:this.config.url,data:s},function(e){t?t(e,s):bt_tools.msg(e)},a||"提交中"))}},new t(e)},tab:function(e){function t(e){this.config=e,this.theme=this.config.theme||{},this.$load()}var a=this;return t.prototype={type:1,theme_list:[{content:"tab-body",nav:"tab-nav",body:"tab-con",active:"on"},{content:"bt-w-body",nav:"bt-w-menu",body:"bt-w-con"}],random:bt.get_random(5),$init:function(){var e=this,t=(this.config.active,e.config.list);this.$event_bind(),t[e.active].success&&t[e.active].success(),t[e.active].init=!0},$load:function(){},$reader_content:function(){var e=this,t=e.config.list,s="",i="",n=e.theme,c=e.config;return void 0===e.active&&(e.active=0),$.isEmptyObject(c.theme)||(n=this.theme_list[e.active],$.each(c.theme,function(e,t){n[e]&&(n[e]+=" "+t)}),e.theme=n),c.type&&$.isEmptyObject(c.theme)&&(this.theme=this.theme_list[e.active]),$.each(t,function(t,a){var c=e.active===t,l=n.active||"active";s+='<span class="'+(c?l:"")+'">'+a.title+"</span>",i+='<div class="tab-block '+(c?l:"")+'">'+(c?a.content:"")+"</div>"}),e.element=$('<div id="tab_'+e.random+'" class="'+n.content+a.$verify(e.config.class)+'"><div class="'+n.nav+'" >'+s+'</div><div class="'+n.body+'">'+i+"</div></div>"),e.element[0].outerHTML},$event_bind:function(){var e=this,t=e.theme,a=t.active||"active";e.el||(e.element=$("#tab_"+e.random)),e.element.on("click","."+t.nav.replace(/\s+/g,".")+" span",function(){var s=$(this).index(),i=e.config.list[s];$(this).addClass(a).siblings().removeClass(a),$("."+t.body+">div:eq("+s+")").addClass(a).siblings().removeClass(a),e.active=s,i.init||($("."+t.body+">div:eq("+s+")").html(i.content),i.success&&i.success(),i.init=!0)})}},new t(e)},load:function(e){var t=bt.get_random(5),a=$('<div class="layui-layer layui-layer-dialog layui-layer-msg layer-anim" id="'+t+'" type="dialog" style="z-index: 99891031;"><div class="layui-layer-content layui-layer-padding"><i class="layui-layer-ico layui-layer-ico16"></i>正在'+e+'，请稍候...</div><span class="layui-layer-setwin"></span></div><div class="layui-layer-shade" id="layer-mask-'+t+'" times="17" style="z-index:99891000; background-color:#000; opacity:0.3; filter:alpha(opacity=30);"></div>'),s="";$("body").append(a);var i=$(window),n=($(".layer-loading-mask"),a=$("#"+t),a.width()),c=a.height();return a.css({top:(i.height()-(c||64))/2,left:(i.width()-(n||320))/2}),!0===e&&(s=layer.load()),{close:function(){"number"==typeof s?layer.close(s):$("body").find("#"+t+",#layer-mask-"+t).remove()}}},open:function(e){var t={},a=null,s=null;if(t=$.extend({type:1,area:"640px",closeBtn:2,btn:["确认","取消"]},e),"object"==typeof t.content){var i=t.content;s=bt_tools.form(i),t.success=function(e,a){s.$event_bind(),void 0!==t.success&&void 0!==i.success&&i.success(e,a)},t.yes=function(t,a){var i=s.$verify_form();if(!i)return!1;if(void 0!==e.yes){var n=e.yes.apply(s,[i,t,a]);if(!n)return!1}},t.content=s.$reader_content()}return a=layer.open(t),{close:function(){layer.close(a)},form:s}},msg:function(e,t){var a=null,s="",i={};return"object"==typeof e&&"boolean"==typeof e.status&&(s=e.msg,i={icon:e.status?1:2},e.status||(i=$.extend(i,{time:t?3e3:0,closeBtn:2,shade:.3}))),"string"==typeof e&&(s=e,i={icon:void 0!==t?t:1}),a=layer.msg(s,i),{close:function(){layer.close(a)}}},send:function(e,t,a,s,i,n){function c(e){try{o="function"==d[e][1]?d[e][0]:null,r="function"==d[e+1][1]?d[e+1][0]:null}catch(e){}}var l={},o=null,r=null,d=[],h="";switch($.each(arguments,function(e,t){d.push([t,typeof t])}),h=d[0],h[1]){case"string":$.each(d,function(e,t){var a=t[0],s=t[1];if(e>1&&("boolean"==s||"string"==s||"object"==s)){var i=h[0].split("/");return l.url="/"+i[0]+"?action="+i[1],"object"==s?(l.load=a.load,l.verify=a.verify,a.plugin&&(l.url="/plugin?action=a&name="+i[0]+"&s="+i[1])):"string"==s&&(l.load=a),!1}l.url=h[0]}),"object"===d[1][1]?(l.data=d[1][0],c(2)):c(1);break;case"object":l.url=h[0].url,l.data=h[0].data||{},l.verify="boolean"!=typeof h[0].verify||h[0].verify,$.each(d,function(e,t){var a=t[0],s=t[1];if(e>1&&("boolean"==s||"string"==s||"object"==s))return"object"==s?(l.load=a.load,l.verify=a.verify):"string"==s&&(l.load=a),!0}),"object"===d[1][1]?(l.data=d[1][0],c(2)):c(1)}l.load&&(l.load=this.load(l.load)),$.ajax({type:l.type||"POST",url:l.url,data:l.data||{},dataType:l.dataType||"JSON",complete:function(){l.load&&l.load.close()},success:function(e){return"boolean"!=typeof l.verify||l.verify?"string"==typeof e?(layer.msg(e,{icon:2,time:0,closeBtn:2}),!1):l.batch?(o&&o(e),!1):!1===e.status?(layer.close(),bt_tools.msg(e),!1):(l.tips&&bt_tools.msg(e),void(o&&o(e))):(o&&o(e),!1)},error:function(e){r&&r(e),layer.closeAll("dialog"),layer.closeAll("loading"),layer.msg("服务响应状态码："+(0==e.status?"--":e.status)+"</br>错误信息："+e.statusText+"</br>接口信息："+l.url+"</br>接口参数："+JSON.stringify(l.data),{icon:2,time:0,closeBtn:2})}})},$clear_verify_tips:function(e){e.removeClass("bt-border-error bt-border-sucess"),layer.close("tips")},$verify_tips:function(e,t,a){void 0===a&&(a=!0),e.removeClass("bt-border-error bt-border-sucess").addClass(a?"bt-border-error":"bt-border-sucess"),e.focus(),layer.tips('<span class="inlineBlock">'+t+"</span>",e,{tips:[1,a?"red":"#20a53a"],time:3e3,area:e.width()})},$verify:function(e,t,a){return e?!0===a?e?" "+t:"":"style"===a?t?t+":"+e+";":e:t?" "+t+'="'+e+'"':" "+e:""},$batch_success_table:function(e){var t=this,a=$(e.html).length;bt.open({type:1,title:e.title,area:e.area||["350px","350px"],shadeClose:!1,closeBtn:2,content:e.content||'<div class="batch_title"><span class><span class="batch_icon"></span><span class="batch_text">'+e.title+'操作完成！</span></span></div><div class="'+(a>4?"fiexd_thead":"")+' batch_tabel divtable" style="margin: 15px 30px 15px 30px;overflow: auto;height: '+(Array.isArray(e.area)?parseInt(e.area[1])-140:200)+'px;"><table class="table table-hover"><thead><tr><th>'+e.th+'</th><th style="text-align:right;width:120px;">操作结果</th></tr></thead><tbody>'+e.html+"</tbody></table></div>",success:function(){a>4&&t.$fixed_table_thead(".fiexd_thead")}})},$fixed_table_thead:function(e){$(e).scroll(function(){var e=this.scrollTop;this.querySelector("thead").style.transform="translateY("+e+"px)"})},$piugin_view_set:function(e,t){var a=$("string"==typeof e?"#layui-layer"+e:e).hide(),s=$(window);setTimeout(function(){var e=t.width||a.width(),i=t.height||a.height();a.css($.extend(t,{left:(s.width()-e)/2,top:(s.height()-i)/2})).addClass("custom_layer")},10),setTimeout(function(){a.show()},0)}};$.fn.serializeObject=function(){var e=Object.prototype.hasOwnProperty;return this.serializeArray().reduce(function(t,a){return e.call(t,a.name)||(t[a.name]=a.value),t},{})};
+</script>
+<script type="text/javascript" src="/static/js/clipboard.min.js"></script>
+<script type="text/javascript">
+	var element = $('#dnspod_list').parents('.layui-layer-page'),_id = parseInt(element.attr('times')),init = null,title = element.find('.layui-layer-title').text(),
+	add_config = {
+		title:'腾讯云DNS解析-关联腾讯云API密钥',
+		area:'500px',
+		skin:'custom_layer',
+		btn:['保存','取消'],
+		content:{
+			url:'/plugin?action=a&name=dnspod&s=set_config',
+			class:'pd20',
+			form:[{
+				label:'APPID',
+				group:{
+					type:'text',
+					name:'appid',
+					width:'320px',
+					placeholder:'腾讯云API密钥APPID,不可为空',
+					verify:function(value,element,model,is_monitor){
+						var tips = '';
+						if(value == ''){
+							tips = model.placeholder;
+						}
+						if(tips != ''){
+							bt_tools.$verify_tips(element,tips);
+							return false;
+						}
+						return value.replace(/ /g,'');
+					}
+				}
+			},{
+				label:'SecretId',
+				group:{
+					type:'text',
+					name:'secretId',
+					width:'320px',
+					placeholder:'腾讯云API密钥SecretId,不可为空',
+					verify:function(value,element,model,is_monitor){
+						var tips = '';
+						if(value == ''){
+							tips = model.placeholder;
+						}
+						if(tips != ''){
+							bt_tools.$verify_tips(element,tips);
+							return false;
+						}
+						return value.replace(/ /g,'');
+					}
+				}
+			},{
+				label:'SecretKey',
+				group:{
+					type:'password',
+					name:'secretKey',
+					width:'320px',
+					placeholder:'腾讯云API密钥SecretKey,不可为空',
+					verify:function(value,element,model,is_monitor){
+						var tips = '';
+						if(value == ''){
+							tips = model.placeholder;
+						}
+						if(tips != ''){
+							bt_tools.$verify_tips(element,tips);
+							return false;
+						}
+						return value.replace(/ /g,'');
+					}
+				}
+			},{
+				label:' ',
+				group:{
+					type:'help',
+					style:'margin-top:0',
+					list:['获取腾讯云API密钥信息，<a href="https://console.cloud.tencent.com/cam/capi" target="_blank" class="btlink">点击查看</a>']
+				}
+			}]
+		},
+		yes:function(form,indexs,layero){
+			var that = this;
+			this.$submit(form,function(res){
+				if(res.status === false){
+					bt_tools.msg(res);
+					return false;
+				}
+				bt_tools.msg(res);
+				layer.close(indexs);
+				if(init){
+					element.show();
+					dns_pod_table.$refresh_table_list(true);
+				}else{
+					bt.soft.set_lib_config('dnspod',title);
+				}
+			});
+		},
+		end:function(){
+			if(!init) layer.close(_id);
+		}
+	}
+	bt_tools.$piugin_view_set(element,{width:1000,height:580});
+	bt_tools.send('dnspod/get_config',function(res){
+		var config = res;
+		if($.isEmptyObject(res)){
+			init = false;
+			bt_tools.open(add_config);
+			layer.close(_id);
+		}else{
+			init = true;
+			element.show();
+			dns_pod_table = bt_tools.table({
+				el:'#dnspod_list',
+				fid:'dns_pod',
+				load:true,
+				url:'/plugin?action=a&name=dnspod&s=get_domain_list',
+				default:"DNS解析域名列表为空", //数据为空时的默认提示
+				dataFilter:function(res){ // 请求响应值格式化过滤
+					return {data:res.domains,total:res.info.domain_total};
+				},
+				column:[
+					{type:'checkbox',class:'',width:20},
+					{fid:'name',title:'域名',type:'link',fixed:true,width:150,tips:true,template:function(row){
+						return '<span class="btlink"><strong class="dnc_dot '+(row.status == 'enable' && row.ext_status == ''?'green':'red')+'"></strong>&nbsp;&nbsp;'+row.name+'</span>'
+						},event:function(row,index,ev,key,that){
+							that.add_analysis_layer(row);
+						}
+					},
+					{fid:'ext_status',title:'解析状态',template:function(row){
+						switch(row.status){
+							case 'enable':								
+								switch(row.ext_status){
+									case 'notexist':
+										return '<a class="bt_danger cursor-pointer" target="_blank" href="https://buy.cloud.tencent.com/domain?domain='+ row.name +'&tlds=.'+ row.name.split('.')[0] +'&from=Dns"><span>域名未注册，点击注册</span><i class="glyphicon glyphicon-info-sign"></i></a>';
+									break;
+									case "dnserror":
+										return '<span title="请至域名注册商处修改 DNS 服务器为\nunemployed.dnspod.net \nlewis.dnspod.net " class="bt_danger cursor-pointer">DNS 设置错误<i class="glyphicon glyphicon-info-sign ml5" style="top:2px"></i> </span>';
+									break;
+									case "":
+										return '<a href="javascript:;" class="bt_success cursor-pointer">已开启<i class="glyphicon glyphicon-play"></i></span>';
+									}
+							break;
+							case 'pause':
+								return '<a href="javascript:;" class="bt_danger cursor-pointer">已暂停<i class="glyphicon glyphicon-pause"></i></span>';
+							break;
+							case 'spam':
+								return '<a href="https://cloud.tencent.com/document/product/302" target="_blank" class="bt_warning cursor-pointer">已被封禁<i></i></span>';
+							break;
+							case 'lock':
+								return '<a href="https://cloud.tencent.com/document/product/302" target="_blank" class="bt_warning cursor-pointer">已锁定</span>';
+							break;
+						}
+					},event:function(row,index,ev,key,that){
+						if(row.status == 'enable'){
+							if(row.ext_status == ''){
+								bt.confirm({title:'暂停解析域名',msg:'暂停解析域名'+ row.name +'，该操作可能会存在风险，是否继续？'},function(index){
+									bt_tools.send({
+										url: '/plugin?action=a&name=dnspod&s=set_domain_status',
+										data: {domain:JSON.stringify([row.name]),status:'disable'},
+										verify:false
+									},function(res){
+										layer.close(index);
+										if(typeof res.success != "undefined") res = (res.success.length > 0 ?{msg:'操作成功',status:true}:{msg:res.error[row.name],status:false});
+										that.request_handle(res,function(){
+											bt_tools.msg(res);
+										});
+									},'暂停解析域名');
+								});
+							}else if(row.ext_status == 'dnserror'){
+								var info = row;
+								that.get_dnspod_ns({domain:row.name},function(res){
+									var domain = res;
+									bt_tools.open({
+										type:1,
+										title:false,
+										area: ['380px', '400px'],
+										btn:false,
+										content:'<div class="succeed_tip" style="font-family: 微软雅黑;padding:25px 15px">' +
+												'<div class="tip_img" style="text-align:center;color:#6d6d6d;font-weight: 600;">' +
+													'<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAGC0lEQVRoQ91aXWwUVRT+zmx3tvLjk4lCOlMx0J22JEYxKRgTNRgQ8PcBAsZEH+AF1CpE4cUI8QVQUFR4gQd9EIg8+BOgQiRiYkQSkWhod7cQtbMNYOKT/Nid7d5j7nSGTqf7c2e6hbCTtDu795xzz3fvnXPPPd8Q6nT9djemplL6UmLuEqCZBJ4B0EwQZrhdMC4BfJFBlzT5SXS6UHCO3v83rtXDBZqIkWxr8yxCaSEzLQKwPKatQ0R8nJE4YQ0M/RnTBmIB6TX1jibmtUy0rkLHgwDyAAaZWN6DmFoAyD/D+xynSsy7h4n2dNpOX1RAkYCcm9Fs6kmxVgASwDS/MwJ6BfFxCO1Ye75wTMWJjJFaDE0s1pgWMdAZ0LmqAbudorZn7qUhW8WWO1CqgjkjKWfgbQD3+DpMOJgo8Ydtg8XTqnbKyfW3JLtKCXqdGCsD7ZeJ+d10vrhHxbYSkJyZ2svg1TcAAGc1xvZ03jmo0omqTM7QVwrCWwQ8MDrbtC9tF9bUslETSNbUzwB4MABiy7VhZ/tDF3G9lvE47b/MxJSpTboE805A/1fLduZVs1cVSNbUOahMTBvS+cLOOA5G1ckZqfVMvCOoZ9lORX8rNmRN/WsAz/iGStCe6LSHTkR1aCLyvWbzwgTEdwEb31i282w5m2WB9Jn6Rg3Y6itUG4mJOKqqG1wZAtjUYTvbwrrjgGTM5EsE+tQXTACdc2LEdVUnVeTOm3pHCegdfU755Xa7+NmYZR/8IveJpqSQodQPsSss2zmk0tlky2RNXWYOX3j9XB4ual3BfWbMjPSb+lYBbJTCDGxpt53Nk+1gFPsZU9/sRzMN2NZmO5tGw7R3J9OOBCBnYxoDZ68NO49MVoiN4nxQ1gvNP3r7zNUS0OWnMzdmJGckP/FzJ2KsqvdmF9f5sJ7cNJlwQP4uc7N0vviKey//XWhJzR7W+Ly7pAgH2wecVaodZ43k96Rp76UHCkdVdYJyudbUUhbiTStffFxVP9OqH/DTmSZBc2YPFi64QPrN1KsC/JG8Fxov6Pir+LOKUQkCRI95spEDw5gHmPmkKpi+e5PzNUGnZL8a6LU2u/CxCyRr6EdBWMLA+XbbaVMBIWXc0WQ+EpBXBhOKQiCiZVFmNWPq/QTMAaPHyjtLKXsXpmOK/u/IOlNL0IJAww4BqAkmjs64ZyWYyF537qR+Q18lCPvdZcV4viPvfKU6I75cFMeiyFbzo8/Qn9MIX7rLi/EC5Yzk+0y0Qf4wkVRExUEVmSiD6KcuxLyDMoa+nwgySg1atiOPobGvao7WG4T7bJu6PE63MOMABSLPKct2Ho6NwlMs57DX5KcX8mvN50jFj6yp/wRgAZhPUtbQcyDISHXIsp0VKgZqyZQBE1SpCwhvRuTgLAejn7KmG7GmM/EH7QPF9bWcVG2vAKZuIKQfmdbkTmJ6A8CVBgLSMEtrNM24vR/2hgm/DbMhBqMLMz2pWvKMm2/Va2OUJVci/tbzYwV5dMBV+UOcEBzHsTg64bAfCL0oFJxpI2m8qbsbiyxGp21nrupeEUzc/JFRLVaEwWigp9vswmHVvnOmfs4rfrsbuQsk15pczUx73UxS8HzVonRdD1bA55btvKgCRBa9hUbu4Y+I16QHivtGZqS1eRZY/DGyvKIfdQVoV5z0X/bnziq4G0zd1qDzuwqQ4FEXpN0nCaLGKj7IUWiYcpAE0xAFOgkkXDK9mTRCrWcjRDNUL5m6EWyEYtvtG74VdEIYVJheIOZ1YUquLK0QptomcpavNdIq7UFaoVKlpxrRM4ZyuxX0QphOAFCRgotEvdXrrK04C0EawVWJRb35nYUpOEk33AIytCLl5vtZk9V1d98QFSdph5tFT1ei2sKzqgREKnmUnOQVx7wwwMS7VIvelZaULEoTU3f4hQEGbwpTbJVsKAPx95lyr3DI4rcG+qHEfEQ155I5VoJomQA/6hajR6/JfYUjOBK3/Us14WmVBJHQsEQwL5G0hEo0GifD6NGIejSBHknYxLIR5aWaWh1IekK7Q3+KwfNUXjwj0Bnxn3PY+gdXatlWaf8fWohkN4pSxKQAAAAASUVORK5CYII=" style="width:50px;height:50px" />' +
+													'<div class="succeed_title" style="margin-top: 20px;font-size: 18px;">域名[ ' + info.name + ' ],DNS设置错误</div>' +
+												'</div>'+
+												'<div class="tip_conter" style="text-align: center;margin-top: 17px;font-weight: 100;line-height: 20px;font-size: 16px;">' +
+												'<div class="nstitle" style="margin-bottom: 10px;"><br>请您到域名注册商将域名DNS服务器修改为:</div>' +
+												'<div class="nsName" style="line-height: 25px;margin: 0px 50px;padding: 5px 12px;text-align: left;border: 1px solid #efefef;border-radius: 3px;background: #fcfcfc;">'+ domain.dnspod_ns[0] +'&nbsp;&nbsp;<span class="ico-copy cursor mr5" data-clipboard-text="'+ domain.dnspod_ns[0] +'"></span></br>'+ domain.dnspod_ns[1] +'&nbsp;&nbsp;<span class="ico-copy cursor mr5" data-clipboard-text="'+ domain.dnspod_ns[1] +'"></span></div>' +
+												'<div class="nsName btns" style="margin:15px 0 10px 0;"><a href="javascript:;">点击检查是否生效</a></div>' +
+												'<div class="nsName"><a href="https://docs.dnspod.cn/dns/5f4761438ae73e11c5b019d4/#ChangeDomainNS" target="_blank" class="btlink" style="font-size:13px;text-align:left;margin-bottom: 10px;"><span class="glyphicon glyphicon-link"></span><span>如何修改域名DNS服务器</span></a></div>' +
+												'<div style="font-size:12px"><span >因各地运营商DNS缓存机制不同，修改DNS服务器最长需要72小时的全球生效时间，请您耐心等待。</span> <a href="https://console.dnspod.cn/dns/list" target="_blank" class="btlink" style="">手动刷新</a></div>' +
+											'</div>' +
+										'</div>',
+										success:function(){
+											var clipboard = new ClipboardJS('.ico-copy');
+											clipboard.on('success', function(e) {
+												layer.msg('复制成功',{icon:1});
+												e.clearSelection();
+											});
+											clipboard.on('error', function(e) {
+												layer.msg('复制失败，请手动选中文本复制',{icon:2});
+											});
+											$('.nsName.btns a').click(function(){
+												that.get_dnspod_ns({domain:row.name,force:'1'},function(res){
+													var domain = res.domain;
+													if(res.ext_status == ''){
+														that.$refresh_table_list(true);
+													}else{
+														layer.msg('DNS设置错误');
+													}
+												},'检查DNS服务器设置是否成功');
+											});
+										}
+									});
+								},'获取NS记录');
+							}
+						}else if(row.status == 'pause'){
+							bt.confirm({title:'启动解析域名',msg:'启用解析域名'+ row.name +'，该操作可能会存在风险，是否继续？'},function(index){
+								bt_tools.send({
+									url: '/plugin?action=a&name=dnspod&s=set_domain_status',
+									data: {domain:JSON.stringify([row.name]),status:'enable'},
+									verify:false
+								},function(res){
+									layer.close(index);
+									if(typeof res.success != "undefined") res = (res.success.length > 0 ?{msg:'操作成功',status:true}:{msg:res.error[row.name],status:false});
+									that.request_handle(res,function(){
+										bt_tools.msg(res);
+									});
+								},'启动解析域名');
+							});
+						}
+					}},	
+					{fid:'username',title:'解析套餐',template:function(row){
+						if(row.min_ttl == '600'){
+							return '<a target="_blank" href="https://buy.cloud.tencent.com/cns?from=gobuy&domain='+ row.name +'" class="bt_success cursor-pointer"><span>免费版，升级</span><i class="glyphicon glyphicon-arrow-up bt_warning"></i></a>';
+						}
+						return '<span>'+ row.grade_title +'</span>';
+					}},
+					{fid:'created_on',title:'最后操作时间',width:150},
+					{title:'操作',type:'group',width:90,align:'right',group:[{
+						title:'解析',
+						tips:'查看当前域名的解析列表',
+						event:function(row,index,ev,key,that){
+							that.add_analysis_layer(row);
+						}
+					},{
+						title:'删除',
+						tips:'删除当前解析域名',
+						event:function(row,index,ev,key,that){
+							bt.confirm({title:'删除解析域名',msg:'删除当前解析域名将会删除该域名下所有解析记录，确定要删除吗？'},function(index){
+								bt_tools.send({
+									url: '/plugin?action=a&name=dnspod&s=del_domain',
+									data: {domain:JSON.stringify([row.name])},
+									verify:false
+								},function(res){
+									layer.close(index);
+									if(typeof res.success != "undefined") res = (res.success.length > 0 ?{msg:'操作成功',status:true}:{msg:res.error[row.name],status:false});
+									that.request_handle(res,function(){
+										bt_tools.msg(res);
+									});
+								},'删除解析记录');
+							});
+						}
+					}]}
+				],
+				tootls:[{ // 按钮组
+					type:'group',
+					positon:['left','top'],
+					list:[{
+						title:'添加解析域名',
+						active:true,
+						event:function(ev){
+							bt_tools.open({
+								title:'添加解析域名',
+								area:'400px',
+								skin:'custom_layer',
+								btn:['提交','取消'],
+								content:{
+									url:'/plugin?action=a&name=dnspod&s=add_domain',
+									class:'pd20',
+									formLabelWidth:'80px',
+									form:[{
+										label:'域名',
+										group:{
+											type:'textarea',
+											style:{'width':'240px','max-width':'240px','min-height':'80px','height':'80px','line-height':'18px','padding':'8px 10px'},
+											name:'domain',
+											tips:{ //使用hover的方式显示提示
+												text:'输入您要解析的一级域名如：bt.cn</br>如需填写多个域名，请换行填写',
+												style:{top:'10px',left:'10px'},
+												status:true
+											},
+											verify:function(value,element,model,is_monitor){
+												if(typeof is_monitor == "undefined") is_monitor = true;
+												if(value == '' && is_monitor){
+													bt_tools.$verify_tips(element,'解析域名不能为空！');
+													return false;
+												}
+												var list = value.split("\n");
+												for(var i = list.length -1;i >= 0;i--){
+													if(list[i] == ""){
+														list.splice(i,1);
+														continue;
+													}
+													list[i] = list[i].replace(/\s+/g,"");
+													if(!bt.check_domain(list[i])){
+														bt_tools.$verify_tips(element,'第'+ (i+1) +'行，解析域名[ '+ item +' ]格式错误！');
+														return false;
+													}else if(list[i].split('.').length != 2){
+														bt_tools.$verify_tips(element,'解析域名格式错误，请输入需要解析的一级域名，例如：bt.cn');
+														return false;
+													}
+												}
+												return JSON.stringify(list);
+											}
+										}
+									}]
+								},
+								yes:function(form,index,layero){
+									var that = this;
+									this.$submit(form,function(res,parem){
+										dns_pod_table.$refresh_table_list(true);
+										var html = '',domain = JSON.parse(parem.domain);
+										for(var i= 0;i < domain.length;i++){
+											var item = domain[i];
+											html += '<tr>\
+												<td><span >'+ item +'</td>\
+												<td><div style="float:right;width:180px;text-align:right"><span style="color:'+ (typeof res.error[item] == "undefined"?'#20a53a':'red') +'">'+ (typeof res.error[item] != "undefined"?res.error[item]:'添加成功')+'</span></div></td>\
+											</tr>';
+										}
+										bt_tools.$batch_success_table({title:'添加解析域名',area:['400px','350px'],th:'解析域名',html:html});
+										layer.close(index);
+									},'添加解析域名');
+								},
+								end:function(){
+									layer.closeAll('tips');
+								}
+							});
+						}
+					},{
+						title:'购买解析套餐',
+						event:function(ev){
+							window.open("https://buy.cloud.tencent.com/cns?from=gobuy");
+						}
+					},{
+						title:'设置关联密钥',
+						event:function(ev){
+							add_config.content.data = config;
+							add_config.end = function(){}
+							bt_tools.open(add_config);
+						}
+					}]
+				},{ // 搜索内容
+					type:'search',
+					positon:['right','top'],
+					placeholder:'请输入解析的域名',
+					searchParam:'search', //搜索请求字段，默认为 search
+					width:'250px',
+					value:'',// 当前内容,默认为空
+				},{ // 批量操作
+					type:'batch',
+					positon:['left','bottom'],
+					placeholder:'请选择批量操作',
+					buttonValue:'批量操作',
+					disabledSelectValue:'请选择需要批量操作的域名!',
+					selectList:[{
+						group:[{title:'启用解析域名',param:{status:'enable'}},{title:'暂停解析域名',param:{status:'disable'}}],
+							url:'/plugin?action=a&name=dnspod&s=set_domain_status',
+							confirmVerify:false, //是否提示验证方式
+							paramName:'domain', //列表参数名,可以为空
+							paramId:'name', // 需要传入批量的id
+							theadName:'解析域名',
+							beforeRequest:function(list){
+								var arry = [];
+								$.each(list,function(index,item){
+									arry.push(item.name);
+								});
+								return JSON.stringify(arry);
+							},
+							refresh:true // 是否刷新列表
+						},{
+							title:'删除解析域名',
+							url:'/plugin?action=a&name=dnspod&s=del_domain',
+							confirmVerify:true, //是否提示验证方式
+							paramName:'domain', //列表参数名,可以为空
+							paramId:'name', // 需要传入批量的id
+							theadName:'解析域名',
+							beforeRequest:function(list){
+								var arry = [];
+								$.each(list,function(index,item){
+									arry.push(item.name);
+								});
+								return JSON.stringify(arry);
+							},
+							refresh:true // 是否刷新列表
+						}]
+				},{ //分页显示
+					type:'page',
+					positon:['right','bottom'], // 默认在右下角
+					pageParam:'offset', //分页请求字段,默认为 : p
+					page:1, //当前分页 默认：1
+					numberParam:'length',　//分页数量请求字段默认为 : limit
+					number:10,　//分页数量默认 : 10条
+					render:true //是否渲染，默认后端渲染
+				}],
+				methods:{
+					/**
+					 * @description 添加解析
+					 * @param {object} row 行内数据
+					 * @return void(0)
+					*/ 
+					add_analysis_layer:function(row){
+						var rows = row;
+						bt_tools.open({
+							title:'解析域名 - [ '+  row.name +' ]',
+							area:['1120px','660px'],
+							skin:'custom_layer hide',
+							anim:false,
+							btn:false,
+							content:'<div id="analysis_domain" class="pd20"></div>',
+							success:function(layero,index){
+								var list = {
+									subDomain:{tips:'要解析 www.wewerw.cn，请填写 www。主机记录就是域名前缀，<strong class="bt_warning">点击下列选项可自动填充</strong>:',list:[{title:"www","tips":"解析后的域名为 www.wewerw.cn"},{title:"@","tips":"直接解析主域名  wewerw.cn"},{title:"*","tips":"泛解析，匹配其他所有域名 *.wewerw.cn"},{title:"mail","tips":"将域名解析为 mail.wewerw.cn，通常用于解析邮箱服务器"},{title:"二级域名","tips":"如：abc.wewerw.cn，填写abc",ban:'请手动输入您的二级域名'}]},
+									recordType:{tips:'将域名指向云服务器，请选择「A」；</br>将域名指向另一个域名，请选择「CNAME」；</br>建立邮箱请选择「MX」，根据邮箱服务商提供的MX记录，<strong class="bt_warning">点击下列选项可自动填充</strong>：',list:[{title:"A","tips":"用来指定域名的IPv4地址（如：8.8.8.8），如果需要将域名指向一个IP地址，就需要添加A记录。"},{title:"CNAME","tips":"如果需要将域名指向另一个域名，再由另一个域名提供ip地址，就需要添加CNAME记录。"},{title:"MX","tips":"如果需要设置邮箱，让邮箱能收到邮件，就需要添加MX记录。"},{title:"TXT","tips":"在这里可以填写任何东西，长度限制255。绝大多数的TXT记录是用来做SPF记录（反垃圾邮件）。"},{title:"NS","tips":"域名服务器记录，如果需要把子域名交给其他DNS服务商解析，就需要添加NS记录。"},{title:"AAAA","tips":"用来指定主机名（或域名）对应的IPv6地址（例如：ff06:0:0:0:0:0:0:c3）记录。"},{title:"SRV","tips":"记录了哪台计算机提供了哪个服务。格式为：服务的名字、点、协议的类型，例如：_xmpp-server._tcp。"},{title:"显性URL","tips":"从一个地址301重定向到另一个地址的时候，就需要添加显性URL记录（注：DNSPod目前只支持301重定向）。"},{title:"隐性URL","tips":"类似于显性URL，区别在于隐性URL不会改变地址栏中的域名。"}]},
+									recordLine:{tips:'选择解析线路，一般「默认」即可，<strong class="bt_warning">点击下列选项可自动填充</strong>：',list:[{title:"默认","tips":"必须添加，否则只有单独指定的线路才能访问您的网站"},{title:"境内","tips":"中国大陆地区，单独为其指定服务器 IP ，其他用户则访问默认线路"},{title:"境外","tips":"中国大陆以外的其他地区（包含中国香港、中国澳门、中国台湾），单独为其指定服务器 IP ，其他用户则访问默认线路"},{title:"电信","tips":""},{title:"联通","tips":"单独为「联通用户」指定服务器 IP，其他用户依然访问「默认」"},{title:"移动","tips":""}]},
+									value:['填写您服务器 IPv4地址（如：8.8.8.8），如果您不知道，请咨询您的空间商。或者您还可以关联云资源','填写一个域名，如：cloud.tencent.com','填写您邮件服务器的IP地址或企业邮局给您提供的域名，如果您不知道，请咨询您的邮件服务提供商','一般用于 Google、QQ等企业邮箱的反垃圾邮件设置；填写文本，字符长度限制255','NS向下授权，填写dns域名，例如：f1g1ns1.dnspod.net 。不常用，系统默认添加的两个NS记录请不要修改','解析到 IPv6 的地址，例如：ff06:0:0:0:0:0:0:c3，不常用。','格式为：优先级、空格、权重、空格、端口、空格、主机名，5 0 5269 example.bttt.cn，记录生成后会自动在域名后面补一个“.”，这是正常现象。','填写要跳转到的网址，如http://www.bttt.cn','填写引用内容的网址，如http://www.bttt.cn'], 
+									mx:{tips:'MX记录时才需要定MX优先级</br>MX优先级指定邮件服务器接收邮件的先后顺序（1-50），一般默认设置为5、10、15等，数值越小优先级越高'}, 
+									ttl:{tips:'TTL为缓存的生存时间，默认最常用的 600 秒。指地方dns缓存您域名记录信息的时间，缓存失效后会再次到腾讯云（DNSPod）获取记录值，<strong class="bt_warning">点击下列选项可自动填充</strong>：',list:[{title:"600秒（10分钟）",value:600,tips:"免费解析套餐支持的最小解析生效时间：600秒，不用修改"},{title:"1800秒（30分钟）",value:1800,"tips":"如您IP变动可能频繁，建议选择1800秒"},{title:"3600秒（1小时）",value:3600,"tips":"如您IP极少变动（一年几次），建议选择3600秒，解析速度快"}]}
+								},add_subDomain = null,
+								analysis_domain = bt_tools.table({
+									el:'#analysis_domain',
+									fid:'analysis_domain',
+									load:true,
+									tips:'获取解析列表',
+									url:'/plugin?action=a&name=dnspod&s=get_record_list',
+									param:{domain:row.name},
+									default:"解析列表为空", //数据为空时的默认提示
+									height:'500px',
+									dataFilter:function(res){
+										analysis_domain.request = res;
+										return {data:res.records,total:res.info.record_total}
+									},
+									success:function(that){
+										if(typeof that.request != "undefined"){
+											$(layero).removeClass('hide');
+											var domain = that.request.domain;
+											if(that.request.domain.min_ttl < 600){
+												list.ttl.list.unshift({title:that.request.domain.min_ttl,value:that.request.domain.min_ttl,tips:"当前解析套餐支持的最小解析生效时间："+that.request.domain.min_ttl+'秒'});
+												list.ttl.list[1] = {title:"600秒（10分钟）",value:600,tips:"默认都使用600秒，不用修改"}
+											}
+											if(domain.ext_status == 'dnserror'){
+												if($('.dnspod-tips').length == 1) return false;
+												$('#analysis_domain').prepend('<div class="alert alert-danger dnspod-tips" role="alert"><span class="glyphicon glyphicon-exclamation-sign" style="font-size: 17px;margin-right: 5px;vertical-align: middle;" aria-hidden="true"></span><span style="vertical-align: middle;">该域名还未正确设置 DNS 服务器，解析记录将无法正常生效。请在域名注册商处将 DNS 服务器修改为：<span class="mr5 c6">'+  domain.dnspod_ns[0] + '</span><span class="ico-copy cursor mr5" data-clipboard-text="'+ domain.dnspod_ns[0] +'"></span>、<span class="mr5 c6">' + domain.dnspod_ns[1] +'</span><span class="ico-copy cursor mr5" data-clipboard-text="'+ domain.dnspod_ns[1] +'"></span><a href="https://support.dnspod.cn/Kb/showarticle/tsid/177/#ChangeDomainNS" target="_blank" class="btlink" style="font-weight: normal;margin-left:5px;"><span class="glyphicon glyphicon-link"></span><span>如何修改域名DNS服务器</span></a></span></div>');
+												var clipboard = new ClipboardJS('.ico-copy');
+												clipboard.on('success', function(e) {
+													layer.msg('复制成功',{icon:1});
+													e.clearSelection();
+												});
+												clipboard.on('error', function(e) {
+													layer.msg('复制失败，请手动选中文本复制',{icon:2});
+												});
+											}else{
+												bt_tools.$piugin_view_set(layero,{width:1100,height:610});
+												$('#analysis_domain').height(510);
+											}
+										}
+									},
+									methods: {
+										/**
+										 * @description 渲染解析tips列表
+										 *
+										*/
+										cut_data_list:function(type,value){
+											var html = '',_list = [];
+											try {
+												if(typeof list[type].list != "undefined" || Array.isArray(type)){
+													if(Array.isArray(type)){
+														_list = type;
+													}else{
+														_list = list[type].list;
+													}
+													for(var i=0; i<_list.length;i++){
+														var items =_list[i],values = items.value || items.title;
+														html += '<li '+ (value == values?'class="active"':'') +' data-value="'+ values +'" '+ (items.ban?('data-ban="'+ items.ban+'"'):'') +' data-index="'+ i +'"><span class="tr_list_title">'+ values +'</span><span class="tr_list_content">'+ items.tips +'</span></li>';
+													}
+												}
+											} catch (error) {}
+											if(Array.isArray(type)) return html;
+											if(Array.isArray(list[type])) return [];
+											return [list[type].tips,html];
+										},
+										/**
+										 * @description 关闭解析tr列表
+										*/
+										clear_analysis_tr:function(){
+											$(this.config.el).find('.tootls_group.tootls_bottom,tbody tr').removeAttr('style');
+											$(this.config.el).find('.add_analysis_tr').remove();
+											$(window).unbind('click',add_subDomain);
+											layer.closeAll('tips');
+										},
+										/**
+										 * @description 关闭解析tr列表
+										*/
+										verify_analysis_form:function(that,is_verify){
+											var name = $(that).attr('name'),value = $(that).val(),_that = this,data = null;
+											function form_verify(){
+												switch(name){
+													case 'subDomain':
+														var _type = $('[name="recordType"]').val();
+														switch(_type){
+															default:
+																if(value == ''){
+																	return ['主机记录内容不能为空！',$(that)];
+																}
+															break;
+														}
+													break;
+													case 'value':
+														var _type = $('[name="recordType"]').val();
+														switch(_type){
+															case 'A':
+																if(!bt.check_ip(value)) return ['IPv4地址格式错误！',$(that)];
+															break;
+															case 'TXT':
+																if(value.length > 255) return ['TXT类型记录值字符长度限制255！',$(that)];
+															break;
+															case '显性URL':
+															case '隐性URL':
+																if(!bt.check_url(value)) return ['URL地址错误！',$(that)];
+															break;
+															default:
+																if(value == '') return ['记录值内容不能空！',$(that)];
+															break;
+														}
+													break;
+													case 'ttl':
+														value = parseInt(value);
+														if(value <= 0 && value < _that.request.min_ttl) return ['解析缓存时间不能为空或小于解析套餐最小值:'+ _that.request.min_ttl,$(that)];
+													break;
+												}
+												return true;
+											}
+											if(!is_verify){
+												return form_verify();
+											}else{
+												data = form_verify();
+											}
+											if(Array.isArray(data) && is_verify){
+												layer.tips(data[0],data[1],{tips:[1,'red'],time:0});
+												data[1].focus();
+												data[1].css('border-color','red');
+											}else{
+												return true;
+											}
+										},
+
+										/**
+										 * @description 编辑解析fr列表
+										 * @param {object} form form数据
+										*/
+										edit_analysis_tr:function(form,el){
+											var el = $('.add_analysis_tr'),that = this;
+											if(el.length > 0){
+												el.find('[name="subDomain"]').focus();
+												return false;
+											}
+											if(typeof form == "undefined") form = {type:'A',ttl:'',mx:0,name:'',value:'',line:'默认'};
+											var add_analysis_tr = $('<tr class="add_analysis_tr">\
+												<td></td>\
+												<td><input type="text" name="subDomain" style="width:120px;" value="'+ form.name +'" placeholder="根据下方提示填写" autocomplete="off"/></td>\
+												<td><input type="text" name="recordType" style="width:70px;" value="'+ form.type +'" class="cursor" data-index="0" readonly autocomplete="off"/></td>\
+												<td><input type="text" name="recordLine"  style="width:60px;" value="'+ form.line +'" class="cursor" readonly autocomplete="off"/></td>\
+												<td><input type="text" name="value" placeholder="根据下方提示填写" value="'+ form.value +'" autocomplete="off"/></td>\
+												<td>'+ (form.type == "MX"?'<input type="text" name="mx" style="width:58px" autocomplete="off" value="'+ form.mx +'"/>':'-') +'</td>\
+												<td><input type="text"  name="ttl" value="'+ (form.ttl || that.request.domain.min_ttl) +'" style="width:58px" autocomplete="off"s/></td>\
+												<td>-</td>\
+												<td>-</td>\
+												<td><button class="btn btn-success btn-sm mr5 save_data_tr">保存</button><button class="btn btn-default btn-sm clear_data_tr">取消</button></td>\
+											</tr>\
+											<tr class="add_analysis_tr add_analysis_tr_tips">\
+												<td colspan="10"><div class="tr_tips input_0"></div></td>\
+											</tr>');
+											if(el){
+												$(that.config.el).find('tbody').prepend(add_analysis_tr);
+											}else{
+												$(el).prepend(add_analysis_tr);
+											}
+											add_analysis_tr.on('focus','input',function(){
+												var name = $(this).attr('name'),value = $(this).val(),tips = that.cut_data_list(name,value),html = '',index = $(this).parent().index() -1;
+												if(name === 'value'){
+													var type_index = $('[name="recordType"]').data('index'),_list = '';
+													$.each(that.request.ips,function(indexs,item){
+														_list += '<li data-index="'+ indexs +'" data-value="'+ item +'"><span class="tr_list_title">'+ item +'</span></li>';
+													});
+													tips = [list[name][type_index]+'&nbsp;&nbsp;<strong class="bt_warning">常用记录值,点击下列选项可自动填充</strong>',_list];
+												}
+												html = '<p class="tr_tips_title">'+ tips[0] +'</p>' + (tips[1] != ''?('<ul class="tr_tips_list">'+ tips[1] +'</ul>'):'');
+												add_analysis_tr.find('.tr_tips').html(html);
+												add_analysis_tr.find('.tr_tips_list').data('type',name);
+												$('.add_analysis_tr_tips .tr_tips').removeAttr('class').addClass('tr_tips input_'+index);
+											}).on('blur',function(ev){
+												layer.closeAll('tips');
+												$(this).removeAttr('style');
+											}).on('input',function(ev){
+												layer.closeAll('tips');
+												$(this).removeAttr('style');
+											});
+											add_subDomain = function(ev){
+												var keyCode = ev.keyCode, add_analysis_tr_tips = $('.add_analysis_tr_tips');
+												if(keyCode == 13){
+													$('.save_data_tr').click();
+												}else if(add_analysis_tr_tips.length > 0 && (keyCode == 38 || keyCode == 40)){
+													var is_active = add_analysis_tr_tips.find('.tr_tips_list li.active').length > 0,length = add_analysis_tr_tips.find('.tr_tips_list li').length,index = 0,active_index = parseInt(add_analysis_tr_tips.find('.tr_tips_list li.active').attr('data-index'));
+													var _length = length - (add_analysis_tr_tips.find('.input_0').length > 0?2:1);
+													if(keyCode == 38){ //上
+														if(!is_active){
+															index = _length;
+														}else{
+															index = active_index === 0?_length:(active_index-1);
+														}
+													}else if(keyCode == 40){ //下
+														if(!is_active){
+															index = 0;
+														}else{
+															index = active_index == _length?0:(active_index+1);
+														}
+													}
+													add_analysis_tr_tips.find('.tr_tips_list li:eq('+ index +')').click();
+													ev.stopPropagation();
+													ev.preventDefault();
+												}
+											}
+											$(window).keyup(add_subDomain);
+											$(window).keydown(function (ev){
+												if(ev.keyCode == 40 || ev.keyCode == 38){
+													ev.preventDefault();
+												}
+											});
+											add_analysis_tr.find('input:eq(0)').focus();
+											add_analysis_tr.find('.tr_tips').on('click','li',function(){
+												var value = $(this).data('value'),type = $(this).parents().data('type'),ban = $(this).data('ban');
+												var input = add_analysis_tr.find('[name="'+ type +'"]');
+												if(!ban){
+													input.data('index',$(this).index());
+													input.val(value);
+													$(this).addClass('active').siblings().removeClass('active');
+												}else{
+													$(this).siblings().removeClass('active');
+													input.val('').focus();
+													layer.tips(ban,input,{tips:[1,'#20a53a'],time:3000});
+												}
+												if(type == "recordType" && value === 'MX'){
+													add_analysis_tr.find('td:eq(5)').html('<input type="text" name="mx" style="width:58px" value="0" autocomplete="off" value="'+  +'"/>');
+												}else if(type == "recordType"){
+													add_analysis_tr.find('td:eq(5)').html('-');
+												}
+											});
+											add_analysis_tr.find('.clear_data_tr').click(function(){
+												that.clear_analysis_tr();
+											});
+											add_analysis_tr.find('.save_data_tr').click(function(){
+												var tips = '',element = '',data = [],paream = {},request = that.request;
+												$('.add_analysis_tr :input').not('button').each(function(index,item){
+													data = that.verify_analysis_form(item);
+													paream[$(this).attr('name')] = $(this).val();
+													if(Array.isArray(data)) return false;
+												});
+												if(Array.isArray(data)){
+													layer.tips(data[0],data[1],{tips:[1,'red'],time:0});
+													data[1].focus();
+													data[1].css('border-color','red');
+													return false;
+												}
+												var is_add = typeof form.id == "undefined"?true:false;
+												if(!is_add) paream.recordId = form.id;
+												if(typeof paream.mx == "undefined") paream.mx = 0;
+												bt_tools.send({
+													url: '/plugin?action=a&name=dnspod&s='+ (is_add? 'create_record':'modify_record'),
+													data: $.extend({domain:request.domain.name},paream)
+												}, function (res) {
+													that.request_handle(res,function(res){
+														if(!is_add){
+															bt_tools.msg(res);
+														}else{
+															if(res.success.length > 0){
+																bt_tools.msg({msg:res.success[0]+'主机记录添加成功',status:true});
+															}else{
+																bt_tools.msg({msg:res.error[paream.subDomain],status:false});
+															}
+														}
+													});
+												},is_add?'添加解析记录':'修改解析记录');
+											});
+										},
+										/**
+										 * @description 请求二次处理
+										 * @param {object} form form数据
+										 * @param {function} callback 回调函数
+										*/
+										request_handle:function(res,callback){
+											var that = this;
+											if(typeof res.status == "boolean" && res.status === false){
+												if(typeof res.msg.message != "undefined"){
+													bt_tools.msg({status:false,msg:res.msg.message});
+												}else{
+													bt_tools.msg(res);
+												}
+												return false;
+											}else{
+												that.clear_analysis_tr();
+												that.$refresh_table_list(true,function(){
+													if(typeof callback === "function") {
+														callback(res);
+													}else if(typeof callback === "number"){
+														layer.close(callback);
+													}else{
+														bt_tools.msg(res);
+													}
+												});
+											}
+										},
+										/**
+										 * @description 系統信息二次处理
+										 * @param {object} form form数据
+										 * @param {function} callback 回调函数
+										*/
+										filtr_system_handle:function(row,callabck){
+											var domain = this.request.domain,event = '';
+											try {
+												if(typeof row.data === "object") event = row.event,row = row.data;
+											} catch (error) {}
+											if(row.value.indexOf(domain.dnspod_ns[0]) > -1  || row.value.indexOf(domain.dnspod_ns[1]) > -1){
+												bt.confirm({
+													title:'风险提示',
+													msg:'修改系统默认 NS 记录相当于更改域名 DNS 服务器，可能导致该域名解析异常等情况，请您了解相关风险后再进行操作。如确定需要修改，请前往 DNSPod 控制台进行相关操作。',
+													btn:['前往DNSPod控制台','取消'],
+													cancel :function(){
+														if(event) $(event.target).prop('checked',row.status === 'enabled'?true:false);
+													}
+												},function(index){
+													layer.close(index);
+													window.open('https://console.dnspod.cn/dns/list');
+													if(event) $(event.target).prop('checked',row.status === 'enabled'?true:false);
+												},function(){
+													if(event) $(event.target).prop('checked',row.status === 'enabled'?true:false);
+												});
+											}else{
+												if(callabck) callabck(domain);
+											}
+										}
+									},
+									column:[
+										{type:'checkbox',class:'',width:20},
+										{fid:'name',title:'主机记录',width:100,fixed:true,tips:true},
+										{fid:'type',title:'记录类型',width:70,fixed:true,tips:true},
+										{fid:'line',title:'线路类型',width:70,fixed:true,tips:true},
+										{fid:'value',title:'记录值',width:125,fixed:true,tips:true},
+										{fid:'mx',title:'MX优先级',type:'text',width:70,fixed:true,tips:true,template:function(row){
+											if(row.mx == 0) return '-';
+											return '<span>'+ row.mx +'</span>';
+										}},
+										{fid:'ttl',title:'TTL（秒）',width:70,fixed:true,tips:true},
+										{fid:'updated_on',title:'最后操作时间',width:120,fixed:true,tips:true},
+										{fid:'enabled',type:'switch',title:'状态',width:60,status:{off:0,on:1},event:function(row,index,ev,key,that){
+											that.filtr_system_handle(row,function(domain){
+												var _status = row.enabled?'停止':'启用';
+												bt.confirm({
+													title:_status+'该解析记录',
+													msg:'是否'+ _status +'该解析记录，确认操作吗？',
+													cancel:function(){
+														$(ev.target).prop('checked',row.enabled?true:false);
+													}
+												},function(index){
+													bt_tools.send({
+														url: '/plugin?action=a&name=dnspod&s=set_record_status',
+														data: {domain:domain.punycode,recordId:row.id,status:row.enabled?'disable':'enable'},
+														verify:false
+													},function(res){
+														if(!res.status) $(ev.target).prop('checked',row.status === 'enable'?true:false);
+														layer.close(index);
+														that.request_handle(res,function(){
+															bt_tools.msg(res);
+														});
+													},_status+'解析记录');
+												},function(){
+													$(ev.target).prop('checked',row.enabled?true:false);
+												});
+											});
+										}},
+										{type:'group',title:'操作',width:110,align:'right',group:[{
+											title:'修改',
+											event:function(row,index,ev,key,that){
+												that.filtr_system_handle(row,function(domain){
+													if($('.add_analysis_tr').length > 0) return false;
+													$(ev.target).parents('tr').hide();
+													that.edit_analysis_tr(row);
+												});
+											}
+										},{
+											title:'删除',
+											event:function(row,index,ev,key,that){
+												that.filtr_system_handle(row,function(domain){
+													bt.confirm({
+														title:'删除解析记录',
+														msg:'删除后该条记录在云解析不再有效，确认删除吗？'
+													},function(index){
+														bt_tools.send({
+															url: '/plugin?action=a&name=dnspod&s=delete_record',
+															data: {domain:domain.punycode,recordId:row.id},
+															verify:false
+														},function(res){
+															layer.close(index);
+															that.request_handle(res,function(){
+																bt_tools.msg(res);
+															});
+														},'删除解析记录');
+													});
+												});
+											}
+										}]
+									}],
+									tootls:[{ // 按钮组
+										type:'group',
+										positon:['left','top'],
+										list:[{
+											title:'添加解析记录',
+											active:true,
+											event:function(ev,that){
+												that.edit_analysis_tr();
+											}
+										}, {
+											title:'批量添加解析',
+											event: function(ev, that){
+												bt_tools.open({
+													title:'批量添加解析记录',
+													area:'500px',
+													skin:'custom_layer',
+													content:{
+														class:'pd20',
+														url:'/plugin?action=a&name=dnspod&s=create_record',
+														form:[{
+															label:'主机记录',
+															group:{
+																type:'textarea',
+																style:'width:300px;max-width:300px;min-height:80px;height:120px;line-height:18px;',
+																name:'subDomain',
+																tips:{
+																	text:'请输入主机记录，多个主机记录请换行填写',
+																	style:{top:'10px',left:'10px'},
+																	status:true
+																},
+																verify:function(value,element,model,is_monitor){
+																	if(value == ''){
+																		bt_tools.$verify_tips(element,'解析主机记录不能为空！');
+																		return false;	
+																	}
+																	return value;
+																}
+															}
+														},{
+															label:'记录值',
+															group:{
+																type:'text',
+																width:'300px',
+																name:'value',
+																placeholder:'填写您服务器 IPv4地址（例如：8.8.8.8）',
+																verify:function(value,element,model,is_monitor){
+																	if(value == ''){
+																		bt_tools.$verify_tips(element,'解析记录值不能为空！');
+																		return false;	
+																	}
+																	if(!bt.check_ip(value)){
+																		bt_tools.$verify_tips(element,'记录值格式错误，格式应为IPv4地址！');
+																		return false;	
+																	}
+																	return value;
+																}
+															}
+														},{
+															label:'记录类型',
+															group:{
+																type:'text',
+																width:'300px',
+																name:'type',
+																value:'A',
+																disabled:true
+															}
+														},{
+															label:'',
+															group:{
+																type:'help',
+																style:'color:red;margin:0 0 0 15px;',
+																list:['提示：当前批量添加，仅支持最常用的A记录类型，其他参数为默认参数']
+															}
+														}]
+													},
+													yes:function(form,indexs,layero){
+														var subDomain = form.subDomain.split('\n'),arry = [];
+														delete form.type;
+														$.each(subDomain,function(index,items){
+															if(items == "") return true;
+															arry.push(items.replace(/\s+/g,""));
+														})
+														form.subDomain = arry.join(',');
+														this.$submit($.extend(form,{domain:row.name,recordType:'A',recordLine:'默认',value:form.value,ttl:'600',mx:'0'}),function(res){
+															if(res.status === false) return false;
+															var arry = [],html = '';
+															for(var key in res.error){
+																arry.push({sub:key,msg:res.error[key],status:false});
+															}
+															for(var i=0;i<res.success.length;i++){
+																arry.push({sub:res.success[i],msg:'添加成功',status:true});
+															}
+															for(var j=0;j<arry.length;j++){
+																html += '<tr><td>'+ arry[j].sub +'</td><td style="text-align:right;"><span style="color:'+ (arry[j].status?'#20a53a':'red') +';">'+ arry[j].msg +'</span></td></tr>';
+															}
+															bt_tools.$batch_success_table({title:'批量添加主机记录',area:['400px','360px'],th:'主机记录',html:html});
+															analysis_domain.$refresh_table_list(true);
+															layer.close(indexs);
+														});
+													}
+												});
+											}
+										}],
+									},{ // 搜索内容
+										type:'search',
+										positon:['right','top'],
+										placeholder:'请输入需要查询记录值/主机记录/记录类型/TTL',
+										searchParam:'search', //搜索请求字段，默认为 search
+										width:'300px',
+										value:'',// 当前内容,默认为空
+									},{
+										type:'batch',//batch_btn
+										show:'top',
+										positon:['left','bottom'],
+										placeholder:'请选择批量操作',
+										buttonValue:'批量操作',
+										disabledSelectValue:'请选择需要批量操作的解析记录',
+										selectList:[{
+											title:'启用解析记录',
+											url:'/plugin?action=a&name=dnspod&s=set_record_status',
+											paramId:'id',
+											paramName:'recordId',
+											param:{status:'enable',domain:rows.name},
+											theadName:'记录值',
+											load:true,
+											refresh:true,
+											recursion:true,
+											automatic:true,
+											paramThead:'value'
+										},{
+											title:'停止解析记录',
+											url:'/plugin?action=a&name=dnspod&s=set_record_status',
+											paramId:'id',
+											paramName:'recordId',
+											param:{status:'disable',domain:rows.name},
+											theadName:'记录值',
+											load:true,
+											refresh:true,
+											recursion:true,
+											automatic:true
+										},{
+											title:'修改记录值',
+											url:'/plugin?action=a&name=dnspod&s=modify_record',
+											beforeBacth:function(row){
+												return {subDomain:row.name,recordId:row.id,recordType:row.type,recordLine:row.line,mx:row.mx,ttl:row.ttl};
+											},
+											param:{domain:rows.name},
+											theadName:'主机记录',
+											load:true,
+											refresh:true,
+											automatic:true,
+											callback:function(bacth){
+												bt_tools.open({
+													title:'批量修改解析记录值',
+													area:'450px',
+													skin:'custom_layer',
+													content:{
+														class:'pd20',
+														form:[{
+															label:'记录值',
+															group:{
+																type:'text',
+																width:'260px',
+																name:'value',
+																placeholder:'请根据记录类型填写对应的记录值',
+																verify:function(value,element,model,is_monitor){
+																	if(value == ''){
+																		bt_tools.$verify_tips(element,'解析记录值不能为空！');
+																		return false;	
+																	}
+																	return value;
+																}
+															}
+														}]
+													},
+													yes:function(form,indexs,layero){
+														bacth.start_batch(form);
+														layer.close(indexs);
+													}
+												});
+											}
+										},{
+											title:'修改TTL',
+											url:'/plugin?action=a&name=dnspod&s=modify_record',
+											beforeBacth:function(row){
+												return {subDomain:row.name,recordId:row.id,recordType:row.type,recordLine:row.line,mx:row.mx,value:row.value};
+											},
+											param:{domain:rows.name},
+											theadName:'记录值',
+											load:true,
+											refresh:true,
+											automatic:true,
+											callback:function(bacth){
+												bt_tools.open({
+													title:'批量修改解析TTL',
+													area:'450px',
+													skin:'custom_layer',
+													content:{
+														class:'pd20',
+														formLabelWidth:'80px',
+														form:[{
+															label:'TTL',
+															group:{
+																type:'text',
+																width:'280px',
+																name:'ttl',
+																value:'600',
+																placeholder:'请输入需要设置的解析TTL(解析记录生效时间)',
+																verify:function(value,element,model,is_monitor){
+																	if(value == ''){
+																		bt_tools.$verify_tips(element,'解析TTL(解析记录生效时间),不能为空！');
+																		return false;	
+																	}
+																	return value;
+																}
+															},
+															help:{list:['TTL为缓存的生存时间，默认最常用的 600 秒。<br>指地方dns缓存您域名记录信息的时间，缓存失效后会再次到腾讯云（DNSPod）获取记录值']}
+														}]
+													},
+													yes:function(form,indexs,layero){
+														bacth.start_batch(form);
+														layer.close(indexs);
+													}
+												});
+											}
+										},{
+											title:'修改解析线路',
+											url:'/plugin?action=a&name=dnspod&s=modify_record',
+											beforeBacth:function(row){
+												return {subDomain:row.name,recordId:row.id,recordType:row.type,mx:row.mx,value:row.value,ttl:row.ttl};
+											},
+											param:{domain:rows.name},
+											theadName:'记录值',
+											load:true,
+											refresh:true,
+											automatic:true,
+											callback:function(bacth){
+												bt_tools.open({
+													title:'批量修改解析线路',
+													area:'350px',
+													skin:'custom_layer',
+													content:{
+														class:'pd20',
+														formLabelWidth:'120px',
+														form:[{
+															label:'解析线路',
+															group:{
+																type:'select',
+																name:'recordLine',
+																width:'120px',
+																value:'默认',
+																list:(function(){
+																	var recordLine = list.recordLine.list,arry = [];
+																	for(var i = 0; i <recordLine.length; i++) {
+																		var items = recordLine[i];
+																		arry.push({title:items.title,value:items.title});
+																	}
+																	return arry;
+																}())
+															}
+														}]
+													},
+													yes:function(form,indexs,layero){
+														bacth.start_batch(form);
+														layer.close(indexs);
+													}
+												});
+											}
+										},{
+											title:'删除解析',
+											url:'/plugin?action=a&name=dnspod&s=delete_record',
+											beforeBacth:function(row){
+												return {recordId:row.id};
+											},
+											param:{domain:rows.name},
+											theadName:'记录值',
+											confirmVerify:true,
+											load:true,
+											refresh:true,
+											automatic:true,
+											recursion:true
+										}]
+									},{ //分页显示
+										type:'page',
+										positon:['right','bottom'], // 默认在右下角
+										pageParam:'offset', //分页请求字段,默认为 : p
+										page:1, //当前分页 默认：1
+										numberParam:'length',　//分页数量请求字段默认为 : limit
+										number:10,　//分页数量默认 : 10条
+										render:true
+									}]
+								})
+								window.analysis_domain = analysis_domain;
+							}
+						});
+					},
+					/**
+					 * @description 请求二次处理
+					 * @param {object} form form数据
+					 * @param {function} callback 回调函数
+					*/
+					request_handle:function(res,callback){
+						var that = this;
+						if(!res.status){
+							if(typeof res.msg.message != "undefined"){
+								bt_tools.msg({status:false,msg:res.msg.message});
+							}else{
+								bt_tools.msg(res);
+							}
+							return false;
+						}else{
+							if(typeof that.clear_analysis_tr != "undefined") that.clear_analysis_tr();
+							that.$refresh_table_list(true,function(){
+								if(typeof callback === "function") {
+									callback(res);
+								}else if(typeof callback === "number"){
+									layer.close(callback);
+								}else{
+									bt_tools.msg(res);
+								}
+							});
+						}
+					},
+					/**
+					 * @description 请求二次处理
+					*/ 
+					get_dnspod_ns:function(config,callback,tips){
+						bt_tools.send('dnspod/get_dnspod_ns',config,function(res){
+							if(callback) callback(res);
+						},{load:tips,plugin:true});
+					}
+				}
+			})
+		}
+	},{load:'获取腾讯云关联信息',plugin:true});
+</script>

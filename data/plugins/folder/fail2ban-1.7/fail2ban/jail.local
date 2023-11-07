@@ -1,0 +1,33 @@
+#DEFAULT-START
+[DEFAULT]
+ignoreip = 127.0.0.1/8
+bantime = 600
+findtime = 300
+maxretry = 5
+banaction = firewallcmd-ipset  
+action = %(action_mwl)s
+#DEFAULT-END
+
+#sshd-START
+[sshd]
+enabled = true
+filter = sshd
+port = 22
+maxretry = 5
+findtime = 300
+bantime = 86400
+action = %(action_mwl)s
+logpath = /var/log/secure
+#sshd-END
+
+#ftpd-START
+[ftpd]
+enabled = true
+filter = pure-ftpd
+port = 21
+maxretry = 5
+findtime = 300
+bantime = 86400
+action = %(action_mwl)s
+logpath = /var/log/messages
+#ftpd-END

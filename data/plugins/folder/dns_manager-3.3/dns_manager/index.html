@@ -1,0 +1,1171 @@
+<style>
+    .bt-w-menu{width: 140px;}
+    .bt-w-con{margin-left: 140px;}
+    .bt-select{
+        width: 400px;
+        height: 35px;
+        line-height: 35px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        position: relative;
+    }
+    .bt-select .bt-select-tips{
+        color: #999;
+    }
+    .bt-select .bt-select-list{
+        display: none;
+        position: absolute;
+        z-index: 999;
+        max-height: 220px;
+        overflow-y: auto;
+        width: 100%;
+        top: 33px;
+        left: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+    }
+    .bt-select .bt-select-list.active{
+        display: block;
+    }
+    .bt-select .bt-select-list li{
+        padding:  2px 10px;
+        cursor: pointer;
+    }
+    .bt-select .bt-select-list li.active{
+        background: #efefef;
+    }
+    .bt-select-input{
+        position: relative;
+        cursor: pointer;
+        padding-left: 10px;
+    }
+    .max_box_view{
+        display: none;
+    }
+
+    .bt-down-icon{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 10px;
+        height: 10px;
+        border-left:2px solid #666;
+        border-bottom:2px solid #666;
+        transform: rotate(-45deg);
+        transition: all 500ms;
+    }
+    /*.addanalysisFrom .line{*/
+    /*    margin-bottom: 16px;*/
+
+    /*}*/
+    .addanalysisFrom .line .tname{
+        height: 35px;
+        line-height: 35px;
+    }
+    .addanalysisFrom .line input{
+        height: 35px;
+        line-height: 35px;
+        padding-left: 10px;
+    }
+    .layui-layer-page .layui-layer-content{
+        overflow: initial;
+    }
+    .word_width .bt-select-tips{
+        width: 310px;
+        display: inline-block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+    #soa_orm .line .info-r{
+        margin-bottom: 10px;
+    }
+    #soa_orm .line .info-r .bt-input-text{
+        width: 200px;
+    }
+    .bt-select .bt-select-list li:hover{
+        background: #efefef;
+    }
+    .bt-ico-ask{
+        border: 1px solid #fb7d00;
+        border-radius: 8px;
+        color: #fb7d00;
+        cursor: help;
+        display: inline-block;
+        font-family: arial;
+        font-size: 11px;
+        font-style: normal;
+        height: 16px;
+        line-height: 16px;
+        margin-left: 5px;
+        text-align: center;
+        width: 16px;
+    }
+</style>
+<div class="bt-form">
+    <div class="bt-w-main">
+        <div class="bt-w-menu">
+            <p class="bgw">域名列表</p>
+            <p>服务</p>
+            <p>日志</p>
+        </div>
+        <div class="bt-w-con pd15 divtable">
+            <div class="bt-box active">
+                <div class="mb10">
+                    <button class="btn btn-success btn-sm va0 mb15 addDomain" style="margin-right: 10px">添加域名</button>
+                    <button class="btn btn-default btn-sm va0 mb15 pdns" style="display: none;" onclick="DnsManager.get_can_listen_view()">设置监听IP</button>
+                    <ul class="help-info-text c7 mtb15" style="display: none;">
+				        <li>如果设置的IP无法通讯，请尝试设置监听IP为 [ any ] </li>
+			        </ul>
+                </div>
+                <div class="table-box" >
+                	<div class="tbThead">
+                		<table class="table table-hover">
+	                    	<thead><tr><th>域名</th><th style="text-align: right">操作</th></tr></thead>
+		                </table>
+                	</div>
+                	<div class="tbTbody" style="max-height: 355px;overflow: auto;">
+                		<table class="table table-hover">
+		                    <tbody id="domainList"></tbody>
+		                </table>
+                	</div>
+                </div>
+                <button class="btn btn-success btn-sm mt10 dnsExport" style="margin-right: 10px" autocomplete="off">导出</button>
+                <button class="btn btn-success btn-sm mt10 dnsImport" onclick="$('#file_input').click()">导入</button>
+                <input type="file" id="file_input" onchange="DnsManager.select_file(this.files,'0')" autocomplete="off"/>
+            </div>
+            <div class="bt-box" style="display: none;">
+                <div class="soft-man-con bt-form dnsServer">
+                    <p class="status">当前状态：<span>开启</span>
+                        <span style="color: #20a53a; margin-left: 3px;" class="glyphicon glyphicon glyphicon-play"></span>
+                    </p>
+                    <div class="sfm-opt">
+                        <button class="btn btn-default btn-sm StartDnsServer" style="display: none;">启动</button>
+                        <button class="btn btn-default btn-sm StopDnsServer" style="display: none;">停止</button>
+                        <button class="btn btn-default btn-sm RestartDnsServer">重启</button>
+                    </div>
+                </div>
+            </div>
+            <div class="bt-box" style="display: none;">
+                <button class="btn btn-success btn-sm va0 pull-right mb15 clearLogs" disabled="disabled">清理日志</button>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-hover">
+                    <thead><tr><th>详情</th><th>操作时间</th></tr></thead>
+                    <tbody id="logsBody"></tbody>
+                </table>
+                <div id="logsBodyPage" class="page"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加域名表单 -->
+<script type="text/html" id="addDomainFrom">
+    <div class="bt-form pd20">
+        <div class="line">
+            <span class="tname">域名</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="domain_val" placeholder="请输入你的域名，如：test.com，必填" autocomplete="off" value="" style="width:270px"><span style="color: red;"> *</span></div>
+            <span class="tname">SOA</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="soa" placeholder="" autocomplete="off" value="" style="width:270px"></div>
+            <span class="tname">NS服务器1</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="ns1_domain_val" placeholder="请输入你的NS1服务器，ns1.test.com，选填" autocomplete="off" value="" style="width:270px"></div>
+            <span class="tname">NS服务器2</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="ns2_domain_val" placeholder="请输入你的NS2服务器，ns2.test.com，选填" autocomplete="off" value="" style="width:270px"></div>
+        </div>
+    </div>
+</script>
+<!-- 导出域名 -->
+<script type="text/html" id="exportForm">
+    <div class="bt-form pd20">
+        <div class="line">
+            <span class="tname">域名</span>
+            <div class="info-r c4"><select class="bt-input-text mr5" type="text" name="defaultDomain" style="width:270px"></select></div>
+        </div>
+    </div>
+</script>
+<!-- 添加解析表单 -->
+<script type="text/html" id="addanalysisFrom">
+    <div class="bt-form pd20 ">
+        <div class="line">
+            <span class="tname">记录类型</span>
+            <div class="info-r c4">
+                <div class="bt-select">
+                    <div class="bt-select-input">
+                        <div class="bt-select-val" data-active="A">A&nbsp;-&nbsp;<span class="bt-select-tips">将域名指向一个IPV4地址</span></div>
+                        <span class="bt-down-icon"></span>
+                    </div>
+                    <ul class="bt-select-list">
+                        <li class="active" data-val="A">A&nbsp;-&nbsp;<span class="bt-select-tips">将域名指向一个IPV4地址</span></li>
+                        <li data-val="CNAME">CNAME&nbsp;-&nbsp;<span class="bt-select-tips">将域名指向另外一个域名</span></li>
+                        <li data-val="NS">NS&nbsp;-&nbsp;<span class="bt-select-tips">将子域名指定其他DNS服务器解析</span></li>
+                        <li data-val="MX">MX&nbsp;-&nbsp;<span class="bt-select-tips">将域名指向邮件服务器地址</span></li>
+                        <li data-val="TXT">TXT&nbsp;-&nbsp;<span class="bt-select-tips">文本长度限制512，通常做SPF记录（反垃圾邮件）</span></li>
+                        <li data-val="AAAA">AAAA&nbsp;-&nbsp;<span class="bt-select-tips">将域名指向一个IPV6地址</span></li>
+                        <li data-val="SRV">SRV&nbsp;-&nbsp;<span class="bt-select-tips">记录提供特定的服务的服务器</span></li>
+                        <li data-val="CAA">CAA&nbsp;-&nbsp;<span class="bt-select-tips">允许域所有者声明允许哪些证书颁发机构为域颁发证书</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="line">
+            <span class="tname">主机记录</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="host" placeholder="要解析 www.sss.com，请填写 www 哦～" autocomplete="off" value="" style="width:400px"></div>
+        </div>
+        <div class="line">
+            <span class="tname">记录值</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="value" placeholder="A记录的记录值为IPv4形式（如10.10.10.10）" autocomplete="off" value="" style="width:400px"></div>
+        </div>
+        <div class="line max_box_view">
+            <span class="tname">MX优先级</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="mx_priority" placeholder="请输入MAX优先级，1~50" autocomplete="off" value="10" style="width:400px"></div>
+        </div>
+        <div class="line">
+            <span class="tname">TTL</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="ttl" placeholder="600" autocomplete="off" value="600" style="width:400px"></div>
+        </div>
+        <div class="caa_show" style="display: none;">
+            <div class="line">
+                <span class="tname">CA主机</span>
+                <div class="info-r c4"><input class="bt-input-text" type="text" name="ca_domain_name" placeholder="E.g, letsencrypt.org" style="width:400px"></div>
+            </div><div class="line" style="padding: 0;">
+                <span class="tname">Tag</span>
+                <div class="info-r c4" style="height: 35px;line-height: 35px;">issue</div>
+            </div><div class="line" style="padding: 0;">
+                <span class="tname">Flags</span>
+                <div class="info-r c4" style="height: 35px;line-height: 35px;">0</div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="setListenTable">
+    <div class="bt-form pd20 ">
+        <div class="line">
+            <span class="tname">IP地址</span>
+            <div class="info-r c4">
+                <div class="bt-select" style="width:200px;">
+                    <div class="bt-select-input">
+                        <div class="bt-select-val"></div>
+                        <span class="bt-down-icon"></span>
+                    </div>
+                    <ul class="bt-select-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- 解析表格 -->
+<script type="text/html" id="analysisTable">
+    <div class="divtable pd20">
+        <div class="mb10"><button class="btn btn-success btn-sm va0 mb15 setAnalysis" data-type="add">添加解析</button></div>
+        <div class="table-box" >
+        	<div class="tbThead">
+        		<table class="table table-hover">
+	    			<thead><tr><th style="width: 20%;">主机记录</th><th style="width: 20%;">记录值</th><th style="width: 15%;">记录类型</th><th style="width: 15%;">MX优先级</th><th style="width: 10%;">TTL</th><th style="text-align: right">操作</th></tr></thead>
+		    	</table>
+            </div>
+            <div class="tbTbody" style="max-height: 380px;overflow: auto;">
+            	<table class="table table-hover">
+		    		<tbody id="analsisList"></tbody>
+		    	</table>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- 添加SOA -->
+<script type="text/html" id="soaForm">
+    <div class="bt-form pd20" id="soa_orm">
+        <div class="line">
+            <span class="tname">Nameserver</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="ns_server" placeholder="Enter your domain name"><span class="bt-ico-ask" id="ns_server" style="margin-left:5px;" tip="">?</span></div>
+            <span class="tname">Admin mail</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="admin_mail" placeholder="Enter your admin mail"><span class="bt-ico-ask" id="admin_mail" style="margin-left:5px;" tip="">?</span></div>
+            <span class="tname">serial</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="serial" placeholder="Enter your domain serial"><span class="bt-ico-ask" id="serial" style="margin-left:5px;" tip="">?</span></div>
+            <span class="tname">refresh</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="refresh" placeholder="Enter your domain refresh"><span class="bt-ico-ask" id="refresh" style="margin-left:5px;" tip="">?</span></div>
+            <span class="tname">retry</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="retry" placeholder="Enter your domain retry"><span class="bt-ico-ask" id="retry" style="margin-left:5px;" tip="">?</span></div>
+            <span class="tname">expire</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="expire" placeholder="Enter your domain expire"><span class="bt-ico-ask" id="expire" style="margin-left:5px;" tip="">?</span></div>
+            <span class="tname">minimum</span>
+            <div class="info-r c4"><input class="bt-input-text" type="text" name="minimum" placeholder="Enter your domain minimum"><span class="bt-ico-ask" id="minimum" style="margin-left:5px;" tip="">?</span></div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    // 获取域名列表
+    var DnsManager = {
+    	plugin_name: 'dns_manager',
+    	resolve_list: {},
+        domain_list: [],
+        setTime: null,
+        // 初始化
+        init:function(){
+            var _this = this;
+            this.createDomainList();
+            $('.bt-w-main .bt-w-menu p').click(function(){
+				var index = $(this).index();
+				$(this).addClass('bgw').siblings().removeClass('bgw');
+                $('.bt-w-con .bt-box').eq(index).show().siblings().hide();
+                switch(index){
+                    case 0:
+                        _this.createDomainList();
+                        break;
+                    case 1:
+                        _this.createServer();
+                        break;
+                    case 2:
+                        _this.createLogsList();
+                        break;
+                }
+			});
+            // 添加域名
+            $('.addDomain').click(function(){
+                layer.open({
+                    type: 1,
+                    title:'添加域名',
+                    closeBtn: 2, //不显示关闭按钮
+                    area:'450px',
+                    btn:['确定','取消'],
+                    content: addDomainFrom.innerHTML,
+                    yes:function(index,layers){
+                        var domain = $('[name="domain_val"]').val();
+                        var ns1domain = $('[name="ns1_domain_val"]').val();
+                        var ns2domain = $('[name="ns2_domain_val"]').val();
+                        var soa = $('[name="soa"]').val();
+                        if(domain == ''){
+                            layer.msg('域名不能为空，请重新输入',{icon:2});
+                            return false;
+                        }
+                        _this.addDomain({ domain:domain, ns1domain:ns1domain,ns2domain:ns2domain,soa:soa },function(res){
+                            _this.createDomainList(function(){
+                                layer.close(index);
+                                layer.msg(res.msg,{icon:1});
+                            })
+                        }); 
+                    }
+                });
+            });
+            // 解析列表
+            $('#domainList').on('click','.analysisList',function(){
+                var domain = $(this).attr('data-domain');
+                layer.open({
+                    type:1,
+                    title:'【'+ domain +'】解析列表',
+                    closeBtn:2,
+                    skin:'analysisTable',
+                    area:['800px','650px'],
+                    content:analysisTable.innerHTML,
+                    success:function(){
+                        // 获取列表
+                        _this.createAnalysisList({domain:domain});
+                        // 删除解析
+                        $('#analsisList').on('click','.delsAnalysis',function(){
+                            var domain = $(this).attr('data-domain'),
+                            index = $(this).attr('data-index') +'',
+                            item = _this.resolve_list[index];
+                            layer.confirm('是否删除选中的解析记录，是否继续！', {
+                                title:'删除解析',
+                                closeBtn:2,
+                                btn: ['确认','取消'] //按钮
+                            }, function(index,lyaers){
+                                var obj = {
+                                    domain:domain,
+                                    type:item[2],
+                                    host:item[0],
+                                    ttl:item[1],
+                                    act:'delete'
+                                };
+                                if(item[2] == 'MX'){
+                                    obj.value = item[4];
+                                    obj.mx_priority = item[3];
+                                }else if(item[2] == 'CAA'){
+                                    obj.ca_domain_name = item[3].trim().split(/\s+/)[2];
+                                    obj.tag = 'issue';
+                                    obj.flags = 0;
+                                    obj.value = '';
+                                }else{
+                                    obj.value = item[3]; 
+                                }
+                                _this.actionResolve(obj,function(res){
+                                    _this.createAnalysisList({domain:domain},function (){
+                                        layer.close(index);
+                                        layer.msg(res.msg,{icon:1});
+                                    });
+                                });
+                            }, function(index,lyaers){
+                                layer.close(index);
+                            });
+                        });
+                        // 添加/编辑解析
+                        $('.analysisTable').on('click','.setAnalysis',function(){
+                            var type = $(this).attr('data-type') == 'add'?true:false,
+                                index = $(this).attr('data-index') +'',
+                                item = _this.resolve_list[index];
+                            layer.open({
+                                type: 1,
+                                title:type?'添加解析':('['+ domain +']编辑解析'),
+                                closeBtn: 2, //不显示关闭按钮
+                                skin:'addanalysisFrom',
+                                area:'600px',
+                                btn:['确定','取消'],
+                                content:addanalysisFrom.innerHTML,
+                                success:function(){ 
+                                    var _tips = $('.domain_tips').val();
+                                    $('.domain_tips').html('&nbsp;&nbsp;.'+domain);
+                                    // 点击类型
+                                    $('.bt-select-input').click(function(e){
+                                        if($('.bt-select-list').hasClass('active')){
+                                            $('.bt-select-list').removeClass('active');
+                                            $('.bt-down-icon').css('transform','rotate(-45deg)');
+                                        }else{
+                                            $('.bt-select-list').addClass('active');
+                                            $('.bt-down-icon').css('transform','rotate(135deg)');
+                                        }
+                                        e.stopPropagation();
+                                        $(document).click(function(e){
+                                            $('.bt-select-list').removeClass('active');
+                                            $('.bt-down-icon').css('transform','rotate(-45deg)');
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                        });
+                                    });
+                                    // 解析类型选择
+                                    $('.bt-select-list li').click(function(e){
+                                        var _val = $(this).attr('data-val');
+                                        $('.bt-select-val').html($(this).html()).attr('data-active',_val);
+                                        $(this).addClass('active').siblings().removeClass('active');
+                                        $('.max_box_view').css('display',_val == 'MX'?'block':'none');
+                                        if(_val != 'MX') $('.max_box_view input').val('');
+                                        switch(_val){
+                                            case 'A':
+                                                _tips = 'A记录的记录值为IPv4形式（如10.10.10.10）';
+                                            break;
+                                            case 'CNAME':
+                                                _tips = 'CNAME记录的记录值为域名形式（如abc.example.com）';
+                                            break;
+                                            case 'AAAA':
+                                                _tips = 'AAAA记录的记录值为IPv6形式（如ff03:0:0:0:0:0:0:c1）';
+                                            break;
+                                            case 'NS':
+                                                _tips = 'NS记录的记录值为域名形式（如ns1.example.com）';
+                                            break;
+                                            case 'MX':
+                                                _tips = 'MX记录的记录值为域名形式（如abc.example.com）';
+                                            break;
+                                            case 'TXT':
+                                                _tips = '文本长度限制512';
+                                            break;
+                                            case 'SRV':
+                                                _tips = 'SRV记录值的格式为：优先级、空格、权重、空格、端口号、空格、目标地址';
+                                            break;
+                                            case 'CAA':
+                                                _tips = '';
+                                                $('.caa_show').show();
+                                                $('[name="value"]').parents('.line').hide();
+                                            break;
+                                        }
+                                        $('[name="value"]').attr('placeholder',_tips);
+                                    });
+                                    
+                                    if(!type){
+                                       var _item =  $('[data-val="'+ item[2] +'"]')
+                                        _item.addClass('active').siblings().removeClass()
+                                        $('.bt-select-val').html(_item.html()).attr('data-active',item[2]);
+                                        $('[name="host"]').val(item[0]);
+                                        $('[name="ttl"]').val(item[1]);
+                                        if(item[2] == 'MX'){
+                                            $('[name="value"]').val(item[4]);
+                                            $('[name="mx_priority"]').val(item[3]);
+                                            $('.max_box_view').show();
+                                        }else if(item[2] == 'CAA'){
+                                            console.log(item[3].trim().split(/\s+/))
+                                            $('[name="value"]').parents('.line').hide();
+                                            $('.caa_show').show();
+                                            $('[name="ca_domain_name"]').val(item[3].trim().split(/\s+/)[2]);
+                                        }else{
+                                            $('[name="value"]').val(item[3]);
+                                        }
+                                    }
+                                },
+                                yes:function(indexs,layers){
+                                    var _tips = {
+                                        'A':'A记录的记录值为IPv4形式（如10.10.10.10）',
+                                        'CNAME':'CNAME记录的记录值为域名形式（如abc.example.com）',
+                                        'AAAA':'AAAA记录的记录值为IPv6形式（如ff03:0:0:0:0:0:0:c1）',
+                                        'NS':'NS记录的记录值为域名形式（如ns1.example.com）',
+                                        'MX':'MX记录的记录值为域名形式（如abc.example.com）',
+                                        'SRV':'SRV记录的记录值合法格式为：优先级、空格、权重、空格、端口号、空格、目标地址',
+                                        'TXT':'记录值长度不能超过512'
+                                    }
+                                    var _type = $('.bt-select-val').attr('data-active');
+                                    var _domain = domain;
+                                    var _ttl = $('[name="ttl"]').val();
+                                    var _host = $('[name="host"]').val(); 
+                                    var _mx_val = $('[name="mx_priority"]').val();
+                                    var _value = $('[name="value"]').val();
+                                    var obj = {
+                                        domain:domain,
+                                        type:_type,
+                                        host:_host,
+                                        ttl:_ttl,
+                                        value:_value,
+                                        act:type?'add':'modify'
+                                    };
+                                    if(_type == 'MX') obj.mx_priority = _mx_val;
+                                    if(_type == 'CAA'){
+                                        obj.ca_domain_name = $('[name="ca_domain_name"]').val();
+                                        obj.tag = 'issue';
+                                        obj.flags = 0;
+                                        obj.value = '';
+                                    }
+                                    if(!type) obj.id = index
+                                    _this.actionResolve(obj,function(res){
+                                        _this.createAnalysisList({domain:domain},function (){
+                                            layer.close(indexs);
+                                            layer.msg(res.msg,{icon:1});
+                                        });
+                                    });
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+            // 删除域名
+            $('#domainList').on('click','.deleteDomain',function(){
+                var domain = $(this).attr('data-domain');
+                layer.confirm('是否删除【'+ domain +'】域名，是否继续！', {
+                    title:'删除域名',
+                    closeBtn:2,
+                    btn: ['确认','取消'] //按钮
+                }, function(index,lyaers){
+                    _this.delDomain({domain:domain},function(res){
+                        _this.createDomainList(function(){
+                            layer.close(index);
+                            layer.msg(res.msg,{icon:1});
+                        })
+                    });
+                }, function(index,lyaers){
+                    layer.close(index);
+                });
+            });
+            // 恢复解析
+            $('#domainList').on('click','.analysisRenew',function(){
+                var domain = $(this).attr('data-domain');
+                layer.confirm('是否恢复【'+ domain +'】域名默认解析，是否继续！', {
+                    title:'恢复域名解析',
+                    closeBtn:2,
+                    btn: ['确认','取消'] //按钮
+                }, function(index,lyaers){
+                    _this.restoreDefResolve({domain:domain},function(res){
+                        _this.createDomainList(function(){
+                            layer.close(index);
+                            layer.msg(res.msg,{icon:1});
+                        })
+                    });
+                }, function(index,lyaers){
+                    layer.close(index);
+                });
+            });
+            // 导出
+            $('.dnsExport').click(function(){
+                layer.open({
+                    type: 1,
+                    title:'导出域名配置',
+                    closeBtn: 2, //不显示关闭按钮
+                    area:'450px',
+                    btn:['下载','取消'],
+                    content: exportForm.innerHTML,
+                    success:function(){
+                        var _option = '';
+                        for(var i = 0; i<_this.domain_list.length; i++){
+                            _option += '<option value='+_this.domain_list[i]+'>'+_this.domain_list[i]+'</option>'
+                        }
+                        $('select[name="defaultDomain"]').html('<option selected value="0">请选择需要导出的域名</option><option value="all">导出所有</option>'+_option)
+                    },
+                    yes:function(index,layers){
+                        var domainVal = $('select[name="defaultDomain"]').val();
+                        if(domainVal != '0'){
+                            _this.set_export_data({e_type:domainVal},function(res){
+                                if(res.status)_this.GetFileBytes(res.msg)
+                                layer.close(index)
+                            })
+                        }else{
+                            layer.msg('请选择',{icon:2})
+                        }
+                    }
+                })
+            })
+            // 停止服务
+            $('.StopDnsServer').click(function(){
+                _this.ServiceEventBind('stop',function(res){
+                    _this.createServer(function(){
+                        layer.msg(res.msg,{icon:1});
+                    });
+                });
+            });
+            // 启动服务
+            $('.StartDnsServer').click(function(){
+                _this.ServiceEventBind('start',function(res){
+                    _this.createServer(function(){
+                        layer.msg(res.msg,{icon:1});
+                    });
+                });
+            });
+            // 重启服务
+            $('.RestartDnsServer').click(function(){
+                _this.ServiceEventBind('restart',function(res){
+                    _this.createServer(function(){
+                        layer.msg('重启服务成功',{icon:1});
+                    });
+                });
+            });
+            // 清理日志
+            $('.clearLogs').click(function(){
+                _this.clearup_logs(function(res){
+                    _this.createLogsList({p:1},function(){
+                        layer.msg(res.msg,{icon:1});
+                    })
+                })
+            });
+            // 日志
+            $('#logsBodyPage').on('click','a',function(e){
+                var page = $(this).attr('href').replace('p=','');
+                _this.createLogsList({p:page});
+                e.preventDefault();
+                e.stopPropagation();
+            });
+            // SOA
+            $('#domainList').on('click','.soa_domain',function(){
+                var domain = $(this).attr('data-domain');
+                _this.get_soa_record({domain:domain},function(res){
+                    layer.open({
+                        type: 1,
+                        title:'SOA',
+                        closeBtn: 2,
+                        area:'420px',
+                        btn:['保存','取消'],
+                        content: soaForm.innerHTML,
+                        success:function(){
+                            if(res != false) {
+                                for(var i = 0; i<res.length; i++){
+                                    $('#soa_orm [name="'+res[i].name+'"]').val(res[i].content);
+                                    $('#soa_orm [name="'+res[i].name+'"]').next().attr('tip',res[i].tips);
+                                }
+                            }
+                        },
+                        yes:function(index,layers){
+                            var data = {};
+                            for(var i = 0; i < $('#soa_orm input').length; i++){
+                                var _val = $('#soa_orm input').eq(i).val(),
+                                _name = $('#soa_orm input').eq(i).attr('name');
+                                if(_val == ''){
+                                    layer.msg('The input '+_name+' cannot empty',{icon:2});
+                                    return false;
+                                }
+                                data[_name] = _val;
+                            }
+                            data.domain = domain;
+                            _this.set_soa_record(data, function(res){
+                                layer.close(index);
+                                layer.msg(res.msg, {icon: res.status ? 1 : 2});
+                            });
+                        }
+                    })
+                })
+                
+            });
+            //TIPS
+            $("body").on("mouseenter", "#ns_server,#admin_mail,#refresh,#retry,#expire,#minimum,#serial", function () {
+                var idd = $(this).attr('id'), tip = $(this).attr('tip');
+                layer.tips(tip, '#' + idd + '', { tips: [1, '#d4d4d4'], time: 0 });
+            });
+            $("body").on("mouseleave", "#ns_server,#admin_mail,#refresh,#retry,#expire,#minimum,#serial", function () {
+                layer.closeAll('tips');
+            });
+        },
+        // 创建解析列表
+        createAnalysisList:function(obj,callback){
+            var _this = this;
+            this.getResolveList({ domain:obj.domain },function(res){
+                var _tbody = '';
+                for(var i in res){
+                    _tbody += '<tr>\
+                        <td style="width: 20%;">'+ res[i][0] +'</td>\
+                        <td style="width: 20%;"><span style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 140px;display:inline-block;" title="'+ (res[i][2] == 'MX'?res[i][4]:res[i][3]) +'">'+ (res[i][2] == 'MX'?res[i][4]:res[i][3])+'</span></td>\
+                        <td style="width: 15%;">' + res[i][2] + '</td>\
+                        <td style="width: 15%;">'+ (res[i][2] == 'MX'?res[i][3]:'--') +'</td>\
+                        <td style="width: 10%;">'+ res[i][1] +'</td>\
+                        <td style="text-align: right;">\
+                            <a href="javascript:;" class="btlink setAnalysis" data-domain="'+ obj.domain +'" data-type="modify" data-index="'+ i +'">编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;\
+                            <a href="javascript:;" style="color:red" class="btlink delsAnalysis"  data-domain="'+ obj.domain +'" data-index="'+ i +'">删除</a>\
+                        </td>\
+                    </tr>';
+                }
+                _this.resolve_list = res;
+                $('#analsisList').html(_tbody);
+                if(callback) callback(res);
+            });
+        },
+        // 创建域名列表
+        createDomainList:function(callback){
+            var _this = this;
+            this.getDomainList(function(res){
+                var _tbody = '',rdata = res.msg;
+            	_this.dnsServerCheck(function(ldata){
+            		if(ldata != 'pdns'){
+            			$('.pdns').show();
+            		}
+            		if(ldata == 'pdns' && res == '0'){
+            			_this.get_can_listen_view();
+                		return false
+            		}
+            		for(var i=0;i<rdata.length;i++){
+	                    _tbody += '<tr>\
+	                        <td>'+ rdata[i] +'</td>\
+	                        <td style="text-align:right">\
+	                            <a class="btlink soa_domain" href="javascript:;" data-domain="'+ rdata[i] +'">SOA</a>&nbsp;&nbsp;|&nbsp;&nbsp;\
+                                <a class="btlink analysisList" href="javascript:;" data-domain="'+ rdata[i] +'">解析列表</a>&nbsp;&nbsp;|&nbsp;&nbsp;\
+                                <a class="btlink analysisRenew" href="javascript:;" data-domain="'+ rdata[i] +'">恢复解析</a>&nbsp;&nbsp;|&nbsp;&nbsp;\
+                                <a class="btlink deleteDomain" style="color:red" href="javascript:;" data-domain="'+ rdata[i] +'">删除</a>\
+	                        </td>\
+	                    </tr>'
+	                }
+	                _this.domain_list = rdata;
+	                $('#domainList').html(_tbody);
+	                if(callback) callback(res);
+            	});
+            });
+        },
+        get_can_listen_view:function(){
+            var _this = this;
+            this.get_can_listen_ip(function(res){
+                layer.open({
+                    type:1,
+                    title:'设置监听IP地址',
+                    closeBtn:2,
+                    skin:'analysisTable',
+                    area:'400px',
+                    btn:['确定','取消'],
+                    content:setListenTable.innerHTML,
+                    success:function(layers,index){
+                        var _html = '';
+                        for(var i=0; i<res.length;i++){
+                            _html += '<li '+ ( i === 0 ?'class="active"':'') +' data-val="'+ res[i] +'">'+ res[i] +'</li>';
+                        }
+                        $('.bt-select-input .bt-select-val').attr('data-val',res[0]).html(res[0]);
+                        $('.bt-select-list').html(_html);
+                        $('.bt-select-input').click(function(e){
+                            if($('.bt-select-list').hasClass('active')){
+                                $('.bt-select-list').removeClass('active');
+                                $('.bt-down-icon').css('transform','rotate(-45deg)');
+                            }else{
+                                $('.bt-select-list').addClass('active');
+                                $('.bt-down-icon').css('transform','rotate(135deg)');
+                            }
+                            e.stopPropagation();
+                            $(document).click(function(e){
+                                $('.bt-select-list').removeClass('active');
+                                $('.bt-down-icon').css('transform','rotate(-45deg)');
+                                e.preventDefault();
+                                e.stopPropagation();
+                            });
+                        });
+                        // 解析类型选择
+                        $('.bt-select-list li').click(function(e){
+                            var _val = $(this).attr('data-val');
+                            $('.bt-select-val').html($(this).html()).attr('data-val',_val);
+                            $(this).addClass('active').siblings().removeClass('active');
+                        });
+                    },
+                    yes:function(index){
+                        var ip = $('.bt-select-input .bt-select-val').attr('data-val');
+                        _this.set_listen_ip({ip:ip},function(res){
+                            layer.close(index);
+                            layer.msg(res.msg,{icon:1});
+                        });
+                    }
+                })
+            })
+        },
+         // 获取监听IP地址
+        get_can_listen_ip:function(callback){
+            this.send({
+                tips:'正在获取监听IP地址列表，请稍后...',
+                method:'get_can_listen_ip',
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 设置监听IP地址
+        set_listen_ip:function(obj,callback){
+            this.send({
+                tips:'正在设置监听IP地址，请稍后...',
+                method:'set_listen_ip',
+                data:{listen_ip:obj.ip},
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 选择文件
+        select_file:function(files,start){
+            var _this = this;
+            setTimeout(function(){
+                var _files = files[0];
+                var size = _files.size /1024;
+                if(size > 2000){
+                    layer.msg('File size cannot exceed 2m',{icon:2})
+                    return false;
+                }
+                var end = Math.min(_files.size, start + (1024 * 1024 * 2));
+                var form = new FormData();
+                form.append("f_name", _files.name);
+                form.append("f_size", _files.size);
+                form.append("f_start", start);
+                form.append("blob", _files.slice(start, end));
+                layer.confirm('确定要导入 ['+_files.name+'] 文件吗',{ title: '导入数据'},function(){
+                    //上传文件
+                    _this.updata_file(form)
+                })
+            },500)
+        },
+        // 上传文件
+        updata_file:function(form){
+            var _this = this;
+            $.ajax({
+                url: '/plugin?action=a&name=dns_manager&s=import_data',
+                type: "POST",
+                data: form,
+                async: true,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    if(res.status){
+                        clearInterval(_this.setTime)
+                        layer.msg(res.msg,{icon:1})
+                        _this.get_import_data({f_name:form.get('f_name')},function(rdata){
+                            _this.createDomainList();
+                            layer.msg(rdata.msg,{icon:rdata.status?1:2});
+                            $('#file_input').val('');
+                        });
+                    }else{
+                        _this.setTime = setInterval(function(){
+                            _this.select_file()
+                        },1000)
+                    }
+                },
+                error: function(e){
+                    console.log(e.msg)
+                }
+            })
+        },
+        get_import_data:function(obj,callback){
+            this.send({
+                load:3,
+                method:'import_data2',
+                data:{f_name:obj.f_name},
+                success:function (res){
+                    if(callback) callback(res)
+                }
+            })
+        },
+        // 下载文件
+        GetFileBytes(fileName, fileSize) {
+            window.open('/download?filename=' + encodeURIComponent(fileName));
+        },
+        // // 创建公共网卡
+        // createSubcard:function(callback){
+        //     this.send({
+        //         title:'正在创建公共网卡，请稍后...',
+        //         method:'create_subcard',
+        //         success:function(res){
+        //             if(callback) callback(res);
+        //         }
+        //     })
+        // },
+        // 创建日志列表
+        createLogsList:function(obj,callback){
+            if(obj == undefined) obj = {p:1}
+            this.getLogsList({p:obj.p},function(res){
+                var _tbody = '',rdata = res.data;
+                if(rdata.length == 0){
+                    $('.clearLogs').attr('disabled',true);
+                }else{
+                    $('.clearLogs').attr('disabled',false);
+                }
+                for(var i=0;i<rdata.length;i++){
+                    _tbody += '<tr>\
+                        <td>'+ rdata[i].log +'</td>\
+                        <td>'+ rdata[i].addtime +'</td>\
+                    </tr>';
+                }
+                $('#logsBody').html(_tbody);
+                $('#logsBodyPage').html(res.page);
+                if(callback) callback(res);
+            });
+        },
+        // 创建服务状态界面
+        createServer:function(callback){
+            this.getServiceStatus(function(res){
+                if(res){
+                    $('.dnsServer .status').html('当前状态：<span>开启</span><span style="color: #20a53a; margin-left: 3px;" class="glyphicon glyphicon-play"></span>');
+                    $('.StartDnsServer').hide().next().show();
+                }else{
+                    $('.dnsServer .status').html('当前状态：<span>关闭</span><span style="color: red; margin-left: 3px;" class="glyphicon glyphicon-pause"></span>');
+                    $('.StartDnsServer').show().next().hide();
+                }
+                if(callback) callback(res);
+            });
+        },
+        // 获取域名列表
+        getDomainList:function(callback){
+            this.send({
+                tips:'正在获取域名列表，请稍后...',
+                method:'get_domain_list',
+                check:true,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            });
+        },
+        // 检查Pdns
+        dnsServerCheck:function(callback){
+            this.send({
+                tips:'Checking pdns, please wait...',
+                method:'dns_server_check',
+                check:true,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            });
+        },
+        // 添加域名
+        addDomain:function(obj,callback){
+            this.send({
+                tips:'正在添加域名，请稍后...',
+                method:'add_domain',
+                data:{domain:obj.domain,ns1domain:obj.ns1domain,ns2domain:obj.ns2domain,soa:obj.soa},
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 删除域名
+        delDomain:function(obj,callback){
+            this.send({
+                tips:'正在删除域名，请稍后...',
+                method:'delete_domain',
+                data:{domain:obj.domain},
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        }   ,
+        // 导出域名
+        set_export_data:function(obj,callback){
+            this.send({
+                tips:'Generating download link, please wait...',
+                method:'export_data',
+                data:obj,
+                success:function (res){
+                    if(callback) callback(res)
+                }
+            })
+        },
+        // 获取解析列表
+        getResolveList:function(obj,callback){
+            this.send({
+                tips:'正在获取解析列表，请稍后...',
+                method:'get_resolve',
+                data:{domain:obj.domain},
+                success:function (res){
+                    if(callback) callback(res)
+                }
+            })
+        },
+        // (添加/删除/修改)列表
+        actionResolve:function(obj,callback){
+            var tips = '';
+            switch(obj.act){
+                case 'add':
+                    tips = '正在添加解析记录，请稍后...';
+                break;
+                case 'modify':
+                    tips = '正在编辑解析记录，请稍后...'
+                break;
+                case 'delete':
+                    tips = '正在删除解析记录，请稍后...'
+                break;
+            }
+            this.send({
+                tips:tips,
+                method:'act_resolve',
+                data:obj,
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 恢复域名解析
+        restoreDefResolve:function(obj,callback){
+            this.send({
+                tips:'正在恢复域名解析，请稍后...',
+                method:'restore_def_resolve',
+                data:{ domain:obj.domain },
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 清理日志
+        clearup_logs:function(callback){
+            this.send({
+                tips:'正在清理日志，请稍后...',
+                method:'clearup_logs',
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 获取日志列表
+        getLogsList:function(obj,callback){
+            this.send({
+                tips:'正在获取日志列表，请稍后...',
+                method:'get_logs',
+                data:{p:obj.p},
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 正在获取服务状态
+        getServiceStatus:function(callback){
+            this.send({
+                tips:'正在服务状态，请稍后...',
+                method:'get_service_status',
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        //获取SOA
+        get_soa_record:function(obj,callback){
+            this.send({
+                tips:'正在获取SOA参数，请稍后...',
+                method:'get_soa_record',
+                data:obj,
+                success:function (res){
+                    if(callback) callback(res)
+                }
+            })
+        },
+        //设置SOA
+        set_soa_record:function(obj,callback){
+            this.send({
+                tips:'正在设置SOA参数，请稍后...',
+                method:'set_soa_record',
+                data:obj,
+                success:function (res){
+                    if(callback) callback(res)
+                }
+            })
+        },
+        // 服务器事件绑定
+        ServiceEventBind:function(type,callback){
+            var _this = this;
+            switch(type){
+                case 'start':
+                    this.startService(function(res){
+                        if(callback) callback(res);
+                    });
+                break;
+                case 'stop':
+                    this.stopService(function(res){
+                        if(callback) callback(res);
+                    });
+                break;
+                case 'restart':
+                    this.stopService(function(res){
+                        _this.startService(function(){
+                            if(callback) callback(res);
+                        });
+                    });
+                break;
+            }
+        },
+        // 正在停止服务
+        stopService:function(callback){
+            this.send({
+                tips:'正在停止服务，请稍后...',
+                method:'stop_service',
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 正在启动服务
+        startService:function(callback){
+            this.send({
+                tips:'正在启动服务，请稍后...',
+                method:'start_service',
+                success:function(res){
+                    if(callback) callback(res);
+                }
+            })
+        },
+        // 请求方法
+        send:function(obj){
+            var loadT = '';
+			if (obj.load == undefined) obj.load = 0;
+			if (obj.url == undefined) {
+				if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this.plugin_name
+				if (!obj.plugin_name || !obj.method) {
+					layer.msg('插件类名称，或插件方法名称缺失!', {icon: 2 });
+					return false;
+				}
+			}
+			if (obj.load === 0 || obj.tips != '') {
+				loadT = layer.msg(obj.tips, {
+					icon: 16,
+					time: 0,
+					shade: 0.3
+				});
+			} else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+				loadT = layer.load();
+			}
+			$.ajax({
+				type: 'POST',
+				url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+				data: obj.data || {},
+				timeout: obj.timeout || 99999999,
+				complete: function (res) {
+					if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+				},
+				success: function (rdata) {
+					if (obj.check) {
+						obj.success(rdata);
+						return false
+					}
+					if (rdata.status === false) {
+						layer.msg(rdata.msg, { icon: 2 });
+						return false;
+					}
+					obj.success(rdata);
+				},
+				error: function (ex) {
+					if (!obj.error) {
+						obj.msg || obj.msg == undefined ? layer.msg('请求过程发现错误!', {
+							icon: 2
+						}) : '';
+						return;
+					}
+					return obj.error(ex);
+				}
+			});
+        }
+    }
+        DnsManager.init();
+</script>

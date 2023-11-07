@@ -1,0 +1,12 @@
+{
+    "id": 3,
+    "title": "数据库运维工具",
+    "tip": "lib",
+    "name": "database_mater",
+    "type": "扩展",
+    "ps": "数据库运维工具",
+    "versions": "6.0",
+    "checks": "/www/server/panel/plugin/database_mater",
+    "author": "宝塔",
+    "home": "http://www.bt.cn/bbs"
+  }

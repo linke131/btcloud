@@ -1,0 +1,1 @@
+bash /www/server/panel/plugin/gcloud_storage/install.sh install

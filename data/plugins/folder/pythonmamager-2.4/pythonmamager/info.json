@@ -1,0 +1,1 @@
+{"title": "Python\u9879\u76ee\u7ba1\u7406\u5668", "name": "pythonmamager", "ps": "\u7ba1\u7406\u591a\u7248\u672cPython\u548c\u9879\u76ee", "versions": "2.4", "checks": "/www/server/panel/plugin/pythonmamager/pythonmamager_main.py", "author": "\u5b9d\u5854", "beta": false, "force_message": "", "not_substituted": ["config.json|f"]}

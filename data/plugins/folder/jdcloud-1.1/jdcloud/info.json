@@ -1,0 +1,15 @@
+{
+	"title":"京东云存储",
+	"tip":"lib",
+	"name":"jdcloud",
+	"type":"扩展",
+	"ps":"将网站或数据库打包备份到京东云对象存储 <a class='btlink' href='https://user.jdcloud.com/register?source=jdcloud&ReturnUrl=https%3A%2F%2Fwww.jdcloud.com%2F' target='_blank'>[申请账号]</a>",
+	"versions":"1.1",
+	"shell":"jdcloud.sh",
+	"checks":["/www/server/panel/plugin/jdcloud"],
+	"author":"宝塔",
+	"home":"http://www.bt.cn/bbs",
+	"date":"2022-06-25",
+	"default":false,
+	"display":0
+}

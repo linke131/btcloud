@@ -1,0 +1,1215 @@
+<style type="text/css">
+.bt-w-main.ip_container {
+    display: flex;
+}
+.ip_container .bt-w-menu {
+    float: none;
+}
+.ip_container main {
+    flex: 1;
+}
+.ip_container .bt-w-con {
+    display: none;
+    height: 100%;
+    margin-left: 0;
+    padding: 15px;
+}
+.ip_container .bt-form {
+    padding: 15px 0;
+    height: auto;
+}
+.bt-form .form-item .bt-input-text {
+    width: 240px;
+    height: 32px;
+    line-height: 32px;
+}
+.bt-form .form-item {
+    display: flex;
+}
+.form-item + .form-item {
+    margin-top: 15px;
+}
+.bt-form .form-label {
+    width: 100px;
+    padding-right: 20px;
+    line-height: 32px;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.bt-form .form-value {
+    flex: 1;
+}
+.form-status {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.form-status .btswitch-btn {
+    margin-bottom: 0;
+}
+.ip_container .help_info {
+    position: absolute;
+    bottom: 15px;
+    margin-top: 15px;
+    color: #777;
+}
+.ip_container .help_info li {
+    list-style: inside disc;
+    line-height: 24px;
+}
+.bt_table .tootls_top button {
+    margin-right: 15px;
+}
+.bt_table .divtable {
+    border: 1px solid #ddd;
+}
+.bt_table .divtable table {
+    border: none;
+}
+.ip_container .tools_group {
+    display: flex;
+}
+.ip_container .tools_left {
+    flex: 1;
+}
+.ip_container .tools_left,
+.ip_container .tools_right {
+    display: flex;
+}
+.tools_group .tools_item {
+    display: flex;
+}
+.tools_group .tools_item + .tools_item {
+    margin-left: 10px;
+}
+.tools_item .tools_label {
+    line-height: 28px;
+}
+.bt_select_list .none {
+    width: 100%;
+    text-align: center;
+}
+#ip_table .tootls_group {
+    display: none;
+}
+.network_card {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #FAFAFA;
+    border: #ddd 1px solid;
+}
+.network_card .name {
+    margin: 0 15px;
+    padding: 12px 0 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+.info_box {
+    display: flex;
+    padding: 0 15px;
+}
+.info_box .info_box_item {
+    flex: 1;
+    padding: 10px 0 12px;
+}
+.info_box .info_box_item + .info_box_item {
+    margin-left: 10px;
+}
+.info_box_item .item_label {
+    color: #78797D;
+}
+.info_box_item .item_value {
+    margin-top: 7px;
+    color: #333;
+}
+</style>
+<div class="bt-w-main ip_container">
+    <aside>
+        <div class="bt-w-menu">
+            <p>IP配置</p>
+            <p>SSH配置</p>
+            <p>FTP配置</p>
+        </div>
+    </aside>
+    <main>
+        <div class="bt-w-con">
+            <div class="network_card">
+                <div class="name">网卡信息</div>
+                <div class="info_box">
+                    <div class="info_box_item">
+                        <div class="item_label">本机出口IP</div>
+                        <div class="item_value">-</div>
+                    </div>
+                    <div class="info_box_item">
+                        <div class="item_label">默认绑定IP</div>
+                        <div class="item_value">-</div>
+                    </div>
+                    <div class="info_box_item">
+                        <div class="item_label">网络ID的位数</div>
+                        <div class="item_value">-</div>
+                    </div>
+                    <div class="info_box_item">
+                        <div class="item_label">默认网关</div>
+                        <div class="item_value">-</div>
+                    </div>
+                    <div class="info_box_item">
+                        <div class="item_label">默认子网掩码</div>
+                        <div class="item_value">-</div>
+                    </div>
+                    <div class="info_box_item" style="display: none;">
+                        <div class="item_label">绑定IP方式</div>
+                        <div class="item_value">-</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tools_group">
+                <div class="tools_left">
+                    <div class="tools_item">
+                        <button type="button" class="btn btn-success btn-sm" id="add_ip_btn">添加IP</button>
+                    </div>
+                    <!-- <div class="tools_item hide">
+                        <button type="button" class="btn btn-default btn-sm" id="add_gateway_btn">配置网关</button>
+                    </div> -->
+                    <div class="tools_item">
+                        <div class="bt_select_updown net_card_select">
+                            <div class="bt_select_value">
+                                <span class="bt_select_content">请选择网卡</span>
+                                <span class="glyphicon glyphicon-triangle-bottom ml5"></span>
+                            </div>
+                            <ul class="bt_select_list"></ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="tools_right">
+                    
+                </div> -->
+            </div>
+            <div id="ip_table"></div>
+            <ul class="help_info c7">
+                <li>IP地址(必填)：系统的网络ip地址，如164.25.3.124，如果不清楚IP地址，可联系服务商咨询</li>
+                <li>子网掩码(必填)：如果不清楚添加IP的子网掩码，可联系服务商咨询</li>
+                <li>说明：如果本机出口IP显示为空，请检查服务器DNS!服务器无法访问www.bt.cn将导致无法获取本机出口IP！</li>
+            </ul>
+        </div>
+        <div class="bt-w-con">
+            <div id="ssh_table"></div>
+            <ul class="help_info c7">
+                <li>添加：添加的IP，为授权IP，即为可以ssh远程连接的IP</li>
+                <li>本地连接需要将127.0.0.1添加授权IP才能正常连接，建议将127.0.0.1添加到授权IP</li>
+                <li>初始化：会删除所有已配置的授权IP，并且会解除所有限制，恢复所有IP都可访问的初始默认状态</li>
+            </ul>
+        </div>
+        <div class="bt-w-con">
+            <div class="bt-form">
+                <div class="form-item">
+                    <div class="form-label">服务器IP</div>
+                    <div class="form-value">
+                        <input type="text" class="bt-input-text server_ip" disabled />
+                    </div>
+                </div>
+                <div class="form-item">
+                    <div class="form-label">状态</div>
+                    <div class="form-value">
+                        <div class="form-status">
+                            <input class='btswitch btswitch-ios' id='ftp_status' type='checkbox' />
+                            <label class='btswitch-btn' for='ftp_status'></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="help_info c7">
+                <li>服务器IP：如果服务器IP显示为空，请检查服务器DNS!服务器无法访问www.bt.cn将导致无法获取本机出口IP！</li>
+                <li>说明：仅支持设置服务器出口IP为FTP配置的IP项，解决因不会FTP配置的IP项导致无法连接FTP的问题</li>
+            </ul>
+        </div>
+    </main>
+</div>
+<script>
+    var ip_configuration = {
+        plugin_name: 'ip_configuration',
+        ip_data: {},
+        network_card_name: '',
+        /**
+         * @description 初始化
+         * @return void
+         */
+        init: function () {
+            this.event();
+            this.created();
+        },
+        /**
+         * @description 创建后
+         * @return void
+         */
+        created: function () {
+            var width = 800;
+            var windowWidth = $(window).width();
+            $('.layui-layer').css({
+                width: width + 'px',
+                left: (windowWidth - width) / 2
+            });
+            $('.bt-w-menu p').eq(0).click();
+        },
+        /**
+         * @description 事件
+         * @return void
+         */
+        event: function () {
+            var _this = this;
+            // tabs切换
+            $('.bt-w-menu p').click(function () {
+                var $this = $(this);
+                var index = $this.index();
+                $this.addClass('bgw').siblings().removeClass('bgw');
+                switch (index) {
+                    case 0:
+                        _this.render_ip();
+                        break;
+                    case 1:
+                        _this.render_ssh_table();
+                        break;
+                    case 2:
+                        _this.render_ftp();
+                        break;
+                }
+                $('.bt-w-con').hide().eq(index).show();
+            });
+            // 设置ftp
+            $('.btswitch-btn').click(function () {
+                var $checkbox = $('#ftp_status');
+                var checked = $checkbox.is(':checked');
+                var str = checked ? '关闭' : '打开';
+                layer.confirm('是否' + str + 'FTP配置', {
+                    title: 'FTP配置',
+                    icon: 0,
+                    cancel: function () {
+                        $checkbox.prop('checked', checked);
+                    }
+                }, function () {
+                    var url = checked ? 'ftp_ip_unset' : 'ftp_ip_set';
+                    _this.set_ftp(url, function (res) {
+                        layer.msg(res.msg, { icon: 1 });
+                    }, function (res) {
+                        $checkbox.prop('checked', !checked);
+                    });
+                }, function () {
+                    this.cancel();
+                });
+            });
+            // 点击选择框
+            $('.bt_select_value').click(function (e) {
+                var $this = $(this);
+                $this.next().show();
+                $(document).one('click', function () {
+                    $this.next().hide();
+                });
+                e.stopPropagation();
+            });
+            // 网卡列表选择
+            $('.net_card_select .bt_select_list').on('click', 'li', function () {
+                var index = $(this).index();
+                var net_card_list = _this.ip_data.net_card_list;
+                var name = net_card_list[index];
+                $(this).addClass('active').siblings('.active').removeClass('active');
+                $('.bt_select_content').html('网卡：' + name);
+                _this.network_card_name = name;
+                _this.render_ip();
+                _this.render_gateway_btn();
+            });
+            // 点击添加ip
+            $('#add_ip_btn').click(function () {
+                var dev_name = _this.network_card_name;
+                var cloud_line = '';
+                if (_this.ip_data.net_card_list.length > 1 && false) {
+                    cloud_line = '\
+                        <div class="form-item">\
+                            <div class="form-label" style="width: 80px;">服务器平台</div>\
+                            <div class="form-value" style="display: flex; align-items: center;">\
+                                <label title="云服务器" style="display: flex; align-items: center; margin: 0; margin-right: 15px;">\
+                                    <input type="radio" name="cloud_server" style="margin-top: 2px; margin-right: 4px;" value="1" checked />\
+                                    <span>云服务器</span>\
+                                </label>\
+                                <label title="非云服务器" style="display: flex; align-items: center; margin: 0;">\
+                                    <input type="radio" name="cloud_server" style="margin-top: 2px; margin-right: 4px;" value="0" />\
+                                    <span>非云服务器</span>\
+                                </label>\
+                            </div>\
+                        </div>\
+                    ';
+                }
+                var _data = {
+                    title: '添加IP',
+                    area: '520px',
+                    class: 'ssl_cert_from',
+                    list: [
+                        {
+                            html: '\
+                                <div style="position: relative; width: 90%; margin: 0 auto;">\
+                                    <i class="layui-layer-ico layui-layer-ico3" style="left: 0;"></i>\
+                                    <h3 style="margin-left: 45px;">注意，此功能不懂别添加!</h3>\
+                                    <ul style="width: 100%;">\
+                                        <li style="height: auto; color: red;">必须要做好磁盘快照并且和服务器商确认过IP才决定自己是否要添加!</li>\
+                                        <li style="height: auto;">添加错误IP有一定概率会导致服务器网络中断，请确认IP可用后再操作!</li>\
+                                    </ul>\
+                                </div>\
+                            '
+                        },
+                        {
+                            html: '\
+                                <div class="bt-form" style="width: 90%; margin: 0 auto; padding: 20px 0; border-top: 1px solid #ececec; border-bottom: 1px solid #ececec;">\
+                                    ' + cloud_line + '\
+                                    <div class="form-item">\
+                                        <div class="form-label" style="width: 80px;">网卡</div>\
+                                        <div class="form-value" style="line-height: 30px;">\
+                                            <input type="text" class="bt-input-text" style="width: 260px;" value="' + dev_name + '" disabled>\
+                                        </div>\
+                                    </div>\
+                                    <div class="form-item">\
+                                        <div class="form-label" style="width: 80px;">IP地址</div>\
+                                        <div class="form-value">\
+                                            <input type="text" class="bt-input-text ip_address_add" style="width: 260px;" placeholder="请输入IP地址" />\
+                                        </div>\
+                                    </div>\
+                                    <div class="form-item">\
+                                        <div class="form-label" style="width: 80px;">子网掩码</div>\
+                                        <div class="form-value">\
+                                            <input type="text" class="bt-input-text netmask_add" style="width: 260px;" placeholder="请输入子网掩码" />\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            '
+                        },
+                        {
+                            html: '\
+                                <div class="details" style="width: 90%;">\
+                                    <input type="checkbox" id="check_ip" />\
+                                    <label style="font-weight: 400; margin: 2px 5px 0px;" for="check_ip">我已经了解详情,并愿意承担风险</label>\
+                                    <a target="_blank" class="btlink" href="https://www.bt.cn/bbs/forum.php?mod=viewthread&tid=79691">' + lan.config.ssl_open_ps_5 + '</a>\
+                                </div>\
+                            '
+                        }
+                    ],
+                    btns: [
+                        {
+                            title: '关闭', 
+                            name: 'close', 
+                            callback: function (rdata, load, callback) {
+                                load.close();
+                            }
+                        },
+                        {
+                            title: '确定', 
+                            name: 'submit', 
+                            css: 'btn-success', 
+                            callback: function (rdata, load, callback) {
+                                var check = $('#check_ip').is(':checked');
+                                if (!check) return layer.msg('请先勾选同意风险', { icon: 0 });
+                                var ip_address_add = $('.ip_address_add').val().trim();
+                                var netmask_add = $('.netmask_add').val().trim();
+                                var data = {
+                                    dev_name: dev_name,
+                                    ip_address_add: ip_address_add,
+                                    netmask_add: netmask_add,
+                                };
+                                if (_this.ip_data.net_card_list.length > 1) {
+                                    var cloud_server = $('input[name="cloud_server"]:checked').val();
+                                    data.is_cloud = cloud_server;
+                                }
+                                _this.add_ip(data, function (res) {
+                                    if (res.status) {
+                                        load.close();
+                                        _this.render_ip();
+                                    }
+                                    bt.msg(res);
+                                });
+                            }
+                        }
+                    ]
+                };
+                bt.render_form(_data);
+            });
+            // 点击添加网关
+            $('#add_gateway_btn').click(function () {
+                var name = _this.network_card_name;
+                var _data = {
+                    title: '配置网关',
+                    area: '460px',
+                    class: 'ssl_cert_from',
+                    list: [
+                        {
+                            html: '\
+                                <div style="position: relative; width: 90%; margin: 0 auto;">\
+                                    <i class="layui-layer-ico layui-layer-ico3" style="left: 0;"></i>\
+                                    <h3 style="margin-left: 45px;">注意，此功能不懂别添加!</h3>\
+                                    <ul style="width: 100%;">\
+                                        <li style="height: auto; color: red;">配置错误网关将直接导致服务器网络中断!</li>\
+                                        <li style="height: auto;">请确认网关可用后再操作</li>\
+                                    </ul>\
+                                </div>\
+                            '
+                        },
+                        {
+                            html: '\
+                                <div class="bt-form" style="width: 90%; margin: 0 auto; padding: 20px 0; border-top: 1px solid #ececec; border-bottom: 1px solid #ececec;">\
+                                    <div class="form-item">\
+                                        <div class="form-label" style="width: auto;">网卡</div>\
+                                        <div class="form-value" style="line-height: 30px;">\
+                                            <input type="text" class="bt-input-text" style="width: 260px;" value="' + name + '" disabled>\
+                                        </div>\
+                                    </div>\
+                                    <div class="form-item">\
+                                        <div class="form-label" style="width: auto;">网关</div>\
+                                        <div class="form-value">\
+                                            <input type="text" class="bt-input-text gateway" style="width: 260px;" placeholder="请输入网关" />\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            '
+                        },
+                        {
+                            html: '\
+                                <div class="details" style="width: 90%;">\
+                                    <input type="checkbox" id="check_ip" />\
+                                    <label style="font-weight: 400; margin: 2px 5px 0px;" for="check_ip">我已经了解详情,并愿意承担风险</label>\
+                                    <a target="_blank" class="btlink" href="https://www.bt.cn/bbs/forum.php?mod=viewthread&tid=79691">' + lan.config.ssl_open_ps_5 + '</a>\
+                                </div>\
+                            '
+                        }
+                    ],
+                    btns: [
+                        {
+                            title: '关闭', 
+                            name: 'close', 
+                            callback: function (rdata, load, callback) {
+                                load.close();
+                            }
+                        },
+                        {
+                            title: '确定', 
+                            name: 'submit', 
+                            css: 'btn-success', 
+                            callback: function (rdata, load, callback) {
+                                var check = $('#check_ip').is(':checked');
+                                if (!check) return layer.msg('请先勾选同意风险', { icon: 0 });
+                                var gateway = $('.gateway').val();
+                                if (gateway === '') {
+                                    return layer.msg('请输入网关', { icon: 2 });
+                                }
+                                var data = {
+                                    dev_name: name,
+                                    new_gateway: gateway
+                                };
+                                _this.modify_gateway(data, function (res) {
+                                    if (res.status) {
+                                        load.close();
+                                        _this.render_ip();
+                                    }
+                                    bt.msg(res);
+                                });
+                            }
+                        }
+                    ]
+                };
+                bt.render_form(_data);
+            });
+        },
+        /**
+         * @description 渲染ip配置页面
+         * @return void
+         */
+        render_ip: function () {
+            var _this = this;
+            var name = this.network_card_name;
+            this.get_ip_set_list({
+                network_name: name
+            }, function (res) {
+                var list = res.net_card_list || [];
+                _this.ip_data = res;
+                if (!name) _this.render_network_card_list();
+                if (!name) _this.render_gateway_btn();
+                _this.render_network_card_data();
+                _this.render_default_ip_table();
+            });
+        },
+        /**
+         * @description 渲染网卡信息
+         * @return void
+         */
+        render_network_card_data: function () {
+            var data = this.ip_data.net_card_data;
+            var type = '-';
+            if (data.network_card_bind_type == 'intranet') type = '内网映射ip';
+            if (data.network_card_bind_type == 'extranet') type = '外网固定ip';
+            $('.info_box_item').eq(0).find('.item_value').text(data.out_ip || '-');
+            $('.info_box_item').eq(1).find('.item_value').text(data.default_bind_ip || '-');
+            $('.info_box_item').eq(2).find('.item_value').text(data.network_id_num || '-');
+            $('.info_box_item').eq(3).find('.item_value').text(data.default_route || '-');
+            $('.info_box_item').eq(4).find('.item_value').text(data.default_netmask || '-');
+            $('.info_box_item').eq(5).find('.item_value').text(type);
+        },
+        /**
+         * @description 渲染网卡列表选择器
+         * @return void
+         */
+        render_network_card_list: function () {
+            var html = '',
+                text = '';
+            var list = this.ip_data.net_card_list;
+            var $list = $('.bt_select_list');
+            var $text = $list.prev().find('.bt_select_content');
+            $list.empty();
+            if (list.length <= 0) {
+                html = '<div class="none">无数据</div>';
+                text = '请选择网卡';
+            } else {
+                $.each(list, function (index, item) {
+                    html += '<li class="item' + (index == 0 ? ' active' : '') + '">' + item + '</li>';
+                });
+                text = '网卡：' + list[0];
+                this.network_card_name = list[0];
+            }
+            $text.html(text);
+            $list.append(html);
+        },
+        /**
+         * @description 渲染网关按钮
+         * @return void
+         */
+        render_gateway_btn: function () {
+            var status = !this.ip_data.system_type;
+            var index = $('.net_card_select .bt_select_list li.active').index();
+            var btn = $('#add_gateway_btn');
+            if (!btn) return;
+            if (index == 0 || status) {
+                btn.parent().addClass('hide');
+            } else {
+                btn.parent().removeClass('hide');
+            }
+        },
+        /**
+         * @description 渲染ip列表表格，不带接口
+         * @return void
+         */
+        render_default_ip_table: function () {
+            var _this = this;
+            var ip_list = this.ip_data.ip_list || [];
+            var _el = '#ip_table';
+            $(_el).empty();
+            bt_tools.table({
+                el: _el,
+                data: ip_list,
+                height: 260,
+                default: '列表为空',
+                column: [
+                    {
+                        fid: 'ip',
+                        title: 'IP地址',
+                        template: function (row) {
+                            return '<span>' + (row.ip ? row.ip : '-') + '</span>';
+                        }
+                    },
+                    {
+                        fid: 'netmask',
+                        title: '子网掩码',
+                        template: function (row) {
+                            return '<span>' + (row.netmask ? row.netmask : '-') + '</span>';;
+                        }
+                    },
+                    {
+                        title: '操作',
+                        type: 'group',
+                        width: 88,
+                        align: 'right',
+                        group: [
+                            {
+                                title: '编辑',
+                                event: function (row, index, ev, key, that) {
+                                    _this.show_edit_ip_layer(row);
+                                }
+                            },
+                            {
+                                title: '删除',
+                                event: function (row, index, ev, key, that) {
+                                    _this.show_del_ip_confirm(row);
+                                }
+                            }
+                        ]
+                    }
+                ],
+                tootls: [
+                    {
+                        type: 'group',
+                        positon: ['left', 'top'],
+                        list: [
+                            {
+                                title: '添加',
+                                active: true
+                            }
+                        ]
+                    }
+                ]
+            });
+        },
+        /**
+         * @description 渲染ip列表表格，带接口
+         * @return void
+         */
+        render_ip_table: function () {
+            var _this = this;
+            var name = this.network_card_name;
+            this.get_ip_set_list({
+                network_name: name
+            }, function (res) {
+                _this.ip_data = res;
+                _this.render_default_ip_table();
+            });
+        },
+        /**
+         * @description 显示修改ip弹框
+         * @return void
+         */
+        show_edit_ip_layer: function (rows) {
+            var _this = this;
+            layer.open({
+                type: 1,
+                area: "400px",
+                title: '编辑IP地址',
+                closeBtn: 2,
+                shift: 5,
+                shadeClose: false,
+                btn: ['提交', '取消'],
+                content: '\
+                    <div class="dialog_box">\
+                        <div class="bt-form" style="padding: 20px 30px;">\
+                            <div class="form-item">\
+                                <div class="form-label" style="width: 68px;">IP地址</div>\
+                                <div class="form-value">\
+                                    <input type="text" class="bt-input-text ip_address" style="width: 100%;" placeholder="请输入IP地址" value="' + (rows.ip ? rows.ip : '') + '" />\
+                                </div>\
+                            </div>\
+                            <div class="form-item">\
+                                <div class="form-label" style="width: 68px;">子网掩码</div>\
+                                <div class="form-value">\
+                                    <input type="text" class="bt-input-text netmask" style="width: 100%;" placeholder="请输入子网掩码" value="' + (rows.netmask ? rows.netmask : '') + '" />\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>\
+                ',
+                yes: function (index) {
+                    var ip = $('.ip_address').val();
+                    var netmask = $('.netmask').val();
+                    var data = {
+                        dev_name: _this.network_card_name,
+                        old_ip: rows.ip,
+                        new_ip: ip,
+                        old_netmask: rows.netmask,
+                        new_netmask: netmask
+                    };
+                    _this.edit_ip(data, function (res) {
+                        if (res.status) {
+                            layer.close(index);
+                            _this.render_ip();
+                        }
+                        bt.msg(res);
+                    });
+                }
+            });
+        },
+        /**
+         * @description 删除ip弹框
+         * @return void
+         */
+        show_del_ip_confirm: function (data) {
+            console.log(data.ip);
+            var _this = this;
+            bt.show_confirm('删除IP', '是否删除该IP?', function (index) {
+                _this.del_ip({
+                    dev_name: _this.network_card_name,
+                    ip_value: data.ip,
+                    netmask_value: data.netmask
+                }, function (res) {
+                    if (res.status) {
+                        layer.close(index);
+                        _this.render_ip();
+                    }
+                    bt.msg(res);
+                });
+            });
+        },
+        /**
+         * @description 渲染ssh表格
+         * @return void
+         */
+        render_ssh_table: function () {
+            var _this = this;
+            this.get_ssh_list(function (res) {
+                var _el = '#ssh_table';
+                $(_el).empty();
+                bt_tools.table({
+                    el: _el,
+                    data: res,
+                    height: 400,
+                    default: '列表为空',
+                    column: [
+                        {
+                            fid: 'ip',
+                            title: '授权IP',
+                            width: 130
+                        },
+                        // {
+                        //     fid: 'status',
+                        //     title: '策略',
+                        //     width: 50,
+                        //     type: 'text',
+                        //     template: function (row) {
+                        //         return row.status ? '允许' : '';
+                        //     }
+                        // },
+                        // {
+                        //     fid: 'remarks',
+                        //     title: '备注',
+                        //     type: 'input',
+                        //     blur: function(row, index, ev, key, that) {
+                        //         if (row.remarks == ev.target.value) return false;
+                        //         var data = {
+                        //             remark_ip: row.ip,
+                        //             modify_remark: ev.target.value
+                        //         }
+                        //         _this.set_ssh_remarks(data, function (res) {
+                        //             layer.msg(res.msg, { icon: res.status ? 1 : 2 });
+                        //         });
+                        //     },
+                        //     keyup: function(row, index, ev) {
+                        //         if (ev.keyCode === 13) {
+                        //             $(this).blur();
+                        //         }
+                        //     }
+                        // },
+                        {
+                            fid: 'add_time',
+                            title: '操作时间',
+                            width: 140
+                        },
+                        {
+                            title: '操作',
+                            type: 'group',
+                            width: 88,
+                            align: 'right',
+                            group: [
+                                {
+                                    title: '编辑',
+                                    event: function (row, index, ev, key, that) {
+                                        _this.show_edit_ssh_layer(row);
+                                    }
+                                },
+                                {
+                                    title: '删除',
+                                    event: function (row, index, ev, key, that) {
+                                        _this.show_del_ssh_confirm(row);
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    tootls: [
+                        {
+                            type: 'group',
+                            positon: ['left', 'top'],
+                            list: [
+                                {
+                                    title: '添加',
+                                    active: true,
+                                    event: function() {
+                                        _this.show_add_ssh_layer();
+                                    }
+                                },
+                                {
+                                    title: '初始化',
+                                    event: function() {
+                                        _this.show_init_ssh_confirm();
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                });
+            });
+        },
+        /**
+         * @description 显示添加ssh弹框
+         * @return void
+         */
+        show_add_ssh_layer: function () {
+            var _this = this;
+            layer.open({
+                type: 1,
+                area: "400px",
+                title: '添加SSH配置',
+                closeBtn: 2,
+                shift: 5,
+                shadeClose: false,
+                btn: ['提交', '取消'],
+                content: '\
+                    <div class="dialog_box">\
+                        <div class="bt-form" style="padding: 20px 30px;">\
+                            <div class="form-item">\
+                                <div class="form-label" style="width: 58px;">授权IP</div>\
+                                <div class="form-value">\
+                                    <input type="text" class="bt-input-text ip_address" style="width: 100%;" placeholder="请输入授权IP" />\
+                                </div>\
+                            </div>\
+                            <!-- <div class="form-item">\
+                                <div class="form-label" style="width: 58px;">备注</div>\
+                                <div class="form-value">\
+                                    <input type="text" class="bt-input-text remarks" style="width: 100%;" placeholder="SSH配置备注，可为空" />\
+                                </div>\
+                            </div> -->\
+                        </div>\
+                    </div>\
+                ',
+                yes: function (index) {
+                    var ip = $('.ip_address').val();
+                    var remarks = $('.remarks').val();
+                    if (ip === '') {
+                        return layer.msg('请输入授权IP', { icon: 2 });
+                    }
+                    var data = {
+                        ssh_adresss: ip,
+                        remarks: remarks || ''
+                    };
+                    _this.add_ssh(data, function (res) {
+                        if (res.status) {
+                            layer.close(index);
+                            _this.render_ssh_table();
+                        }
+                        bt.msg(res);
+                    });
+                }
+            });
+        },
+        /**
+         * @description 显示初始化ssh弹框
+         * @return void
+         */
+        show_init_ssh_confirm: function () {
+            var _this = this;
+            bt.show_confirm('初始化SSH配置', '是否初始化SSH配置?', function (index) {
+                ip_configuration.init_ssh(function (res) {
+                    if (res.status) {
+                        layer.close(index);
+                        _this.render_ssh_table();
+                    }
+                    bt.msg(res);
+                });
+            });
+        },
+        /**
+         * @description 显示删除ssh弹框
+         * @return void
+         */
+        show_del_ssh_confirm: function (data) {
+            var _this = this;
+            bt.show_confirm('删除SSH配置', '是否删除SSH配置?', function (index) {
+                ip_configuration.del_ssh({
+                    ssh_relieve_adresss: data.ip
+                }, function (res) {
+                    if (res.status) {
+                        layer.close(index);
+                        _this.render_ssh_table();
+                    }
+                    bt.msg(res);
+                });
+            });
+        },
+        /**
+         * @description 显示编辑ssh弹框
+         * @return void
+         */
+        show_edit_ssh_layer: function (row) {
+            var _this = this;
+            layer.open({
+                type: 1,
+                area: "350px",
+                title: '编辑授权IP',
+                closeBtn: 2,
+                shift: 5,
+                shadeClose: false,
+                btn: ['提交', '取消'],
+                content: '\
+                    <div class="dialog_box">\
+                        <div class="bt-form" style="padding: 20px 30px;">\
+                            <div class="form-item">\
+                                <div class="form-label" style="width: auto;">授权IP</div>\
+                                <div class="form-value">\
+                                    <input type="text" class="bt-input-text ip_address" style="width: 100%;" placeholder="请输入授权IP" value="' + row.ip + '" />\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>\
+                ',
+                yes: function (index) {
+                    var ip = $('.ip_address').val();
+                    if (ip === '') {
+                        return layer.msg('请输入授权IP', { icon: 2 });
+                    }
+                    var data = {
+                        old_ssh_allow_ip: row.ip,
+                        new_ssh_allow_ip: ip
+                    };
+                    _this.edit_ip_ssh(data, function (res) {
+                        if (res.status) {
+                            layer.close(index);
+                            _this.render_ssh_table();
+                        }
+                        bt.msg(res);
+                    });
+                }
+            });
+        },
+        /**
+         * @description 渲染ftp
+         * @return void
+         */
+        render_ftp: function () {
+            this.get_ftp(function (res) {
+                var data = res && res[0] ? res[0] : null;
+                if (data) {
+                    $('.server_ip').val(data.ip);
+                    $('#ftp_status').prop('checked', data.status);
+                }
+            });
+        },
+        /**
+         * @description 获取IP配置接口
+         * @return void
+         */
+        get_ip_set_list: function (data, callback) {
+            this.request({
+                tips: '正在获取IP配置，请稍候...',
+                method: 'get_ip_set_list',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 添加ip接口
+         * @return void
+         */
+        add_ip: function (data, callback) {
+            this.request({
+                tips: '正在添加IP，请稍候...',
+                method: 'set_ip_address',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 编辑ip接口
+         * @return void
+         */
+        edit_ip: function (data, callback) {
+            this.request({
+                tips: '正在修改IP，请稍候...',
+                method: 'modify_ip_netmask',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 删除ip接口
+         * @return void
+         */
+        del_ip: function (data, callback) {
+            this.request({
+                tips: '正在删除IP，请稍候...',
+                method: 'del_ip_netmask',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 获取ssh接口
+         * @return void
+         */
+        get_ssh_list: function (callback) {
+            this.request({
+                tips: '正在获取SSH配置，请稍候...',
+                method: 'get_ssh_ip_list',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 添加ssh接口
+         * @return void
+         */
+        add_ssh: function (data, callback) {
+            this.request({
+                tips: '正在添加SSH配置，请稍候...',
+                method: 'ssh_allow_ip_add',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 编辑ssh的备注接口
+         * @return void
+         */
+        set_ssh_remarks: function (data, callback) {
+            this.request({
+                tips: '正在设置备注，请稍候...',
+                method: 'ip_configuration_db_update',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 编辑ssh的授权ip接口
+         * @return void
+         */
+        edit_ip_ssh: function (data, callback) {
+            this.request({
+                tips: '正在编辑授权IP，请稍候...',
+                method: 'ssh_allow_ip_modify',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 删除ssh接口
+         * @return void
+         */
+        del_ssh: function (data, callback) {
+            this.request({
+                tips: '正在删除SSH配置，请稍候...',
+                method: 'ssh_allow_ip_del',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 初始化ssh接口
+         * @return void
+         */
+        init_ssh: function (callback) {
+            this.request({
+                tips: '正在初始化SSH配置，请稍候...',
+                method: 'ssh_ip_init',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 获取ftp配置接口
+         * @return void
+         */
+         get_ftp: function (callback) {
+            this.request({
+                tips: '正在获取FTP配置，请稍候...',
+                method: 'get_ftp_ip_list',
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 设置ftp接口
+         * @return void
+         */
+        set_ftp: function (url, callback, error) {
+            this.request({
+                tips: '正在设置FTP配置，请稍候...',
+                method: url,
+                error: error,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 配置网关
+         * @return void
+         */
+        modify_gateway: function (data, callback) {
+            this.request({
+                tips: '正在配置网关，请稍候...',
+                method: 'linux_modify_gateway',
+                data: data,
+                success: function (res) {
+                    if (callback) callback(res);
+                }
+            });
+        },
+        /**
+         * @description 请求
+         * @return void
+         */
+        request: function (obj) {
+            var loadT = '';
+            if (obj.load == undefined) obj.load = 0;
+            if (obj.url == undefined) {
+                if (obj.plugin_name === undefined && this.plugin_name !== undefined) obj.plugin_name = this.plugin_name;
+                if (!obj.plugin_name || !obj.method) {
+                    layer.msg('插件类名称，或插件方法名称缺失!', {
+                        icon: 2
+                    });
+                    return false;
+                }
+            }
+            if (obj.load === 0 || obj.tips != '') {
+                loadT = layer.msg(obj.tips, {
+                    icon: 16,
+                    time: 0,
+                    shade: 0.3
+                });
+            } else if (obj.load === 1 || (obj.tips == undefined && obj.load == undefined)) {
+                loadT = layer.load();
+            }
+            $.ajax({
+                type: 'POST',
+                url: obj.url != undefined ? obj.url : ('/plugin?action=a&name=' + obj.plugin_name + '&s=' + obj.method),
+                data: obj.data || {},
+                timeout: obj.timeout || 99999999,
+                complete: function (res) {
+                    if (obj.load === 0 || obj.load === 1) layer.close(loadT);
+                },
+                success: function (rdata) {
+                    if (obj.check) {
+                        obj.success(rdata);
+                        return false
+                    }
+                    if (rdata.status === false) {
+                        layer.msg(rdata.msg, { icon: 2 });
+                        if (obj.error) obj.error(rdata);
+                        return false;
+                    }
+                    obj.success(rdata);
+                }
+            });
+        }
+    };
+    ip_configuration.init();
+</script>

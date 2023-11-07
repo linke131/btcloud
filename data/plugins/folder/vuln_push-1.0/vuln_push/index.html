@@ -1,0 +1,410 @@
+<style>
+	/* 整个页面的 */
+	.watchvuln-main {
+		margin: 25px;
+		height: 522px;
+	}
+	/* 头部 */
+	.sn-home--switch {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 16px;
+	}
+	/* 下拉输入框部分 */
+	.sn-alarm--selectBox {
+		display: inline-block;
+		cursor: pointer;
+		margin-left: 4px;
+		position: relative;
+	}
+	/* 下·拉框边框 */
+	.sn-alarm--setting .sn-alarm--channel {
+		border: 1px solid #efefef;
+		border-radius: 2px;
+		color: #999999;
+		width: 140px;
+		display: inline-block;
+		padding: 5px 5px 5px 10px;
+		margin-left: 4px;
+	}
+	.sn-alarm--list {
+		display: none;
+		position: absolute;
+		background: #fff;
+		z-index: 10;
+		transition: all 500ms;
+		top: 30px;
+		left: 5px;
+		box-shadow: 0 1px 5px rgb(0 0 0 / 50%);
+		border-radius: 1px;
+		color: #666;
+		width: 140px;
+	}
+	.sn-test--list li,
+	.sn-alarm--list li {
+		height: 28px;
+		line-height: 24px;
+		padding: 2px 10px;
+		white-space: nowrap;
+	}
+	.sn-alarm--list li.disabled {
+		background: #ededed;
+		cursor: not-allowed;
+	}
+	.sn-alarm--list li.disabled:hover {
+		background: #ededed;
+		color: #666;
+	}
+	.sn-alarm--list li:hover {
+		background-color: #f2f2f2;
+	}
+	.sn-alarm--list li.active {
+		color: #fff;
+		background-color: #20a53a;
+	}
+	#sn-table--holeList .mtb10 {
+		margin-bottom: 10px;
+	}
+	.watchvuln-main .sn-alram--selectIcon {
+		right: 10px;
+    top: 8px;
+		position: absolute;
+		left: auto;
+	}
+	.sn-news {
+		display: inline-block;
+		width: 200px;
+		height: 80px;
+		line-height: 80px;
+		text-align: center;
+	}
+	.sn-new {
+		display: inline-block;
+		width: 300px;
+		height: 80px;
+		line-height: 80px;
+		text-align: center;
+	}
+	/* 没有使用 */
+	.cursor {
+		cursor: not-allowed;
+	}
+	/* 漏洞等级 */
+	.level_serious{
+    color: #F50606;
+	}
+	.level_high{
+		color: #FF5A5A;
+	}
+	.level_low{
+		color: #FF9900;
+	}
+	.ml4 {
+		margin-left: 4px;
+	}
+	.deatil_info.lib-box .table td{
+		vertical-align: text-top;
+	}
+	.deatil_info.lib-box .table tr:nth-child(1) td:last-child {
+		max-width: 340px;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+	}
+	.deatil_info.lib-box .table tr:nth-child(3) td,
+	.deatil_info.lib-box .table tr:nth-child(4) td,
+	.deatil_info.lib-box .table tr:nth-child(5) td,
+	.deatil_info.lib-box .table tr:nth-child(6) td,
+	.deatil_info.lib-box .table tr:nth-child(7) td {
+		max-width: 510px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+	}
+	.deatil_info.lib-box .table tr td p {
+		display: flex;
+	}
+	.deatil_info.lib-box .table tr td .vuln_tag {
+		display: flex;
+    flex-wrap: wrap;
+	}
+	code {
+    padding: 1px 5px;
+    font-size: 90%;
+    color: #2196F3;
+    background-color: #EEE;
+    border-radius: 4px;
+    margin: 2px;
+  }
+	.watchvuln-main .sn-footer{
+			position: absolute;
+			bottom: 15px;
+	}
+</style>
+<div class="bt-content watchvuln-main">
+	<div class="sn-home--switch">
+		<!-- 告警开关 -->
+		<div class="sn-left">
+			<span style="font-size: 14px">漏洞推送开关</span>
+			<div style="display: inline-block; vertical-align: middle; margin-left: 5px">
+				<input type="checkbox" class="btswitch btswitch-ios" id="serviceStatus" />
+				<label class="btswitch-btn serviceStatus" for="serviceStatus"></label>
+			</div>
+			<span class="c9 ml4">开启后，默认每天9点进行漏洞推送</span>
+		</div>
+		<!-- 推送下拉 -->
+		<div class="sn-alarm--setting">
+			<span style="font-size: 14px">推送方式</span>
+			<div class="sn-alarm--selectBox">
+				<span class="sn-alarm--channel">请选择推送方式</span>
+				<i class="sn-alram--selectIcon glyphicon glyphicon-menu-down"></i>
+				<ul class="sn-alarm--list"></ul>
+			</div>
+		</div>
+	</div>
+	<div class="sn-panel">
+		<div id="sn-table--holeList"></div>
+		<div class="sn-footer">
+			<ul class="help-info-text c7">
+					<li>通过各大漏洞情报中心，洞察并收集高质量的漏洞信息，提供更有价值的漏洞信息推送服务</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	var watchvulnMain = {
+		plugin_name: 'vuln_push',
+		data: {},
+		event: function () {
+			var _this = this;
+			// 告警方式选择
+			$('.sn-alarm--selectBox').on('click', function (e) {
+				var _ul = $(this).find('.sn-alarm--list');
+				if (_ul.hasClass('show')) {
+					_ul.removeClass('show');
+				} else {
+					_ul.addClass('show');
+				}
+				$(document).one('click', function () {
+					_ul.removeClass('show');
+				});
+				e.stopPropagation();
+			});
+			//监控开关
+			$('#serviceStatus').on('change', function (e) {
+				var _status = $(this).prop('checked');
+				bt.simple_confirm({ title: (_status ? '开启':'关闭')+'漏洞推送', msg: (_status ? '开启后，默认每天9点进行漏洞推送':'关闭后，将无法收集漏洞进行推送')+'，是否继续操作？' }, function () {
+					_this.getLoophole();
+				},function () {
+					$('#serviceStatus').prop('checked', !_status);
+				});
+			});
+			// 告警方式选择
+			$('.sn-alarm--list').on('click', 'li', function () {
+				var name = $(this).attr('name'),
+					that = this;
+				//设置当前漏洞推送平台
+				bt_tools.send('/plugin?action=a&name=vuln_push&s=set_send', { type: name }, function (res) {
+					if (res.status) {
+						$('.sn-alarm--list li').removeClass('active');
+						$(that).addClass('active');
+						$('.sn-alarm--channel').text($(that).text());
+						$('.sn-alarm--list').hide();
+					}
+					bt_tools.msg(res)
+				});
+			});
+		},
+		// 获取当前情报推送状态
+		getLoopholeStatus: function () {
+			bt_tools.send('/plugin?action=a&name=vuln_push&s=get_status', function (res) {
+				$('#serviceStatus').prop('checked', res.status);
+			});
+		},
+		//设置漏洞推送
+		getLoophole: function () {
+			var that = this;
+			bt_tools.send('/plugin?action=a&name=vuln_push&s=set_process', function (res) {
+				bt_tools.msg(res)
+			});
+		},
+		// 获取推送列表
+		initAlarmSet: function () {
+			var that = this;
+			var sendChannel = [
+				// { name: '邮箱', value: 'mail' },
+				{ name: '钉钉', value: 'dingding' },
+				{ name: '飞书', value: 'feishu' },
+				{ name: '企业微信', value: 'weixin' },
+				// { name: '微信公众号', value: 'wx_account' },
+				{ name: '不绑定', value: 'error' },
+			];
+			// 获取推送列表
+			bt_tools.send(
+				{
+					url: '/config?action=get_msg_configs',
+				},
+				function (alarms) {
+					bt_tools.send(
+						{ url: '/plugin?action=a&name=vuln_push&s=get_send', data: {} },
+						function (rdata) {
+							var html = '',
+								alarmType = -1,
+								accountConfigStatus = false;
+							for (var i = 0; i < sendChannel.length; i++) {
+								if (rdata.msg == sendChannel[i].value) alarmType = i;
+								if (sendChannel[i].value === 'wx_account') {
+									var item = alarms[sendChannel[i].value];
+									if (!$.isEmptyObject(item.data) && item.data.res.is_subscribe && item.data.res.is_bound) {
+										accountConfigStatus = true;
+									}
+								}
+								var is_config = sendChannel[i].value !== 'error' && (!alarms[sendChannel[i].value]['setup'] || $.isEmptyObject(alarms[sendChannel[i].value]['data'])) ? true : false;
+								html +=
+									'<li class="sn-alarm--item ' +
+									(sendChannel[i].value == rdata.msg && !is_config ? ' active' : '') +
+									(is_config ? ' disabled' : '') +
+									'" name="' +
+									sendChannel[i].value +
+									'">' +
+									sendChannel[i].name +
+									(is_config ? ' [<a target="_blank" class="bterror installNotice" data-type="' + sendChannel[i].value + '">未配置</a>]' : '') +
+									'</li>';
+							}
+							$('.sn-alarm--list').html(html);
+							$('.sn-alarm--channel').html(alarmType != -1 ? ($('.sn-alarm--list [name='+ sendChannel[alarmType].value +']').hasClass('disabled') ? '请选择发送方式' : sendChannel[alarmType].name) : '请选择发送方式');
+							//点击未配置
+							$('.sn-alarm--selectBox')
+								.find('.installNotice')
+								.unbind('click')
+								.click(function (ev) {
+									var el = $(ev.currentTarget),
+										type = $(el).data('type');
+									openAlertModuleInstallView(type, '', function () {
+										that.initAlarmSet();
+									});
+									ev.stopPropagation();
+								});
+						},
+						{ verify: false }
+					);
+				}
+			);
+		},
+		// 获取漏洞情报列表
+		getLoopholeList: function () {
+			var that = this;
+			var holeTbale = bt_tools.table({
+				el: '#sn-table--holeList',
+				default: '暂无数据',
+				height: '400',
+				url: '/plugin?action=a&name=vuln_push&s=get_result',
+				column: [
+					{ fid: 'cve_id', title: '漏洞编号',width: 150 },
+					{ fid: 'name', title: '漏洞名称',template: function (row) {
+						return '<span title="漏洞编号：'+ row.cve_id +'\n漏洞名称：'+ row.name +'\n漏洞介绍：'+ row.info +'">'+ row.name +'</span>'
+					}},
+					{ fid: 'risk', title: '危害等级', width: 120,template: function (row) {
+						var lavel = row.risk === '严重' ? 'serious' : row.risk === '高危' ? 'high' : 'low'
+						return '<span class="level_'+ lavel +'">'+ row.risk +'</span>'
+					}},
+					{ fid: 'time', title: '发布时间', width: 100 },
+					{
+						title: '操作',
+						width: 60,
+						type: 'group',
+						align: 'right',
+						group: [
+							{
+								title: '详情',
+								event: function (row, index, ev) {
+									that.getDeatil(row)
+								},
+							},
+						],
+					}
+				],
+				tootls: [
+					{
+						//分页显示
+						type: 'page',
+						numberParam: 'rows',
+						defaultNumber: 10,
+						numberStatus: false, //　是否支持分页数量选择,默认禁用
+						jump: true, //是否支持跳转分页,默认禁用
+					},
+				],
+			});
+		},
+		//获取详情
+		getDeatil: function (row) {
+			var data = row.msg1 ? JSON.parse(row.msg1) : row.msg1
+			var lavel = row.risk === '严重' ? 'serious' : row.risk === '高危' ? 'high' : 'low',
+					re = /(http[s]?:\/\/([\w-]+.)+([:\d+])?(\/[\w-\.\/\?%&=]*)?)/gi;//获取字符串中的地址并转换为超链接
+			if(data.length) {
+				var data_deatil = data[0],
+						tag = '',//漏洞标签
+						reflink = ''//参考链接
+				for(var i = 0; i < data_deatil.tag.length; i++) {
+					tag += '<code>'+ data_deatil.tag[i] +'</code>'
+				}
+				for (var i = 0; i < data_deatil.link.length; i++) {
+					reflink += '<p>'+(i+1) +'、'+data_deatil.link[i].replace(re, "<a href='$1' class='btlink' target='_blank'>$1</a>") + '</p>'
+				}
+				bt_tools.open({
+          type: 1,
+          title: "【"+ row.cve_id + "】详情",
+          area: '640px',
+          closeBtn: 2,
+					btn:false,
+          shadeClose: false,
+          content: '<div class="pd15 deatil_info lib-box" style="max-height: 560px;">\
+                  <table class="table" style="border:#ddd 1px solid;">\
+                      <tbody>\
+												<tr>\
+													<th>漏洞编号</th>\
+													<td>'+ row.cve_id +'</td>\
+													<th>漏洞名称</th>\
+													<td>'+ row.name +'</td>\
+												</tr>\
+												<tr>\
+													<th>危害等级</th>\
+													<td><span class="level_'+ lavel +'">'+ row.risk +'</span></td>\
+													<th>发布时间</th>\
+													<td>'+ row.time +'</td>\
+												</tr>\
+												<tr>\
+													<th>漏洞介绍</th>\
+													<td colspan="3">'+ row.info +'</td>\
+												</tr>'+ 
+												(tag ? '<tr><th>漏洞标签</th><td colspan="3"><div class="vuln_tag">' + tag + '</div></td></tr>' : '') +
+												'<tr>\
+													<th>信息来源</th>\
+													<td colspan="3">'+ data_deatil.source.replace(re, "<a href='$1' class='btlink' target='_blank'>$1</a>") +'</td>\
+												</tr>\
+												<tr>\
+													<th>推送原因</th>\
+													<td colspan="3">'+ data_deatil.reason.replaceAll('\n','<br>') + (reflink ? '<br>参考链接：<br>' + reflink :'') +'</td>\
+												</tr>\
+												<tr>\
+													<th>解决方案</th>\
+													<td colspan="3">'+ data_deatil.repair +'</td>\
+												</tr>\
+											</tbody>\
+                  </table>\
+								</div>'
+        })
+			}
+		},
+		init: function () {
+			var that = this;
+			this.event();
+			this.getLoopholeStatus();
+			this.getLoopholeList();
+			this.initAlarmSet();
+			$('.layui-layer-page').width(880).height(616).css({   //设置最外层弹窗大小
+				'left':($(window).width()-880)/2+'px'
+			})
+		},
+	};
+	watchvulnMain.init();
+</script>

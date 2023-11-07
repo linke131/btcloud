@@ -1,0 +1,7 @@
+#指定域名
+domain="www.bt.cn"
+#包数量
+packnum=100
+#包间隔
+speed="0.01"
+ping -c $packnum -i $speed $domain|grep -Eo 'received, [0-9\.]+'|awk -F ' ' '{print $2}'

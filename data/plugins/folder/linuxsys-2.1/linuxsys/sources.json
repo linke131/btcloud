@@ -1,0 +1,51 @@
+{
+  "ubuntu": {
+    "ALi": {
+      "value": "http://mirrors.aliyun.com/",
+      "name": "阿里源"
+    },
+    "QingHua": {
+      "value": "http://mirrors.tuna.tsinghua.edu.cn/",
+      "name": "清华源"
+    },
+    "ShangHaiJiaoDa": {
+      "value": "http://mirrors.sjtu.edu.cn/",
+      "name": "上海交大源"
+    },
+    "ZhongKeDa": {
+      "value": " http://mirrors.ustc.edu.cn/",
+      "name": "中科大源"
+    },
+    "HuaWei": {
+      "value": "http://mirrors.huaweicloud.com/",
+      "name": "华为源"
+    }
+  },
+  "centos": {
+    "ALi": {
+      "name": "阿里源",
+      "value": "http://mirrors.aliyun.com/"
+    },
+    "HuaWei": {
+      "name": "华为源",
+      "value": "https://mirrors.huaweicloud.com/"
+    },
+    "Tencent": {
+      "name": "腾讯源",
+      "value": "https://mirrors.tencent.com/"
+    },
+    "WangYi": {
+      "name": "网易源",
+      "value": "http://mirrors.163.com/"
+    },
+    "QingHua": {
+      "name": "清华源",
+      "value": "https://mirrors.tuna.tsinghua.edu.cn/"
+    },
+    "ZhongKeDa": {
+      "name": "中科大源",
+      "value": "http://mirrors.ustc.edu.cn/"
+    }
+  },
+  "last": "http://mirrors.aliyun.com/"
+}

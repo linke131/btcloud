@@ -1,0 +1,1386 @@
+<style>
+	#analysis_domain{
+		height: 590px;
+		overflow: auto;
+	}
+	.add_analysis_tr td{
+		border-top: 1px solid #e5e5e5 !important;
+		padding-bottom: 10px !important;
+	}
+	.add_analysis_tr{
+		background-color: #fbfbfb;
+	}
+	.add_analysis_tr input,
+	.add_analysis_tr select{
+		height: 30px;
+		line-height: 30px;
+		vertical-align: middle;
+		font-size: 12px;
+		line-height: normal;
+		display: inline-block;
+		padding: 0 10px;
+		border: 1px solid #ddd;
+		color: #444;
+		vertical-align: middle;
+		box-sizing: border-box;
+		width: 180px;
+		outline: none;
+		border-radius: 2px;
+	}
+	.add_analysis_tr select{
+		padding: 0 2px
+	}
+	.add_analysis_tr input:hover{
+		border-color: #aaa;
+	}
+	.add_analysis_tr input:focus{
+		border-color: #20a53a;
+	}
+	.add_analysis_tr_tips{
+		background-color: #f5f5f5;
+	}
+	.add_analysis_tr_tips td{
+		padding: 8px;
+	}
+	.add_analysis_tr_tips .tr_tips{
+		position: relative;
+		padding:10px;
+	}
+	.add_analysis_tr_tips .tr_tips.input_0::after{left: 85px;}
+	.add_analysis_tr_tips .tr_tips.input_1::after{left: 200px;}
+	.add_analysis_tr_tips .tr_tips.input_2::after{left: 285px;}
+	.add_analysis_tr_tips .tr_tips.input_3::after{left: 425px;}
+	.add_analysis_tr_tips .tr_tips.input_4::after{left: 570px;}
+	.add_analysis_tr_tips .tr_tips.input_5::after{left: 660px;}
+	.add_analysis_tr_tips .tr_tips::after{
+		content: '';
+		display: inline-block;
+		height: 12px;
+		width: 12px;
+		border-width: 1px 0 0 1px;
+		border-color: #e5e5e5;
+		border-style: solid;
+		transform: rotate(45deg);
+		background: #f5f5f5;
+		position: absolute;
+		top: -14px;
+	}
+	.add_analysis_tr_tips .tr_tips_title{
+		margin-left: 5px;
+		line-height: 22px;
+	}
+	.add_analysis_tr_tips .tr_tips_list{
+		background-color: #fff;
+		margin-top: 8px;
+		position: relative;
+	}
+	.add_analysis_tr_tips .tr_tips_list li{
+		width: 100%;
+		height: 35px;
+		line-height: 35px;
+		margin-top: -1px;
+		border:1px solid #ececec;
+		cursor: pointer;
+		position: relative;
+	}
+	.add_analysis_tr_tips .tr_tips_list li.active,
+	.add_analysis_tr_tips .tr_tips_list li:hover{
+		border-color: #20a53a;
+		z-index: 999;
+	}
+	.add_analysis_tr_tips .tr_tips_list li.active::after{
+		content:'';
+		display: inline-block;
+		border-top: 10px solid #20a53a;
+   		border-right: 10px solid transparent;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.add_analysis_tr_tips .tr_tips_list .tr_list_title{
+		display: inline-block;
+		width: 100px;
+		color: #444444;
+		line-height: 33px;
+		padding-left:20px;
+		font-weight: 600;
+	}
+	.add_analysis_tr_tips .tr_tips_list .tr_list_content{
+		margin-right: 5px;
+		display: inline-block;
+		line-height: 33px;
+	}
+	.record_type_list span{
+		font-size:12px;
+		padding: 5px 10px;
+	}
+	#dnspod_list .dnc_dot{
+		width: 8px;
+		height: 8px;
+		background-color: #20a53a;
+		border-radius: 50%;
+		display: inline-block;
+	}
+	#dnspod_list .dnc_dot.red{
+		background-color: red;
+	}
+	.nsName.btns a{
+		width: 100%;
+		font-size: 14px;
+		display: inline-block;
+		height: 40px;
+		line-height: 40px;
+		background: #20a53a;
+		color: #fff;
+		border-radius: 4px;
+		text-align: center;
+		text-decoration: none;
+	}
+	.nsName.btn a:hover{
+		background-color: #10952a;
+    	border-color: #398439;
+	}
+	.switch_group .btswitch+.btswitch-btn {
+		width: 2.4em;
+		height: 1.4em;
+		margin-bottom: 0;
+	}
+	.bt-input-password{
+		border: 1px solid #ccc;
+		height: 30px;
+		line-height: 30px;
+		padding-left: 5px;
+		border-radius: 2px;
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	.ns-state-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0 12px;
+	}
+	.ns-state-item-content{
+		border: 1px solid #efefef;border-radius: 3px;background: #fcfcfc;
+	}
+	.ns-state-item-title {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+	}
+	.ns-state-item-content {
+    border: 1px solid #efefef;
+    background: #fcfcfc;
+    border-radius: 4px;
+    padding: 12px 16px;
+    flex: auto;
+	}
+	.dns-state-text,
+	.dns-state-error{
+    height: 28px;
+    line-height: 28px;
+    color: #20a53a;
+		width: 138px;
+		overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+		display: inline-block;
+    vertical-align: bottom;
+	}
+	.dns-state-error{
+    color: #a60b00;
+		width: 162px;
+	}
+	.dns_unbind{
+		position: absolute;
+		left: 15px;
+		bottom: 9px;
+		font-size:12px;
+	}
+	.tencent_api_setting .help-info-text li{
+		list-style: none;
+	}
+	.tencent_api_setting .pd20{
+		padding: 25px 20px 30px;
+	}
+	.alert.warnig_yellow{
+    background-color: rgba(251, 243, 222, .5);
+    border-color: rgba(236, 232, 213, .5);
+    color:#666
+	}
+	.layui-layer-page .layui-layer-content {
+    position: relative;
+    overflow: inherit;
+	}
+	/* 禁用样式 */
+	.cust—checkbox.check_disabled{
+		background: #eee;
+    cursor: no-drop;
+	}
+	/* 禁用样式 end */
+</style>
+<div class="pd20" id="dnspod_list"></div>
+<script type="text/javascript" src="/static/js/clipboard.min.js"></script>
+<script type="text/javascript">
+	var element = $('#dnspod_list').parents('.layui-layer-page'),_id = parseInt(element.attr('times')),init = null,title = element.find('.layui-layer-title').text(),
+	add_config = {
+		title:'腾讯云DNS解析-关联腾讯云API密钥',
+		area:'500px',
+		skin:'custom_layer tencent_api_setting',
+		btn:['保存','取消'],
+		content:{
+			url:'/plugin?action=a&name=dnspod&s=set_config',
+			class:'pd20',
+			form:[{
+				group:{
+					type:'help',
+					style:'margin-top:0;margin-bottom:20px;',
+					list:['<span class="alert warnig_yellow" style="display:contents;width:100%">温馨提示：当前插件需要使用腾讯云API密钥进行管理和控制&nbsp;&nbsp;&nbsp;<a href="https://console.cloud.tencent.com/cam/capi" target="_blank" class="btn btn-success btn-xs ml10">点击获取密钥</a></span>']
+				}
+			},{
+				label:'APPID',
+				group:{
+					type:'text',
+					name:'appid',
+					width:'320px',
+					placeholder:'腾讯云API密钥APPID,不可为空',
+					verify:function(value,element,model,is_monitor){
+						var tips = '';
+						if(value == ''){
+							tips = model.placeholder;
+						}
+						if(tips != ''){
+							bt_tools.$verify_tips(element,tips);
+							return false;
+						}
+						return value.replace(/ /g,'');
+					}
+				}
+			},{
+				label:'SecretId',
+				group:{
+					type:'text',
+					name:'secretId',
+					width:'320px',
+					placeholder:'腾讯云API密钥SecretId,不可为空',
+					verify:function(value,element,model,is_monitor){
+						var tips = '';
+						if(value == ''){
+							tips = model.placeholder;
+						}
+						if(tips != ''){
+							bt_tools.$verify_tips(element,tips);
+							return false;
+						}
+						return value.replace(/ /g,'');
+					}
+				}
+			},{
+				label:'SecretKey',
+				group:{
+					type:'password',
+					name:'secretKey',
+					width:'320px',
+					placeholder:'腾讯云API密钥SecretKey,不可为空',
+					verify:function(value,element,model,is_monitor){
+						var tips = '';
+						if(value == ''){
+							tips = model.placeholder;
+						}
+						if(tips != ''){
+							bt_tools.$verify_tips(element,tips);
+							return false;
+						}
+						return value.replace(/ /g,'');
+					}
+				}
+			}]
+		},
+		success:function(el,indexs,config){
+			if(!$.isEmptyObject(config.data)){
+				$(el).find('.layui-layer-btn').prepend('<span class="dns_unbind btn btn-default">取消关联密钥</span>')
+				$('.dns_unbind').click(function(){
+					bt.confirm({title:'取消关联密钥',msg:'您确定要取消关联腾讯云API密钥吗？取消关联密钥后，将无法通过该插件进行管理，是否继续？',btn:['确定','取消']},function(){
+						bt_tools.send({url:'/plugin?action=a&name=dnspod&s=unbind_config',data:{}},function(res){
+								if(res.status){
+									layer.closeAll();
+									bt.soft.set_lib_config('dnspod')
+								}
+								bt_tools.msg(res);
+						},'取消关联密钥')
+					});
+				});
+			}
+		},
+		yes:function(form,indexs,layero){
+			var that = this;
+			this.$submit(form,function(res){
+				if(res.status === false){
+					bt_tools.msg(res);
+					return false;
+				}
+				bt_tools.msg(res);
+				layer.close(indexs);
+				if(init){
+					element.show();
+					dns_pod_table.$refresh_table_list(true);
+				}else{
+					bt.soft.set_lib_config('dnspod',title);
+				}
+			});
+		},
+		end:function(){
+			if(!init) layer.close(_id);
+		}
+	}
+	bt_tools.$piugin_view_set(element,{width:1000,height:580});
+	bt_tools.send('dnspod/get_config',function(res){
+		var config = res;
+		if($.isEmptyObject(res)){
+			init = false;
+			layer.closeAll();
+			bt_tools.open(add_config);
+		}else{
+			init = true;
+			element.show();
+			dns_pod_table = bt_tools.table({
+				el:'#dnspod_list',
+				fid:'dns_pod',
+				load:true,
+				url:'/plugin?action=a&name=dnspod&s=get_domain_list',
+				default:"DNS解析域名列表为空", //数据为空时的默认提示
+				dataFilter:function(res){ // 请求响应值格式化过滤
+					return {data:res.DomainList,page:res.page};
+				},
+				column:[
+					{type:'checkbox',class:'',width:20},
+					{fid:'Name',title:'域名',type:'link',width:150,tips:true,template:function(row){
+						return '<span class="btlink"><strong class="dnc_dot '+(row.Status == 'ENABLE' && row.DNSStatus == ''?'green':'red')+'" title=""></strong>&nbsp;&nbsp;'+row.Name+'</span>'
+						},event:function(row,index,ev,key,that){
+								that.add_analysis_layer(row);
+						}
+					},
+					{fid:'DNSStatus',title:'解析状态',template:function(row){
+						switch(row.Status){
+							case 'ENABLE':								
+								switch(row.DNSStatus){
+									case "DNSERROR":
+										return '<span title="请至域名注册商处修改 DNS 服务器为\nunemployed.dnspod.net \nlewis.dnspod.net " class="bt_danger cursor-pointer">DNS 设置错误<i class="glyphicon glyphicon-info-sign ml5" style="top:2px"></i> </span>';
+									break;
+									case "":
+										return '<a href="javascript:;" class="bt_success cursor-pointer">已开启<i class="glyphicon glyphicon-play"></i></span>';
+									}
+							break;
+							case 'PAUSE':
+								return '<a href="javascript:;" class="bt_danger cursor-pointer">已暂停<i class="glyphicon glyphicon-pause"></i></span>';
+							break;
+							case 'SPAM':
+								return '<a href="https://cloud.tencent.com/document/product/302" target="_blank" class="bt_warning cursor-pointer">已被封禁<i></i></span>';
+							break;
+						}
+					},event:function(row,index,ev,key,that){
+						if(row.Status == 'ENABLE'){
+							if(row.DNSStatus == ''){
+								bt.confirm({title:'暂停解析域名',msg:'暂停解析域名['+ row.Name +']后，该域名所绑定的网站和其他服务将无法通过域名访问，是否继续？'},function(index){
+									bt_tools.send({
+										url: '/plugin?action=a&name=dnspod&s=set_domain_status',
+										data: {domain:JSON.stringify([row.Name]),status:'disable'},
+										verify:false
+									},function(res){
+										layer.close(index);
+										if(typeof res.success != "undefined") res = (res.success.length > 0 ?{msg:'操作成功',status:true}:{msg:res.error[row.Name],status:false});
+										that.request_handle(res,function(){
+											bt_tools.msg(res);
+										});
+									},'暂停解析域名');
+								});
+							}else if(row.DNSStatus == 'DNSERROR'){
+								that.dns_ns_dialog(row)
+							}
+						}else if(row.Status == 'PAUSE'){
+							bt.confirm({title:'开启解析域名',msg:'将['+ row.Name +']开启解析，开启后该域名绑定的网站和其他服务将恢复正常，注意生效时间可能存在延迟。'},function(index){
+								bt_tools.send({
+									url: '/plugin?action=a&name=dnspod&s=set_domain_status',
+									data: {domain:JSON.stringify([row.Name]),status:'ENABLE'},
+									verify:false
+								},function(res){
+									layer.close(index);
+									if(typeof res.success != "undefined") res = (res.success.length > 0 ?{msg:'操作成功',status:true}:{msg:res.error[row.Name],status:false});
+									that.request_handle(res,function(){
+										bt_tools.msg(res);
+									});
+								},'开启解析域名');
+							});
+						}
+					}},	
+					{fid:'username',title:'解析套餐',template:function(row){
+						if(row.TTL == '600'){
+							return '<a target="_blank" href="https://buy.cloud.tencent.com/cns?from=gobuy&domain='+ row.Name +'" class="bt_warning cursor-pointer"><span>免费版，升级</span><i class="glyphicon glyphicon-arrow-up bt_warning"></i></a>';
+						}
+						return '<span>'+ row.GradeTitle +'</span>';
+					}},
+					{fid:'UpdatedOn',title:'最后操作时间',width:150},
+					{title:'操作',type:'group',width:90,align:'right',group:[{
+						title:'解析',
+						tips:'查看当前域名的解析列表',
+						event:function(row,index,ev,key,that){
+							that.add_analysis_layer(row);
+						}
+					},{
+						title:'删除',
+						tips:'删除当前解析域名',
+						event:function(row,index,ev,key,that){
+							bt.show_confirm('删除解析域名','删除当前解析域名将会删除该域名下所有解析记录，确定要删除吗？',function(){
+								bt_tools.send({
+									url: '/plugin?action=a&name=dnspod&s=del_domain',
+									data: {domain:JSON.stringify([row.Name])},
+									verify:false
+								},function(res){
+									layer.close(index);
+									if(typeof res.success != "undefined") res = (res.success.length > 0 ?{msg:'操作成功',status:true}:{msg:res.error[row.Name],status:false});
+									that.request_handle(res,function(){
+										bt_tools.msg(res);
+									});
+								},'删除解析记录');
+							});
+						}
+					}]}
+				],
+				tootls:[{ // 按钮组
+					type:'group',
+					positon:['left','top'],
+					list:[{
+						title:'添加解析域名',
+						active:true,
+						event:function(ev){
+							bt_tools.open({
+								title:'添加解析域名',
+								area:'400px',
+								skin:'custom_layer',
+								btn:['提交','取消'],
+								content:{
+									url:'/plugin?action=a&name=dnspod&s=add_domain',
+									class:'pd20',
+									formLabelWidth:'80px',
+									form:[{
+										label:'域名',
+										group:{
+											type:'textarea',
+											style:{'width':'240px','max-width':'240px','min-height':'80px','height':'80px','line-height':'18px','padding':'8px 10px'},
+											name:'domain',
+											tips:{ //使用hover的方式显示提示
+												text:'输入您要解析的一级域名如：bt.cn</br>如需填写多个域名，请换行填写',
+												style:{top:'10px',left:'10px'},
+												status:true
+											},
+											verify:function(value,element,model,is_monitor){
+												if(typeof is_monitor == "undefined") is_monitor = true;
+												if(value == '' && is_monitor){
+													bt_tools.$verify_tips(element,'解析域名不能为空！');
+													return false;
+												}
+												var list = value.split("\n");
+												for(var i = list.length -1;i >= 0;i--){
+
+													if(list[i] == ""){
+														list.splice(i,1);
+														continue;
+													}
+													list[i] = list[i].replace(/\s+/g,"");
+													if(!bt.check_domain(list[i])){
+														bt_tools.$verify_tips(element,'第'+ (i+1) +'行，解析域名[ '+ list[i] +' ]格式错误！');
+														return false;
+													}else if(list[i].split('.').length != 2){
+														bt_tools.$verify_tips(element,'解析域名格式错误，请输入需要解析的一级域名，例如：bt.cn');
+														return false;
+													}
+												}
+												return JSON.stringify(list);
+											}
+										}
+									}]
+								},
+								yes:function(form,index,layero){
+									var that = this;
+									form['domain'] = JSON.stringify(form['domain'].split("\r\n"))
+									this.$submit(form,function(res,parem){
+										dns_pod_table.$refresh_table_list(true);
+										var html = '',domain = JSON.parse(parem.domain);
+										for(var i= 0;i < domain.length;i++){
+											var item = domain[i];
+											html += '<tr>\
+												<td><span >'+ item +'</td>\
+												<td><div style="float:right;width:180px;text-align:right"><span style="color:'+ (typeof res.error[item] == "undefined"?'#20a53a':'red') +'">'+ (typeof res.error[item] != "undefined"?res.error[item]:'添加成功')+'</span></div></td>\
+											</tr>';
+										}
+										bt_tools.$batch_success_table({title:'添加解析域名',area:['400px','350px'],th:'解析域名',html:html});
+										layer.close(index);
+									},'添加解析域名');
+								},
+								end:function(){
+									layer.closeAll('tips');
+								}
+							});
+						}
+					},{
+						title:'购买解析套餐',
+						event:function(ev){
+							window.open("https://buy.cloud.tencent.com/cns?from=gobuy");
+						}
+					},{
+						title:'设置关联密钥',
+						event:function(ev){
+							add_config.content.data = config;
+							add_config.end = function(){}
+							bt_tools.open(add_config);
+						}
+					}]
+				},{ // 搜索内容
+					type:'search',
+					positon:['right','top'],
+					placeholder:'请输入解析的域名',
+					searchParam:'search', //搜索请求字段，默认为 search
+					width:'250px',
+					value:'',// 当前内容,默认为空
+				},{ // 批量操作
+					type:'batch',
+					positon:['left','bottom'],
+					placeholder:'请选择批量操作',
+					buttonValue:'批量操作',
+					disabledSelectValue:'请选择需要批量操作的域名!',
+					selectList:[{
+						group:[{title:'开启解析域名',param:{status:'ENABLE'},tips:'开启解析后该域名绑定的网站和其他服务将恢复正常，注意生效时间可能存在延迟。'},{title:'暂停解析域名',param:{status:'DISABLE'},tips:'暂停解析后所绑定的网站和其他服务将无法通过域名访问，是否继续？'}],
+							url:'/plugin?action=a&name=dnspod&s=set_domain_status',
+							confirmVerify:false, //是否提示验证方式
+							paramName:'domain', //列表参数名,可以为空
+							paramId:'name', // 需要传入批量的id
+							theadName:'解析域名',
+							beforeRequest:function(list){
+								var arry = [];
+								$.each(list,function(index,item){
+									arry.push(item.Name);
+								});
+								return JSON.stringify(arry);
+							},
+							refresh:true // 是否刷新列表
+						},{
+							title:'删除解析域名',
+							url:'/plugin?action=a&name=dnspod&s=del_domain',
+							confirmVerify:true, //是否提示验证方式
+							paramName:'domain', //列表参数名,可以为空
+							paramId:'name', // 需要传入批量的id
+							theadName:'解析域名',
+							beforeRequest:function(list){
+								var arry = [];
+								$.each(list,function(index,item){
+									arry.push(item.Name);
+								});
+								return JSON.stringify(arry);
+							},
+							refresh:true // 是否刷新列表
+						}]
+				},{ //分页显示
+					type:'page',
+					positon:['right','bottom'], // 默认在右下角
+					pageParam:'p', //分页请求字段,默认为 : p
+					page:1, //当前分页 默认：1
+					numberParam:'limit',　//分页数量请求字段默认为 : limit
+					number:8,　//分页数量默认 : 10条
+				}],
+				methods:{
+					/**
+					 * @description 添加解析
+					 * @param {object} row 行内数据
+					 * @return void(0)
+					*/ 
+					add_analysis_layer:function(row){
+						var rows = row;
+						bt_tools.open({
+							title:'解析域名 - [ '+  rows.Name +' ]',
+							area:['1120px','660px'],
+							skin:'custom_layer',
+							anim:false,
+							btn:false,
+							content:'<div id="analysis_domain" class="pd20"></div>',
+							success:function(layero,index){
+								var list = {
+									subDomain:{tips:'要解析 www.wewerw.cn，请填写 www。主机记录就是域名前缀，<strong class="bt_warning">点击下列选项可自动填充</strong>:',list:[{title:"www","tips":"解析后的域名为 www.wewerw.cn"},{title:"@","tips":"直接解析主域名  wewerw.cn"},{title:"*","tips":"泛解析，匹配其他所有域名 *.wewerw.cn"},{title:"mail","tips":"将域名解析为 mail.wewerw.cn，通常用于解析邮箱服务器"},{title:"二级域名","tips":"如：abc.wewerw.cn，填写abc",ban:'请手动输入您的二级域名'}]},
+									recordType:{tips:'将域名指向云服务器，请选择「A」；</br>将域名指向另一个域名，请选择「CNAME」；</br>建立邮箱请选择「MX」，根据邮箱服务商提供的MX记录，<strong class="bt_warning">点击下列选项可自动填充</strong>：',list:[{title:"A","tips":"用来指定域名的IPv4地址（如：8.8.8.8），如果需要将域名指向一个IP地址，就需要添加A记录。"},{title:"CNAME","tips":"如果需要将域名指向另一个域名，再由另一个域名提供ip地址，就需要添加CNAME记录。"},{title:"MX","tips":"如果需要设置邮箱，让邮箱能收到邮件，就需要添加MX记录。"},{title:"TXT","tips":"在这里可以填写任何东西，长度限制255。绝大多数的TXT记录是用来做SPF记录（反垃圾邮件）。"},{title:"NS","tips":"域名服务器记录，如果需要把子域名交给其他DNS服务商解析，就需要添加NS记录。"},{title:"AAAA","tips":"用来指定主机名（或域名）对应的IPv6地址（例如：ff06:0:0:0:0:0:0:c3）记录。"},{title:"SRV","tips":"记录了哪台计算机提供了哪个服务。格式为：服务的名字、点、协议的类型，例如：_xmpp-server._tcp。"},{title:"显性URL","tips":"从一个地址301重定向到另一个地址的时候，就需要添加显性URL记录（注：DNSPod目前只支持301重定向）。"},{title:"隐性URL","tips":"类似于显性URL，区别在于隐性URL不会改变地址栏中的域名。"}]},
+									recordLine:{tips:'选择解析线路，一般「默认」即可，<strong class="bt_warning">点击下列选项可自动填充</strong>：',list:[{title:"默认","tips":"必须添加，否则只有单独指定的线路才能访问您的网站"},{title:"境内","tips":"中国大陆地区，单独为其指定服务器 IP ，其他用户则访问默认线路"},{title:"境外","tips":"中国大陆以外的其他地区（包含中国香港、中国澳门、中国台湾），单独为其指定服务器 IP ，其他用户则访问默认线路"},{title:"电信","tips":""},{title:"联通","tips":"单独为「联通用户」指定服务器 IP，其他用户依然访问「默认」"},{title:"移动","tips":""}]},
+									value:['填写您服务器 IPv4地址（如：8.8.8.8），如果您不知道，请咨询您的空间商。或者您还可以关联云资源','填写一个域名，如：cloud.tencent.com','填写您邮件服务器的IP地址或企业邮局给您提供的域名，如果您不知道，请咨询您的邮件服务提供商','一般用于 Google、QQ等企业邮箱的反垃圾邮件设置；填写文本，字符长度限制255','NS向下授权，填写dns域名，例如：f1g1ns1.dnspod.net 。不常用，系统默认添加的两个NS记录请不要修改','解析到 IPv6 的地址，例如：ff06:0:0:0:0:0:0:c3，不常用。','格式为：优先级、空格、权重、空格、端口、空格、主机名，5 0 5269 example.bttt.cn，记录生成后会自动在域名后面补一个“.”，这是正常现象。','填写要跳转到的网址，如http://www.bttt.cn','填写引用内容的网址，如http://www.bttt.cn'], 
+									mx:{tips:'MX记录时才需要定MX优先级</br>MX优先级指定邮件服务器接收邮件的先后顺序（1-50），一般默认设置为5、10、15等，数值越小优先级越高'}, 
+									ttl:{tips:'TTL为缓存的生存时间，默认最常用的 600 秒。指地方dns缓存您域名记录信息的时间，缓存失效后会再次到腾讯云（DNSPod）获取记录值，<strong class="bt_warning">点击下列选项可自动填充</strong>：',list:[{title:"600秒（10分钟）",value:600,tips:"免费解析套餐支持的最小解析生效时间：600秒，不用修改"},{title:"1800秒（30分钟）",value:1800,"tips":"如您IP变动可能频繁，建议选择1800秒"},{title:"3600秒（1小时）",value:3600,"tips":"如您IP极少变动（一年几次），建议选择3600秒，解析速度快"}]}
+								},add_subDomain = null,
+								analysis_domain = bt_tools.table({
+									el:'#analysis_domain',
+									load:true,
+									tips:'获取解析列表',
+									url:'/plugin?action=a&name=dnspod&s=get_record_list',
+									param:{domain:rows.Name},
+									default:"解析列表为空", //数据为空时的默认提示
+									height:'500px',
+									dataFilter:function(res){
+										analysis_domain.request = rows;
+										analysis_domain.request.ips = res.ips
+										var filterList = []
+										$.each(res.RecordList,function(i,item){
+											item['Status'] = item['Status'] == 'ENABLE' ? true : false;
+											if(item[''])
+											if(i == 0 || i == 1){
+												if(item.Type == 'NS' && item.Value.indexOf('dnspod') != -1) return true;
+											}
+											filterList.push(item)
+										})
+										return {data:filterList,page:res.page}
+									},
+									success:function(that){
+										var analysisTable = $('#analysis_domain')
+										if(typeof that.request != "undefined"){
+											var domain = that.request;
+											if(domain.DNSStatus == 'DNSERROR'){
+												if($('.dnspod-tips').length == 1) return false;
+												analysisTable.prepend('<div class="alert alert-danger dnspod-tips" role="alert"><span class="glyphicon glyphicon-exclamation-sign" style="font-size: 17px;margin-right: 5px;vertical-align: middle;" aria-hidden="true"></span><span style="vertical-align: middle;">当前域名未设置正确的 DNS 服务器，DNS 解析服务未生效, 如超过30天未设置将被系统自动清除。</span><span class="btlink dns_setting">DNS 设置</span></div>');
+												$('.dns_setting').click(function(){
+													dns_pod_table.dns_ns_dialog(rows)
+												})
+												dns_pod_table.dns_ns_dialog(rows)
+											}else{
+												// bt_tools.$piugin_view_set(layero,{width:1100,height:610});
+												// $('#analysis_domain').height(510);
+											}
+										}
+									},
+									methods: {
+										/**
+										 * @description 渲染解析tips列表
+										 *
+										*/
+										cut_data_list:function(type,value){
+											var html = '',_list = [];
+											try {
+												if(typeof list[type].list != "undefined" || Array.isArray(type)){
+													if(Array.isArray(type)){
+														_list = type;
+													}else{
+														_list = list[type].list;
+													}
+													for(var i=0; i<_list.length;i++){
+														var items =_list[i],values = items.value || items.title;
+														html += '<li '+ (value == values?'class="active"':'') +' data-value="'+ values +'" '+ (items.ban?('data-ban="'+ items.ban+'"'):'') +' data-index="'+ i +'"><span class="tr_list_title">'+ values +'</span><span class="tr_list_content">'+ items.tips +'</span></li>';
+													}
+												}
+											} catch (error) {}
+											if(Array.isArray(type)) return html;
+											if(Array.isArray(list[type])) return [];
+											return [list[type].tips,html];
+										},
+										/**
+										 * @description 关闭解析tr列表
+										*/
+										clear_analysis_tr:function(){
+											$(this.config.el).find('.tootls_group.tootls_bottom,tbody tr').removeAttr('style');
+											$(this.config.el).find('.add_analysis_tr').remove();
+											$(window).unbind('click',add_subDomain);
+											layer.closeAll('tips');
+										},
+										/**
+										 * @description 关闭解析tr列表
+										*/
+										verify_analysis_form:function(that,is_verify){
+											var name = $(that).attr('name'),value = $(that).val(),_that = this,data = null;
+											function form_verify(){
+												switch(name){
+													case 'subDomain':
+														var _type = $('[name="recordType"]').val();
+														switch(_type){
+															default:
+																if(value == ''){
+																	return ['主机记录内容不能为空！',$(that)];
+																}
+															break;
+														}
+													break;
+													case 'value':
+														var _type = $('[name="recordType"]').val();
+														switch(_type){
+															case 'A':
+																if(!bt.check_ip(value)) return ['IPv4地址格式错误！',$(that)];
+															break;
+															case 'TXT':
+																if(value.length > 255) return ['TXT类型记录值字符长度限制255！',$(that)];
+															break;
+															case '显性URL':
+															case '隐性URL':
+																if(!bt.check_url(value)) return ['URL地址错误！',$(that)];
+															break;
+															default:
+																if(value == '') return ['记录值内容不能空！',$(that)];
+															break;
+														}
+													break;
+													case 'ttl':
+														value = parseInt(value);
+														if(value <= 0 && value < _that.request.TTL) return ['解析缓存时间不能为空或小于解析套餐最小值:'+ _that.request.TTL,$(that)];
+													break;
+												}
+												return true;
+											}
+											if(!is_verify){
+												return form_verify();
+											}else{
+												data = form_verify();
+											}
+											if(Array.isArray(data) && is_verify){
+												layer.tips(data[0],data[1],{tips:[1,'red'],time:0});
+												data[1].focus();
+												data[1].css('border-color','red');
+											}else{
+												return true;
+											}
+										},
+
+										/**
+										 * @description 编辑解析fr列表
+										 * @param {object} form form数据
+										*/
+										edit_analysis_tr:function(form,el){
+											var el = $('.add_analysis_tr'),that = this,typeHTML = '',lineHTML = '';
+											if(el.length > 0){
+												el.find('[name="subDomain"]').focus();
+												return false;
+											}
+											if(typeof form == "undefined") form = {Type:'A',TTL:600,MX:0,Name:'',Value:'',Line:'默认'};
+											$.each(list.recordType.list,function(i,item){
+												typeHTML += '<option value="'+ item.title +'" '+(form.Type == item.title?'selected':'')+'>'+ item.title +'</option>';
+											})
+											$.each(list.recordLine.list,function(i,item){
+												lineHTML += '<option value="'+ item.title +'" '+(form.Line == item.title?'selected':'')+'>'+ item.title +'</option>';
+											})
+
+											var add_analysis_tr = $('<tr class="add_analysis_tr">\
+												<td></td>\
+												<td><input type="text" name="subDomain" style="width:120px;" value="'+ form.Name +'" placeholder="根据下方提示填写" autocomplete="off"/></td>\
+												<td><select type="text" name="recordType" style="width:70px;" value="'+ form.Type +'" class="cursor" data-index="0">'+typeHTML+'</select></td>\
+												<td><select type="text" name="recordLine"  style="width:54px;" value="'+ form.Line +'" class="cursor">'+lineHTML+'</select></td>\
+												<td><input type="text" name="value" placeholder="根据下方提示填写" value="'+ form.Value +'" autocomplete="off"/></td>\
+												<td>'+ (form.Type == "MX"?'<input type="text" name="mx" style="width:58px" autocomplete="off" value="'+ form.MX +'"/>':'-') +'</td>\
+												<td><input type="text"  name="ttl" value="'+ form.TTL +'" style="width:58px" autocomplete="off"s/></td>\
+												<td>-</td>\
+												<td>-</td>\
+												<td><button class="btn btn-success btn-sm mr5 save_data_tr">保存</button><button class="btn btn-default btn-sm clear_data_tr">取消</button></td>\
+											</tr>\
+											<tr class="add_analysis_tr add_analysis_tr_tips">\
+												<td colspan="10"><div class="tr_tips input_0"></div></td>\
+											</tr>');
+											if(el){
+												$(that.config.el).find('tbody').prepend(add_analysis_tr);
+											}else{
+												$(el).prepend(add_analysis_tr);
+											}
+											add_analysis_tr.on('focus','input,select',function(){
+												var name = $(this).attr('name'),value = $(this).val(),tips = that.cut_data_list(name,value),html = '',index = $(this).parent().index() -1;
+												if(name === 'value'){
+													var type_index = $('[name="recordType"]').data('index'),_list = '';
+													$.each(that.request.ips,function(indexs,item){
+														_list += '<li data-index="'+ indexs +'" data-value="'+ item +'"><span class="tr_list_title">'+ item +'</span></li>';
+													});
+													tips = [list[name][type_index]+'&nbsp;&nbsp;<strong class="bt_warning">常用记录值,点击下列选项可自动填充</strong>',_list];
+												}
+												html = '<p class="tr_tips_title">'+ tips[0] +'</p>' + (tips[1] != ''?('<ul class="tr_tips_list">'+ tips[1] +'</ul>'):'');
+												add_analysis_tr.find('.tr_tips').html(html);
+												add_analysis_tr.find('.tr_tips_list').data('type',name);
+												$('.add_analysis_tr_tips .tr_tips').removeAttr('class').addClass('tr_tips input_'+index);
+											}).on('blur',function(ev){
+												layer.closeAll('tips');
+												$(this).removeAttr('style');
+											}).on('input',function(ev){
+												layer.closeAll('tips');
+												$(this).removeAttr('style');
+											});
+											// 下拉框事件
+											add_analysis_tr.on('change','select',function(){
+												var index = $(this).prop('selectedIndex');
+												$('.add_analysis_tr_tips').find('.tr_tips_list li:eq('+ index +')').click();
+											})
+
+											add_subDomain = function(ev){
+												var keyCode = ev.keyCode, add_analysis_tr_tips = $('.add_analysis_tr_tips');
+												if(keyCode == 13){
+													$('.save_data_tr').click();
+												}else if(add_analysis_tr_tips.length > 0 && (keyCode == 38 || keyCode == 40)){
+													var is_active = add_analysis_tr_tips.find('.tr_tips_list li.active').length > 0,length = add_analysis_tr_tips.find('.tr_tips_list li').length,index = 0,active_index = parseInt(add_analysis_tr_tips.find('.tr_tips_list li.active').attr('data-index'));
+													var _length = length - (add_analysis_tr_tips.find('.input_0').length > 0?2:1);
+													if(keyCode == 38){ //上
+														if(!is_active){
+															index = _length;
+														}else{
+															index = active_index === 0?_length:(active_index-1);
+														}
+													}else if(keyCode == 40){ //下
+														if(!is_active){
+															index = 0;
+														}else{
+															index = active_index == _length?0:(active_index+1);
+														}
+													}
+													add_analysis_tr_tips.find('.tr_tips_list li:eq('+ index +')').click();
+													ev.stopPropagation();
+													ev.preventDefault();
+												}
+											}
+											$(window).keyup(add_subDomain);
+											$(window).keydown(function (ev){
+												if(ev.keyCode == 40 || ev.keyCode == 38){
+													ev.preventDefault();
+												}
+											});
+											add_analysis_tr.find('input:eq(0)').focus();
+											add_analysis_tr.find('.tr_tips').on('click','li',function(){
+												var value = $(this).data('value'),type = $(this).parents().data('type'),ban = $(this).data('ban');
+												var input = add_analysis_tr.find('[name="'+ type +'"]');
+												if(!ban){
+													input.data('index',$(this).index());
+													input.val(value);
+													$(this).addClass('active').siblings().removeClass('active');
+												}else{
+													$(this).siblings().removeClass('active');
+													input.val('').focus();
+													layer.tips(ban,input,{tips:[1,'#20a53a'],time:3000});
+												}
+												if(type == "recordType" && value === 'MX'){
+													add_analysis_tr.find('td:eq(5)').html('<input type="text" name="mx" style="width:58px" value="0" autocomplete="off" value="'+  +'"/>');
+												}else if(type == "recordType"){
+													add_analysis_tr.find('td:eq(5)').html('-');
+												}
+											});
+											add_analysis_tr.find('.clear_data_tr').click(function(){
+												that.clear_analysis_tr();
+											});
+											add_analysis_tr.find('.save_data_tr').click(function(){
+												var tips = '',element = '',data = [],paream = {},request = that.request;
+												$('.add_analysis_tr :input').not('button').each(function(index,item){
+													data = that.verify_analysis_form(item);
+													paream[$(this).attr('name')] = $(this).val();
+													if(Array.isArray(data)) return false;
+												});
+												if(Array.isArray(data)){
+													layer.tips(data[0],data[1],{tips:[1,'red'],time:0});
+													data[1].focus();
+													data[1].css('border-color','red');
+													return false;
+												}
+												var is_add = typeof form.RecordId == "undefined"?true:false;
+												if(!is_add) paream.recordId = form.RecordId;
+												if(typeof paream.mx == "undefined") paream.mx = 0;
+												bt_tools.send({
+													url: '/plugin?action=a&name=dnspod&s='+ (is_add? 'create_record':'modify_record'),
+													data: $.extend({domain:request.Name},paream)
+												}, function (res) {
+													that.request_handle(res,function(res){
+														if(!is_add){
+															bt_tools.msg(res);
+														}else{
+															if(res.success.length > 0){
+																bt_tools.msg({msg:res.success[0]+'主机记录添加成功',status:true});
+															}else{
+																bt_tools.msg({msg:res.error[paream.subDomain],status:false});
+															}
+														}
+													});
+												},is_add?'添加解析记录':'修改解析记录');
+											});
+										},
+										/**
+										 * @description 请求二次处理
+										 * @param {object} form form数据
+										 * @param {function} callback 回调函数
+										*/
+										request_handle:function(res,callback){
+											var that = this;
+											if(typeof res.status == "boolean" && res.status === false){
+												if(typeof res.msg.message != "undefined"){
+													bt_tools.msg({status:false,msg:res.msg.message});
+												}else{
+													bt_tools.msg(res);
+												}
+												return false;
+											}else{
+												that.clear_analysis_tr();
+												that.$refresh_table_list(true,function(){
+													if(typeof callback === "function") {
+														callback(res);
+													}else if(typeof callback === "number"){
+														layer.close(callback);
+													}else{
+														bt_tools.msg(res);
+													}
+												});
+											}
+										},
+									},
+									column:[
+										{type:'checkbox',class:'',width:20},
+										{fid:'Name',title:'主机记录',width:100,fixed:true},
+										{fid:'Type',title:'记录类型',width:70,fixed:true},
+										{fid:'Line',title:'线路类型',width:66,fixed:true},
+										{fid:'Value',title:'记录值',width:125,fixed:true},
+										{fid:'MX',title:'MX优先级',type:'text',width:70,template:function(row){
+											if(row.MX == 0) return '-';
+											return '<span>'+ row.MX +'</span>';
+										}},
+										{fid:'TTL',title:'TTL（秒）',width:70,fixed:true},
+										{fid:'UpdatedOn',title:'最后操作时间',width:120},
+										{fid:'Status',type:'switch',title:'状态',width:60,status:{off:0,on:1},event:function(row,index,ev,key,that){
+											var _status = row.Status?'暂停':'启用';
+											bt.confirm({
+												title:_status+'解析记录',
+												msg: _status +'后该记录将'+(row.Status?'无法访问':'恢复正常')+'，解析记录变更存在延迟，是否继续操作？',
+												cancel:function(){
+													$(ev.target).prop('checked',row.Status?true:false);
+												}
+											},function(index){
+												bt_tools.send({
+													url: '/plugin?action=a&name=dnspod&s=set_record_status',
+													data: {domain:rows.Punycode,recordId:row.RecordId,status:row.Status?'DISABLE':'ENABLE'},
+													verify:false
+												},function(res){
+													if(!res.status) $(ev.target).prop('checked',row.Status?true:false);
+													layer.close(index);
+													that.request_handle(res,function(){
+														bt_tools.msg(res);
+													});
+												},_status+'解析记录');
+											},function(){
+												$(ev.target).prop('checked',row.Status?true:false);
+											});
+										}},
+										{type:'group',title:'操作',width:110,align:'right',group:[{
+											title:'修改',
+											event:function(row,index,ev,key,that){
+												if($('.add_analysis_tr').length > 0) return false;
+												$(ev.target).parents('tr').hide();
+												that.edit_analysis_tr(row);
+											}
+										},{
+											title:'删除',
+											event:function(row,index,ev,key,that){
+													bt.confirm({
+														title:'删除解析记录',
+														msg:'删除后该记录将会失效，解析记录变更存在延迟，是否继续操作？'
+													},function(index){
+														bt_tools.send({
+															url: '/plugin?action=a&name=dnspod&s=delete_record',
+															data: {domain:rows.Punycode,recordId:row.RecordId},
+															verify:false
+														},function(res){
+															layer.close(index);
+															that.request_handle(res,function(){
+																bt_tools.msg(res);
+															});
+														},'删除解析记录');
+													});
+											}
+										}]
+									}],
+									tootls:[{ // 按钮组
+										type:'group',
+										positon:['left','top'],
+										list:[{
+											title:'添加解析记录',
+											active:true,
+											event:function(ev,that){
+												that.edit_analysis_tr();
+											}
+										}, {
+											title:'批量添加解析',
+											event: function(ev, that){
+												bt_tools.open({
+													title:'批量添加解析记录',
+													area:'500px',
+													skin:'custom_layer',
+													content:{
+														class:'pd20',
+														url:'/plugin?action=a&name=dnspod&s=create_record',
+														form:[{
+															label:'主机记录',
+															group:{
+																type:'textarea',
+																style:'width:300px;max-width:300px;min-height:80px;height:120px;line-height:18px;',
+																name:'subDomain',
+																tips:{
+																	text:'请输入主机记录，多个主机记录请换行填写',
+																	style:{top:'10px',left:'10px'},
+																	status:true
+																},
+																verify:function(value,element,model,is_monitor){
+																	if(value == ''){
+																		bt_tools.$verify_tips(element,'解析主机记录不能为空！');
+																		return false;	
+																	}
+																	return value;
+																}
+															}
+														},{
+															label:'记录值',
+															group:{
+																type:'text',
+																width:'300px',
+																name:'value',
+																placeholder:'填写您服务器 IPv4地址（例如：8.8.8.8）',
+																verify:function(value,element,model,is_monitor){
+																	if(value == ''){
+																		bt_tools.$verify_tips(element,'解析记录值不能为空！');
+																		return false;	
+																	}
+																	if(!bt.check_ip(value)){
+																		bt_tools.$verify_tips(element,'记录值格式错误，格式应为IPv4地址！');
+																		return false;	
+																	}
+																	return value;
+																}
+															}
+														},{
+															label:'记录类型',
+															group:{
+																type:'text',
+																width:'300px',
+																name:'type',
+																value:'A记录',
+																disabled:true
+															}
+														},{
+															group:{
+																type:'help',
+																style:'margin:0 0 0 15px;',
+																list:['A记录：用来指定域名的IPv4地址（如：8.8.8.8），如果需要将域名指向一个IP地址，就需要添加A记录。','<span style="color:red;">提示：当前批量添加，仅支持最常用的A记录类型，其他参数为默认参数</span>']
+															}
+														}]
+													},
+													yes:function(form,indexs,layero){
+														var subDomain = form.subDomain.split('\n'),arry = [];
+														delete form.type;
+														$.each(subDomain,function(index,items){
+															if(items == "") return true;
+															arry.push(items.replace(/\s+/g,""));
+														})
+														form.subDomain = arry.join(',');
+														if(form.subDomain == '') return false;
+														this.$submit($.extend(form,{domain:row.Name,recordType:'A',recordLine:'默认',value:form.value,ttl:'600',mx:'0'}),function(res){
+															var arry = [],html = '';
+															for(var key in res.error){
+																arry.push({sub:key,msg:res.error[key],status:false});
+															}
+															for(var i=0;i<res.success.length;i++){
+																arry.push({sub:res.success[i],msg:'添加成功',status:true});
+															}
+															for(var j=0;j<arry.length;j++){
+																html += '<tr><td>'+ arry[j].sub +'</td><td style="text-align:right;"><span style="color:'+ (arry[j].status?'#20a53a':'red') +';">'+ arry[j].msg +'</span></td></tr>';
+															}
+															bt_tools.$batch_success_table({title:'批量添加主机记录',area:['400px','360px'],th:'主机记录',html:html});
+															analysis_domain.$refresh_table_list(true);
+															layer.close(indexs);
+														});
+													}
+												});
+											}
+										}],
+									},{ // 搜索内容
+										type:'search',
+										positon:['right','top'],
+										placeholder:'请输入需要查询记录值/主机记录/记录类型/TTL',
+										searchParam:'search', //搜索请求字段，默认为 search
+										width:'300px',
+										value:'',// 当前内容,默认为空
+									},{
+										type:'batch',//batch_btn
+										show:'top',
+										positon:['left','bottom'],
+										placeholder:'请选择批量操作',
+										buttonValue:'批量操作',
+										disabledSelectValue:'请选择需要批量操作的解析记录',
+										selectList:[{
+											title:'启用解析记录',
+											url:'/plugin?action=a&name=dnspod&s=set_record_status',
+											paramId:'id',
+											paramName:'RecordId',
+											beforeBacth:function(row){
+												return {recordId:row.RecordId,status:'ENABLE',domain:rows.Name}
+											},
+											theadName:'记录值',
+											load:true,
+											refresh:true,
+											recursion:true,
+											automatic:true,
+											paramThead:'Value'
+										},{
+											title:'停止解析记录',
+											url:'/plugin?action=a&name=dnspod&s=set_record_status',
+											paramId:'id',
+											paramName:'recordId',
+											beforeBacth:function(row){
+												return {recordId:row.RecordId,status:'DISABLE',domain:rows.Name}
+											},
+											theadName:'记录值',
+											load:true,
+											refresh:true,
+											recursion:true,
+											automatic:true,
+											paramThead:'Value'
+										},{
+											title:'修改记录值',
+											url:'/plugin?action=a&name=dnspod&s=modify_record',
+											beforeBacth:function(row){
+												return {domain:rows.Name,subDomain:row.Name,recordId:row.RecordId,recordType:row.Type,recordLine:row.Line,mx:row.MX,ttl:row.TTL};
+											},
+											theadName:'主机记录',
+											load:true,
+											refresh:true,
+											automatic:true,
+											paramThead:'Value',
+											callback:function(bacth){
+												bt_tools.open({
+													title:'批量修改解析记录值',
+													area:'450px',
+													skin:'custom_layer',
+													content:{
+														class:'pd20',
+														form:[{
+															label:'记录值',
+															group:{
+																type:'text',
+																width:'260px',
+																name:'value',
+																placeholder:'请根据记录类型填写对应的记录值',
+																verify:function(value,element,model,is_monitor){
+																	if(value == ''){
+																		bt_tools.$verify_tips(element,'解析记录值不能为空！');
+																		return false;	
+																	}
+																	return value;
+																}
+															}
+														}]
+													},
+													yes:function(form,indexs,layero){
+														bacth.start_batch(form);
+														layer.close(indexs);
+													}
+												});
+											}
+										},{
+											title:'修改TTL',
+											url:'/plugin?action=a&name=dnspod&s=modify_record',
+											beforeBacth:function(row){
+												return {domain:rows.Name,subDomain:row.Name,recordId:row.RecordId,recordType:row.Type,recordLine:row.Line,mx:row.MX,value:row.Value};
+											},
+											theadName:'记录值',
+											load:true,
+											refresh:true,
+											automatic:true,
+											paramThead:'Value',
+											callback:function(bacth){
+												bt_tools.open({
+													title:'批量修改解析TTL',
+													area:'450px',
+													skin:'custom_layer',
+													content:{
+														class:'pd20',
+														formLabelWidth:'80px',
+														form:[{
+															label:'TTL',
+															group:{
+																type:'text',
+																width:'280px',
+																name:'ttl',
+																value:'600',
+																placeholder:'请输入需要设置的解析TTL(解析记录生效时间)',
+																verify:function(value,element,model,is_monitor){
+																	if(value == ''){
+																		bt_tools.$verify_tips(element,'解析TTL(解析记录生效时间),不能为空！');
+																		return false;	
+																	}
+																	return value;
+																}
+															},
+															help:{list:['TTL为缓存的生存时间，默认最常用的 600 秒。<br>指地方dns缓存您域名记录信息的时间，缓存失效后会再次到腾讯云（DNSPod）获取记录值']}
+														}]
+													},
+													yes:function(form,indexs,layero){
+														bacth.start_batch(form);
+														layer.close(indexs);
+													}
+												});
+											}
+										},{
+											title:'修改解析线路',
+											url:'/plugin?action=a&name=dnspod&s=modify_record',
+											beforeBacth:function(row){
+												return {domain:rows.Name,subDomain:row.Name,recordId:row.RecordId,recordType:row.Type,mx:row.MX,value:row.Value,ttl:row.TTL};
+											},
+											theadName:'记录值',
+											load:true,
+											refresh:true,
+											automatic:true,
+											paramThead:'Value',
+											callback:function(bacth){
+												bt_tools.open({
+													title:'批量修改解析线路',
+													area:'350px',
+													skin:'custom_layer',
+													content:{
+														class:'pd20',
+														formLabelWidth:'120px',
+														form:[{
+															label:'解析线路',
+															group:{
+																type:'select',
+																name:'recordLine',
+																width:'120px',
+																value:'默认',
+																list:(function(){
+																	var recordLine = list.recordLine.list,arry = [];
+																	for(var i = 0; i <recordLine.length; i++) {
+																		var items = recordLine[i];
+																		arry.push({title:items.title,value:items.title});
+																	}
+																	return arry;
+																}())
+															}
+														}]
+													},
+													yes:function(form,indexs,layero){
+														bacth.start_batch(form);
+														layer.close(indexs);
+													}
+												});
+											}
+										},{
+											title:'删除解析',
+											url:'/plugin?action=a&name=dnspod&s=delete_record',
+											beforeBacth:function(row){
+												return {recordId:row.RecordId,domain:rows.Name};
+											},
+											theadName:'记录值',
+											confirmVerify:true,
+											load:true,
+											refresh:true,
+											automatic:true,
+											recursion:true,
+											paramThead:'Value',
+										}]
+									},{ //分页显示
+										type:'page',
+										positon:['right','bottom'], // 默认在右下角
+										pageParam:'p', //分页请求字段,默认为 : p
+										page:1, //当前分页 默认：1
+										numberParam:'limit',　//分页数量请求字段默认为 : limit
+										number:10,　//分页数量默认 : 10条
+										render:true
+									}]
+								})
+								window.analysis_domain = analysis_domain;
+							}
+						});
+					},
+					/**
+					 * @description 请求二次处理
+					 * @param {object} form form数据
+					 * @param {function} callback 回调函数
+					*/
+					request_handle:function(res,callback){
+						var that = this;
+						if(!res.status){
+							if(typeof res.msg.message != "undefined"){
+								bt_tools.msg({status:false,msg:res.msg.message});
+							}else{
+								bt_tools.msg(res);
+							}
+							return false;
+						}else{
+							if(typeof that.clear_analysis_tr != "undefined") that.clear_analysis_tr();
+							that.$refresh_table_list(true,function(){
+								if(typeof callback === "function") {
+									callback(res);
+								}else if(typeof callback === "number"){
+									layer.close(callback);
+								}else{
+									bt_tools.msg(res);
+								}
+							});
+						}
+					},
+					/**
+					 * @description DNS解析 ns记录弹窗
+					 * @param {object} row form数据
+					*/
+					dns_ns_dialog:function(row){
+						this.get_dnspod_ns({domain:row.Name,dns_type:'NS'},function(res){
+							var domain = res,nsHTML = ''
+							if(typeof res.status != "undefined" && !res.status){
+								nsHTML = '<div class="bterror" style="width: 150px;line-height: 28px;">无法获取当前 DNS 服务器地址</div>'
+							}else{
+								nsHTML = '<div class="bterror dns-state-error" title="'+domain[0].value+'">'+domain[0].value +'</div></br><div class="bterror dns-state-error" title="'+domain[1].value+'">'+domain[1].value +'</div>'
+							}
+							bt_tools.open({
+								type:1,
+								title:false,
+								area: '520px',
+								btn:false,
+								content:'<div class="succeed_tip" style="font-family: 微软雅黑;padding:25px 50px 50px">' +
+										'<div class="tip_img" style="color:#333;font-weight: bold;">' +
+											'<div class="succeed_title" style="margin-top: 20px;text-align: center;font-size: 18px;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAGC0lEQVRoQ91aXWwUVRT+zmx3tvLjk4lCOlMx0J22JEYxKRgTNRgQ8PcBAsZEH+AF1CpE4cUI8QVQUFR4gQd9EIg8+BOgQiRiYkQSkWhod7cQtbMNYOKT/Nid7d5j7nSGTqf7c2e6hbCTtDu795xzz3fvnXPPPd8Q6nT9djemplL6UmLuEqCZBJ4B0EwQZrhdMC4BfJFBlzT5SXS6UHCO3v83rtXDBZqIkWxr8yxCaSEzLQKwPKatQ0R8nJE4YQ0M/RnTBmIB6TX1jibmtUy0rkLHgwDyAAaZWN6DmFoAyD/D+xynSsy7h4n2dNpOX1RAkYCcm9Fs6kmxVgASwDS/MwJ6BfFxCO1Ye75wTMWJjJFaDE0s1pgWMdAZ0LmqAbudorZn7qUhW8WWO1CqgjkjKWfgbQD3+DpMOJgo8Ydtg8XTqnbKyfW3JLtKCXqdGCsD7ZeJ+d10vrhHxbYSkJyZ2svg1TcAAGc1xvZ03jmo0omqTM7QVwrCWwQ8MDrbtC9tF9bUslETSNbUzwB4MABiy7VhZ/tDF3G9lvE47b/MxJSpTboE805A/1fLduZVs1cVSNbUOahMTBvS+cLOOA5G1ckZqfVMvCOoZ9lORX8rNmRN/WsAz/iGStCe6LSHTkR1aCLyvWbzwgTEdwEb31i282w5m2WB9Jn6Rg3Y6itUG4mJOKqqG1wZAtjUYTvbwrrjgGTM5EsE+tQXTACdc2LEdVUnVeTOm3pHCegdfU755Xa7+NmYZR/8IveJpqSQodQPsSss2zmk0tlky2RNXWYOX3j9XB4ual3BfWbMjPSb+lYBbJTCDGxpt53Nk+1gFPsZU9/sRzMN2NZmO5tGw7R3J9OOBCBnYxoDZ68NO49MVoiN4nxQ1gvNP3r7zNUS0OWnMzdmJGckP/FzJ2KsqvdmF9f5sJ7cNJlwQP4uc7N0vviKey//XWhJzR7W+Ly7pAgH2wecVaodZ43k96Rp76UHCkdVdYJyudbUUhbiTStffFxVP9OqH/DTmSZBc2YPFi64QPrN1KsC/JG8Fxov6Pir+LOKUQkCRI95spEDw5gHmPmkKpi+e5PzNUGnZL8a6LU2u/CxCyRr6EdBWMLA+XbbaVMBIWXc0WQ+EpBXBhOKQiCiZVFmNWPq/QTMAaPHyjtLKXsXpmOK/u/IOlNL0IJAww4BqAkmjs64ZyWYyF537qR+Q18lCPvdZcV4viPvfKU6I75cFMeiyFbzo8/Qn9MIX7rLi/EC5Yzk+0y0Qf4wkVRExUEVmSiD6KcuxLyDMoa+nwgySg1atiOPobGvao7WG4T7bJu6PE63MOMABSLPKct2Ho6NwlMs57DX5KcX8mvN50jFj6yp/wRgAZhPUtbQcyDISHXIsp0VKgZqyZQBE1SpCwhvRuTgLAejn7KmG7GmM/EH7QPF9bWcVG2vAKZuIKQfmdbkTmJ6A8CVBgLSMEtrNM24vR/2hgm/DbMhBqMLMz2pWvKMm2/Va2OUJVci/tbzYwV5dMBV+UOcEBzHsTg64bAfCL0oFJxpI2m8qbsbiyxGp21nrupeEUzc/JFRLVaEwWigp9vswmHVvnOmfs4rfrsbuQsk15pczUx73UxS8HzVonRdD1bA55btvKgCRBa9hUbu4Y+I16QHivtGZqS1eRZY/DGyvKIfdQVoV5z0X/bnziq4G0zd1qDzuwqQ4FEXpN0nCaLGKj7IUWiYcpAE0xAFOgkkXDK9mTRCrWcjRDNUL5m6EWyEYtvtG74VdEIYVJheIOZ1YUquLK0QptomcpavNdIq7UFaoVKlpxrRM4ZyuxX0QphOAFCRgotEvdXrrK04C0EawVWJRb35nYUpOEk33AIytCLl5vtZk9V1d98QFSdph5tFT1ei2sKzqgREKnmUnOQVx7wwwMS7VIvelZaULEoTU3f4hQEGbwpTbJVsKAPx95lyr3DI4rcG+qHEfEQ155I5VoJomQA/6hajR6/JfYUjOBK3/Us14WmVBJHQsEQwL5G0hEo0GifD6NGIejSBHknYxLIR5aWaWh1IekK7Q3+KwfNUXjwj0Bnxn3PY+gdXatlWaf8fWohkN4pSxKQAAAAASUVORK5CYII=" style="width:25px;height:25px" /> 未使用 DNSPod 解析服务</div>' +
+										'</div>'+
+										'<div class="tip_conter" style="line-height: 20px;">' +
+										'<div class="nstitle" style="margin-bottom: 20px;font-size: 14px;border-bottom: 1px solid #e1e1e1;padding-bottom: 25px;line-height: 24px;"><br>[<span style="color:#20a53a">' + row.Name + '</span>]域名未正确设置 DNS 服务器，如需正常使用 DNSPod 提供的 DNS 解析服务，请及时前往域名注册商处修改为 DNSPod 所属服务器。</div>' +
+										'<div class="nsName" style="display: flex;flex-wrap: wrap;margin: 0 -12px;">'+
+											'<div class="ns-state-item">'+
+												'<div class="ns-state-item-title">当前域名在域名注册商的设置</div>'+
+												'<div class="ns-state-item-content">'+nsHTML+'</div>'+
+											'</div>'+
+											'<div class="ns-state-item">'+
+												'<div class="ns-state-item-title">DNSPod 所属服务器</div>'+
+												'<div class="ns-state-item-content"><div class="dns-state-text" title="'+row.EffectiveDNS[0]+'">'+ row.EffectiveDNS[0] +'</div>&nbsp;&nbsp;<span class="ico-copy cursor mr5" data-clipboard-text="'+ row.EffectiveDNS[0] +'"></span></br><div class="dns-state-text" title="'+row.EffectiveDNS[1]+'">'+ row.EffectiveDNS[1] +'</div>&nbsp;&nbsp;<span class="ico-copy cursor mr5" data-clipboard-text="'+ row.EffectiveDNS[1] +'"></span></div>'+
+											'</div>'+
+										'</div>' +
+										'<div class="nsName btns" style="margin:20px 0;"><a href="https://docs.dnspod.cn/dns/changedns/" target="_blank">了解如何完成设置</a></div>' +
+										'<div style="font-size:12px;color:#555"><span >因各地运营商DNS缓存机制不同，修改DNS服务器最长需要72小时的全球生效时间，请您耐心等待。</span> <a href="https://console.dnspod.cn/dns/list" target="_blank" class="btlink" style="">手动刷新</a></div>' +
+									'</div>' +
+								'</div>',
+								success:function(){
+									var clipboard = new ClipboardJS('.ico-copy');
+									clipboard.on('success', function(e) {
+										layer.msg('复制成功',{icon:1});
+										e.clearSelection();
+									});
+									clipboard.on('error', function(e) {
+										layer.msg('复制失败，请手动选中文本复制',{icon:2});
+									});
+								}
+							});
+						},'获取NS记录');
+					},
+					/**
+					 * @description 请求二次处理
+					*/ 
+					get_dnspod_ns:function(config,callback,tips){
+						bt_tools.send('dnspod/query_dns',config,function(res){
+							if(callback) callback(res);
+						},{load:tips,plugin:true,verify:false});
+					}
+				},
+				success:function(){
+					// 红色状态提示
+					$('#dnspod_list').on('mouseenter','.dnc_dot',function(ev){
+						var _tips = null
+						if($(ev.target).hasClass('red')){
+							_tips = layer.tips('<span class="bt_danger">DNS 设置错误</span>',ev.target , { tips: [1, 'red'], time: 3000 });
+						}
+					}).on('mouseleave','.dnc_dot',function(){
+						console.log(1223)
+						layer.closeAll('tips');
+					})
+				}
+			})
+		}
+	},{load:'获取腾讯云关联信息',plugin:true});
+</script>

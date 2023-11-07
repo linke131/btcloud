@@ -1,0 +1,12 @@
+{
+	"title":"堡塔站点优化",
+	"name":"site_optimization",
+	"type":"plugin",
+	"ps":"按照站点类型优化站点以获取更高的性能【目前仅支持微擎】",
+	"versions":"1.1",
+	"checks":"/www/server/panel/plugin/site_optimization",
+	"author":"宝塔",
+	"beta": false,
+	"force_message": "",
+	"not_substituted":["config.json|f"]
+}

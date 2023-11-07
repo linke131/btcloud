@@ -1,0 +1,1944 @@
+<style>
+    /*样式写这里*/
+    .demo-table table tbody tr td span{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width:580px;
+        display:block;
+    }
+    .ssh-list-list span.glyphicon {
+        color: #666;
+        margin-right: 10px;
+        font-size: 18px;
+    }
+    .ssh-list-list span.glyphicon-folder-open {
+        color: #edca5c;
+    }
+    #ymlist{
+        height: 136px;
+    }
+    /*查询结果*/
+    .sr_selectes_box .sr_title{
+        display: inline-block;
+        width: auto;
+        height: 25px;
+        font-size: 11px;
+        line-height: 25px;
+    }
+    .sr_unselect{
+        position: relative;
+        display: inline-block;
+        height: 30px;
+        border: 1px solid #e6e6e6;
+        border-radius: 2px;
+        font-size: 13px;
+        line-height: 20px;
+    }
+    .sr_inputs{
+        box-sizing: border-box;
+        padding: 5px 30px 5px 10px;
+        height: 30px;
+        cursor: pointer;
+    }
+    .sr_unselect .sr_inputs:after {
+        position: absolute;
+        top: 0.8pc;
+        right: 7pt;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: #c2c2c2 transparent transparent;
+        border-style: solid;
+        border-width: 6px 6px 0;
+        content: '';
+        transition: transform .5s;
+    }
+    .sr_unselect.active .sr_input_list {
+        display: block;
+    }
+
+    .sr_unselect.active .sr_input_list {
+        animation-name: layui-upbit;
+        animation-duration: .3s;
+        animation-fill-mode: both;
+    }
+    .sr_input_list {
+        position: absolute;
+        top: 30px;
+        right: -1px;
+        left: -1px;
+        z-index: 899;
+        display: none;
+        box-sizing: border-box;
+        height: auto;
+        min-width: 100%;
+        border: 1px solid #d2d2d2;
+        border-radius: 2px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 12%);
+    }
+    .sr_input_list dd.sr_checked {
+        background: #5fb878!important;
+        color: #fff;
+    }
+    .sr_input_list dd {
+        padding: 5px 10px;
+        height: 30px;
+        line-height: 20px;
+    }
+    .sr_input_list dd:hover {
+        background-color: #f2f2f2;
+        cursor: pointer;
+    }
+    .sr_search {
+        padding: 2px 2px 2px 6px;
+        height: 2pc;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        line-height: 2pc;
+        width:190px;
+    }
+    .sr_list_view .overflow_hide{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+    }
+    /*.sr_list_view .sr_script_text{*/
+    /*    width:40%;*/
+    /*}*/
+    .sr_script_title{
+        width:182px;
+    }
+    .sr_ul_status{
+        margin-top: 10px;
+    }
+    .sr_ul_status li{
+        display: inline-block;
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+    .sr_ul_status li:first-child{
+        padding-left:0px;
+    }
+    .sr_script_total{
+        width: 72px;
+    }
+    .sr_list_view .sr_selectet{
+        padding: 0 5px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        height: 2pc;
+        width: 70px;
+    }
+    /*查询结果 end*/
+</style>
+<div class="bt-form">
+    <div class="bt-w-main" style="height: 600px;">
+        <!--菜单部分-->
+        <div class="bt-w-menu">
+            <p class="bgw" onclick="oos.get_arrange_list()">运维编排</p>
+            <p class="" onclick="oos.get_server_list()">服务器</p>
+            <p class="" onclick="oos.get_trigger_list()">触发器</p>
+            <p class="" onclick="oos.get_script_list()">脚本库</p>
+            <p class="" onclick="oos.get_logs()">操作日志</p>
+        </div>
+        <!--内容部分-->
+        <div class="bt-w-con pd15">
+            <div class="plugin_body"></div>
+        </div>
+    </div>
+</div>
+
+<!--JS脚本部分，不要将JS脚本写在其它地方-->
+<script type="text/javascript">
+
+    //定义窗口尺寸
+    $('.layui-layer-page').css({ 'width': '1200px' });
+
+    //左测菜单切换效果
+    $(".bt-w-menu p").click(function () {
+        $(this).addClass('bgw').siblings().removeClass('bgw')
+    });
+
+    /**
+     * 插件交互对象
+     * 您的所有JS代码可以写在里面
+     * 若不习惯JS的面向对象编程，可删除此对象，使用传统函数化的方式编写
+     * */
+    var oos = {
+        //日志
+        get_logs:function(p){
+            if(p == undefined) p = 1;
+            request_plugin('oos','get_logs',{p:p,tojs:'oos.get_logs'},function(rdata){
+                var tbody = '';
+                for(var i=0;i<rdata.data.length;i++){
+                    tbody += '<tr><td>'+rdata.data[i].log+'</td><td style="text-align: right;">'+rdata.data[i].addtime+'</td></tr>'
+                }
+
+                var con='<div class="divtable">\
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-hover">\
+                        <thead>\
+                            <tr>\
+                                <th>详情</th>\
+                                <th style="text-align: right;">操作时间</th>\
+                            </tr>\
+                        </thead>\
+                        <tbody id="logsBody">'+tbody+'</tbody>\
+                    </table>\
+                    </div><div class="page" style="margin-top:10px">'+rdata.page+'</div>';
+                $('.plugin_body').html(con);
+            });
+        },
+
+
+        get_index:function(fix){
+            if(fix === undefined){
+                fix = 'btoos';
+            }
+            fix += '_' + new Date().format('yyyymd_hhMMs');
+            return fix;
+        },
+
+
+        get_files:function(address,path,is_open){
+            if(path == undefined) path = '/root'
+            if(path === 1) path = $("#fileInputPath").prop('value');
+            request_plugin('oos','get_files',{address:address,path:path},function(rdata){
+                var tbodys = '';
+                if(is_open === undefined){
+                    tbodys += '<div class="clearfix" style="margin-left: 20px;margin-top: 13px;margin-bottom:-10px;">\
+                        <div class="pull-left">\
+                            <button id="backBtn" class="backBtn btn btn-default btn-sm glyphicon glyphicon-arrow-left pull-left" title="后退" onclick="oos.BackDir(\''+address+'\')"></button>\
+                            <button class="backBtn refreshBtn btn btn-default btn-sm glyphicon glyphicon-refresh pull-right" title="刷新" style="margin-left:-1px;" onclick="oos.get_files(\''+address+'\',1,true);"></button>\
+                            <span id="DirPathPlace" class="pull-left" style="display: none;"><input id="fileInputPath" type="text" value="'+path+'"></span>\
+                            <span id="PathPlaceBtn" class="pull-left" style="width: 494px;;display: inline;">\
+                                <div style="height:26px"><ul style="left: 0px;">\
+                                    <li><a title="/">根目录</a></li>\
+                                    </ul>\
+                                </div>\
+                            </span>\
+                        </div>\
+                    </div>'
+                    tbodys += '<div class="ssh-list-list divtable pd20"><table class="table table-hover">';
+                    tbodys += '<thead><tr><th>文件名</th><th>大小</th><th>修改时间</th><th>权限</th><th>所有者</th><th style="text-align: right;">操作</th></tr></therd>';
+                    tbodys += '<tbody id="oos-files">';
+                }
+                
+                for(var i=0;i<rdata.DIR.length;i++){
+                    dir_tmp = rdata.DIR[i].split(";")
+                    tbodys += '<tr>\
+                                    <td><span class="glyphicon glyphicon-folder-open"></span><a class="btlink" onclick="oos.get_files(\''+address+'\',\''+path+'/'+dir_tmp[0]+'\',true);">'+dir_tmp[0]+'</a></td>\
+                                    <td>'+ToSize(dir_tmp[1])+'</td>\
+                                    <td>'+bt.format_data(dir_tmp[2])+'</td>\
+                                    <td>'+dir_tmp[3]+'</td>\
+                                    <td>'+dir_tmp[4]+'</td>\
+                                    <td style="text-align: right;"><!--<a class="btlink" onclick="oos.remove_file(\''+address+'\',\''+ path + '/' + dir_tmp[0] +'\')">删除</a>--></td>\
+                                </tr>';
+                }
+                for(var i=0;i<rdata.FILES.length;i++){
+                    file_tmp = rdata.FILES[i].split(";")
+                    tbodys += '<tr>\
+                                    <td><span class="glyphicon glyphicon-file"></span>'+file_tmp[0]+'</td>\
+                                    <td>'+ToSize(file_tmp[1])+'</td>\
+                                    <td>'+bt.format_data(file_tmp[2])+'</td>\
+                                    <td>'+file_tmp[3]+'</td>\
+                                    <td>'+file_tmp[4]+'</td>\
+                                    <td style="text-align: right;"><!--<a class="btlink" onclick="oos.remove_file(\''+address+'\',\''+ path + '/' + file_tmp[0] +'\')">删除</a>--></td>\
+                                </tr>';
+                }
+                
+                if(is_open === undefined){
+                    tbodys += '</tbody></table></div>'
+                    oos.add_show_index = layer.open({
+                        type: 1,
+                        title: "查看文件",
+                        area: ['900px','500px'],
+                        closeBtn: 2,
+                        shadeClose: false,
+                        content:tbodys
+                    });
+                    
+                }else{
+                    $("#oos-files").html(tbodys)
+                }
+
+                setTimeout( function(){
+                    oos.PathPlaceBtn(address,path);
+                },200);
+            });
+        },
+
+        get_script_zip:function (){
+            oos.zip_dialog = layer.open({
+                type: 1,
+                title: "请输入脚本压缩包路径",
+                area: '600px',
+                closeBtn: 2,
+                shadeClose: false,
+                content:'<div class="bt-form pd20 pb70">\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">zip文件路径</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <input class="bt-input-text" name="zip_path" type="text" style="width:290px" placeholder="脚本压缩包路径(支持zip文件格式)"  value="">\
+                                </div>\
+                            </div>\
+                            <div class="bt-form-submit-btn">\
+                                <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.zip_dialog)">取消</button>\
+                                <button type="button" class="btn btn-success btn-sm" onclick="oos.import_script()">提交</button>\
+                            </div>\
+                        </div>'
+            });
+        },
+
+        get_trigger_zip:function (){
+            oos.zip_dialog = layer.open({
+                type: 1,
+                title: "请输入触发器压缩包路径",
+                area: '600px',
+                closeBtn: 2,
+                shadeClose: false,
+                content:'<div class="bt-form pd20 pb70">\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">zip文件路径</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <input class="bt-input-text" name="zip_path" type="text" style="width:290px" placeholder="触发器压缩包路径(支持zip文件格式)"  value="">\
+                                </div>\
+                            </div>\
+                            <div class="bt-form-submit-btn">\
+                                <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.zip_dialog)">取消</button>\
+                                <button type="button" class="btn btn-success btn-sm" onclick="oos.import_trigger()">提交</button>\
+                            </div>\
+                        </div>'
+            });
+        },
+
+
+        remove_file:function(address,path){
+            bt.show_confirm("删除["+path+"]","删除文件或目录后将无法恢复，继续吗？",function(){
+                request_plugin('oos','remove_file',{address:address,path:path},function(rdata){
+                    oos.get_files(address,$("#fileInputPath").val(),true);
+                    setTimeout(function(){bt.msg(rdata);},500);
+                })
+            });
+        },
+
+        PathPlaceBtn:function (address,path) {
+            var html = '';
+            var title = '';
+            path = path.replace('//', '/');
+            var Dpath = path;
+            $("#fileInputPath").val(path);
+            if (path == '/') {
+                html = '<li><a title="/">' + lan.files.path_root + '</a></li>';
+            }
+            else {
+                Dpath = path.split("/");
+                for (var i = 0; i < Dpath.length; i++) {
+                    title += Dpath[i] + '/';
+                    Dpath[0] = lan.files.path_root;
+                    html += '<li><a title="' + title + '">' + Dpath[i] + '</a></li>';
+                }
+            }
+            html = '<div style="height:26px"><ul>' + html + '</ul></div>';
+            $("#PathPlaceBtn").html(html);
+            $("#PathPlaceBtn ul li a").click(function (e) {
+                var Gopath = $(this).attr("title");
+                if (Gopath.length > 1) {
+                    if (Gopath.substr(Gopath.length - 1, Gopath.length) == '/') {
+                        Gopath = Gopath.substr(0, Gopath.length - 1);
+                    }
+                }
+                oos.get_files(address,Gopath,true);
+                e.stopPropagation();
+            });
+            oos.PathLeft();
+        },
+
+        PathLeft : function () {
+            var UlWidth = $("#PathPlaceBtn ul").width();
+            var SpanPathWidth = $("#PathPlaceBtn").width() - 50;
+            var Ml = UlWidth - SpanPathWidth;
+            if (UlWidth > SpanPathWidth) {
+                $("#PathPlaceBtn ul").css("left", -Ml)
+            }
+            else {
+                $("#PathPlaceBtn ul").css("left", 0)
+            }
+        },
+        BackDir: function (address) {
+            var str = $("#fileInputPath").val().replace('//', '/');
+            if (str.substr(str.length - 1, 1) == '/') {
+                str = str.substr(0, str.length - 1);
+            }
+            var Path = str.split("/");
+            var back = '/';
+            if (Path.length > 2) {
+                var count = Path.length - 1;
+                for (var i = 0; i < count; i++) {
+                    back += Path[i] + '/';
+                }
+                if (back.substr(back.length - 1, 1) == '/') {
+                    back = back.substr(0, back.length - 1);
+                }
+                oos.get_files(address,back,true);
+            } else {
+                back += Path[0];
+                oos.get_files(address,back,true);
+            }
+            oos.PathPlaceBtn(address,back);
+        },
+
+        get_arrange_list:function(p){
+            if(p == undefined) p = 1;
+            request_plugin('oos','get_arrange_list',{rows:12,callback:'oos.get_script_list',p:p},function(rdata){
+                var tbodys = '<div class="divtable"><button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="oos.add_arrange_show()">添加编排任务</button><table class="table table-hover">';
+                    tbodys += '<thead><tr><th>名称</th><th>描述</th><th>执行</th><th>上次执行</th><th>触发</th><th>上次触发</th><th>状态</th><th style="text-align: right;">操作</th></tr></therd>';
+                    tbodys += '<tbody>'
+                
+                
+                for(var i=0;i<rdata.list.length;i++){
+                    var status_arr = [
+                        "<a class='btlink' style='color:#ff0000;' onclick=\"oos.arrange_status('"+rdata.list[i].name+"',1);\">停用</a>",
+                        "<a class='btlink' onclick=\"oos.arrange_status('"+rdata.list[i].name+"',0);\">正常</a>"
+                    ]
+                    if(!rdata.list[i].last_exec_time) rdata.list[i].last_exec_time = 0;
+                    if(!rdata.list[i].last_avcive_time) rdata.list[i].last_avcive_time = 0;
+                    if(!rdata.list[i].avcive_total) rdata.list[i].avcive_total = 0;
+                    if(!rdata.list[i].exec_total) rdata.list[i].exec_total = 0;
+                    tbodys += '<tr>\
+                                    <td>'+rdata.list[i].title+'</td>\
+                                    <td>'+rdata.list[i].ps+'</td>\
+                                    <td>'+rdata.list[i].exec_total+'</td>\
+                                    <td>'+(rdata.list[i].last_exec_time?bt.format_data(rdata.list[i].last_exec_time):'无')+'</td>\
+                                    <td>'+rdata.list[i].avcive_total+'</td>\
+                                    <td>'+(rdata.list[i].last_avcive_time?bt.format_data(rdata.list[i].last_avcive_time):'无')+'</td>\
+                                    <td>'+status_arr[rdata.list[i].status]+'</td>\
+                                    <td style="text-align: right;"><a class="btlink" onclick="oos.exec_arrange(\''+rdata.list[i].name+'\')">立即执行</a> | <a class="btlink" onclick="oos.get_arrange_log(\''+rdata.list[i].name+'\')">日志</a> | <a class="btlink" onclick="oos.modify_arrange_show(\''+rdata.list[i].name+'\')">修改</a> | <a class="btlink" onclick="oos.remove_arrange(\''+rdata.list[i].name+'\')">删除</a></td>\
+                                </tr>';
+                }
+                tbodys += '</tbody></table><div class="page">'+rdata.page+'</div></div>'
+                $('.plugin_body').html(tbodys);
+            });
+        },
+
+        get_arrange_log: function(name){
+            request_plugin('oos','get_arrange_log',{sname:name},function(rdata){
+                oos.add_show_index = layer.open({
+                    type: 1,
+                    title: "任务日志["+name+"]",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<pre style="color: #fff;background-color: #000000;border: 1px solid #060606;height:577px;margin: 0 0 0px;border-radius:0px;" id="show-log">'+rdata+'</pre>'
+                });
+                oos.set_scrolltop();
+            });
+        },
+
+        set_scrolltop:function(){
+            setTimeout(function(){
+                var div = document.getElementById('show-log')
+                div.scrollTop = div.scrollHeight;
+            },100);
+        },
+        add_arrange_show:function(){
+            request_plugin('oos','get_all_list',{},function(rdata){
+                oos.triggers = {}
+                oos.scripts = {}
+                var ch_list = '';
+                for(var i=0;i<rdata.servers.length;i++){
+                    ch_list += '<li style="cursor: pointer;"><input name="id" id="script-'+rdata.servers[i].address+'" class="checkbox-text" type="checkbox" value="'+rdata.servers[i].address + '"><label for="script-'+rdata.servers[i].address+'">'+rdata.servers[i].title + '('+rdata.servers[i].address+')</label></li>';
+                }
+                var scripts = '';
+                for(var i=0;i<rdata.scripts.length;i++){
+                    oos.scripts[rdata.scripts[i].name] = rdata.scripts[i];
+                    scripts += '<option value="'+rdata.scripts[i].name+'">'+rdata.scripts[i].title+' - '+rdata.scripts[i].ps+'</option>';
+                }
+                var triggers = '';
+                for(var i=0;i<rdata.triggers.length;i++){
+                    oos.triggers[rdata.triggers[i].name] = rdata.triggers[i];
+                    triggers += '<option value="'+rdata.triggers[i].name+'" title="'+rdata.triggers[i].ps+'">'+rdata.triggers[i].title+'</option>';
+                }
+                oos.add_show_index = layer.open({
+                    type: 1,
+                    title: "添加编排任务",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<div class="bt-form pd20 pb70">\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">任务名称</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="script_title" type="text" style="width:290px" placeholder="任务名称(可以是中文、英文、数值)"  value="">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">任务索引</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="script_name" type="text" style="width:290px" placeholder="任务索引(可以是英文、数值、下划线)"  value="'+oos.get_index('bt_arrange')+'">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">任务描述</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_ps" type="text" style="width:290px" placeholder="任务描述" value="">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">目标服务器</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <span><input id="setBox" onclick="oos.all_select()" class="checkbox-text" type="checkbox" style="margin-bottom: 5px;margin-left: 11px;"><label for="setBox" style="position: fixed;margin-top: 1px;margin-left: 5px;">全选</label></span>\
+                                        <ul id="ymlist" class="domain-ul-list" style="width:290px">'+ch_list+'</ul>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">选择触发器</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="script_trigger" class="bt-input-text" style="width:114px;margin-right:15px">'+triggers+'</select>\
+                                        <select name="script_operator" class="bt-input-text" style="width:60px;margin-right:15px"></select>\
+                                        <input class="bt-input-text" name="script_where" type="text" placeholder="触发值" style="width:80px" value="">\
+                                        <span class="script-unit"></span>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">触发后执行的脚本</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="script_script" class="bt-input-text" style="width:290px;margin-right:15px">'+scripts+'</select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">触发器探测周期</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_cycle" type="text" placeholder="周期(秒)" style="width:80px" value="60">\
+                                        <span class="trigger-unit">秒, 建议>10秒，过短的周期可能导致服务器开销浪费</span>\
+                                    </div>\
+                                </div>\
+                                <div class="bt-form-submit-btn">\
+                                    <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                    <button type="button" class="btn btn-success btn-sm" onclick="oos.add_arrange()">提交</button>\
+                                </div>\
+                                <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                    <li>请根据触发器数据类型填写触发值，如：整数型的触发数据，不能填写字符串作为触发值</li>\
+                                    <li>任务索引决定了临时数据的命名规则，一但设置不可更改，请设置易识别的值，如：bt001</li>\
+                                </ul>\
+                            </div>'
+                });
+
+                setTimeout(function(){
+                    oos.trigger_change();
+                    $("select[name='script_trigger']").change(function(){
+                        oos.trigger_change();
+                    });
+                }, 200);
+
+            });
+        },
+
+        trigger_change:function(operator){
+            var trigger_name = $("select[name='script_trigger']").val();
+            if(oos.triggers[trigger_name].value_type == 'string'){
+                $("select[name='script_operator']").html('<option value="=" '+(operator == '='?'selected':'')+'>等于</option><option value="!=" '+(operator == '!='?'selected':'')+'>不等于</option><option value="~" '+(operator == '~'?'selected':'')+'>匹配</option><option value="!~" '+(operator == '!~'?'selected':'')+'>不匹配</option>')
+            }else{
+                $("select[name='script_operator']").html('<option value=">" '+(operator == '>'?'selected':'')+'>大于</option><option value="<" '+(operator == '<'?'selected':'')+'>小于</option><option value="=" '+(operator == '='?'selected':'')+'>等于</option><option value="!=">不等于</option>')
+            }
+            if(oos.triggers[trigger_name].value_unit !== '无'){
+                $(".script-unit").text(oos.triggers[trigger_name].value_unit);
+            }else{
+                $(".script-unit").text('');
+            }
+        },
+
+
+        exec_arrange:function(name){
+            var server_list = oos.get_select_servers();
+            pdata = {
+                sname:name
+            }
+            request_plugin('oos','exec_arrange',pdata,function(rdata){
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.add_show_index);
+                var exec_cmd = '';
+                for(var i=0;i<rdata.length;i++){
+                    exec_cmd += "|-服务器: " + rdata[i].server + "  耗时: " + (rdata[i].endtime - rdata[i].starttime).toFixed(3) + "秒\n"
+                    exec_cmd += "=========================================================\n"
+                    exec_cmd += "|-探测结果: " + rdata[i].trigger_result
+                    exec_cmd += "|-触发结果: " + (rdata[i].result?'【已触发】':'【未触发】')
+                    exec_cmd += "\n=========================================================\n"
+                    if(rdata[i].result){
+                        exec_cmd += "|-脚本执行日志: \n" + rdata[i].script_result
+                        exec_cmd += "\n=========================================================\n"
+                    }
+                    
+                }
+
+                oos.add_show_index = layer.open({
+                    type: 1,
+                    title: "任务执行结果",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<pre style="color: #fff;background-color: #000000;border: 1px solid #060606;height:600px;margin: 0 0 0px;border-radius:0px;">'+exec_cmd+'</pre>'
+                });
+
+            },3600 * 1000);
+
+        },
+
+
+        add_arrange:function(){
+            var pdata = {
+                arrange_info:{
+                    "title":$("input[name='script_title']").val(),
+                    "name":$("input[name='script_name']").val(),
+                    "trigger":$("select[name='script_trigger']").val(),
+                    "script":$("select[name='script_script']").val(),
+                    "operator":$("select[name='script_operator']").val(),
+                    "where":$("input[name='script_where']").val(),
+                    "cycle":Number($("input[name='script_cycle']").val()),
+                    "status":1,
+                    "ps":$("input[name='script_ps']").val()
+                }
+            }
+
+            pdata.arrange_info['servers'] = oos.get_select_servers();
+
+            if(pdata.arrange_info.cycle < 1){
+                layer.msg('触发器探测周期不能小于1秒!');
+                return;
+            }
+
+            if(!pdata.arrange_info['title'] && !pdata.arrange_info['name'] && !pdata.arrange_info['where'] && !pdata.arrange_info['ps']){
+                layer.msg('表单信息不完整,请检查!');
+                return;
+            }
+            pdata.arrange_info = JSON.stringify(pdata.arrange_info);
+            request_plugin('oos','add_arrange',pdata,function(rdata){
+                bt.msg(rdata);
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.add_show_index);
+                oos.get_arrange_list();
+            });
+        },
+
+
+        modify_arrange_show:function(name){
+            request_plugin('oos','get_arrange_find',{sname:name},function(rdata){
+                oos.triggers = {}
+                oos.scripts = {}
+                var ch_list = '';
+                for(var i=0;i<rdata.servers.length;i++){
+                    ch_list += '<li style="cursor: pointer;"><input name="id" id="script-'+rdata.servers[i].address+'" class="checkbox-text" type="checkbox" value="'
+                                +rdata.servers[i].address + '" '+(rdata.arrange.servers.indexOf(rdata.servers[i].address)!=-1?'checked':'')+'><label for="script-'+rdata.servers[i].address+'">'+rdata.servers[i].title + '('+rdata.servers[i].address+')</label></li>';
+                }
+                var scripts = '';
+                for(var i=0;i<rdata.scripts.length;i++){
+                    oos.scripts[rdata.scripts[i].name] = rdata.scripts[i];
+                    scripts += '<option value="'+rdata.scripts[i].name+'" '+(rdata.arrange.script == rdata.scripts[i].name?'selected':'')+'>'+rdata.scripts[i].title+' - '+rdata.scripts[i].ps+'</option>';
+                }
+                var triggers = '';
+                for(var i=0;i<rdata.triggers.length;i++){
+                    oos.triggers[rdata.triggers[i].name] = rdata.triggers[i];
+                    triggers += '<option value="'+rdata.triggers[i].name+'" title="'+rdata.triggers[i].ps+'" '+(rdata.arrange.trigger == rdata.triggers[i].name?'selected':'')+'>'+rdata.triggers[i].title+'</option>';
+                }
+                oos.add_show_index = layer.open({
+                    type: 1,
+                    title: "编辑编排任务["+rdata.arrange.title+"]",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<div class="bt-form pd20 pb70">\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">任务名称</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="script_title" type="text" style="width:290px" placeholder="任务名称(可以是中文、英文、数值)"  value="'+rdata.arrange.title+'">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">任务描述</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_ps" type="text" style="width:290px" placeholder="任务描述" value="'+rdata.arrange.ps+'">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">目标服务器</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <span><input id="setBox" onclick="oos.all_select()" class="checkbox-text" type="checkbox" style="margin-bottom: 5px;margin-left: 11px;"><label for="setBox" style="position: fixed;margin-top: 1px;margin-left: 5px;">全选</label></span>\
+                                        <ul id="ymlist" class="domain-ul-list" style="width:290px">'+ch_list+'</ul>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">选择触发器</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="script_trigger" class="bt-input-text" style="width:114px;margin-right:15px">'+triggers+'</select>\
+                                        <select name="script_operator" class="bt-input-text" style="width:60px;margin-right:15px"></select>\
+                                        <input class="bt-input-text" name="script_where" type="text" placeholder="触发值" style="width:80px" value="'+rdata.arrange.where+'">\
+                                        <span class="script-unit"></span>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">触发后执行的脚本</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="script_script" class="bt-input-text" style="width:290px;margin-right:15px">'+scripts+'</select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">触发器探测周期</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_cycle" type="text" placeholder="周期(秒)" style="width:80px" value="'+rdata.arrange.cycle+'">\
+                                        <span class="trigger-unit">秒, 建议>10秒，过短的周期可能导致服务器开销浪费</span>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">任务状态</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="script_status" class="bt-input-text" style="width:290px;margin-right:15px">\
+                                            <option value="1" '+(rdata.arrange.status?'selected':'')+'>启用</option>\
+                                            <option value="0" '+(rdata.arrange.status?'':'selected')+'>停用</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="bt-form-submit-btn">\
+                                    <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                    <button type="button" class="btn btn-success btn-sm" onclick="oos.modify_arrange(\''+name+'\')">提交</button>\
+                                </div>\
+                                <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                    <li>请根据触发器数据类型填写触发值，如：整数型的触发数据，不能填写字符串作为触发值</li>\
+                                    <li>任务索引决定了临时数据的命名规则，一但设置不可更改，请设置易识别的值，如：bt001</li>\
+                                </ul>\
+                            </div>'
+                });
+
+                setTimeout(function(){
+                    oos.trigger_change(rdata.arrange.operator);
+                    $("select[name='script_trigger']").change(function(){
+                        oos.trigger_change();
+                    });
+                }, 200);
+
+            });
+        },
+
+        modify_arrange:function(name){
+            var pdata = {
+                arrange_info:{
+                    "title":$("input[name='script_title']").val(),
+                    "name":name,
+                    "trigger":$("select[name='script_trigger']").val(),
+                    "script":$("select[name='script_script']").val(),
+                    "operator":$("select[name='script_operator']").val(),
+                    "where":$("input[name='script_where']").val(),
+                    "status":Number($("select[name='script_status']").val())?1:0,
+                    "cycle":Number($("input[name='script_cycle']").val()),
+                    "ps":$("input[name='script_ps']").val()
+                }
+            }
+
+            pdata.arrange_info['servers'] = oos.get_select_servers();
+            if(pdata.arrange_info.cycle < 1){
+                layer.msg('触发器探测周期不能小于1秒!');
+                return;
+            }
+            if(!pdata.arrange_info['title'] && !pdata.arrange_info['name'] && !pdata.arrange_info['where'] && !pdata.arrange_info['ps']){
+                layer.msg('表单信息不完整,请检查!');
+                return;
+            }
+            pdata.arrange_info = JSON.stringify(pdata.arrange_info);
+            request_plugin('oos','modify_arrange',pdata,function(rdata){
+                bt.msg(rdata);
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.add_show_index);
+                oos.get_arrange_list();
+            });
+        },
+
+        remove_arrange:function(name){
+            bt.show_confirm("删除编排任务["+name+"]","删除脚本时将自动清理与此任务相关的所有配置，继续吗？",function(){
+                request_plugin('oos','remove_arrange',{sname:name},function(rdata){
+                    oos.get_arrange_list();
+                    setTimeout(function(){bt.msg(rdata);},500);
+                })
+            });
+        },
+
+        arrange_status:function(name,status){
+            request_plugin('oos','set_arrange_status',{sname:name,status:status},function(rdata){
+                oos.get_arrange_list();
+                setTimeout(function(){bt.msg(rdata);},500);
+            })
+        },
+        
+
+        get_trigger_list:function(p, callback){
+            if(typeof p === "function") callback = p,p=1;
+            if(p === undefined) p =1;
+            request_plugin('oos','get_trigger_list',{rows:12,callback:'oos.get_trigger_list',p:p},function(rdata){
+                var tbodys = '<div class="divtable"><button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="oos.add_trigger_show()">添加触发器</button>'+
+                    '<button class="btn btn-success btn-sm" style="margin-bottom: 10px; margin-left: 10px;" onclick="oos.cloud_sync_trigger()">同步官方触发器</button>'+
+                    '<button class="btn btn-success btn-sm" style="margin-bottom: 10px; margin-left: 10px;" onclick="oos.export_trigger()">导出触发器</button>'+
+                    '<button class="btn btn-success btn-sm" style="margin-bottom: 10px; margin-left: 10px;" onclick="oos.get_trigger_zip()">导入触发器</button>'+
+                    '<table class="table table-hover">';
+                    tbodys += '<thead><tr><th>名称</th><th>描述</th><th>类型</th><th>版本</th><th>作者</th><th style="text-align: right;">操作</th></tr></therd>';
+                    tbodys += '<tbody>'
+                for(var i=0;i<rdata.list.length;i++){
+                    tbodys += '<tr>\
+                                    <td>'+rdata.list[i].title+'</td>\
+                                    <td>'+rdata.list[i].ps+'</td>\
+                                    <td>'+rdata.list[i].type+'</td>\
+                                    <td>'+rdata.list[i].version+'</td>\
+                                    <td>'+rdata.list[i].author+'</td>\
+                                    <td style="text-align: right;"><a class="btlink" onclick="oos.exec_trigger_show(\''+rdata.list[i].name+'\')">立即执行</a> | <a class="btlink" onclick="oos.modify_trigger_show(\''+rdata.list[i].name+'\')">修改</a> | <a class="btlink" onclick="oos.remove_trigger(\''+rdata.list[i].name+'\')">删除</a></td>\
+                                </tr>';
+                }
+                tbodys += '</tbody></table><div class="page">'+rdata.page+'</div></div>'
+                $('.plugin_body').html(tbodys);
+                if(callback) callback(rdata);
+            });
+        },
+
+        exec_trigger_show:function(name){
+            request_plugin('oos','get_servers',{},function(rdata){
+
+                var ch_list = '';
+                for(var i=0;i<rdata.length;i++){
+                    ch_list += '<li style="cursor: pointer;"><input name="id" id="script-'+rdata[i].address+'" class="checkbox-text" type="checkbox" value="'+rdata[i].address + ','+rdata[i].title+'"><label for="script-'+rdata[i].address+'">'+rdata[i].title + '('+rdata[i].address+')</label></li>';
+                }
+
+                oos.add_show_index = layer.open({
+                    type: 1,
+                    title: "请选择执行此触发器脚本的服务器",
+                    area: '300px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<div class="bt-form pd20 pb70">\
+                                <div class="line">\
+                                    <span><input id="setBox" onclick="oos.all_select()" class="checkbox-text" type="checkbox" style="margin-bottom: 5px;margin-left: 11px;"><label for="setBox" style="position: fixed;margin-top: 1px;margin-left: 5px;">全选</label></span>\
+                                    <ul id="ymlist" class="domain-ul-list">'+ch_list+'</ul>\
+                                </div>\
+                                <div class="bt-form-submit-btn">\
+                                    <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                    <button type="button" class="btn btn-success btn-sm" onclick="oos.exec_trigger(\''+name+'\')">执行</button>\
+                                </div>\
+                            </div>'
+                });
+
+            });
+        },
+
+        all_select:function(){
+	        if ($("#setBox").prop("checked")) {
+	            $("input[name='id']").prop("checked", true);
+	        } else {
+	            $("input[name='id']").prop("checked", false);
+	        }
+        },
+
+        get_select_servers:function(){
+            var my_list = $("#ymlist input");
+            var server_list = []
+            for(var i=0;i<my_list.length;i++){
+                if($(my_list[i]).prop('checked') === true){
+                    server_list.push($(my_list[i]).val());
+                }
+            }
+            return server_list;
+        },
+        
+        exec_trigger:function(name){
+            var server_list = oos.get_select_servers();
+            pdata = {
+                server_list: JSON.stringify(server_list),
+                sname:name
+            }
+            request_plugin('oos','exec_trigger',pdata,function(rdata){
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.add_show_index);
+                var exec_cmd = '';
+                for(var i=0;i<rdata.length;i++){
+                    exec_cmd += "服务器: " + rdata[i].server + "  耗时: " + (rdata[i].endtime - rdata[i].starttime).toFixed(3) + "秒\n"
+                    exec_cmd += "=========================================================\n"
+                    exec_cmd += "执行结果: "+rdata[i].result
+                    exec_cmd += "\n=========================================================\n"
+                }
+
+                oos.add_show_index = layer.open({
+                    type: 1,
+                    title: "脚本执行结果",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<pre style="color: #fff;background-color: #000000;border: 1px solid #060606;height:600px;margin: 0 0 0px;border-radius:0px;">'+exec_cmd+'</pre>'
+                });
+
+            },3600 * 1000);
+
+        },
+
+        add_trigger_show:function(){
+            oos.add_show_index = layer.open({
+                type: 1,
+                title: "添加触发器",
+                area: '600px',
+                closeBtn: 2,
+                shadeClose: false,
+                content:'<div class="bt-form pd20 pb70">\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">触发器名称</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <input class="bt-input-text" name="script_title" type="text" style="width:290px" placeholder="脚本名称(可以是中文、英文、数值)"  value="">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">触发器描述</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="script_ps" type="text" placeholder="脚本描述" value="" style="width:290px;">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">触发器索引</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <input class="bt-input-text" name="script_name" type="text" style="width:290px" placeholder="脚本索引(可以是英文、数值、下划线)"  value="'+oos.get_index('bt_trigger')+'" >\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">排序编号</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="script_sort" type="number" placeholder="排序(0-10000)" value="0" style="width:160px;">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">脚本类型</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <select name="script_type" class="bt-input-text" style="width:160px;margin-right:15px">\
+                                        <option value="bash">SHELL脚本</option>\
+                                        <option value="python">Python脚本</option>\
+                                    </select>\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">版本号</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="script_version" type="text" placeholder="如：1.0" value="1.0" style="width:160px;">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">数据类型</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <select name="script_value_type" class="bt-input-text" style="width:160px;margin-right:15px">\
+                                        <option value="int">整数型</option>\
+                                        <option value="float">浮点型</option>\
+                                        <option value="string">字符串</option>\
+                                        <option value="list">JSON列表</option>\
+                                    </select>\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">数据单位</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="script_unit" type="text" placeholder="如：MB、%、秒、分等等" value="" style="width:160px;">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">作者</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="script_author" type="text" placeholder="如：宝塔" value="" style="width:160px;">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">脚本内容</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <textarea class="bt-input-text" name="script_script" type="text" placeholder="请粘贴脚本内容" style="height: 120px;width: 295px;line-height: 1.7;"></textarea>\
+                                </div>\
+                            </div>\
+                            <div class="bt-form-submit-btn">\
+                                <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                <button type="button" class="btn btn-success btn-sm" onclick="oos.add_trigger()">提交</button>\
+                            </div>\
+                            <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                <li>当前支持Python和Shell脚本</li>\
+                                <li>如果数据库型为JSON列表，在运维编排任务调用时会遍历匹配每一个元素</li>\
+                            </ul>\
+                        </div>'
+            });
+        },
+
+
+        add_trigger:function(){
+            var pdata = {
+                "script":$("textarea[name='script_script']").val()
+            }
+            pdata['info'] = {
+                "title":$("input[name='script_title']").val(),
+                "name":$("input[name='script_name']").val(),
+                "type":$("select[name='script_type']").val(),
+                "sort":Number($("input[name='script_sort']").val()),
+                "version":$("input[name='script_version']").val(),
+                "value_type":$("select[name='script_value_type']").val(),
+                "value_unit":$("input[name='script_unit']").val(),
+                "ps":$("input[name='script_ps']").val(),
+                "author":$("input[name='script_author']").val()
+            }
+
+            if(!pdata['script']){
+                layer.msg('脚本内容不能为空!');
+                return;
+            }
+
+            if(!pdata['info']['title'] && !pdata['info']['name'] && !pdata['info']['author'] && !pdata['info']['version'] && !pdata['info']['value_type'] && !pdata['info']['value_unit']){
+                layer.msg('表单信息不完整,请检查!');
+                return;
+            }
+            pdata['info'] = JSON.stringify(pdata['info'])
+            request_plugin('oos','add_trigger',pdata,function(rdata){
+                bt.msg(rdata);
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.add_show_index);
+                oos.get_trigger_list();
+            });
+        },
+
+
+        modify_trigger_show:function(name){
+            request_plugin('oos','get_trigger_find',{sname:name},function(rdata){
+                var is_bash = rdata.type == 'bash'?true:false;
+                oos.add_show_index = layer.open({
+                    type: 1,
+                    title: "编辑触发器["+rdata.title+"]",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<div class="bt-form pd20 pb70">\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">触发器名称</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="script_title" type="text" style="width:290px" placeholder="脚本名称(可以是中文、英文、数值)"  value="'+rdata.title+'">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">触发器描述</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_ps" type="text" placeholder="脚本描述" value="'+rdata.ps+'" style="width:290px;">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">排序编号</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_sort" type="number" placeholder="排序(0-10000)" value="'+rdata.sort+'" style="width:160px;">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">脚本类型</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <select name="script_type" class="bt-input-text" style="width:160px;margin-right:15px">\
+                                            <option value="bash" '+(is_bash?'selected':'')+'>SHELL脚本</option>\
+                                            <option value="python" '+(is_bash?'':'selected')+'>Python脚本</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">版本号</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_version" type="text" placeholder="如：1.0" value="'+rdata.version+'" style="width:160px;">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">数据类型</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <select name="script_value_type" class="bt-input-text" style="width:160px;margin-right:15px">\
+                                            <option value="int" '+(rdata.value_type == 'int'?'selected':'')+'>整数型</option>\
+                                            <option value="float" '+(rdata.value_type == 'float'?'selected':'')+'>浮点型</option>\
+                                            <option value="string" '+(rdata.value_type == 'string'?'selected':'')+'>字符串</option>\
+                                            <option value="list" '+(rdata.value_type == 'list'?'selected':'')+'>JSON列表</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">数据单位</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_unit" type="text" placeholder="如：MB、%、秒、分等等" value="'+rdata.value_unit+'" style="width:160px;">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">作者</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_author" type="text" placeholder="如：宝塔" value="'+rdata.author+'" style="width:160px;">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">脚本内容</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <textarea class="bt-input-text" name="script_script" type="text" placeholder="请粘贴脚本内容" style="height: 120px;width: 295px;line-height: 1.7;">'+rdata.script+'</textarea>\
+                                    </div>\
+                                </div>\
+                                <div class="bt-form-submit-btn">\
+                                    <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                    <button type="button" class="btn btn-success btn-sm" onclick="oos.modify_trigger(\''+name+'\')">提交</button>\
+                                </div>\
+                                <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                    <li>当前支持Python和Shell脚本</li>\
+                                    <li>如果数据库型为JSON列表，在运维编排任务调用时会遍历匹配每一个元素</li>\
+                                </ul>\
+                            </div>'
+                });
+            });
+        },
+
+
+        modify_trigger:function(name){
+            var pdata = {
+                "script":$("textarea[name='script_script']").val()
+            }
+            pdata['info'] = {
+                "title":$("input[name='script_title']").val(),
+                "name":name,
+                "type":$("select[name='script_type']").val(),
+                "sort":Number($("input[name='script_sort']").val()),
+                "version":$("input[name='script_version']").val(),
+                "value_type":$("select[name='script_value_type']").val(),
+                "value_unit":$("input[name='script_unit']").val(),
+                "ps":$("input[name='script_ps']").val(),
+                "author":$("input[name='script_author']").val()
+            }
+
+            if(!pdata['script']){
+                layer.msg('脚本内容不能为空!');
+                return;
+            }
+
+            if(!pdata['info']['title'] && !pdata['info']['name'] && !pdata['info']['author'] && !pdata['info']['version'] && !pdata['info']['value_type'] && !pdata['info']['value_unit']){
+                layer.msg('表单信息不完整,请检查!');
+                return;
+            }
+            pdata['info'] = JSON.stringify(pdata['info'])
+            request_plugin('oos','modify_trigger',pdata,function(rdata){
+                bt.msg(rdata);
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.add_show_index);
+                oos.get_trigger_list();
+            });
+        },
+
+        remove_trigger:function(name){
+            bt.show_confirm("删除触发器["+name+"]","删除脚本时将自动清理与此脚本相关的所有配置，继续吗？",function(){
+                request_plugin('oos','remove_trigger',{sname:name},function(rdata){
+                    bt.msg(rdata);
+                    oos.get_trigger_list();
+                })
+            });
+        },
+
+
+        get_script_list:function(p,callback){
+            if(typeof p === "function") callback = p,p=1;
+            if(p == undefined) p = 1;
+            request_plugin('oos','get_scripts',{rows:12,callback:'oos.get_script_list',p:p},function(rdata){
+                var tbodys = '<div class="divtable"><button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="oos.add_script_show()">添加脚本</button>' +
+                    '<button class="btn btn-success btn-sm" style="margin-bottom: 10px;margin-left: 10px;" onclick="oos.cloud_sync_script()">同步官方脚本</button>' +
+                    '<button class="btn btn-success btn-sm" style="margin-bottom: 10px;margin-left: 10px;" onclick="oos.export_script()">导出脚本</button>' +
+                    '<button class="btn btn-success btn-sm" style="margin-bottom: 10px;margin-left: 10px;" onclick="oos.get_script_zip()">导入脚本</button>' +
+                    '<table class="table table-hover">';
+                    tbodys += '<thead><tr><th>名称</th><th>描述</th><th>类型</th><th>作者</th><th style="text-align: right;">操作</th></tr></therd>';
+                    tbodys += '<tbody>'
+                for(var i=0;i<rdata.list.length;i++){
+                    tbodys += '<tr>\
+                                    <td>'+rdata.list[i].title+'</td>\
+                                    <td>'+rdata.list[i].ps+'</td>\
+                                    <td>'+rdata.list[i].type+'</td>\
+                                    <td>'+rdata.list[i].author+'</td>\
+                                    <td style="text-align: right;"><a class="btlink" onclick="oos.exec_script_show(\''+rdata.list[i].name+'\')">立即执行</a> | <a class="btlink" onclick="oos.modify_script_show(\''+rdata.list[i].name+'\')">修改</a> | <a class="btlink" onclick="oos.remove_script(\''+rdata.list[i].name+'\')">删除</a>| <a class="btlink" onclick="oos.get_script_result(\''+rdata.list[i].name+'\')">查看结果</a></td>\
+                                </tr>';
+                }
+                tbodys += '</tbody></table><div class="page">'+rdata.page+'</div></div>'
+                $('.plugin_body').html(tbodys);
+                if(callback) callback(rdata);
+            });
+        },
+
+
+        exec_script_show:function(name){
+            request_plugin('oos','get_servers',{},function(rdata){
+
+                var ch_list = '';
+                for(var i=0;i<rdata.length;i++){
+                    ch_list += '<li style="cursor: pointer;"><input name="id" id="script-'+rdata[i].address+'" class="checkbox-text" type="checkbox" value="'+rdata[i].address + ','+rdata[i].title+'"><label for="script-'+rdata[i].address+'">'+rdata[i].title + '('+rdata[i].address+')</label></li>';
+                }
+
+                oos.add_show_index = layer.open({
+                    type: 1,
+                    title: "请选择执行此脚本的服务器",
+                    area: '300px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<div class="bt-form pd20 pb70">\
+                                <div class="line">\
+                                    <span><input id="setBox" onclick="oos.all_select()" class="checkbox-text" type="checkbox" style="margin-bottom: 5px;margin-left: 11px;"><label for="setBox" style="position: fixed;margin-top: 1px;margin-left: 5px;">全选</label></span>\
+                                    <ul id="ymlist" class="domain-ul-list">'+ch_list+'</ul>\
+                                </div>\
+                                <div class="bt-form-submit-btn">\
+                                    <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                    <button type="button" class="btn btn-success btn-sm" onclick="oos.exec_script(\''+name+'\')">执行</button>\
+                                </div>\
+                            </div>'
+                });
+
+                setTimeout(function(){
+
+                },200);
+            });
+        },
+
+        all_select:function(){
+	        if ($("#setBox").prop("checked")) {
+	            $("input[name='id']").prop("checked", true);
+	        } else {
+	            $("input[name='id']").prop("checked", false);
+	        }
+        },
+        
+        exec_script:function(name){
+            var server_list = oos.get_select_servers();
+            pdata = {
+                server_list: JSON.stringify(server_list),
+                sname:name
+            }
+
+            request_plugin('oos','exec_script',pdata,function(rdata){
+                layer.close(oos.add_show_index);
+                layer.msg(rdata.msg,{icon:rdata.status?1:2})
+            });
+
+        },
+
+        // -> 钢刀 2020/12/19
+        cloud_sync_script:function (){
+            var loadT = bt.load();
+            request_plugin('oos','cloud_sync_script',{},function(rdata){
+                loadT.close();
+                if(rdata.status === false){
+                    bt.error(rdata);
+                    return;
+                }
+                oos.get_script_list(function(){
+                    bt.msg(rdata);
+                });
+            });
+        },
+
+        // -> 钢刀 2020/12/19
+        cloud_sync_trigger:function(){
+            request_plugin('oos','cloud_sync_trigger',{},function(rdata){
+                if(rdata.status === false){
+                    bt.error(rdata);
+                    return;
+                }
+                oos.get_trigger_list(function(){
+                    bt.msg(rdata);
+                });
+            });
+        },
+
+        export_trigger:function (){
+            request_plugin('oos', 'export_trigger', {},function(rdata){
+                if(rdata.status === false){
+                    bt.error(rdata);
+                    return;
+                }
+                oos.get_trigger_list(function(){
+                    bt.msg(rdata);
+                });
+            })
+        },
+
+        export_script:function (){
+            request_plugin('oos','export_script', {},function(rdata){
+                if(rdata.status === false){
+                    bt.error(rdata);
+                    return;
+                }
+                oos.get_script_list(function(){
+                    bt.msg(rdata);
+                });
+            })
+        },
+
+        import_trigger:function (){
+            var path = $("input[name='zip_path']").val();
+            request_plugin('oos', 'import_trigger', {"path": path}, function (rdata) {
+                bt.msg(rdata);
+                layer.close(oos.zip_dialog);
+                oos.get_script_list();
+            })
+        },
+
+        import_script:function (){
+            var path = $("input[name='zip_path']").val();
+            request_plugin('oos', 'import_script', {"path": path}, function (rdata) {
+                bt.msg(rdata);
+                layer.close(oos.zip_dialog);
+                oos.get_script_list();
+            })
+        },
+
+
+        add_script_show:function(){
+            oos.add_show_index = layer.open({
+                type: 1,
+                title: "添加脚本",
+                area: '600px',
+                closeBtn: 2,
+                shadeClose: false,
+                content:'<div class="bt-form pd20 pb70">\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">脚本名称</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <input class="bt-input-text" name="script_title" type="text" style="width:290px" placeholder="脚本名称(可以是中文、英文、数值)"  value="">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">脚本描述</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="script_ps" type="text" placeholder="脚本描述" value="" style="width:290px">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">脚本索引</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <input class="bt-input-text" name="script_name" type="text" style="width:290px" placeholder="脚本索引(可以是英文、数值、下划线)"  value="'+oos.get_index('bt_script')+'">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">排序编号</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="script_sort" type="number" placeholder="排序(0-10000)" value="0" style="width:160px">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">脚本类型</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <select name="script_type" class="bt-input-text" style="width:160px;margin-right:15px">\
+                                        <option value="bash">SHELL脚本</option>\
+                                        <option value="python">Python脚本</option>\
+                                    </select>\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">作者</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="script_author" type="text" placeholder="如：宝塔" value="" style="width:160px;">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">脚本内容</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <textarea class="bt-input-text" name="script_script" type="text" placeholder="请粘贴脚本内容" style="height: 120px;width: 295px;line-height: 1.7;"></textarea>\
+                                </div>\
+                            </div>\
+                            <div class="bt-form-submit-btn">\
+                                <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                <button type="button" class="btn btn-success btn-sm" onclick="oos.add_script()">提交</button>\
+                            </div>\
+                            <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                <li>当前支持Python和Shell脚本</li>\
+                                <li>脚本运行过程的输出内容，将被写入执行日志</li>\
+                            </ul>\
+                        </div>'
+            });
+        },
+        add_script:function(){
+            var pdata = {
+                "script":$("textarea[name='script_script']").val()
+            }
+            pdata['info'] = {
+                "title":$("input[name='script_title']").val(),
+                "name":$("input[name='script_name']").val(),
+                "type":$("select[name='script_type']").val(),
+                "sort":Number($("input[name='script_sort']").val()),
+                "ps":$("input[name='script_ps']").val(),
+                "author":$("input[name='script_author']").val()
+            }
+
+            if(!pdata['script']){
+                layer.msg('脚本内容不能为空!');
+                return;
+            }
+
+            if(!pdata['info']['title'] && !pdata['info']['name'] && !pdata['info']['author'] ){
+                layer.msg('表单信息不完整,请检查!');
+                return;
+            }
+            pdata['info'] = JSON.stringify(pdata['info'])
+            request_plugin('oos','add_script',pdata,function(rdata){
+                bt.msg(rdata);
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.add_show_index);
+                oos.get_script_list();
+            });
+        },
+
+        modify_script_show:function(name){
+            request_plugin('oos','get_script_find',{sname:name},function(rdata){
+                var is_bash = rdata.type == 'bash'?true:false;
+                oos.add_show_index = layer.open({
+                    type: 1,
+                    title: "修改脚本["+rdata.title+"]",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<div class="bt-form pd20 pb70">\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">脚本名称</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="script_title" type="text" style="width:290px" placeholder="脚本名称(可以是中文、英文、数值)"  value="'+rdata.title+'">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">脚本描述</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_ps" type="text" placeholder="脚本描述" value="'+rdata.ps+'" style="width: 290px;">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">排序编号</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_sort" type="number" placeholder="排序(0-10000)" value="'+rdata.sort+'" style="width:160px">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">脚本类型</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <select name="script_type" class="bt-input-text" style="width:160px;margin-right:15px">\
+                                            <option value="bash" '+(is_bash?'selected':'')+'>SHELL脚本</option>\
+                                            <option value="python" '+(is_bash?'':'selected')+'>Python脚本</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">作者</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="script_author" type="text" placeholder="如：宝塔" value="'+rdata.author+'" style="width:160px">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">脚本内容</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <textarea class="bt-input-text" name="script_script" type="text" placeholder="请粘贴脚本内容" style="height: 120px;width: 295px;line-height: 1.7;">'+rdata.script+'</textarea>\
+                                    </div>\
+                                </div>\
+                                <div class="bt-form-submit-btn">\
+                                    <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                    <button type="button" class="btn btn-success btn-sm" onclick="oos.modify_script(\''+name+'\')">提交</button>\
+                                </div>\
+                                <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                    <li>当前支持Python和Shell脚本</li>\
+                                    <li>脚本运行过程的输出内容，将被写入执行日志</li>\
+                                </ul>\
+                            </div>'
+                });
+            });
+        },
+
+        modify_script:function(name){
+            var pdata = {
+                "script":$("textarea[name='script_script']").val()
+            }
+            pdata['info'] = {
+                "title":$("input[name='script_title']").val(),
+                "name":name,
+                "type":$("select[name='script_type']").val(),
+                "sort":Number($("input[name='script_sort']").val()),
+                "ps":$("input[name='script_ps']").val(),
+                "author":$("input[name='script_author']").val()
+            }
+
+            if(!pdata['script']){
+                layer.msg('脚本内容不能为空!');
+                return;
+            }
+
+            if(!pdata['info']['title'] && !pdata['info']['name'] && !pdata['info']['author'] ){
+                layer.msg('表单信息不完整,请检查!');
+                return;
+            }
+            pdata['info'] = JSON.stringify(pdata['info'])
+            request_plugin('oos','modify_script',pdata,function(rdata){
+                bt.msg(rdata);
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.add_show_index);
+                oos.get_script_list();
+            });
+        },
+
+        remove_script:function(name){
+            bt.show_confirm("删除脚本["+name+"]","删除脚本时将自动清理与此脚本相关的所有配置，继续吗？",function(){
+                request_plugin('oos','remove_script',{sname:name},function(rdata){
+                    bt.msg(rdata);
+                    oos.get_script_list();
+                })
+            });
+        },
+        get_script_result:function(name){
+            var that = this;
+            request_plugin('oos','get_srcipt_list',{sname:name},function(rdata){
+                if(rdata.length <= 0) return layer.msg('暂无执行结果！',{icon:1})
+                layer.open({
+                    type: 1,
+                    title: "执行结果",
+                    area: '1000px',
+                    maxmin:true,
+                    shadeClose: false,
+                    content:'<div class="sr_list_view pd15">\
+                        <div class="sr_selectes_box">\
+                            <div class="sr_selectes" style="display:inline-block">\
+                                <div class="sr_title">日期：</div>\
+                                <div class="sr_unselect">\
+                                    <div class="sr_inputs"><div class="sr_inputs_tips">'+rdata[0]+'</div></div>\
+                                    <dl class="sr_input_list" data-val="'+rdata[0]+'"></dl>\
+                                </div>\
+                            </div>\
+                            <button class="btn btn-default btn-sm rs_refresh_btn" style="margin-left: 10px;">刷新列表</button>\
+                            <div class="sr_option pull-right">\
+                                <select class="sr_selectet"><option value="3" >全部</option><option value="1">成功</option><option value="-1">失败</option><option value="0">等待</option></select>\
+                                <input type="text" class="sr_search" placeholder="查询数据">\
+                                <button class="btn btn-success btn-sm search_sr_input" style="margin-bottom: 10px;">搜索</button>\
+                            </div>\
+                        </div>\
+                        <div class="sr_show_status"></div>\
+                        <div class="sr_selectes_table" style="margin-top:10px">\
+                            <div class="bt-table">\
+                                <div class="divtable" style="height:450px">\
+                                    <table class="table table-hover">\
+                                        <thead><tr><th width="200">名称</th><th width="85">开始时间</th><th width="85">结束时间</th><th width="90">总耗时</th><th >结果</th></tr></thead>\
+                                        <tbody class="sr_tbody_list"></tbody>\
+                                    </table>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>',
+                    success:function(layero,index){
+                        var _logList = '';
+                        $.each(rdata,function(index,item){
+                            _logList += '<dd data-val="'+item+'" '+ ( index==0?'class="sr_checked"':'' ) +'>'+item+'</dd>'
+                        })
+                        $('.sr_selectes dl').html(_logList);
+                        $('.sr_unselect .sr_inputs').click(function(e){
+    						if(!$(this).parent().hasClass('active')){
+    							$(this).parent().addClass('active');
+    						}else{
+    							$(this).parent().removeClass('active');
+    						}
+    						$(document).unbind('click').click(function(e){
+    							$('.sr_unselect').removeClass('active');
+    							$(this).unbind('click');
+    						});
+    						e.stopPropagation();
+    						e.preventDefault();
+    					});
+    					$('.sr_input_list dd').click(function(e){
+    						var _val = $(this).attr('data-val');
+    						$(this).addClass('sr_checked').siblings().removeClass('sr_checked');
+    						$(this).parent().attr('data-val',_val);
+    						$(this).parent().prev().find('.sr_inputs_tips').html(_val);
+    						that.render_script_result_table({sname:name,s_key:_val,search:$('.sr_search').val()});
+    					});
+    					$('.search_sr_input,.rs_refresh_btn').click(function(){
+    					    var val = $('.sr_search').val(),_sta = $('.sr_selectet').val();
+    					    that.render_script_result_table({sname:name,s_key:$('.sr_inputs_tips').html(),search:val,status:_sta});
+    					})
+    					$('.sr_selectet').change(function(){
+    					    var val = $('.sr_search').val(),_sta = $('.sr_selectet').val();
+    					    that.render_script_result_table({sname:name,s_key:$('.sr_inputs_tips').html(),search:val,status:_sta});
+    					})
+						that.render_script_result_table({sname:name,s_key:rdata[0],search:'',status:3});
+						
+                        // 固定表格头部
+                        // if (jQuery.prototype.fixedThead){
+                        //     $('.sr_selectes_table .divtable').fixedThead({ resize: false });
+                        //     $('.sr_selectes_table .divtable').css({ 'overflow': 'hidden' });
+                        // } else {
+                        //     $('.sr_selectes_table .divtable').css({ 'overflow': 'auto' });
+                        // }
+                    }
+                })
+            })
+        },
+        render_script_result_table: function(obj){
+            var tbody_list = '', status_html = '';
+            request_plugin('oos','get_script_result',obj,function(rdata){
+                status_html = '<ul class="sr_ul_status"><li>总任务数：<span>'+rdata.total+'</span></li><li>成功：<span style="color:#20a53a">'+rdata.success+'</span></li><li>等待：<span style="color:#fc6d26">'+rdata.wait+'</span></li><li>失败：<span style="color:red">'+rdata.error+'</span></li></ul>'
+                if(rdata.list.length > 0){
+                    $.each(rdata.list,function(index,item){
+                        var span_t = item['result'].toString();
+                        tbody_list += '<tr>\
+                                <td><span title="'+item['name']+'" class="overflow_hide sr_script_title">'+item['name']+'</span></td>\
+                                <td>'+bt.format_data(parseInt(item['starttime']))+'</td>\
+                                <td>'+bt.format_data(parseInt(item['endtime']))+'</td>\
+                                <td><span class="overflow_hide sr_script_total">'+parseInt(item['total'])+' ms</span></td>\
+                                <td><span class="overflow_hide sr_script_text">'+item['result']+'</span></td>\
+                            </tr>';
+                    })
+                }else{
+                    tbody_list = '<tr><td colspan="5" style="text-align:center">暂无数据</td></tr>'
+                }
+                $('.sr_show_status').html(status_html)
+                $('.sr_tbody_list').html(tbody_list);
+            })
+        },
+        get_server_list: function (p) {
+            if(p == undefined) p = 1; 
+            request_plugin('oos','get_server_list',{rows:12,callback:'oos.get_server_list',p:p},function(rdata){
+                oos.server_list_data = rdata.list;
+                var tbodys = '<div class="divtable"><button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="oos.add_server_show()">添加服务器</button>\
+                    <button class="btn btn-success btn-sm" style="margin-bottom: 10px;" onclick="oos.add_server_alll_show()">批量添加</button><table class="table table-hover">';
+                    tbodys += '<thead><tr><th>名称</th><th>IP地址/域名</th><th>连接方式</th><th style="text-align: right;">操作</th></tr></therd>';
+                    tbodys += '<tbody>'
+                for(var i=0;i<rdata.list.length;i++){
+                    tbodys += '<tr>\
+                                    <td>'+rdata.list[i].title+'</td>\
+                                    <td>'+rdata.list[i].address+'</td>\
+                                    <td>'+rdata.list[i].type+'</td>\
+                                    <td style="text-align: right;"><a class="btlink" onclick="oos.xterm('+i+')">终端</a> | <a class="btlink" onclick="oos.get_files(\''+rdata.list[i].address+'\')">文件</a> | <a class="btlink" onclick="oos.modify_server_show(\''+rdata.list[i].address+'\')">修改</a> | <a class="btlink" onclick="oos.remove_server(\''+rdata.list[i].address+'\')">删除</a></td>\
+                                </tr>';
+                }
+                tbodys += '</tbody></table><div class="page">'+rdata.page+'</div></div>'
+                $('.plugin_body').html(tbodys);
+            });
+        },
+
+
+        xterm:function(i){
+            ssh_info = oos.server_list_data[i].connect_info;
+            Term.run(ssh_info);
+        },
+
+        add_server_alll_show :function(){
+            oos.add_show_index = layer.open({
+                type: 1,
+                title: "添加服务器",
+                area: '600px',
+                closeBtn: 2,
+                shadeClose: false,
+                content:'<div class="bt-form pd20 pb70">\
+                            <div class="line">\
+                                    <textarea class="bt-input-text" name="servers" type="text" style="width: 555px; margin: 0px; height: 272px;line-height:22px;" placeholder="每行一条，示例：192.168.1.1|22|root|123456" ></textarea>\
+                            </div>\
+                            <div class="bt-form-submit-btn">\
+                                <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                <button type="button" class="btn btn-success btn-sm" onclick="oos.add_server_all()">提交</button>\
+                            </div>\
+                            <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                <li>每行一条，格式：IP地址|端口|用户名|密码</li>\
+                                <li>建议在防火墙或安全组中限制仅允许本机IP访问SSH端口</li>\
+                            </ul>\
+                        </div>'
+            });
+        },
+        add_server_all:function(){
+            var servers = $("textarea[name='servers']").val();
+            request_plugin('oos','add_server_all',{servers:servers},function(rdata){
+                var tbody ='';
+                for(var i=0;i<rdata.length;i++){
+                    tbody += '<tr><td>'+rdata[i].address+'</td><td>'+(rdata[i].status?'成功':'失败')+'</td><td>'+rdata[i].msg+'</td></tr>'
+                }
+                layer.open({
+                    type: 1,
+                    title: "批量添加结果",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<div class="divtable" style="    margin: 10px;">\
+                        <table class="table table-hover">\
+                            <thead><tr><th>服务器IP</th><th>状态</th><th>描述</th></tr></therd>\
+                            <tbody>'+tbody+'</tbody>\
+                            </table>\
+                            </div>'
+                });
+                layer.close(oos.add_show_index);
+                oos.get_server_list();
+            });
+        },
+
+
+        add_server_show:function(){
+            oos.add_show_index = layer.open({
+                type: 1,
+                title: "添加服务器",
+                area: '600px',
+                closeBtn: 2,
+                shadeClose: false,
+                content:'<div class="bt-form pd20 pb70">\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">服务器名称</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <input class="bt-input-text" name="server_name" type="text" style="width:290px" placeholder="服务器名称(可以是中文、英文、数值)"  value="">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">IP地址/域名</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <input class="bt-input-text" name="server_address" type="text" style="width:290px" placeholder="服务器IP地址(IPv4)或域名"  value="">\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">连接方式</span>\
+                                <div class="info-r c4" style="margin-left:160px">\
+                                    <select name="server_type" class="bt-input-text" style="width:160px;margin-right:15px">\
+                                        <option value="ssh_pass">SSH密码</option>\
+                                        <option value="ssh_pkey">SSH私钥</option>\
+                                    </select>\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">SSH端口</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="server_port" type="number" placeholder="默认为: 22" value="22" >\
+                                </div>\
+                            </div>\
+                            <div class="line">\
+                                <span class="tname" style="width:160px">SSH用户名</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="server_username" type="text" placeholder="默认为：root" value="root">\
+                                </div>\
+                            </div>\
+                            <div class="line ssh_pass">\
+                                <span class="tname" style="width:160px">SSH密码</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <input class="bt-input-text" name="server_password" type="password" placeholder="请输入SSH密码" value="">\
+                                </div>\
+                            </div>\
+                            <div class="line ssh_pkey" style="display:none;">\
+                                <span class="tname" style="width:160px">SSH私钥</span>\
+                                <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                    <textarea class="bt-input-text" name="server_pkey" type="text" placeholder="请粘贴SSH私钥" style="height: 120px;width: 295px;line-height: 1.7;"></textarea>\
+                                </div>\
+                            </div>\
+                            <div class="bt-form-submit-btn">\
+                                <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.add_show_index)">取消</button>\
+                                <button type="button" class="btn btn-success btn-sm" onclick="oos.add_server()">提交</button>\
+                            </div>\
+                            <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                <li>请勿关闭目标服务器的SSH服务或端口，这会导致无法管理远程服务器</li>\
+                                <li>建议在防火墙或安全组中限制仅允许本机IP访问SSH端口</li>\
+                            </ul>\
+                        </div>'
+            });
+
+            oos.select_check();
+            
+        },
+
+
+        select_check:function(){
+            setTimeout(function(){
+                $("select[name='server_type']").change(function(){
+                    if($(this).val() == 'ssh_pass'){
+                        $(".ssh_pass").show();
+                        $("textarea[name='server_pkey']").val('');
+                        $(".ssh_pkey").hide();
+
+                    }else{
+                        $("input[name='server_password']").val('');
+                        $(".ssh_pass").hide();
+                        $(".ssh_pkey").show();
+                    }
+                });
+            }, 300);
+        },
+
+        modify_server_show:function(address){
+            request_plugin('oos','get_server_find',{address:address},function(rdata){
+                var is_pkey = rdata.connect_info.pkey?true:false;
+                oos.modify_show_index = layer.open({
+                    type: 1,
+                    title: "编辑服务器["+address+"]",
+                    area: '600px',
+                    closeBtn: 2,
+                    shadeClose: false,
+                    content:'<div class="bt-form pd20 pb70">\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">服务器名称</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <input class="bt-input-text" name="server_name" type="text" style="width:290px" placeholder="服务器名称(可以是中文、英文、数值)"  value="'+rdata.title+'">\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">连接方式</span>\
+                                    <div class="info-r c4" style="margin-left:160px">\
+                                        <select name="server_type" class="bt-input-text" style="width:160px;margin-right:15px">\
+                                            <option value="ssh_pass" '+(is_pkey?'':'selected')+'>SSH密码</option>\
+                                            <option value="ssh_pkey" '+(is_pkey?'selected':'')+'>SSH私钥</option>\
+                                        </select>\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">SSH端口</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="server_port" type="number" placeholder="默认为: 22" value="'+rdata.connect_info.port+'" >\
+                                    </div>\
+                                </div>\
+                                <div class="line">\
+                                    <span class="tname" style="width:160px">SSH用户名</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="server_username" type="text" placeholder="默认为：root" value="'+rdata.connect_info.username+'">\
+                                    </div>\
+                                </div>\
+                                <div class="line ssh_pass" '+(is_pkey?'style="display:none;"':'')+'>\
+                                    <span class="tname" style="width:160px">SSH密码</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <input class="bt-input-text" name="server_password" type="password" placeholder="请输入SSH密码" value="'+rdata.connect_info.password+'">\
+                                    </div>\
+                                </div>\
+                                <div class="line ssh_pkey" '+(is_pkey?'':'style="display:none;"')+';">\
+                                    <span class="tname" style="width:160px">SSH私钥</span>\
+                                    <div class="info-r c4" style="margin-left:160px;line-height:30px">\
+                                        <textarea class="bt-input-text" name="server_pkey" type="text" placeholder="请粘贴SSH私钥" style="height: 120px;width: 295px;line-height: 1.7;">'+rdata.connect_info.pkey+'</textarea>\
+                                    </div>\
+                                </div>\
+                                <div class="bt-form-submit-btn">\
+                                    <button type="button" class="btn btn-danger btn-sm bt-cancel" onclick="layer.close(oos.modify_show_index)">取消</button>\
+                                    <button type="button" class="btn btn-success btn-sm" onclick="oos.modify_server(\''+address+'\')">提交</button>\
+                                </div>\
+                                <ul style="margin-left:10px" class="help-info-text c7 ptb10">\
+                                    <li>请勿关闭目标服务器的SSH服务或端口，这会导致无法管理远程服务器</li>\
+                                    <li>建议在防火墙或安全组中限制仅允许本机IP访问SSH端口</li>\
+                                </ul>\
+                            </div>'
+                });
+
+                oos.select_check();
+            });
+        },
+
+        add_server:function(){
+            var pdata = {
+                "title":$("input[name='server_name']").val(),
+                "address":$("input[name='server_address']").val(),
+                "type":"ssh"
+            }
+            pdata['connect_info'] = {
+                "host":pdata['address'],
+                "port":$("input[name='server_port']").val(),
+                "username":$("input[name='server_username']").val(),
+                "password":$("input[name='server_password']").val(),
+                "pkey":$("textarea[name='server_pkey']").val()
+            }
+
+            if(!pdata['title'] || !pdata['address'] || !pdata['connect_info']['username']){
+                layer.msg('请填写完整的服务器信息再提交!');
+                return;
+            }
+
+            if(!pdata['connect_info']['password'] && !pdata['connect_info']['pkey']){
+                layer.msg('密码和私钥不能同时为空!');
+                return;
+            }
+            pdata['connect_info'] = JSON.stringify(pdata['connect_info'])
+            request_plugin('oos','add_server',pdata,function(rdata){
+                bt.msg(rdata);
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.add_show_index);
+                oos.get_server_list();
+            });
+        },
+
+        modify_server:function(address){
+            var pdata = {
+                "title":$("input[name='server_name']").val(),
+                "address":address,
+                "type":"ssh"
+            }
+            pdata['connect_info'] = {
+                "host":pdata['address'],
+                "port":$("input[name='server_port']").val(),
+                "username":$("input[name='server_username']").val(),
+                "password":$("input[name='server_password']").val(),
+                "pkey":$("textarea[name='server_pkey']").val()
+            }
+
+            if(!pdata['title'] || !pdata['address'] || !pdata['connect_info']['username']){
+                layer.msg('请填写完整的服务器信息再提交!');
+                return;
+            }
+
+            if(!pdata['connect_info']['password'] && !pdata['connect_info']['pkey']){
+                layer.msg('密码和私钥不能同时为空!');
+                return;
+            }
+            pdata['connect_info'] = JSON.stringify(pdata['connect_info'])
+            request_plugin('oos','modify_server',pdata,function(rdata){
+                bt.msg(rdata);
+                if(rdata.status === false){
+                    return;
+                }
+                layer.close(oos.modify_show_index);
+                oos.get_server_list();
+            });
+        },
+
+        remove_server:function(address){
+            bt.show_confirm("删除服务器["+address+"]","删除服务器时将自动清理与此服务器相关的所有配置，继续吗？",function(){
+                request_plugin('oos','remove_server',{address:address},function(rdata){
+                    bt.msg(rdata);
+                    oos.get_server_list();
+                })
+            });
+        },
+
+    }
+    /**
+     * 发送请求到插件
+     * 注意：除非你知道如何自己构造正确访问插件的ajax，否则建议您使用此方法与后端进行通信
+     * @param plugin_name    插件名称 如：demo
+     * @param function_name  要访问的方法名，如：get_logs
+     * @param args           传到插件方法中的参数 请传入数组，示例：{p:1,rows:10,callback:"demo.get_logs"}
+     * @param callback       请传入处理函数，响应内容将传入到第一个参数中
+     */
+    function request_plugin(plugin_name, function_name, args, callback, timeout) {
+        if (!timeout) timeout = 1000 * 1800;
+        var loadT = layer.msg('正在处理...',{icon:16,shadeClose:false,shade:0.3,time:0});
+        $.ajax({
+            type:'POST',
+            url: '/plugin?action=a&s=' + function_name + '&name=' + plugin_name,
+            data: args,
+            timeout:timeout,
+            success: function(rdata) {
+                layer.close(loadT);
+                if (!callback) {
+                    layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+                    return;
+                }
+                return callback(rdata);
+            },
+            error: function(ex) {
+                layer.close(loadT);
+                if (!callback) {
+                    layer.msg('请求过程发现错误!', { icon: 2 });
+                    return;
+                }
+                return callback(ex);
+            }
+        });
+    }
+
+    //第一次打开窗口时调用
+    oos.get_arrange_list();
+
+</script>

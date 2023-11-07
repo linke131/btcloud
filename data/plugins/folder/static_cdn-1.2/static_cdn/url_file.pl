@@ -1,0 +1,1 @@
+static-fs-10000.bt.cn

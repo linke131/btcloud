@@ -1,0 +1,54 @@
+#!/bin/sh
+
+
+
+ 
+
+
+### Where is the library installed?
+#
+LIBDIR="/usr/local/usranalyse/lib"
+
+
+
+### If unprivileged user is running this script?
+#
+MY_UID=`id -a | grep -Eo 'uid=[0-9]+' | grep -Eo '[0-9]+'`
+if [ "$MY_UID" != "0" ]; then
+    echo
+    echo 'USRANALYSE WARNING: NOT running as privileged user.'
+    echo
+    exit 0
+fi
+
+
+
+### Check if writeable /etc/ld.so.preload
+#
+touch /etc/ld.so.preload
+if [ ! -w /etc/ld.so.preload ]; then
+    echo
+    echo 'USRANALYSE ERROR: /etc/ld.so.preload not writable!'
+    echo
+    exit 1
+fi
+
+
+
+### Do the actual installation
+#
+COUNT=`grep -Ec "/(lib)?usranalyse.so" /etc/ld.so.preload`
+if [ "$COUNT" -gt "1" ]; then
+    echo
+    echo "USRANALYSE ERROR: Multiple instances of (lib)usranalyse.so found in /etc/ld.so.preload. Unable to proceed."
+    echo
+    exit 1
+elif [ "$COUNT" -eq "1" ]; then
+    echo -n "USRANALYSE: Removing from /etc/ld.so.preload: "
+    cat /etc/ld.so.preload | grep -E "/(lib)?usranalyse.so"
+    sed -i "/\/\(lib\)\?usranalyse.so/d" /etc/ld.so.preload
+    echo "USRANALYSE: Disabled."
+    echo "USRANALYSE: Hint: Your system needs to be restarted to finish usranalyse cleanup."
+else
+    echo "USRANALYSE: USRANALYSE is NOT enabled on this system."
+fi

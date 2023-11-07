@@ -1,0 +1,15 @@
+{
+	"title":"IP配置工具",
+	"tip":"lib",
+	"name":"ip_configuration",
+	"type":"扩展",
+	"ps":"网卡绑定IP、SSH授权IP、FTP配置IP等IP一键配置工具,支持CENTOS7、DEBIAN10、UBUNTU18、UBUNTU20",
+	"versions":"1.3",
+	"shell":"ip_configuration.sh",
+	"checks":["/www/server/panel/plugin/ip_configuration"],
+	"author":"宝塔",
+	"home":"http://www.bt.cn/ip_configuration",
+	"date":"2021-11-25",
+	"default":false,
+	"display":0
+}

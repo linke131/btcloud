@@ -1,0 +1,1 @@
+{"id": 1, "title": "PM2\u7ba1\u7406\u5668", "tip": "lib", "name": "pm2", "type": "\u8fd0\u884c\u73af\u5883", "ps": "Node.js\u7ba1\u7406\u5668\uff0c\u5185\u7f6e node.js + npm + nvm + pm2.", "versions": "5.4", "shell": "pm2.sh", "checks": "/www/server/panel/plugin/pm2", "author": "\u5b9d\u5854", "home": "http://www.bt.cn/bbs", "date": "2017-09-11", "default": false, "display": 1}

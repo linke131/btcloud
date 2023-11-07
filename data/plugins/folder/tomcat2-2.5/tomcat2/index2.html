@@ -1,0 +1,312 @@
+<style>
+    /* 样式写这里
+    .demo-table table tbody tr td span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 580px;
+        display: block;
+    }
+
+    .tabs {
+        border-bottom: 1px solid #ccc;
+        text-align: center;
+    }
+
+    .tabs_on {
+        border-bottom: 3px solid #20a53a;
+        color: #20a53a;
+    } */
+    .plugin_body .box_conter{
+        display: none;
+    }
+    .plugin_body .box_conter.active{
+        display: block;
+    }
+</style>
+<div class="bt-form">
+    <div class="bt-w-main">
+        <!--菜单部分-->
+        <div class="bt-w-menu">
+            <p class="bgw">项目管理</p>
+            <p>配置文件</p>
+            <p>日志</p>
+        </div>
+        <!--内容部分-->
+        <div class="bt-w-con pd15">
+            <div class="plugin_body">
+                <div class="box_conter active"></div>
+                <div class="box_conter"></div>
+                <div class="box_conter"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--JS脚本部分，不要将JS脚本写在其它地方-->
+<script type="text/javascript">
+
+
+    /**
+     * 插件交互对象
+     * 您的所有JS代码可以写在里面
+     * 若不习惯JS的面向对象编程，可删除此对象，使用传统函数化的方式编写
+     * */
+    var app = {
+        winid_edit: 0,
+        //构造概览内容
+        get_index: function () {
+            request_plugin('redisutil', 'get_config', {}, function (ret) {
+                // console.log(ret);
+                var host = '';
+                var password = '';
+                var port = '';
+                if (ret.errno == 0) {
+                    host = ret.data.host;
+                    password = ret.data.password;
+                    port = ret.data.port;
+                }
+                var htmlbody = '<div style="padding: 10px;">' +
+                    '<div class="form-group">' +
+                    '<label for="host">主机（redis主机地址，本机填写127.0.0.1）</label>' +
+                    '<input type="text" id="host" class="form-control"  placeholder="主机地址" value="' + host + '"/>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<label for="password">密码（如果没有设置密码请留空）</label>' +
+                    '<input type="text" id="password" class="form-control"  placeholder="redis密码" value="' + password + '"/>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<label for="port">端口（默认请填写6379）</label>' +
+                    '<input type="text" id="port" class="form-control"  placeholder="端口" value="' + port + '"/>' +
+                    '</div>' +
+                    '<button type="button" class="btn btn-success center-block" onclick="app.save_config()">保存</button>' +
+                    '</div>';
+                $('.plugin_body').html(htmlbody);
+            });
+
+        },
+        get_db: function () {
+            request_plugin('redisutil', 'get_dbsize', {}, function (rdata) {
+                var htmlbody = '<div class="row">';
+                for (var i = 0; i < parseInt(rdata.dbsize); i++) {
+                    htmlbody += '<div class="col-xs-1 tabs"  onclick="app.get_dbkeys(this,' + i + ')">库' + i + '</div>';
+                }
+                htmlbody += '<div class="col-xs-12"  style="margin-top: 10px;" id="keylist"></div></div>';
+                $('.plugin_body').html(htmlbody);
+            })
+        },
+        get_dbkeys: function (obj, db) {
+            if (obj) {
+                $(".tabs_on").removeClass('tabs_on');
+                $(obj).addClass('tabs_on');
+            }
+            request_plugin('redisutil', 'get_dbkeys', {db: db}, function (rdata) {
+                var webbody = '';
+                for (var i = 0; i < rdata.keys.length; i++) {
+                    webbody += '<tr><td onclick="app.get_value(' + db + ',\'' + rdata.keys[i] + '\')">' + rdata.keys[i] + '</td><td width="50px" class="text-danger" style="border-left: 1px solid #ddd;text-align: center;" onclick="app.del_key(' + db + ',\'' + rdata.keys[i] + '\')">删除</td></tr>';
+                }
+                var my_body = '<div class="col-xs-12" style="margin-top: 10px;margin-bottom: 10px;" >' +
+                    '<button type="button" class="btn btn-success" onclick="app.get_value(' + db + ',\'\')">添加</button>' +
+                    '<button type="button" class="btn btn-danger" style="margin-left: 10px;" onclick="app.del_alldbkey(' + db + ')">清除所有KEY</button>' +
+                    '<button type="button" class="btn btn-default glyphicon glyphicon-refresh" style="margin-left: 10px;" onclick="app.get_dbkeys(\'\',' + db + ')"></button>' +
+                    '</div>';
+                if (rdata.keys.length <= 0) {
+                    my_body += '<p class="text-center">暂无数据</p>';
+                } else {
+                    my_body += '<div class="demo-table col-xs-12">'
+                        + '<div class="divtable">'
+                        + '<table class="table table-striped">'
+                        + '<tbody>' + webbody + '</tbody>'
+                        + '</table>'
+                        + '</div></div>';
+                }
+                $('#keylist').html(my_body);
+            });
+        },
+        get_value: function (db, key) {
+            request_plugin('redisutil', 'get_value', {db: db, key: key}, function (ret) {
+                // console.log(ret);
+                app.winid_edit = layer.open({
+                    type: 1,
+                    title: '库' + db,
+                    skin: 'layui-layer-demo', //样式类名
+                    closeBtn: 0, //不显示关闭按钮
+                    anim: 2,
+                    area: ['50%', '50%'],
+                    shadeClose: true, //开启遮罩关闭
+                    content: '<div style="padding: 10px;">' +
+                        '<div class="form-group">' +
+                        '<label for="redis_key">key</label>' +
+                        '<input type="text" id="redis_key" class="form-control"  placeholder="key" ' + (ret.data.key != '' ? 'readonly' : '') + ' value="' + (ret.errno == 0 ? ret.data.key : '') + '"/>' +
+                        '</div>' +
+                        '<div class="form-group"> ' +
+                        '<label for="redis_value">value</label>' +
+                        '<textarea id="redis_value" class="form-control" rows="3" placeholder="value">' + (ret.errno == 0 ? ret.data.value : '') + '</textarea>' +
+                        '</div>' +
+                        '<button type="button" class="btn btn-success center-block" onclick="app.set_value(' + db + ')">保存</button>' +
+                        '</div>'
+                });
+            })
+        },
+        set_value: function (db) {
+            var value = $("#redis_value").val();
+            var key = $("#redis_key").val();
+            if (value == '' || key == '') {
+                layer.msg('请把空格填写完整');
+                return;
+            }
+            request_plugin('redisutil', 'set_value', {db: db, value: value, key: key}, function (ret) {
+                if (ret.errno == 0) {
+                    layer.close(app.winid_edit);
+                    layer.msg(ret.errmsg);
+                } else {
+                    layer.msg(ret.errmsg);
+                }
+            });
+        },
+        save_config: function () {
+            var host = $("#host").val();
+            var password = $("#password").val();
+            var port = $("#port").val();
+            if (host == '' || port == '') {
+                layer.msg('请把空格填写完整');
+                return;
+            }
+            request_plugin('redisutil', 'save_config', {host: host, password: password, port: port}, function (ret) {
+                // console.log(ret);
+                if (ret.errno == 0) {
+                    layer.msg(ret.errmsg);
+                } else {
+                    layer.msg(ret.errmsg);
+                }
+            });
+        },
+        del_key: function (db, key) {
+            layer.confirm('您确定是否要删除[' + key + ']？', {
+                btn: ['删除', '取消'] //按钮
+            }, function () {
+                request_plugin('redisutil', 'del_key', {db: db, key: key}, function (ret) {
+                    if (ret.errno == 0) {
+                        layer.close(app.winid_edit);
+                        layer.msg(ret.errmsg);
+                    } else {
+                        layer.msg(ret.errmsg);
+                    }
+                });
+            }, function () {
+
+            });
+        },
+        del_alldbkey: function (db) {
+            layer.confirm('【慎用】您确定是否要清除库[' + db + ']所有key？', {
+                btn: ['清除', '取消']
+            }, function () {
+                request_plugin('redisutil', 'del_alldbkey', {db: db}, function (ret) {
+                    if (ret.errno == 0) {
+                        layer.close(app.winid_edit);
+                        layer.msg(ret.errmsg);
+                    } else {
+                        layer.msg(ret.errmsg);
+                    }
+                });
+            }, function () {
+
+            });
+        },
+        about: function () {
+            var htmlbody = '<h1>宝塔redis数据管理工具1.0</h1>' +
+                '<h4 class="bg-success" style="padding: 20px;">liaoqiang  </h4>' +
+                '<h4 class="bg-warning" style="padding: 20px;"><a target="_blank" href="http://www.dayuanren.net">www.dayuanren.net</a></h4>';
+            $('.plugin_body').html(htmlbody);
+        }
+    }
+
+    var tomcat = {
+        plugin_name:'tomcat2',
+        init:function(){
+            $('.layui-layer-page').css({'width': '900px'});
+            $(".bt-w-menu p").click(function () {
+                $(this).addClass('bgw').siblings().removeClass('bgw')
+            });
+        },
+        // 发送请求封装
+		send:function(obj){
+			var loadT = '';
+			if(obj.load == undefined) obj.load = 0
+			if(obj.plugin_name === undefined && masterSlave.plugin_name !== undefined) obj.plugin_name = masterSlave.plugin_name
+			if(!obj.plugin_name || !obj.method){
+				layer.msg('插件类名称，或插件方法名称缺失!',{icon:2});
+				return false;
+			}
+			if(obj.load === 0){
+				loadT = layer.msg(obj.tips,{icon:16,time:0,shade:0.3});
+			}else if(obj.load === 1){
+				loadT = layer.load();
+			}
+			$.ajax({
+				type:'POST',
+				url: '/plugin?action=a&name=' + obj.plugin_name +'&s='+ obj.method ,
+				data: obj.data || {},
+				timeout:obj.timeout || 8000,
+				complete:function(res){
+					console.log(obj.load,loadT);
+					if(obj.load === 0 || obj.load === 1) layer.close(loadT);
+				},
+				success: function(rdata) {
+					if (!obj.success) {
+						layer.msg(rdata.msg, { icon: rdata.status ? 1 : 2 });
+						return;
+					}
+					obj.success(rdata);
+				},
+				error: function(ex) {
+					if (!obj.error) {
+						layer.msg('请求过程发现错误!', { icon: 2 });
+						return;
+					}
+					return obj.error(ex);
+				}
+            });
+        }
+    }
+
+    
+    /**
+     * 发送请求到插件
+     * 注意：除非你知道如何自己构造正确访问插件的ajax，否则建议您使用此方法与后端进行通信
+     * @param plugin_name    插件名称 如：demo
+     * @param function_name  要访问的方法名，如：get_logs
+     * @param args           传到插件方法中的参数 请传入数组，示例：{p:1,rows:10,callback:"demo.get_logs"}
+     * @param callback       请传入处理函数，响应内容将传入到第一个参数中
+     */
+    // function request_plugin(plugin_name, function_name, args, callback, timeout) {
+    //     if (!timeout) timeout = 3600;
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/plugin?action=a&s=' + function_name + '&name=' + plugin_name,
+    //         data: args,
+    //         timeout: timeout,
+    //         success: function (rdata) {
+    //             if (!callback) {
+    //                 layer.msg(rdata.msg, {icon: rdata.status ? 1 : 2});
+    //                 return;
+    //             }
+    //             if (rdata.hasOwnProperty("status") && rdata.status == false) {
+    //                 layer.msg(rdata.msg, {icon: 2});
+    //             } else {
+    //                 return callback(rdata);
+    //             }
+    //         },
+    //         error: function (ex) {
+    //             if (!callback) {
+    //                 layer.msg('请求过程发现错误!', {icon: 2});
+    //                 return;
+    //             }
+    //             return callback(ex);
+    //         }
+    //     });
+    // }
+
+    //第一次打开窗口时调用
+    // app.get_index();
+
+</script>

@@ -1,0 +1,9 @@
+#指定域名
+domain="www.bt.cn"
+
+ipaddr=$(ping -c 1 -i 0.1 $domain 2>&1|grep -Eo "\([0-9\.:]{8,48}"|head -n 1|awk -F '(' '{print $2}')
+if [ "$ipaddr" = "" ];then
+	echo 'Name or service not known'
+else
+	echo $ipaddr
+fi

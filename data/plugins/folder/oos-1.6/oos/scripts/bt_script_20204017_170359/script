@@ -1,0 +1,6 @@
+_bin="/etc/init.d/php-fpm-54"
+if [ ! -f $_bin ];then
+    echo "$_bin文件不存在"
+    exit 0;
+fi 
+$_bin restart

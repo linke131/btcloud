@@ -1,0 +1,585 @@
+<style>
+  #sys_bug {
+    padding: 20px;
+  }
+
+  #sys_bug_information {
+    display: flex;
+    padding: 15px;
+    width: 959px;
+    margin-bottom: 10px;
+    border: 1px solid #EFEFEF;
+    border-radius: 4px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .sys_bug_info_border {
+    position: relative;
+    display: inline-block;
+  }
+
+  .sys_bug_info_border_right::after {
+    content: '';
+    border-right: 1px solid #DCDCDC;
+    position: absolute;
+    right: -31px;
+    top: 4px;
+    height: 81px;
+  }
+
+  .border_info_important {
+    display: inline-block;
+    margin-left: 89px;
+  }
+
+  .info_title {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+
+  .info_title_num {
+    margin-top: 9px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .border_info_content {
+    text-align: center;
+  }
+
+  .info_button {
+    border: none;
+    background: #20a53a;
+    border-radius: 5px;
+    height: 37px;
+    font-size: 15px;
+    width: 93px;
+    color: #fff;
+  }
+
+  .content_type_group {
+    display: inline-flex;
+  }
+
+  #sys_bug_table_menu {
+    margin-bottom: 10px;
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .severe {
+    background-color: #f5060633 !important;
+    color: #394256 !important;
+    border: 0 !important;
+  }
+
+  .high {
+    background-color: #ff990033 !important;
+    color: #394256 !important;
+    border: 0 !important;
+  }
+
+  .middle {
+    background-color: #ddc40033 !important;
+    color: #394256 !important;
+    border: 0 !important;
+  }
+
+  .border_info_content_but_group {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: relative;
+    margin-left: 91px;
+  }
+</style>
+
+<div>
+  <div id="sys_bug" style="height: 808px">
+    <div id="sys_bug_top_msg"></div>
+    <div id="sys_bug_information">
+      <div class="sys_bug_info_border sys_bug_info_border_right" style="width: 419px;">
+        <div class="border_info_important" style="margin-left: 36px;">
+          <div class="border_info_content">
+            <div class="info_title">严重漏洞</div>
+            <div class="info_title_num" id="severe_num" style="color: #F50606">0</div>
+          </div>
+        </div>
+        <div class="border_info_important">
+          <div class="border_info_content">
+            <div class="info_title">高危漏洞</div>
+            <div class="info_title_num" id="high_num" style="color: #FF9900;">0</div>
+          </div>
+        </div>
+        <div class="border_info_important">
+          <div class="border_info_content">
+            <div class="info_title">中危漏洞</div>
+            <div class="info_title_num" id="middle_num" style="color: #DDC400;">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="sys_bug_info_border sys_bug_info_border_right" style="width: 107px;margin-left: 48px;">
+        <div class="border_info_add">
+          <div class="border_info_content">
+            <div class="info_title">累计处理</div>
+            <div class="info_title_num" id="add_num">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="border_info_content_but_group">
+        <div style="">
+          <button class="info_button" id="scan">立即扫描</button>
+          <button class="info_button" id="repair" onclick="one_click_repair()"
+                  style=" margin-left: 18px;border: 1px solid #20a53a;color: #20a53a;background-color: #fff;">一键修复
+          </button>
+        </div>
+        <div id="scan_time" style="margin-top: 10px;width: 203px;"></div>
+      </div>
+    </div>
+    <div id="sys_bug_table_menu">
+      <div class="content_type_group"></div>
+      <div id="content_type_select" style="margin-left: 15px"></div>
+    </div>
+    <div id="sys_bug_table"></div>
+  </div>
+</div>
+
+<script>
+  var type = 0
+  var get_table
+  var table_res
+  $('.layui-layer-content').css({'overflow-y': 'none'});
+  $('#layui-layer' + layer.index).css({'width': '1000px', 'height': '837px'});
+  var arry = ['未修复', '已忽略'];
+  $(".content_type_group").html('<div class="btn-group cutFtpLogsType" style="top: -2px;"></div>').append('<button type="button" class="btn btn-left btn-sm btn-success" style="border-top-right-radius: 0;border-bottom-right-radius: 0;">' + arry[0] + '</button><button type="button" class="btn btn-right btn-sm btn-default" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">' + arry[1] + '</button>')
+  $('.btn-left').click(function () {
+    $('.btn-left').removeClass('btn-default').addClass('btn-success')
+    $('.btn-right').removeClass('btn-success').addClass('btn-default')
+    type = 0
+    sys_bug.init();
+  })
+  $('.btn-right').click(function () {
+    $('.btn-right').removeClass('btn-default').addClass('btn-success')
+    $('.btn-left').removeClass('btn-success').addClass('btn-default')
+    type = 1
+    $('#repair').hide()
+    sys_bug.init();
+  })
+  $('#scan').click(function () {
+    var load = bt.load();
+    $('#scan').text('重新扫描')
+    bt_tools.send({url: 'plugin?action=a&name=system_scan&s=system_scan'}, function (res) {
+      if (res.status) {
+        bt_tools.msg(res.msg);
+        load.close()
+        sys_bug.init();
+      }
+    })
+  })
+  var one_click_repair = function () {
+    bt.simple_confirm({
+        title: '一键修复',
+        msg: '修复漏洞可能会影响当前服务状态且修复时间较长，建议在备份重要资料后，在闲时修复，保证数据安全和服务体验，是否继续操作?'
+      },
+      function () {
+        var load = bt.load();
+        popup.log()
+        bt_tools.send({url: 'plugin?action=a&name=system_scan&s=repare_all_cve'},function (res) {
+          clearInterval(popup.log_file_setInterval)
+          layer.close(popup.log_layer_open);
+          if (res.msg.length == 0) {
+            bt_tools.msg("修复成功");
+            load.close()
+            sys_bug.init();
+          } else {
+            var html = '';
+            for (let i = 0; i < res.msg.length; i++) {
+              var keys = Object.keys(res.msg[i])
+              html += '<tr><td>' + keys + '-' + res.msg[i][keys] + '</td><td><div style="float:right;"><span style="color:' + 'red' + '">' + '修复失败，请手动修复' + '</span></div></td></tr>'
+              load.close()
+            }
+            get_table.$batch_success_table({title: '一键修复', th: '软件包名称', html: html});
+          }
+        })
+      })
+
+  }
+  var rescanning = function (cve_id) {
+    var load = bt.load();
+    bt_tools.send({url: 'plugin?action=a&name=system_scan&s=check_cve', data: {cve_id: cve_id}}, function (res) {
+      if(res.msg.includes('已修复')){
+        bt_tools.msg(res.msg, {is_dynamic: true});
+        load.close()
+      }else {
+        bt_tools.msg(res.msg, {is_dynamic: false});
+        load.close()
+      }
+      sys_bug.init();
+    })
+  }
+  var repair = function (reboot, cve_id) {
+    if (reboot == 'true') {
+      bt.simple_confirm({
+          title: '修复【'+cve_id+'】漏洞',
+          msg: '修复漏洞可能会影响当前服务状态且修复时间较长，建议在备份重要资料后，在闲时修复，保证数据安全和服务体验，是否继续操作?'
+        },
+        function () {
+          var load = bt.load();
+          popup.log()
+          bt_tools.send({url: 'plugin?action=a&name=system_scan&s=repair_cve', data: {cve_id: cve_id}},function (res) {
+            if (res.status) {
+              bt_tools.msg(res.msg, {is_dynamic: true});
+              load.close()
+              sys_bug.init();
+            } else {
+              load.close()
+              bt_tools.msg(res, {is_dynamic: true});
+
+            }
+            clearInterval(popup.log_file_setInterval)
+            layer.close(popup.log_layer_open);
+          },{verify:false})
+        })
+    } else {
+      var row
+      for (let i = 0; i < table_res.risk.length; i++) {
+        if (table_res.risk[i].cve_id == cve_id) {
+          row = table_res.risk[i]
+          break
+        }
+      }
+      var soft_name = ''
+      Object.keys(row.soft_name).forEach(function (key) {
+        soft_name += key + '-' + row.soft_name[key] + '\n'
+      })
+      layer.open({
+        type: 1,
+        title: '【' + cve_id + '】漏洞修复方案',
+        area: '430px',
+        closeBtn: 2,
+        shadeClose: true,
+        content:
+          '<div class="bt-form hint_confirm pd30">\
+          <div class="hint_title">\
+            <i class="hint-confirm-icon"></i>\
+            <div class="hint_con">' +
+          '漏洞涉及以下软件包：\n' + soft_name + "这些软件包版本低于" + row.vuln_version + '，\n' +'<a href="https://www.bt.cn/bbs/forum.php?mod=viewthread&tid=112797&page=1&extra=#pid473232" style="color:#20a53a;text-decoration:underline; " target="_blank">点我查看修复教程</a>' +
+          '</div>\
+          </div>\
+        </div>',
+      });
+      $('.hint_con').css({whiteSpace: 'pre-line'})
+    }
+
+  }
+  var ignore = function (cve_list) {
+    var load = bt.load();
+    var html = ''
+    if (typeof cve_list == 'string') {
+      cve_list = JSON.stringify([cve_list])
+    } else {
+      cve_list = JSON.stringify(cve_list)
+    }
+    bt_tools.send({url: 'plugin?action=a&name=system_scan&s=set_ignore', data: {cve_list: cve_list}}, function (res) {
+      load.close()
+      if (res.status) {
+        bt_tools.msg({status: res.status, msg: !type ? '忽略成功' : '取消忽略成功'});
+        sys_bug.init();
+      } else {
+        bt_tools.msg(res.msg, {is_dynamic: true});
+      }
+    })
+  }
+
+  var table = function (data,str='') {
+    var num = 0;
+    $('#sys_bug_table').empty();
+    get_table = bt_tools.table({
+      data: data,
+      el: '#sys_bug_table',
+      height: '470',
+      minWidth: '940',
+      default: str, //数据为空时的默认提示
+      column: [
+        {type: 'checkbox',width: '25px'},
+        {
+          fid: 'vuln_name',
+          title: '漏洞名称',
+          template: function (row, index) {
+            var keys = Object.keys(row.soft_name)
+            var soft_name = ''
+            $.each(keys, function (index, value) {
+              soft_name += value + '-' + row.soft_name[value] + (index >= row.soft_name.length ? '' : '\n')
+            })
+            return '<div style="width: 280px" title="漏洞编号：' + row.cve_id + '\n漏洞纰漏时间：' + row.vuln_time + '\n漏洞涉及的软件包：\n' + soft_name + '无漏洞的软件版本：\n' + row.vuln_version + '">' + row.vuln_name + '</div>';
+          },
+        },
+        {
+          fid: 'vuln_risk',
+          width: '70px',
+          title: '危险等级',
+          template: function (row, index) {
+            var html = ''
+            if (row.vuln_risk == '严重') {
+              html = '<span style="color:#F50606 ">严重</span>'
+            }
+            if (row.vuln_risk == '高危') {
+              html = '<span style="color: #FF9900;">高危</span>'
+            }
+            if (row.vuln_risk == '中危') {
+              html = '<span style="color: #DDC400;">中危</span>'
+            }
+            return html
+          }
+        },
+
+        {
+          fid: 'cve_id',
+          width: '120px',
+          title: '漏洞编号',
+        },
+        {
+          title: '自动修复',
+          width: '70px',
+          template: function (row, index) {
+            var html = ''
+            if (row.reboot == '') {
+              html = '<span>支持</span>'
+            } else {
+              html = '<span>不支持</span>'
+            }
+            return html
+          }
+        },
+        {
+          fid: 'check_time',
+          width: '150px',
+          title: '扫描时间',
+        },
+        {
+          title: '操作',
+          width: '190px',
+          type: 'group',
+          align: 'right',
+          template: function (row, index) {
+            var html = '';
+            if (!type) {
+              var list = []
+              list.push(row.cve_id)
+              if (row.reboot != '') {
+                num+=1
+                html = '<span class="operate_tools"><a href="javascript:;" class="btlink group_0_ei4AR" title="修复方案"  onclick="repair(\'' + (row.reboot == '' ? true : false) + '\',\'' + row.cve_id + '\'' + ')">修复方案</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;" class="btlink group_1_ei4AR" title="重新扫描" onclick="rescanning(\'' + row.cve_id + '\')">重新扫描</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;" class="btlink group_2_ei4AR ignore" title="忽略" onclick="ignore(\'' + row.cve_id + '\')">忽略</a></span>'
+              } else {
+                html = '<span class="operate_tools"><a href="javascript:;" class="btlink group_0_ei4AR" onclick="repair(\'' + (row.reboot == '' ? true : false) + '\',\'' + row.cve_id + '\'' + ')" title="修复">修复</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;" class="btlink group_1_ei4AR" title="重新扫描" onclick="rescanning(\'' + row.cve_id + '\')">重新扫描</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;" class="btlink group_2_ei4AR ignore" title="忽略" onclick="ignore(\'' + row.cve_id + '\')">忽略</a></span>'
+              }
+            } else {
+              $('#repair').hide()
+              html = '<a href="javascript:;" class="btlink group_0_ei4AR ignore"  title="取消忽略" onclick="ignore(\'' + row.cve_id + '\')">取消忽略</a>'
+            }
+            return html;
+          }
+        },
+      ],
+      tootls: [{
+        // 批量操作
+        type: 'batch', //batch_btn
+        positon: ['left', 'bottom'],
+        placeholder: '请选择批量操作',
+        buttonValue: '批量操作',
+        disabledSelectValue: '请选择需要批量操作的漏洞!',
+        refresh: true,
+        paramName: 'vuln_name', //列表参数名,可以为空
+        paramId: 'id', // 需要传入批量的id
+        selectList: [{
+          title: "忽略",
+          callback: function (that) {
+            bt.simple_confirm({
+              title: !type ? '批量忽略漏洞' : '批量取消忽略漏洞',
+              msg: !type ? '批量忽略选中的漏洞后，漏洞将被转移到忽略列表，是否继续操作？' : '批量取消忽略选中的漏洞后，漏洞将被转移到未修复列表，是否继续操作？'
+            }, function () {
+              var list = []
+              for (let i = 0; i < that.check_list.length; i++) {
+                list.push(that.check_list[i].cve_id)
+              }
+              ignore(list)
+            })
+          }
+        }]
+      }],
+    });
+    if(data.length==num){
+      $('#repair').hide()
+    }else {
+      if(type){
+        $('#repair').hide()
+      }else {
+        $('#repair').show()
+      }
+
+    }
+    $('#sys_bug_table .bt_table_select_group .bt_selects .item').text(!type ? "忽略" : "取消忽略")
+  }
+  var popup = {
+    log_layer_open: '',
+    log_file_setInterval: '',
+    get_log: function () {
+      bt_tools.send({url: 'plugin?action=a&name=system_scan&s=get_logs'}, function (rdata) {
+        if (rdata.status) {
+          var msg = $('#dockertmp_pre').text()
+          $('#dockertmp_pre').text(msg + '\n' + rdata.msg)
+          var pre = document.getElementById('dockertmp_pre')
+          pre.scrollTop = pre.scrollHeight
+        }
+      })
+    },
+    log: function () {
+      var that = this;
+      that.log_layer_open = layer.open({
+        title: '正在执行中，请稍候...',
+        type: 1,
+        closeBtn: false,
+        maxmin: true,
+        skin: 'dockertmp',
+        area: ["730px", '450px'],
+        content: "<pre style='width:100%;margin-bottom: 0px;height:100%;border-radius:0px; text-align: left;background-color: #000;color: #fff;white-space: pre-wrap;' id='dockertmp_pre'></pre>",
+        success: function () {
+          that.get_log()
+          that.log_file_setInterval = setInterval(function () {
+            that.get_log()
+          }, 3000)
+        }
+      })
+    }
+  }
+  var mulpValues = ['严重', '高危', '中危'];
+  var sys_bug = {
+    num:0,
+    init: function () {
+      var that = this;
+
+      bt_tools.send({url: 'plugin?action=a&name=system_scan&s=get_list'}, function (res) {
+        table_res = res
+        if (res.risk.length == 0) {
+          $('#repair').hide()
+        } else {
+          if(type){
+            $('#repair').hide()
+          }else {
+            $('#repair').show()
+          }
+
+        }
+        if (res.count.serious == 0 && res.count.high_risk == 0 && res.count.moderate_risk == 0) {
+          $('#sys_bug_information').css('background', '')
+        } else {
+          $('#sys_bug_information').css('background', 'linear-gradient(to bottom, rgba(255, 229, 224, 0.60), rgba(254, 234, 230, 0.12))')
+        }
+        if (res.msg != '') {
+          $('#sys_bug_top_msg').html('<div class="warning_info mb10">' +
+            '<p style="text-align: center">' + res.msg + '</p>'
+          );
+          that.num=1
+        } else {
+          $('#sys_bug_top_msg').remove()
+          if(that.num==0){
+            $('#layui-layer' + layer.index).css({'width': '1000px', 'height': '790px'});
+          }
+          that.num=1
+        }
+        $('#severe_num').text(res.count.serious);
+        $('#high_num').text(res.count.high_risk);
+        $('#middle_num').text(res.count.moderate_risk);
+        $('#ignore_num').text(res.ignore_count);
+        $('#today_num').text(res.repair_count.today_count);
+        $('#add_num').text(res.repair_count.all_count);
+        if(res.all_check_time==''){
+          $('#scan_time').text('')
+          $('#scan_time').css('margin-top','0px')
+        } else{
+          $('#scan_time').show()
+          $('#scan_time').css('margin-top','10px')
+          $("#scan_time").html('<p>上次扫描时间：' + res.all_check_time + '</p>')
+        }
+
+        var tipsId
+        $('#scan').hover(function () {
+          tipsId = layer.tips('现已支持扫描：'+res.vul_count+'种漏洞', '#scan', {
+            tips: [1, '#969696'],
+            time: 0,
+            id: 'scan_tips',
+          });
+        },function () {
+          layer.close(tipsId)
+        })
+
+
+        if (!type) {
+          table(res.risk,"暂无未修复的系统漏洞")
+        } else {
+          table(res.ignore,"暂无已忽略的系统漏洞")
+        }
+        var selece_form = bt_tools.form({
+          el: '#content_type_select',
+          form: [
+            {
+              group: {
+                type: 'select',
+                name: 'backup_type',
+                width: '0px',
+                list: [],
+              }
+            },
+            {
+              group: {
+                type: 'multipleSelect',
+                name: 'content_type',
+                width: '265px',
+                value: mulpValues,
+                list: [{title: '严重', value: '严重'}, {title: '高危', value: '高危'}, {title: '中危', value: '中危'}],
+                placeholder: '请选择漏洞级别',
+                change: function (form, value, val, field) {
+                  var data = [];
+                  if (val.data.content_type.length == 0) {
+                    if(!type){
+                      table(res.risk)
+                    }else {
+                      table(res.ignore)
+                    }
+                    return false;
+                  }
+                  for (var i = 0; i < (!type?res.risk.length:res.ignore.length); i++) {
+                    var vuln_risk
+                    if (!type) {
+                      vuln_risk = res.risk[i].vuln_risk
+                    } else {
+                      vuln_risk = res.ignore[i].vuln_risk
+                    }
+                    if (val.data.content_type.indexOf(vuln_risk) != -1) {
+                      if (!type) {
+                        data.push(res.risk[i])
+                      } else {
+                        data.push(res.ignore[i])
+                      }
+                    }
+                  }
+                  table(data)
+                }
+              }
+            }]
+        })
+        $('.line:first').hide()
+        $('.bt_multiple_select_updown').css('margin', '0')
+      });
+    },
+  }
+  sys_bug.init();
+</script>

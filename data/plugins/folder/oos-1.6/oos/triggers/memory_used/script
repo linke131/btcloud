@@ -1,0 +1,7 @@
+fe=$(free)
+total=$(echo "$fe"|grep 'Mem:'|awk '{print $2}')
+l_free=$(echo "$fe"|grep 'Mem:'|awk '{print $4}')
+l_buff_cache=$(echo "$fe"|grep 'Mem:'|awk '{print $6}')
+used=$(echo "$total $l_free $l_buff_cache"|awk '{printf("%0.3f\n",$1-$2-$3)}')
+pre=$(echo "$used $total 100" |awk '{printf("%0.3f\n",$1/$2*$3)}')
+echo $pre

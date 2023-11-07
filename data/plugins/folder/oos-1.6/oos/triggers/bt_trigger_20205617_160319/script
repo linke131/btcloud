@@ -1,0 +1,24 @@
+#URL地址
+url="https://www.bt.cn/api/getipaddress"
+
+#获取开始时间
+start=$(date +%s.%N)
+#请求URL地址
+result=$(curl  -sS --connect-timeout 3 -m 60 -I  -o /dev/null -s -w %{http_code} $url)
+#判断是否200状态
+if [ "$result" != '200' ];then
+    echo 1000;
+    exit 0;
+fi
+
+#计算网站响应速度
+end=$(date +%s.%N)
+start_s=$(echo $start | cut -d '.' -f 1)
+start_ns=$(echo $start | cut -d '.' -f 2)
+end_s=$(echo $end | cut -d '.' -f 1)
+end_ns=$(echo $end | cut -d '.' -f 2)
+time_micro=$(( (10#$end_s-10#$start_s)*1000000 + (10#$end_ns/1000 - 10#$start_ns/1000) ))
+time_ms=$(($time_micro/1000))
+echo $time_ms
+
+
